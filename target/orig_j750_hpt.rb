@@ -8,7 +8,7 @@
 
 $tester = Origen::Tester::J750_HPT.new  # Set the tester to the Origen model
 
-$dut    = Testers::Test::DUT.new   # Instantiate a DUT instance
+$dut    = OrigenTesters::Test::DUT.new   # Instantiate a DUT instance
 
 # You can also perform global configuration here, e.g. 
 # $dut.do_something_before_every_job

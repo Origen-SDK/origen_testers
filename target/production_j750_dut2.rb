@@ -6,10 +6,10 @@
 # global variable in Ruby, and this is required in order for the objects instantiated
 # here to be visible throughout your application code.
 
-$tester = Testers::J750.new   # Use Tester plug-in
+$tester = OrigenTesters::J750.new   # Use Tester plug-in
 
-$dut    = Testers::Test::DUT2.new   # Instantiate a DUT2 instance
-$nvm    = Testers::Test::NVM.new    # Instantiate the NVM instance DUT2 uses
+$dut    = OrigenTesters::Test::DUT2.new   # Instantiate a DUT2 instance
+$nvm    = OrigenTesters::Test::NVM.new    # Instantiate the NVM instance DUT2 uses
 
 # You can also perform global configuration here, e.g. 
 # $dut.do_something_before_every_job

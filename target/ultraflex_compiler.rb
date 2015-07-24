@@ -6,7 +6,7 @@
 # global variable in Ruby, and this is required in order for the objects instantiated
 # here to be visible throughout your application code.
 
-$tester = Testers::UltraFLEX.new   # Use Tester plug-in
+$tester = OrigenTesters::UltraFLEX.new   # Use Tester plug-in
 
 # You can also perform global configuration here, e.g. 
 # $dut.do_something_before_every_job

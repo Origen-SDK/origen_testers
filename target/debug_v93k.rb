@@ -5,6 +5,6 @@
 # mode as shown below.
 load "#{Origen.root}/target/production_j750.rb"
 
-$tester = Testers::V93K.new
+$tester = OrigenTesters::V93K.new
 
 Origen.mode = :debug

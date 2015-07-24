@@ -28,6 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'require_all', '~> 1'
 
   # Add any gems that your plugin needs for its development environment only
-  spec.add_development_dependency 'rgen_nexus', '>= 0.5.1'
+  #spec.add_development_dependency 'rgen_nexus', '>= 0.5.1'
   spec.add_development_dependency 'yard-activesupport-concern'
 end
