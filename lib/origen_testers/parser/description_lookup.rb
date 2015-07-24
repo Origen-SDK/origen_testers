@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Parser
     class DescriptionLookup
       def initialize

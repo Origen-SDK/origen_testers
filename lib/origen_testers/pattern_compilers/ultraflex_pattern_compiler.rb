@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module PatternCompilers
     class UltraFlexPatternCompiler
       require 'pathname'

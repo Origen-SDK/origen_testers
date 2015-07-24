@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     # Methods for handling all J750 file parsing, e.g. datalogs,
     # test time profiles, etc.

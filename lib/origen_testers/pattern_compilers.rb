@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module PatternCompilers
     require 'pathname'
     require_relative 'pattern_compilers/ultraflex_pattern_compiler'

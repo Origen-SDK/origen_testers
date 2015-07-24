@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Test
     class NVM
       attr_accessor :blocks

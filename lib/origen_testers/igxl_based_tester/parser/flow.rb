@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
-      class Flow < ::Testers::Parser::SearchableArray
+      class Flow < ::OrigenTesters::Parser::SearchableArray
         require 'pathname'
 
         attr_accessor :parser, :file

@@ -1,8 +1,8 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class Base
       class TestInstances
-        include Testers::Generator
+        include OrigenTesters::Generator
 
         OUTPUT_POSTFIX = 'instances'
 

@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   # A simple class to model a vector
   class Vector
     attr_accessor :repeat, :microcode, :timeset, :pin_vals,

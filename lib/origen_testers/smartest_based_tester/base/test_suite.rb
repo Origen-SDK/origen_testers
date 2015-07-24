@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestSuite

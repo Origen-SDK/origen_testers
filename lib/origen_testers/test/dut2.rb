@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Test
     class DUT2
       include Origen::TopLevel

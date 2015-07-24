@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   module Test
     class V93KInterface
-      include Testers::V93K::Generator
+      include OrigenTesters::V93K::Generator
 
       # Options passed to Flow.create and Library.create will be passed in here, use as
       # desired to configure your interface

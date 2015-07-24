@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module Testers
+module OrigenTesters
   # Include this module in any class you define as a test interface
   module Interface
     extend ActiveSupport::Concern
@@ -159,7 +159,7 @@ module Testers
     end
 
     def identity_map # :nodoc:
-      @@identity_map ||= ::Testers::Generator::IdentityMap.new
+      @@identity_map ||= ::OrigenTesters::Generator::IdentityMap.new
     end
 
     def platform

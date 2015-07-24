@@ -1,8 +1,8 @@
-module Testers
+module OrigenTesters
   module Test
     # A simple interface designed to test the Testers::BasicTestSetups module
     class BasicInterface
-      include Testers::BasicTestSetups
+      include OrigenTesters::BasicTestSetups
 
       def functional(name, options = {})
         # Apply custom defaults before calling

@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   class CallbackHandlers
     include Origen::PersistentCallbacks
 

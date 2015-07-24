@@ -1,10 +1,10 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class Base
       module Generator
         extend ActiveSupport::Concern
 
-        autoload :Placeholder, 'testers/generator/placeholder'
+        autoload :Placeholder, 'origen_testers/generator/placeholder'
 
         included do
           include Interface  # adds the interface helpers/Origen hook-up

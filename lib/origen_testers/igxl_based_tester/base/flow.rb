@@ -1,9 +1,9 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class Base
       class Flow
-        include Testers::Generator
-        include Testers::Generator::FlowControlAPI
+        include OrigenTesters::Generator
+        include OrigenTesters::Generator::FlowControlAPI
 
         OUTPUT_POSTFIX = 'flow'
 

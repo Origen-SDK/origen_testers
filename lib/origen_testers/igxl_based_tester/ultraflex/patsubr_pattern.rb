@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX
-      require 'testers/igxl_based_tester/base/patsubr_pattern'
+      require 'origen_testers/igxl_based_tester/base/patsubr_pattern'
       class PatsubrPattern < Base::PatsubrPattern
         # Attributes for each pattern subroutine line
         PATSUBR_ATTRS = %w(file_name comment)

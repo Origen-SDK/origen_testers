@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Parser
     class SearchableHash < ::Hash
       def where(conditions)

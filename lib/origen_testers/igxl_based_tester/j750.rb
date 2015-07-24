@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     # Tester model to generate .atp patterns for the Teradyne J750
     #
@@ -12,7 +12,7 @@ module Testers
     # Also note that this class inherits from the base Tester class and so all methods
     # described there are also available.
     class J750 < Base
-      require 'testers/igxl_based_tester/j750/generator.rb'
+      require 'origen_testers/igxl_based_tester/j750/generator.rb'
 
       attr_accessor :use_hv_pin
       attr_accessor :software_version

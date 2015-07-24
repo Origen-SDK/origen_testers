@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Test
     class J750BaseInterface
       # Options passed to Flow.create and Library.create will be passed in here, use as

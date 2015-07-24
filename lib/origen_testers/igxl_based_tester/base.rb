@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     # This is the base class of all IGXL-based testers
     class Base

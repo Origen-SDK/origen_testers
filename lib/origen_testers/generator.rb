@@ -2,13 +2,13 @@ require 'active_support/concern'
 require 'erb'
 require 'yaml'
 
-module Testers
+module OrigenTesters
   # This module should be included in all test program component generators and provides the required
   # integration with the Flow.create and Resources.create methods
   module Generator
-    autoload :Placeholder,   'testers/generator/placeholder'
-    autoload :IdentityMap,   'testers/generator/identity_map'
-    autoload :FlowControlAPI, 'testers/generator/flow_control_api'
+    autoload :Placeholder,   'origen_testers/generator/placeholder'
+    autoload :IdentityMap,   'origen_testers/generator/identity_map'
+    autoload :FlowControlAPI, 'origen_testers/generator/flow_control_api'
 
     extend ActiveSupport::Concern
 
@@ -232,7 +232,7 @@ module Testers
       @collection = []
       Origen.generator.option_pipeline << options
       file_pipeline << file
-      ::Testers::Generator.execute_source(file)
+      ::OrigenTesters::Generator.execute_source(file)
       file_pipeline.pop
       base_collection << @collection
       @collection = base_collection.flatten

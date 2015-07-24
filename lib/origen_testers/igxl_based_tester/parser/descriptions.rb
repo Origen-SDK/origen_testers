@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
       # Extracts embedded test and flow descriptions (comments) from test
@@ -18,7 +18,7 @@ module Testers
           if Origen.interface_present?
             @lookup = Origen.interface.descriptions
           else
-            @lookup = ::Testers::Parser::DescriptionLookup.new
+            @lookup = ::OrigenTesters::Parser::DescriptionLookup.new
           end
         end
 

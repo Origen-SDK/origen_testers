@@ -4,10 +4,10 @@ require "#{config}/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "origen_testers"
-  spec.version       = Testers::VERSION
+  spec.version       = OrigenTesters::VERSION
   spec.authors       = ["Stephen McGinty"]
   spec.email         = ["stephen.f.mcginty@gmail.com"]
-  spec.summary       = "This plugin provides tester models to drive ATE type testers like the J750, UltraFLEX, V93K,..."
+  spec.summary       = "This plugin provides Origen tester models to drive ATE type testers like the J750, UltraFLEX, V93K,..."
   spec.homepage      = "http://origen-sdk.org/testers"
 
   spec.required_ruby_version     = '>= 1.9.3'
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Add any gems that your plugin needs to run within a host application
-  spec.add_runtime_dependency 'rgen_core', '>= 2.5.0.pre133'
+  spec.add_runtime_dependency 'origen', '~> 0.2'
   spec.add_runtime_dependency 'require_all', '~> 1'
 
   # Add any gems that your plugin needs for its development environment only

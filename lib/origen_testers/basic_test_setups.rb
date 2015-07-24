@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   # Including this module in a class will create a basic test program interface that
   # can generate programs for all ATE platforms supported by the Testers plugin.
   #
@@ -9,7 +9,7 @@ module Testers
   #   # lib/myapp/program_interface.rb
   #   module MyApp
   #     class Interface
-  #       include Testers::BasicTestSetups
+  #       include OrigenTesters::BasicTestSetups
   #     end
   #   end
   #
@@ -21,7 +21,7 @@ module Testers
   #
   #   end
   module BasicTestSetups
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     # Execute a functional test
     #
@@ -40,7 +40,7 @@ module Testers
     #   functional :erase, pattern: 'erase_all_nosrc', sbin: 150
     #
     # @example Applying global customization from the interface
-    #   include Testers::BasicTestSetups
+    #   include OrigenTesters::BasicTestSetups
     #
     #   def functional(name, options = {})
     #     # Apply custom defaults before calling
@@ -58,7 +58,7 @@ module Testers
     #   the case of an IG-XL-based platform.
     #
     # @example Adding a custom interpose function for J750
-    #   include Testers::BasicTestSetups
+    #   include OrigenTesters::BasicTestSetups
     #
     #   # Override the default J750 test instance to add an interpose function
     #   def functional(name, options = {})

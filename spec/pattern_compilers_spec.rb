@@ -3,7 +3,7 @@ require 'pry'
 
 module CompilerSpec
   class CompilerDUT
-    include Testers::PatternCompilers
+    include OrigenTesters::PatternCompilers
     include Origen::TopLevel
 
     attr_accessor :pinmap

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "An interface" do
 
   class MyInterface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     def initialize(options = {})
       self.resources_filename = "abc"

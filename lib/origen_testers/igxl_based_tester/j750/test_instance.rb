@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class J750
-      require 'testers/igxl_based_tester/base/test_instance'
+      require 'origen_testers/igxl_based_tester/base/test_instance'
       class TestInstance < Base::TestInstance
         # Attributes for each test instance line, first few are named directly
         TEST_INSTANCE_ATTRS = %w(

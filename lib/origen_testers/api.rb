@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   # This module implements the basic set of methods that a tester must have
   # in order for Origen to talk to it.
   #

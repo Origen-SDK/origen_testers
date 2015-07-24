@@ -1,9 +1,9 @@
 require 'pathname'
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class Base
       class PatternMaster
-        include Testers::Generator
+        include OrigenTesters::Generator
 
         attr_reader :flow, :paths
         attr_accessor :filename

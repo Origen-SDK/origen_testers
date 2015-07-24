@@ -1,5 +1,5 @@
 require 'active_support/concern'
-module Testers
+module OrigenTesters
   module VectorGenerator
     extend ActiveSupport::Concern
 

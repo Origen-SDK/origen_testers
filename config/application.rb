@@ -1,4 +1,4 @@
-class Testers_Application < Origen::Application
+class OrigenTestersApplication < Origen::Application
   # See http://origen.freescale.net/origen/latest/api/Origen/Application/Configuration.html
   # for a full list of the configuration options available
 
@@ -8,14 +8,12 @@ class Testers_Application < Origen::Application
 
   # This information is used in headers and email templates, set it specific
   # to your application
-  config.name     = 'Testers'
-  config.initials = 'Testers'
+  config.name     = 'Origen Testers'
+  config.initials = 'OrigenTesters'
+  self.name = 'origen_testers'
+  self.namespace = 'OrigenTesters'
   config.rc_url   = "git@github.com:Origen-SDK/origen_testers.git"
   config.release_externally = true
-
-  # Gem name
-  self.name = 'origen_testers'
-  self.namespace = 'Testers'
 
   # Added list of directory to exclude when run running origen rc unman
   config.unmanaged_dirs = %w[spec/patterns/bin]

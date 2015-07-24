@@ -142,7 +142,7 @@ test\_method.hi\_limit = 150.uA
 ~~~ruby
 module MyApp
   class Interface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     def initialize(options={})
       add\_j750\_tml if tester.v93k?
@@ -265,7 +265,7 @@ i.start\_of\_body\_f\_args = "PGM\_CAL\_PARAS,cal\_paras"
 ~~~ruby
 module MyApp
   class Interface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     def initialize(options={})
       add\_j750\_tml if tester.v93k?
@@ -494,7 +494,7 @@ a universal generator module:
 ~~~ruby
 module C90TFSNVMTester
   class Interface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
   end
 end
 ~~~
@@ -506,7 +506,7 @@ be identical to how it used to be:
 ~~~ruby
 module C90TFSNVMTester
   class Interface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     def functional(name, options = {})
       ins = test\_instances.functional(name, options)
@@ -529,7 +529,7 @@ you would do:
 ~~~ruby
 module C90TFSNVMTester
   class Interface
-    include Testers::ProgramGenerators
+    include OrigenTesters::ProgramGenerators
 
     def functional(name, options = {})
       if tester.j750? || tester.ultraflex?
@@ -565,7 +565,7 @@ To use it create a very simple interface in your app:
 ~~~ruby
 module C90TFSNVMTester
   class Interface
-    include Testers::BasicTestSetups
+    include OrigenTesters::BasicTestSetups
   end
 end
 ~~~
@@ -644,12 +644,12 @@ of this change:
 
 ~~~ruby
 class MyJ750Interface
-  include Testers::J750::Generator
+  include OrigenTesters::J750::Generator
 end
 ~~~
 
 * The J750\_HPT now requires a dedicated interface to be setup for it, see the example in
-  lib/testers/test/ for how to do this while sharing the bulk of the code with a J750 interface.
+  lib/origen_testers/test/ for how to do this while sharing the bulk of the code with a J750 interface.
 
 The patgroup generators are currently untested and could therefore be broken by this update, though
 it is unlikely.
@@ -810,7 +810,7 @@ with the new pattern generation behavior (e.g. without the mto instrument).
 - V93K support (almost there)
 - UF MTO support (custom template used today, need to add to library)
 
-#### NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+#### NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0_dev20"></a>
@@ -892,7 +892,7 @@ Added in pattern compiler support for programmatic access.  This works as follow
 ~~~ruby
 module CompilerSpec
   class CompilerDUT
-    include Testers::PatternCompilers
+    include OrigenTesters::PatternCompilers
     include Origen::TopLevel
 
     attr\_accessor :pinmap
@@ -1323,7 +1323,7 @@ command line.
 - UF MTO support
 
 
-#### NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+#### NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0_dev9"></a>
@@ -1447,7 +1447,7 @@ which only will happen if both passcodes above fail.
 - Program Parsing
 - V93K support
 
-#### NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+#### NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0_dev4"></a>
@@ -1482,7 +1482,7 @@ which only will happen if both passcodes above fail.
 - V93K support
 - UF flows do not yet support 'Use-Limit' opcode in flow.
 
-#### NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+#### NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0_dev3"></a>
@@ -1538,7 +1538,7 @@ Added test flow file for testing measurement capability using limits.
 - V93K support
 - UF flows do not yet support 'Use-Limit' opcode in flow.
 
-### NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+### NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0_dev0"></a>
@@ -1592,7 +1592,7 @@ Added test flow file for testing measurement capability using limits.
 - Program Parsing
 - V93K support
 
-###NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+###NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_2_0"></a>
@@ -1658,7 +1658,7 @@ First semi-official release of Testers plug-in.
 - Program Parsing
 - V93K support
 
-###NOTE: Debugger 'testers' not included in this app, please see 'Debuggers' plug-in.
+###NOTE: Debugger 'origen_testers' not included in this app, please see 'Debuggers' plug-in.
 
 
 <a class="anchor release_tag" name="v0_0_0_dev2"></a>

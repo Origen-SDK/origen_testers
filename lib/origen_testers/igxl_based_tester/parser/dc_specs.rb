@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
-      class DCSpecs < ::Testers::Parser::SearchableHash
+      class DCSpecs < ::OrigenTesters::Parser::SearchableHash
         attr_accessor :parser
 
         def initialize(options = {})

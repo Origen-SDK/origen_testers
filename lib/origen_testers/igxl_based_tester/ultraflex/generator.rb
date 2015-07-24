@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX
       # Include this module in an interface class to make it an UltraFLEX interface and to give
@@ -6,8 +6,8 @@ module Testers
       module Generator
         extend ActiveSupport::Concern
 
-        require_all "#{Origen.root!}/lib/testers/igxl_based_tester/ultraflex"
-        require 'testers/igxl_based_tester/base/generator'
+        require_all "#{Origen.root!}/lib/origen_testers/igxl_based_tester/ultraflex"
+        require 'origen_testers/igxl_based_tester/base/generator'
 
         included do
           include Base::Generator

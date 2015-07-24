@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   module Test
     class UltraFLEXInterface
-      include Testers::UltraFLEX::Generator
+      include OrigenTesters::UltraFLEX::Generator
 
       # Options passed to Flow.create and Library.create will be passed in here, use as
       # desired to configure your interface

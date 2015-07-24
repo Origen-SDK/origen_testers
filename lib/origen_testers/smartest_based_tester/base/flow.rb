@@ -1,9 +1,9 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class Base
       class Flow
-        include Testers::Generator
-        include Testers::Generator::FlowControlAPI
+        include OrigenTesters::Generator
+        include OrigenTesters::Generator::FlowControlAPI
 
         attr_accessor :test_suites, :test_methods, :pattern_master
 

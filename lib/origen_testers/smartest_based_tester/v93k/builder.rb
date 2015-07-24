@@ -1,12 +1,12 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class V93K
       # Responsible for building V93K test programs from a collection of sub-programs
       class Builder
         require 'yaml'
 
-        autoload :Flow, 'testers/smartest_based_tester/v93k/builder/flow'
-        autoload :PatternMaster, 'testers/smartest_based_tester/v93k/builder/pattern_master'
+        autoload :Flow, 'origen_testers/smartest_based_tester/v93k/builder/flow'
+        autoload :PatternMaster, 'origen_testers/smartest_based_tester/v93k/builder/pattern_master'
 
         attr_reader :manifest
 
@@ -39,7 +39,7 @@ module Testers
 
             compile_options = {
               action:           :compile,
-              files:            "#{Origen.root!}/lib/testers/smartest_based_tester/v93k/templates/template.flow.erb",
+              files:            "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k/templates/template.flow.erb",
               output_file_name: "#{name}.flow",
               output_sub_dir:   'testflow',
               options:          { program: flow_file }
@@ -50,7 +50,7 @@ module Testers
             if pm_file
               compile_options = {
                 action:           :compile,
-                files:            "#{Origen.root!}/lib/testers/smartest_based_tester/v93k/templates/template.pmfl.erb",
+                files:            "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k/templates/template.pmfl.erb",
                 output_file_name: "#{name}.pmfl",
                 output_sub_dir:   'vectors',
                 options:          { program: pm_file }

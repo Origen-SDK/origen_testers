@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Generator
     module FlowControlAPI
       # Flow control methods related to flow context

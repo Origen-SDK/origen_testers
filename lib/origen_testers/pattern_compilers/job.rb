@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module PatternCompilers
     class Job
       # Pattern to be compiled, is Pathname class.  Will use full path

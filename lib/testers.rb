@@ -1,1 +1,0 @@
-require 'origen_testers'

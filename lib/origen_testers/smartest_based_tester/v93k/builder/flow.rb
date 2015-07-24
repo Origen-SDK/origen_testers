@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class V93K
       class Builder

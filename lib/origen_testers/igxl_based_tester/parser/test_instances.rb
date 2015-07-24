@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
-      class TestInstances < ::Testers::Parser::SearchableHash
+      class TestInstances < ::OrigenTesters::Parser::SearchableHash
         attr_accessor :parser
 
         def initialize(options = {})

@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX < Base
-      autoload :Generator,   'testers/igxl_based_tester/ultraflex/generator.rb'
+      autoload :Generator,   'origen_testers/igxl_based_tester/ultraflex/generator.rb'
 
       # Tester model to generate .atp patterns for the Teradyne UltraFLEX
       #

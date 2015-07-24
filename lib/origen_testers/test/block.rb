@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Test
     class Block
       attr_accessor :id, :selected

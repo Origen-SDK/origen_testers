@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   class VectorPipeline
     attr_reader :group_size, :pipeline
     # Used to keep track of how many vectors since the last reset of the pipeline (i.e.

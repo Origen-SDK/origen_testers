@@ -1,7 +1,7 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
-      class Flows < ::Testers::Parser::SearchableArray
+      class Flows < ::OrigenTesters::Parser::SearchableArray
         attr_accessor :parser
 
         def initialize(options = {})

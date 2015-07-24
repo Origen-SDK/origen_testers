@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   class IGXLBasedTester
     class Parser
       class PatternSet

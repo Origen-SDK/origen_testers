@@ -1,13 +1,13 @@
 require 'active_support/concern'
-module Testers
+module OrigenTesters
   # Including this module in a class gives it all the basics required
   # to generator vector-based test patterns
   module VectorBasedTester
     extend ActiveSupport::Concern
 
-    require 'testers/vector_generator'
-    require 'testers/timing'
-    require 'testers/api'
+    require 'origen_testers/vector_generator'
+    require 'origen_testers/timing'
+    require 'origen_testers/api'
 
     include VectorGenerator
     include Timing

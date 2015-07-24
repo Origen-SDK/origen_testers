@@ -1,5 +1,5 @@
 require 'active_support/concern'
-module Testers
+module OrigenTesters
   # Include this module to create an interface that supports multiple tester
   # types.
   #
@@ -40,13 +40,13 @@ module Testers
 
     def _load_generator
       if tester.v93k?
-        class << self; include Testers::V93K::Generator; end
+        class << self; include OrigenTesters::V93K::Generator; end
       elsif tester.j750_hpt?
-        class << self; include Testers::J750_HPT::Generator; end
+        class << self; include OrigenTesters::J750_HPT::Generator; end
       elsif tester.j750?
-        class << self; include Testers::J750::Generator; end
+        class << self; include OrigenTesters::J750::Generator; end
       elsif tester.ultraflex?
-        class << self; include Testers::UltraFLEX::Generator; end
+        class << self; include OrigenTesters::UltraFLEX::Generator; end
       else
         fail "The Testers::ProgramGenerators module does not support #{tester.class}!"
       end

@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Generator
     class Placeholder
       attr_accessor :type, :file, :options, :id

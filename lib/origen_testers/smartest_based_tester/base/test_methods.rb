@@ -1,15 +1,15 @@
-module Testers
+module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethods
         # Origen::Tester::Generator not included since test methods do not have their
         # own top-level sheet, they will be incorporated within the flow sheet
 
-        require 'testers/smartest_based_tester/base/test_methods/base_tml'
-        require 'testers/smartest_based_tester/base/test_methods/limits'
-        autoload :AcTml, 'testers/smartest_based_tester/base/test_methods/ac_tml'
-        autoload :DcTml, 'testers/smartest_based_tester/base/test_methods/dc_tml'
-        autoload :CustomTml, 'testers/smartest_based_tester/base/test_methods/custom_tml'
+        require 'origen_testers/smartest_based_tester/base/test_methods/base_tml'
+        require 'origen_testers/smartest_based_tester/base/test_methods/limits'
+        autoload :AcTml, 'origen_testers/smartest_based_tester/base/test_methods/ac_tml'
+        autoload :DcTml, 'origen_testers/smartest_based_tester/base/test_methods/dc_tml'
+        autoload :CustomTml, 'origen_testers/smartest_based_tester/base/test_methods/custom_tml'
 
         attr_accessor :flow, :collection
 

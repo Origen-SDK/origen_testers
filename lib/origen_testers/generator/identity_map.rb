@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Generator
     class IdentityMap
       def initialize

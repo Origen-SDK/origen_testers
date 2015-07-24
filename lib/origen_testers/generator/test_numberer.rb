@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Generator
     class TestNumberer
       # Will return a test number for the given test.

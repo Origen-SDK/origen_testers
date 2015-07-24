@@ -1,4 +1,4 @@
-module Testers
+module OrigenTesters
   module Timing
     extend ActiveSupport::Concern
 

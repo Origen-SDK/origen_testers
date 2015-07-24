@@ -1,8 +1,8 @@
-require 'testers/test/j750_base_interface'
-module Testers
+require 'origen_testers/test/j750_base_interface'
+module OrigenTesters
   module Test
     class J750Interface < J750BaseInterface
-      include Testers::J750::Generator
+      include OrigenTesters::J750::Generator
     end
   end
 end
