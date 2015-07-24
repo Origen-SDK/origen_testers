@@ -1,0 +1,13 @@
+hp93000,pattern_master_file,0.1
+
+% p = options[:program] ? options[:program].paths : paths
+% p.each do |path, patterns|
+path:
+<%= path %>
+
+files:
+%   patterns.uniq.sort.each do |pattern|
+<%= pattern %>
+%   end
+
+% end

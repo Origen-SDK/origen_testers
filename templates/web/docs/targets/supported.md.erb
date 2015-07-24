@@ -1,0 +1,19 @@
+% render "templates/web/layouts/doc.html", :tab => :targets_supported do
+
+## Targets
+
+--------------
+
+### Supported Targets
+
+The following production targets are supported by this environment...
+
+% RGen.app.target.each_unique_production do |moos|
+
+#### <%= RGen.target.file.basename(".rb").to_s.escape_underscores %>
+
+%# Generate any additional information about each target here
+
+% end
+
+% end

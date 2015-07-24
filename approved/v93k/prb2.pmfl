@@ -1,0 +1,13 @@
+hp93000,pattern_master_file,0.1
+
+path:
+.
+
+files:
+erase_all.binl.gz
+margin_read1_all1.binl.gz
+mrd_ckbd.binl.gz
+pgm_ckbd.binl.gz
+pgm_vfy_oof_passcode_redcols_utst.binl.gz
+pgm_vfy_oof_passcode_tst.binl.gz
+

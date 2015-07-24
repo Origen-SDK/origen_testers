@@ -1,0 +1,11 @@
+% render "layouts/basic.html", :tab => :archive do
+
+# Archive
+
+Documentation from previous releases is available via the links below:
+
+% RGen.app.versions.reverse_each do |version|
+* [<%= version %>](<%= RGen.app.config.web_domain %>/<%= version.gsub(".", "_") %>)
+% end
+
+% end

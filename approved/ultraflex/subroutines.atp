@@ -1,0 +1,1596 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    08-Apr-2015 18:22PM
+//   By:      Daniel Hadad
+//   Command: rgen g subroutines -t debug_ultraflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   0.3.0.pre31
+//     Workspace: /proj/pet5/DAN_WORK/RGEN_COMMON_WORK/Testers_v0.3.0.pre31
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   2.5.0.pre89
+//     Workspace: /home/ra6854/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre89
+// ***************************************************************************
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               mto;                                                                      
+}                                                                                               
+                                                                                                
+srm_vector                                                                                      
+subroutines ($tset, tclk, tdi, tdo, tms)                                                        
+{                                                                                               
+global subr executefunc1:                                                                       
+return                                                           > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+global subr match_pin:                                                                          
+                                                                 > tp0                          X X X X ;
+// Wait for a maximum of 5.0us
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 1                                                        > tp0                          X X X X ;
+branch_expr = (fail)                                             > tp0                          X X X X ;
+global match_loop_0:                                                                            
+set c0 1                                                         > tp0                          X X X X ;
+match_result_loop_0:                                                                            
+loop c0                                                          > tp0                          X X X X ;
+// Check if tdo is high
+ mask                                                            > tp0                          X X H X ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_0                   > tp0                          X X X X ;
+// Match found
+pop_loop                                                         > tp0                          X X X X ;
+return                                                           > tp0                          X X X X ;
+// Match not yet found
+block_0_notyet_matched_0:                                        > tp0                          X X X X ;
+// Match loop cycle count = 260
+end_loop match_result_loop_0                                     > tp0                          X X X X ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Check if tdo is high
+                                                                 > tp0                          X X H X ;
+return                                                           > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+global subr match_2pins:                                                                        
+                                                                 > tp0                          X X X X ;
+// Wait for a maximum of 5.0us
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 1                                                        > tp0                          X X X X ;
+branch_expr = (fail)                                             > tp0                          X X X X ;
+global match_loop_1:                                                                            
+set c0 1                                                         > tp0                          X X X X ;
+match_result_loop_1:                                                                            
+loop c0                                                          > tp0                          X X X X ;
+// Check if tdo is high
+ mask                                                            > tp0                          X X H X ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_1                   > tp0                          X X X X ;
+// Match found
+pop_loop                                                         > tp0                          X X X X ;
+return                                                           > tp0                          X X X X ;
+// Match not yet found
+block_0_notyet_matched_1:                                        > tp0                          X X X X ;
+// Check if tms is high
+ mask                                                            > tp0                          X X L H ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Branch if block condition 1 not yet met
+if (branch_expr) jump block_1_notyet_matched_1                   > tp0                          X X X X ;
+// Match found
+pop_loop                                                         > tp0                          X X X X ;
+return                                                           > tp0                          X X X X ;
+// Match not yet found
+block_1_notyet_matched_1:                                        > tp0                          X X X X ;
+// Match loop cycle count = 520
+end_loop match_result_loop_1                                     > tp0                          X X X X ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Check if tdo is high
+// Check if tms is high
+                                                                 > tp0                          X X H H ;
+return                                                           > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+global subr match_done:                                                                         
+                                                                 > tp0                          X X X X ;
+// Wait for a maximum of 5.0us
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 1                                                        > tp0                          X X X X ;
+branch_expr = (fail)                                             > tp0                          X X X X ;
+global match_loop_2:                                                                            
+set c0 1                                                         > tp0                          X X X X ;
+match_result_loop_2:                                                                            
+loop c0                                                          > tp0                          X X X X ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Enable Nexus Access: OnCE_Send(10, 0x7C)
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 0 ;
+ mask                                                            > tp0                          0 X X 0 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 1 ;
+ mask                                                            > tp0                          0 X X 0 ;
+ mask                                                            > tp0                          0 X X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 H 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_2                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_2:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 433
+end_loop match_result_loop_2                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 19                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 H 0 ;
+repeat 29                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr match_done2:                                                                        
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 7.0ms
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 1                                                        > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_3:                                                                            
+set c0 286                                                       > tp0                          0 0 X 0 ;
+match_result_loop_3:                                                                            
+loop c0                                                          > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 H 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_3                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_3:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 409
+end_loop match_result_loop_3                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 19                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 H 0 ;
+repeat 29                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr match_done3:                                                                        
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 7.00s
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 285249                                                   > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_4:                                                                            
+set c0 23105                                                     > tp0                          0 0 X 0 ;
+match_result_loop_4:                                                                            
+loop c0                                                          > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 H 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_4                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_4:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 409
+end_loop match_result_loop_4                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 19                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 H 0 ;
+repeat 29                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr match_done4:                                                                        
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 72.00s
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 2933986                                                  > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_5:                                                                            
+set c0 50402                                                     > tp0                          0 0 X 0 ;
+match_result_loop_5:                                                                            
+loop c0                                                          > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 H 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_5                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_5:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 409
+end_loop match_result_loop_5                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 19                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 H 0 ;
+repeat 29                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr match_done5:                                                                        
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 7000.00s
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 142624287                                                > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_6:                                                                            
+set c0 17951                                                     > tp0                          0 0 X 0 ;
+match_result_loop_6:                                                                            
+loop c0                                                          > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ mask                                                            > tp0                          0 1 X 1 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 1 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 H 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+ mask                                                            > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+ mask                                                            > tp0                          0 0 X 1 ;
+ mask                                                            > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_6                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_6:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 409
+// Delay to meet timeout value
+repeat 2                                                         > tp0                          0 0 X 0 ;
+end_loop match_result_loop_6                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 19                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 H 0 ;
+repeat 29                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr match_done6:                                                                        
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 15.00s
+// NOTE: check for fails prior to match loop not necessary on UltraFlex
+// ######################################################################
+// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
+// ######################################################################
+// Start the match loop
+set_msb 961539                                                   > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_7:                                                                            
+set c0 44035                                                     > tp0                          0 0 X 0 ;
+match_result_loop_7:                                                                            
+loop c0                                                          > tp0                          0 0 X 0 ;
+// Check if tdo is high
+ mask                                                            > tp0                          0 0 H 0 ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_7                   > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_7:                                        > tp0                          0 0 X 0 ;
+// Match loop cycle count = 260
+end_loop match_result_loop_7                                     > tp0                          0 0 X 0 ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Check if tdo is high
+                                                                 > tp0                          0 0 H 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+global subr handshake:                                                                          
+// *** WARNING! *** Method set_code not supported for UltraFLEX! Find alternative solution.
+branch_expr = (cpuA_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond)                                         > tp0                          0 0 X 0 ;
+loop_here_8: if (branch_expr) jump loop_here_8                   > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+}                                                                                               

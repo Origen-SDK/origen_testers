@@ -1,0 +1,36 @@
+% render "layouts/basic.html", :tab => :contact do
+
+# Contact Us
+
+The following engineers can be contacted about this application:
+
+% RGen.app.developers.each do |user|
+* [<%= user.name %>](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl\<%= user.r_number %>) 
+% end
+
+%# An example of how to write a contact page:
+%#Please use PDM For any bug reports or change/feature requests:
+%#
+%#* [C90TFS_NVM_tester on PDM](http://designpdm.freescale.net/Agile/PLMServlet?fromPCClient=true&module=PartFamilyHandler&requestUrl=module%3DPartFamilyHandler%26opcode%3DdisplayObject%26classid%3D2000004409%26objid%3D17718323%26tabid%3D2%26)
+%#
+%#For test related issues you can contact:
+%#
+%#* [Stephen McGinty](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl\r49409) 
+%#* [Thao Huynh](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl%5CR6AANF) 
+%#
+%#For product/yield issues contact:
+%#
+%#* [Andrew Hardell](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl%5CR12635)
+%#* [Eddie Lepore](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl%5CB06626)
+%#
+%#The manager of this project is:
+%#
+%#* [Wendy Malloch](http://freeshare.freescale.net:2222/my/Person.aspx?accountname=fsl%5CTTZ231)
+%#
+%#
+%#Finally if you are not sure who to contact, or if your question may have device/reliability
+%#implications, then you can use the Split Gate Flash Test and Reliability mailing list:
+%#
+%#* [Email SGFTANDR](mailto:SGFTANDR@freescale.com)
+
+% end

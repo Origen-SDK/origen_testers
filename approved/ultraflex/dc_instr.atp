@@ -1,0 +1,96 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    06-Dec-2014 16:11PM
+//   By:      Aaron J Burgmeier
+//   Command: rgen g dc_instr -t debug_ultraflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   v0.2.0.dev21
+//     Workspace: /proj/.ppc_k2_patterns2/patterns2/k2_lynx/workarea/setup_files/odm_setup/rgen_apps/testers
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   v2.4.0.dev3
+//     Workspace: /proj/.ppc_k2_patterns2/patterns2/k2_lynx/workarea/setup_files/odm_setup/rgen
+// ***************************************************************************
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               mto;
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+dc_instr ($tset, tclk, tdi, tdo, tms)                                                           
+{                                                                                               
+start_label dc_instr_st:                                                                        
+// PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+}                                                                                               

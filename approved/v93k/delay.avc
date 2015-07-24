@@ -1,0 +1,34 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    13-Jul-2015 09:11AM
+#   By:      Stephen McGinty
+#   Command: rgen g delay -t debug_v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+#     Version:   0.3.0.pre42
+#     Workspace: /proj/.mem_c90tfs_testeng/r49409/C90TFS_NVM_tester/testers
+#   RGen
+#     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+#     Version:   2.5.0.pre131
+#     Workspace: /home/r49409/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre131
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# Wait for 40.0ms
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R65535                   tp0                        X X X X ;
+R11316                   tp0                        X X X X ;
+SQPG STOP;

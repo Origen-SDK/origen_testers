@@ -1,0 +1,42 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    14-Mar-2014 15:11PM
+//   By:      Daniel Hadad
+//   Command: rgen g iterator_test_x_bx -t debug_j750_dut2.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   v0.0.0.dev2
+//     Workspace: /proj/pet3/C55FMC/Testers
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   v2.3.0.dev30
+//     Workspace: /proj/pet3/C55FMC/rgen_top_v2.3.0.dev30
+// ***************************************************************************
+import tset nvmbist;                                                                            
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, nvm_reset, nvm_clk, nvm_clk_mux, porta, portb, nvm_invoke, nvm_done, nvm_fail, nvm_alvtst, nvm_ahvtst, nvm_dtst, tclk, trst)                               
+{                                                                                               
+start_label pattern_st:                                                                         
+// ######################################################################
+// ## Enter Test Mode
+// ######################################################################
+                                                                 > nvm_slow                     1 1 1 00100000 00000000 0 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00001000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00001000 00000000 0 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00100000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;                               
+// 0
+                                                                 > nvmbist                      1 1 1 00000000 00000000 0 H L X X X 0 1 ;
+// 3
+                                                                 > nvmbist                      1 1 1 00000000 00000000 0 H L X X X 0 1 ;
+end_module                                                       > nvmbist                      1 1 1 00000000 00000000 0 H L X X X 0 1 ;
+}                                                                                               

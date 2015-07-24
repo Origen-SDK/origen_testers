@@ -1,0 +1,5 @@
+DFF 1.1	Pattern Sets					
+						
+	Pattern Set	File/Group Name	Start Label	Stop Label	Comment	
+	read_pump_pset	read_pump.PAT				
+	test1_pset	test1.PAT				

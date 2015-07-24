@@ -1,0 +1,99 @@
+% render "templates/web/layouts/doc.html", :tab => :targets_introduction do
+
+## Targets
+
+--------------
+
+### Introduction
+
+Targets are used by to configure the environment
+for a given silicon derivative. Among other things the target will define the tester
+platform, the specific NVM module to be tested and what the host SoC is.
+
+For more background on how targets fit into the wider RGen environment read:
+[Getting Started with RGen  Part 2: Anatomy of an RGen Application](http://freeshare.freescale.net:2222/public/rgen-cmty-svc/_layouts/listform.aspx?PageType=4&ListId={4AF58DCD-005B-45F3-B13B-C007B7AB8609}&ID=11)
+
+#### Setting the Target
+
+The default target for your workspace is set via the rgen 'target' command, or 't' for
+short.
+
+~~~
+    rgen t <target name>
+~~~
+
+Running this command without a supplying a target name will show the current 
+default target.    
+
+Many rgen commands also accept a '-t' option to temporarily change to a different
+target, for example to switch targets temporarily to generate a given pattern you can do:
+
+~~~
+    rgen g <pattern> -t <target name>
+~~~
+
+When generating production patterns or test programs it is recommended that you
+use the device MOO number to specify the target. This will ensure that you pick
+up the correct target that has been designated by the NVM team as suitable for
+your device, for example:
+
+~~~
+    rgen t 0M79X
+~~~
+
+#### Supported Targets    
+
+A given <%= RGen.config.name %> release may have some restrictions on what targets can
+be run, usually because it contains some features that have not been fully checked out on
+or are not compatible with certain configurations.
+
+Such occurences are rare though and such restrictions would normally be highlighted in the
+release notes for a given tag.
+
+The targets supported by the current environment can be viewed on the 
+[Supported Targets](<%= path "/docs/targets/supported" %>) page.
+
+#### Available Targets
+
+All available targets are in the targets directory, they use the following naming
+convention:
+
+~~~
+    <device name>_<revision>_<purpose>
+~~~
+
+Here are the common target types:
+
+##### production
+
+The production target should always be used when generating production intent patterns
+or programs. Using a production target will cause RGen to run in production mode which
+among other safegaurds will enforce that the workspace has no local modifications which
+could change the intended output.
+
+In the C90TFS environment the production target also acts as a top-level bill of materials and
+instantiates the correct FMU, Analog, Core and Firmware versions for a given device. 
+
+##### debug
+
+The debug targets are intended to be used when developing or debugging, basically at any times
+when you may legitimately have local modifications to the files in your workspace.
+Most debug targets simply load the production target and then switch RGen to debug mode,
+although it is possible that they may also apply some further configuration changes to the
+environment.
+
+##### bench
+
+Similar to debug targets except that these ones switch the tester to something that
+can drive a bench debug interface, usually a J-Link or BDM driver. Through the use of a bench
+target it is possible to generate any test pattern as a series of bench debugger instructions
+and which therefore allow it to be run on the bench.
+
+##### simulation
+
+Similar to debug targets except some configuration flags are set to generate the patterns
+in a format that is more friendly to (TPC VT) simulation. For the TFS environment this typically
+means that match loops will be replaced by static delays and external pattern subroutine calls
+will be replaced by hardcoded values.
+
+% end

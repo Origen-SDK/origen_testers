@@ -1,0 +1,23 @@
+flows:
+  probe1:
+    - prb1
+    - test
+  probe2:
+    - prb2
+    - test
+    - test
+
+sub_programs:  
+  - name:           prb1
+    # Paths can be relative to your RGen application root
+    flow:           output/v93k/testflow/prb1.flow
+
+  - name:           test
+    # Or relative to this file
+    flow:           ../../output/v93k/testflow/test.flow
+    pattern_master: ../../output/v93k/vectors/test.pmfl
+
+  - name:           prb2
+    # Or absolute, but not used here
+    flow:           ../../output/v93k/testflow/prb2.flow
+    pattern_master: ../../output/v93k/vectors/prb2.pmfl

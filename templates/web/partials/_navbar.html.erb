@@ -1,0 +1,22 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="<%= path "/" %>">Home</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="<%= options[:tab] == :api ? 'active' : '' %>"><a href="<%= path "/api/" %>">API</a></li>
+          <li class="<%= options[:tab] == :coverage ? 'active' : '' %>"><a href="<%= path "/coverage" %>">Coverage</a></li>
+          <li class="<%= options[:tab] == :archive ? 'active' : '' %>"><a href="<%= path "/archive" %>">Archive</a></li>
+          <li class="<%= options[:tab] == :release ? 'active' : '' %>"><a href="<%= path "/release_notes" %>">Release Notes</a></li>
+          <li class="<%= options[:tab] == :contact ? 'active' : '' %>"><a href="<%= path "/contact" %>">Contact</a></li>
+        </ul>
+        <%= import "rgen/web/logo.html" %>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>

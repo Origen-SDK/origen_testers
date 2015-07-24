@@ -1,0 +1,22 @@
+flows:
+  prb1:
+    - continuity
+    - scan
+  prb2:
+    - continuity
+    - functional
+
+sub_programs:  
+  - name:           continuity
+    # Paths can be relative to your RGen application root
+    flow:           output/v93k/testflow/continuity.flow
+
+  - name:           scan
+    # Or relative to this file
+    flow:           ../../output/v93k/testflow/test.flow
+    pattern_master: ../../output/v93k/vectors/test.pmfl
+
+  - name:           functional
+    # Or absolute
+    flow:           /proj/devicex/modules/functional/v93k/testflow/main.flow
+    pattern_master: /proj/devicex/modules/functional/v93k/vectors/main.pmfl

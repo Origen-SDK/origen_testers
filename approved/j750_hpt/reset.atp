@@ -1,0 +1,27 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    12-Feb-2014 15:41PM
+//   By:      Daniel Hadad
+//   Command: rgen g reset -t debug_j750_hpt.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   v0.0.0.dev0
+//     Workspace: /proj/pet3/C55FMC/Testers
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   v2.3.0.dev9
+//     Workspace: /proj/pet3/C55FMC/rgen_top_dh_to_use
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+repeat 6                                                         > tp0                          .0 .X .X .1 ;
+end_module                                                       > tp0                          .0 .X .X .1 ;
+}                                                                                               

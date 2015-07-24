@@ -1,0 +1,38 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    27-Apr-2015 15:25PM
+//   By:      Daniel Hadad
+//   Command: rgen g delay -t debug_j750_hpt.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   0.3.0.pre35
+//     Workspace: /proj/pet5/DAN_WORK/RGEN_COMMON_WORK/Testers_v0.3.0.pre35
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   2.5.0.pre98
+//     Workspace: /home/ra6854/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre98
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+// Wait for 40.0ms
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 65535                                                     > tp0                          .X .X .X .X ;
+repeat 11316                                                     > tp0                          .X .X .X .X ;
+end_module                                                       > tp0                          .X .X .X .X ;
+}                                                                                               

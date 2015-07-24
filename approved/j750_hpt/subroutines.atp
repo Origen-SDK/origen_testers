@@ -1,0 +1,1645 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    08-Apr-2015 18:22PM
+//   By:      Daniel Hadad
+//   Command: rgen g subroutines -t debug_j750_hpt.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   0.3.0.pre31
+//     Workspace: /proj/pet5/DAN_WORK/RGEN_COMMON_WORK/Testers_v0.3.0.pre31
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   2.5.0.pre89
+//     Workspace: /home/ra6854/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre89
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = yes;                                                                            
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+global subr executefunc1:                                                                       
+return                                                           > tp0                          .X .X .X .X ;
+                                                                 > tp0                          .X .X .X .X ;
+global subr match_pin:                                                                          
+                                                                 > tp0                          .X .X .X .X ;
+// Wait for a maximum of 5.0us
+set_code 100                                                     > tp0                          .X .X .X .X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .X .X .X .X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .X .X .X .X ;
+set_cpu (cpuA cpuB)                                              > tp0                          .X .X .X .X ;
+loop_here_0: if (flag) jump loop_here_0                          > tp0                          .X .X .X .X ;
+// Start the match loop
+global match_outer_loop_1:                                                                      
+loopB 1 ign ifc icc                                              > tp0                          .X .X .X .X ;
+global match_inner_loop_1:                                                                      
+loopA 3 ign ifc icc                                              > tp0                          .X .X .X .X ;
+// Check if tdo is high
+ ign ifc icc                                                     > tp0                          .X .X .H .X ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .X .X .X .X ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_1 icc ifc                         > tp0                          .X .X .X .X ;
+clr_flag (fail) icc                                              > tp0                          .X .X .X .X ;
+// Match loop cycle count = 37
+// Loop back around if time remaining
+end_loopA match_inner_loop_1 icc                                 > tp0                          .X .X .X .X ;
+end_loopB match_outer_loop_1 icc                                 > tp0                          .X .X .X .X ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// Check if tdo is high
+                                                                 > tp0                          .X .X .H .X ;
+jump match_loop_end_1 icc                                        > tp0                          .X .X .X .X ;
+block_0_matched_1:                                                                              
+pop_loop icc                                                     > tp0                          .X .X .X .X ;
+clr_fail                                                         > tp0                          .X .X .X .X ;
+match_loop_end_1:                                                                               
+clr_fail                                                         > tp0                          .X .X .X .X ;
+return                                                           > tp0                          .X .X .X .X ;
+                                                                 > tp0                          .X .X .X .X ;
+global subr match_2pins:                                                                        
+                                                                 > tp0                          .X .X .X .X ;
+// Wait for a maximum of 5.0us
+set_code 100                                                     > tp0                          .X .X .X .X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .X .X .X .X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .X .X .X .X ;
+set_cpu (cpuA cpuB)                                              > tp0                          .X .X .X .X ;
+loop_here_2: if (flag) jump loop_here_2                          > tp0                          .X .X .X .X ;
+// Start the match loop
+global match_outer_loop_3:                                                                      
+loopB 1 ign ifc icc                                              > tp0                          .X .X .X .X ;
+global match_inner_loop_3:                                                                      
+loopA 2 ign ifc icc                                              > tp0                          .X .X .X .X ;
+// Check if tdo is high
+ ign ifc icc                                                     > tp0                          .X .X .H .X ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .X .X .X .X ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_3 icc ifc                         > tp0                          .X .X .X .X ;
+clr_flag (fail) icc                                              > tp0                          .X .X .X .X ;
+// Check if tms is high
+ ign ifc icc                                                     > tp0                          .X .X .L .H ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .X .X .X .X ;
+// Branch if block condition 1 met
+if (pass) jump block_1_matched_3 icc ifc                         > tp0                          .X .X .X .X ;
+clr_flag (fail) icc                                              > tp0                          .X .X .X .X ;
+// Match loop cycle count = 74
+// Loop back around if time remaining
+end_loopA match_inner_loop_3 icc                                 > tp0                          .X .X .X .X ;
+end_loopB match_outer_loop_3 icc                                 > tp0                          .X .X .X .X ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// Check if tdo is high
+// Check if tms is high
+                                                                 > tp0                          .X .X .H .H ;
+jump match_loop_end_3 icc                                        > tp0                          .X .X .X .X ;
+block_0_matched_3:                                                                              
+pop_loop icc                                                     > tp0                          .X .X .X .X ;
+block_1_matched_3:                                                                              
+pop_loop icc                                                     > tp0                          .X .X .X .X ;
+clr_fail                                                         > tp0                          .X .X .X .X ;
+match_loop_end_3:                                                                               
+clr_fail                                                         > tp0                          .X .X .X .X ;
+return                                                           > tp0                          .X .X .X .X ;
+                                                                 > tp0                          .X .X .X .X ;
+global subr match_done:                                                                         
+                                                                 > tp0                          .X .X .X .X ;
+// Wait for a maximum of 5.0us
+set_code 100                                                     > tp0                          .X .X .X .X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .X .X .X .X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .X .X .X .X ;
+set_cpu (cpuA cpuB)                                              > tp0                          .X .X .X .X ;
+loop_here_4: if (flag) jump loop_here_4                          > tp0                          .X .X .X .X ;
+// Start the match loop
+global match_outer_loop_5:                                                                      
+loopB 1 ign ifc icc                                              > tp0                          .X .X .X .X ;
+global match_inner_loop_5:                                                                      
+loopA 1 ign ifc icc                                              > tp0                          .X .X .X .X ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Enable Nexus Access: OnCE_Send(10, 0x7C)
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .X .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_5 icc ifc                         > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 210
+// Loop back around if time remaining
+end_loopA match_inner_loop_5 icc                                 > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_5 icc                                 > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 24                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 3                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 19                                                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 4                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .1 .X .1 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          .0 .1 .X .1 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .H .0 ;
+repeat 29                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+jump match_loop_end_5 icc                                        > tp0                          .0 .0 .X .0 ;
+block_0_matched_5:                                                                              
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_5:                                                                               
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done2:                                                                        
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Wait for a maximum of 7.0ms
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .0 .0 .X .0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          .0 .0 .X .0 ;
+loop_here_6: if (flag) jump loop_here_6                          > tp0                          .0 .0 .X .0 ;
+// Start the match loop
+global match_outer_loop_7:                                                                      
+loopB 1 ign ifc icc                                              > tp0                          .0 .0 .X .0 ;
+global match_inner_loop_7:                                                                      
+loopA 628 ign ifc icc                                            > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_7 icc ifc                         > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 186
+// Loop back around if time remaining
+end_loopA match_inner_loop_7 icc                                 > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_7 icc                                 > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 24                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 3                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 19                                                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 4                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .1 .X .1 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          .0 .1 .X .1 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .H .0 ;
+repeat 29                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+jump match_loop_end_7 icc                                        > tp0                          .0 .0 .X .0 ;
+block_0_matched_7:                                                                              
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_7:                                                                               
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done3:                                                                        
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Wait for a maximum of 7.00s
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .0 .0 .X .0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          .0 .0 .X .0 ;
+loop_here_8: if (flag) jump loop_here_8                          > tp0                          .0 .0 .X .0 ;
+// Start the match loop
+global match_outer_loop_9:                                                                      
+loopB 10 ign ifc icc                                             > tp0                          .0 .0 .X .0 ;
+global match_inner_loop_9:                                                                      
+loopA 65535 ign ifc icc                                          > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_9 icc ifc                         > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 186
+// Loop back around if time remaining
+end_loopA match_inner_loop_9 icc                                 > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_9 icc                                 > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 24                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 3                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 19                                                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 4                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .1 .X .1 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          .0 .1 .X .1 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .H .0 ;
+repeat 29                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+jump match_loop_end_9 icc                                        > tp0                          .0 .0 .X .0 ;
+block_0_matched_9:                                                                              
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_9:                                                                               
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done4:                                                                        
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Wait for a maximum of 72.00s
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .0 .0 .X .0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          .0 .0 .X .0 ;
+loop_here_10: if (flag) jump loop_here_10                        > tp0                          .0 .0 .X .0 ;
+// Start the match loop
+global match_outer_loop_11:                                                                     
+loopB 99 ign ifc icc                                             > tp0                          .0 .0 .X .0 ;
+global match_inner_loop_11:                                                                     
+loopA 65535 ign ifc icc                                          > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_11 icc ifc                        > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 186
+// Loop back around if time remaining
+end_loopA match_inner_loop_11 icc                                > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_11 icc                                > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 24                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 3                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 19                                                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 4                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .1 .X .1 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          .0 .1 .X .1 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .H .0 ;
+repeat 29                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+jump match_loop_end_11 icc                                       > tp0                          .0 .0 .X .0 ;
+block_0_matched_11:                                                                             
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_11:                                                                              
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done5:                                                                        
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Wait for a maximum of 7000.00s
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .0 .0 .X .0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          .0 .0 .X .0 ;
+loop_here_12: if (flag) jump loop_here_12                        > tp0                          .0 .0 .X .0 ;
+// Start the match loop
+global match_outer_loop_13:                                                                     
+loopB 9572 ign ifc icc                                           > tp0                          .0 .0 .X .0 ;
+global match_inner_loop_13:                                                                     
+loopA 65535 ign ifc icc                                          > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+ ign ifc icc                                                     > tp0                          .0 .1 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .1 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+ ign ifc icc                                                     > tp0                          .0 .0 .X .1 ;
+ ign ifc icc                                                     > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_13 icc ifc                        > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 186
+// Loop back around if time remaining
+end_loopA match_inner_loop_13 icc                                > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_13 icc                                > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// **************************** NEXUS REGISTER READ BEGIN ****************************
+// - Read Register TESTME32: addr: 0x0000007A, data: 0x00000002
+// Nexus::Driver - Write Nexus Reg: RWA at 0x0013 with 0x0000007A
+// Nexus::Driver - OnCE_Send(8, 0x13)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x0000007A)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 24                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - Write Nexus Reg: RWCS at 0x000F with 0x90C00004
+// Nexus::Driver - OnCE_Send(8, 0x0F)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 4                                                         > tp0                          .0 .1 .X .0 ;
+repeat 3                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Send(32, 0x90C00004)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 19                                                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+repeat 4                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .1 .X .1 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+// Nexus::Driver - Read Nexus Reg: RWD at 0x0014 with 0x00000002
+// Nexus::Driver - OnCE_Send(8, 0x14)
+                                                                 > tp0                          .0 .1 .X .1 ;
+repeat 2                                                         > tp0                          .0 .1 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .1 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Nexus::Driver - OnCE_Read(32, 0x00000002)
+                                                                 > tp0                          .0 .0 .X .1 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+// JTAG::TAPController - **** Data start ****
+                                                                 > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .H .0 ;
+repeat 29                                                        > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .1 ;
+// JTAG::TAPController - **** Data stop ****
+                                                                 > tp0                          .0 .0 .X .1 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+// **************************** NEXUS REGISTER READ END ****************************
+jump match_loop_end_13 icc                                       > tp0                          .0 .0 .X .0 ;
+block_0_matched_13:                                                                             
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_13:                                                                              
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done6:                                                                        
+                                                                 > tp0                          .0 .0 .X .0 ;
+// Wait for a maximum of 15.00s
+global subr match_done_0:                                                                       
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_1:                                                                       
+set_code 101                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_2:                                                                       
+set_code 102                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_3:                                                                       
+set_code 103                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_4:                                                                       
+set_code 104                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_5:                                                                       
+set_code 105                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_6:                                                                       
+set_code 106                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_7:                                                                       
+set_code 107                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_8:                                                                       
+set_code 108                                                     > tp0                          .0 .0 .X .0 ;
+jump call_tester                                                 > tp0                          .0 .0 .X .0 ;
+global subr match_done_9:                                                                       
+set_code 109                                                     > tp0                          .0 .0 .X .0 ;
+call_tester:                                                                                    
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          .0 .0 .X .0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          .0 .0 .X .0 ;
+loop_here_14: if (flag) jump loop_here_14                        > tp0                          .0 .0 .X .0 ;
+// Start the match loop
+global match_outer_loop_15:                                                                     
+loopB 104 ign ifc icc                                            > tp0                          .0 .0 .X .0 ;
+global match_inner_loop_15:                                                                     
+loopA 65535 ign ifc icc                                          > tp0                          .0 .0 .X .0 ;
+// Check if tdo is high
+ ign ifc icc                                                     > tp0                          .0 .0 .H .0 ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          .0 .0 .X .0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_15 icc ifc                        > tp0                          .0 .0 .X .0 ;
+clr_flag (fail) icc                                              > tp0                          .0 .0 .X .0 ;
+// Match loop cycle count = 37
+// Loop back around if time remaining
+end_loopA match_inner_loop_15 icc                                > tp0                          .0 .0 .X .0 ;
+end_loopB match_outer_loop_15 icc                                > tp0                          .0 .0 .X .0 ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// Check if tdo is high
+                                                                 > tp0                          .0 .0 .H .0 ;
+jump match_loop_end_15 icc                                       > tp0                          .0 .0 .X .0 ;
+block_0_matched_15:                                                                             
+pop_loop icc                                                     > tp0                          .0 .0 .X .0 ;
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+match_loop_end_15:                                                                              
+clr_fail                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+                                                                 > tp0                          .0 .0 .X .0 ;
+global subr handshake:                                                                          
+set_code 100                                                     > tp0                          .0 .0 .X .0 ;
+set_cpu (cpuA)                                                   > tp0                          .0 .0 .X .0 ;
+loop_here_16: if (cpuA) jump loop_here_16                        > tp0                          .0 .0 .X .0 ;
+repeat 2                                                         > tp0                          .0 .0 .X .0 ;
+return                                                           > tp0                          .0 .0 .X .0 ;
+}                                                                                               

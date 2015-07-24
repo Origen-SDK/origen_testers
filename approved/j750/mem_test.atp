@@ -1,0 +1,35 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    22-Oct-2014 16:58PM
+//   By:      Jiang Liu
+//   Command: rgen g mem_test -t debug_j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   v0.2.0.dev12
+//     Workspace: /proj/pet5/jiang/.c55_v3_live_imports_DO_NOT_HAND_MODIFY/testers
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   v2.3.0.dev127
+//     Workspace: /proj/pet5/jiang/rgen_v2.3.0
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               mto:dgen_2bit;                                                                   
+}                                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+(mto: xa inc)                                                    > tp0                          X X X X ;
+(mto: ya inc)                                                    > tp0                          X X X X ;
+(mto: xa load_preset)                                            > tp0                          X X X X ;
+(mto: xa inc ya load_preset)                                     > tp0                          X X X X ;
+(mto: ya inc stv_m0 stv_m1 stv_c)                                > tp0                          X X X X ;
+                                                                 > tp0                          X X E X ;
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

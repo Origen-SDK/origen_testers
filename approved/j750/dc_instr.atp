@@ -1,0 +1,26 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    13-Oct-2014 16:46PM
+//   By:      Daniel Hadad
+//   Command: rgen g dc_instr -t debug_j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   v0.2.0.dev9
+//     Workspace: /proj/pet3/C55FMC/Testers_v0.2.0.dev9
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   v2.3.0.dev127
+//     Workspace: /proj/pet3/C55FMC/rgen_top_v2.3.0.dev127
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

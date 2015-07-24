@@ -1,0 +1,34 @@
+# Editor cruft
+*.swp
+*.swo
+*~
+
+# RGen local files
+/.bundle
+/target/.default
+/environment/.default
+/release_note.txt
+/pkg
+/lbin
+/.bin
+/list/referenced.list
+/tags
+/.ref
+/.ws
+/.lsf
+/.db
+/log
+/output
+/web
+/coverage
+/.ref
+/.yardoc
+/.collection
+/.bin
+/.session
+/.pdm/pi_attributes.txt
+/.irb_history
+
+# Cruft from other revision control systems
+.SYNC
+.svn

@@ -1,0 +1,23 @@
+% render "templates/web/layouts/doc.html", :tab => :environment_definitions do
+
+## Environment
+
+--------------
+
+### Definitions and Acronyms
+
+%# Add any new entries anywhere in this list, it will get sorted into
+%# alphabetical order during compilation:
+%
+% terms = {
+%   "RGen" => "A general purpose semiconductor engineering framework that uses the Ruby programming language, read more at http://rgen.freescale.net",
+%   "Application" => "The generic name given to a project that uses RGen",
+% }
+
+| Term or Acronym | Definition |
+|:----------------|:-----------|
+% terms.sort.each do |term|
+| <%= term[0] %> | <%= term[1] %> |
+% end
+
+% end

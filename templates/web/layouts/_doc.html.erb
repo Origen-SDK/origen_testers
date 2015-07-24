@@ -1,0 +1,62 @@
+---
+layout: bootstrap
+title: <%= options[:title] || RGen.config.name %>
+---
+<%= render "templates/web/partials/navbar.html", :tab => :docs %>
+
+%# Add/edit sections here, the code below will expand this with the correct markup, 
+%# pass in the topic you want selected via the :tab option.
+% s = {}
+% s["Environment"] = {
+%   :environment_introduction => "Introduction",
+%   :environment_installation => "Installation",
+%   :environment_definitions => "Definitions and Acronyms",
+% }
+% s["Targets"] = {
+%   :targets_introduction => "Introduction",
+%   :targets_supported => "Supported",
+% }
+% s["Developers"] = {
+%   :developers_branching => "Making Branches",
+% }
+
+
+
+<div class="row">
+  <div class="span3">
+    <div class="well sidebar-nav">
+        <div class="accordion" id="sidebar-accordion">
+
+% s.each_with_index do |(subject, sections), i|          
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar-accordion" href="#sidebar-collapse-<%= i %>">
+                <%= subject %>
+              </a>
+            </div>
+            <div id="sidebar-collapse-<%= i %>" class="accordion-body collapse <%= sections.has_key?(options[:tab]) ? 'in' : '' %>">
+              <div class="accordion-inner">
+                <ul class="nav nav-list">
+%   sections.each do |tab, section|
+% paths = tab.to_s.split("_")
+<li class="<%= tab == options[:tab] ? 'active' : '' %>"><a href="<%= path "/docs/#{paths[0]}/#{paths[1]}" %>"><%= section %></a></li>
+%   end          
+                </ul>
+              </div>
+            </div>
+          </div>
+% end          
+
+        </div>
+
+    </div>
+  </div>
+
+%# The markdown attribute is important if you are going to include content written
+%# in markdown, without this is will be included verbatim
+  <div class="span9" markdown="1">
+<%= yield %>    
+%# Also important to avoid indentation on return here, since otherwise it could be interpreted
+%# as mardown code
+</div>
+</div>

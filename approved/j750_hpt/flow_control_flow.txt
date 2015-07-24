@@ -1,0 +1,66 @@
+DFF 1.1	Flow Table																											
+																												
+			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
+	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
+						logprint	Test_that_if_failed_works																					
+						Test	read1				10			None		t1_FAILED												
+						Test	erase1				12			Fail									flag-true	t1_FAILED				
+						logprint	Test_the_block_form_of_if_failed																					
+						Test	read2				10			None		t2_FAILED												
+						Test	erase2							Fail									flag-true	t2_FAILED				
+						Test	erase2							Fail									flag-true	t2_FAILED				
+						logprint	Test_that_if_passed_works																					
+						Test	read1				10			None	t3_PASSED													
+						Test	pgm1							Fail									flag-true	t3_PASSED				
+						logprint	Test_the_block_form_of_if_passed																					
+						Test	read2				10			None	t4_PASSED													
+						Test	pgm1							Fail									flag-true	t4_PASSED				
+						Test	pgm1							Fail									flag-true	t4_PASSED				
+						logprint	Test_that_if_ran_works																					
+						Test	pgm				10			Fail	t5_RAN													
+						Test	read0							Fail									flag-true	t5_RAN				
+						logprint	Test_the_block_form_of_if_ran																					
+						Test	pgm				10			Fail	t6_RAN													
+						Test	read0							Fail									flag-true	t6_RAN				
+						Test	read0							Fail									flag-true	t6_RAN				
+						logprint	Test_that_unless_ran_works																					
+						Test	pgm				10			Fail	t7_RAN													
+						Test	read0							Fail									flag-clear	t7_RAN				
+						logprint	Test_the_block_form_of_unless_ran																					
+						Test	pgm				10			Fail	t8_RAN													
+						Test	read0							Fail									flag-clear	t8_RAN				
+						Test	read0							Fail									flag-clear	t8_RAN				
+						logprint	Test_that_skip_works																					
+						goto	TESTERS_LABEL_4																					
+						Test	read0							Fail														
+						Test	read0							Fail														
+	TESTERS_LABEL_4					nop																						
+						logprint	Test_that_conditional_skip_works																					
+						goto	TESTERS_LABEL_5																flag-true	t4_PASSED				
+						Test	read0							Fail														
+						Test	read0							Fail														
+	TESTERS_LABEL_5					nop																						
+						logprint	Test_that_if_job_works																					
+			FC			Test	cold_test							Fail														
+						logprint	Test_the_block_form_of_if_job																					
+			PRB1,PRB2			Test	probe_only_test1							Fail														
+			PRB1,PRB2			Test	probe_only_test2							Fail														
+						logprint	Test_that_unless_job_works																					
+			!FC			Test	warmish_test							Fail														
+						logprint	Test_the_block_form_of_unless_job																					
+			!PRB1,!PRB2			Test	ft_only_test1							Fail														
+			!PRB1,!PRB2			Test	ft_only_test2							Fail														
+						logprint	Test_that_if_enable_works																					
+		extras				Test	extra_test							Fail														
+						logprint	Test_the_block_form_of_if_enable																					
+		cz				Test	cz_test1							Fail														
+		cz				Test	cz_test2							Fail														
+						logprint	Test_that_unless_enable_works																					
+		quick				goto	TESTERS_LABEL_6																					
+						Test	long_test							Fail														
+	TESTERS_LABEL_6					nop																						
+						logprint	Test_the_block_form_of_unless_enable																					
+		quick				goto	TESTERS_LABEL_7																					
+						Test	long_test1							Fail														
+						Test	long_test2							Fail														
+	TESTERS_LABEL_7					nop																						

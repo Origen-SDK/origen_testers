@@ -1,0 +1,41 @@
+DFF 1.1	Pattern Sets					
+						
+	Pattern Set	File/Group Name	Start Label	Stop Label	Comment	
+	cold_test_pset	cold_test.PAT				
+	cold_test_pset	nvm_global_subs.PAT	subr			
+	cz_test1_pset	cz_test1.PAT				
+	cz_test1_pset	nvm_global_subs.PAT	subr			
+	cz_test2_pset	cz_test2.PAT				
+	cz_test2_pset	nvm_global_subs.PAT	subr			
+	erase1_pset	erase1.PAT				
+	erase1_pset	nvm_global_subs.PAT	subr			
+	erase2_pset	erase2.PAT				
+	erase2_pset	nvm_global_subs.PAT	subr			
+	extra_test_pset	extra_test.PAT				
+	extra_test_pset	nvm_global_subs.PAT	subr			
+	ft_only_test1_pset	ft_only_test1.PAT				
+	ft_only_test1_pset	nvm_global_subs.PAT	subr			
+	ft_only_test2_pset	ft_only_test2.PAT				
+	ft_only_test2_pset	nvm_global_subs.PAT	subr			
+	long_test1_pset	long_test1.PAT				
+	long_test1_pset	nvm_global_subs.PAT	subr			
+	long_test2_pset	long_test2.PAT				
+	long_test2_pset	nvm_global_subs.PAT	subr			
+	long_test_pset	long_test.PAT				
+	long_test_pset	nvm_global_subs.PAT	subr			
+	pgm1_pset	pgm1.PAT				
+	pgm1_pset	nvm_global_subs.PAT	subr			
+	pgm_pset	pgm.PAT				
+	pgm_pset	nvm_global_subs.PAT	subr			
+	probe_only_test1_pset	probe_only_test1.PAT				
+	probe_only_test1_pset	nvm_global_subs.PAT	subr			
+	probe_only_test2_pset	probe_only_test2.PAT				
+	probe_only_test2_pset	nvm_global_subs.PAT	subr			
+	read0_pset	read0.PAT				
+	read0_pset	nvm_global_subs.PAT	subr			
+	read1_pset	read1.PAT				
+	read1_pset	nvm_global_subs.PAT	subr			
+	read2_pset	read2.PAT				
+	read2_pset	nvm_global_subs.PAT	subr			
+	warmish_test_pset	warmish_test.PAT				
+	warmish_test_pset	nvm_global_subs.PAT	subr			

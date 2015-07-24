@@ -1,0 +1,503 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    14-May-2015 09:42AM
+//   By:      Stephen McGinty
+//   Command: rgen g multi_vector_plus1 -t debug_ultraflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
+//     Version:   0.3.0.pre37
+//     Workspace: /proj/.mem_c90tfs_testeng/r49409/C90TFS_NVM_tester/testers
+//   RGen
+//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
+//     Version:   2.5.0.pre98
+//     Workspace: /home/r49409/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre98
+// ***************************************************************************
+import tset nvmbist;                                                                            
+import tset nvmbist_readout;                                                                    
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               mto;                                                                             
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+mm_single_plus1 ($tset, tclk, tdi, tdo, tms)                                                    
+{                                                                                               
+start_label mm_single_plus1_st:                                                                 
+// ######################################################################
+// ## $tester.cycle(repeat: 128)
+// ######################################################################
+repeat 128                                                       > nvmbist                      X X X X ;
+// ######################################################################
+// ## 64.times do
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(1)
+// ## end
+// ######################################################################
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+// ######################################################################
+// ## 64.times do
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(1)
+// ##   $dut.pin(:tclk).drive!(1)
+// ## end
+// ######################################################################
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+repeat 2                                                         > nvmbist                      0 X X X ;
+repeat 2                                                         > nvmbist                      1 X X X ;
+// ######################################################################
+// ## 64.times do
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(0)
+// ##   $dut.pin(:tclk).drive!(1)
+// ##   $dut.pin(:tclk).drive!(1)
+// ##   $dut.pin(:tclk).drive!(1)
+// ##   $dut.pin(:tclk).drive!(1)
+// ## end
+// ######################################################################
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+repeat 4                                                         > nvmbist                      0 X X X ;
+repeat 4                                                         > nvmbist                      1 X X X ;
+// ######################################################################
+// ## Test of period levelling
+// ######################################################################
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist                      0 X X X ;
+                                                                 > nvmbist                      1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+                                                                 > nvmbist_readout              0 X X X ;
+                                                                 > nvmbist_readout              1 X X X ;
+// ######################################################################
+// ## Test that these collapse to a single repeat in the single vector case
+// ######################################################################
+// Wait for 2.4ms
+repeat 60001                                                     > nvmbist                      1 1 X X ;
+// ######################################################################
+// ## Test that these collapse to correct multiple repeats
+// ######################################################################
+// Wait for 12.0ms
+repeat 65535                                                     > nvmbist                      1 1 X X ;
+repeat 65535                                                     > nvmbist                      1 1 X X ;
+repeat 65535                                                     > nvmbist                      1 1 X X ;
+repeat 65535                                                     > nvmbist                      1 1 X X ;
+repeat 37860                                                     > nvmbist                      1 1 X X ;
+// ######################################################################
+// ## Verify that comments at the end of the pattern work OK
+// ######################################################################
+// Wait for 48.0us
+repeat 1200                                                      > nvmbist                      1 0 X X ;
+// This comment should appear after the delay 1200
+                                                                 > nvmbist                      1 0 X X ;
+                                                                 > nvmbist                      1 0 X X ;
+}                                                                                               
