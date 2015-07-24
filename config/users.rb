@@ -5,10 +5,10 @@
 # between the two is that admin users will get all tag emails, users will get
 # emails on external/official releases only.
 #
-# Users are also prohibited from running the "rgen tag" task, but this is 
+# Users are also prohibited from running the "origen tag" task, but this is 
 # really just to prevent a casual user from executing it inadvertently and is
 # not intended to be a serious security gate.
-module RGen
+module Origen
   module Users
     def users
       @users ||= [
@@ -25,7 +25,7 @@ module RGen
         # The r-number attribute can be anything that can be prefixed to an 
         # @freescale.com email address, so you can add mailing list references
         # as well like this:
-        User.new("RGen Users", "rgen"),  # The RGen mailing list
+        User.new("Origen Users", "origen"),  # The Origen mailing list
       ]
     end
   end

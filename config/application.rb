@@ -1,6 +1,5 @@
-require 'pry'
-class Testers_Application < RGen::Application
-  # See http://rgen.freescale.net/rgen/latest/api/RGen/Application/Configuration.html
+class Testers_Application < Origen::Application
+  # See http://origen.freescale.net/origen/latest/api/Origen/Application/Configuration.html
   # for a full list of the configuration options available
 
   config.shared = {
@@ -11,28 +10,24 @@ class Testers_Application < RGen::Application
   # to your application
   config.name     = 'Testers'
   config.initials = 'Testers'
-  config.vault    = 'sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen'
+  config.rc_url   = "git@github.com:Origen-SDK/origen_testers.git"
+  config.release_externally = true
 
   # Gem name
-  self.name = 'rgen_testers'
+  self.name = 'origen_testers'
   self.namespace = 'Testers'
 
-  # Added list of directory to exclude when run running rgen rc unman
+  # Added list of directory to exclude when run running origen rc unman
   config.unmanaged_dirs = %w[spec/patterns/bin]
 
   config.unmanaged_files = %w[]
 
-  # To enable deployment of your documentation to a web server (via the 'rgen web'
-  # command) fill in these attributes. The example here is configured to deploy to
-  # the rgen.freescale.net domain, which is an easy option if you don't have another
-  # server already in mind. To do this you will need an account on CDE and to be a member
-  # of the 'rgen' group.
-  config.web_directory = '/proj/.web_rgen/html/testers'
-  config.web_domain = 'http://rgen.freescale.net/testers'
+  config.web_directory = "git@github.com:Origen-SDK/Origen-SDK.github.io.git/testers"
+  config.web_domain = "http://origen-sdk.org/testers"
 
-  # When false RGen will be less strict about checking for some common coding errors,
+  # When false Origen will be less strict about checking for some common coding errors,
   # it is recommended that you leave this to true for better feedback and easier debug.
-  # This will be the default setting in RGen v3.
+  # This will be the default setting in Origen v3.
   config.strict_errors = true
 
   config.semantically_version = true
@@ -41,48 +36,42 @@ class Testers_Application < RGen::Application
   # Here you can specify an alternative directory entirely, or make it dynamic such that
   # the output ends up in a setup specific directory.
   config.output_directory do
-    "#{RGen.root}/output/#{$tester.name}"
+    "#{Origen.root}/output/#{$tester.name}"
   end
 
   # Similary for the reference files, generally you want to setup the reference directory
   # structure to mirror that of your output directory structure.
   config.reference_directory do
-    "#{RGen.root}/.ref/#{$tester.name}"
+    "#{Origen.root}/.ref/#{$tester.name}"
   end
   
   # Setting this to the spec area for testing of compiler
   config.pattern_output_directory do
-    "#{RGen.root}/spec/patterns/atp"
+    "#{Origen.root}/spec/patterns/atp"
   end
 
   # Run the tests before deploying to generate test coverage numbers
   def before_deploy_site
-    Dir.chdir RGen.root do
-      system 'rgen examples -c'
-      system 'rgen specs -c'
-      dir = "#{RGen.root}/web/output/coverage"
+    Dir.chdir Origen.root do
+      system 'origen examples -c'
+      system 'origen specs -c'
+      dir = "#{Origen.root}/web/output/coverage"
       FileUtils.remove_dir(dir, true) if File.exist?(dir)
-      system "mv #{RGen.root}/coverage #{dir}"
+      system "mv #{Origen.root}/coverage #{dir}"
     end
   end
 
   # This will automatically deploy your documentation after every tag
   def after_release_email(tag, note, type, selector, options)
-    deployer = RGen.app.deployer
-    if deployer.running_on_cde? && deployer.user_belongs_to_rgen?
-      command = 'rgen web compile --remote --api'
-      if RGen.app.version.production?
-        command += " --archive #{RGen.app.version}"
-      end
-      Dir.chdir RGen.root do
-        system command
-      end
+    command = 'origen web compile --remote --api'
+    Dir.chdir Origen.root do
+      system command
     end
   end
 
   # Ensure that all tests pass before allowing a release to continue
    def validate_release
-    if !system("rgen examples") # || !system("rgen specs")
+    if !system("origen examples") # || !system("origen specs")
       puts "Sorry but you can't release with failing tests, please fix them and try again."
       exit 1
     else
@@ -143,7 +132,7 @@ class Testers_Application < RGen::Application
   config.lint_test = {
     # Require the lint tests to pass before allowing a release to proceed
     :run_on_tag => true,
-    # Auto correct violations where possible whenever 'rgen lint' is run
+    # Auto correct violations where possible whenever 'origen lint' is run
     :auto_correct => true,
     # Limit the testing for large legacy applications
     #:level => :easy,

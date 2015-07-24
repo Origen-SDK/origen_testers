@@ -1,4 +1,4 @@
-# The target file is run before *every* RGen operation and is used to instantiate
+# The target file is run before *every* Origen operation and is used to instantiate
 # the runtime environment - usually this means instantiating a top-level DUT
 # object and a tester.
 #
@@ -6,10 +6,10 @@
 # global variable in Ruby, and this is required in order for the objects instantiated
 # here to be visible throughout your application code.
 
-$tester = RGen::Tester::J750_HPT.new  # Set the tester to the RGen model
+$tester = Origen::Tester::J750_HPT.new  # Set the tester to the Origen model
 
 $dut    = Testers::Test::DUT.new   # Instantiate a DUT instance
 
 # You can also perform global configuration here, e.g. 
 # $dut.do_something_before_every_job
-RGen.mode = :debug
+Origen.mode = :debug

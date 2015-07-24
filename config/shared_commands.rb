@@ -1,13 +1,13 @@
-# This file should be used to extend the rgen command line tool with tasks 
+# This file should be used to extend the origen command line tool with tasks 
 # specific to your application.
 # The comments below should help to get started and you can also refer to
-# lib/rgen/commands.rb in your RGen core workspace for more examples and 
+# lib/origen/commands.rb in your Origen core workspace for more examples and 
 # inspiration.
 #
 # Also see the official docs on adding commands:
-#   http://rgen.freescale.net/rgen/latest/guides/custom/commands/
+#   http://origen.freescale.net/origen/latest/guides/custom/commands/
 
-# Map any command aliases here, for example to allow rgen -x to refer to a 
+# Map any command aliases here, for example to allow origen -x to refer to a 
 # command called execute you would add a reference as shown below: 
 aliases ={
   "g"  => "generate"
@@ -20,7 +20,7 @@ aliases ={
 case @command
 
   #when "latpc"
-  #  require "#{RGen.root(:testers)}/lib/commands/latpc"
+  #  require "#{Origen.root(:testers)}/lib/commands/latpc"
   # Need to see if --compile is included and setup compiler
   when "generate"
   @application_options << ["--compile", "Compile the current pattern or the list"]
@@ -38,7 +38,7 @@ case @command
   $_testers_enable_vector_comments = ARGV.delete("-v") || ARGV.delete("--vector_comments")
 
   when "testers:build"
-   require "#{RGen.root!}/lib/commands/build"
+   require "#{Origen.root!}/lib/commands/build"
     exit 0
 
   else

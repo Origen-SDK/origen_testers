@@ -1,4 +1,4 @@
-# This pattern exercises the methods in the RGen::Tester::J750 class
+# This pattern exercises the methods in the Origen::Tester::J750 class
 Pattern.create(:end_with_halt => true) do
 
   ss 'Test that basic cycling works'

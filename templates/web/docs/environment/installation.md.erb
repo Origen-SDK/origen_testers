@@ -8,25 +8,25 @@
 
 Follow the steps below to setup a new environment.
 
-#### 1. Install RGen
+#### 1. Install Origen
 
-Follow these instructions to install RGen: [How to Install RGen](http://rgen.freescale.net/rgen/latest/guides/starting/installing)
+Follow these instructions to install Origen: [How to Install Origen](http://origen.freescale.net/origen/latest/guides/starting/installing)
 
-After this you do not need to touch the RGen workspace again, the <%= RGen.config.name %> application will
-monitor your RGen installation and will prompt for any additional action that needs to be taken
+After this you do not need to touch the Origen workspace again, the <%= Origen.config.name %> application will
+monitor your Origen installation and will prompt for any additional action that needs to be taken
 in the future - typically when to populate to a newer version.
 
-#### 2. Create the <%= RGen.config.name %> workspace
+#### 2. Create the <%= Origen.config.name %> workspace
 
-This workspace must be situated outside of the RGen workspace that you have just created.
+This workspace must be situated outside of the Origen workspace that you have just created.
 
 Execute the following commands, substituting my_workspace for whatever name you like:
 
 ~~~
 mkdir my_workspace
 cd my_workspace
-dssc setvault <%= RGen.config.vault %> .
-dssc pop -rec -uni -force -ver <%= RGen.app.version %> .
+dssc setvault <%= Origen.config.vault %> .
+dssc pop -rec -uni -force -ver <%= Origen.app.version %> .
 ~~~
 
 % end

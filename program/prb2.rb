@@ -32,7 +32,7 @@ Flow.create do
   nop
   
   # Will create a better API when implementing this on V93K
-  if RGen.tester.is_a?(Testers::IGXLBasedTester::Base)
+  if Origen.tester.is_a?(Testers::IGXLBasedTester::Base)
     or_ids id1: :oof_passcode1, id2: :oof_passcode2, id: :OR, condition: :fail
     func :testme, tname: "", if_failed: :OR
   end

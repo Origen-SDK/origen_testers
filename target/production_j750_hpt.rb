@@ -1,4 +1,4 @@
-# The target file is run before *every* RGen operation and is used to instantiate
+# The target file is run before *every* Origen operation and is used to instantiate
 # the runtime environment - usually this means instantiating a top-level DUT
 # object and a tester.
 #

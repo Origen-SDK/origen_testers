@@ -2,11 +2,11 @@
 
 %# HTML tags can be embedded in mark down files if you want to do specific custom
 %# formatting like this, but in most cases that is not required.
-<h1><%= RGen.config.name %> <span style="font-size: 14px">(<%= RGen.app.version %>)</span></h1>
+<h1><%= Origen.config.name %> <span style="font-size: 14px">(<%= Origen.app.version %>)</span></h1>
 
 Welcome to your application's documentation...
 
-Here are some pointers to get you started with writing RGen documents:
+Here are some pointers to get you started with writing Origen documents:
 
 ### Markdown
 
@@ -14,7 +14,7 @@ Most of your documents (such as this one you are reading) will be written in Mar
 allows you to create good looking and well formatted web-based documents easily and without
 having to know anything about HTML.
 
-RGen uses the Kramdown library to process the Markdown, this has a good quick reference
+Origen uses the Kramdown library to process the Markdown, this has a good quick reference
 guide on the Markdown syntax here: [Markdown Quick Reference](http://kramdown.rubyforge.org/quickref.html)
 
 ### Links
@@ -24,7 +24,7 @@ Links can be added to your documents easily, like this one for example:
 * [Freescale](http://www.freescale.com)
 
 For linking to other pages within your own documents it is recommended that you use the
-'path' helper to generate the url. By doing this RGen should generate links that work
+'path' helper to generate the url. By doing this Origen should generate links that work
 correctly for both serving documents locally when developing and when deploying to a remote
 web server. Here is an example:
 
@@ -37,8 +37,8 @@ from time to time. Generic code snippets can be easily formatted with a mono-spa
 font like this:
 
 ~~~
-rgen t debug
-rgen g list/production.list
+origen t debug
+origen g list/production.list
 ~~~
 
 If you are showing examples of Ruby then they can be easily syntax-highlighted for
@@ -51,7 +51,7 @@ def some_ruby
 end
 ~~~
 
-RGen uses the Coderay library for syntax highlighting and therefore should in theory
+Origen uses the Coderay library for syntax highlighting and therefore should in theory
 be able to highlight all languages listed here: [CodeRay Syntax Highlighting](http://coderay.rubychan.de/)
 
 ### Custom HTML
@@ -59,7 +59,7 @@ be able to highlight all languages listed here: [CodeRay Syntax Highlighting](ht
 You may occasionally wish to have low level control of your documentation's HTML, this
 can be done by simply embedding the HTML directly alongside the Markdown.
 
-RGen already uses the [Twitter Bootstrap](http://twitter.github.io/bootstrap/index.html)
+Origen already uses the [Twitter Bootstrap](http://twitter.github.io/bootstrap/index.html)
 framework to generate these documents, so you already have full access to the features
 provided by that framework.
 

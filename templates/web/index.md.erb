@@ -2,24 +2,24 @@
 
 %# HTML tags can be embedded in mark down files if you want to do specific custom
 %# formatting like this, but in most cases that is not required.
-<h1><%= RGen.config.name %> <span style="font-size: 14px">(<%= RGen.app.version %>)</span></h1>
+<h1><%= Origen.config.name %> <span style="font-size: 14px">(<%= Origen.app.version %>)</span></h1>
 
 ### Purpose
 
-This rgen gem provides tester models to drive ATE type testers like the J750, UltraFlex, V93K. 
+This origen gem provides tester models to drive ATE type testers like the J750, UltraFlex, V93K. 
 
 ### How To Import
 
 In your Gemfile add:
 
 ~~~ruby
-gem "<%= RGen.app.name %>", ">= <%= RGen.app.version %>"
+gem "<%= Origen.app.name %>", ">= <%= Origen.app.version %>"
 ~~~
 
 or if your application is a gem add this to your <code>.gemspec</code>
 
 ~~~ruby
-spec.add_runtime_dependency "<%= RGen.app.name %>", ">= <%= RGen.app.version %>"
+spec.add_runtime_dependency "<%= Origen.app.name %>", ">= <%= Origen.app.version %>"
 ~~~
 
 ### How To Use
@@ -36,14 +36,14 @@ Tester programs and patterns can easily be generated for different testers simpl
 ### How To Setup a Development Environment
 
 ~~~text
-rgen fetch rgen_testers
+origen fetch origen_testers
 ~~~
 
 This gem also contains a test suite, you will not be able to release an update without first passing the following:
 
 ~~~
-rgen examples
-rgen specs
+origen examples
+origen specs
 ~~~
 
 % end

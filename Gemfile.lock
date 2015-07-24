@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rgen_testers (0.3.0.pre43)
+    origen_testers (0.3.0.pre43)
       require_all (~> 1)
       rgen_core (>= 2.5.0.pre133)
 
@@ -145,6 +145,6 @@ PLATFORMS
 
 DEPENDENCIES
   byebug (~> 3.5)
+  origen_testers!
   rgen_nexus (>= 0.5.1)
-  rgen_testers!
   yard-activesupport-concern

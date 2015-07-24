@@ -1,1 +1,1 @@
-require 'rgen_testers'
+require 'origen_testers'
