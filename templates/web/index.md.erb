@@ -6,7 +6,7 @@
 
 ### Purpose
 
-This origen gem provides tester models to drive ATE type testers like the J750, UltraFlex, V93K. 
+This origen gem provides tester models to drive ATE type testers like the J750, UltraFLEX, V93K. 
 
 ### How To Import
 
@@ -24,26 +24,28 @@ spec.add_runtime_dependency "<%= Origen.app.name %>", ">= <%= Origen.app.version
 
 ### How To Use
 
-To use a tester, simply change the application target to instantiate one of the supported testers:
+To use a tester, instantiate it in the current environment file:
 
 ~~~ruby
-$tester = Testers::J750.new
+# environment/j750.rb
+$tester = OrigenTesters::J750.new
 ~~~
-
 
 Tester programs and patterns can easily be generated for different testers simply by changing the above instantiation.
 
 ### How To Setup a Development Environment
 
+[Clone the repository from Github](https://github.com/Origen-SDK/origen_testers).
+
+Follow the instructions here if you want to make a 3rd party app
+workspace use your development copy of the OrigenTesters plugin:
+[Setting up a Plugin Development Environment](http://origen-sdk.org/origen/latest/guides/plugins)
+
+This plugin also contains a test suite, makes sure this passes before committing
+any changes!
+
 ~~~text
-origen fetch origen_testers
-~~~
-
-This gem also contains a test suite, you will not be able to release an update without first passing the following:
-
-~~~
-origen examples
-origen specs
+origen test
 ~~~
 
 % end
