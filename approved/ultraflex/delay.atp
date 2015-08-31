@@ -1,18 +1,21 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    27-Apr-2015 15:24PM
-//   By:      Daniel Hadad
-//   Command: rgen g delay -t debug_ultraflex.rb
+//   Time:    31-Aug-2015 03:38AM
+//   By:      Stephen McGinty
+//   Command: origen g delay -t debug_ultraflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
-//     Version:   0.3.0.pre35
-//     Workspace: /proj/pet5/DAN_WORK/RGEN_COMMON_WORK/Testers_v0.3.0.pre35
-//   RGen
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
-//     Version:   2.5.0.pre98
-//     Workspace: /home/ra6854/.rgen/gems/ruby/2.1.0/gems/rgen_core-2.5.0.pre98
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.5.0
+//     Branch:    master(e3384c47ea4) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.2.4
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
 // ***************************************************************************
 import tset tp0;                                                                                
 opcode_mode = single;                                                                           
@@ -28,6 +31,10 @@ vm_vector
 delay ($tset, tclk, tdi, tdo, tms)                                                              
 {                                                                                               
 start_label delay_st:                                                                           
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
 // Wait for 40.0ms
 repeat 65535                                                     > tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;

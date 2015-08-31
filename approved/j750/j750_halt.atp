@@ -1,18 +1,21 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    24-Mar-2014 16:26PM
-//   By:      Daniel Hadad
-//   Command: rgen g j750_halt -t debug_j750_dut2.rb
+//   Time:    31-Aug-2015 03:38AM
+//   By:      Stephen McGinty
+//   Command: origen g j750_halt -t debug_j750_dut2.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
-//     Version:   v0.1.0
-//     Workspace: /proj/pet3/C55FMC/Testers
-//   RGen
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
-//     Version:   v2.3.0.dev36
-//     Workspace: /proj/pet3/C55FMC/rgen_top_v2.3.0.dev36
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.5.0
+//     Branch:    master(e3384c47ea4) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.2.4
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
 // ***************************************************************************
 import tset nvmbist;                                                                            
 import svm_subr sub1;                                                                           
@@ -26,6 +29,17 @@ compressed = yes;
 vector ($tset, nvm_reset, nvm_clk, nvm_clk_mux, porta, portb, nvm_invoke, nvm_done, nvm_fail, nvm_alvtst, nvm_ahvtst, nvm_dtst, tclk, trst)                               
 {                                                                                               
 start_label pattern_st:                                                                         
+//                                                                                              n n n p        p        n n n n n n t t
+//                                                                                              v v v o        o        v v v v v v c r
+//                                                                                              m m m r        r        m m m m m m l s
+//                                                                                              - - - t        t        - - - - - - k t
+//                                                                                              r c c a        b        i d f a a d    
+//                                                                                              e l l                   n o a l h t    
+//                                                                                              s k k                   v n i v v s    
+//                                                                                              e   -                   o e l t t t    
+//                                                                                              t   m                   k     s s      
+//                                                                                                  u                   e     t t      
+//                                                                                                  x                                  
 // ######################################################################
 // ## Enter Test Mode
 // ######################################################################

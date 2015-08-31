@@ -56,13 +56,13 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 		do_erase				Test	erase_all_v1												Fail														
 		do_erase				Test	erase_all_v1												Fail														
 						logprint	Test_unless_enable																										
-		no_extra_erase				goto	TESTERS_LABEL_1																										
+		no_extra_erase				goto	ORIGENTESTERS_LABEL_1																										
 						Test	erase_all_v1												Fail														
-	TESTERS_LABEL_1					nop																											
-		no_extra_erase				goto	TESTERS_LABEL_2																										
+	ORIGENTESTERS_LABEL_1					nop																											
+		no_extra_erase				goto	ORIGENTESTERS_LABEL_2																										
 						Test	erase_all_v1												Fail														
 						Test	erase_all_v1												Fail														
-	TESTERS_LABEL_2					nop																											
+	ORIGENTESTERS_LABEL_2					nop																											
 						Test	erase_all_v1												Fail														
 						Test	erase_all_v1												Fail														
 						logprint	Test_if_passed																										
@@ -131,3 +131,4 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 		additional_erase	FR			Test	erase_all_v1												Fail														
 						logprint	Verify_that_flow.cz_works...																										
 						characterize	margin_read1_all1_v2 vbplus_sweep												None														
+						logprint	Verify_that_MTO_template_works...																										

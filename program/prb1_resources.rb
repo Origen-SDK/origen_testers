@@ -21,7 +21,7 @@ Resources.create do
 
   para 'charge_pump', :high_voltage => true
 
-  if $tester.class == Testers::J750
+  if $tester.j750?
     test_instances.render 'templates/j750/vt_instances'
     compile 'templates/j750/program_sheet.txt', :passed_param => true
   end

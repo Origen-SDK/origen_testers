@@ -1,18 +1,21 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    10-Nov-2014 09:34AM
-//   By:      Priyavadan Kumar
-//   Command: rgen g mem_test -t debug_ultraflex.rb
+//   Time:    31-Aug-2015 03:38AM
+//   By:      Stephen McGinty
+//   Command: origen g mem_test -t debug_ultraflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen_blocks/tester/Testers/tool_data/rgen
-//     Version:   v0.2.0.dev15
-//     Workspace: /proj/pet5/UF_Kumar/TEMP_RGen/Plugins/testers
-//   RGen
-//     Vault:     sync://sync-15088:15088/Projects/common_tester_blocks/rgen
-//     Version:   v2.3.0.dev140
-//     Workspace: /proj/pet5/UF_Kumar/TEMP_RGen/Core
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.5.0
+//     Branch:    master(e3384c47ea4) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.2.4
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
 // ***************************************************************************
 import tset tp0;                                                                                
 opcode_mode = single;                                                                           
@@ -28,6 +31,10 @@ vm_vector
 mem_test ($tset, tclk, tdi, tdo, tms)                                                           
 {                                                                                               
 start_label mem_test_st:                                                                        
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
 (mto = xa inc)                                                   > tp0                          X X X X ;
 (mto = ya inc)                                                   > tp0                          X X X X ;
 (mto = xenable_load jam_reg xa jam_reg)                          > tp0                          X X X X ;

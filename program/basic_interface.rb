@@ -1,4 +1,4 @@
-Flow.create interface: 'Testers::Test::BasicInterface' do
+Flow.create interface: 'OrigenTesters::Test::BasicInterface' do
 
   functional :test1, sbin: 100
 

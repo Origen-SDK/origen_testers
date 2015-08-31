@@ -61,19 +61,19 @@ module OrigenTesters
     end
 
     def j750?
-      is_a?(Testers::IGXLBasedTester::J750)
+      is_a?(OrigenTesters::IGXLBasedTester::J750)
     end
 
     def j750_hpt?
-      is_a?(Testers::IGXLBasedTester::J750_HPT)
+      is_a?(OrigenTesters::IGXLBasedTester::J750_HPT)
     end
 
     def v93k?
-      is_a?(Testers::SmartestBasedTester::V93K)
+      is_a?(OrigenTesters::SmartestBasedTester::V93K)
     end
 
     def ultraflex?
-      is_a?(Testers::IGXLBasedTester::UltraFLEX)
+      is_a?(OrigenTesters::IGXLBasedTester::UltraFLEX)
     end
     alias_method :uflex?, :ultraflex?
 

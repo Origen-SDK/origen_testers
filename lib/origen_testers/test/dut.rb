@@ -6,11 +6,10 @@ module OrigenTesters
       attr_accessor :blocks
       attr_accessor :hv_supply_pin
       attr_accessor :lv_supply_pin
-      include Nexus
 
-      include Origen::Callbacks
-      include Origen::Pins
-      include Origen::Registers
+      include OrigenARMDebug
+      include Origen::TopLevel
+      include OrigenJTAG
 
       def initialize(options = {})
         add_pin :tclk
@@ -33,16 +32,12 @@ module OrigenTesters
         $tester.set_timeset('tp0', 60)
       end
 
-      def reset
-        nexus.jtag.reset
+      def write_register(reg, options={})
+        arm_debug.write_register(reg, options)
       end
 
-      def read_register(reg, options = {})
-        nexus.read_register(reg, options)
-      end
-
-      def write_register(reg, options = {})
-        nexus.write_register(reg, options)
+      def read_register(reg, options={})
+        arm_debug.write_register(reg, options)
       end
 
       def execute(options = {})

@@ -10,10 +10,10 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	mrd_ckbd												Fail														
 						Test	erase_all												Fail														
 						Test	margin_read1_all1												None	erased_successfully_PASSED													
-						goto	TESTERS_LABEL_3																all-active		flag-true	erased_successfully_PASSED							
+						goto	ORIGENTESTERS_LABEL_3																all-active		flag-true	erased_successfully_PASSED							
 						Test	pgm_ckbd												Fail														
 						Test	mrd_ckbd												Fail														
-	TESTERS_LABEL_3					nop																											
+	ORIGENTESTERS_LABEL_3					nop																											
 		extra_tests				Test	pgm_ckbd												Fail														
 		extra_tests				Test	mrd_ckbd												Fail														
 						Test	margin_read1_all1												Fail														

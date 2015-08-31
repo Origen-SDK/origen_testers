@@ -12,6 +12,9 @@ DFF 1.1	Flow Table
 						Test	erase_all_v1							Fail														
 						Test	erase_all_v1							Fail														
 						Test	margin_read1_all1_v1							Fail														
+		data_collection				Test	nvm_allflash_vsgdist	ErsSatVsg						None														
+		data_collection				Test	nvm_allflash_vsgdist_tifr	ErsSatVsgTIFR						None														
+		data_collection				Test	nvm_allflash_vsgdist_uifr	ErsSatVsgUIFR						None														
 						logprint	Should_be_v1																					
 						Test	program_ckbd_v1							Fail														
 						logprint	Should_be_v2																					
@@ -56,13 +59,13 @@ DFF 1.1	Flow Table
 		do_erase				Test	erase_all_v1							Fail														
 		do_erase				Test	erase_all_v1							Fail														
 						logprint	Test_unless_enable																					
-		no_extra_erase				goto	TESTERS_LABEL_1																					
+		no_extra_erase				goto	ORIGENTESTERS_LABEL_1																					
 						Test	erase_all_v1							Fail														
-	TESTERS_LABEL_1					nop																						
-		no_extra_erase				goto	TESTERS_LABEL_2																					
+	ORIGENTESTERS_LABEL_1					nop																						
+		no_extra_erase				goto	ORIGENTESTERS_LABEL_2																					
 						Test	erase_all_v1							Fail														
 						Test	erase_all_v1							Fail														
-	TESTERS_LABEL_2					nop																						
+	ORIGENTESTERS_LABEL_2					nop																						
 						Test	erase_all_v1							Fail														
 						Test	erase_all_v1							Fail														
 						logprint	Test_if_passed																					

@@ -31,15 +31,15 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	read0												Fail									flag-clear	t8_RAN				
 						Test	read0												Fail									flag-clear	t8_RAN				
 						logprint	Test_that_skip_works																										
-						goto	TESTERS_LABEL_4																										
+						goto	ORIGENTESTERS_LABEL_4																										
 						Test	read0												Fail														
 						Test	read0												Fail														
-	TESTERS_LABEL_4					nop																											
+	ORIGENTESTERS_LABEL_4					nop																											
 						logprint	Test_that_conditional_skip_works																										
-						goto	TESTERS_LABEL_5																					flag-true	t4_PASSED				
+						goto	ORIGENTESTERS_LABEL_5																					flag-true	t4_PASSED				
 						Test	read0												Fail														
 						Test	read0												Fail														
-	TESTERS_LABEL_5					nop																											
+	ORIGENTESTERS_LABEL_5					nop																											
 						logprint	Test_that_if_job_works																										
 			FC			Test	cold_test												Fail														
 						logprint	Test_the_block_form_of_if_job																										
@@ -56,11 +56,11 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 		cz				Test	cz_test1												Fail														
 		cz				Test	cz_test2												Fail														
 						logprint	Test_that_unless_enable_works																										
-		quick				goto	TESTERS_LABEL_6																										
+		quick				goto	ORIGENTESTERS_LABEL_6																										
 						Test	long_test												Fail														
-	TESTERS_LABEL_6					nop																											
+	ORIGENTESTERS_LABEL_6					nop																											
 						logprint	Test_the_block_form_of_unless_enable																										
-		quick				goto	TESTERS_LABEL_7																										
+		quick				goto	ORIGENTESTERS_LABEL_7																										
 						Test	long_test1												Fail														
 						Test	long_test2												Fail														
-	TESTERS_LABEL_7					nop																											
+	ORIGENTESTERS_LABEL_7					nop																											

@@ -1,6 +1,5 @@
 read_write_reg
 subroutines
-reset
 mem_test
 dc_instr
 multi_vector

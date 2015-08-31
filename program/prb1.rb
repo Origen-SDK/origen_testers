@@ -25,7 +25,7 @@ Flow.create do
 
   # Render an ERB template, or raw
   # text file
-  if $tester.class == Testers::J750
+  if $tester.j750?
     flow.render 'templates/j750/vt_flow', :include_tifr => true
   end
 
