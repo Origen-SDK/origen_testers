@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     origen_testers (0.5.0)
-      origen (~> 0.2, >= 0.2.4)
+      origen (~> 0.2, >= 0.2.6)
       require_all (~> 1)
 
 GEM
@@ -59,7 +59,7 @@ GEM
     net-ldap (0.11)
     nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
-    origen (0.2.4)
+    origen (0.2.6)
       activesupport (~> 4.1)
       bundler (~> 1.7)
       coderay (~> 1.1)
