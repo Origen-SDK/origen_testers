@@ -55,11 +55,11 @@ if options[:new]
   manifest += '.yaml' unless manifest =~ /\..*/
 
   Origen.app.runner.launch action:            :compile,
-                         files:             template,
-                         output:            Pathname.new(manifest).dirname.to_s,
-                         output_file_name:  Pathname.new(manifest).basename.to_s,
-                         quiet:             true,
-                         check_for_changes: false
+                           files:             template,
+                           output:            Pathname.new(manifest).dirname.to_s,
+                           output_file_name:  Pathname.new(manifest).basename.to_s,
+                           quiet:             true,
+                           check_for_changes: false
 
   puts "New #{$tester.name} manifest created: #{manifest}"
   exit 0

@@ -15,7 +15,11 @@ describe "An interface" do
   end
 
   it "resources_filename can be set from an interface initialize" do
-    load_target "debug_ultraflex"
+    Origen.app.unload_target!
+    Origen.target.temporary = "debug_ultraflex"
+    # Ugly hack, should add a proper API for this, though it should only
+    # ever be needed in a test situation
+    Origen.instance_variable_set("@interface", nil)
     Flow.create interface: "MyInterface" do
       Origen.interface.test_instances_filename.should == "abc"
     end

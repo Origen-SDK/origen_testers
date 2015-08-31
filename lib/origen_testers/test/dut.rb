@@ -32,11 +32,11 @@ module OrigenTesters
         $tester.set_timeset('tp0', 60)
       end
 
-      def write_register(reg, options={})
+      def write_register(reg, options = {})
         arm_debug.write_register(reg, options)
       end
 
-      def read_register(reg, options={})
+      def read_register(reg, options = {})
         arm_debug.write_register(reg, options)
       end
 
