@@ -245,7 +245,7 @@ module OrigenTesters
             end
           end
 
-          def set_flag_on_fail(id = id)
+          def set_flag_on_fail(id = self.id)
             var = "#{id}_FAILED"
             if group?
               nodes.each { |n| n.set_flag_on_fail(id) if n.test? || n.if_then? }
@@ -263,7 +263,7 @@ module OrigenTesters
             var
           end
 
-          def set_flag_on_pass(id = id)
+          def set_flag_on_pass(id = self.id)
             var = "#{id}_PASSED"
             if group?
               nodes.each { |n| n.set_flag_on_pass(id) if n.test? || n.if_then? }
@@ -281,7 +281,7 @@ module OrigenTesters
             var
           end
 
-          def set_flag_on_ran(id = id)
+          def set_flag_on_ran(id = self.id)
             var = "#{id}_RAN"
             if group?
               nodes.each { |n| n.set_flag_on_ran(id) if n.test? }
