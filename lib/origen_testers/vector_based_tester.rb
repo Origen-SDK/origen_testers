@@ -9,11 +9,10 @@ module OrigenTesters
     require 'origen_testers/timing'
     require 'origen_testers/api'
 
-    include VectorGenerator
-    include Timing
-    include API
-
     included do
+      include VectorGenerator
+      include Timing
+      include API
     end
 
     module ClassMethods # :nodoc:
@@ -22,7 +21,7 @@ module OrigenTesters
       # a tester with Origen
       def new(*args, &block) # :nodoc:
         if Origen.app.with_doc_tester?
-          x = Origen::Tester::Doc.allocate
+          x = OrigenTesters::Doc.allocate
           if Origen.app.with_html_doc_tester?
             x.html_mode = true
           end

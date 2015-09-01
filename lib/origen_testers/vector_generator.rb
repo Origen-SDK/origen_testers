@@ -385,109 +385,126 @@ module OrigenTesters
         include_pingroups:      true
       }.merge(options)
 
-      pinorder = Origen.app.pin_pattern_order.dup
-      pinexclude = Origen.app.pin_pattern_exclude.dup
-      pinids = []
+      result = nil
 
-      if Origen.app.pin_pattern_order.last.is_a?(Hash)
-        options.merge!(pinorder.pop)
-      end
-      if Origen.app.pin_pattern_exclude.last.is_a?(Hash)
-        options.merge!(pinexclude.pop)
-      end
+      Origen.profile 'Working out pin pattern order' do
+        pinorder = Origen.app.pin_pattern_order.dup
+        pinexclude = Origen.app.pin_pattern_exclude.dup
 
-      ordered_pins = []
-
-      # add bit here that puts pingroup id into ordered pins array and deletes included pins
-      pins = Origen.pin_bank.pins.dup
-      pingroups = Origen.pin_bank.pin_groups.dup
-
-      if pinorder && pinorder.size > 0
-        pinorder.each do |id|
-          if Origen.pin_bank.pin_groups.keys.include? id
-            # see if group is already in ordered_pins
-            fail "Pin group #{id} is duplicately defined in pin_pattern_order" unless pingroups.include? id
-            # see if any pins in group are already in pin_order
-            used = []
-            pingroups[id].each do |pin|
-              pinorder.each { |pin| pinids << Origen.pin_bank.find(pin).id if Origen.pin_bank.find(pin) }
-              used << pin if pinids.include?(pin.id) # see if pin included in pinids
-            end
-            if !used.empty?
-              pingroups[id].each { |pin| ordered_pins << pin unless used.include?(pin) }
-            else
-              # this is a pin group, add pin_group and delete all pins in group
-              ordered_pins << pingroups[id]
-              pingroups[id].each do |pin|
-                fail "Pin (#{pin.name}) in group (#{id}) is duplicately defined in pin_pattern_order" unless pins.include? pin.id
-                pins.delete(pin.id)
-              end
-            end
-            pingroups.delete(id)
-          else # this is a pin
-            pin = Origen.pin_bank.find(id)
-            fail "Undefined pin (#{id}) added to pin_pattern_order" unless pin
-            ordered_pins << pin
-            pin.name = id
-            fail "Individual pin (#{pin.name}) is duplicately defined in pin_pattern_order" unless pins.include? pin.id
-            pins.delete(pin.id)
-          end
+        if Origen.app.pin_pattern_order.last.is_a?(Hash)
+          options.merge!(pinorder.pop)
         end
-      end
-
-      if pinexclude && pinexclude.size > 0
-        pinexclude.each do |id|
-          if Origen.pin_bank.pin_groups.keys.include? id
-            # see if group is already in ordered_pins
-            fail "Pin group #{id} is defined both in pin_pattern_order and pin_pattern_exclude" unless pingroups.include? id
-            # this is a pin group, delete all pins in group
-            pingroups[id].each do |pin|
-              fail "Pin (#{pin.name}) in group (#{id}) is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
-              pins.delete(pin.id)
-            end
-          else # this is a pin, delete the pin
-            pin = Origen.pin_bank.find(id)
-            fail "Undefined pin (#{id}) added to pin_pattern_exclude" unless pin
-            fail "Pin #{pin.name} is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
-            pin.name = id
-            pins.delete(pin.id)
-          end
+        if Origen.app.pin_pattern_exclude.last.is_a?(Hash)
+          options.merge!(pinexclude.pop)
         end
-      end
 
-      unless options[:only]
-        # all the rest of the pins to the end of the pattern order
-        pins.each do |id, pin|
-          # check for port
-          if pin.belongs_to_a_pin_group?
-            if id =~ /(\D+)\d+$/
-              name = Regexp.last_match[1]
-              port = nil
-              pin.groups.each do |group|
-                if group[0] == name.to_sym # belongs to a port
-                  port = group[1]
+        ordered_pins = []
+
+        # Create a copy of all pins and groups to be output, pins/groups will be delete from here as
+        # they are output, so that at the end of the user defined pin order what is left in here can
+        # either be discarded or output at the end
+        pins = Origen.pin_bank.pins.dup
+        pingroups = Origen.pin_bank.pin_groups.dup
+
+        if pinorder && pinorder.size > 0
+          pinorder.each do |id|
+            # If the ID refers to a pin group
+            if group = Origen.pin_bank.pin_groups[id]
+              # If the group has still to be output just do that now
+              if pingroups.include? group.id
+                ordered_pins << group
+                # Now delete the group from the list of groups still to be output and all of its pins
+                # from the list pins still to be output
+                group.each do |pin|
+                  pins.delete(pin.id)
+                  pin.groups.each do |name, _group|
+                    pingroups.delete(name)
+                  end
+                end
+                pingroups.delete(group.id)
+              # To get here the some of the pins in the group have already been output which is preventing
+              # output of the complete group at this point, in that case output any of its pins that have
+              # still to go
+              else
+                group.each do |pin|
+                  if pins.include? pin.id
+                    ordered_pins << pin
+                    pin.groups.each do |name, _group|
+                      pingroups.delete(name)
+                    end
+                  end
                 end
               end
-              if pingroups.include?(port.id)
-                ordered_pins << port
-                port.each { |pin| pins.delete(pin.id) }
+            # this is a pin
+            else
+              pin = Origen.pin_bank.find(id)
+              fail "Undefined pin (#{id}) added to pin_pattern_order" unless pin
+              ordered_pins << pin
+              pin.groups.each do |name, _group|
+                pingroups.delete(name)
+              end
+              pin.name = id
+              pins.delete(pin.id)
+            end
+          end
+        end
+
+        if pinexclude && pinexclude.size > 0
+          pinexclude.each do |id|
+            if group = Origen.pin_bank.pin_groups[id]
+              # see if group is already in ordered_pins
+              fail "Pin group #{id} is defined both in pin_pattern_order and pin_pattern_exclude" unless pingroups.include? id
+              # this is a pin group, delete all pins in group
+              pingroups.delete(id)
+              group.each do |pin|
+                fail "Pin (#{pin.name}) in group (#{group.id}) is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
+                pins.delete(pin.id)
+              end
+            else # this is a pin, delete the pin
+              pin = Origen.pin_bank.find(id)
+              fail "Undefined pin (#{id}) added to pin_pattern_exclude" unless pin
+              fail "Pin #{pin.name} is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
+              pin.name = id
+              pins.delete(pin.id)
+              pin.groups.each do |name, _group|
+                pingroups.delete(name)
+              end
+            end
+          end
+        end
+
+        unless options[:only]
+          # all the rest of the pins to the end of the pattern order
+          pins.each do |_id, pin|
+            # check for port
+            if pin.belongs_to_a_pin_group?
+              # Are any of this pin's groups still waiting to be output? pingroups at this point contains
+              # those groups which have not been rendered yet
+              group = pingroups.find do |_id, group|
+                pin.groups.any? { |_pid, pgroup| group == pgroup }
+              end
+              if group
+                ordered_pins << group[1]
+                group[1].each { |pin| pins.delete(pin.id) }
+              else
+                ordered_pins << pin
               end
             else
               ordered_pins << pin
             end
-          else
-            ordered_pins << pin
           end
         end
-      end
 
-      ordered_pins.map do |pin|
-        if options[:include_inhibited_pins]
-          pin
-        else
-          inhibited_pins.include?(pin) ? nil : pin
+        result = ordered_pins.map do |pin|
+          if options[:include_inhibited_pins]
+            pin
+          else
+            inhibited_pins.include?(pin) ? nil : pin
+          end
         end
-      end.compact
+        result = result.compact
+      end
+      result
     end
 
     def current_pin_vals

@@ -1,19 +1,20 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    31-Aug-2015 03:38AM
+//   Time:    01-Sep-2015 09:18AM
 //   By:      Stephen McGinty
 //   Command: origen g j750_halt -t debug_j750_dut2.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.0
-//     Branch:    master(e3384c47ea4) (+local edits)
+//     Version:   0.4.1
+//     Branch:    master(108df810927) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.2.4
+//     Version:   0.2.6
 //   Plugins
 //     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.2.0
 //     origen_jtag:              0.12.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
@@ -149,6 +150,7 @@ end_loopB match_outer_loop_2 icc                                 > nvmbist      
 jump match_loop_end_2 icc                                        > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X L X X X 0 1 ;
 block_0_matched_2:                                                                              
 pop_loop icc                                                     > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X L X X X 0 1 ;
+clr_fail                                                         > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X L X X X 0 1 ;
 match_loop_end_2:                                                                               
 // ######################################################################
 // ## Test a two pin match loop
@@ -184,8 +186,10 @@ end_loopB match_outer_loop_3 icc                                 > nvmbist      
 jump match_loop_end_3 icc                                        > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X X X X X 0 1 ;
 block_0_matched_3:                                                                              
 pop_loop icc                                                     > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X X X X X 0 1 ;
+clr_fail                                                         > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X X X X X 0 1 ;
 block_1_matched_3:                                                                              
 pop_loop icc                                                     > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X X X X X 0 1 ;
+clr_fail                                                         > nvmbist                      1 1 1 HLHLHLXL 00000000 1 X X X X X 0 1 ;
 match_loop_end_3:                                                                               
 // ######################################################################
 // ## Test adding an arbitrary label

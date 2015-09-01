@@ -154,7 +154,7 @@ module OrigenTesters
     def write_to_file(options = {})
       c = caller[0]
       unless output_inhibited?
-        if defined? self.class::TEMPLATE || Origen.tester.is_a?(Origen::Tester::Doc)
+        if defined? self.class::TEMPLATE || Origen.tester.is_a?(OrigenTesters::Doc)
           write_from_template(options)
         else
           fail "Don't know hot to write without a template!"
@@ -174,7 +174,7 @@ module OrigenTesters
         # The use of a class variable to store the opened files means that it will be
         # shared by all generators in this run.
         @@opened_files ||= []
-        if @@opened_files.include?(output_file) && !Origen.tester.is_a?(Origen::Tester::Doc)
+        if @@opened_files.include?(output_file) && !Origen.tester.is_a?(OrigenTesters::Doc)
           @append = true
           Origen.file_handler.preserve_state do
             File.open(output_file, 'a') do |out|
@@ -186,9 +186,9 @@ module OrigenTesters
         else
           @append = false
           Origen.file_handler.preserve_state do
-            if Origen.tester.is_a?(Origen::Tester::Doc)
+            if Origen.tester.is_a?(OrigenTesters::Doc)
               if options[:return_model]
-                Origen::Tester::Doc.model.add_flow(filename(include_extension: false), to_yaml)
+                OrigenTesters::Doc.model.add_flow(filename(include_extension: false), to_yaml)
               else
                 Origen.file_handler.open_for_write(output_file) do |f|
                   f.puts YAML.dump(to_yaml(include_descriptions: false))

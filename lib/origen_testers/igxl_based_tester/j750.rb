@@ -199,8 +199,6 @@ module OrigenTesters
         match_conditions.each_with_index do |condition, i|
           microcode "block_#{i}_matched_#{@unique_counter}:"
           cycle(microcode: 'pop_loop icc')
-        end
-        if options[:clr_fail_post_match]
           cycle(microcode: 'clr_fail')
         end
         if options[:on_block_match_goto]

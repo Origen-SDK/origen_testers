@@ -508,11 +508,13 @@ module OrigenTesters
 
         # here indicate pattern header specific stuff
         yield pin_list
-        max_pin_name_length = ordered_pins.map(&:name).max { |a, b| a.length <=> b.length }.length
-        pin_widths = ordered_pins.map { |p| p.size - 1 }
+        if ordered_pins.size > 0
+          max_pin_name_length = ordered_pins.map(&:name).max { |a, b| a.length <=> b.length }.length
+          pin_widths = ordered_pins.map { |p| p.size - 1 }
 
-        max_pin_name_length.times do |i|
-          cc((' ' * 93) + ordered_pins.map.with_index { |p, x| ((p.name[i] || ' ') + ' ' * pin_widths[x]).gsub('_', '-') }.join(' '))
+          max_pin_name_length.times do |i|
+            cc((' ' * 93) + ordered_pins.map.with_index { |p, x| ((p.name[i] || ' ') + ' ' * pin_widths[x]).gsub('_', '-') }.join(' '))
+          end
         end
       end
 
