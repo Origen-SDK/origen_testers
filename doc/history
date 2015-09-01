@@ -1,3 +1,21 @@
+<a class="anchor release_tag" name="v0_5_0"></a>
+<h1><a href="#v0_5_0">Tag: v0.5.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 01-Sep-2015 09:23AM
+
+
+This plugin now contains the only official tester models, those from Origen core are being
+removed:
+
+* Moved Doc and CommandBasedTester modules into this plugin (from Origen core)
+* Removed all references to Origen::Testers
+* Fixed issue with pattern generation crashing if a device is defined with no pins
+* Aligned J750 match loop output to align with Origen core J750 output - basically added a
+  clr\_fail if the loop exists successfully
+
+
 <a class="anchor release_tag" name="v0_4_1"></a>
 <h1><a href="#v0_4_1">Tag: v0.4.1</a></h1>
 
