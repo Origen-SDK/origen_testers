@@ -1,3 +1,32 @@
+<a class="anchor release_tag" name="v0_5_1"></a>
+<h1><a href="#v0_5_1">Tag: v0.5.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 02-Sep-2015 11:43AM
+
+
+Various V93K updates, this version produces patterns and test program that have been
+verified to work on the tester
+
+Added in the Ultraflex DSSC DigSrc and DigCap capabilities (Jiang Liu). 
+
+All possible settings were added according to Ultraflex spec. To use these new features,
+users must define the pins to be used with DigSrc and DigCap in the $dut/$soc file, similar
+to how the DCVS instrument pins are defined today.
+
+Then the ultraflex target file should call $tester.assign\_digsrc\_pins, $tester.assign\_digcap\_pins,
+$tester.apply\_digsrc\_settings and $tester.apply\_digcap\_settings methods. The patterns will
+then contain the appropriate instrument statements for digsrc and digcap including all the
+settings. For overlay, the user would create a subroutine pattern which contains the necessary
+microcodes for digsrc overlay, the user can use $tester.digsrc\_start, $tester.digsrc\_stop and
+$tester.digsrc\_send methods as the basic building blocks for building the digsrc overlay subroutine.
+
+Please refer to the digsrc\_overlay method in origen\_testers/test/dut.rb for an example of
+constructing an digsrc overlay subroutine. Digcap only supports capture with stv right now,
+this is currently the main way of using it. Added two new test cases in the subroutines.rb for
+self-testing these newly added features.
+
 <a class="anchor release_tag" name="v0_5_0"></a>
 <h1><a href="#v0_5_0">Tag: v0.5.0</a></h1>
 
