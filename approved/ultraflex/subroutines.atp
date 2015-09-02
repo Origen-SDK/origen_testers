@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    31-Aug-2015 03:38AM
+//   Time:    02-Sep-2015 11:39AM
 //   By:      Stephen McGinty
 //   Command: origen g subroutines -t debug_ultraflex.rb
 // ***************************************************************************
@@ -8,12 +8,13 @@
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.5.0
-//     Branch:    master(e3384c47ea4) (+local edits)
+//     Branch:    master(295ad2cc603)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.2.4
+//     Version:   0.4.0
 //   Plugins
 //     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.2.0
 //     origen_jtag:              0.12.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
@@ -24,6 +25,9 @@ compressed = yes;
 instruments = {                                                                                 
                VDDHV:DCVS;                                                                      
                VDDLV:DCVS;                                                                      
+               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
                mto;                                                                             
 }                                                                                               
                                                                                                 
@@ -816,6 +820,160 @@ branch_expr = (cpuA_cond)                                        > tp0          
 set_cpu_cond (cpuA_cond)                                         > tp0                          0 0 X 0 ;
 loop_here_8: if (branch_expr) jump loop_here_8                   > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 0 ;
+global subr digsrc_overlay_testme32:                                                            
+((tdi,tms):DigSrc = Start)                                                                      
+repeat 145                                                       > tp0                          0 0 X 0 ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = Stop)                                                                       
+return                                                           > tp0                          0 0 X 0 ;
+global subr digsrc_overlay:                                                                     
+((tdi,tms):DigSrc = Start)                                                                      
+repeat 145                                                       > tp0                          0 0 X 0 ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = SEND)                                                                       
+                                                                 > tp0                          0 D X D ;
+((tdi,tms):DigSrc = Stop)                                                                       
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 }                                                                                               
