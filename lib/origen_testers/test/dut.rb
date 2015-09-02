@@ -6,6 +6,10 @@ module OrigenTesters
       attr_accessor :blocks
       attr_accessor :hv_supply_pin
       attr_accessor :lv_supply_pin
+      attr_accessor :digsrc_pins
+      attr_accessor :digcap_pins
+      attr_accessor :digsrc_settings
+      attr_accessor :digcap_settings
 
       include OrigenARMDebug
       include Origen::TopLevel
@@ -25,6 +29,10 @@ module OrigenTesters
         end
         @hv_supply_pin = 'VDDHV'
         @lv_supply_pin = 'VDDLV'
+        @digsrc_pins = [:tdi, :tms]
+        @digsrc_settings = { digsrc_mode: :parallel, digsrc_bit_order: :msb }
+        @digcap_pins = :tdo
+        @digcap_settings = { digcap_format: :twos_complement }
         @blocks = [Block.new(0, self), Block.new(1, self), Block.new(2, self)]
       end
 
@@ -151,6 +159,46 @@ module OrigenTesters
         else
           $tester.cycle
           $tester.call_subroutine('handshake')
+        end
+      end
+
+      def digsrc_overlay(options = {})
+        options = { define:            false,       # whether to define subr or call it
+                    subr_name:         false,       # default use match type as subr name
+                    digsrc_pins:       @digsrc_pins, # defaults to what's defined in $dut
+                    overlay_reg:       nil, # defaults to testme32 register
+                    overlay_cycle_num: 32, # Only needed if overlay_reg is NOT nil, this specificies how many clk cycles to overlay.
+                }.merge(options)
+        if options[:define]
+          $tester.start_subroutine(options[:subr_name]) # Start subroutine
+          digsrc_pins = $tester.assign_digsrc_pins(options[:digsrc_pins])
+          $tester.digsrc_start(digsrc_pins, dssc_mode: :single)
+          original_pin_states = {}
+          digsrc_pins.each do |pin|
+            original_pin_states.merge!(pin => pin(pin).data)
+            pin(pin).drive_mem
+          end
+          if options[:overlay_reg].nil?
+            options[:overlay_cycle_num].times do
+              $tester.digsrc_send(digsrc_pins)
+              $tester.cycle
+            end
+          else
+            $tester.dont_compress = true
+            options[:overlay_reg].size.times do
+              $tester.digsrc_send(digsrc_pins)
+              $tester.cycle
+            end
+          end
+          original_pin_states.each do |pin, state|
+            pin(pin).drive(state)
+          end
+          $tester.digsrc_stop(digsrc_pins)
+          $tester.cycle
+          $tester.end_subroutine # end subroutine
+        else
+          $tester.cycle
+          $tester.call_subroutine(options[:subr_name])
         end
       end
 

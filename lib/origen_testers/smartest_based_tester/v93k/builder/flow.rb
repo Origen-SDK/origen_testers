@@ -116,16 +116,19 @@ module OrigenTesters
             end
           end
 
+          # Add the test methods from the given flow to this flow
           def add_test_methods(flow)
             flow.testmethods.each do |id, tm|
+              # If this flow already contains a test method with the current ID
               if testmethods[id]
                 nid = "tm_#{tm_ix}"
                 testmethods[nid] = tm
                 testmethodparameters[nid] = flow.testmethodparameters[id]
                 testmethodlimits[nid] = flow.testmethodlimits[id]
                 flow.test_suites.each do |tsid, ts|
-                  if ts['override_testf'] == "#{id};"
+                  if ts['override_testf'] == "#{id};" && !ts[:new_id]
                     ts['override_testf'] = "#{nid};"
+                    ts[:new_id] = true
                   end
                 end
               else
@@ -134,10 +137,15 @@ module OrigenTesters
                 testmethodlimits[id] = flow.testmethodlimits[id]
               end
             end
+            # Remove this temporary flag to prevent it rendering to the output file
+            flow.test_suites.each do |tsid, ts|
+              ts.delete(:new_id)
+            end
           end
 
           def add_test_suites(flow)
             flow.test_suites.each do |id, ts|
+              # If this flow already contains a test suite with the current ID
               if test_suites[id]
                 i = 1
                 nid = id
@@ -147,8 +155,9 @@ module OrigenTesters
                 end
                 test_suites[nid] = ts
                 flow.test_flow.map! do |line|
-                  if line =~ /(run|run_and_branch)\(#{id}\)/
-                    line.sub(id, nid)
+                  if line =~ /(run|run_and_branch)\(#{id}\)/ && line !~ /--NEW_ID--/
+                    line = line.sub(id, nid)
+                    line += '--NEW_ID--'
                   else
                     line
                   end
@@ -157,7 +166,10 @@ module OrigenTesters
                 test_suites[id] = ts
               end
             end
-          end
+            flow.test_flow.map! do |line|
+              line.sub('--NEW_ID--', '')
+            end
+          end         
 
           def tm_ix
             testmethods.size + 1

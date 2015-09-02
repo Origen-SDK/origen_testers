@@ -84,15 +84,20 @@ module OrigenTesters
         end
 
         def initialize(name, attrs = {})
-          self.name = name
+          @name = name
           # Set the defaults
           DEFAULTS.each do |k, v|
             send("#{k}=", v)
           end
           # Then the values that have been supplied
           attrs.each do |k, v|
-            send("#{k}=", v) if respond_to?("#{k}=")
+            send("#{k}=", v) if respond_to?("#{k}=") && k.to_sym != :name
           end
+        end
+
+        # The name is immutable once the test_suite is created, this will raise an error when called
+        def name=(val, options = {})
+          fail 'Once assigned the name of a test suite cannot be changed!'
         end
 
         def lines

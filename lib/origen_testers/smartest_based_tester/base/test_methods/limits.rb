@@ -5,20 +5,32 @@ module OrigenTesters
         class Limits
           attr_reader :test_method
           attr_accessor :lo_limit, :hi_limit
+          attr_accessor :unit
 
           def initialize(test_method)
             @test_method = test_method
+          end
+
+          def unit=(val)
+            case val.to_s.downcase
+            when 'v', 'volts'
+              @unit = 'V'
+            when 'a', 'amps'
+              @unit = 'A'
+            else
+              fail "Limit unit of #{val} not implemented yet!"
+            end
           end
 
           def to_s
             if !lo_limit && !hi_limit
               "\"#{test_name}\"" + ' = "":"NA":"":"NA":"":"":""'
             elsif !lo_limit
-              "\"#{test_name}\"" + " = \"\":\"NA\":\"#{hi_limit}\":\"LE\":\"\":\"\":\"0\""
+              "\"#{test_name}\"" + " = \"\":\"NA\":\"#{hi_limit}\":\"LE\":\"#{unit}\":\"\":\"0\""
             elsif !hi_limit
-              "\"#{test_name}\"" + " = \"#{lo_limit}\":\"GE\":\"\":\"NA\":\"\":\"\":\"0\""
+              "\"#{test_name}\"" + " = \"#{lo_limit}\":\"GE\":\"\":\"NA\":\"#{unit}\":\"\":\"0\""
             else
-              "\"#{test_name}\"" + " = \"#{lo_limit}\":\"GE\":\"#{hi_limit}\":\"LE\":\"\":\"\":\"0\""
+              "\"#{test_name}\"" + " = \"#{lo_limit}\":\"GE\":\"#{hi_limit}\":\"LE\":\"#{unit}\":\"\":\"0\""
             end
           end
 

@@ -28,13 +28,16 @@ module OrigenTesters
 
     # Compile a template file
     def compile(file, options = {})
+      # Any options passed in from an interface will be passed to the compiler and to
+      # the templates being compiled
+      options[:initial_options] = options
       Origen.file_handler.preserve_state do
         begin
           file = Origen.file_handler.clean_path_to_template(file)
-          Origen.generator.compile_file_or_directory(file, initial_options: options)
+          Origen.generator.compile_file_or_directory(file, options)
         rescue
           file = Origen.file_handler.clean_path_to(file)
-          Origen.generator.compile_file_or_directory(file, initial_options: options)
+          Origen.generator.compile_file_or_directory(file, options)
         end
       end
     end

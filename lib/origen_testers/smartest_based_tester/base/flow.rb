@@ -28,7 +28,7 @@ module OrigenTesters
         # run entry in the flow.
         def test(test_suite, options = {})
           sbin = options[:sbin] || options[:softbin] || options[:soft_bin]
-          if options[:bin] || sbin
+          if (options[:bin] || sbin) && !options[:continue]
             node = run_and_branch(test_suite, options)
             options.delete(:id)
             # Only pass options to configure the bin, don't pass flow control options, those apply to the main

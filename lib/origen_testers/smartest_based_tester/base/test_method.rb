@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer]
+        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
@@ -100,7 +100,7 @@ module OrigenTesters
             "#{val}[s]"
           when :frequency
             "#{val}[Hz]"
-          when :string, :integer
+          when :string, :integer, :double
             val.to_s
           else
             fail "Unknown type for attribute #{attr}: #{type}"

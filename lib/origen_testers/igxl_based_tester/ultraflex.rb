@@ -187,6 +187,8 @@ module OrigenTesters
 
         options[:memory_test] = memory_test_en
         options[:dc_pins] = get_dc_instr_pins
+        options[:digsrc_pins] = get_digsrc_pins
+        options[:digcap_pins] = get_digcap_pins
 
         if options[:dc_pins]
           options[:dc_pins].each do |pin|
@@ -194,9 +196,39 @@ module OrigenTesters
           end
         end
 
+        # Syntax for Digital Source
+        # instruments = {
+        #   pin-item:digsrc instrument-width: bit-order: instrument-mode:
+        #   site-uniqueness: format: auto_cond;
+        # }
+
+        if options[:digsrc_pins]
+          @digsrc_settings.each do |setting_name, setting|
+            options.merge!(setting_name => setting) if options[setting_name].nil?
+          end
+          options[:digsrc_pins].each do |pin|
+            options[:instruments].merge!(pin => 'digsrc')
+          end
+        end
+
+        # Syntax for Digital Capture
+        # instruments = {
+        #   pin-item:digcap instrument-width: bit-order: instrument-mode:
+        #   format: data-type: auto_cond: auto_trig_enable: store_stv: receive_data;
+        # }
+
+        if options[:digcap_pins]
+          @digcap_settings.each do |setting_name, setting|
+            options.merge!(setting_name => setting) if options[setting_name].nil?
+          end
+          options[:digcap_pins].each do |pin|
+            options[:instruments].merge!(pin => 'digcap')
+          end
+        end
+
         # If memory test, then add to instruments hash
         if options[:memory_test]
-          options[:instruments].merge!('mto' => 'nil')
+          options[:instruments].merge!('nil' => 'mto')
         end
 
         super(options.merge(digital_inst: @digital_instrument,

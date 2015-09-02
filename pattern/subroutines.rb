@@ -33,6 +33,13 @@ unless $tester.v93k?
       # Define handshake subr
       $dut.handshake(:define => true)
 
+      if $tester.ultraflex?
+        # Define digsrc_overlay_testme32 subr
+        $dut.digsrc_overlay(:subr_name => 'digsrc_overlay_testme32', :define => true, overlay_reg: :testme32)
+
+        # Define digsrc_overlay subr
+        $dut.digsrc_overlay(:subr_name => 'digsrc_overlay', :define => true, overlay_cycle_num: 64)
+      end 
     end
   end
 end
