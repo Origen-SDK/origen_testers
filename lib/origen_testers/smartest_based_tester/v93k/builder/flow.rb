@@ -169,7 +169,7 @@ module OrigenTesters
             flow.test_flow.map! do |line|
               line.sub('--NEW_ID--', '')
             end
-          end         
+          end
 
           def tm_ix
             testmethods.size + 1

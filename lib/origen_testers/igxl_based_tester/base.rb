@@ -524,7 +524,7 @@ module OrigenTesters
               microcode "               #{pins}:#{instrument} #{options[:digsrc_width]}:#{options[:digsrc_bit_order]}:#{options[:digsrc_mode]}:format=#{options[:digsrc_format]}:#{options[:digsrc_site_uniqueness]}:#{options[:digsrc_auto_cond]};"
             elsif instrument == 'digcap'
               microcode "               #{pins}:#{instrument} #{options[:digcap_width]}:#{options[:digcap_bit_order]}:#{options[:digcap_mode]}:format=#{options[:digcap_format]}:data_type=#{options[:digcap_data_type]}:#{options[:digcap_auto_cond]}:#{options[:digcap_auto_trig_enable]}:#{options[:digcap_store_stv]}:#{options[:digcap_receive_data]};"
-            else              
+            else
               microcode "               #{pins}:#{instrument};"
             end
           end
