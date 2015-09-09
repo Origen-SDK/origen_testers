@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_5_2"></a>
+<h1><a href="#v0_5_2">Tag: v0.5.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-Sep-2015 05:07AM
+
+
+Patch to make J750 multi-block match loops exit if any of the blocks passes. If multiple
+conditions should be ANDed together then the user should defined them within the same
+block.
+
 <a class="anchor release_tag" name="v0_5_1"></a>
 <h1><a href="#v0_5_1">Tag: v0.5.1</a></h1>
 
