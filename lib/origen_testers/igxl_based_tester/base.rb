@@ -341,6 +341,7 @@ module OrigenTesters
           manual_stop:           false,
           clr_fail_post_match:   false
         }.merge(options)
+        options[:on_block_match_goto] ||= options.delete(:on_pin_match_goto)
 
         match_block(timeout, options) do |match_conditions, fail_conditions|
           # Define match conditions

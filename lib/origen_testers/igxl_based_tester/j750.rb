@@ -72,7 +72,8 @@ module OrigenTesters
       # * :check_for_fails (false) - Flushes the pipeline and handshakes with the tester (passing readcode 100) prior to the match (to allow binout of fails encountered before the match)
       # * :force_fail_on_timeout (true) - Force a vector mis-compare if the match loop times out
       # * :on_timeout_goto ("") - Optionally supply a label to branch to on timeout, by default will continue from the end of the match loop
-      # * :on_block_match_goto ("") - Optionally supply a label to branch to when block condition is met, by default will continue from the end of the match loop
+      # * :on_block_match_goto ("") - Optionally supply a label to branch to when block condition is met, by default will continue from the end of the match loop.
+      #   A hash will also be accepted for this argument to supply a specific label (or no label) for each block e.g. {0 => "on_block_0_fail"}
       # * :multiple_entries (false) - Supply an integer to generate multiple entries into the match (each with a unique readcode), this can be useful when debugging patterns with multiple matches
       # * :force_fail_on_timeout (true) - force pattern to fail if timeout occurs
       # * :global_loops (false) - whether match loop loops should use global labels
@@ -200,9 +201,26 @@ module OrigenTesters
           microcode "block_#{i}_matched_#{@unique_counter}:"
           cycle(microcode: 'pop_loop icc')
           cycle(microcode: 'clr_fail')
-        end
-        if options[:on_block_match_goto]
-          cycle(microcode: "jump #{options[:on_block_match_goto]}")
+          if options[:on_block_match_goto]
+            if options[:on_block_match_goto].is_a?(Hash)
+              if options[:on_block_match_goto][i]
+                custom_jump = options[:on_block_match_goto][i]
+              else
+                custom_jump = nil
+              end
+            else
+              custom_jump = options[:on_block_match_goto]
+            end
+          end
+          if custom_jump
+            cycle(microcode: "jump #{custom_jump}")
+          else
+            # Don't do a jump on the last match block as it will naturally fall through
+            # TODO: Update origen core to expose the size
+            unless match_conditions.instance_variable_get(:@block_args).size == i + 1
+              cycle(microcode: "jump match_loop_end_#{@unique_counter} icc")
+            end
+          end
         end
         microcode "match_loop_end_#{@unique_counter}:"
         if options[:clr_fail_post_match]
