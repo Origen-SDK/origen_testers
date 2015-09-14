@@ -35,6 +35,7 @@ class OrigenTestersApplication < Origen::Application
   # the output ends up in a setup specific directory.
   config.output_directory do
    dir =  "#{Origen.root}/output/#{$tester.name}"
+  # Check if running on windows, if so, substitute :: with _ 
    dir.gsub!("::","_") if Origen.os.windows?
    dir
   end
@@ -43,6 +44,7 @@ class OrigenTestersApplication < Origen::Application
   # structure to mirror that of your output directory structure.
   config.reference_directory do
     dir = "#{Origen.root}/.ref/#{$tester.name}"
+  # Check if running on windows, if so, substitute :: with _
     dir.gsub!("::","_") if Origen.os.windows?
     dir
   end
@@ -50,6 +52,7 @@ class OrigenTestersApplication < Origen::Application
   # Setting this to the spec area for testing of compiler
   config.pattern_output_directory do
    dir = "#{Origen.root}/spec/patterns/atp"
+  # Check if running on windows, if so, substitute :: with _
    dir.gsub!("::","_") if Origen.os.windows?
    dir
   end
