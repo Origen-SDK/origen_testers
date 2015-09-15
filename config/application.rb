@@ -34,18 +34,27 @@ class OrigenTestersApplication < Origen::Application
   # Here you can specify an alternative directory entirely, or make it dynamic such that
   # the output ends up in a setup specific directory.
   config.output_directory do
-    "#{Origen.root}/output/#{$tester.name}"
+   dir =  "#{Origen.root}/output/#{$tester.name}"
+  # Check if running on windows, if so, substitute :: with _ 
+   dir.gsub!("::","_") if Origen.os.windows?
+   dir
   end
 
   # Similary for the reference files, generally you want to setup the reference directory
   # structure to mirror that of your output directory structure.
   config.reference_directory do
-    "#{Origen.root}/.ref/#{$tester.name}"
+    dir = "#{Origen.root}/.ref/#{$tester.name}"
+  # Check if running on windows, if so, substitute :: with _
+    dir.gsub!("::","_") if Origen.os.windows?
+    dir
   end
   
   # Setting this to the spec area for testing of compiler
   config.pattern_output_directory do
-    "#{Origen.root}/spec/patterns/atp"
+   dir = "#{Origen.root}/spec/patterns/atp"
+  # Check if running on windows, if so, substitute :: with _
+   dir.gsub!("::","_") if Origen.os.windows?
+   dir
   end
 
   # Run the tests before deploying to generate test coverage numbers
