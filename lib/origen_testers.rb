@@ -22,4 +22,3 @@ require 'origen_testers/pattern_compilers'
 
 require 'origen_testers/callback_handlers'
 require_relative '../config/application.rb'
-require_relative '../config/environment.rb'

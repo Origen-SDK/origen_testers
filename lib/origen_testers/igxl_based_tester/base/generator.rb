@@ -17,6 +17,11 @@ module OrigenTesters
           super
         end
 
+        def add_til(name, methods)
+          custom_tils[name] = methods
+        end
+        alias_method :add_test_instance_library, :add_til
+
         # @api private
         def at_flow_start
           @@test_instances_filename = nil
@@ -211,6 +216,13 @@ module OrigenTesters
         end
         alias_method :pat_groups, :patgroups
         alias_method :pattern_groups, :patgroups
+
+        private
+
+        # Custom test instance libraries
+        def custom_tils
+          @custom_tils ||= {}
+        end
       end
     end
   end

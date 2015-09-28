@@ -42,6 +42,10 @@ module OrigenTesters
         @memory_test_en = false  # memory test enabled (for all patterns?)
       end
 
+      def igxl_based?
+        true
+      end
+
       def assign_dc_instr_pins(dc_pins)
         if !dc_pins.is_a?(Array)
           @dc_pins = [] << dc_pins

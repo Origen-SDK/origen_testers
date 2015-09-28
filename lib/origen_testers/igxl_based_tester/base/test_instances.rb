@@ -4,6 +4,8 @@ module OrigenTesters
       class TestInstances
         include OrigenTesters::Generator
 
+        autoload :CustomTil, 'origen_testers/igxl_based_tester/base/test_instances/custom_til'
+
         OUTPUT_POSTFIX = 'instances'
 
         class IndexedString < ::String
@@ -18,7 +20,12 @@ module OrigenTesters
           options = {
             test_instance_class: platform::TestInstance
           }.merge(options)
-          ins = options.delete(:test_instance_class).new(name, type, options)
+          klass = options.delete(:test_instance_class)
+          if type.is_a?(klass)
+            ins = type
+          else
+            ins = klass.new(name, type, options)
+          end
           if @current_group
             @current_group << ins
           else
@@ -172,6 +179,25 @@ module OrigenTesters
 
         def mto_memory(name, options = {})
           add(name, :mto_memory, options)
+        end
+
+        # Creates an accessor for custom test method libraries the first time they are called
+        def method_missing(method, *args, &block)
+          custom_tils = Origen.interface.send(:custom_tils)
+          if custom_tils[method]
+            ti = CustomTil.new(self, custom_tils[method])
+            instance_variable_set "@#{method}", ti
+            define_singleton_method method do
+              instance_variable_get("@#{method}")
+            end
+            send(method)
+          else
+            super
+          end
+        end
+
+        def respond_to?(method)
+          !!Origen.interface.send(:custom_tils)[method] || super
         end
       end
     end
