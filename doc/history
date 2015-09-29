@@ -1,3 +1,69 @@
+<a class="anchor release_tag" name="v0_5_3"></a>
+<h1><a href="#v0_5_3">Tag: v0.5.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 29-Sep-2015 14:48PM
+
+
+Added initial API to define custom test instance libraries for IG-XL based testers:
+
+~~~ruby
+# app\_interface.rb
+
+def initialize(options = {})
+  add\_custom\_til
+end
+
+# Example of how to use the custom library
+def custom(name, options = {}) 
+  ti = test\_instances.mylib.test\_a
+  ti.my\_arg0 = 'my\_val'
+  ti.my\_arg2\_alias = 'curr'
+  ti.set\_my\_arg4('arg4\_val\_from\_method') 
+end
+
+# Add a custom test instance library
+def add\_custom\_til
+  add\_til :mylib,
+          test\_a: {
+            # Basic arg
+            my\_arg0: :arg0,
+            # Basic arg with default value
+            my\_arg1: [:arg1, 'a\_default\_value'],
+            # Basic arg with default value and predefined set of possible values, Origen will raise  an error
+            # if it is ever set to a value not in the list
+            my\_arg2: [:arg2, 'volt', %w(volt curr)],
+            my\_arg3: :arg3,
+            my\_arg4: :arg4,
+            # Attribute aliases can be defined like this:
+            aliases: {
+              my\_arg\_alias:  :my\_arg,
+              my\_arg1\_alias: :my\_arg1,
+              my\_arg2\_alias: :my\_arg2
+            },
+            # Define any methods you want the test instance to have
+            methods: {
+              # An optional finalize function can be supplied to do any final test instance configuration, this
+              # function will be called immediately before the test instance is finally rendered. The test instance
+              # object itself will be passed in as an argument.
+              finalize:    lambda  do |ti|
+                ti.my\_arg3 = 'arg3\_set\_from\_finalize'
+              end,
+              # Example of a custom method.
+              # In all cases the test method object will be passed in as the first argument.
+              set\_my\_arg4: lambda  do |ti, val|
+                ti.my\_arg4 = val
+              end
+            }
+          },
+
+          test\_b: {
+            # ...
+          }
+end
+~~~
+
 <a class="anchor release_tag" name="v0_5_2"></a>
 <h1><a href="#v0_5_2">Tag: v0.5.2</a></h1>
 
