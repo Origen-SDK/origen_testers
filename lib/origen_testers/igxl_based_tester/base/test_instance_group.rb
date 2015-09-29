@@ -52,6 +52,14 @@ module OrigenTesters
               other_instance_group.any? { |other_ins| ins == other_ins }
             end
         end
+
+        def finalize
+          lambda do |group|
+            each do |ti|
+              ti.finalize.call(ti) if ti.finalize
+            end
+          end
+        end
       end
     end
   end

@@ -20,11 +20,11 @@ module OrigenTesters
           options = {
             test_instance_class: platform::TestInstance
           }.merge(options)
-          klass = options.delete(:test_instance_class)
-          if type.is_a?(klass)
-            ins = type
+          klass =
+          if type.is_a?(Symbol) || type.is_a?(String)
+            ins = options.delete(:test_instance_class).new(name, type, options)
           else
-            ins = klass.new(name, type, options)
+            ins = type
           end
           if @current_group
             @current_group << ins
@@ -97,7 +97,7 @@ module OrigenTesters
 
         def finalize(options = {}) # :nodoc:
           uniq!
-          sort!
+          sort_and_finalize!
         end
 
         def uniq! # :nodoc:
@@ -140,11 +140,13 @@ module OrigenTesters
           self.collection = uniques
         end
 
-        def sort! # :nodoc:
+        def sort_and_finalize! # :nodoc:
           # Present the instances in the final sheet in alphabetical order
           collection.map!.with_index do |ins, i|
             if ins.is_a?(String)   # Can happen if content has been rendered in from a template
               ins = IndexedString.new(ins)
+            else
+              ins.finalize.call(ins) if ins.finalize
             end
             ins
           end

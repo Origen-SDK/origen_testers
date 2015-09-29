@@ -19,6 +19,7 @@ module OrigenTesters
         end
 
         def add_tml(name, methods)
+          methods[:class_name] ||= name.to_s.camelize
           custom_tmls[name] = methods
         end
         alias_method :add_test_method_library, :add_tml

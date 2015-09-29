@@ -2,7 +2,7 @@ module OrigenTesters
   module IGXLBasedTester
     class Base
       class TestInstance
-        attr_accessor :type, :index, :version, :append_version
+        attr_accessor :type, :index, :version, :append_version, :finalize
 
         def self.define
           # Generate accessors for all attributes and their aliases
