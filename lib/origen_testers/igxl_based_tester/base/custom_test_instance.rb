@@ -55,12 +55,14 @@ module OrigenTesters
           # Add any methods
           if options[:methods][:methods]
             methods = options[:methods][:methods]
-            @finalize = methods.delete(:finalize)
+            @finalize = methods[:finalize]
             methods.each do |method_name, function|
-              var_name = "@#{method_name}".gsub(/=|\?/, '_')
-              instance_variable_set(var_name, function)
-              define_singleton_method method_name do |*args|
-                instance_variable_get(var_name).call(self, *args)
+              unless method_name == :finalize
+                var_name = "@#{method_name}".gsub(/=|\?/, '_')
+                instance_variable_set(var_name, function)
+                define_singleton_method method_name do |*args|
+                  instance_variable_get(var_name).call(self, *args)
+                end
               end
             end
           end

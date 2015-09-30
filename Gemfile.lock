@@ -181,6 +181,3 @@ DEPENDENCIES
   origen_jtag (>= 0.12.0)
   origen_testers!
   yard-activesupport-concern
-
-BUNDLED WITH
-   1.10.6

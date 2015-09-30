@@ -9,20 +9,19 @@ module OrigenTesters
       end
 
       def custom(name, options = {})
-        if name == :test1
-          if tester.try(:igxl_based?)
-            ti = test_instances.mylib.test_a(:custom_test1)
-            ti.my_arg0 = 'arg0_set'
-            ti.my_arg2_alias = 'curr'
-            ti.set_my_arg4('arg4_set_from_method')
+        name = "custom_#{name}".to_sym
+        if tester.try(:igxl_based?)
+          ti = test_instances.mylib.test_a(name)
+          ti.my_arg0 = 'arg0_set'
+          ti.my_arg2_alias = 'curr'
+          ti.set_my_arg4('arg4_set_from_method')
 
-          elsif tester.v93k?
-            ti = test_methods.my_tml.test_a
-            ti.my_arg0 = 'arg0_set'
-            ti.my_arg2_alias = 'CURR'
-            ti.set_my_arg4('arg4_set_from_method')
+        elsif tester.v93k?
+          ti = test_methods.my_tml.test_a
+          ti.my_arg0 = 'arg0_set'
+          ti.my_arg2_alias = 'CURR'
+          ti.set_my_arg4('arg4_set_from_method')
 
-          end
         end
       end
 
