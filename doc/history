@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_5_4"></a>
+<h1><a href="#v0_5_4">Tag: v0.5.4</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 30-Sep-2015 09:32AM
+
+
+Bug fix to IG-Xl custom test instance API. If a finalize method is defined it will now
+be called on all instances.
+
 <a class="anchor release_tag" name="v0_5_3"></a>
 <h1><a href="#v0_5_3">Tag: v0.5.3</a></h1>
 
