@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    origen_testers (0.5.4)
+    origen_testers (0.5.5)
       origen (>= 0.4.0)
       require_all (~> 1)
 
@@ -116,7 +116,7 @@ GEM
       rack
     rainbow (2.0.0)
     rake (10.4.2)
-    require_all (1.3.2)
+    require_all (1.3.3)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
