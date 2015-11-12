@@ -84,6 +84,15 @@ module OrigenTesters
     def annotate(msg, options = {})
     end
 
+    def diff_friendly_output=(value)
+      @diff_friendly_output = value
+    end
+
+    def diff_friendly_output?
+      !!@diff_friendly_output
+    end
+    alias_method :diff_friendly_output, :diff_friendly_output?
+
     # Ignore fails on the given pins for the duration of the given block, this
     # has the effect of temporarily setting the states of the given pins to
     # don't care.

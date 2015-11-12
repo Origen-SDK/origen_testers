@@ -154,6 +154,10 @@ module OrigenTesters
           attrs.each do |k, v|
             send("#{k}=", v) if self.respond_to?("#{k}=")
           end
+          # override test numbers if diff-friendly output desired
+          if Origen.tester.diff_friendly_output?
+            self.tnum = 0
+          end
         end
 
         def parameter=(value)
