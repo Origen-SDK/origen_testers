@@ -14,11 +14,11 @@ Pattern.create(:end_with_halt => true) do
 
   ss 'Test that basic port manipulation works'
   unless $tester.respond_to?('hpt_mode')
-    $nvm.port(:porta).drive(0x55)
+    $nvm.pins(:porta).drive(0x55)
     $tester.cycle
-    $nvm.port(:porta).expect(0xAA)
+    $nvm.pins(:porta).expect(0xAA)
     $tester.cycle
-    $nvm.port(:porta)[1].dont_care
+    $nvm.pins(:porta)[1].dont_care
     $tester.cycle
   end
 
@@ -88,17 +88,17 @@ Pattern.create(:end_with_halt => true) do
   if !$tester.respond_to?('hpt_mode')
     ss 'Test looping, these vectors should be executed once'
     $tester.loop_vector('test_loop_1', 1) do
-      $nvm.port(:porta).drive(0xAA)
+      $nvm.pins(:porta).drive(0xAA)
       $tester.cycle
-      $nvm.port(:porta).drive(0x55)
+      $nvm.pins(:porta).drive(0x55)
       $tester.cycle
     end
 
     ss 'Test looping, these vectors should be executed 3 times'
     $tester.loop_vector('test_loop_2', 3) do
-      $nvm.port(:porta).drive(0xAA)
+      $nvm.pins(:porta).drive(0xAA)
       $tester.cycle
-      $nvm.port(:porta).drive(0x55)
+      $nvm.pins(:porta).drive(0x55)
       $tester.cycle
     end
   else

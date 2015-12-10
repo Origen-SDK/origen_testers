@@ -21,11 +21,11 @@ module OrigenTesters
         add_pin :tdo
         add_pin :tms
 
-        add_reg32 :testme32, 0x007a do
-          bits 31..16, :portB
-          bits 15..8,  :portA
-          bits 1,      :done
-          bits 0,      :enable
+        reg :testme32, 0x007a do |reg|
+          reg.bits 31..16, :portB
+          reg.bits 15..8,  :portA
+          reg.bits 1,      :done
+          reg.bits 0,      :enable
         end
         @hv_supply_pin = 'VDDHV'
         @lv_supply_pin = 'VDDLV'
