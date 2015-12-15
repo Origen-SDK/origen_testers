@@ -97,6 +97,11 @@ module OrigenTesters
       @filename = name
     end
 
+    def name
+      @filename.to_sym
+    end
+    alias_method :id, :name
+
     def filename(options = {})
       options = {
         include_extension: true
@@ -239,10 +244,23 @@ module OrigenTesters
     end
 
     def render(file, options = {})
-      if options.delete(:_inline)
-        super Origen.file_handler.clean_path_to_sub_template(file), options
+      # Since the flow is now handled via ATP, render the string immediately
+      # for insertion into the AST
+      if try(:is_the_flow?)
+        val = nil
+        Origen.file_handler.preserve_current_file do
+          Origen.file_handler.default_extension = file_extension
+          file = Origen.file_handler.clean_path_to_sub_template(file)
+          placeholder = compiler.render(file, options)
+          val = compiler.insert(placeholder).chomp
+        end
+        val
       else
-        collection << Placeholder.new(:render, file, options)
+        if options.delete(:_inline)
+          super Origen.file_handler.clean_path_to_sub_template(file), options
+        else
+          collection << Placeholder.new(:render, file, options)
+        end
       end
     end
 

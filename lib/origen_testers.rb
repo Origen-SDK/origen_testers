@@ -13,6 +13,7 @@ module OrigenTesters
   autoload :Parser,             'origen_testers/parser'
   autoload :BasicTestSetups,    'origen_testers/basic_test_setups'
   autoload :ProgramGenerators,  'origen_testers/program_generators'
+  autoload :Flow,               'origen_testers/flow'
   # not yet autoload :Time,     'origen_testers/time'
 end
 

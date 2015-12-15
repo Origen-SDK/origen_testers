@@ -68,6 +68,10 @@ module OrigenTesters
           end
         end
 
+        def inspect
+          "<TestInstance: #{name}, Type: #{type}>"
+        end
+
         def ==(other_instance)
           self.class == other_instance.class &&
             unversioned_name.to_s == other_instance.unversioned_name.to_s &&
