@@ -44,6 +44,7 @@ module OrigenTesters
     def nop(options = {})
     end
 
+    # @api private
     def at_run_start
     end
 
@@ -61,17 +62,15 @@ module OrigenTesters
     end
     alias_method :unless_jobs, :unless_job
 
-    def if_enable(*words)
-      options = words.pop if words.last.is_a?(Hash)
-      model.with_conditions(enable: ATP.or(words.flatten)) do
+    def if_enable(word, options = {})
+      model.with_conditions(enable: word) do
         yield
       end
     end
     alias_method :if_enabled, :if_enable
 
-    def unless_enable(*words)
-      options = words.pop if words.last.is_a?(Hash)
-      model.with_conditions(unless_enable: ATP.or(words.flatten)) do
+    def unless_enable(word, options = {})
+      model.with_conditions(unless_enable: word) do
         yield
       end
     end
@@ -111,11 +110,19 @@ module OrigenTesters
 
     def if_any_failed(*ids)
       options = ids.pop if ids.last.is_a?(Hash)
-      model.with_conditions(if_failed: ATP.or(ids.flatten)) do
+      model.with_conditions(if_any_failed: ids.flatten) do
         yield
       end
     end
 
+    def if_all_failed(*ids)
+      options = ids.pop if ids.last.is_a?(Hash)
+      model.with_conditions(if_all_failed: ids.flatten) do
+        yield
+      end
+    end
+
+    # @api private
     def is_the_flow?
       true
     end

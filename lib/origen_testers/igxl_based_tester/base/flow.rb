@@ -8,6 +8,7 @@ module OrigenTesters
 
         attr_reader :branch
         attr_reader :stack
+        attr_accessor :run_flag
 
         # Will be called at the end to transform the final flow model into an array
         # of lines to be rendered to the IG-XL flow sheet
@@ -53,7 +54,6 @@ module OrigenTesters
 
         def on_set_run_flag(node)
           flag = node.to_a[0]
-          flag = [flag, stack[:run_flags].last].compact.join('_AND_')
           if branch == :on_fail
             current_line.flag_fail = flag
           else
@@ -97,22 +97,42 @@ module OrigenTesters
         end
 
         def on_run_flag(node)
-          flag = node.to_a[0]
-          # Convert !RAN flags to a positive version, having all runtime flags considered
-          # positive is good in IG-XL as it allows them to be easily nested by joining
-          # them together
-          if flag =~ /_RAN$/ && !node.to_a[1]
-            not_flag = [flag.sub(/_RAN$/, '_NOTRAN'), stack[:run_flags].last].compact.join('_AND_')
-            lines << new_line(:flag_true, parameter: not_flag)
-            stack[:run_flags] << [flag, stack[:run_flags].last].compact.join('_AND_')
-            lines << new_line(:flag_false, parameter: not_flag)
-            stack[:run_flags].pop
-            stack[:run_flags] << [not_flag, stack[:run_flags].last].compact.join('_AND_')
+          flag, state, *nodes = *node
+          if flag.is_a?(Array)
+            or_flag = flag.join('_OR_')
+            or_flag = "NOT_#{flag}" unless state
+            flag.each do |f|
+              if run_flag
+                fail 'Not implemented yet!'
+              else
+                self.run_flag = [f, state]
+                lines << new_line(:flag_true, parameter: or_flag)
+                self.run_flag = nil
+              end
+            end
+            if run_flag
+              and_flag = flag_to_s(or_flag, state) + '_AND_' + flag_to_s(*run_flag)
+              self.run_flag = [and_flag, true]
+            else
+              self.run_flag = [or_flag, true]
+            end
           else
-            stack[:run_flags] << [flag, stack[:run_flags].last].compact.join('_AND_')
+            if run_flag
+              and_flag = flag_to_s(flag, state) + '_AND_' + flag_to_s(*run_flag)
+              existing_flag = run_flag
+              self.run_flag = nil
+              lines << new_line(:flag_true, parameter: and_flag)
+              self.run_flag = [existing_flag[0], !existing_flag[1]]
+              lines << new_line(:flag_false, parameter: and_flag)
+              self.run_flag = [flag, !state]
+              lines << new_line(:flag_false, parameter: and_flag)
+              self.run_flag = [and_flag, true]
+            else
+              self.run_flag = [flag, state]
+            end
           end
           process_all(node)
-          stack[:run_flags].pop
+          self.run_flag = nil
         end
 
         def on_flow_flag(node)
@@ -152,8 +172,9 @@ module OrigenTesters
             enable: stack[:flow_flags].last
           }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
-          if stack[:run_flags].last
-            line.device_name = stack[:run_flags].last
+          if run_flag
+            line.device_sense = 'not' unless run_flag[1]
+            line.device_name = run_flag[0]
             line.device_condition = 'flag-true'
           end
           open_lines << line
@@ -177,6 +198,14 @@ module OrigenTesters
             clean_job(job.to_a[0]).split(',').map { |j| "!#{j}" }.join(',')
           else
             job.upcase
+          end
+        end
+
+        def flag_to_s(flag, state)
+          if state
+            flag
+          else
+            "NOT_#{flag}"
           end
         end
 

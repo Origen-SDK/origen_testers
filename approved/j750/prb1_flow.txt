@@ -61,11 +61,9 @@ DFF 1.1	Flow Table
 						logprint	Test_unless_enable																					
 		no_extra_erase				goto	ORIGENTESTERS_LABEL_1																					
 						Test	erase_all_v1							Fail														
+						Test	erase_all_v1							Fail														
+						Test	erase_all_v1							Fail														
 	ORIGENTESTERS_LABEL_1					nop																						
-		no_extra_erase				goto	ORIGENTESTERS_LABEL_2																					
-						Test	erase_all_v1							Fail														
-						Test	erase_all_v1							Fail														
-	ORIGENTESTERS_LABEL_2					nop																						
 						Test	erase_all_v1							Fail														
 						Test	erase_all_v1							Fail														
 						logprint	Test_if_passed																					
@@ -96,12 +94,8 @@ DFF 1.1	Flow Table
 						logprint	Test_unless_ran																					
 						Test	erase_all_v1							Fail	erase_ran_3_RAN													
 						Test	erase_all_v1							Fail	erase_ran_4_RAN													
-						flag-true	erase_ran_3_NOTRAN																					
-						flag-false	erase_ran_3_NOTRAN																flag-true	erase_ran_3_RAN				
-						Test	margin_read1_all1_v1							Fail									flag-true	erase_ran_3_NOTRAN				
-						flag-true	erase_ran_4_NOTRAN																					
-						flag-false	erase_ran_4_NOTRAN																flag-true	erase_ran_4_RAN				
-						Test	margin_read1_all1_v1							Fail									flag-true	erase_ran_4_NOTRAN				
+						Test	margin_read1_all1_v1							Fail								not	flag-true	erase_ran_3_RAN				
+						Test	margin_read1_all1_v1							Fail								not	flag-true	erase_ran_4_RAN				
 						logprint	Verify_that_job_context_wraps_import																					
 			FR			Test	erase_all_v1							Fail														
 			FR			Test	erase_all_v1							Fail														

@@ -87,12 +87,31 @@ Flow.create do
     func :long_test2
   end
 
+  log "Test that if_any_failed works"
+  func :test1, id: :ifa1
+  func :test2, id: :ifa2
+  func :test3, if_any_failed: [:ifa1, :ifa2]
+
   log "Test the block form of if_any_failed"
   func :test1, id: :oof_passcode1
   func :test2, id: :oof_passcode2
-  #if_any_failed :oof_passcode1, :oof_passcode2 do
-  #  func :testme
-  #end
+  if_any_failed :oof_passcode1, :oof_passcode2 do
+    func :test3
+    func :test4
+  end
+
+  log "Test that if_all_failed works"
+  func :test1, id: :ifall1
+  func :test2, id: :ifall2
+  func :test3, if_all_failed: [:ifall1, :ifall2]
+
+  log "Test the block form of if_all_failed"
+  func :test1, id: :ifallb1
+  func :test2, id: :ifallb2
+  if_all_failed [:ifallb1, :ifallb2] do
+    func :test3
+    func :test4
+  end
 
   log "Embedded conditional tests 1"
   func :test1, id: :ect1_1
