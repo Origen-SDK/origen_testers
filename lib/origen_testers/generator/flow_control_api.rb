@@ -47,7 +47,7 @@ module OrigenTesters
       #
       # * :context contains a hash that summarises the flow control options that have been
       #   used, for example it may contain something like: :if_enable => "data_collection"
-      # * :hash_code returns a hash-code for the values contained in the :context arrary. Any
+      # * :hash_code returns a hash-code for the values contained in the :context array. Any
       #   two equivalent contexts will have the same :hash_code, therefore this can be used
       #   to easily check the equivalence of any two contexts.
       def current_context

@@ -51,18 +51,6 @@ Flow.create do
     func :read0
   end
 
-  log "Test that skip works"
-  skip do
-    func :read0
-    func :read0
-  end
-
-  log "Test that conditional skip works"
-  skip if_passed: :t4 do
-    func :read0
-    func :read0
-  end
-
   log "Test that if_job works"
   func :cold_test, if_job: :fc
 
@@ -97,6 +85,23 @@ Flow.create do
   unless_enable :quick do
     func :long_test1
     func :long_test2
+  end
+
+  log "Test the block form of if_any_failed"
+  func :test1, id: :oof_passcode1
+  func :test2, id: :oof_passcode2
+  #if_any_failed :oof_passcode1, :oof_passcode2 do
+  #  func :testme
+  #end
+
+  log "Embedded conditional tests 1"
+  func :test1, id: :ect1_1
+  if_failed :ect1_1 do
+    func :test2
+    func :test3, id: :ect1_3
+    if_failed :ect1_3 do
+      func :test4
+    end
   end
 
   if $tester.v93k?

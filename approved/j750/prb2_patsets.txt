@@ -9,9 +9,3 @@ DFF 1.1	Pattern Sets
 	mrd_ckbd_pset	nvm_global_subs.PAT	subr			
 	pgm_ckbd_pset	pgm_ckbd.PAT				
 	pgm_ckbd_pset	nvm_global_subs.PAT	subr			
-	pgm_vfy_oof_passcode_redcols_utst_pset	pgm_vfy_oof_passcode_redcols_utst.PAT				
-	pgm_vfy_oof_passcode_redcols_utst_pset	nvm_global_subs.PAT	subr			
-	pgm_vfy_oof_passcode_tst_pset	pgm_vfy_oof_passcode_tst.PAT				
-	pgm_vfy_oof_passcode_tst_pset	nvm_global_subs.PAT	subr			
-	testme_pset	testme.PAT				
-	testme_pset	nvm_global_subs.PAT	subr			

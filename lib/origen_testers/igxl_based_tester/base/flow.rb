@@ -6,7 +6,6 @@ module OrigenTesters
 
         OUTPUT_POSTFIX = 'flow'
 
-        attr_reader :current_line
         attr_reader :branch
         attr_reader :stack
 
@@ -14,15 +13,30 @@ module OrigenTesters
         # of lines to be rendered to the IG-XL flow sheet
         def format
           @lines = []
-          @stack = { jobs: [] }
+          @stack = { jobs: [], run_flags: [], flow_flags: [] }
           process(model.ast)
           lines
         end
 
         def on_test(node)
-          lines << new_line(:test, job: stack[:jobs].last) do
+          lines << new_line(:test) do |line|
             process_all(node)
           end
+        end
+
+        def on_cz(node)
+          setup, test = *node
+          lines << new_line(:cz, cz_setup: setup) do |line|
+            process_all(test)
+          end
+        end
+
+        def on_name(node)
+          current_line.tname = node.to_a[0]
+        end
+
+        def on_number(node)
+          current_line.tnum = node.to_a[0]
         end
 
         def on_object(node)
@@ -34,19 +48,43 @@ module OrigenTesters
         end
 
         def on_continue(node)
-          if branch == :on_fail
-            current_line.result = 'None'
-          end
+          current_line.result = 'None'
         end
 
         def on_set_run_flag(node)
+          flag = node.to_a[0]
+          flag = [flag, stack[:run_flags].last].compact.join('_AND_')
           if branch == :on_fail
-            current_line.flag_fail = node.to_a[0].sub(/failed$/, 'FAILED')
+            current_line.flag_fail = flag
+          else
+            current_line.flag_pass = flag
+          end
+        end
+
+        def on_bin(node)
+          if branch == :on_fail
+            current_line.bin_fail = node.to_a[0]
+          else
+            current_line.bin_pass = node.to_a[0]
+          end
+        end
+
+        def on_softbin(node)
+          if branch == :on_fail
+            current_line.sort_fail = node.to_a[0]
+          else
+            current_line.sort_pass = node.to_a[0]
           end
         end
 
         def on_on_fail(node)
           @branch = :on_fail
+          process_all(node)
+          @branch = nil
+        end
+
+        def on_on_pass(node)
+          @branch = :on_pass
           process_all(node)
           @branch = nil
         end
@@ -58,6 +96,48 @@ module OrigenTesters
           stack[:jobs].pop
         end
 
+        def on_run_flag(node)
+          flag = node.to_a[0]
+          # Convert !RAN flags to a positive version, having all runtime flags considered
+          # positive is good in IG-XL as it allows them to be easily nested by joining
+          # them together
+          if flag =~ /_RAN$/ && !node.to_a[1]
+            not_flag = [flag.sub(/_RAN$/, '_NOTRAN'), stack[:run_flags].last].compact.join('_AND_')
+            lines << new_line(:flag_true, parameter: not_flag)
+            stack[:run_flags] << [flag, stack[:run_flags].last].compact.join('_AND_')
+            lines << new_line(:flag_false, parameter: not_flag)
+            stack[:run_flags].pop
+            stack[:run_flags] << [not_flag, stack[:run_flags].last].compact.join('_AND_')
+          else
+            stack[:run_flags] << [flag, stack[:run_flags].last].compact.join('_AND_')
+          end
+          process_all(node)
+          stack[:run_flags].pop
+        end
+
+        def on_flow_flag(node)
+          flag, value = *node.to_a.take(2)
+          if flag.is_a?(Array)
+            if flag.size > 1
+              fail 'Multi-condition flow flags are not implemented for Teradyne platforms yet'
+            else
+              flag = flag.first
+            end
+          end
+          if value
+            stack[:flow_flags] << flag
+            process_all(node)
+            stack[:flow_flags].pop
+          else
+            # IG-XL does not have a !enable option, so generate a branch around the tests
+            # to be skipped unless the required flag is enabled
+            label = generate_unique_label
+            lines << new_line(:goto, parameter: label, enable: flag)
+            process_all(node)
+            lines << new_line(:nop, label: label)
+          end
+        end
+
         def on_log(node)
           lines << new_line(:logprint, parameter: node.to_a[0].gsub(' ', '_'))
         end
@@ -67,11 +147,27 @@ module OrigenTesters
         end
 
         def new_line(type, attrs = {})
+          attrs = {
+            job:    stack[:jobs].last,
+            enable: stack[:flow_flags].last
+          }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
-          @current_line = line
+          if stack[:run_flags].last
+            line.device_name = stack[:run_flags].last
+            line.device_condition = 'flag-true'
+          end
+          open_lines << line
           yield line if block_given?
-          @current_line = nil
+          open_lines.pop
           line
+        end
+
+        def open_lines
+          @open_lines ||= []
+        end
+
+        def current_line
+          open_lines.last
         end
 
         def clean_job(job)
@@ -225,23 +321,6 @@ module OrigenTesters
         # end
 
         # private
-
-        ## If the test has an unless_enable then branch around it
-        # def branch_unless_enabled(options)
-        #  word = options.delete(:unless_enable) || options.delete(:unless_enabled)
-        #  if word && (word != @unless_enable_block || options.delete(:_force_unless_enable))
-        #    # Not sure if this is really required, but duplicating these hashes here to ensure
-        #    # that all other flow context keys are preserved and applied to the branch lines
-        #    orig_options = options.merge({})
-        #    close_options = options.merge({})
-        #    label = generate_unique_label
-        #    goto(label, options.merge(if_enable: word))
-        #    yield orig_options
-        #    nop(close_options.merge(label: label))
-        #  else
-        #    yield options
-        #  end
-        # end
       end
     end
   end

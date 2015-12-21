@@ -25,21 +25,15 @@ DFF 1.1	Flow Table
 						Test	read0							Fail									flag-true	t6_RAN				
 						logprint	Test_that_unless_ran_works																					
 						Test	pgm				10			Fail	t7_RAN													
-						Test	read0							Fail									flag-clear	t7_RAN				
+						flag-true	t7_NOTRAN																					
+						flag-false	t7_NOTRAN																flag-true	t7_RAN				
+						Test	read0							Fail									flag-true	t7_NOTRAN				
 						logprint	Test_the_block_form_of_unless_ran																					
 						Test	pgm				10			Fail	t8_RAN													
-						Test	read0							Fail									flag-clear	t8_RAN				
-						Test	read0							Fail									flag-clear	t8_RAN				
-						logprint	Test_that_skip_works																					
-						goto	ORIGENTESTERS_LABEL_4																					
-						Test	read0							Fail														
-						Test	read0							Fail														
-	ORIGENTESTERS_LABEL_4					nop																						
-						logprint	Test_that_conditional_skip_works																					
-						goto	ORIGENTESTERS_LABEL_5																flag-true	t4_PASSED				
-						Test	read0							Fail														
-						Test	read0							Fail														
-	ORIGENTESTERS_LABEL_5					nop																						
+						flag-true	t8_NOTRAN																					
+						flag-false	t8_NOTRAN																flag-true	t8_RAN				
+						Test	read0							Fail									flag-true	t8_NOTRAN				
+						Test	read0							Fail									flag-true	t8_NOTRAN				
 						logprint	Test_that_if_job_works																					
 			FC			Test	cold_test							Fail														
 						logprint	Test_the_block_form_of_if_job																					
@@ -56,11 +50,16 @@ DFF 1.1	Flow Table
 		cz				Test	cz_test1							Fail														
 		cz				Test	cz_test2							Fail														
 						logprint	Test_that_unless_enable_works																					
-		quick				goto	ORIGENTESTERS_LABEL_6																					
+		quick				goto	ORIGENTESTERS_LABEL_3																					
 						Test	long_test							Fail														
-	ORIGENTESTERS_LABEL_6					nop																						
+	ORIGENTESTERS_LABEL_3					nop																						
 						logprint	Test_the_block_form_of_unless_enable																					
-		quick				goto	ORIGENTESTERS_LABEL_7																					
+		quick				goto	ORIGENTESTERS_LABEL_4																					
 						Test	long_test1							Fail														
 						Test	long_test2							Fail														
-	ORIGENTESTERS_LABEL_7					nop																						
+	ORIGENTESTERS_LABEL_4					nop																						
+						logprint	Embedded_conditional_tests_1																					
+						Test	test1							None		ect1_1_FAILED												
+						Test	test2							Fail									flag-true	ect1_1_FAILED				
+						Test	test3							None		ect1_3_FAILED_AND_ect1_1_FAILED							flag-true	ect1_1_FAILED				
+						Test	test4							Fail									flag-true	ect1_3_FAILED_AND_ect1_1_FAILED				

@@ -37,5 +37,13 @@ DFF 1.1	Pattern Sets
 	read1_pset	nvm_global_subs.PAT	subr			
 	read2_pset	read2.PAT				
 	read2_pset	nvm_global_subs.PAT	subr			
+	test1_pset	test1.PAT				
+	test1_pset	nvm_global_subs.PAT	subr			
+	test2_pset	test2.PAT				
+	test2_pset	nvm_global_subs.PAT	subr			
+	test3_pset	test3.PAT				
+	test3_pset	nvm_global_subs.PAT	subr			
+	test4_pset	test4.PAT				
+	test4_pset	nvm_global_subs.PAT	subr			
 	warmish_test_pset	warmish_test.PAT				
 	warmish_test_pset	nvm_global_subs.PAT	subr			
