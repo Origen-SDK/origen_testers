@@ -1,9 +1,8 @@
 module OrigenTesters
   module SmartestBasedTester
     class Base
-      class Flow
-        include OrigenTesters::Generator
-        include OrigenTesters::Generator::FlowControlAPI
+      class Flow < ATP::Formatter
+        include OrigenTesters::Flow
 
         attr_accessor :test_suites, :test_methods, :pattern_master
 

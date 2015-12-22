@@ -113,6 +113,32 @@ Flow.create do
     func :test4
   end
 
+  log "Test that if_any_passed works"
+  func :test1, id: :ifap1
+  func :test2, id: :ifap2
+  func :test3, if_any_passed: [:ifap1, :ifap2]
+
+  log "Test the block form of if_any_passed"
+  func :test1, id: :ifapb1
+  func :test2, id: :ifapb2
+  if_any_passed :ifapb1, :ifapb2 do
+    func :test3
+    func :test4
+  end
+
+  log "Test that if_all_passed works"
+  func :test1, id: :ifallp1
+  func :test2, id: :ifallp2
+  func :test3, if_all_passed: [:ifallp1, :ifallp2]
+
+  log "Test the block form of if_all_passed"
+  func :test1, id: :ifallpb1
+  func :test2, id: :ifallpb2
+  if_all_passed :ifallpb1, :ifallpb2 do
+    func :test3
+    func :test4
+  end
+
   log "Embedded conditional tests 1"
   func :test1, id: :ect1_1
   if_failed :ect1_1 do
@@ -123,23 +149,23 @@ Flow.create do
     end
   end
 
+
+
+
+  log "Test that group-level dependencies work"
+  group "grp1", id: :grp1 do
+    func :grp1_test1, bin: 5
+    func :grp1_test2, bin: 5
+    func :grp1_test3, bin: 5
+  end
+
+  group "grp2", if_failed: :grp1 do
+    func :grp2_test1, bin: 5
+    func :grp2_test2, bin: 5
+    func :grp2_test3, bin: 5
+  end
+
   if $tester.v93k?
-    log "Test that an id can be assigned to a test group"
-    func :read1, id: :r1, bin: 10, by_block: true
-    func :erase1, if_failed: :r1
-
-    log "Test that group-level dependencies work"
-    group "grp1", id: :grp1 do
-      func :grp1_test1, bin: 5
-      func :grp1_test2, bin: 5
-      func :grp1_test3, bin: 5
-    end
-
-    group "grp2", if_failed: :grp1 do
-      func :grp2_test1, bin: 5
-      func :grp2_test2, bin: 5
-      func :grp2_test3, bin: 5
-    end
 
     log "Another group-level dependencies test based on a real life use case"
     func :gt1, bin: 90

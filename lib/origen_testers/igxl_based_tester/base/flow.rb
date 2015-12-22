@@ -32,6 +32,10 @@ module OrigenTesters
           end
         end
 
+        def on_group(node)
+          debugger
+        end
+
         def on_name(node)
           current_line.tname = node.to_a[0]
         end

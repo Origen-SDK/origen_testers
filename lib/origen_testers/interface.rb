@@ -7,7 +7,12 @@ module OrigenTesters
 
     included do
       Origen.add_interface(self)
-      include Generator::FlowControlAPI::Interface
+
+      (ATP::AST::Builder::CONDITION_KEYS + [:group]).each do |method|
+        define_method method do |*args, &block|
+          flow.send(method, *args, &block)
+        end
+      end
     end
 
     # This identifier will be used to make labels and other references unique to the

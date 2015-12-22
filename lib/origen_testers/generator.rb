@@ -8,7 +8,6 @@ module OrigenTesters
   module Generator
     autoload :Placeholder,   'origen_testers/generator/placeholder'
     autoload :IdentityMap,   'origen_testers/generator/identity_map'
-    autoload :FlowControlAPI, 'origen_testers/generator/flow_control_api'
 
     extend ActiveSupport::Concern
 

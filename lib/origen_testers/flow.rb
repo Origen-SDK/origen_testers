@@ -41,6 +41,12 @@ module OrigenTesters
     end
     alias_method :logprint, :log
 
+    def group(name, options = {})
+      model.group(name, options) do
+        yield
+      end
+    end
+
     def nop(options = {})
     end
 
@@ -118,6 +124,20 @@ module OrigenTesters
     def if_all_failed(*ids)
       options = ids.pop if ids.last.is_a?(Hash)
       model.with_conditions(if_all_failed: ids.flatten) do
+        yield
+      end
+    end
+
+    def if_any_passed(*ids)
+      options = ids.pop if ids.last.is_a?(Hash)
+      model.with_conditions(if_any_passed: ids.flatten) do
+        yield
+      end
+    end
+
+    def if_all_passed(*ids)
+      options = ids.pop if ids.last.is_a?(Hash)
+      model.with_conditions(if_all_passed: ids.flatten) do
         yield
       end
     end

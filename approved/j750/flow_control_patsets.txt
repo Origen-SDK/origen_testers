@@ -33,6 +33,12 @@ DFF 1.1	Pattern Sets
 	probe_only_test2_pset	nvm_global_subs.PAT	subr			
 	read0_pset	read0.PAT				
 	read0_pset	nvm_global_subs.PAT	subr			
+	read1_b0_pset	read1_b0.PAT				
+	read1_b0_pset	nvm_global_subs.PAT	subr			
+	read1_b1_pset	read1_b1.PAT				
+	read1_b1_pset	nvm_global_subs.PAT	subr			
+	read1_b2_pset	read1_b2.PAT				
+	read1_b2_pset	nvm_global_subs.PAT	subr			
 	read1_pset	read1.PAT				
 	read1_pset	nvm_global_subs.PAT	subr			
 	read2_pset	read2.PAT				
