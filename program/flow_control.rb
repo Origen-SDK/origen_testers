@@ -139,19 +139,6 @@ Flow.create do
     func :test4
   end
 
-  log "Embedded conditional tests 1"
-  func :test1, id: :ect1_1
-  if_failed :ect1_1 do
-    func :test2
-    func :test3, id: :ect1_3
-    if_failed :ect1_3 do
-      func :test4
-    end
-  end
-
-
-
-
   log "Test that group-level dependencies work"
   group "grp1", id: :grp1 do
     func :grp1_test1, bin: 5
@@ -165,50 +152,57 @@ Flow.create do
     func :grp2_test3, bin: 5
   end
 
-  if $tester.v93k?
+  log "Another group-level dependencies test based on a real life use case"
+  func :gt1, bin: 90
+  group "gt_grp1", id: :gt_grp1 do
+    func :gt_grp1_test1, bin: 90, id: :gt_grp1
+    func :gt_grp1_test2, bin: 90, id: :gt_grp1
+  end
+  func :gt2, bin: 90, if_failed: :gt_grp1
+  group "gt_grp2", id: :gt_grp2, if_failed: :gt_grp1 do
+    # The if_failed and IDs here are redundant, but it should still generate
+    # valid output if an application were to do this
+    func :gt_grp2_test1, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
+    func :gt_grp2_test2, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
+  end
+  func :gt3, bin: 90, if_failed: :gt_grp2
 
-    log "Another group-level dependencies test based on a real life use case"
-    func :gt1, bin: 90
-    group "gt_grp1", id: :gt_grp1 do
-      func :gt_grp1_test1, bin: 90, id: :gt_grp1
-      func :gt_grp1_test2, bin: 90, id: :gt_grp1
+  log "Test that nested groups work"
+  group "level1" do
+    func :lev1_test1, bin: 5
+    func :lev1_test2, bin: 5
+    func :lev1_test3, id: :l1t3, bin: 10
+    func :lev1_test4, if_failed: :l1t3, bin: 12
+    func :lev1_test5, id: :l1t5, bin: 12
+    group "level2" do
+      func :lev2_test1, bin: 5
+      func :lev2_test2, bin: 5
+      func :lev2_test3, id: :l2t3, bin: 10
+      func :lev2_test4, if_failed: :l2t3, bin: 12
+      # Test dependency on a test from another group
+      func :lev2_test5, if_failed: :l1t5, bin: 12
     end
-    func :gt2, bin: 90, if_failed: :gt_grp1
-    group "gt_grp2", id: :gt_grp2, if_failed: :gt_grp1 do
-      # The if_failed and IDs here are redundant, but it should still generate
-      # valid output if an application were to do this
-      func :gt_grp2_test1, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
-      func :gt_grp2_test2, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
-    end
-    func :gt3, bin: 90, if_failed: :gt_grp2
+  end
 
-    log "Test that nested groups work"
-    group "level1" do
-      func :lev1_test1, bin: 5
-      func :lev1_test2, bin: 5
-      func :lev1_test3, id: :l1t3, bin: 10
-      func :lev1_test4, if_failed: :l1t3, bin: 12
-      func :lev1_test5, id: :l1t5, bin: 12
-      group "level2" do
-        func :lev2_test1, bin: 5
-        func :lev2_test2, bin: 5
-        func :lev2_test3, id: :l2t3, bin: 10
-        func :lev2_test4, if_failed: :l2t3, bin: 12
-        # Test dependency on a test from another group
-        func :lev2_test5, if_failed: :l1t5, bin: 12
-      end
+  log "Test nested conditions on a group"
+  func :nt1, bin: 10, id: :nt1
+  if_failed :nt1 do
+    func :nt2, bin: 11, id: :nt2
+    group "ntg1", id: :ntg1, if_passed: :nt2 do
+      func :nt3, bin: 12
     end
+    group "ntg2", id: :ntg2, if_failed: :nt2 do
+      func :nt4, bin: 13
+    end
+  end
 
-    log "Test nested conditions on a group"
-    func :nt1, bin: 10, id: :nt1
-    if_failed :nt1 do
-      func :nt2, bin: 11, id: :nt2
-      group "ntg1", id: :ntg1, if_passed: :nt2 do
-        func :nt3, bin: 12
-      end
-      group "ntg2", id: :ntg2, if_failed: :nt2 do
-        func :nt4, bin: 13
-      end
+  log "Embedded conditional tests 1"
+  func :test1, id: :ect1_1
+  if_failed :ect1_1 do
+    func :test2
+    func :test3, id: :ect1_3
+    if_failed :ect1_3 do
+      func :test4
     end
   end
 end

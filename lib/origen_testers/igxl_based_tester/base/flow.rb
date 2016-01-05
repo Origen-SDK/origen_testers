@@ -8,19 +8,20 @@ module OrigenTesters
 
         attr_reader :branch
         attr_reader :stack
+        attr_reader :current_group
         attr_accessor :run_flag
 
         # Will be called at the end to transform the final flow model into an array
         # of lines to be rendered to the IG-XL flow sheet
         def format
           @lines = []
-          @stack = { jobs: [], run_flags: [], flow_flags: [] }
+          @stack = { jobs: [], run_flags: [], flow_flags: [], groups: [] }
           process(model.ast)
           lines
         end
 
         def on_test(node)
-          lines << new_line(:test) do |line|
+          (stack[:groups].last || lines) << new_line(:test) do |line|
             process_all(node)
           end
         end
@@ -33,11 +34,46 @@ module OrigenTesters
         end
 
         def on_group(node)
-          debugger
+          stack[:groups] << []
+          process_all(node.find(:members))
+          # Now process any on_fail and similar conditional logic attached to the group
+          @current_group = stack[:groups].last
+          process_all(node)
+          @current_group = nil
+          flags = { on_pass: [], on_fail: [] }
+          stack[:groups].pop.each do |test|
+            flags[:on_pass] << test.flag_pass
+            flags[:on_fail] << test.flag_fail
+            (stack[:groups].last || lines) << test
+          end
+          if @group_on_fail_flag
+            flags[:on_fail].each do |flag|
+              self.run_flag = [flag, true]
+              lines << new_line(:flag_true, parameter: @group_on_fail_flag)
+            end
+            self.run_flag = nil
+            @group_on_fail_flag = nil
+          end
+          if @group_on_pass_flag
+            flags[:on_pass].each do |flag|
+              self.run_flag = [flag, true]
+              lines << new_line(:flag_true, parameter: @group_on_pass_flag)
+            end
+            self.run_flag = nil
+            @group_on_pass_flag = nil
+          end
+        end
+
+        def on_members(node)
+          # Do nothing, will be processed directly by the on_group handler
         end
 
         def on_name(node)
-          current_line.tname = node.to_a[0]
+          if current_group
+            # No action, groups will not actually appear in the flow sheet
+          else
+            current_line.tname = node.to_a[0]
+          end
         end
 
         def on_number(node)
@@ -53,15 +89,33 @@ module OrigenTesters
         end
 
         def on_continue(node)
-          current_line.result = 'None'
+          if current_group
+            current_group.each { |line| line.result = 'None' }
+          else
+            current_line.result = 'None'
+          end
         end
 
         def on_set_run_flag(node)
           flag = node.to_a[0]
-          if branch == :on_fail
-            current_line.flag_fail = flag
+          if current_group
+            if branch == :on_fail
+              @group_on_fail_flag = flag
+              current_group.each_with_index do |line, i|
+                line.flag_fail = "#{flag}_#{i}" unless line.flag_fail
+              end
+            else
+              @group_on_pass_flag = flag
+              current_group.each_with_index do |line, i|
+                line.flag_pass = "#{flag}_#{i}" unless line.flag_pass
+              end
+            end
           else
-            current_line.flag_pass = flag
+            if branch == :on_fail
+              current_line.flag_fail = flag
+            else
+              current_line.flag_pass = flag
+            end
           end
         end
 

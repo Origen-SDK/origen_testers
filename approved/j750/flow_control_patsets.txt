@@ -17,12 +17,66 @@ DFF 1.1	Pattern Sets
 	ft_only_test1_pset	nvm_global_subs.PAT	subr			
 	ft_only_test2_pset	ft_only_test2.PAT				
 	ft_only_test2_pset	nvm_global_subs.PAT	subr			
+	grp1_test1_pset	grp1_test1.PAT				
+	grp1_test1_pset	nvm_global_subs.PAT	subr			
+	grp1_test2_pset	grp1_test2.PAT				
+	grp1_test2_pset	nvm_global_subs.PAT	subr			
+	grp1_test3_pset	grp1_test3.PAT				
+	grp1_test3_pset	nvm_global_subs.PAT	subr			
+	grp2_test1_pset	grp2_test1.PAT				
+	grp2_test1_pset	nvm_global_subs.PAT	subr			
+	grp2_test2_pset	grp2_test2.PAT				
+	grp2_test2_pset	nvm_global_subs.PAT	subr			
+	grp2_test3_pset	grp2_test3.PAT				
+	grp2_test3_pset	nvm_global_subs.PAT	subr			
+	gt1_pset	gt1.PAT				
+	gt1_pset	nvm_global_subs.PAT	subr			
+	gt2_pset	gt2.PAT				
+	gt2_pset	nvm_global_subs.PAT	subr			
+	gt3_pset	gt3.PAT				
+	gt3_pset	nvm_global_subs.PAT	subr			
+	gt_grp1_test1_pset	gt_grp1_test1.PAT				
+	gt_grp1_test1_pset	nvm_global_subs.PAT	subr			
+	gt_grp1_test2_pset	gt_grp1_test2.PAT				
+	gt_grp1_test2_pset	nvm_global_subs.PAT	subr			
+	gt_grp2_test1_pset	gt_grp2_test1.PAT				
+	gt_grp2_test1_pset	nvm_global_subs.PAT	subr			
+	gt_grp2_test2_pset	gt_grp2_test2.PAT				
+	gt_grp2_test2_pset	nvm_global_subs.PAT	subr			
+	lev1_test1_pset	lev1_test1.PAT				
+	lev1_test1_pset	nvm_global_subs.PAT	subr			
+	lev1_test2_pset	lev1_test2.PAT				
+	lev1_test2_pset	nvm_global_subs.PAT	subr			
+	lev1_test3_pset	lev1_test3.PAT				
+	lev1_test3_pset	nvm_global_subs.PAT	subr			
+	lev1_test4_pset	lev1_test4.PAT				
+	lev1_test4_pset	nvm_global_subs.PAT	subr			
+	lev1_test5_pset	lev1_test5.PAT				
+	lev1_test5_pset	nvm_global_subs.PAT	subr			
+	lev2_test1_pset	lev2_test1.PAT				
+	lev2_test1_pset	nvm_global_subs.PAT	subr			
+	lev2_test2_pset	lev2_test2.PAT				
+	lev2_test2_pset	nvm_global_subs.PAT	subr			
+	lev2_test3_pset	lev2_test3.PAT				
+	lev2_test3_pset	nvm_global_subs.PAT	subr			
+	lev2_test4_pset	lev2_test4.PAT				
+	lev2_test4_pset	nvm_global_subs.PAT	subr			
+	lev2_test5_pset	lev2_test5.PAT				
+	lev2_test5_pset	nvm_global_subs.PAT	subr			
 	long_test1_pset	long_test1.PAT				
 	long_test1_pset	nvm_global_subs.PAT	subr			
 	long_test2_pset	long_test2.PAT				
 	long_test2_pset	nvm_global_subs.PAT	subr			
 	long_test_pset	long_test.PAT				
 	long_test_pset	nvm_global_subs.PAT	subr			
+	nt1_pset	nt1.PAT				
+	nt1_pset	nvm_global_subs.PAT	subr			
+	nt2_pset	nt2.PAT				
+	nt2_pset	nvm_global_subs.PAT	subr			
+	nt3_pset	nt3.PAT				
+	nt3_pset	nvm_global_subs.PAT	subr			
+	nt4_pset	nt4.PAT				
+	nt4_pset	nvm_global_subs.PAT	subr			
 	pgm1_pset	pgm1.PAT				
 	pgm1_pset	nvm_global_subs.PAT	subr			
 	pgm_pset	pgm.PAT				
@@ -33,12 +87,6 @@ DFF 1.1	Pattern Sets
 	probe_only_test2_pset	nvm_global_subs.PAT	subr			
 	read0_pset	read0.PAT				
 	read0_pset	nvm_global_subs.PAT	subr			
-	read1_b0_pset	read1_b0.PAT				
-	read1_b0_pset	nvm_global_subs.PAT	subr			
-	read1_b1_pset	read1_b1.PAT				
-	read1_b1_pset	nvm_global_subs.PAT	subr			
-	read1_b2_pset	read1_b2.PAT				
-	read1_b2_pset	nvm_global_subs.PAT	subr			
 	read1_pset	read1.PAT				
 	read1_pset	nvm_global_subs.PAT	subr			
 	read2_pset	read2.PAT				

@@ -42,7 +42,7 @@ module OrigenTesters
     alias_method :logprint, :log
 
     def group(name, options = {})
-      model.group(name, options) do
+      model.group(name, clean_options(options)) do
         yield
       end
     end

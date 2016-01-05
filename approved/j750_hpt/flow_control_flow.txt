@@ -25,21 +25,11 @@ DFF 1.1	Flow Table
 						Test	read0							Fail									flag-true	t6_RAN				
 						logprint	Test_that_unless_ran_works																					
 						Test	pgm				10			Fail	t7_RAN													
-						Test	read0							Fail									flag-clear	t7_RAN				
+						Test	read0							Fail								not	flag-true	t7_RAN				
 						logprint	Test_the_block_form_of_unless_ran																					
 						Test	pgm				10			Fail	t8_RAN													
-						Test	read0							Fail									flag-clear	t8_RAN				
-						Test	read0							Fail									flag-clear	t8_RAN				
-						logprint	Test_that_skip_works																					
-						goto	ORIGENTESTERS_LABEL_4																					
-						Test	read0							Fail														
-						Test	read0							Fail														
-	ORIGENTESTERS_LABEL_4					nop																						
-						logprint	Test_that_conditional_skip_works																					
-						goto	ORIGENTESTERS_LABEL_5																flag-true	t4_PASSED				
-						Test	read0							Fail														
-						Test	read0							Fail														
-	ORIGENTESTERS_LABEL_5					nop																						
+						Test	read0							Fail								not	flag-true	t8_RAN				
+						Test	read0							Fail								not	flag-true	t8_RAN				
 						logprint	Test_that_if_job_works																					
 			FC			Test	cold_test							Fail														
 						logprint	Test_the_block_form_of_if_job																					
@@ -56,11 +46,119 @@ DFF 1.1	Flow Table
 		cz				Test	cz_test1							Fail														
 		cz				Test	cz_test2							Fail														
 						logprint	Test_that_unless_enable_works																					
-		quick				goto	ORIGENTESTERS_LABEL_6																					
+		quick				goto	ORIGENTESTERS_LABEL_2																					
 						Test	long_test							Fail														
-	ORIGENTESTERS_LABEL_6					nop																						
+	ORIGENTESTERS_LABEL_2					nop																						
 						logprint	Test_the_block_form_of_unless_enable																					
-		quick				goto	ORIGENTESTERS_LABEL_7																					
+		quick				goto	ORIGENTESTERS_LABEL_3																					
 						Test	long_test1							Fail														
 						Test	long_test2							Fail														
-	ORIGENTESTERS_LABEL_7					nop																						
+	ORIGENTESTERS_LABEL_3					nop																						
+						logprint	Test_that_if_any_failed_works																					
+						Test	test1							None		ifa1_FAILED												
+						Test	test2							None		ifa2_FAILED												
+						flag-true	ifa1_FAILED_OR_ifa2_FAILED																flag-true	ifa1_FAILED				
+						flag-true	ifa1_FAILED_OR_ifa2_FAILED																flag-true	ifa2_FAILED				
+						Test	test3							Fail									flag-true	ifa1_FAILED_OR_ifa2_FAILED				
+						logprint	Test_the_block_form_of_if_any_failed																					
+						Test	test1							None		oof_passcode1_FAILED												
+						Test	test2							None		oof_passcode2_FAILED												
+						flag-true	oof_passcode1_FAILED_OR_oof_passcode2_FAILED																flag-true	oof_passcode1_FAILED				
+						flag-true	oof_passcode1_FAILED_OR_oof_passcode2_FAILED																flag-true	oof_passcode2_FAILED				
+						Test	test3							Fail									flag-true	oof_passcode1_FAILED_OR_oof_passcode2_FAILED				
+						Test	test4							Fail									flag-true	oof_passcode1_FAILED_OR_oof_passcode2_FAILED				
+						logprint	Test_that_if_all_failed_works																					
+						Test	test1							None		ifall1_FAILED												
+						Test	test2							None		ifall2_FAILED												
+						flag-true	ifall1_FAILED_AND_ifall2_FAILED																					
+						flag-false	ifall1_FAILED_AND_ifall2_FAILED															not	flag-true	ifall2_FAILED				
+						flag-false	ifall1_FAILED_AND_ifall2_FAILED															not	flag-true	ifall1_FAILED				
+						Test	test3							Fail									flag-true	ifall1_FAILED_AND_ifall2_FAILED				
+						logprint	Test_the_block_form_of_if_all_failed																					
+						Test	test1							None		ifallb1_FAILED												
+						Test	test2							None		ifallb2_FAILED												
+						flag-true	ifallb1_FAILED_AND_ifallb2_FAILED																					
+						flag-false	ifallb1_FAILED_AND_ifallb2_FAILED															not	flag-true	ifallb2_FAILED				
+						flag-false	ifallb1_FAILED_AND_ifallb2_FAILED															not	flag-true	ifallb1_FAILED				
+						Test	test3							Fail									flag-true	ifallb1_FAILED_AND_ifallb2_FAILED				
+						Test	test4							Fail									flag-true	ifallb1_FAILED_AND_ifallb2_FAILED				
+						logprint	Test_that_if_any_passed_works																					
+						Test	test1							None	ifap1_PASSED													
+						Test	test2							None	ifap2_PASSED													
+						flag-true	ifap1_PASSED_OR_ifap2_PASSED																flag-true	ifap1_PASSED				
+						flag-true	ifap1_PASSED_OR_ifap2_PASSED																flag-true	ifap2_PASSED				
+						Test	test3							Fail									flag-true	ifap1_PASSED_OR_ifap2_PASSED				
+						logprint	Test_the_block_form_of_if_any_passed																					
+						Test	test1							None	ifapb1_PASSED													
+						Test	test2							None	ifapb2_PASSED													
+						flag-true	ifapb1_PASSED_OR_ifapb2_PASSED																flag-true	ifapb1_PASSED				
+						flag-true	ifapb1_PASSED_OR_ifapb2_PASSED																flag-true	ifapb2_PASSED				
+						Test	test3							Fail									flag-true	ifapb1_PASSED_OR_ifapb2_PASSED				
+						Test	test4							Fail									flag-true	ifapb1_PASSED_OR_ifapb2_PASSED				
+						logprint	Test_that_if_all_passed_works																					
+						Test	test1							None	ifallp1_PASSED													
+						Test	test2							None	ifallp2_PASSED													
+						flag-true	ifallp1_PASSED_AND_ifallp2_PASSED																					
+						flag-false	ifallp1_PASSED_AND_ifallp2_PASSED															not	flag-true	ifallp2_PASSED				
+						flag-false	ifallp1_PASSED_AND_ifallp2_PASSED															not	flag-true	ifallp1_PASSED				
+						Test	test3							Fail									flag-true	ifallp1_PASSED_AND_ifallp2_PASSED				
+						logprint	Test_the_block_form_of_if_all_passed																					
+						Test	test1							None	ifallpb1_PASSED													
+						Test	test2							None	ifallpb2_PASSED													
+						flag-true	ifallpb1_PASSED_AND_ifallpb2_PASSED																					
+						flag-false	ifallpb1_PASSED_AND_ifallpb2_PASSED															not	flag-true	ifallpb2_PASSED				
+						flag-false	ifallpb1_PASSED_AND_ifallpb2_PASSED															not	flag-true	ifallpb1_PASSED				
+						Test	test3							Fail									flag-true	ifallpb1_PASSED_AND_ifallpb2_PASSED				
+						Test	test4							Fail									flag-true	ifallpb1_PASSED_AND_ifallpb2_PASSED				
+						logprint	Test_that_group-level_dependencies_work																					
+						Test	grp1_test1				5			None		grp1_FAILED_0												
+						Test	grp1_test2				5			None		grp1_FAILED_1												
+						Test	grp1_test3				5			None		grp1_FAILED_2												
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_0				
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_1				
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_2				
+						Test	grp2_test1				5			Fail									flag-true	grp1_FAILED				
+						Test	grp2_test2				5			Fail									flag-true	grp1_FAILED				
+						Test	grp2_test3				5			Fail									flag-true	grp1_FAILED				
+						logprint	Another_group-level_dependencies_test_based_on_a_real_life_use_case																					
+						Test	gt1				90			Fail														
+						Test	gt_grp1_test1				90			None		gt_grp1_FAILED_0												
+						Test	gt_grp1_test2				90			None		gt_grp1_FAILED_1												
+						flag-true	gt_grp1_FAILED																flag-true	gt_grp1_FAILED_0				
+						flag-true	gt_grp1_FAILED																flag-true	gt_grp1_FAILED_1				
+						Test	gt2				90			Fail									flag-true	gt_grp1_FAILED				
+						Test	gt_grp2_test1				90			None		gt_grp2_FAILED_0							flag-true	gt_grp1_FAILED				
+						Test	gt_grp2_test2				90			None		gt_grp2_FAILED_1							flag-true	gt_grp1_FAILED				
+						flag-true	gt_grp2_FAILED																flag-true	gt_grp2_FAILED_0				
+						flag-true	gt_grp2_FAILED																flag-true	gt_grp2_FAILED_1				
+						Test	gt3				90			Fail									flag-true	gt_grp2_FAILED				
+						logprint	Test_that_nested_groups_work																					
+						Test	lev1_test1				5			Fail														
+						Test	lev1_test2				5			Fail														
+						Test	lev1_test3				10			None		l1t3_FAILED												
+						Test	lev1_test4				12			Fail									flag-true	l1t3_FAILED				
+						Test	lev1_test5				12			None		l1t5_FAILED												
+						Test	lev2_test1				5			Fail														
+						Test	lev2_test2				5			Fail														
+						Test	lev2_test3				10			None		l2t3_FAILED												
+						Test	lev2_test4				12			Fail									flag-true	l2t3_FAILED				
+						Test	lev2_test5				12			Fail									flag-true	l1t5_FAILED				
+						logprint	Test_nested_conditions_on_a_group																					
+						Test	nt1				10			None		nt1_FAILED												
+						Test	nt2				11			None	nt2_PASSED	nt2_FAILED							flag-true	nt1_FAILED				
+						flag-true	nt1_FAILED_AND_nt2_PASSED																					
+						flag-false	nt1_FAILED_AND_nt2_PASSED															not	flag-true	nt2_PASSED				
+						flag-false	nt1_FAILED_AND_nt2_PASSED															not	flag-true	nt1_FAILED				
+						Test	nt3				12			Fail									flag-true	nt1_FAILED_AND_nt2_PASSED				
+						flag-true	nt1_FAILED_AND_nt2_FAILED																					
+						flag-false	nt1_FAILED_AND_nt2_FAILED															not	flag-true	nt2_FAILED				
+						flag-false	nt1_FAILED_AND_nt2_FAILED															not	flag-true	nt1_FAILED				
+						Test	nt4				13			Fail									flag-true	nt1_FAILED_AND_nt2_FAILED				
+						logprint	Embedded_conditional_tests_1																					
+						Test	test1							None		ect1_1_FAILED												
+						Test	test2							Fail									flag-true	ect1_1_FAILED				
+						Test	test3							None		ect1_3_FAILED							flag-true	ect1_1_FAILED				
+						flag-true	ect1_3_FAILED_AND_ect1_1_FAILED																					
+						flag-false	ect1_3_FAILED_AND_ect1_1_FAILED															not	flag-true	ect1_1_FAILED				
+						flag-false	ect1_3_FAILED_AND_ect1_1_FAILED															not	flag-true	ect1_3_FAILED				
+						Test	test4							Fail									flag-true	ect1_3_FAILED_AND_ect1_1_FAILED				

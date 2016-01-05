@@ -110,9 +110,50 @@ DFF 1.1	Flow Table
 						flag-false	ifallpb1_PASSED_AND_ifallpb2_PASSED															not	flag-true	ifallpb1_PASSED				
 						Test	test3							Fail									flag-true	ifallpb1_PASSED_AND_ifallpb2_PASSED				
 						Test	test4							Fail									flag-true	ifallpb1_PASSED_AND_ifallpb2_PASSED				
-						logprint	Test_that_an_id_can_be_assigned_to_a_test_group																					
-						Test	read1_grp				10			None		r1_FAILED												
-						Test	erase1							Fail									flag-true	r1_FAILED				
+						logprint	Test_that_group-level_dependencies_work																					
+						Test	grp1_test1				5			None		grp1_FAILED_0												
+						Test	grp1_test2				5			None		grp1_FAILED_1												
+						Test	grp1_test3				5			None		grp1_FAILED_2												
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_0				
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_1				
+						flag-true	grp1_FAILED																flag-true	grp1_FAILED_2				
+						Test	grp2_test1				5			Fail									flag-true	grp1_FAILED				
+						Test	grp2_test2				5			Fail									flag-true	grp1_FAILED				
+						Test	grp2_test3				5			Fail									flag-true	grp1_FAILED				
+						logprint	Another_group-level_dependencies_test_based_on_a_real_life_use_case																					
+						Test	gt1				90			Fail														
+						Test	gt_grp1_test1				90			None		gt_grp1_FAILED_0												
+						Test	gt_grp1_test2				90			None		gt_grp1_FAILED_1												
+						flag-true	gt_grp1_FAILED																flag-true	gt_grp1_FAILED_0				
+						flag-true	gt_grp1_FAILED																flag-true	gt_grp1_FAILED_1				
+						Test	gt2				90			Fail									flag-true	gt_grp1_FAILED				
+						Test	gt_grp2_test1				90			None		gt_grp2_FAILED_0							flag-true	gt_grp1_FAILED				
+						Test	gt_grp2_test2				90			None		gt_grp2_FAILED_1							flag-true	gt_grp1_FAILED				
+						flag-true	gt_grp2_FAILED																flag-true	gt_grp2_FAILED_0				
+						flag-true	gt_grp2_FAILED																flag-true	gt_grp2_FAILED_1				
+						Test	gt3				90			Fail									flag-true	gt_grp2_FAILED				
+						logprint	Test_that_nested_groups_work																					
+						Test	lev1_test1				5			Fail														
+						Test	lev1_test2				5			Fail														
+						Test	lev1_test3				10			None		l1t3_FAILED												
+						Test	lev1_test4				12			Fail									flag-true	l1t3_FAILED				
+						Test	lev1_test5				12			None		l1t5_FAILED												
+						Test	lev2_test1				5			Fail														
+						Test	lev2_test2				5			Fail														
+						Test	lev2_test3				10			None		l2t3_FAILED												
+						Test	lev2_test4				12			Fail									flag-true	l2t3_FAILED				
+						Test	lev2_test5				12			Fail									flag-true	l1t5_FAILED				
+						logprint	Test_nested_conditions_on_a_group																					
+						Test	nt1				10			None		nt1_FAILED												
+						Test	nt2				11			None	nt2_PASSED	nt2_FAILED							flag-true	nt1_FAILED				
+						flag-true	nt1_FAILED_AND_nt2_PASSED																					
+						flag-false	nt1_FAILED_AND_nt2_PASSED															not	flag-true	nt2_PASSED				
+						flag-false	nt1_FAILED_AND_nt2_PASSED															not	flag-true	nt1_FAILED				
+						Test	nt3				12			Fail									flag-true	nt1_FAILED_AND_nt2_PASSED				
+						flag-true	nt1_FAILED_AND_nt2_FAILED																					
+						flag-false	nt1_FAILED_AND_nt2_FAILED															not	flag-true	nt2_FAILED				
+						flag-false	nt1_FAILED_AND_nt2_FAILED															not	flag-true	nt1_FAILED				
+						Test	nt4				13			Fail									flag-true	nt1_FAILED_AND_nt2_FAILED				
 						logprint	Embedded_conditional_tests_1																					
 						Test	test1							None		ect1_1_FAILED												
 						Test	test2							Fail									flag-true	ect1_1_FAILED				
