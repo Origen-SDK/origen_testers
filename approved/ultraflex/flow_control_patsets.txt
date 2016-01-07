@@ -17,12 +17,66 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	ft_only_test1_pset			nvm_global_subs.PAT	Yes	subr			
 	ft_only_test2_pset			ft_only_test2.PAT	Yes				
 	ft_only_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test1_pset			grp1_test1.PAT	Yes				
+	grp1_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test2_pset			grp1_test2.PAT	Yes				
+	grp1_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test3_pset			grp1_test3.PAT	Yes				
+	grp1_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test1_pset			grp2_test1.PAT	Yes				
+	grp2_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test2_pset			grp2_test2.PAT	Yes				
+	grp2_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test3_pset			grp2_test3.PAT	Yes				
+	grp2_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	gt1_pset			gt1.PAT	Yes				
+	gt1_pset			nvm_global_subs.PAT	Yes	subr			
+	gt2_pset			gt2.PAT	Yes				
+	gt2_pset			nvm_global_subs.PAT	Yes	subr			
+	gt3_pset			gt3.PAT	Yes				
+	gt3_pset			nvm_global_subs.PAT	Yes	subr			
+	gt_grp1_test1_pset			gt_grp1_test1.PAT	Yes				
+	gt_grp1_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	gt_grp1_test2_pset			gt_grp1_test2.PAT	Yes				
+	gt_grp1_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	gt_grp2_test1_pset			gt_grp2_test1.PAT	Yes				
+	gt_grp2_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	gt_grp2_test2_pset			gt_grp2_test2.PAT	Yes				
+	gt_grp2_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	lev1_test1_pset			lev1_test1.PAT	Yes				
+	lev1_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	lev1_test2_pset			lev1_test2.PAT	Yes				
+	lev1_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	lev1_test3_pset			lev1_test3.PAT	Yes				
+	lev1_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	lev1_test4_pset			lev1_test4.PAT	Yes				
+	lev1_test4_pset			nvm_global_subs.PAT	Yes	subr			
+	lev1_test5_pset			lev1_test5.PAT	Yes				
+	lev1_test5_pset			nvm_global_subs.PAT	Yes	subr			
+	lev2_test1_pset			lev2_test1.PAT	Yes				
+	lev2_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	lev2_test2_pset			lev2_test2.PAT	Yes				
+	lev2_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	lev2_test3_pset			lev2_test3.PAT	Yes				
+	lev2_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	lev2_test4_pset			lev2_test4.PAT	Yes				
+	lev2_test4_pset			nvm_global_subs.PAT	Yes	subr			
+	lev2_test5_pset			lev2_test5.PAT	Yes				
+	lev2_test5_pset			nvm_global_subs.PAT	Yes	subr			
 	long_test1_pset			long_test1.PAT	Yes				
 	long_test1_pset			nvm_global_subs.PAT	Yes	subr			
 	long_test2_pset			long_test2.PAT	Yes				
 	long_test2_pset			nvm_global_subs.PAT	Yes	subr			
 	long_test_pset			long_test.PAT	Yes				
 	long_test_pset			nvm_global_subs.PAT	Yes	subr			
+	nt1_pset			nt1.PAT	Yes				
+	nt1_pset			nvm_global_subs.PAT	Yes	subr			
+	nt2_pset			nt2.PAT	Yes				
+	nt2_pset			nvm_global_subs.PAT	Yes	subr			
+	nt3_pset			nt3.PAT	Yes				
+	nt3_pset			nvm_global_subs.PAT	Yes	subr			
+	nt4_pset			nt4.PAT	Yes				
+	nt4_pset			nvm_global_subs.PAT	Yes	subr			
 	pgm1_pset			pgm1.PAT	Yes				
 	pgm1_pset			nvm_global_subs.PAT	Yes	subr			
 	pgm_pset			pgm.PAT	Yes				
@@ -37,5 +91,13 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	read1_pset			nvm_global_subs.PAT	Yes	subr			
 	read2_pset			read2.PAT	Yes				
 	read2_pset			nvm_global_subs.PAT	Yes	subr			
+	test1_pset			test1.PAT	Yes				
+	test1_pset			nvm_global_subs.PAT	Yes	subr			
+	test2_pset			test2.PAT	Yes				
+	test2_pset			nvm_global_subs.PAT	Yes	subr			
+	test3_pset			test3.PAT	Yes				
+	test3_pset			nvm_global_subs.PAT	Yes	subr			
+	test4_pset			test4.PAT	Yes				
+	test4_pset			nvm_global_subs.PAT	Yes	subr			
 	warmish_test_pset			warmish_test.PAT	Yes				
 	warmish_test_pset			nvm_global_subs.PAT	Yes	subr			

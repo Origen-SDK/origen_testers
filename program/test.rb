@@ -13,8 +13,8 @@ Flow.create do
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: 35
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35, units: "V"
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35, scale: "k", units: "V"
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35, scale: "k", units: "V", continue: true
+  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
+  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV
+  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV, continue: true
 
 end

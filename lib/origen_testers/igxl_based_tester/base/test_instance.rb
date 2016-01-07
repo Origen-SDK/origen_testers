@@ -2,7 +2,7 @@ module OrigenTesters
   module IGXLBasedTester
     class Base
       class TestInstance
-        attr_accessor :type, :index, :version, :append_version, :finalize
+        attr_accessor :type, :index, :version, :append_version, :finalize, :meta
 
         def self.define
           # Generate accessors for all attributes and their aliases
@@ -46,6 +46,7 @@ module OrigenTesters
         end
 
         def initialize(name, type, attrs = {})
+          @meta = {}
           @type = type
           @append_version = true
           self.name = name
@@ -171,6 +172,7 @@ module OrigenTesters
           end
           self
         end
+        alias_method :hi_limit=, :set_hi_limit
 
         # Set and enable the hi limit of a parametric test instance, passing in
         # nil or false as the lim parameter will disable the hi limit.
@@ -183,6 +185,7 @@ module OrigenTesters
           end
           self
         end
+        alias_method :lo_limit=, :set_lo_limit
 
         # Set the current range of the test instance, the following are valid:
         #

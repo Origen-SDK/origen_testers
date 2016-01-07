@@ -52,6 +52,7 @@ module OrigenTesters
 
     # @api private
     def at_run_start
+      @@program = nil
     end
 
     def if_job(*jobs)

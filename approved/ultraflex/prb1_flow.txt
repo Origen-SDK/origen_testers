@@ -58,11 +58,9 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						logprint	Test_unless_enable																										
 		no_extra_erase				goto	ORIGENTESTERS_LABEL_1																										
 						Test	erase_all_v1												Fail														
+						Test	erase_all_v1												Fail														
+						Test	erase_all_v1												Fail														
 	ORIGENTESTERS_LABEL_1					nop																											
-		no_extra_erase				goto	ORIGENTESTERS_LABEL_2																										
-						Test	erase_all_v1												Fail														
-						Test	erase_all_v1												Fail														
-	ORIGENTESTERS_LABEL_2					nop																											
 						Test	erase_all_v1												Fail														
 						Test	erase_all_v1												Fail														
 						logprint	Test_if_passed																										
@@ -93,33 +91,8 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						logprint	Test_unless_ran																										
 						Test	erase_all_v1												Fail	erase_ran_3_RAN													
 						Test	erase_all_v1												Fail	erase_ran_4_RAN													
-						Test	margin_read1_all1_v1												Fail									flag-clear	erase_ran_3_RAN				
-						Test	margin_read1_all1_v1												Fail									flag-clear	erase_ran_4_RAN				
-						logprint	Test_if_all_passed																										
-						Test	erase_all_v1												None	erase_all_passed_1_PASSED													
-						Test	erase_all_v1												None	erase_all_passed_2_PASSED													
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_passed_1_PASSED							
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_passed_2_PASSED							
-						logprint	Test_unless_any_failed																										
-						Test	erase_all_v1												None	erase_all_passed_3_PASSED													
-						Test	erase_all_v1												None	erase_all_passed_4_PASSED													
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_passed_3_PASSED							
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_passed_4_PASSED							
-						logprint	Test_if_any_passed																										
-						Test	erase_all_v1												None	erase_any_passed_1_PASSED													
-						Test	erase_all_v1												None	erase_any_passed_2_PASSED													
-						Test	margin_read1_all1_v1												Fail				any-active		flag-true	erase_any_passed_1_PASSED							
-						Test	margin_read1_all1_v1												Fail				any-active		flag-true	erase_any_passed_2_PASSED							
-						logprint	Test_if_all_failed																										
-						Test	erase_all_v1												None		erase_all_failed_1_FAILED												
-						Test	erase_all_v1												None		erase_all_failed_2_FAILED												
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_failed_1_FAILED							
-						Test	margin_read1_all1_v1												Fail				all-active		flag-true	erase_all_failed_2_FAILED							
-						logprint	Test_if_any_failed																										
-						Test	erase_all_v1												None		erase_any_failed_1_FAILED												
-						Test	erase_all_v1												None		erase_any_failed_2_FAILED												
-						Test	margin_read1_all1_v1												Fail				any-active		flag-true	erase_any_failed_1_FAILED							
-						Test	margin_read1_all1_v1												Fail				any-active		flag-true	erase_any_failed_2_FAILED							
+						Test	margin_read1_all1_v1												Fail								not	flag-true	erase_ran_3_RAN				
+						Test	margin_read1_all1_v1												Fail								not	flag-true	erase_ran_4_RAN				
 						logprint	Verify_that_job_context_wraps_import																										
 			FR			Test	erase_all_v1												Fail														
 			FR			Test	erase_all_v1												Fail														

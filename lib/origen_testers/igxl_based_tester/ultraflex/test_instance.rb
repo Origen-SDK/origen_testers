@@ -264,6 +264,38 @@ module OrigenTesters
           self.wait_flag4 = d
           self
         end
+
+        def hi_limit
+          if type == :functional
+            meta[:hi_limit]
+          else
+            super
+          end
+        end
+
+        def lo_limit
+          if type == :functional
+            meta[:lo_limit]
+          else
+            super
+          end
+        end
+
+        def hi_limit=(val)
+          if type == :functional
+            meta[:hi_limit] = val
+          else
+            super
+          end
+        end
+
+        def lo_limit=(val)
+          if type == :functional
+            meta[:lo_limit] = val
+          else
+            super
+          end
+        end
       end
     end
   end
