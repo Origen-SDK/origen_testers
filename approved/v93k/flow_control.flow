@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.3.0.pre38";
+test_revision = "0.5.5";
 -- STARTDIFF
  
 end
@@ -19,16 +19,33 @@ declarations
 @T6_RAN = -1;
 @T7_RAN = -1;
 @T8_RAN = -1;
-@R1_FAILED = -1;
+@IFA1_FAILED = -1;
+@IFA2_FAILED = -1;
+@OOF_PASSCODE1_FAILED = -1;
+@OOF_PASSCODE2_FAILED = -1;
+@IFALL1_FAILED = -1;
+@IFALL2_FAILED = -1;
+@IFALLB1_FAILED = -1;
+@IFALLB2_FAILED = -1;
+@IFAP1_PASSED = -1;
+@IFAP2_PASSED = -1;
+@IFAPB1_PASSED = -1;
+@IFAPB2_PASSED = -1;
+@IFALLP1_PASSED = -1;
+@IFALLP2_PASSED = -1;
+@IFALLPB1_PASSED = -1;
+@IFALLPB2_PASSED = -1;
 @GRP1_FAILED = -1;
 @GT_GRP1_FAILED = -1;
 @GT_GRP2_FAILED = -1;
 @L1T3_FAILED = -1;
-@L2T3_FAILED = -1;
 @L1T5_FAILED = -1;
+@L2T3_FAILED = -1;
 @NT1_FAILED = -1;
 @NT2_PASSED = -1;
 @NT2_FAILED = -1;
+@ECT1_1_FAILED = -1;
+@ECT1_3_FAILED = -1;
 end
 --------------------------------------------------
 implicit_declarations
@@ -279,6 +296,78 @@ tm_66:
 tm_67:
   "testName" = "Functional";
   "output" = "None";
+tm_68:
+  "testName" = "Functional";
+  "output" = "None";
+tm_69:
+  "testName" = "Functional";
+  "output" = "None";
+tm_70:
+  "testName" = "Functional";
+  "output" = "None";
+tm_71:
+  "testName" = "Functional";
+  "output" = "None";
+tm_72:
+  "testName" = "Functional";
+  "output" = "None";
+tm_73:
+  "testName" = "Functional";
+  "output" = "None";
+tm_74:
+  "testName" = "Functional";
+  "output" = "None";
+tm_75:
+  "testName" = "Functional";
+  "output" = "None";
+tm_76:
+  "testName" = "Functional";
+  "output" = "None";
+tm_77:
+  "testName" = "Functional";
+  "output" = "None";
+tm_78:
+  "testName" = "Functional";
+  "output" = "None";
+tm_79:
+  "testName" = "Functional";
+  "output" = "None";
+tm_80:
+  "testName" = "Functional";
+  "output" = "None";
+tm_81:
+  "testName" = "Functional";
+  "output" = "None";
+tm_82:
+  "testName" = "Functional";
+  "output" = "None";
+tm_83:
+  "testName" = "Functional";
+  "output" = "None";
+tm_84:
+  "testName" = "Functional";
+  "output" = "None";
+tm_85:
+  "testName" = "Functional";
+  "output" = "None";
+tm_86:
+  "testName" = "Functional";
+  "output" = "None";
+tm_87:
+  "testName" = "Functional";
+  "output" = "None";
+tm_88:
+  "testName" = "Functional";
+  "output" = "None";
+tm_89:
+  "testName" = "Functional";
+  "output" = "None";
+tm_90:
+  "testName" = "Functional";
+  "output" = "None";
+tm_91:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -416,6 +505,54 @@ tm_66:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_67:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_68:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_69:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_70:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_71:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_72:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_73:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_74:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_75:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_76:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_77:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_78:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_79:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_80:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_81:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_82:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_83:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_84:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_85:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_86:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_87:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_88:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_89:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_90:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_91:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -552,6 +689,54 @@ tm_65:
 tm_66:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_67:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_68:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_69:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_70:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_71:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_72:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_73:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_74:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_75:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_76:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_77:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_78:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_79:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_80:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_81:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_82:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_83:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_84:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_85:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_86:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_87:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_88:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_89:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_90:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_91:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -696,332 +881,500 @@ read0_5:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-read0_6:
-  override = 1;
- override_seqlbl = "read0";
- override_testf = tm_21;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-read0_7:
-  override = 1;
- override_seqlbl = "read0";
- override_testf = tm_22;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-read0_8:
-  override = 1;
- override_seqlbl = "read0";
- override_testf = tm_23;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-read0_9:
-  override = 1;
- override_seqlbl = "read0";
- override_testf = tm_24;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
 cold_test:
   override = 1;
  override_seqlbl = "cold_test";
- override_testf = tm_25;
+ override_testf = tm_21;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 probe_only_test1:
   override = 1;
  override_seqlbl = "probe_only_test1";
- override_testf = tm_26;
+ override_testf = tm_22;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 probe_only_test2:
   override = 1;
  override_seqlbl = "probe_only_test2";
- override_testf = tm_27;
+ override_testf = tm_23;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 warmish_test:
   override = 1;
  override_seqlbl = "warmish_test";
- override_testf = tm_28;
+ override_testf = tm_24;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 ft_only_test1:
   override = 1;
  override_seqlbl = "ft_only_test1";
- override_testf = tm_29;
+ override_testf = tm_25;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 ft_only_test2:
   override = 1;
  override_seqlbl = "ft_only_test2";
- override_testf = tm_30;
+ override_testf = tm_26;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 extra_test:
   override = 1;
  override_seqlbl = "extra_test";
- override_testf = tm_31;
+ override_testf = tm_27;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 cz_test1:
   override = 1;
  override_seqlbl = "cz_test1";
- override_testf = tm_32;
+ override_testf = tm_28;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 cz_test2:
   override = 1;
  override_seqlbl = "cz_test2";
- override_testf = tm_33;
+ override_testf = tm_29;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 long_test:
   override = 1;
  override_seqlbl = "long_test";
- override_testf = tm_34;
+ override_testf = tm_30;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 long_test1:
   override = 1;
  override_seqlbl = "long_test1";
- override_testf = tm_35;
+ override_testf = tm_31;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 long_test2:
   override = 1;
  override_seqlbl = "long_test2";
+ override_testf = tm_32;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_33;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_34;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_35;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_1:
+  override = 1;
+ override_seqlbl = "test1";
  override_testf = tm_36;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-read1_2:
+test2_1:
   override = 1;
- override_seqlbl = "read1_b0";
+ override_seqlbl = "test2";
  override_testf = tm_37;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-read1_3:
+test3_1:
   override = 1;
- override_seqlbl = "read1_b1";
+ override_seqlbl = "test3";
  override_testf = tm_38;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-read1_4:
+test4:
   override = 1;
- override_seqlbl = "read1_b2";
+ override_seqlbl = "test4";
  override_testf = tm_39;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase1_1:
+test1_2:
   override = 1;
- override_seqlbl = "erase1";
+ override_seqlbl = "test1";
  override_testf = tm_40;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_2:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_41;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_2:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_42;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_3:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_43;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_3:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_44;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_3:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_45;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_1:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_46;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_4:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_47;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_4:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_48;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_4:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_49;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_5:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_50;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_5:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_51;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_5:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_52;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_2:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_53;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_6:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_54;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_6:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_55;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_6:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_56;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_7:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_57;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_7:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_58;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_7:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_59;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_3:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_60;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp1_test1:
   override = 1;
  override_seqlbl = "grp1_test1";
- override_testf = tm_41;
+ override_testf = tm_61;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp1_test2:
   override = 1;
  override_seqlbl = "grp1_test2";
- override_testf = tm_42;
+ override_testf = tm_62;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp1_test3:
   override = 1;
  override_seqlbl = "grp1_test3";
- override_testf = tm_43;
+ override_testf = tm_63;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp2_test1:
   override = 1;
  override_seqlbl = "grp2_test1";
- override_testf = tm_44;
+ override_testf = tm_64;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp2_test2:
   override = 1;
  override_seqlbl = "grp2_test2";
- override_testf = tm_45;
+ override_testf = tm_65;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 grp2_test3:
   override = 1;
  override_seqlbl = "grp2_test3";
- override_testf = tm_46;
+ override_testf = tm_66;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt1:
   override = 1;
  override_seqlbl = "gt1";
- override_testf = tm_47;
+ override_testf = tm_67;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt_grp1_test1:
   override = 1;
  override_seqlbl = "gt_grp1_test1";
- override_testf = tm_48;
+ override_testf = tm_68;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt_grp1_test2:
   override = 1;
  override_seqlbl = "gt_grp1_test2";
- override_testf = tm_49;
+ override_testf = tm_69;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt2:
   override = 1;
  override_seqlbl = "gt2";
- override_testf = tm_50;
+ override_testf = tm_70;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt_grp2_test1:
   override = 1;
  override_seqlbl = "gt_grp2_test1";
- override_testf = tm_51;
+ override_testf = tm_71;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt_grp2_test2:
   override = 1;
  override_seqlbl = "gt_grp2_test2";
- override_testf = tm_52;
+ override_testf = tm_72;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 gt3:
   override = 1;
  override_seqlbl = "gt3";
- override_testf = tm_53;
+ override_testf = tm_73;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev1_test1:
   override = 1;
  override_seqlbl = "lev1_test1";
- override_testf = tm_54;
+ override_testf = tm_74;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev1_test2:
   override = 1;
  override_seqlbl = "lev1_test2";
- override_testf = tm_55;
+ override_testf = tm_75;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev1_test3:
   override = 1;
  override_seqlbl = "lev1_test3";
- override_testf = tm_56;
+ override_testf = tm_76;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev1_test4:
   override = 1;
  override_seqlbl = "lev1_test4";
- override_testf = tm_57;
+ override_testf = tm_77;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev1_test5:
   override = 1;
  override_seqlbl = "lev1_test5";
- override_testf = tm_58;
+ override_testf = tm_78;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev2_test1:
   override = 1;
  override_seqlbl = "lev2_test1";
- override_testf = tm_59;
+ override_testf = tm_79;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev2_test2:
   override = 1;
  override_seqlbl = "lev2_test2";
- override_testf = tm_60;
+ override_testf = tm_80;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev2_test3:
   override = 1;
  override_seqlbl = "lev2_test3";
- override_testf = tm_61;
+ override_testf = tm_81;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev2_test4:
   override = 1;
  override_seqlbl = "lev2_test4";
- override_testf = tm_62;
+ override_testf = tm_82;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 lev2_test5:
   override = 1;
  override_seqlbl = "lev2_test5";
- override_testf = tm_63;
+ override_testf = tm_83;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 nt1:
   override = 1;
  override_seqlbl = "nt1";
- override_testf = tm_64;
+ override_testf = tm_84;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 nt2:
   override = 1;
  override_seqlbl = "nt2";
- override_testf = tm_65;
+ override_testf = tm_85;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 nt3:
   override = 1;
  override_seqlbl = "nt3";
- override_testf = tm_66;
+ override_testf = tm_86;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 nt4:
   override = 1;
  override_seqlbl = "nt4";
- override_testf = tm_67;
+ override_testf = tm_87;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_8:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_88;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_8:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_89;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_8:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_90;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_4:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_91;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -1037,16 +1390,33 @@ test_flow
     @T6_RAN = -1;
     @T7_RAN = -1;
     @T8_RAN = -1;
-    @R1_FAILED = -1;
+    @IFA1_FAILED = -1;
+    @IFA2_FAILED = -1;
+    @OOF_PASSCODE1_FAILED = -1;
+    @OOF_PASSCODE2_FAILED = -1;
+    @IFALL1_FAILED = -1;
+    @IFALL2_FAILED = -1;
+    @IFALLB1_FAILED = -1;
+    @IFALLB2_FAILED = -1;
+    @IFAP1_PASSED = -1;
+    @IFAP2_PASSED = -1;
+    @IFAPB1_PASSED = -1;
+    @IFAPB2_PASSED = -1;
+    @IFALLP1_PASSED = -1;
+    @IFALLP2_PASSED = -1;
+    @IFALLPB1_PASSED = -1;
+    @IFALLPB2_PASSED = -1;
     @GRP1_FAILED = -1;
     @GT_GRP1_FAILED = -1;
     @GT_GRP2_FAILED = -1;
     @L1T3_FAILED = -1;
-    @L2T3_FAILED = -1;
     @L1T5_FAILED = -1;
+    @L2T3_FAILED = -1;
     @NT1_FAILED = -1;
     @NT2_PASSED = -1;
     @NT2_FAILED = -1;
+    @ECT1_1_FAILED = -1;
+    @ECT1_3_FAILED = -1;
 }, open,"Init Flow Control Vars", ""
 print_dl("Test that if_failed works");
 run_and_branch(read1)
@@ -1055,18 +1425,18 @@ then
 }
 else
 {
-   @T1_FAILED = 1;
+  @T1_FAILED = 1;
 }
 if @T1_FAILED == 1 then
 {
-   run_and_branch(erase1)
-   then
-   {
-   }
-   else
-   {
-      stop_bin "12", "fail", , bad, noreprobe, red, 12, over_on;
-   }
+  run_and_branch(erase1)
+  then
+  {
+  }
+  else
+  {
+    stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+  }
 }
 else
 {
@@ -1078,18 +1448,12 @@ then
 }
 else
 {
-   @T2_FAILED = 1;
+  @T2_FAILED = 1;
 }
 if @T2_FAILED == 1 then
 {
-   run(erase2);
-}
-else
-{
-}
-if @T2_FAILED == 1 then
-{
-   run(erase2_1);
+  run(erase2);
+  run(erase2_1);
 }
 else
 {
@@ -1098,14 +1462,14 @@ print_dl("Test that if_passed works");
 run_and_branch(read1_1)
 then
 {
-   @T3_PASSED = 1;
+  @T3_PASSED = 1;
 }
 else
 {
 }
 if @T3_PASSED == 1 then
 {
-   run(pgm1);
+  run(pgm1);
 }
 else
 {
@@ -1114,21 +1478,15 @@ print_dl("Test the block form of if_passed");
 run_and_branch(read2_1)
 then
 {
-   @T4_PASSED = 1;
+  @T4_PASSED = 1;
 }
 else
 {
 }
 if @T4_PASSED == 1 then
 {
-   run(pgm1_1);
-}
-else
-{
-}
-if @T4_PASSED == 1 then
-{
-   run(pgm1_2);
+  run(pgm1_1);
+  run(pgm1_2);
 }
 else
 {
@@ -1137,16 +1495,16 @@ print_dl("Test that if_ran works");
 run_and_branch(pgm)
 then
 {
-   @T5_RAN = 1;
+  @T5_RAN = 1;
 }
 else
 {
-   stop_bin "10", "fail", , bad, noreprobe, red, 10, over_on;
-   @T5_RAN = 1;
+  stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  @T5_RAN = 1;
 }
 if @T5_RAN == 1 then
 {
-   run(read0);
+  run(read0);
 }
 else
 {
@@ -1155,23 +1513,17 @@ print_dl("Test the block form of if_ran");
 run_and_branch(pgm_1)
 then
 {
-   @T6_RAN = 1;
+  @T6_RAN = 1;
 }
 else
 {
-   stop_bin "10", "fail", , bad, noreprobe, red, 10, over_on;
-   @T6_RAN = 1;
+  stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  @T6_RAN = 1;
 }
 if @T6_RAN == 1 then
 {
-   run(read0_1);
-}
-else
-{
-}
-if @T6_RAN == 1 then
-{
-   run(read0_2);
+  run(read0_1);
+  run(read0_2);
 }
 else
 {
@@ -1180,67 +1532,43 @@ print_dl("Test that unless_ran works");
 run_and_branch(pgm_2)
 then
 {
-   @T7_RAN = 1;
+  @T7_RAN = 1;
 }
 else
 {
-   stop_bin "10", "fail", , bad, noreprobe, red, 10, over_on;
-   @T7_RAN = 1;
+  stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  @T7_RAN = 1;
 }
-if @T7_RAN != 1 then
+if @T7_RAN == 1 then
 {
-   run(read0_3);
 }
 else
 {
+  run(read0_3);
 }
 print_dl("Test the block form of unless_ran");
 run_and_branch(pgm_3)
 then
 {
-   @T8_RAN = 1;
+  @T8_RAN = 1;
 }
 else
 {
-   stop_bin "10", "fail", , bad, noreprobe, red, 10, over_on;
-   @T8_RAN = 1;
+  stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  @T8_RAN = 1;
 }
-if @T8_RAN != 1 then
-{
-   run(read0_4);
-}
-else
-{
-}
-if @T8_RAN != 1 then
-{
-   run(read0_5);
-}
-else
-{
-}
-print_dl("Test that skip works");
-if 1 then
+if @T8_RAN == 1 then
 {
 }
 else
 {
-   run(read0_6);
-   run(read0_7);
-}
-print_dl("Test that conditional skip works");
-if @T4_PASSED == 1 then
-{
-}
-else
-{
-   run(read0_8);
-   run(read0_9);
+  run(read0_4);
+  run(read0_5);
 }
 print_dl("Test that if_job works");
 if @JOB == "FC" then
 {
-   run(cold_test);
+  run(cold_test);
 }
 else
 {
@@ -1248,45 +1576,33 @@ else
 print_dl("Test the block form of if_job");
 if @JOB == "PRB1" or @JOB == "PRB2" then
 {
-   run(probe_only_test1);
-}
-else
-{
-}
-if @JOB == "PRB1" or @JOB == "PRB2" then
-{
-   run(probe_only_test2);
+  run(probe_only_test1);
+  run(probe_only_test2);
 }
 else
 {
 }
 print_dl("Test that unless_job works");
-if @JOB != "FC" then
+if @JOB == "FC" then
 {
-   run(warmish_test);
 }
 else
 {
+  run(warmish_test);
 }
 print_dl("Test the block form of unless_job");
-if @JOB != "PRB1" and @JOB != "PRB2" then
+if @JOB == "PRB1" or @JOB == "PRB2" then
 {
-   run(ft_only_test1);
 }
 else
 {
-}
-if @JOB != "PRB1" and @JOB != "PRB2" then
-{
-   run(ft_only_test2);
-}
-else
-{
+  run(ft_only_test1);
+  run(ft_only_test2);
 }
 print_dl("Test that if_enable works");
 if @EXTRAS == 1 then
 {
-   run(extra_test);
+  run(extra_test);
 }
 else
 {
@@ -1294,14 +1610,8 @@ else
 print_dl("Test the block form of if_enable");
 if @CZ == 1 then
 {
-   run(cz_test1);
-}
-else
-{
-}
-if @CZ == 1 then
-{
-   run(cz_test2);
+  run(cz_test1);
+  run(cz_test2);
 }
 else
 {
@@ -1312,7 +1622,7 @@ if @QUICK == 1 then
 }
 else
 {
-   run(long_test);
+  run(long_test);
 }
 print_dl("Test the block form of unless_enable");
 if @QUICK == 1 then
@@ -1320,104 +1630,284 @@ if @QUICK == 1 then
 }
 else
 {
-   run(long_test1);
+  run(long_test1);
+  run(long_test2);
 }
-if @QUICK == 1 then
+print_dl("Test that if_any_failed works");
+run_and_branch(test1)
+then
 {
 }
 else
 {
-   run(long_test2);
+  @IFA1_FAILED = 1;
 }
-print_dl("Test that an id can be assigned to a test group");
+run_and_branch(test2)
+then
 {
-   run_and_branch(read1_2)
-   then
-   {
-   }
-   else
-   {
-      @R1_FAILED = 1;
-   }
-   run_and_branch(read1_3)
-   then
-   {
-   }
-   else
-   {
-      @R1_FAILED = 1;
-   }
-   run_and_branch(read1_4)
-   then
-   {
-   }
-   else
-   {
-      @R1_FAILED = 1;
-   }
-}, open,"read1", ""
-if @R1_FAILED == 1 then
+}
+else
 {
-   run(erase1_1);
+  @IFA2_FAILED = 1;
+}
+if @IFA1_FAILED == 1 or @IFA2_FAILED == 1 then
+{
+  run(test3);
+}
+else
+{
+}
+print_dl("Test the block form of if_any_failed");
+run_and_branch(test1_1)
+then
+{
+}
+else
+{
+  @OOF_PASSCODE1_FAILED = 1;
+}
+run_and_branch(test2_1)
+then
+{
+}
+else
+{
+  @OOF_PASSCODE2_FAILED = 1;
+}
+if @OOF_PASSCODE1_FAILED == 1 or @OOF_PASSCODE2_FAILED == 1 then
+{
+  run(test3_1);
+  run(test4);
+}
+else
+{
+}
+print_dl("Test that if_all_failed works");
+run_and_branch(test1_2)
+then
+{
+}
+else
+{
+  @IFALL1_FAILED = 1;
+}
+run_and_branch(test2_2)
+then
+{
+}
+else
+{
+  @IFALL2_FAILED = 1;
+}
+if @IFALL2_FAILED == 1 then
+{
+  if @IFALL1_FAILED == 1 then
+  {
+    run(test3_2);
+  }
+  else
+  {
+  }
+}
+else
+{
+}
+print_dl("Test the block form of if_all_failed");
+run_and_branch(test1_3)
+then
+{
+}
+else
+{
+  @IFALLB1_FAILED = 1;
+}
+run_and_branch(test2_3)
+then
+{
+}
+else
+{
+  @IFALLB2_FAILED = 1;
+}
+if @IFALLB2_FAILED == 1 then
+{
+  if @IFALLB1_FAILED == 1 then
+  {
+    run(test3_3);
+    run(test4_1);
+  }
+  else
+  {
+  }
+}
+else
+{
+}
+print_dl("Test that if_any_passed works");
+run_and_branch(test1_4)
+then
+{
+  @IFAP1_PASSED = 1;
+}
+else
+{
+}
+run_and_branch(test2_4)
+then
+{
+  @IFAP2_PASSED = 1;
+}
+else
+{
+}
+if @IFAP1_PASSED == 1 or @IFAP2_PASSED == 1 then
+{
+  run(test3_4);
+}
+else
+{
+}
+print_dl("Test the block form of if_any_passed");
+run_and_branch(test1_5)
+then
+{
+  @IFAPB1_PASSED = 1;
+}
+else
+{
+}
+run_and_branch(test2_5)
+then
+{
+  @IFAPB2_PASSED = 1;
+}
+else
+{
+}
+if @IFAPB1_PASSED == 1 or @IFAPB2_PASSED == 1 then
+{
+  run(test3_5);
+  run(test4_2);
+}
+else
+{
+}
+print_dl("Test that if_all_passed works");
+run_and_branch(test1_6)
+then
+{
+  @IFALLP1_PASSED = 1;
+}
+else
+{
+}
+run_and_branch(test2_6)
+then
+{
+  @IFALLP2_PASSED = 1;
+}
+else
+{
+}
+if @IFALLP2_PASSED == 1 then
+{
+  if @IFALLP1_PASSED == 1 then
+  {
+    run(test3_6);
+  }
+  else
+  {
+  }
+}
+else
+{
+}
+print_dl("Test the block form of if_all_passed");
+run_and_branch(test1_7)
+then
+{
+  @IFALLPB1_PASSED = 1;
+}
+else
+{
+}
+run_and_branch(test2_7)
+then
+{
+  @IFALLPB2_PASSED = 1;
+}
+else
+{
+}
+if @IFALLPB2_PASSED == 1 then
+{
+  if @IFALLPB1_PASSED == 1 then
+  {
+    run(test3_7);
+    run(test4_3);
+  }
+  else
+  {
+  }
 }
 else
 {
 }
 print_dl("Test that group-level dependencies work");
 {
-   run_and_branch(grp1_test1)
-   then
-   {
-   }
-   else
-   {
-      @GRP1_FAILED = 1;
-   }
-   run_and_branch(grp1_test2)
-   then
-   {
-   }
-   else
-   {
-      @GRP1_FAILED = 1;
-   }
-   run_and_branch(grp1_test3)
-   then
-   {
-   }
-   else
-   {
-      @GRP1_FAILED = 1;
-   }
+  run_and_branch(grp1_test1)
+  then
+  {
+  }
+  else
+  {
+    @GRP1_FAILED = 1;
+  }
+  run_and_branch(grp1_test2)
+  then
+  {
+  }
+  else
+  {
+    @GRP1_FAILED = 1;
+  }
+  run_and_branch(grp1_test3)
+  then
+  {
+  }
+  else
+  {
+    @GRP1_FAILED = 1;
+  }
 }, open,"grp1", ""
 if @GRP1_FAILED == 1 then
 {
-   {
-      run_and_branch(grp2_test1)
-      then
-      {
-      }
-      else
-      {
-         stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(grp2_test2)
-      then
-      {
-      }
-      else
-      {
-         stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(grp2_test3)
-      then
-      {
-      }
-      else
-      {
-         stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-   }, open,"grp2", ""
+  {
+    run_and_branch(grp2_test1)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+    }
+    run_and_branch(grp2_test2)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+    }
+    run_and_branch(grp2_test3)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+    }
+  }, open,"grp2", ""
 }
 else
 {
@@ -1429,192 +1919,174 @@ then
 }
 else
 {
-   stop_bin "90", "fail", , bad, noreprobe, red, 90, over_on;
+  stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
 }
 {
-   run_and_branch(gt_grp1_test1)
-   then
-   {
-   }
-   else
-   {
-      @GT_GRP1_FAILED = 1;
-   }
-   run_and_branch(gt_grp1_test2)
-   then
-   {
-   }
-   else
-   {
-      @GT_GRP1_FAILED = 1;
-   }
+  run_and_branch(gt_grp1_test1)
+  then
+  {
+  }
+  else
+  {
+    @GT_GRP1_FAILED = 1;
+  }
+  run_and_branch(gt_grp1_test2)
+  then
+  {
+  }
+  else
+  {
+    @GT_GRP1_FAILED = 1;
+  }
 }, open,"gt_grp1", ""
 if @GT_GRP1_FAILED == 1 then
 {
-   run_and_branch(gt2)
-   then
-   {
-   }
-   else
-   {
-      stop_bin "90", "fail", , bad, noreprobe, red, 90, over_on;
-   }
-}
-else
-{
-}
-if @GT_GRP1_FAILED == 1 then
-{
-   {
-      if @GT_GRP1_FAILED == 1 then
-      {
-         run_and_branch(gt_grp2_test1)
-         then
-         {
-         }
-         else
-         {
-            @GT_GRP2_FAILED = 1;
-         }
-      }
-      else
-      {
-      }
-      if @GT_GRP1_FAILED == 1 then
-      {
-         run_and_branch(gt_grp2_test2)
-         then
-         {
-         }
-         else
-         {
-            @GT_GRP2_FAILED = 1;
-         }
-      }
-      else
-      {
-      }
-   }, open,"gt_grp2", ""
+  run_and_branch(gt2)
+  then
+  {
+  }
+  else
+  {
+    stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
+  }
+  {
+    run_and_branch(gt_grp2_test1)
+    then
+    {
+    }
+    else
+    {
+      @GT_GRP2_FAILED = 1;
+    }
+    run_and_branch(gt_grp2_test2)
+    then
+    {
+    }
+    else
+    {
+      @GT_GRP2_FAILED = 1;
+    }
+  }, open,"gt_grp2", ""
 }
 else
 {
 }
 if @GT_GRP2_FAILED == 1 then
 {
-   run_and_branch(gt3)
-   then
-   {
-   }
-   else
-   {
-      stop_bin "90", "fail", , bad, noreprobe, red, 90, over_on;
-   }
+  run_and_branch(gt3)
+  then
+  {
+  }
+  else
+  {
+    stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
+  }
 }
 else
 {
 }
 print_dl("Test that nested groups work");
 {
-   run_and_branch(lev1_test1)
-   then
-   {
-   }
-   else
-   {
-      stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-   }
-   run_and_branch(lev1_test2)
-   then
-   {
-   }
-   else
-   {
-      stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-   }
-   run_and_branch(lev1_test3)
-   then
-   {
-   }
-   else
-   {
-      @L1T3_FAILED = 1;
-   }
-   if @L1T3_FAILED == 1 then
-   {
-      run_and_branch(lev1_test4)
+  run_and_branch(lev1_test1)
+  then
+  {
+  }
+  else
+  {
+    stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+  }
+  run_and_branch(lev1_test2)
+  then
+  {
+  }
+  else
+  {
+    stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+  }
+  run_and_branch(lev1_test3)
+  then
+  {
+  }
+  else
+  {
+    @L1T3_FAILED = 1;
+  }
+  if @L1T3_FAILED == 1 then
+  {
+    run_and_branch(lev1_test4)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+    }
+  }
+  else
+  {
+  }
+  run_and_branch(lev1_test5)
+  then
+  {
+  }
+  else
+  {
+    @L1T5_FAILED = 1;
+  }
+  {
+    run_and_branch(lev2_test1)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+    }
+    run_and_branch(lev2_test2)
+    then
+    {
+    }
+    else
+    {
+      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+    }
+    run_and_branch(lev2_test3)
+    then
+    {
+    }
+    else
+    {
+      @L2T3_FAILED = 1;
+    }
+    if @L2T3_FAILED == 1 then
+    {
+      run_and_branch(lev2_test4)
       then
       {
       }
       else
       {
-         stop_bin "12", "fail", , bad, noreprobe, red, 12, over_on;
+        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
       }
-   }
-   else
-   {
-   }
-   run_and_branch(lev1_test5)
-   then
-   {
-   }
-   else
-   {
-      @L1T5_FAILED = 1;
-   }
-   {
-      run_and_branch(lev2_test1)
+    }
+    else
+    {
+    }
+    if @L1T5_FAILED == 1 then
+    {
+      run_and_branch(lev2_test5)
       then
       {
       }
       else
       {
-         stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
+        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
       }
-      run_and_branch(lev2_test2)
-      then
-      {
-      }
-      else
-      {
-         stop_bin "5", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(lev2_test3)
-      then
-      {
-      }
-      else
-      {
-         @L2T3_FAILED = 1;
-      }
-      if @L2T3_FAILED == 1 then
-      {
-         run_and_branch(lev2_test4)
-         then
-         {
-         }
-         else
-         {
-            stop_bin "12", "fail", , bad, noreprobe, red, 12, over_on;
-         }
-      }
-      else
-      {
-      }
-      if @L1T5_FAILED == 1 then
-      {
-         run_and_branch(lev2_test5)
-         then
-         {
-         }
-         else
-         {
-            stop_bin "12", "fail", , bad, noreprobe, red, 12, over_on;
-         }
-      }
-      else
-      {
-      }
-   }, open,"level2", ""
+    }
+    else
+    {
+    }
+  }, open,"level2", ""
 }, open,"level1", ""
 print_dl("Test nested conditions on a group");
 run_and_branch(nt1)
@@ -1623,69 +2095,94 @@ then
 }
 else
 {
-   @NT1_FAILED = 1;
+  @NT1_FAILED = 1;
 }
 if @NT1_FAILED == 1 then
 {
-   run_and_branch(nt2)
-   then
-   {
-      @NT2_PASSED = 1;
-   }
-   else
-   {
-      @NT2_FAILED = 1;
-   }
+  run_and_branch(nt2)
+  then
+  {
+    @NT2_PASSED = 1;
+  }
+  else
+  {
+    @NT2_FAILED = 1;
+  }
 }
 else
 {
 }
 if @NT2_PASSED == 1 then
 {
-   if @NT1_FAILED == 1 then
-   {
+  {
+    if @NT1_FAILED == 1 then
+    {
+      run_and_branch(nt3)
+      then
       {
-         if @NT1_FAILED == 1 then
-         {
-            run_and_branch(nt3)
-            then
-            {
-            }
-            else
-            {
-               stop_bin "12", "fail", , bad, noreprobe, red, 12, over_on;
-            }
-         }
-         else
-         {
-         }
-      }, open,"ntg1", ""
-   }
-   else
-   {
-   }
+      }
+      else
+      {
+        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+      }
+    }
+    else
+    {
+    }
+  }, open,"ntg1", ""
 }
 else
 {
 }
 if @NT2_FAILED == 1 then
 {
-   {
-      if @NT1_FAILED == 1 then
+  {
+    if @NT1_FAILED == 1 then
+    {
+      run_and_branch(nt4)
+      then
       {
-         run_and_branch(nt4)
-         then
-         {
-         }
-         else
-         {
-            stop_bin "13", "fail", , bad, noreprobe, red, 13, over_on;
-         }
       }
       else
       {
+        stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
       }
-   }, open,"ntg2", ""
+    }
+    else
+    {
+    }
+  }, open,"ntg2", ""
+}
+else
+{
+}
+print_dl("Embedded conditional tests 1");
+run_and_branch(test1_8)
+then
+{
+}
+else
+{
+  @ECT1_1_FAILED = 1;
+}
+if @ECT1_1_FAILED == 1 then
+{
+  run(test2_8);
+  run_and_branch(test3_8)
+  then
+  {
+  }
+  else
+  {
+    @ECT1_3_FAILED = 1;
+  }
+  if @ECT1_3_FAILED == 1 then
+  {
+    run(test4_4);
+  }
+  else
+  {
+  }
 }
 else
 {

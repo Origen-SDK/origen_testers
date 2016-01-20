@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.3.0.pre38";
+test_revision = "0.5.5";
 -- STARTDIFF
  
 end
@@ -168,9 +168,9 @@ tm_3:
 tm_4:
   "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
 tm_5:
-  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
 tm_6:
-  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
 end
 --------------------------------------------------
 testmethods
@@ -242,7 +242,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_1)
 then
@@ -250,7 +250,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_2)
 then
@@ -258,7 +258,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_3)
 then
@@ -266,7 +266,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_4)
 then
@@ -274,7 +274,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_5)
 then
@@ -282,7 +282,6 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 end
 -------------------------------------------------

@@ -109,3 +109,4 @@ DFF 1.1	Flow Table
 						characterize	margin_read1_all1_v2 vbplus_sweep							None														
 						logprint	Verify_that_MTO_template_works...																					
 						Test	mto_read1_all1							Fail														
+						set-device				1		1															Good die!	

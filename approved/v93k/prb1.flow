@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.3.0.pre32";
+test_revision = "0.5.5";
 -- STARTDIFF
  
 end
@@ -365,66 +365,6 @@ tm_95:
 tm_96:
   "testName" = "Functional";
   "output" = "None";
-tm_97:
-  "testName" = "Functional";
-  "output" = "None";
-tm_98:
-  "testName" = "Functional";
-  "output" = "None";
-tm_99:
-  "testName" = "Functional";
-  "output" = "None";
-tm_100:
-  "testName" = "Functional";
-  "output" = "None";
-tm_101:
-  "testName" = "Functional";
-  "output" = "None";
-tm_102:
-  "testName" = "Functional";
-  "output" = "None";
-tm_103:
-  "testName" = "Functional";
-  "output" = "None";
-tm_104:
-  "testName" = "Functional";
-  "output" = "None";
-tm_105:
-  "testName" = "Functional";
-  "output" = "None";
-tm_106:
-  "testName" = "Functional";
-  "output" = "None";
-tm_107:
-  "testName" = "Functional";
-  "output" = "None";
-tm_108:
-  "testName" = "Functional";
-  "output" = "None";
-tm_109:
-  "testName" = "Functional";
-  "output" = "None";
-tm_110:
-  "testName" = "Functional";
-  "output" = "None";
-tm_111:
-  "testName" = "Functional";
-  "output" = "None";
-tm_112:
-  "testName" = "Functional";
-  "output" = "None";
-tm_113:
-  "testName" = "Functional";
-  "output" = "None";
-tm_114:
-  "testName" = "Functional";
-  "output" = "None";
-tm_115:
-  "testName" = "Functional";
-  "output" = "None";
-tm_116:
-  "testName" = "Functional";
-  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -620,46 +560,6 @@ tm_95:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_96:
   "Functional" = "":"NA":"":"NA":"":"":"";
-tm_97:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_98:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_99:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_100:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_101:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_102:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_103:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_104:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_105:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_106:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_107:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_108:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_109:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_110:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_111:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_112:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_113:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_114:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_115:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_116:
-  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -854,46 +754,6 @@ tm_94:
 tm_95:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_96:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_97:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_98:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_99:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_100:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_101:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_102:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_103:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_104:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_105:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_106:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_107:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_108:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_109:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_110:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_111:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_112:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_113:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_114:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_115:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_116:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1465,249 +1325,109 @@ erase_all_36:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_19:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_82;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_20:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_83;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
 erase_all_37:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_84;
+ override_testf = tm_82;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 erase_all_38:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_85;
+ override_testf = tm_83;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_21:
+margin_read1_all1_19:
   override = 1;
  override_seqlbl = "margin_read1_all1";
- override_testf = tm_86;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_22:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_87;
+ override_testf = tm_84;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 erase_all_39:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_88;
+ override_testf = tm_85;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 erase_all_40:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_89;
+ override_testf = tm_86;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_23:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_90;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_24:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_91;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_41:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_92;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_42:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_93;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_25:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_94;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_26:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_95;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_43:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_96;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_44:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_97;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_27:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_98;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_28:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_99;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_45:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_100;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_46:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_101;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_47:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_102;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_48:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_103;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_29:
-  override = 1;
- override_seqlbl = "margin_read1_all1";
- override_testf = tm_104;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_49:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_105;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-erase_all_50:
-  override = 1;
- override_seqlbl = "erase_all";
- override_testf = tm_106;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-margin_read1_all1_30:
+margin_read1_all1_20:
   override = 1;
  override_levset = cz;
  override_seqlbl = "margin_read1_all1";
- override_testf = tm_107;
+ override_testf = tm_87;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 program_ckbd_16:
   override = 1;
  override_seqlbl = "program_ckbd";
- override_testf = tm_108;
+ override_testf = tm_88;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitmap_all0:
   override = 1;
  override_seqlbl = "bitmap_all0";
- override_testf = tm_109;
+ override_testf = tm_89;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_0:
   override = 1;
  override_seqlbl = "bitcell_iv_0";
- override_testf = tm_110;
+ override_testf = tm_90;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_1:
   override = 1;
  override_seqlbl = "bitcell_iv_1";
- override_testf = tm_111;
+ override_testf = tm_91;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_2:
   override = 1;
  override_seqlbl = "bitcell_iv_2";
- override_testf = tm_112;
+ override_testf = tm_92;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 margin_read1_ckbd:
   override = 1;
  override_seqlbl = "margin_read1_ckbd";
- override_testf = tm_113;
+ override_testf = tm_93;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 normal_read_ckbd:
   override = 1;
  override_seqlbl = "normal_read_ckbd";
- override_testf = tm_114;
+ override_testf = tm_94;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 margin_read0_ckbd:
   override = 1;
  override_seqlbl = "margin_read0_ckbd";
- override_testf = tm_115;
+ override_testf = tm_95;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_51:
+erase_all_41:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_116;
+ override_testf = tm_96;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -1739,7 +1459,7 @@ then
 }
 else
 {
-   stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
+  stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
 }
 run(margin_read1_ckbd);
 run(margin_read0_ckbd);
@@ -1760,93 +1480,75 @@ print_dl("Should be v2");
 run(program_ckbd_3);
 print_dl("Should be a v1 test instance group");
 {
-   run(program_ckbd_4);
-   run(program_ckbd_5);
-   run(program_ckbd_6);
+  run(program_ckbd_4);
+  run(program_ckbd_5);
+  run(program_ckbd_6);
 }, open,"program_ckbd", ""
 print_dl("Should be a v2 test instance group");
 {
-   run(program_ckbd_7);
-   run(program_ckbd_8);
-   run(program_ckbd_9);
+  run(program_ckbd_7);
+  run(program_ckbd_8);
+  run(program_ckbd_9);
 }, open,"program_ckbd_2", ""
 print_dl("Should be a v1 test instance group");
 {
-   run(program_ckbd_10);
-   run(program_ckbd_11);
-   run(program_ckbd_12);
+  run(program_ckbd_10);
+  run(program_ckbd_11);
+  run(program_ckbd_12);
 }, open,"program_ckbd_3", ""
 print_dl("Should be a v2 test instance group");
 {
-   run(program_ckbd_13);
-   run(program_ckbd_14);
-   run(program_ckbd_15);
+  run(program_ckbd_13);
+  run(program_ckbd_14);
+  run(program_ckbd_15);
 }, open,"program_ckbd_4", ""
 if @JOB == "P1" then
 {
-   run(p1_only_test);
+  run(p1_only_test);
 }
 else
 {
 }
 if @JOB == "P1" or @JOB == "P2" then
 {
-   run(p1_or_p2_only_test);
+  run(p1_or_p2_only_test);
 }
 else
 {
 }
-if @JOB != "P1" then
+if @JOB == "P1" then
 {
-   run(not_p1_test);
 }
 else
 {
+  run(not_p1_test);
 }
-if @JOB != "P1" and @JOB != "P2" then
+if @JOB == "P1" or @JOB == "P2" then
 {
-   run(not_p1_or_p2_test);
 }
 else
 {
-}
-if @JOB != "P1" and @JOB != "P2" then
-{
-   run(another_not_p1_or_p2_test);
-}
-else
-{
+  run(not_p1_or_p2_test);
+  run(another_not_p1_or_p2_test);
 }
 print_dl("Verify that a test with an external instance works");
 run(por_ins);
 print_dl("Verify that a request to use the current context works");
 if @JOB == "P1" then
 {
-   run(erase_all_6);
+  run(erase_all_6);
+  run(erase_all_7);
+  run(erase_all_8);
 }
 else
 {
 }
-if @JOB == "P1" then
+if @JOB == "P2" then
 {
-   run(erase_all_7);
 }
 else
 {
-}
-if @JOB == "P1" then
-{
-   run(erase_all_8);
-}
-else
-{
-}
-if @JOB != "P2" then
-{
-   run(erase_all_9);
-}
-else
-{
+  run(erase_all_9);
 }
 run(erase_all_10);
 run_and_branch(margin_read1_all1_1)
@@ -1855,11 +1557,11 @@ then
 }
 else
 {
-   @ERASE_VFY_0_FAILED = 1;
+  @ERASE_VFY_0_FAILED = 1;
 }
 if @ERASE_VFY_0_FAILED == 1 then
 {
-   run(erase_all_11);
+  run(erase_all_11);
 }
 else
 {
@@ -1870,11 +1572,11 @@ then
 }
 else
 {
-   @ERASE_VFY_1_FAILED = 1;
+  @ERASE_VFY_1_FAILED = 1;
 }
 if @ERASE_VFY_1_FAILED == 1 then
 {
-   run(erase_all_12);
+  run(erase_all_12);
 }
 else
 {
@@ -1885,11 +1587,11 @@ then
 }
 else
 {
-   @ERASE_VFY_2_FAILED = 1;
+  @ERASE_VFY_2_FAILED = 1;
 }
 if @ERASE_VFY_2_FAILED == 1 then
 {
-   run(erase_all_13);
+  run(erase_all_13);
 }
 else
 {
@@ -1900,11 +1602,11 @@ then
 }
 else
 {
-   @ERASE_VFY_3_FAILED = 1;
+  @ERASE_VFY_3_FAILED = 1;
 }
 if @ERASE_VFY_3_FAILED == 1 then
 {
-   run(erase_all_14);
+  run(erase_all_14);
 }
 else
 {
@@ -1915,11 +1617,11 @@ then
 }
 else
 {
-   @ERASE_VFY_4_FAILED = 1;
+  @ERASE_VFY_4_FAILED = 1;
 }
 if @ERASE_VFY_4_FAILED == 1 then
 {
-   run(erase_all_15);
+  run(erase_all_15);
 }
 else
 {
@@ -1928,14 +1630,8 @@ run(margin_read1_all1_6);
 print_dl("Test if enable");
 if @DO_ERASE == 1 then
 {
-   run(erase_all_16);
-}
-else
-{
-}
-if @DO_ERASE == 1 then
-{
-   run(erase_all_17);
+  run(erase_all_16);
+  run(erase_all_17);
 }
 else
 {
@@ -1946,21 +1642,9 @@ if @NO_EXTRA_ERASE == 1 then
 }
 else
 {
-   run(erase_all_18);
-}
-if @NO_EXTRA_ERASE == 1 then
-{
-}
-else
-{
-   run(erase_all_19);
-}
-if @NO_EXTRA_ERASE == 1 then
-{
-}
-else
-{
-   run(erase_all_20);
+  run(erase_all_18);
+  run(erase_all_19);
+  run(erase_all_20);
 }
 run(erase_all_21);
 run(erase_all_22);
@@ -1968,7 +1652,7 @@ print_dl("Test if_passed");
 run_and_branch(erase_all_23)
 then
 {
-   @ERASE_PASSED_1_PASSED = 1;
+  @ERASE_PASSED_1_PASSED = 1;
 }
 else
 {
@@ -1976,21 +1660,21 @@ else
 run_and_branch(erase_all_24)
 then
 {
-   @ERASE_PASSED_2_PASSED = 1;
+  @ERASE_PASSED_2_PASSED = 1;
 }
 else
 {
 }
 if @ERASE_PASSED_1_PASSED == 1 then
 {
-   run(margin_read1_all1_7);
+  run(margin_read1_all1_7);
 }
 else
 {
 }
 if @ERASE_PASSED_2_PASSED == 1 then
 {
-   run(margin_read1_all1_8);
+  run(margin_read1_all1_8);
 }
 else
 {
@@ -2002,7 +1686,7 @@ then
 }
 else
 {
-   @ERASE_PASSED_3_FAILED = 1;
+  @ERASE_PASSED_3_FAILED = 1;
 }
 run_and_branch(erase_all_26)
 then
@@ -2010,18 +1694,18 @@ then
 }
 else
 {
-   @ERASE_PASSED_4_FAILED = 1;
+  @ERASE_PASSED_4_FAILED = 1;
 }
 if @ERASE_PASSED_3_FAILED == 1 then
 {
-   run(margin_read1_all1_9);
+  run(margin_read1_all1_9);
 }
 else
 {
 }
 if @ERASE_PASSED_4_FAILED == 1 then
 {
-   run(margin_read1_all1_10);
+  run(margin_read1_all1_10);
 }
 else
 {
@@ -2033,7 +1717,7 @@ then
 }
 else
 {
-   @ERASE_FAILED_1_FAILED = 1;
+  @ERASE_FAILED_1_FAILED = 1;
 }
 run_and_branch(erase_all_28)
 then
@@ -2041,18 +1725,18 @@ then
 }
 else
 {
-   @ERASE_FAILED_2_FAILED = 1;
+  @ERASE_FAILED_2_FAILED = 1;
 }
 if @ERASE_FAILED_1_FAILED == 1 then
 {
-   run(margin_read1_all1_11);
+  run(margin_read1_all1_11);
 }
 else
 {
 }
 if @ERASE_FAILED_2_FAILED == 1 then
 {
-   run(margin_read1_all1_12);
+  run(margin_read1_all1_12);
 }
 else
 {
@@ -2061,7 +1745,7 @@ print_dl("Test unless_failed");
 run_and_branch(erase_all_29)
 then
 {
-   @ERASE_FAILED_3_PASSED = 1;
+  @ERASE_FAILED_3_PASSED = 1;
 }
 else
 {
@@ -2069,21 +1753,21 @@ else
 run_and_branch(erase_all_30)
 then
 {
-   @ERASE_FAILED_4_PASSED = 1;
+  @ERASE_FAILED_4_PASSED = 1;
 }
 else
 {
 }
 if @ERASE_FAILED_3_PASSED == 1 then
 {
-   run(margin_read1_all1_13);
+  run(margin_read1_all1_13);
 }
 else
 {
 }
 if @ERASE_FAILED_4_PASSED == 1 then
 {
-   run(margin_read1_all1_14);
+  run(margin_read1_all1_14);
 }
 else
 {
@@ -2092,31 +1776,31 @@ print_dl("Test if_ran");
 run_and_branch(erase_all_31)
 then
 {
-   @ERASE_RAN_1_RAN = 1;
+  @ERASE_RAN_1_RAN = 1;
 }
 else
 {
-   @ERASE_RAN_1_RAN = 1;
+  @ERASE_RAN_1_RAN = 1;
 }
 run_and_branch(erase_all_32)
 then
 {
-   @ERASE_RAN_2_RAN = 1;
+  @ERASE_RAN_2_RAN = 1;
 }
 else
 {
-   @ERASE_RAN_2_RAN = 1;
+  @ERASE_RAN_2_RAN = 1;
 }
 if @ERASE_RAN_1_RAN == 1 then
 {
-   run(margin_read1_all1_15);
+  run(margin_read1_all1_15);
 }
 else
 {
 }
 if @ERASE_RAN_2_RAN == 1 then
 {
-   run(margin_read1_all1_16);
+  run(margin_read1_all1_16);
 }
 else
 {
@@ -2125,125 +1809,64 @@ print_dl("Test unless_ran");
 run_and_branch(erase_all_33)
 then
 {
-   @ERASE_RAN_3_RAN = 1;
+  @ERASE_RAN_3_RAN = 1;
 }
 else
 {
-   @ERASE_RAN_3_RAN = 1;
+  @ERASE_RAN_3_RAN = 1;
 }
 run_and_branch(erase_all_34)
 then
 {
-   @ERASE_RAN_4_RAN = 1;
+  @ERASE_RAN_4_RAN = 1;
 }
 else
 {
-   @ERASE_RAN_4_RAN = 1;
+  @ERASE_RAN_4_RAN = 1;
 }
-if @ERASE_RAN_3_RAN != 1 then
+if @ERASE_RAN_3_RAN == 1 then
 {
-   run(margin_read1_all1_17);
 }
 else
 {
+  run(margin_read1_all1_17);
 }
-if @ERASE_RAN_4_RAN != 1 then
+if @ERASE_RAN_4_RAN == 1 then
 {
-   run(margin_read1_all1_18);
 }
 else
 {
+  run(margin_read1_all1_18);
 }
-print_dl("Test if_all_passed");
-run(erase_all_35);
-run(erase_all_36);
-run(margin_read1_all1_19);
-run(margin_read1_all1_20);
-print_dl("Test unless_any_failed");
-run(erase_all_37);
-run(erase_all_38);
-run(margin_read1_all1_21);
-run(margin_read1_all1_22);
-print_dl("Test if_any_passed");
-run(erase_all_39);
-run(erase_all_40);
-run(margin_read1_all1_23);
-run(margin_read1_all1_24);
-print_dl("Test if_all_failed");
-run(erase_all_41);
-run(erase_all_42);
-run(margin_read1_all1_25);
-run(margin_read1_all1_26);
-print_dl("Test if_any_failed");
-run(erase_all_43);
-run(erase_all_44);
-run(margin_read1_all1_27);
-run(margin_read1_all1_28);
 print_dl("Verify that job context wraps import");
 if @JOB == "FR" then
 {
-   run(erase_all_45);
-}
-else
-{
-}
-if @JOB == "FR" then
-{
-   run(erase_all_46);
-}
-else
-{
-}
-if @JOB == "FR" then
-{
-   run(erase_all_47);
-}
-else
-{
-}
-if @JOB == "FR" then
-{
-   run(erase_all_48);
-}
-else
-{
-}
-if @JOB == "FR" then
-{
-   run(margin_read1_all1_29);
+  run(erase_all_35);
+  run(erase_all_36);
+  run(erase_all_37);
+  run(erase_all_38);
+  run(margin_read1_all1_19);
 }
 else
 {
 }
 print_dl("Verify that job context wraps enable block within an import");
-if @JOB == "FR" then
+if @ADDITIONAL_ERASE == 1 then
 {
-   if @ADDITIONAL_ERASE == 1 then
-   {
-      run(erase_all_49);
-   }
-   else
-   {
-   }
-}
-else
-{
-}
-if @JOB == "FR" then
-{
-   if @ADDITIONAL_ERASE == 1 then
-   {
-      run(erase_all_50);
-   }
-   else
-   {
-   }
+  if @JOB == "FR" then
+  {
+    run(erase_all_39);
+    run(erase_all_40);
+  }
+  else
+  {
+  }
 }
 else
 {
 }
 print_dl("Verify that flow.cz works...");
-run(margin_read1_all1_30);
+run(margin_read1_all1_20);
 print_dl("Verify that MTO template works...");
 stop_bin "1", "", , good, noreprobe, green, 1, over_on;
 end

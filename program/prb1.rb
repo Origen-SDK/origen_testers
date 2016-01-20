@@ -175,5 +175,5 @@ Flow.create do
   log 'Verify that MTO template works...'
   mto_memory :mto_read1_all1
 
-  bin 1, description: "Good die!"
+  pass 1, description: "Good die!", softbin: 1
 end

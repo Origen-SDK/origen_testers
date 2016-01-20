@@ -20,7 +20,22 @@ module OrigenTesters
     end
 
     def model
-      @model ||= program.flow(id)
+      if Origen.interface.resources_mode?
+        @throwaway ||= ATP::Flow.new(self)
+      else
+        @model ||= program.flow(id)
+      end
+    end
+
+    def fail(number, options = {})
+      options[:type] ||= :fail
+      model.bin(number, options)
+    end
+    alias_method :bin, :fail
+
+    def pass(number, options = {})
+      options[:type] = :pass
+      bin(number, options)
     end
 
     def test(instance, options = {})
@@ -51,6 +66,7 @@ module OrigenTesters
     end
 
     # @api private
+    # This fires between target loads
     def at_run_start
       @@program = nil
     end

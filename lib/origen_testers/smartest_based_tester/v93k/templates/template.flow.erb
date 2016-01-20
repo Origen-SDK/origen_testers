@@ -164,12 +164,8 @@ test_flow
     @<%= var.to_s.upcase %> = -1;
 %   end
 }, open,"Init Flow Control Vars", ""
-%   collection.each do |node|
-%     unless node.rendered? || node.deleted? || node.empty?
-%       node.lines.each do |line|
+%   lines.each do |line|
 <%= line %>
-%       end
-%     end
 %   end
 % end
 end

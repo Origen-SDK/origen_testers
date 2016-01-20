@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.3.0.pre32";
+test_revision = "0.5.5";
 -- STARTDIFF
  
 end
@@ -93,18 +93,6 @@ tm_10:
 tm_11:
   "testName" = "Functional";
   "output" = "None";
-tm_12:
-  "testName" = "Functional";
-  "output" = "None";
-tm_13:
-  "testName" = "Functional";
-  "output" = "None";
-tm_14:
-  "testName" = "Functional";
-  "output" = "None";
-tm_15:
-  "testName" = "Functional";
-  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -130,14 +118,6 @@ tm_10:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_11:
   "Functional" = "":"NA":"":"NA":"":"":"";
-tm_12:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_13:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_14:
-  "Functional" = "":"NA":"":"NA":"":"":"";
-tm_15:
-  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -162,14 +142,6 @@ tm_9:
 tm_10:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_11:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_12:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_13:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_14:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
-tm_15:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -244,38 +216,10 @@ mrd_ckbd_1:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-pgm_ckbd_2:
-  override = 1;
- override_seqlbl = "pgm_ckbd";
- override_testf = tm_11;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-mrd_ckbd_2:
-  override = 1;
- override_seqlbl = "mrd_ckbd";
- override_testf = tm_12;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
 margin_read1_all1_3:
   override = 1;
  override_seqlbl = "margin_read1_all1";
- override_testf = tm_13;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-pgm_vfy_oof_passcode_tst:
-  override = 1;
- override_seqlbl = "pgm_vfy_oof_passcode_tst";
- override_testf = tm_14;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
-pgm_vfy_oof_passcode_redcols_utst:
-  override = 1;
- override_seqlbl = "pgm_vfy_oof_passcode_redcols_utst";
- override_testf = tm_15;
+ override_testf = tm_11;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -292,32 +236,15 @@ run(pgm_ckbd);
 run(mrd_ckbd);
 run(erase_all_2);
 run(margin_read1_all1_2);
-if 1 then
-{
-}
-else
-{
-   run(pgm_ckbd_1);
-   run(mrd_ckbd_1);
-}
 if @EXTRA_TESTS == 1 then
 {
-   run(pgm_ckbd_2);
-}
-else
-{
-}
-if @EXTRA_TESTS == 1 then
-{
-   run(mrd_ckbd_2);
+  run(pgm_ckbd_1);
+  run(mrd_ckbd_1);
 }
 else
 {
 }
 run(margin_read1_all1_3);
-print_dl(""Check OOF passcodes in both locations"");
-run(pgm_vfy_oof_passcode_tst);
-run(pgm_vfy_oof_passcode_redcols_utst);
 end
 -------------------------------------------------
 binning

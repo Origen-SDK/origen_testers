@@ -9,7 +9,7 @@ module OrigenTesters
       end
 
       def log(msg)
-        flow.print_to_datalog(msg)
+        flow.log(msg)
       end
 
       def func(name, options = {})
@@ -17,12 +17,12 @@ module OrigenTesters
           duration: :static
         }.merge(options)
 
-        block_loop(name, options) do |block, i, group|
+        block_loop(name, options) do |block, i|
           tm = test_methods.ac_tml.ac_test.functional_test
           ts = test_suites.run(name, options)
           ts.test_method = tm
           ts.levels = options.delete(:pin_levels) if options[:pin_levels]
-          if group
+          if block
             ts.pattern = "#{name}_b#{i}"
           else
             ts.pattern = name.to_s
@@ -68,9 +68,9 @@ module OrigenTesters
 
       def block_loop(name, options)
         if options[:by_block]
-          flow.group name, options do |group|
+          flow.group name, options do
             $dut.blocks.each_with_index do |block, i|
-              yield block, i, group
+              yield block, i
             end
           end
         else
@@ -89,26 +89,8 @@ module OrigenTesters
         # print "UltraFLEX Parametric Test not yet supported for UltraFLEX!\n"
       end
 
-      # OR 2 IDS together into 1 flag
-      # def or_ids(options = {})
-      #  flow.or_flags(options[:id1], options[:id2], options)
-      # end
-
-      def nop(options = {})
-        # flow.nop options
-      end
-
       def mto_memory(name, options = {})
         # Seriously?!
-      end
-
-      # OR 2 IDS together into 1 flag
-      def or_ids(options = {})
-        # Eh?
-      end
-
-      def bin(number, options = {})
-        flow.good_bin(number, bin_desc: options[:description])
       end
     end
   end

@@ -111,9 +111,6 @@ module OrigenTesters
           end
         end
       end
-
-      def bin(number, options = {})
-      end
     end
   end
 end

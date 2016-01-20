@@ -21,14 +21,36 @@ module OrigenTesters
         end
 
         def on_test(node)
-          (stack[:groups].last || lines) << new_line(:test) do |line|
-            process_all(node)
+          line = new_line(:test) { |l| process_all(node) }
+
+          # In IG-XL you can't set the same flag in case of pass or fail, if that situation has
+          # occurred then rectify it now
+          if line.flag_fail && line.flag_fail == line.flag_pass
+            # If the test will bin, don't need to resolve the situation, the flag only matters
+            # in the pass case
+            if line.result = 'Fail'
+              line.flag_fail = nil
+              completed_lines << line
+            else
+              flag = line.flag_fail
+              line.flag_fail = "#{flag}_FAILED"
+              line.flag_pass = "#{flag}_PASSED"
+              completed_lines << line
+              existing_flag = run_flag
+              self.run_flag = [line.flag_fail, true]
+              completed_lines << new_line(:flag_true, parameter: flag)
+              self.run_flag = [line.flag_pass, true]
+              completed_lines << new_line(:flag_true, parameter: flag)
+              self.run_flag = existing_flag
+            end
+          else
+            completed_lines << line
           end
         end
 
         def on_cz(node)
           setup, test = *node
-          lines << new_line(:cz, cz_setup: setup) do |line|
+          completed_lines << new_line(:cz, cz_setup: setup) do |line|
             process_all(test)
           end
         end
@@ -44,12 +66,12 @@ module OrigenTesters
           stack[:groups].pop.each do |test|
             flags[:on_pass] << test.flag_pass
             flags[:on_fail] << test.flag_fail
-            (stack[:groups].last || lines) << test
+            completed_lines << test
           end
           if @group_on_fail_flag
             flags[:on_fail].each do |flag|
               self.run_flag = [flag, true]
-              lines << new_line(:flag_true, parameter: @group_on_fail_flag)
+              completed_lines << new_line(:flag_true, parameter: @group_on_fail_flag)
             end
             self.run_flag = nil
             @group_on_fail_flag = nil
@@ -57,7 +79,7 @@ module OrigenTesters
           if @group_on_pass_flag
             flags[:on_pass].each do |flag|
               self.run_flag = [flag, true]
-              lines << new_line(:flag_true, parameter: @group_on_pass_flag)
+              completed_lines << new_line(:flag_true, parameter: @group_on_pass_flag)
             end
             self.run_flag = nil
             @group_on_pass_flag = nil
@@ -119,19 +141,31 @@ module OrigenTesters
           end
         end
 
-        def on_bin(node)
-          if branch == :on_fail
-            current_line.bin_fail = node.to_a[0]
+        def on_set_result(node)
+          bin = node.find(:bin).try(:value)
+          sbin = node.find(:softbin).try(:value)
+          desc = node.find(:description).try(:value)
+          if current_line
+            if branch == :on_fail
+              current_line.bin_fail = bin
+              current_line.sort_fail = sbin
+              current_line.comment = desc
+            else
+              current_line.bin_pass = bin
+              current_line.sort_pass = sbin
+              current_line.comment = desc
+            end
           else
-            current_line.bin_pass = node.to_a[0]
-          end
-        end
-
-        def on_softbin(node)
-          if branch == :on_fail
-            current_line.sort_fail = node.to_a[0]
-          else
-            current_line.sort_pass = node.to_a[0]
+            line = new_line(:set_device)
+            if node.to_a[0] == 'pass'
+              line.bin_pass = bin
+              line.sort_pass = sbin
+            else
+              line.bin_fail = bin
+              line.sort_fail = sbin
+            end
+            line.comment = desc
+            completed_lines << line
           end
         end
 
@@ -164,7 +198,7 @@ module OrigenTesters
                 fail 'Not implemented yet!'
               else
                 self.run_flag = [f, state]
-                lines << new_line(:flag_true, parameter: or_flag)
+                completed_lines << new_line(:flag_true, parameter: or_flag)
                 self.run_flag = nil
               end
             end
@@ -179,11 +213,11 @@ module OrigenTesters
               and_flag = flag_to_s(flag, state) + '_AND_' + flag_to_s(*run_flag)
               existing_flag = run_flag
               self.run_flag = nil
-              lines << new_line(:flag_true, parameter: and_flag)
+              completed_lines << new_line(:flag_true, parameter: and_flag)
               self.run_flag = [existing_flag[0], !existing_flag[1]]
-              lines << new_line(:flag_false, parameter: and_flag)
+              completed_lines << new_line(:flag_false, parameter: and_flag)
               self.run_flag = [flag, !state]
-              lines << new_line(:flag_false, parameter: and_flag)
+              completed_lines << new_line(:flag_false, parameter: and_flag)
               self.run_flag = [and_flag, true]
             else
               self.run_flag = [flag, state]
@@ -210,18 +244,18 @@ module OrigenTesters
             # IG-XL does not have a !enable option, so generate a branch around the tests
             # to be skipped unless the required flag is enabled
             label = generate_unique_label
-            lines << new_line(:goto, parameter: label, enable: flag)
+            completed_lines << new_line(:goto, parameter: label, enable: flag)
             process_all(node)
-            lines << new_line(:nop, label: label)
+            completed_lines << new_line(:nop, label: label)
           end
         end
 
         def on_log(node)
-          lines << new_line(:logprint, parameter: node.to_a[0].gsub(' ', '_'))
+          completed_lines << new_line(:logprint, parameter: node.to_a[0].gsub(' ', '_'))
         end
 
         def on_render(node)
-          lines << node.to_a[0]
+          completed_lines << node.to_a[0]
         end
 
         def new_line(type, attrs = {})
@@ -239,6 +273,11 @@ module OrigenTesters
           yield line if block_given?
           open_lines.pop
           line
+        end
+
+        # Any completed lines should be pushed to the array that this returns
+        def completed_lines
+          stack[:groups].last || lines
         end
 
         def open_lines
@@ -266,148 +305,6 @@ module OrigenTesters
             "NOT_#{flag}"
           end
         end
-
-        # def add(type, options = {})
-        #  ins = false
-        #  options = save_context(options) if [:test, :cz].include?(type)
-        #  branch_unless_enabled(options) do |options|
-        #    ins = track_relationships(options) do |options|
-        #      platform::FlowLine.new(type, options)
-        #    end
-        #    collection << ins unless Origen.interface.resources_mode?
-        #    if ins.test?
-        #      c = Origen.interface.consume_comments
-        #      unless Origen.interface.resources_mode?
-        #        Origen.interface.descriptions.add_for_test_usage(ins.parameter, Origen.interface.top_level_flow, c)
-        #      end
-        #    else
-        #      Origen.interface.discard_comments
-        #    end
-        #  end
-        #  ins
-        # end
-
-        # def logprint(message, options = {})
-        #  message.gsub!(/\s/, '_')
-        #  add(:logprint, options.merge(parameter: message))
-        # end
-
-        # def test(instance, options = {})
-        #  add(:test, options.merge(parameter: instance))
-        # end
-
-        # def cz(instance, cz_setup, options = {})
-        #  add(:cz, options.merge(parameter: instance, cz_setup: cz_setup))
-        # end
-
-        # def use_limit(name, options = {})
-        #  add(:use_limit, options)
-        # end
-
-        # def goto(label, options = {})
-        #  add(:goto, options.merge(parameter: label))
-        # end
-
-        # def nop(options = {})
-        #  add(:nop, options.merge(parameter: nil))
-        # end
-
-        # def set_device(options = {})
-        #  add(:set_device, options)
-        # end
-
-        # def set_error_bin(options = {})
-        #  add(:set_error_bin, options)
-        # end
-
-        # def enable_flow_word(word, options = {})
-        #  add(:enable_flow_word, options.merge(parameter: word))
-        # end
-
-        # def disable_flow_word(word, options = {})
-        #  add(:disable_flow_word, options.merge(parameter: word))
-        # end
-
-        # def flag_false(name, options = {})
-        #  add(:flag_false, options.merge(parameter: name))
-        # end
-
-        # def flag_false_all(name, options = {})
-        #  add(:flag_false_all, options.merge(parameter: name))
-        # end
-
-        ##        def flag_true(name, options = {})
-        # def flag_true(options = {})
-        #  add(:flag_true, options)
-        # end
-
-        # def flag_true_all(name, options = {})
-        #  add(:flag_true_all, options.merge(parameter: name))
-        # end
-
-        ## Generates 2 flow lines of flag-true to help set a single flag based on OR of 2 other flags
-        # def or_flags(name1, name2, options = {})
-        #  options = {
-        #    condition: :fail, # condition to check for
-        #    flowname:  false,  # if flowname provided
-        #  }.merge(options)
-
-        #  case options[:condition]
-        #    when :fail
-        #      options[:condition] = 'FAILED'
-        #    when :pass
-        #      options[:condition] = 'PASSED'
-        #    else
-        #      options[:condition] = 'RAN'
-        #  end
-        #  id = options.delete(:id)  # get original ID
-
-        #  # set parameter names
-        #  parameter = "#{id}"
-        #  parameter += "_#{options[:flowname]}" if options[:flowname]
-        #  parameter += "_#{options[:condition]}"
-
-        #  options[:id] = id
-        #  add(:flag_true_all, options.merge(parameter: parameter))
-        #  options.delete(:id)
-        #  add(:flag_false, options.merge(parameter: parameter, if_passed: name1, result: '', flag_pass: '', flag_fail: '')) # No ID
-        #  add(:flag_false, options.merge(parameter: parameter, if_passed: name2)) # No ID
-        #  nop
-        # end
-
-        ## All tests generated will not run unless the given enable word is asserted.
-        ##
-        ## This is specially implemented for J750 since it does not have a native
-        ## support for flow word not enabled.
-        ## It will generate a goto branch around the tests contained with the block
-        ## if the given flow word is enabled.
-        # def unless_enable(word, options = {})
-        #  if options[:or]
-        #    yield
-        #  else
-        #    @unless_enable_block = word
-        #    options = options.merge(unless_enable: word)
-        #    branch_unless_enabled(options.merge(_force_unless_enable: true)) do
-        #      yield
-        #    end
-        #   @unless_enable_block = nil
-        #  end
-        # end
-        # alias_method :unless_enabled, :unless_enable
-
-        # def start_flow_branch(identifier, options = {})
-        #  goto(identifier, options)
-        # end
-
-        # def skip(identifier = nil, options = {})
-        #  identifier, options = nil, identifier if identifier.is_a?(Hash)
-        #  identifier = generate_unique_label(identifier)
-        #  goto(identifier, options)
-        #  yield
-        #  nop(label: identifier)
-        # end
-
-        # private
       end
     end
   end
