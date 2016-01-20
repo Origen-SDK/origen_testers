@@ -72,6 +72,8 @@ module OrigenTesters
       end
       clean_referenced_patterns
       reset_globals
+      @@referenced_patterns = nil
+      @@referenced_subroutine_patterns = nil
     end
 
     # All generators should push to this array whenever they reference a pattern
