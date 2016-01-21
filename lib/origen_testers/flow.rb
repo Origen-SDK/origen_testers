@@ -9,6 +9,10 @@ module OrigenTesters
   module Flow
     include OrigenTesters::Generator
 
+    def self.callstack
+      @callstack ||= []
+    end
+
     def lines
       @lines
     end
@@ -28,6 +32,7 @@ module OrigenTesters
     end
 
     def fail(number, options = {})
+      add_caller!(options)
       options[:type] ||= :fail
       model.bin(number, options)
     end
@@ -39,24 +44,29 @@ module OrigenTesters
     end
 
     def test(instance, options = {})
+      add_caller!(options)
       model.test(instance, clean_options(options))
     end
 
     def render(file, options = {})
+      add_caller!(options)
       model.render(super)
     end
 
     def cz(instance, cz_setup, options = {})
+      add_caller!(options)
       model.cz(instance, cz_setup, clean_options(options))
     end
     alias_method :characterize, :cz
 
     def log(message, options = {})
+      add_caller!(options)
       model.log(message, options)
     end
     alias_method :logprint, :log
 
     def group(name, options = {})
+      add_caller!(options)
       model.group(name, clean_options(options)) do
         yield
       end
@@ -72,28 +82,36 @@ module OrigenTesters
     end
 
     def if_job(*jobs)
-      model.with_conditions(job: ATP.or(jobs.flatten)) do
+      options = { job: ATP.or(jobs.flatten) }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
     alias_method :if_jobs, :if_job
 
     def unless_job(*jobs)
-      model.with_conditions(unless_job: ATP.or(jobs.flatten)) do
+      options = { unless_job: ATP.or(jobs.flatten) }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
     alias_method :unless_jobs, :unless_job
 
     def if_enable(word, options = {})
-      model.with_conditions(enable: word) do
+      options = { enable: word }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
     alias_method :if_enabled, :if_enable
 
     def unless_enable(word, options = {})
-      model.with_conditions(unless_enable: word) do
+      options = { unless_enable: word }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
@@ -103,7 +121,9 @@ module OrigenTesters
       if test_id.is_a?(Array)
         fail 'if_passed only accepts one ID, use if_any_passed or if_all_passed for multiple IDs'
       end
-      model.with_conditions(if_passed: test_id) do
+      options = { if_passed: test_id }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
@@ -113,48 +133,62 @@ module OrigenTesters
       if test_id.is_a?(Array)
         fail 'if_failed only accepts one ID, use if_any_failed or if_all_failed for multiple IDs'
       end
-      model.with_conditions(if_failed: test_id) do
+      options = { if_failed: test_id }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
     alias_method :unless_passed, :if_failed
 
     def if_ran(test_id, options = {})
-      model.with_conditions(if_ran: test_id) do
+      options = { if_ran: test_id }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
 
     def unless_ran(test_id, options = {})
-      model.with_conditions(unless_ran: test_id) do
+      options = { unless_ran: test_id }
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
 
     def if_any_failed(*ids)
-      options = ids.pop if ids.last.is_a?(Hash)
-      model.with_conditions(if_any_failed: ids.flatten) do
+      options = ids.last.is_a?(Hash) ? ids.pop : {}
+      options[:if_any_failed] = ids.flatten
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
 
     def if_all_failed(*ids)
-      options = ids.pop if ids.last.is_a?(Hash)
-      model.with_conditions(if_all_failed: ids.flatten) do
+      options = ids.last.is_a?(Hash) ? ids.pop : {}
+      options[:if_all_failed] = ids.flatten
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
 
     def if_any_passed(*ids)
-      options = ids.pop if ids.last.is_a?(Hash)
-      model.with_conditions(if_any_passed: ids.flatten) do
+      options = ids.last.is_a?(Hash) ? ids.pop : {}
+      options[:if_any_passed] = ids.flatten
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
 
     def if_all_passed(*ids)
-      options = ids.pop if ids.last.is_a?(Hash)
-      model.with_conditions(if_all_passed: ids.flatten) do
+      options = ids.last.is_a?(Hash) ? ids.pop : {}
+      options[:if_all_passed] = ids.flatten
+      add_caller!(options)
+      model.with_conditions(options) do
         yield
       end
     end
@@ -177,6 +211,16 @@ module OrigenTesters
     end
 
     private
+
+    def add_caller!(options)
+      flow_file = OrigenTesters::Flow.callstack.last
+      called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
+      if called_from
+        called_from = called_from.split(':')
+        options[:source_file] = called_from[0]
+        options[:source_line_number] = called_from[1].to_i
+      end
+    end
 
     def clean_options(options)
       ATP::AST::Builder::CONDITION_KEYS.each do |key|

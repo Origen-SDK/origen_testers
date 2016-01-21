@@ -2,6 +2,7 @@ require 'origen'
 require 'active_support/concern'
 require 'require_all'
 require 'atp'
+require 'origen_testers/origen_ext/generator/flow.rb'
 
 module OrigenTesters
   autoload :Doc,                'origen_testers/doc'
