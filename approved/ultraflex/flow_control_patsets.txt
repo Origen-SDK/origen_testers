@@ -99,5 +99,13 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	test3_pset			nvm_global_subs.PAT	Yes	subr			
 	test4_pset			test4.PAT	Yes				
 	test4_pset			nvm_global_subs.PAT	Yes	subr			
+	test5_pset			test5.PAT	Yes				
+	test5_pset			nvm_global_subs.PAT	Yes	subr			
+	test6_pset			test6.PAT	Yes				
+	test6_pset			nvm_global_subs.PAT	Yes	subr			
+	test7_pset			test7.PAT	Yes				
+	test7_pset			nvm_global_subs.PAT	Yes	subr			
+	test8_pset			test8.PAT	Yes				
+	test8_pset			nvm_global_subs.PAT	Yes	subr			
 	warmish_test_pset			warmish_test.PAT	Yes				
 	warmish_test_pset			nvm_global_subs.PAT	Yes	subr			

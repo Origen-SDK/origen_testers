@@ -190,18 +190,8 @@ module OrigenTesters
         else
           @append = false
           Origen.file_handler.preserve_state do
-            if Origen.tester.is_a?(OrigenTesters::Doc)
-              if options[:return_model]
-                OrigenTesters::Doc.model.add_flow(filename(include_extension: false), to_yaml)
-              else
-                Origen.file_handler.open_for_write(output_file) do |f|
-                  f.puts YAML.dump(to_yaml(include_descriptions: false))
-                end
-              end
-            else
-              File.open(output_file, 'w') do |out|
-                out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
-              end
+            File.open(output_file, 'w') do |out|
+              out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
             end
           end
           @@opened_files << output_file

@@ -1851,16 +1851,16 @@ else
 {
 }
 print_dl("Verify that job context wraps enable block within an import");
-if @ADDITIONAL_ERASE == 1 then
+if @JOB == "FR" then
 {
-  if @JOB == "FR" then
+  if @ADDITIONAL_ERASE == 1 then
   {
     run(erase_all_39);
-    run(erase_all_40);
   }
   else
   {
   }
+  run(erase_all_40);
 }
 else
 {

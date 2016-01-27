@@ -162,3 +162,62 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						flag-false	ect1_3_FAILED_AND_ect1_1_FAILED																				not	flag-true	ect1_1_FAILED				
 						flag-false	ect1_3_FAILED_AND_ect1_1_FAILED																				not	flag-true	ect1_3_FAILED				
 						Test	test4												Fail									flag-true	ect1_3_FAILED_AND_ect1_1_FAILED				
+						logprint	Embedded_conditional_tests_2																										
+						Test	test1												None		ect2_1_FAILED												
+						Test	test2												None		ect2_2_FAILED												
+						flag-true	ect2_2_FAILED_AND_ect2_1_FAILED																										
+						flag-false	ect2_2_FAILED_AND_ect2_1_FAILED																				not	flag-true	ect2_1_FAILED				
+						flag-false	ect2_2_FAILED_AND_ect2_1_FAILED																				not	flag-true	ect2_2_FAILED				
+						Test	test3												Fail									flag-true	ect2_2_FAILED_AND_ect2_1_FAILED				
+		en1				Test	test4												Fail									flag-true	ect2_1_FAILED				
+		en2				Test	test5												Fail									flag-true	ect2_1_FAILED				
+		en2				Test	test6												Fail									flag-true	ect2_1_FAILED				
+						Test	test7												Fail									flag-true	ect2_1_FAILED				
+						Test	test8												Fail														
+						logprint	Nested_enable_word_test_1																										
+		word1				Test	test1												Fail														
+		word1				goto	ORIGENTESTERS_LABEL_5																										
+						goto	ORIGENTESTERS_LABEL_4																										
+	ORIGENTESTERS_LABEL_5					nop																											
+		word2				enable-flow-word	word1_AND_word2																										
+	ORIGENTESTERS_LABEL_4					nop																											
+		word1_AND_word2				Test	test2												Fail														
+						logprint	Nested_enable_word_test_2																										
+		word1				Test	test1												Fail														
+		word2				goto	ORIGENTESTERS_LABEL_6																										
+		word1				Test	test2												Fail														
+	ORIGENTESTERS_LABEL_6					nop																											
+						logprint	Nested_enable_word_test_3																										
+		word1				enable-flow-word	word1_OR_word2																										
+		word2				enable-flow-word	word1_OR_word2																										
+		word1_OR_word2				Test	test1												Fail														
+		word1_OR_word2				goto	ORIGENTESTERS_LABEL_8																										
+						goto	ORIGENTESTERS_LABEL_7																										
+	ORIGENTESTERS_LABEL_8					nop																											
+		word3				enable-flow-word	word1_OR_word2_AND_word3																										
+	ORIGENTESTERS_LABEL_7					nop																											
+		word1_OR_word2_AND_word3				Test	test2												Fail														
+						logprint	Conditional_enable_test																										
+		nvm_minimum_room	FR			enable-flow-word	nvm_minimum_ft																										
+		nvm_minimum_cold	FC			enable-flow-word	nvm_minimum_ft																										
+		nvm_minimum_hot	FH			disable-flow-word	nvm_minimum_ft																										
+						logprint	Test_enable_words_that_wrap_a_lot_of_tests																										
+		word1				goto	ORIGENTESTERS_LABEL_10																										
+						goto	ORIGENTESTERS_LABEL_9																										
+	ORIGENTESTERS_LABEL_10					nop																											
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+		word2				Test	test1												Fail														
+		word2				Test	test1												Fail														
+		word2				Test	test1												Fail														
+		word2				Test	test1												Fail														
+		word2				goto	ORIGENTESTERS_LABEL_12																										
+						goto	ORIGENTESTERS_LABEL_11																										
+	ORIGENTESTERS_LABEL_12					nop																											
+		word3				enable-flow-word	word2_AND_word3																										
+	ORIGENTESTERS_LABEL_11					nop																											
+		word2_AND_word3				Test	test1												Fail														
+	ORIGENTESTERS_LABEL_9					nop																											

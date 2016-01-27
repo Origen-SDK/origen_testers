@@ -205,4 +205,61 @@ Flow.create do
       func :test4
     end
   end
+
+  log "Embedded conditional tests 2"
+  func :test1, id: :ect2_1
+  func :test2, id: :ect2_2
+  if_failed :ect2_1 do
+    func :test3, if_failed: :ect2_2
+    func :test4, if_enable: "en1"
+    if_enable "en2" do
+      func :test5
+      func :test6
+    end
+    func :test7
+  end
+  func :test8
+
+  log "Nested enable word test 1"
+  if_enable "word1" do
+    func :test1
+    if_enable "word2" do
+      func :test2
+    end
+  end
+
+  log "Nested enable word test 2"
+  if_enable "word1" do
+    func :test1
+    unless_enable "word2" do
+      func :test2
+    end
+  end
+
+  log "Nested enable word test 3"
+  if_enable ["word1", "word2"] do
+    func :test1
+    if_enable "word3" do
+      func :test2
+    end
+  end
+
+  log "Conditional enable test"
+  enable :nvm_minimum_ft, if_enable: "nvm_minimum_room", if_job: :fr
+  enable :nvm_minimum_ft, if_enable: "nvm_minimum_cold", if_job: :fc
+  disable :nvm_minimum_ft, if_enable: "nvm_minimum_hot", if_job: :fh
+
+  log "Test enable words that wrap a lot of tests"
+  if_enable :word1 do
+    5.times do
+      func :test1
+    end
+    if_enable :word2 do
+      4.times do
+        func :test1
+      end
+      func :test1, enable: :word3
+    end
+  end
+
 end

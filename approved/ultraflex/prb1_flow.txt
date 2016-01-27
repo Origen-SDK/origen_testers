@@ -101,8 +101,8 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 			FR			Test	margin_read1_all1_v1												Fail														
 						logprint	Verify_that_job_context_wraps_enable_block_within_an_import																										
 		additional_erase	FR			Test	erase_all_v1												Fail														
-		additional_erase	FR			Test	erase_all_v1												Fail														
+			FR			Test	erase_all_v1												Fail														
 						logprint	Verify_that_flow.cz_works...																										
 						characterize	margin_read1_all1_v2 vbplus_sweep												None														
 						logprint	Verify_that_MTO_template_works...																										
-						set-device									1		1															Good die!	
+						set-device									1		1		Pass													Good die!	

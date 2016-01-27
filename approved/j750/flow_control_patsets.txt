@@ -99,5 +99,13 @@ DFF 1.1	Pattern Sets
 	test3_pset	nvm_global_subs.PAT	subr			
 	test4_pset	test4.PAT				
 	test4_pset	nvm_global_subs.PAT	subr			
+	test5_pset	test5.PAT				
+	test5_pset	nvm_global_subs.PAT	subr			
+	test6_pset	test6.PAT				
+	test6_pset	nvm_global_subs.PAT	subr			
+	test7_pset	test7.PAT				
+	test7_pset	nvm_global_subs.PAT	subr			
+	test8_pset	test8.PAT				
+	test8_pset	nvm_global_subs.PAT	subr			
 	warmish_test_pset	warmish_test.PAT				
 	warmish_test_pset	nvm_global_subs.PAT	subr			
