@@ -1,20 +1,20 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    09-Sep-2015 05:01AM
+//   Time:    03-Feb-2016 09:28AM
 //   By:      Stephen McGinty
 //   Command: origen g j750_workout -t debug_j750_dut2.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.1
-//     Branch:    master(a7ea74ed484) (+local edits)
+//     Version:   0.5.5
+//     Branch:    master(7f8b547da3b)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.4.0
+//     Version:   0.5.8
 //   Plugins
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.2.0
+//     origen_doc_helpers:       0.2.1
 //     origen_jtag:              0.12.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
@@ -351,5 +351,12 @@ repeat 65535                                                     > nvmbist      
 repeat 65535                                                     > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
 repeat 65535                                                     > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
 repeat 43395                                                     > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
+// ######################################################################
+// ## Test real life case where dont compress was ignored
+// ######################################################################
+my_label_1:                                                                                     
+                                                                 > nvmbist                      1 1 1 01010101 00000000 0 X H X X X 0 1 ;
+repeat 200                                                       > nvmbist                      1 1 1 01010101 00000000 0 X H X X X 0 1 ;
+                                                                 > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
 end_module                                                       > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
 }                                                                                               

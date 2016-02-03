@@ -1,3 +1,23 @@
+<a class="anchor release_tag" name="v0_5_6"></a>
+<h1><a href="#v0_5_6">Tag: v0.5.6</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 03-Feb-2016 09:30AM
+
+
+Added initial support for Teradyne hardware configuration modelling (Scott Chen):
+
+* Added import\_tester\_config, get\_tester\_instrument, get\_instrument\_slots, import\_chanmap,
+  and get\_tester\_channel methods
+* import\_tester\_config imports a standard IG-XL generated CurrentConfig.txt so Origen application can
+  access the instrument/slot information for test generation. get\_tester\_instrument and
+  get\_instrument\_slots are associated methods to quickly get slot/instrument information.
+* import\_chanmap imports a standard IG-XL Channelmap
+* get\_tester\_channel is an associated method to quickly get tester channel information.
+
+Fixed bug causing some vectors marked as 'dont\_compress' to be compressed anyway.
+
 <a class="anchor release_tag" name="v0_5_5"></a>
 <h1><a href="#v0_5_5">Tag: v0.5.5</a></h1>
 

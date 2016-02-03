@@ -199,4 +199,11 @@ Pattern.create do
   Origen.tester.cycle(:repeat => 60000)
   Origen.tester.cycle(:repeat => 60000)
   Origen.tester.cycle(:repeat => 60000)
+
+  ss 'Test real life case where dont compress was ignored'
+  tester.label("my_label_1")
+  $nvm.pins(:porta).drive(0x55)
+  tester.cycle(dont_compress: true)
+  tester.cycle(repeat: 200)
+  $nvm.pins(:porta).drive!(0)
 end

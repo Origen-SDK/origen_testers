@@ -212,7 +212,8 @@ module OrigenTesters
     # Calling this will compress the 2nd group into the 1st if possible
     def lead_group_finalized?
       if first_group_present? && second_group_present?
-        if second_group_is_duplicate_of_first_group? && first_group_repeat != $tester.max_repeat_loop
+        if second_group_is_duplicate_of_first_group? && first_group_repeat != $tester.max_repeat_loop &&
+           first_group_can_be_compressed?
           # Consume the second group by incrementing the first group repeat counter
           self.first_group_repeat = first_group_repeat + second_group_repeat
           # Delete the second group
@@ -254,6 +255,12 @@ module OrigenTesters
 
     def second_group_repeat=(val)
       second_group.last.repeat = val
+    end
+
+    def first_group_can_be_compressed?
+      first_group.all? do |vector|
+        !vector.dont_compress
+      end
     end
 
     def second_group_is_duplicate_of_first_group?
