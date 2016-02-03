@@ -204,8 +204,12 @@ module OrigenTesters
         end
 
         def on_job(node)
-          job = clean_job(node.to_a[0])
-          stack[:jobs] << [stack[:jobs].last, job].compact.join(',')
+          jobs, state, *nodes = *node
+          jobs = clean_job(jobs)
+          unless state
+            jobs = jobs.map { |j| "!#{j}" }
+          end
+          stack[:jobs] << [stack[:jobs].last, jobs].compact.join(',')
           process_all(node)
           stack[:jobs].pop
         end
@@ -355,13 +359,7 @@ module OrigenTesters
         end
 
         def clean_job(job)
-          if job.try(:type) == :or
-            job.to_a.map { |j| clean_job(j) }.join(',')
-          elsif job.try(:type) == :not
-            clean_job(job.to_a[0]).split(',').map { |j| "!#{j}" }.join(',')
-          else
-            job.upcase
-          end
+          [job].flatten.map { |j| j.to_s.upcase }
         end
 
         def flag_to_s(flag, state)

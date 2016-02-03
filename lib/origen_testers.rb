@@ -2,7 +2,9 @@ require 'origen'
 require 'active_support/concern'
 require 'require_all'
 require 'atp'
-require 'origen_testers/origen_ext/generator/flow.rb'
+require 'origen_testers/origen_ext/generator/flow'
+require 'origen_testers/origen_ext/application/runner'
+require 'origen_testers/origen_ext/generator'
 
 module OrigenTesters
   autoload :CommandBasedTester, 'origen_testers/command_based_tester'
@@ -20,6 +22,13 @@ module OrigenTesters
   # The documentation tester model has been removed, but this keeps some
   # legacy code working e.g. $tester.is_a?(OrigenTesters::Doc)
   class Doc
+  end
+
+  def self.program
+    f = "#{Flow::PROGRAM_MODELS_DIR}/#{Origen.target.name}"
+    if File.exist?(f)
+      ATP::Program.load(f)
+    end
   end
 end
 

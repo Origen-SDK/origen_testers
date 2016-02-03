@@ -70,21 +70,19 @@ module OrigenTesters
         end
 
         def on_job(node)
-          condition = clean_job(node.to_a[0])
-          if condition =~ /^!\((.*)\)$/
-            condition = Regexp.last_match(1)
-            negative = true
-          end
+          jobs, state, *nodes = *node
+          jobs = clean_job(jobs)
+          condition = jobs.join(' or ')
           line "if #{condition} then"
           line '{'
           @indent += 1
-          process_all(node) unless negative
+          process_all(node) if state
           @indent -= 1
           line '}'
           line 'else'
           line '{'
           @indent += 1
-          process_all(node) if negative
+          process_all(node) unless state
           @indent -= 1
           line '}'
         end
@@ -173,13 +171,7 @@ module OrigenTesters
         end
 
         def clean_job(job)
-          if job.try(:type) == :or
-            job.to_a.map { |j| clean_job(j) }.join(' or ')
-          elsif job.try(:type) == :not
-            "!(#{clean_job(job.to_a[0])})"
-          else
-            "@JOB == \"#{job.upcase}\""
-          end
+          [job].flatten.map { |j| "@JOB == \"#{j.to_s.upcase}\"" }
         end
 
         def with_continue(value)

@@ -15,19 +15,8 @@ module OrigenTesters
       include Origen::Generator::Comparator
     end
 
-    # The program source files are executed by eval to allow the tester to filter the
-    # source contents before executing. For examples the doc tester replaces all comments
-    # with a method call containing each comment so that they can be captured.
     def self.execute_source(file)
-      if Origen.interface.respond_to?(:filter_source)
-        File.open(file) do |f|
-          src = f.read
-          src = Origen.interface.filter_source(src)
-          eval(src, global_binding)
-        end
-      else
-        load file
-      end
+      load file
     end
 
     # When called on a generator no output files will be created from it
@@ -161,13 +150,14 @@ module OrigenTesters
         if defined? self.class::TEMPLATE || Origen.tester.is_a?(OrigenTesters::Doc)
           write_from_template(options)
         else
-          fail "Don't know hot to write without a template!"
+          fail "Don't know how to write without a template!"
         end
         stats.completed_files += 1
       end
     end
 
     def write_from_template(options = {})
+      return unless Origen.interface.write?
       options = {
         quiet:     false,
         skip_diff: false

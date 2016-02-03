@@ -9,6 +9,8 @@ module OrigenTesters
   module Flow
     include OrigenTesters::Generator
 
+    PROGRAM_MODELS_DIR = "#{Origen.root}/tmp/program_models"
+
     def self.callstack
       @callstack ||= []
     end
@@ -25,6 +27,11 @@ module OrigenTesters
     # flow created together in a generation run
     def program
       @@program ||= ATP::Program.new
+    end
+
+    def save_program
+      FileUtils.mkdir_p(PROGRAM_MODELS_DIR) unless File.exist?(PROGRAM_MODELS_DIR)
+      program.save("#{PROGRAM_MODELS_DIR}/#{Origen.target.name}")
     end
 
     def model
@@ -63,7 +70,7 @@ module OrigenTesters
     end
 
     def test(instance, options = {})
-      add_meta!(options)
+      add_meta_and_description!(options)
       model.test(instance, clean_options(options))
     end
 
@@ -78,7 +85,7 @@ module OrigenTesters
     end
 
     def cz(instance, cz_setup, options = {})
-      add_meta!(options)
+      add_meta_and_description!(options)
       model.cz(instance, cz_setup, clean_options(options))
     end
     alias_method :characterize, :cz
@@ -106,7 +113,8 @@ module OrigenTesters
     end
 
     def if_job(*jobs)
-      options = { job: ATP.or(jobs.flatten) }
+      options = jobs.last.is_a?(Hash) ? jobs.pop : {}
+      options[:if_job] = jobs.flatten
       add_meta!(options)
       model.with_conditions(options) do
         yield
@@ -115,7 +123,8 @@ module OrigenTesters
     alias_method :if_jobs, :if_job
 
     def unless_job(*jobs)
-      options = { unless_job: ATP.or(jobs.flatten) }
+      options = jobs.last.is_a?(Hash) ? jobs.pop : {}
+      options[:unless_job] = jobs.flatten
       add_meta!(options)
       model.with_conditions(options) do
         yield
@@ -230,6 +239,13 @@ module OrigenTesters
       true
     end
 
+    # Returns true if the test context generated from the supplied options + existing condition
+    # wrappers is different from that which was applied to the previous test.
+    def context_changed?(options)
+      options = clean_options(options)
+      model.context_changed?(options)
+    end
+
     def generate_unique_label(id = nil)
       id = 'label' if !id || id == ''
       label = "#{Origen.interface.app_identifier}_#{id}"
@@ -251,6 +267,17 @@ module OrigenTesters
         called_from = called_from.split(':')
         options[:source_file] = called_from[0]
         options[:source_line_number] = called_from[1].to_i
+      end
+    end
+
+    def add_meta_and_description!(options)
+      add_meta!(options)
+      comments = OrigenTesters::Flow.comment_stack.last
+      if options[:source_line_number]
+        while comments.first && comments.first.first < options[:source_line_number]
+          options[:description] ||= []
+          options[:description] += comments.shift[1]
+        end
       end
     end
 
