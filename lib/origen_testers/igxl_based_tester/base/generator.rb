@@ -24,6 +24,7 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
+          flow.at_flow_start unless Origen.interface.resources_mode?
           @@test_instances_filename = nil
           @@patsets_filename = nil
           @@patgroups_filename = nil

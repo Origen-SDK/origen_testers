@@ -3,6 +3,7 @@ require 'active_support/concern'
 require 'require_all'
 require 'atp'
 require 'origen_testers/origen_ext/generator/flow'
+require 'origen_testers/origen_ext/generator/resources'
 require 'origen_testers/origen_ext/application/runner'
 require 'origen_testers/origen_ext/generator'
 

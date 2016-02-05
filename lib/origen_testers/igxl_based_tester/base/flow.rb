@@ -117,7 +117,11 @@ module OrigenTesters
         end
 
         def on_number(node)
-          current_line.tnum = node.to_a[0]
+          if Origen.tester.diff_friendly_output?
+            current_line.tnum = 0
+          else
+            current_line.tnum = node.to_a[0]
+          end
         end
 
         def on_object(node)
@@ -162,7 +166,7 @@ module OrigenTesters
         def on_set_result(node)
           bin = node.find(:bin).try(:value)
           sbin = node.find(:softbin).try(:value)
-          desc = node.find(:description).try(:value)
+          desc = node.find(:bin_description).try(:value)
           if current_line
             if branch == :on_fail
               current_line.bin_fail = bin

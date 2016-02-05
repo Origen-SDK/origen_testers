@@ -1,3 +1,4 @@
+require 'digest/md5'
 module OrigenTesters
   # Provides a common API to add tests to a flow that is supported by all testers.
   #
@@ -38,7 +39,11 @@ module OrigenTesters
       if Origen.interface.resources_mode?
         @throwaway ||= ATP::Flow.new(self)
       else
-        @model ||= program.flow(id)
+        @model ||= begin
+          f = program.flow(id)
+          f.id = flow_sig(id)
+          f
+        end
       end
     end
 
@@ -53,6 +58,7 @@ module OrigenTesters
     end
 
     def bin(number, options = {})
+      options[:bin_description] ||= options.delete(:description)
       if number.is_a?(Hash)
         fail 'The bin number must be passed as the first argument'
       end
@@ -110,6 +116,12 @@ module OrigenTesters
     # This fires between target loads
     def at_run_start
       @@program = nil
+    end
+
+    # @api private
+    # This fires between flows
+    def at_flow_start
+      @labels = {}
     end
 
     def if_job(*jobs)
@@ -246,19 +258,50 @@ module OrigenTesters
       model.context_changed?(options)
     end
 
-    def generate_unique_label(id = nil)
-      id = 'label' if !id || id == ''
-      label = "#{Origen.interface.app_identifier}_#{id}"
-      label.gsub!(' ', '_')
-      label.upcase!
-      @@labels ||= {}
-      @@labels[Origen.tester.class] ||= {}
-      @@labels[Origen.tester.class][label] ||= 0
-      @@labels[Origen.tester.class][label] += 1
-      "#{label}_#{@@labels[Origen.tester.class][label]}"
+    def generate_unique_label(name = nil)
+      name = 'label' if !name || name == ''
+      name.gsub!(' ', '_')
+      name.upcase!
+      @labels ||= {}
+      @labels[name] ||= 0
+      @labels[name] += 1
+      "#{name}_#{@labels[name]}_#{sig}"
     end
 
+    # Returns a unique signature that has been generated for the current flow, this can be appended
+    # to named references to avoid naming collisions with any other flow
+    def sig
+      model.id
+    end
+    alias_method :signature, :sig
+
     private
+
+    # Make a unique signature for the flow based on the flow name and the name of
+    # the plugin/app that owns it
+    def flow_sig(id)
+      s = Digest::MD5.new
+      # These guarantee uniqueness within a plugin/app
+      s << id.to_s
+      s << filename
+      # This will add the required plugin uniqueness in the case of a top-level app
+      # that has multiple plugins that can generate test program snippets
+      if file = OrigenTesters::Flow.callstack.first
+        s << get_app(file).name.to_s
+      end
+      s.to_s[0..6].upcase
+    end
+
+    def get_app(file)
+      path = Pathname.new(file).dirname
+      until File.exist?(File.join(path, 'config/application.rb')) || path.root?
+        path = path.parent
+      end
+      if path.root?
+        fail 'Something went wrong resoving the app root in OrigenTesters'
+      end
+      Origen.find_app_by_root(path)
+    end
 
     def add_meta!(options)
       flow_file = OrigenTesters::Flow.callstack.last

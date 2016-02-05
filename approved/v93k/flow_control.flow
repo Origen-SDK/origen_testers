@@ -4,50 +4,50 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.5.5";
+test_revision = "0.5.6";
 -- STARTDIFF
  
 end
 --------------------------------------------------
 declarations
 
-@T1_FAILED = -1;
-@T2_FAILED = -1;
-@T3_PASSED = -1;
-@T4_PASSED = -1;
-@T5_RAN = -1;
-@T6_RAN = -1;
-@T7_RAN = -1;
-@T8_RAN = -1;
-@IFA1_FAILED = -1;
-@IFA2_FAILED = -1;
-@OOF_PASSCODE1_FAILED = -1;
-@OOF_PASSCODE2_FAILED = -1;
-@IFALL1_FAILED = -1;
-@IFALL2_FAILED = -1;
-@IFALLB1_FAILED = -1;
-@IFALLB2_FAILED = -1;
-@IFAP1_PASSED = -1;
-@IFAP2_PASSED = -1;
-@IFAPB1_PASSED = -1;
-@IFAPB2_PASSED = -1;
-@IFALLP1_PASSED = -1;
-@IFALLP2_PASSED = -1;
-@IFALLPB1_PASSED = -1;
-@IFALLPB2_PASSED = -1;
-@GRP1_FAILED = -1;
-@GT_GRP1_FAILED = -1;
-@GT_GRP2_FAILED = -1;
-@L1T3_FAILED = -1;
-@L1T5_FAILED = -1;
-@L2T3_FAILED = -1;
-@NT1_FAILED = -1;
-@NT2_PASSED = -1;
-@NT2_FAILED = -1;
-@ECT1_1_FAILED = -1;
-@ECT1_3_FAILED = -1;
-@ECT2_1_FAILED = -1;
-@ECT2_2_FAILED = -1;
+@T1_0863449_FAILED = -1;
+@T2_0863449_FAILED = -1;
+@T3_0863449_PASSED = -1;
+@T4_0863449_PASSED = -1;
+@T5_0863449_RAN = -1;
+@T6_0863449_RAN = -1;
+@T7_0863449_RAN = -1;
+@T8_0863449_RAN = -1;
+@IFA1_0863449_FAILED = -1;
+@IFA2_0863449_FAILED = -1;
+@OOF_PASSCODE1_0863449_FAILED = -1;
+@OOF_PASSCODE2_0863449_FAILED = -1;
+@IFALL1_0863449_FAILED = -1;
+@IFALL2_0863449_FAILED = -1;
+@IFALLB1_0863449_FAILED = -1;
+@IFALLB2_0863449_FAILED = -1;
+@IFAP1_0863449_PASSED = -1;
+@IFAP2_0863449_PASSED = -1;
+@IFAPB1_0863449_PASSED = -1;
+@IFAPB2_0863449_PASSED = -1;
+@IFALLP1_0863449_PASSED = -1;
+@IFALLP2_0863449_PASSED = -1;
+@IFALLPB1_0863449_PASSED = -1;
+@IFALLPB2_0863449_PASSED = -1;
+@GRP1_0863449_FAILED = -1;
+@GT_GRP1_0863449_FAILED = -1;
+@GT_GRP2_0863449_FAILED = -1;
+@L1T3_0863449_FAILED = -1;
+@L1T5_0863449_FAILED = -1;
+@L2T3_0863449_FAILED = -1;
+@NT1_0863449_FAILED = -1;
+@NT2_0863449_PASSED = -1;
+@NT2_0863449_FAILED = -1;
+@ECT1_1_0863449_FAILED = -1;
+@ECT1_3_0863449_FAILED = -1;
+@ECT2_1_0863449_FAILED = -1;
+@ECT2_2_0863449_FAILED = -1;
 end
 --------------------------------------------------
 implicit_declarations
@@ -1720,43 +1720,43 @@ end
 --------------------------------------------------
 test_flow
 {
-    @T1_FAILED = -1;
-    @T2_FAILED = -1;
-    @T3_PASSED = -1;
-    @T4_PASSED = -1;
-    @T5_RAN = -1;
-    @T6_RAN = -1;
-    @T7_RAN = -1;
-    @T8_RAN = -1;
-    @IFA1_FAILED = -1;
-    @IFA2_FAILED = -1;
-    @OOF_PASSCODE1_FAILED = -1;
-    @OOF_PASSCODE2_FAILED = -1;
-    @IFALL1_FAILED = -1;
-    @IFALL2_FAILED = -1;
-    @IFALLB1_FAILED = -1;
-    @IFALLB2_FAILED = -1;
-    @IFAP1_PASSED = -1;
-    @IFAP2_PASSED = -1;
-    @IFAPB1_PASSED = -1;
-    @IFAPB2_PASSED = -1;
-    @IFALLP1_PASSED = -1;
-    @IFALLP2_PASSED = -1;
-    @IFALLPB1_PASSED = -1;
-    @IFALLPB2_PASSED = -1;
-    @GRP1_FAILED = -1;
-    @GT_GRP1_FAILED = -1;
-    @GT_GRP2_FAILED = -1;
-    @L1T3_FAILED = -1;
-    @L1T5_FAILED = -1;
-    @L2T3_FAILED = -1;
-    @NT1_FAILED = -1;
-    @NT2_PASSED = -1;
-    @NT2_FAILED = -1;
-    @ECT1_1_FAILED = -1;
-    @ECT1_3_FAILED = -1;
-    @ECT2_1_FAILED = -1;
-    @ECT2_2_FAILED = -1;
+    @T1_0863449_FAILED = -1;
+    @T2_0863449_FAILED = -1;
+    @T3_0863449_PASSED = -1;
+    @T4_0863449_PASSED = -1;
+    @T5_0863449_RAN = -1;
+    @T6_0863449_RAN = -1;
+    @T7_0863449_RAN = -1;
+    @T8_0863449_RAN = -1;
+    @IFA1_0863449_FAILED = -1;
+    @IFA2_0863449_FAILED = -1;
+    @OOF_PASSCODE1_0863449_FAILED = -1;
+    @OOF_PASSCODE2_0863449_FAILED = -1;
+    @IFALL1_0863449_FAILED = -1;
+    @IFALL2_0863449_FAILED = -1;
+    @IFALLB1_0863449_FAILED = -1;
+    @IFALLB2_0863449_FAILED = -1;
+    @IFAP1_0863449_PASSED = -1;
+    @IFAP2_0863449_PASSED = -1;
+    @IFAPB1_0863449_PASSED = -1;
+    @IFAPB2_0863449_PASSED = -1;
+    @IFALLP1_0863449_PASSED = -1;
+    @IFALLP2_0863449_PASSED = -1;
+    @IFALLPB1_0863449_PASSED = -1;
+    @IFALLPB2_0863449_PASSED = -1;
+    @GRP1_0863449_FAILED = -1;
+    @GT_GRP1_0863449_FAILED = -1;
+    @GT_GRP2_0863449_FAILED = -1;
+    @L1T3_0863449_FAILED = -1;
+    @L1T5_0863449_FAILED = -1;
+    @L2T3_0863449_FAILED = -1;
+    @NT1_0863449_FAILED = -1;
+    @NT2_0863449_PASSED = -1;
+    @NT2_0863449_FAILED = -1;
+    @ECT1_1_0863449_FAILED = -1;
+    @ECT1_3_0863449_FAILED = -1;
+    @ECT2_1_0863449_FAILED = -1;
+    @ECT2_2_0863449_FAILED = -1;
 }, open,"Init Flow Control Vars", ""
 print_dl("Test that if_failed works");
 run_and_branch(read1)
@@ -1765,9 +1765,9 @@ then
 }
 else
 {
-  @T1_FAILED = 1;
+  @T1_0863449_FAILED = 1;
 }
-if @T1_FAILED == 1 then
+if @T1_0863449_FAILED == 1 then
 {
   run_and_branch(erase1)
   then
@@ -1788,9 +1788,9 @@ then
 }
 else
 {
-  @T2_FAILED = 1;
+  @T2_0863449_FAILED = 1;
 }
-if @T2_FAILED == 1 then
+if @T2_0863449_FAILED == 1 then
 {
   run(erase2);
   run(erase2_1);
@@ -1802,12 +1802,12 @@ print_dl("Test that if_passed works");
 run_and_branch(read1_1)
 then
 {
-  @T3_PASSED = 1;
+  @T3_0863449_PASSED = 1;
 }
 else
 {
 }
-if @T3_PASSED == 1 then
+if @T3_0863449_PASSED == 1 then
 {
   run(pgm1);
 }
@@ -1818,12 +1818,12 @@ print_dl("Test the block form of if_passed");
 run_and_branch(read2_1)
 then
 {
-  @T4_PASSED = 1;
+  @T4_0863449_PASSED = 1;
 }
 else
 {
 }
-if @T4_PASSED == 1 then
+if @T4_0863449_PASSED == 1 then
 {
   run(pgm1_1);
   run(pgm1_2);
@@ -1835,14 +1835,14 @@ print_dl("Test that if_ran works");
 run_and_branch(pgm)
 then
 {
-  @T5_RAN = 1;
+  @T5_0863449_RAN = 1;
 }
 else
 {
   stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  @T5_RAN = 1;
+  @T5_0863449_RAN = 1;
 }
-if @T5_RAN == 1 then
+if @T5_0863449_RAN == 1 then
 {
   run(read0);
 }
@@ -1853,14 +1853,14 @@ print_dl("Test the block form of if_ran");
 run_and_branch(pgm_1)
 then
 {
-  @T6_RAN = 1;
+  @T6_0863449_RAN = 1;
 }
 else
 {
   stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  @T6_RAN = 1;
+  @T6_0863449_RAN = 1;
 }
-if @T6_RAN == 1 then
+if @T6_0863449_RAN == 1 then
 {
   run(read0_1);
   run(read0_2);
@@ -1872,14 +1872,14 @@ print_dl("Test that unless_ran works");
 run_and_branch(pgm_2)
 then
 {
-  @T7_RAN = 1;
+  @T7_0863449_RAN = 1;
 }
 else
 {
   stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  @T7_RAN = 1;
+  @T7_0863449_RAN = 1;
 }
-if @T7_RAN == 1 then
+if @T7_0863449_RAN == 1 then
 {
 }
 else
@@ -1890,14 +1890,14 @@ print_dl("Test the block form of unless_ran");
 run_and_branch(pgm_3)
 then
 {
-  @T8_RAN = 1;
+  @T8_0863449_RAN = 1;
 }
 else
 {
   stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  @T8_RAN = 1;
+  @T8_0863449_RAN = 1;
 }
-if @T8_RAN == 1 then
+if @T8_0863449_RAN == 1 then
 {
 }
 else
@@ -1980,7 +1980,7 @@ then
 }
 else
 {
-  @IFA1_FAILED = 1;
+  @IFA1_0863449_FAILED = 1;
 }
 run_and_branch(test2)
 then
@@ -1988,9 +1988,9 @@ then
 }
 else
 {
-  @IFA2_FAILED = 1;
+  @IFA2_0863449_FAILED = 1;
 }
-if @IFA1_FAILED == 1 or @IFA2_FAILED == 1 then
+if @IFA1_0863449_FAILED == 1 or @IFA2_0863449_FAILED == 1 then
 {
   run(test3);
 }
@@ -2004,7 +2004,7 @@ then
 }
 else
 {
-  @OOF_PASSCODE1_FAILED = 1;
+  @OOF_PASSCODE1_0863449_FAILED = 1;
 }
 run_and_branch(test2_1)
 then
@@ -2012,9 +2012,9 @@ then
 }
 else
 {
-  @OOF_PASSCODE2_FAILED = 1;
+  @OOF_PASSCODE2_0863449_FAILED = 1;
 }
-if @OOF_PASSCODE1_FAILED == 1 or @OOF_PASSCODE2_FAILED == 1 then
+if @OOF_PASSCODE1_0863449_FAILED == 1 or @OOF_PASSCODE2_0863449_FAILED == 1 then
 {
   run(test3_1);
   run(test4);
@@ -2029,7 +2029,7 @@ then
 }
 else
 {
-  @IFALL1_FAILED = 1;
+  @IFALL1_0863449_FAILED = 1;
 }
 run_and_branch(test2_2)
 then
@@ -2037,11 +2037,11 @@ then
 }
 else
 {
-  @IFALL2_FAILED = 1;
+  @IFALL2_0863449_FAILED = 1;
 }
-if @IFALL2_FAILED == 1 then
+if @IFALL2_0863449_FAILED == 1 then
 {
-  if @IFALL1_FAILED == 1 then
+  if @IFALL1_0863449_FAILED == 1 then
   {
     run(test3_2);
   }
@@ -2059,7 +2059,7 @@ then
 }
 else
 {
-  @IFALLB1_FAILED = 1;
+  @IFALLB1_0863449_FAILED = 1;
 }
 run_and_branch(test2_3)
 then
@@ -2067,11 +2067,11 @@ then
 }
 else
 {
-  @IFALLB2_FAILED = 1;
+  @IFALLB2_0863449_FAILED = 1;
 }
-if @IFALLB2_FAILED == 1 then
+if @IFALLB2_0863449_FAILED == 1 then
 {
-  if @IFALLB1_FAILED == 1 then
+  if @IFALLB1_0863449_FAILED == 1 then
   {
     run(test3_3);
     run(test4_1);
@@ -2087,7 +2087,7 @@ print_dl("Test that if_any_passed works");
 run_and_branch(test1_4)
 then
 {
-  @IFAP1_PASSED = 1;
+  @IFAP1_0863449_PASSED = 1;
 }
 else
 {
@@ -2095,12 +2095,12 @@ else
 run_and_branch(test2_4)
 then
 {
-  @IFAP2_PASSED = 1;
+  @IFAP2_0863449_PASSED = 1;
 }
 else
 {
 }
-if @IFAP1_PASSED == 1 or @IFAP2_PASSED == 1 then
+if @IFAP1_0863449_PASSED == 1 or @IFAP2_0863449_PASSED == 1 then
 {
   run(test3_4);
 }
@@ -2111,7 +2111,7 @@ print_dl("Test the block form of if_any_passed");
 run_and_branch(test1_5)
 then
 {
-  @IFAPB1_PASSED = 1;
+  @IFAPB1_0863449_PASSED = 1;
 }
 else
 {
@@ -2119,12 +2119,12 @@ else
 run_and_branch(test2_5)
 then
 {
-  @IFAPB2_PASSED = 1;
+  @IFAPB2_0863449_PASSED = 1;
 }
 else
 {
 }
-if @IFAPB1_PASSED == 1 or @IFAPB2_PASSED == 1 then
+if @IFAPB1_0863449_PASSED == 1 or @IFAPB2_0863449_PASSED == 1 then
 {
   run(test3_5);
   run(test4_2);
@@ -2136,7 +2136,7 @@ print_dl("Test that if_all_passed works");
 run_and_branch(test1_6)
 then
 {
-  @IFALLP1_PASSED = 1;
+  @IFALLP1_0863449_PASSED = 1;
 }
 else
 {
@@ -2144,14 +2144,14 @@ else
 run_and_branch(test2_6)
 then
 {
-  @IFALLP2_PASSED = 1;
+  @IFALLP2_0863449_PASSED = 1;
 }
 else
 {
 }
-if @IFALLP2_PASSED == 1 then
+if @IFALLP2_0863449_PASSED == 1 then
 {
-  if @IFALLP1_PASSED == 1 then
+  if @IFALLP1_0863449_PASSED == 1 then
   {
     run(test3_6);
   }
@@ -2166,7 +2166,7 @@ print_dl("Test the block form of if_all_passed");
 run_and_branch(test1_7)
 then
 {
-  @IFALLPB1_PASSED = 1;
+  @IFALLPB1_0863449_PASSED = 1;
 }
 else
 {
@@ -2174,14 +2174,14 @@ else
 run_and_branch(test2_7)
 then
 {
-  @IFALLPB2_PASSED = 1;
+  @IFALLPB2_0863449_PASSED = 1;
 }
 else
 {
 }
-if @IFALLPB2_PASSED == 1 then
+if @IFALLPB2_0863449_PASSED == 1 then
 {
-  if @IFALLPB1_PASSED == 1 then
+  if @IFALLPB1_0863449_PASSED == 1 then
   {
     run(test3_7);
     run(test4_3);
@@ -2201,7 +2201,7 @@ print_dl("Test that group-level dependencies work");
   }
   else
   {
-    @GRP1_FAILED = 1;
+    @GRP1_0863449_FAILED = 1;
   }
   run_and_branch(grp1_test2)
   then
@@ -2209,7 +2209,7 @@ print_dl("Test that group-level dependencies work");
   }
   else
   {
-    @GRP1_FAILED = 1;
+    @GRP1_0863449_FAILED = 1;
   }
   run_and_branch(grp1_test3)
   then
@@ -2217,10 +2217,10 @@ print_dl("Test that group-level dependencies work");
   }
   else
   {
-    @GRP1_FAILED = 1;
+    @GRP1_0863449_FAILED = 1;
   }
 }, open,"grp1", ""
-if @GRP1_FAILED == 1 then
+if @GRP1_0863449_FAILED == 1 then
 {
   {
     run_and_branch(grp2_test1)
@@ -2268,7 +2268,7 @@ else
   }
   else
   {
-    @GT_GRP1_FAILED = 1;
+    @GT_GRP1_0863449_FAILED = 1;
   }
   run_and_branch(gt_grp1_test2)
   then
@@ -2276,10 +2276,10 @@ else
   }
   else
   {
-    @GT_GRP1_FAILED = 1;
+    @GT_GRP1_0863449_FAILED = 1;
   }
 }, open,"gt_grp1", ""
-if @GT_GRP1_FAILED == 1 then
+if @GT_GRP1_0863449_FAILED == 1 then
 {
   run_and_branch(gt2)
   then
@@ -2296,7 +2296,7 @@ if @GT_GRP1_FAILED == 1 then
     }
     else
     {
-      @GT_GRP2_FAILED = 1;
+      @GT_GRP2_0863449_FAILED = 1;
     }
     run_and_branch(gt_grp2_test2)
     then
@@ -2304,14 +2304,14 @@ if @GT_GRP1_FAILED == 1 then
     }
     else
     {
-      @GT_GRP2_FAILED = 1;
+      @GT_GRP2_0863449_FAILED = 1;
     }
   }, open,"gt_grp2", ""
 }
 else
 {
 }
-if @GT_GRP2_FAILED == 1 then
+if @GT_GRP2_0863449_FAILED == 1 then
 {
   run_and_branch(gt3)
   then
@@ -2349,9 +2349,9 @@ print_dl("Test that nested groups work");
   }
   else
   {
-    @L1T3_FAILED = 1;
+    @L1T3_0863449_FAILED = 1;
   }
-  if @L1T3_FAILED == 1 then
+  if @L1T3_0863449_FAILED == 1 then
   {
     run_and_branch(lev1_test4)
     then
@@ -2371,7 +2371,7 @@ print_dl("Test that nested groups work");
   }
   else
   {
-    @L1T5_FAILED = 1;
+    @L1T5_0863449_FAILED = 1;
   }
   {
     run_and_branch(lev2_test1)
@@ -2396,9 +2396,9 @@ print_dl("Test that nested groups work");
     }
     else
     {
-      @L2T3_FAILED = 1;
+      @L2T3_0863449_FAILED = 1;
     }
-    if @L2T3_FAILED == 1 then
+    if @L2T3_0863449_FAILED == 1 then
     {
       run_and_branch(lev2_test4)
       then
@@ -2412,7 +2412,7 @@ print_dl("Test that nested groups work");
     else
     {
     }
-    if @L1T5_FAILED == 1 then
+    if @L1T5_0863449_FAILED == 1 then
     {
       run_and_branch(lev2_test5)
       then
@@ -2435,27 +2435,27 @@ then
 }
 else
 {
-  @NT1_FAILED = 1;
+  @NT1_0863449_FAILED = 1;
 }
-if @NT1_FAILED == 1 then
+if @NT1_0863449_FAILED == 1 then
 {
   run_and_branch(nt2)
   then
   {
-    @NT2_PASSED = 1;
+    @NT2_0863449_PASSED = 1;
   }
   else
   {
-    @NT2_FAILED = 1;
+    @NT2_0863449_FAILED = 1;
   }
 }
 else
 {
 }
-if @NT2_PASSED == 1 then
+if @NT2_0863449_PASSED == 1 then
 {
   {
-    if @NT1_FAILED == 1 then
+    if @NT1_0863449_FAILED == 1 then
     {
       run_and_branch(nt3)
       then
@@ -2474,10 +2474,10 @@ if @NT2_PASSED == 1 then
 else
 {
 }
-if @NT2_FAILED == 1 then
+if @NT2_0863449_FAILED == 1 then
 {
   {
-    if @NT1_FAILED == 1 then
+    if @NT1_0863449_FAILED == 1 then
     {
       run_and_branch(nt4)
       then
@@ -2503,9 +2503,9 @@ then
 }
 else
 {
-  @ECT1_1_FAILED = 1;
+  @ECT1_1_0863449_FAILED = 1;
 }
-if @ECT1_1_FAILED == 1 then
+if @ECT1_1_0863449_FAILED == 1 then
 {
   run(test2_8);
   run_and_branch(test3_8)
@@ -2514,9 +2514,9 @@ if @ECT1_1_FAILED == 1 then
   }
   else
   {
-    @ECT1_3_FAILED = 1;
+    @ECT1_3_0863449_FAILED = 1;
   }
-  if @ECT1_3_FAILED == 1 then
+  if @ECT1_3_0863449_FAILED == 1 then
   {
     run(test4_4);
   }
@@ -2534,7 +2534,7 @@ then
 }
 else
 {
-  @ECT2_1_FAILED = 1;
+  @ECT2_1_0863449_FAILED = 1;
 }
 run_and_branch(test2_9)
 then
@@ -2542,11 +2542,11 @@ then
 }
 else
 {
-  @ECT2_2_FAILED = 1;
+  @ECT2_2_0863449_FAILED = 1;
 }
-if @ECT2_1_FAILED == 1 then
+if @ECT2_1_0863449_FAILED == 1 then
 {
-  if @ECT2_2_FAILED == 1 then
+  if @ECT2_2_0863449_FAILED == 1 then
   {
     run(test3_9);
   }

@@ -143,7 +143,7 @@ module OrigenTesters
           unless @continue
             bin = node.find(:bin).try(:value)
             sbin = node.find(:softbin).try(:value)
-            desc = node.find(:description).try(:value)
+            desc = node.find(:bin_description).try(:value)
             if bin && desc
               hardware_bin_descriptions[bin] ||= desc
             end

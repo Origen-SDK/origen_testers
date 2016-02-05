@@ -15,6 +15,17 @@ module OrigenTesters
       end
     end
 
+    def self.with_resources_mode
+      orig = @resources_mode
+      @resources_mode = true
+      yield
+      @resources_mode = orig
+    end
+
+    def self.resources_mode?
+      !!@resources_mode
+    end
+
     def self.write=(val)
       @write = val
     end
@@ -172,14 +183,13 @@ module OrigenTesters
     # Generally this means that all resources for a given test will be generated but
     # flow entries will be inhibited.
     def resources_mode
-      orig = @resources_mode
-      @resources_mode = true
-      yield
-      @resources_mode = orig
+      OrigenTesters::Interface.with_resources_mode do
+        yield
+      end
     end
 
     def resources_mode?
-      @resources_mode
+      OrigenTesters::Interface.resources_mode?
     end
 
     def identity_map # :nodoc:
