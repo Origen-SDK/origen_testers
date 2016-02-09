@@ -8,7 +8,7 @@ module OrigenTesters
     included do
       Origen.add_interface(self)
 
-      (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail]).each do |method|
+      (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test]).each do |method|
         define_method method do |*args, &block|
           flow.send(method, *args, &block)
         end
@@ -187,6 +187,7 @@ module OrigenTesters
         yield
       end
     end
+    alias_method :with_resources_mode, :resources_mode
 
     def resources_mode?
       OrigenTesters::Interface.resources_mode?

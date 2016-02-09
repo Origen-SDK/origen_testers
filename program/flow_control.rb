@@ -262,4 +262,25 @@ Flow.create do
     end
   end
 
+  if tester.j750?
+    log "This should generate an AND flag"
+    func :test1, id: :at1
+    func :test2, id: :at2
+    if_failed :at1 do
+      func :test3, if_failed: :at2
+      # This should re-use the AND flag, rather than create a duplicate
+      func :test4, if_failed: :at2
+    end 
+    log "This should NOT generate an AND flag"
+    # Creating an AND flag here is logically correct, but creates un-necessary flow lines. Since
+    # the test at11 is already gated by the at21 condition, it does not need to be applied to any
+    # tests that are dependent on at11.
+    func :test1, id: :at11
+    if_failed :at11 do
+      func :test2, id: :at21
+      func :test3, if_failed: :at21
+      func :test4, if_failed: :at21
+    end 
+  end
+
 end

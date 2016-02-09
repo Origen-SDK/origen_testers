@@ -158,10 +158,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	test1												None		ect1_1_C2A232F_FAILED												
 						Test	test2												Fail									flag-true	ect1_1_C2A232F_FAILED				
 						Test	test3												None		ect1_3_C2A232F_FAILED							flag-true	ect1_1_C2A232F_FAILED				
-						flag-true	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED																										
-						flag-false	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED																				not	flag-true	ect1_1_C2A232F_FAILED				
-						flag-false	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED																				not	flag-true	ect1_3_C2A232F_FAILED				
-						Test	test4												Fail									flag-true	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED				
+						Test	test4												Fail									flag-true	ect1_3_C2A232F_FAILED				
 						logprint	Embedded_conditional_tests_2																										
 						Test	test1												None		ect2_1_C2A232F_FAILED												
 						Test	test2												None		ect2_2_C2A232F_FAILED												

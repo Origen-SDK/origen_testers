@@ -9,6 +9,8 @@ module OrigenTesters
         attr_reader :branch
         attr_reader :stack
         attr_reader :current_group
+        attr_reader :context
+        attr_reader :set_run_flags
         attr_accessor :run_flag
         attr_accessor :flow_flag
 
@@ -34,6 +36,8 @@ module OrigenTesters
         def format
           @lines = []
           @stack = { jobs: [], groups: [] }
+          @set_run_flags = {}
+          @context = []
           process(model.ast)
           lines
         end
@@ -142,6 +146,7 @@ module OrigenTesters
 
         def on_set_run_flag(node)
           flag = node.to_a[0]
+          set_run_flags[flag] = context.dup
           if current_group
             if branch == :on_fail
               @group_on_fail_flag = flag
@@ -214,8 +219,10 @@ module OrigenTesters
             jobs = jobs.map { |j| "!#{j}" }
           end
           stack[:jobs] << [stack[:jobs].last, jobs].compact.join(',')
+          context << stack[:jobs].last
           process_all(node)
           stack[:jobs].pop
+          context.pop
         end
 
         def on_run_flag(node)
@@ -233,28 +240,51 @@ module OrigenTesters
                 self.run_flag = nil
               end
             end
-            if run_flag
+            # Don't need to create an AND flag if the flag on which this test is dependent was also
+            # set under the same context.
+            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
               and_flag = flag_to_s(or_flag, state) + '_AND_' + flag_to_s(*run_flag)
+              # If the AND flag has already been created and set in this context (for a previous test),
+              # no need to re-create it
+              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
+                set_run_flags[and_flag] = context
+                existing_flag = run_flag
+                self.run_flag = nil
+                completed_lines << new_line(:flag_true, parameter: and_flag)
+                self.run_flag = [existing_flag[0], !existing_flag[1]]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+                self.run_flag = [flag, !state]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+              end
               self.run_flag = [and_flag, true]
             else
               self.run_flag = [or_flag, true]
             end
           else
-            if run_flag
+            # Don't need to create an AND flag if the flag on which this test is dependent was also
+            # set under the same context.
+            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
               and_flag = flag_to_s(flag, state) + '_AND_' + flag_to_s(*run_flag)
-              existing_flag = run_flag
-              self.run_flag = nil
-              completed_lines << new_line(:flag_true, parameter: and_flag)
-              self.run_flag = [existing_flag[0], !existing_flag[1]]
-              completed_lines << new_line(:flag_false, parameter: and_flag)
-              self.run_flag = [flag, !state]
-              completed_lines << new_line(:flag_false, parameter: and_flag)
+              # If the AND flag has already been created and set in this context (for a previous test),
+              # no need to re-create it
+              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
+                set_run_flags[and_flag] = context
+                existing_flag = run_flag
+                self.run_flag = nil
+                completed_lines << new_line(:flag_true, parameter: and_flag)
+                self.run_flag = [existing_flag[0], !existing_flag[1]]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+                self.run_flag = [flag, !state]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+              end
               self.run_flag = [and_flag, true]
             else
               self.run_flag = [flag, state]
             end
           end
+          context << run_flag
           process_all(node)
+          context.pop
           self.run_flag = orig
         end
 
@@ -280,7 +310,9 @@ module OrigenTesters
               branch_if_enable(flag) do
                 completed_lines << new_line(:goto, parameter: label, enable: nil)
               end
+              context << flag
               process_all(node)
+              context.pop
               completed_lines << new_line(:nop, label: label, enable: nil)
             else
               if flow_flag
@@ -292,20 +324,26 @@ module OrigenTesters
                 completed_lines << new_line(:enable_flow_word, parameter: and_flag, enable: flag)
                 completed_lines << new_line(:nop, label: label, enable: nil)
                 self.flow_flag = and_flag
+                context << and_flag
                 process_all(node)
+                context.pop
                 self.flow_flag = orig
               else
                 self.flow_flag = flag
+                context << flag
                 process_all(node)
+                context.pop
                 self.flow_flag = orig
               end
             end
           else
             # IG-XL does not have a !enable option, so generate a branch around the tests
             # to be skipped unless the required flag is enabled
+            context << "!#{flag}"
             branch_if_enable(flag) do
               process_all(node)
             end
+            context.pop
           end
         end
 

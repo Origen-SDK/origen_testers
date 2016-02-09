@@ -158,10 +158,7 @@ DFF 1.1	Flow Table
 						Test	test1							None		ect1_1_C2A232F_FAILED												
 						Test	test2							Fail									flag-true	ect1_1_C2A232F_FAILED				
 						Test	test3							None		ect1_3_C2A232F_FAILED							flag-true	ect1_1_C2A232F_FAILED				
-						flag-true	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED																					
-						flag-false	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED															not	flag-true	ect1_1_C2A232F_FAILED				
-						flag-false	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED															not	flag-true	ect1_3_C2A232F_FAILED				
-						Test	test4							Fail									flag-true	ect1_3_C2A232F_FAILED_AND_ect1_1_C2A232F_FAILED				
+						Test	test4							Fail									flag-true	ect1_3_C2A232F_FAILED				
 						logprint	Embedded_conditional_tests_2																					
 						Test	test1							None		ect2_1_C2A232F_FAILED												
 						Test	test2							None		ect2_2_C2A232F_FAILED												
@@ -221,3 +218,16 @@ DFF 1.1	Flow Table
 	LABEL_10_C2A232F					nop																						
 		word2_AND_word3				Test	test1							Fail														
 	LABEL_8_C2A232F					nop																						
+						logprint	This_should_generate_an_AND_flag																					
+						Test	test1							None		at1_C2A232F_FAILED												
+						Test	test2							None		at2_C2A232F_FAILED												
+						flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED																					
+						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at1_C2A232F_FAILED				
+						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at2_C2A232F_FAILED				
+						Test	test3							Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
+						Test	test4							Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
+						logprint	This_should_NOT_generate_an_AND_flag																					
+						Test	test1							None		at11_C2A232F_FAILED												
+						Test	test2							None		at21_C2A232F_FAILED							flag-true	at11_C2A232F_FAILED				
+						Test	test3							Fail									flag-true	at21_C2A232F_FAILED				
+						Test	test4							Fail									flag-true	at21_C2A232F_FAILED				
