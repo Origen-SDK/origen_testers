@@ -25,6 +25,7 @@ module Origen
           end
         end
       end
+      Origen.interface.on_program_completion(options)
     end
   end
 end

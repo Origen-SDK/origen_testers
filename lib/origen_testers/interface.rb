@@ -96,6 +96,9 @@ module OrigenTesters
       end
       clean_referenced_patterns
       flow.save_program
+    end
+
+    def on_program_completion(options = {})
       reset_globals
       @@referenced_patterns = nil
       @@referenced_subroutine_patterns = nil
