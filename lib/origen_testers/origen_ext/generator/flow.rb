@@ -1,4 +1,10 @@
-require 'origen/generator/flow'
+# This shim is temporary to help NXP transition to Origen from
+# our original internal version (RGen)
+if defined? RGen::ORIGENTRANSITION
+  require 'rgen/generator/flow'
+else
+  require 'origen/generator/flow'
+end
 module Origen
   class Generator
     class Flow

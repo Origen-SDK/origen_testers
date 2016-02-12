@@ -1,4 +1,10 @@
-require 'origen/generator'
+# This shim is temporary to help NXP transition to Origen from
+# our original internal version (RGen)
+if defined? RGen::ORIGENTRANSITION
+  require 'rgen/generator'
+else
+  require 'origen/generator'
+end
 module Origen
   class Generator
     # Makes more sense for this plugin to own this method now

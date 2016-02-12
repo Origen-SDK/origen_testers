@@ -1,4 +1,10 @@
-require 'origen/application/runner'
+# This shim is temporary to help NXP transition to Origen from
+# our original internal version (RGen)
+if defined? RGen::ORIGENTRANSITION
+  require 'rgen/application/runner'
+else
+  require 'origen/application/runner'
+end
 module Origen
   class Application
     class Runner

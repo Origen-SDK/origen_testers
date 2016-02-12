@@ -1,4 +1,10 @@
-require 'origen/generator/resources'
+# This shim is temporary to help NXP transition to Origen from
+# our original internal version (RGen)
+if defined? RGen::ORIGENTRANSITION
+  require 'rgen/generator/resources'
+else
+  require 'origen/generator/resources'
+end
 module Origen
   class Generator
     class Resources
