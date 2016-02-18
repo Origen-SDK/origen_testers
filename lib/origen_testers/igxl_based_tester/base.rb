@@ -34,6 +34,8 @@ module OrigenTesters
         @microcode[:enable] = 'enable'
         @microcode[:set_flag] = 'set_cpu'
         @microcode[:mask_vector] = 'ign ifc icc'
+        @instrument_strings = {}
+        @includefiles = {}
 
         @mask_vector = false   # sticky option to mask all subsequent vectors
 
@@ -54,32 +56,26 @@ module OrigenTesters
         end
       end
 
-      def assign_digsrc_pins(digsrc_pins)
-        if !digsrc_pins.is_a?(Array)
-          @digsrc_pins = [] << digsrc_pins
+      # This method allows for use of custom instruments not fully supported by the plugin
+      # Pass a hash to merge into the instruments statement, 'pin' => 'instrument_string'
+      def add_instrument_string(inst = {})
+        @instrument_strings.merge!(inst)
+      end
+
+      def add_pattern_include_files(files)
+        if !files.is_a?(Array)
+          @includefiles = [] << files
         else
-          @digsrc_pins = digsrc_pins
+          @includefiles = files
         end
       end
 
-      def assign_digcap_pins(digcap_pins)
-        if !digcap_pins.is_a?(Array)
-          @digcap_pins = [] << digcap_pins
-        else
-          @digcap_pins = digcap_pins
+      def get_include_files
+        @includefiles
         end
-      end
 
       def get_dc_instr_pins
         @dc_pins
-      end
-
-      def get_digsrc_pins
-        @digsrc_pins
-      end
-
-      def get_digcap_pins
-        @digcap_pins
       end
 
       def flows
@@ -492,6 +488,11 @@ module OrigenTesters
           memory_test:    false,      # If true, define 2-bit MTO DGEN as instrument
         }.merge(options)
 
+        # Add #include if defined by pattern
+        @includefiles.each do |filename|
+          microcode "#include \"#{filename}\""
+        end
+
         if level_period?
           microcode "import tset #{min_period_timeset.name};"
         else
@@ -511,6 +512,11 @@ module OrigenTesters
           options[:instruments].merge!('mto' => 'dgen_2bit')
         end
 
+        # Add any generic instruments statements not specifically supported elsewhere
+        @instrument_strings.each do |pin, inst|
+          options[:instruments].merge!(pin => inst)
+        end
+
         if options[:svm_only]
           microcode "svm_only_file = #{options[:subroutine_pat] ? 'yes' : 'no'};"
         end
@@ -525,10 +531,6 @@ module OrigenTesters
           options[:instruments].each do |pins, instrument|
             if "#{pins}" == 'nil'
               microcode "               #{instrument};"
-            elsif instrument == 'digsrc'
-              microcode "               #{pins}:#{instrument} #{options[:digsrc_width]}:#{options[:digsrc_bit_order]}:#{options[:digsrc_mode]}:format=#{options[:digsrc_format]}:#{options[:digsrc_site_uniqueness]}:#{options[:digsrc_auto_cond]};"
-            elsif instrument == 'digcap'
-              microcode "               #{pins}:#{instrument} #{options[:digcap_width]}:#{options[:digcap_bit_order]}:#{options[:digcap_mode]}:format=#{options[:digcap_format]}:data_type=#{options[:digcap_data_type]}:#{options[:digcap_auto_cond]}:#{options[:digcap_auto_trig_enable]}:#{options[:digcap_store_stv]}:#{options[:digcap_receive_data]};"
             else
               microcode "               #{pins}:#{instrument};"
             end
@@ -672,85 +674,13 @@ module OrigenTesters
         end
       end
 
-      # Call this method at the start of any digsrc overlay operations, this method
-      # takes care of all the microcodes and delays that's needed for digsrc overlay
-      # Required arguments:
-      #                     pins
-      # Optionsal arguments:
-      #                     options[:dssc_mode] = :single or :dual, anything else wil be
-      #                     treated as if it's operating in :quad mode
-      def digsrc_start(pins, options = {})
-        options = {
-          dssc_mode: :single # defaults dssc_mode to single mode
-        }.merge(options)
-        if pins.size > 1
-          microcode "((#{format_multiple_instrument_pins(pins)}):DigSrc = Start)"
-        else
-          microcode "((#{pin}):DigSrc = Start)"
-        end
-        if options[:dssc_mode] == :single
-          $tester.cycle(repeat: 145) # minimum of 144 cycles, adding 1 for safey measures
-        elsif options[:dssc_mode] == :dual
-          $tester.cycle(repeat: 289) # minimum of 288 cycles, adding 1 for safety measures
-        else
-          $tester.cycle(repeat: 577) # minimum of 577 cycles, adding 1 for safety measures
-        end
-      end
-
-      # Call this method at the end of each digscr overlay operation to clear the pattern
-      # memory pipeline, so that the pattern is ready to do the next digsrc overlay operation.
-      # Required arguments:
-      #                     pins
-      def digsrc_stop(pins, options = {})
-        if pins.size > 1
-          microcode "((#{format_multiple_instrument_pins(pins)}):DigSrc = Stop)"
-        else
-          microcode "((#{pins}):DigSrc = Stop)"
-        end
-      end
-
-      # Call this method before each tester cycle to insert the digsrc overlay microcode
-      def digsrc_send(pins)
-        microcode "((#{format_multiple_instrument_pins(pins)}):DigSrc = SEND)"
-      end
-
-      # Call this method before each tester cycle to inser the digcap overlay microcode
-      def digcap_store(pins)
-        microcode "((#{format_multiple_instrument_pins(pins)}):DigCap = STORE)"
-      end
-
-      def apply_digsrc_settings(options = {})
-        options.merge!(digsrc_width: 1) if options[:digsrc_width].nil? # default to digsrc 1
-        options.merge!(digsrc_bit_order: :lsb) if options[:digsrc_bit_order].nil? # default to lsb
-        options.merge!(digsrc_mode: :serial) if options[:digsrc_mode].nil? # default to serial mode
-        options.merge!(digsrc_format: :binary) if options[:digsrc_format].nil? # default to binary
-        options.merge!(digsrc_site_uniqueness: :unique_sites) if options[:digsrc_site_uniqueness].nil? # default to unique sites
-        options.merge!(digsrc_data_type: :default) if options[:digsrc_data_type].nil? # default to default
-        options.merge!(digsrc_auto_cond: :auto_cond_disable) if options[:digsrc_auto_cond].nil? # default to disable
-        @digsrc_settings = options
-      end
-
-      def apply_digcap_settings(options = {})
-        options.merge!(digcap_width: 8) if options[:digcap_width].nil? # default to digcap 8
-        options.merge!(digcap_bit_order: :lsb) if options[:digcap_bit_order].nil? # default to lsb
-        options.merge!(digcap_mode: :serial) if options[:digcap_mode].nil? # default to serial mode
-        options.merge!(digcap_site_uniqueness: :unique_sites) if options[:digcap_site_uniqueness].nil? # default to unique sites
-        options.merge!(digcap_format: :binary) if options[:digcap_format].nil? # default to binary
-        options.merge!(digcap_data_type: :default) if options[:digcap_data_type].nil? # default to default
-        options.merge!(digcap_auto_cond: :auto_cond_disable) if options[:digcap_auto_cond].nil? # default to disable
-        options.merge!(digcap_auto_trig_enable: :auto_trig_disable) if options[:digcap_auto_trig_enable].nil? # default to disable
-        options.merge!(digcap_store_stv: :store_stv_disable) if options[:digcap_store_stv].nil? # default to disable
-        options.merge!(digcap_receive_data: :store_stv_disable) if options[:digcap_receive_data].nil? # default to logic
-        @digcap_settings = options
-      end
-
       # Call this method if there are more than one pin/pin groups used with an instrument,
       # this method will format an array of pins into the correct format required by igxl
       # pattern microcodes.
-      def format_multiple_instrument_pins(pins, options = {})
+      def format_multiple_instrument_pins(pins)
         return_value = ''
         pins.each do |pin|
-          return_value += "#{pin}"
+          return_value += "#{pin.name}"
           return_value += ',' unless pins.last == pin
         end
         return_value
