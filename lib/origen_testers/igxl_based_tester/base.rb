@@ -56,6 +56,25 @@ module OrigenTesters
         end
       end
 
+      #legacy methods defining dssc pins for instruments statement
+      def assign_digsrc_pins(digsrc_pins)
+        if !digsrc_pins.is_a?(Array)
+          @digsrc_pins = [] << digsrc_pins
+        else
+          @digsrc_pins = digsrc_pins
+        end
+      end
+
+      def assign_digcap_pins(digcap_pins)
+        if !digcap_pins.is_a?(Array)
+          @digcap_pins = [] << digcap_pins
+        else
+          @digcap_pins = digcap_pins
+        end
+      end
+
+
+
       # This method allows for use of custom instruments not fully supported by the plugin
       # Pass a hash to merge into the instruments statement, 'pin' => 'instrument_string'
       def add_instrument_string(inst = {})
@@ -76,6 +95,15 @@ module OrigenTesters
 
       def get_dc_instr_pins
         @dc_pins
+      end
+
+      #legacy methods returning dssc pins for header
+      def get_digsrc_pins
+        @digsrc_pins
+      end
+
+      def get_digcap_pins
+        @digcap_pins
       end
 
       def flows
@@ -678,11 +706,12 @@ module OrigenTesters
       # this method will format an array of pins into the correct format required by igxl
       # pattern microcodes.
       def format_multiple_instrument_pins(pins)
-        return_value = ''
+        return_value = '('
         pins.each do |pin|
           return_value += "#{pin.name}"
           return_value += ',' unless pins.last == pin
         end
+        return_value += ')'
         return_value
       end
 

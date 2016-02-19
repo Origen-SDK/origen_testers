@@ -517,8 +517,17 @@ module OrigenTesters
           starte:      false
         }.merge(options)
 
+        pins = pins.flatten.compact
         options[:starte] ? start_syntax = 'Starte' : start_syntax = 'Start'
-        cycle(microcode: "((#{format_multiple_instrument_pins(pins)}):DigSrc = #{start_syntax} #{options[:signal_name]})")
+        microcode "(#{format_multiple_instrument_pins(pins)}:DigSrc = #{start_syntax} #{options[:signal_name]})"
+
+        if options[:dssc_mode] == :single
+          $tester.cycle(repeat: 145) # minimum of 144 cycles, adding 1 for safey measures
+        elsif options[:dssc_mode] == :dual
+          $tester.cycle(repeat: 289) # minimum of 288 cycles, adding 1 for safety measures
+        else
+          $tester.cycle(repeat: 577) # minimum of 577 cycles, adding 1 for safety measures
+        end
       end
 
       # Call this method at the end of each digsrc overlay operation to clear the pattern
@@ -526,7 +535,8 @@ module OrigenTesters
       # Required arguments:
       #                     pins
       def digsrc_stop(*pins)
-        cycle(microcode: "((#{format_multiple_instrument_pins(pins)}):DigSrc = Stop)")
+        pins = pins.flatten.compact
+        microcode "(#{format_multiple_instrument_pins(pins)}:DigSrc = Stop)"
       end
 
       # Call this method to insert the digsrc SEND overlay microcode on the previous vector and change the pin state.
@@ -580,7 +590,7 @@ module OrigenTesters
         if (options[:dssc_microcode] == 'stv')
           opcode = 'stv'
         else
-          opcode = "((#{format_multiple_instrument_pins(pins)}):#{options[:dssc_microcode]})"
+          opcode = "(#{format_multiple_instrument_pins(pins)}:#{options[:dssc_microcode]})"
         end
 
         pins.each do |pin|
@@ -613,7 +623,7 @@ module OrigenTesters
         if (options[:dssc_microcode] == 'stv')
           opcode = 'stv'
         else
-          opcode = "((#{format_multiple_instrument_pins(pins)}):#{options[:dssc_microcode]})"
+          opcode = "(#{format_multiple_instrument_pins(pins)}:#{options[:dssc_microcode]})"
         end
 
         if pins.empty?
