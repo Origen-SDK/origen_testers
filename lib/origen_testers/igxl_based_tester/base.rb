@@ -56,7 +56,7 @@ module OrigenTesters
         end
       end
 
-      #legacy methods defining dssc pins for instruments statement
+      # legacy methods defining dssc pins for instruments statement
       def assign_digsrc_pins(digsrc_pins)
         if !digsrc_pins.is_a?(Array)
           @digsrc_pins = [] << digsrc_pins
@@ -72,8 +72,6 @@ module OrigenTesters
           @digcap_pins = digcap_pins
         end
       end
-
-
 
       # This method allows for use of custom instruments not fully supported by the plugin
       # Pass a hash to merge into the instruments statement, 'pin' => 'instrument_string'
@@ -91,13 +89,13 @@ module OrigenTesters
 
       def get_include_files
         @includefiles
-        end
+      end
 
       def get_dc_instr_pins
         @dc_pins
       end
 
-      #legacy methods returning dssc pins for header
+      # legacy methods returning dssc pins for header
       def get_digsrc_pins
         @digsrc_pins
       end

@@ -149,8 +149,7 @@ module OrigenTesters
         if port
           ix = Origen.tester.ordered_pins.index(port) # find index of port
           i = port.find_index(pin)
-        elsif
-          ix = Origen.tester.ordered_pins.index(pin)
+        elsif ix = Origen.tester.ordered_pins.index(pin)
           i = 0
         end
       else

@@ -153,9 +153,9 @@ module OrigenTesters
         options = { counter: 'c15'
                   }.merge(options)
         cc " Using counter #{options[:counter]} as set_code replacement - value set to #{code[0]} + 1"
-        if !@set_msb_issued
+        unless @set_msb_issued
           set_msb(1)
-          cycle   #set_msb doesn't issue a cycle
+          cycle   # set_msb doesn't issue a cycle
         end
         cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
       end
@@ -595,6 +595,7 @@ module OrigenTesters
 
         pins.each do |pin|
           pin.restore_state do
+            # rubocop:disable Style/EmptyElse: Redundant else-clause.
             case options[:pin_state]
             when 'drive_mem'
               pin.drive_mem
@@ -605,6 +606,7 @@ module OrigenTesters
             else
               # no pin update by default
             end
+            # rubocop:enable Style/EmptyElse: Redundant else-clause.
             update_vector microcode: opcode, offset: options[:offset]
             update_vector_pin_val pin, microcode: opcode, offset: options[:offset]
             last_vector(options[:offset]).dont_compress = true
@@ -631,6 +633,7 @@ module OrigenTesters
         end
         pins.each do |pin|
           pin.save
+          # rubocop:disable Style/EmptyElse: Redundant else-clause.
           case options[:pin_state]
             when 'drive_mem'
               pin.drive_mem
@@ -641,6 +644,7 @@ module OrigenTesters
             else
             # no pin update by default
           end
+          # rubocop:enable Style/EmptyElse: Redundant else-clause.
         end
         # Register this clean up function to be run after the next vector
         # is generated (SMcG: cool or what! DH: Yes, very cool!)
