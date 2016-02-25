@@ -38,7 +38,8 @@ module OrigenTesters
         end
 
         def on_test(node)
-          name = node.find(:object).to_a[0].name
+          name = node.find(:object).to_a[0]
+          name = name.name unless name.is_a?(String)
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass }
             line "run_and_branch(#{name})"
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
@@ -131,7 +132,7 @@ module OrigenTesters
             @indent += 1
             stack[:on_fail] << on_fail if on_fail
             stack[:on_pass] << on_pass if on_pass
-            process_all(node.find(:members))
+            process_all(node.children - [on_fail, on_pass])
             stack[:on_fail].pop if on_fail
             stack[:on_pass].pop if on_pass
             @indent -= 1

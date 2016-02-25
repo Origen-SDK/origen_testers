@@ -2448,14 +2448,8 @@ if @NT1_0863449_FAILED == 1 then
   {
     @NT2_0863449_FAILED = 1;
   }
-}
-else
-{
-}
-if @NT2_0863449_PASSED == 1 then
-{
+  if @NT2_0863449_PASSED == 1 then
   {
-    if @NT1_0863449_FAILED == 1 then
     {
       run_and_branch(nt3)
       then
@@ -2465,19 +2459,13 @@ if @NT2_0863449_PASSED == 1 then
       {
         stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
       }
-    }
-    else
-    {
-    }
-  }, open,"ntg1", ""
-}
-else
-{
-}
-if @NT2_0863449_FAILED == 1 then
-{
+    }, open,"ntg1", ""
+  }
+  else
   {
-    if @NT1_0863449_FAILED == 1 then
+  }
+  if @NT2_0863449_FAILED == 1 then
+  {
     {
       run_and_branch(nt4)
       then
@@ -2487,11 +2475,11 @@ if @NT2_0863449_FAILED == 1 then
       {
         stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
       }
-    }
-    else
-    {
-    }
-  }, open,"ntg2", ""
+    }, open,"ntg2", ""
+  }
+  else
+  {
+  }
 }
 else
 {

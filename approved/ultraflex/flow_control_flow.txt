@@ -146,14 +146,8 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						logprint	Test_nested_conditions_on_a_group																										
 						Test	nt1									10			None		nt1_C2A232F_FAILED												
 						Test	nt2									11			None	nt2_C2A232F_PASSED	nt2_C2A232F_FAILED							flag-true	nt1_C2A232F_FAILED				
-						flag-true	nt1_C2A232F_FAILED_AND_nt2_C2A232F_PASSED																										
-						flag-false	nt1_C2A232F_FAILED_AND_nt2_C2A232F_PASSED																				not	flag-true	nt2_C2A232F_PASSED				
-						flag-false	nt1_C2A232F_FAILED_AND_nt2_C2A232F_PASSED																				not	flag-true	nt1_C2A232F_FAILED				
-						Test	nt3									12			Fail									flag-true	nt1_C2A232F_FAILED_AND_nt2_C2A232F_PASSED				
-						flag-true	nt1_C2A232F_FAILED_AND_nt2_C2A232F_FAILED																										
-						flag-false	nt1_C2A232F_FAILED_AND_nt2_C2A232F_FAILED																				not	flag-true	nt2_C2A232F_FAILED				
-						flag-false	nt1_C2A232F_FAILED_AND_nt2_C2A232F_FAILED																				not	flag-true	nt1_C2A232F_FAILED				
-						Test	nt4									13			Fail									flag-true	nt1_C2A232F_FAILED_AND_nt2_C2A232F_FAILED				
+						Test	nt3									12			Fail									flag-true	nt2_C2A232F_PASSED				
+						Test	nt4									13			Fail									flag-true	nt2_C2A232F_FAILED				
 						logprint	Embedded_conditional_tests_1																										
 						Test	test1												None		ect1_1_C2A232F_FAILED												
 						Test	test2												Fail									flag-true	ect1_1_C2A232F_FAILED				

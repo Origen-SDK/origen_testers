@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.5.5";
+test_revision = "0.5.6";
 -- STARTDIFF
  
 end
@@ -232,18 +232,22 @@ run(erase_all);
 run(margin_read1_all1);
 run(erase_all_1);
 run(margin_read1_all1_1);
-run(pgm_ckbd);
-run(mrd_ckbd);
+{
+  run(pgm_ckbd);
+  run(mrd_ckbd);
+}, open,"prb2_main", ""
 run(erase_all_2);
 run(margin_read1_all1_2);
-if @EXTRA_TESTS == 1 then
 {
-  run(pgm_ckbd_1);
-  run(mrd_ckbd_1);
-}
-else
-{
-}
+  if @EXTRA_TESTS == 1 then
+  {
+    run(pgm_ckbd_1);
+    run(mrd_ckbd_1);
+  }
+  else
+  {
+  }
+}, open,"prb2_main_2", ""
 run(margin_read1_all1_3);
 end
 -------------------------------------------------

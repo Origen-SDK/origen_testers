@@ -42,6 +42,11 @@ module OrigenTesters
           lines
         end
 
+        def on_flow(node)
+          name, *nodes = *node
+          process_all(nodes)
+        end
+
         def on_test(node)
           line = new_line(:test) { |l| process_all(node) }
 
@@ -79,10 +84,11 @@ module OrigenTesters
 
         def on_group(node)
           stack[:groups] << []
-          process_all(node.find(:members))
+          post_group = node.children.select { |n| [:on_fail, :on_pass, :name].include?(n.try(:type)) }
+          process_all(node.children - post_group)
           # Now process any on_fail and similar conditional logic attached to the group
           @current_group = stack[:groups].last
-          process_all(node)
+          process_all(post_group)
           @current_group = nil
           flags = { on_pass: [], on_fail: [] }
           stack[:groups].pop.each do |test|
@@ -106,10 +112,6 @@ module OrigenTesters
             self.run_flag = nil
             @group_on_pass_flag = nil
           end
-        end
-
-        def on_members(node)
-          # Do nothing, will be processed directly by the on_group handler
         end
 
         def on_name(node)

@@ -1463,13 +1463,17 @@ else
 }
 run(margin_read1_ckbd);
 run(margin_read0_ckbd);
-run(erase_all);
-run(erase_all_1);
-run(erase_all_2);
-run(erase_all_3);
-run(erase_all_4);
-run(erase_all_5);
-run(margin_read1_all1);
+{
+  run(erase_all);
+  run(erase_all_1);
+  run(erase_all_2);
+  run(erase_all_3);
+  run(erase_all_4);
+  run(erase_all_5);
+  {
+    run(margin_read1_all1);
+  }, open,"erase_vfy", ""
+}, open,"erase", ""
 print_dl("Should be v1");
 run(program_ckbd);
 print_dl("Should be v2");
@@ -1839,32 +1843,38 @@ else
   run(margin_read1_all1_18);
 }
 print_dl("Verify that job context wraps import");
-if @JOB == "FR" then
 {
-  run(erase_all_35);
-  run(erase_all_36);
-  run(erase_all_37);
-  run(erase_all_38);
-  run(margin_read1_all1_19);
-}
-else
-{
-}
-print_dl("Verify that job context wraps enable block within an import");
-if @JOB == "FR" then
-{
-  if @ADDITIONAL_ERASE == 1 then
+  if @JOB == "FR" then
   {
-    run(erase_all_39);
+    run(erase_all_35);
+    run(erase_all_36);
+    run(erase_all_37);
+    run(erase_all_38);
+    {
+      run(margin_read1_all1_19);
+    }, open,"erase_vfy_2", ""
   }
   else
   {
   }
-  run(erase_all_40);
-}
-else
+}, open,"erase_2", ""
+print_dl("Verify that job context wraps enable block within an import");
 {
-}
+  if @JOB == "FR" then
+  {
+    if @ADDITIONAL_ERASE == 1 then
+    {
+      run(erase_all_39);
+    }
+    else
+    {
+    }
+    run(erase_all_40);
+  }
+  else
+  {
+  }
+}, open,"additional_erase", ""
 print_dl("Verify that flow.cz works...");
 run(margin_read1_all1_20);
 print_dl("Verify that MTO template works...");

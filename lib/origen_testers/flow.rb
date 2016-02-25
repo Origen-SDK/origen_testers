@@ -20,6 +20,14 @@ module OrigenTesters
       @comment_stack ||= []
     end
 
+    def self.flow_comments
+      @flow_comments
+    end
+
+    def self.flow_comments=(val)
+      @flow_comments = val
+    end
+
     def lines
       @lines
     end
@@ -40,7 +48,7 @@ module OrigenTesters
         @throwaway ||= ATP::Flow.new(self)
       else
         @model ||= begin
-          f = program.flow(id)
+          f = program.flow(id, description: OrigenTesters::Flow.flow_comments)
           f.id = flow_sig(id)
           f
         end
@@ -315,11 +323,19 @@ module OrigenTesters
 
     def add_meta_and_description!(options)
       add_meta!(options)
-      comments = OrigenTesters::Flow.comment_stack.last
-      if options[:source_line_number]
-        while comments.first && comments.first.first < options[:source_line_number]
-          options[:description] ||= []
-          options[:description] += comments.shift[1]
+      # Can be useful if an app generates additional tests on the fly for a single test in the flow,
+      # e.g. a POR, in that case they will not want the description to be attached to the POR, but to
+      # the test that follows it
+      unless options[:inhibit_description_consumption]
+        comments = OrigenTesters::Flow.comment_stack.last
+        if options[:source_line_number]
+          while comments.first && comments.first.first < options[:source_line_number]
+            options[:description] ||= []
+            c = comments.shift
+            if c[0] + c[1].size == options[:source_line_number]
+              options[:description] += c[1]
+            end
+          end
         end
       end
     end

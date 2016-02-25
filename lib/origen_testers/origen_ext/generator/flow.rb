@@ -15,13 +15,22 @@ module Origen
       def create(options = {}, &block)
         file, line = *caller[0].split(':')
         OrigenTesters::Flow.callstack << file
-        # The flow comments are just being discarded for now, but should be attached to a
-        # flow/group wrapper node in future
         flow_comments, comments = *_extract_comments(OrigenTesters::Flow.callstack.last, line.to_i)
         OrigenTesters::Flow.comment_stack << comments
-        orig_create(options, &block)
+        if OrigenTesters::Flow.flow_comments
+          top = false
+          name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
+          Origen.interface.flow.group(name, description: flow_comments) do
+            orig_create(options, &block)
+          end
+        else
+          OrigenTesters::Flow.flow_comments = flow_comments
+          top = true
+          orig_create(options, &block)
+        end
         OrigenTesters::Flow.callstack.pop
         OrigenTesters::Flow.comment_stack.pop
+        OrigenTesters::Flow.flow_comments = nil if top
       end
 
       def _extract_comments(file, flow_line)
