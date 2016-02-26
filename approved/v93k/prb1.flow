@@ -11,6 +11,10 @@ end
 --------------------------------------------------
 declarations
 
+@JOB = -1;
+@DO_ERASE = -1;
+@NO_EXTRA_ERASE = -1;
+@ADDITIONAL_ERASE = -1;
 @ERASE_VFY_0_5B6E9EA_FAILED = -1;
 @ERASE_VFY_1_5B6E9EA_FAILED = -1;
 @ERASE_VFY_2_5B6E9EA_FAILED = -1;

@@ -11,6 +11,19 @@ end
 --------------------------------------------------
 declarations
 
+@JOB = -1;
+@EXTRAS = -1;
+@CZ = -1;
+@QUICK = -1;
+@EN1 = -1;
+@EN2 = -1;
+@WORD1 = -1;
+@WORD2 = -1;
+@WORD3 = -1;
+@NVM_MINIMUM_ROOM = -1;
+@NVM_MINIMUM_FT = -1;
+@NVM_MINIMUM_COLD = -1;
+@NVM_MINIMUM_HOT = -1;
 @T1_0863449_FAILED = -1;
 @T2_0863449_FAILED = -1;
 @T3_0863449_PASSED = -1;

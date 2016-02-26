@@ -25,6 +25,11 @@ module Origen
           end
         else
           OrigenTesters::Flow.flow_comments = flow_comments
+          if options.key?(:unique_ids)
+            OrigenTesters::Flow.unique_ids = options.delete(:unique_ids)
+          else
+            OrigenTesters::Flow.unique_ids = true
+          end
           top = true
           orig_create(options, &block)
         end
