@@ -28,6 +28,14 @@ module OrigenTesters
       @flow_comments = val
     end
 
+    def self.unique_ids
+      @unique_ids
+    end
+
+    def self.unique_ids=(val)
+      @unique_ids = val
+    end
+
     def lines
       @lines
     end
@@ -49,7 +57,8 @@ module OrigenTesters
       else
         @model ||= begin
           f = program.flow(id, description: OrigenTesters::Flow.flow_comments)
-          f.id = flow_sig(id)
+          @sig = flow_sig(id)
+          f.id = @sig if OrigenTesters::Flow.unique_ids
           f
         end
       end
@@ -279,7 +288,7 @@ module OrigenTesters
     # Returns a unique signature that has been generated for the current flow, this can be appended
     # to named references to avoid naming collisions with any other flow
     def sig
-      model.id
+      @sig
     end
     alias_method :signature, :sig
 
