@@ -9,13 +9,13 @@ module OrigenTesters
           super
           ins = node.find(:object).value
           if ins.respond_to?(:meta) && (ins.meta[:lo_limit] || ins.meta[:hi_limit])
-            limit = lines.last.dup
+            limit = completed_lines.last.dup
             limit.type = :use_limit
             limit.opcode = 'Use-Limit'
             limit.parameter = nil
             limit.lolim = ins.meta[:lo_limit]
             limit.hilim = ins.meta[:hi_limit]
-            lines << limit
+            completed_lines << limit
           end
         end
       end
