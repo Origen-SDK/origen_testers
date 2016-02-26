@@ -22,6 +22,10 @@ module OrigenTesters
           @flow_control_variables ||= []
         end
 
+        def runtime_control_variables
+          @runtime_control_variables ||= []
+        end
+
         def finalize(options = {})
           super
           test_suites.finalize
@@ -31,6 +35,7 @@ module OrigenTesters
           @stack = { on_fail: [], on_pass: [] }
           process(model.ast)
           flow_control_variables.uniq!
+          runtime_control_variables.uniq!
         end
 
         def line(str)
@@ -73,6 +78,7 @@ module OrigenTesters
         def on_job(node)
           jobs, state, *nodes = *node
           jobs = clean_job(jobs)
+          flow_control_variables << 'JOB'
           condition = jobs.join(' or ')
           line "if #{condition} then"
           line '{'
@@ -88,7 +94,7 @@ module OrigenTesters
           line '}'
         end
 
-        def on_run_flag(node)
+        def on_condition_flag(node)
           flag, state, *nodes = *node
           if flag.is_a?(Array)
             condition = flag.map { |f| "@#{f.upcase} == 1" }.join(' or ')
@@ -108,19 +114,38 @@ module OrigenTesters
           @indent -= 1
           line '}'
         end
-        alias_method :on_flow_flag, :on_run_flag
+
+        def on_flow_flag(node)
+          flag, state, *nodes = *node
+          [flag].flatten.each do |f|
+            flow_control_variables << f.upcase
+          end
+          on_condition_flag(node)
+        end
+
+        def on_run_flag(node)
+          flag, state, *nodes = *node
+          [flag].flatten.each do |f|
+            runtime_control_variables << f.upcase
+          end
+          on_condition_flag(node)
+        end
 
         def on_enable_flow_flag(node)
-          line "@#{node.value.upcase} = 1;"
+          flag = node.value.upcase
+          flow_control_variables << flag
+          line "@#{flag} = 1;"
         end
 
         def on_disable_flow_flag(node)
-          line "@#{node.value.upcase} = 0;"
+          flag = node.value.upcase
+          flow_control_variables << flag
+          line "@#{flag} = 0;"
         end
 
         def on_set_run_flag(node)
           flag = node.value.upcase
-          flow_control_variables << flag
+          runtime_control_variables << flag
           line "@#{flag} = 1;"
         end
 
