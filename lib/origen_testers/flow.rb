@@ -263,6 +263,22 @@ module OrigenTesters
       end
     end
 
+    def if_flag(flag, options = {})
+      options = { if_flag: flag }
+      add_meta!(options)
+      model.with_conditions(options) do
+        yield
+      end
+    end
+
+    def unless_flag(flag, options = {})
+      options = { unless_flag: flag }
+      add_meta!(options)
+      model.with_conditions(options) do
+        yield
+      end
+    end
+
     # @api private
     def is_the_flow?
       true

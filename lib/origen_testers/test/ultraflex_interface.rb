@@ -53,6 +53,9 @@ module OrigenTesters
         ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
         ins.lo_limit = options[:lo_limit]
         ins.hi_limit = options[:hi_limit]
+        ins.scale = options[:scale]
+        ins.units = options[:units]
+        ins.defer_limits = options[:defer_limits]
 
         pname = "#{name}_pset"
         patsets.add(pname, [{ pattern: "#{name}.PAT" },

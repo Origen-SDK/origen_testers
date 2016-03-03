@@ -61,6 +61,7 @@ declarations
 @ECT1_3_0863449_FAILED = -1;
 @ECT2_1_0863449_FAILED = -1;
 @ECT2_2_0863449_FAILED = -1;
+@MY_FLAG = -1;
 end
 --------------------------------------------------
 implicit_declarations
@@ -1770,6 +1771,7 @@ test_flow
     @ECT1_3_0863449_FAILED = -1;
     @ECT2_1_0863449_FAILED = -1;
     @ECT2_2_0863449_FAILED = -1;
+    @MY_FLAG = -1;
 }, open,"Init Flow Control Vars", ""
 print_dl("Test that if_failed works");
 run_and_branch(read1)
@@ -2688,6 +2690,29 @@ if @WORD1 == 1 then
 }
 else
 {
+}
+print_dl("Manual flag setting");
+run_and_branch(test1)
+then
+{
+}
+else
+{
+  @MY_FLAG = 1;
+}
+if @MY_FLAG == 1 then
+{
+  run(test2);
+}
+else
+{
+}
+if @MY_FLAG == 1 then
+{
+}
+else
+{
+  run(test3);
 }
 end
 -------------------------------------------------

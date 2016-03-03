@@ -14,6 +14,26 @@ module OrigenTesters
         attr_accessor :run_flag
         attr_accessor :flow_flag
 
+        class FlowLineAPI
+          def initialize(flow)
+            @flow = flow
+          end
+
+          def method_missing(method, *args, &block)
+            if Base::FlowLine::DEFAULTS.key?(method.to_sym)
+              line = @flow.platform::FlowLine.new(method, *args)
+              @flow.render(line)
+              line
+            else
+              super
+            end
+          end
+
+          def respond_to?(method)
+            !!Base::FlowLine::DEFAULTS.key?(method.to_sym)
+          end
+        end
+
         class TestCounter < ATP::Processor
           def run(node)
             @tests = 0
@@ -25,6 +45,13 @@ module OrigenTesters
             @tests += 1
           end
         end
+
+        # Returns the API to manually generate an IG-XL flow line
+        def ultraflex
+          @flow_line_api ||= FlowLineAPI.new(self)
+        end
+        alias_method :uflex, :ultraflex
+        alias_method :j750, :ultraflex
 
         def number_of_tests_in(node)
           @test_counter ||= TestCounter.new

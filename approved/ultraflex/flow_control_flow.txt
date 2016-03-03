@@ -212,3 +212,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 	LABEL_10_C2A232F					nop																											
 		word2_AND_word3				Test	test1												Fail														
 	LABEL_8_C2A232F					nop																											
+						logprint	Manual_flag_setting																										
+						Test	test1												None		my_flag												
+						Test	test2												Fail									flag-true	my_flag				
+						Test	test3												Fail								not	flag-true	my_flag				

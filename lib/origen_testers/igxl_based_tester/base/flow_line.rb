@@ -57,6 +57,10 @@ module OrigenTesters
             opcode: 'Test',
             result: 'Fail'
           },
+          test_defer_limits: {
+            opcode: 'Test-defer-limits',
+            result: 'Fail'
+          },
           cz:                {
             opcode: 'characterize',
             result: 'None'

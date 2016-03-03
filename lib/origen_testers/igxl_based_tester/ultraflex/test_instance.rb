@@ -10,6 +10,10 @@ module OrigenTesters
           time_sets edge_sets pin_levels mixedsignal_timing overlay
         )
 
+        # Give all UltraFLEX test instances the ability to contain limits, these will
+        # be rendered to Use-limit lines in the flow
+        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits
+
         # Attributes for additional test instance arguments beyond those described above
         TEST_INSTANCE_EXTRA_ARGS = 130
 
@@ -263,38 +267,6 @@ module OrigenTesters
           self.wait_flag3 = c
           self.wait_flag4 = d
           self
-        end
-
-        def hi_limit
-          if type == :functional
-            meta[:hi_limit]
-          else
-            super
-          end
-        end
-
-        def lo_limit
-          if type == :functional
-            meta[:lo_limit]
-          else
-            super
-          end
-        end
-
-        def hi_limit=(val)
-          if type == :functional
-            meta[:hi_limit] = val
-          else
-            super
-          end
-        end
-
-        def lo_limit=(val)
-          if type == :functional
-            meta[:lo_limit] = val
-          else
-            super
-          end
         end
       end
     end

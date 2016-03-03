@@ -225,3 +225,7 @@ DFF 1.1	Flow Table
 						Test	test2							None		at21_C2A232F_FAILED							flag-true	at11_C2A232F_FAILED				
 						Test	test3							Fail									flag-true	at21_C2A232F_FAILED				
 						Test	test4							Fail									flag-true	at21_C2A232F_FAILED				
+						logprint	Manual_flag_setting																					
+						Test	test1							None		my_flag												
+						Test	test2							Fail									flag-true	my_flag				
+						Test	test3							Fail								not	flag-true	my_flag				

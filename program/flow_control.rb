@@ -283,4 +283,10 @@ Flow.create do
     end 
   end
 
+  log "Manual flag setting"
+  test :test1, on_fail: { set_flag: :my_flag }, continue: true
+  test :test2, if_flag: :my_flag
+  unless_flag :my_flag do
+    test :test3
+  end
 end
