@@ -9,7 +9,8 @@ module OrigenTesters
       attr_accessor :memory_test_en
       attr_accessor :testerconfig
       attr_accessor :channelmap
-      attr_accessor :max_site
+      attr_accessor :default_channelmap
+      attr_accessor :default_testerconfig
 
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
@@ -64,9 +65,13 @@ module OrigenTesters
         File.open(current_config_file, 'r').each_line do |line|
           if line =~ /^\d*.0/
             (slot, blank1, instrument, blank2, idprom) = line.split(/\t/)
-            @testerconfig[testconfigname][slot.split('.').first.to_i] = slotnum.new(slot.split('.').first.to_i, instrument, idprom.chomp)
+            if (!slot.nil?) && (!instrument.nil?) && (!idprom.nil?)
+              @testerconfig[testconfigname][slot.split('.').first.to_i] = slotnum.new(slot.split('.').first.to_i, instrument, idprom.chomp)
+            end
           end
         end
+
+        @default_testerconfig ||= testconfigname  # Default TesterConfig gets set if it's not nil
       end
 
       def get_tester_instrument(testconfigname, slot)
@@ -106,8 +111,8 @@ module OrigenTesters
             end
           end
           if index == 5
-            siteloc = line.split(/\t/).size - 2
-            @max_site_s = line.split(/\t/)[siteloc].split(/\s/)[1]
+            siteloc = line.strip.split(/\t/).size - 1 # strip all white spaces and grab second to last
+            @max_site_s = line.split(/\t/)[siteloc].strip.split(/\s/)[1]
             @max_site = @max_site_s.to_i
             (0..@max_site).each do |sitenum|
               @channelmap[chanmapname][sitenum] ||= {}
@@ -116,11 +121,12 @@ module OrigenTesters
           if index > 5
             (blank1, pinname, packagepin, type) = line.split(/\t/)
             (0..@max_site).each do |sitenum|
-              channel = line.split(/\t/)[4 + sitenum]
-              @channelmap[chanmapname][sitenum][pinname] = chanassignment.new(pinname, sitenum, channel.chomp, type, packagepin)
+              channel = line.split(/\t/)[4 + sitenum].to_s
+              @channelmap[chanmapname][sitenum][pinname.downcase.intern] = chanassignment.new(pinname.downcase.intern, sitenum, channel.chomp, type.chomp, packagepin)
             end
           end
         end
+        @default_channelmap ||= chanmapname # Default Channelmap gets set if it's not nil
       end
 
       def get_tester_channel(chanmapname, pinname, sitenum)
@@ -130,6 +136,56 @@ module OrigenTesters
         else
           return nil
         end
+      end
+
+      # Check if a specific pin for a given channelmap for a given site number is using merged channel.
+      # If yes, return x2 for Merged2, x4 for Merged4, etc.  If no, return nil.
+      def merged_channels(chanmapname, pinname, sitenum)
+        if sitenum <= @max_site
+          if @channelmap[chanmapname][sitenum][pinname].type.include?('Merged')
+            @merged_channels = @channelmap[chanmapname][sitenum][pinname].type.split('Merged')[1]
+            return 'x' + @merged_channels
+          end
+        else
+          return nil
+        end
+      end
+
+      # Check if a specific HexVS supply is HexVS+ variety, which has +/-2mV accuracy as opposed to
+      # +/-7mV accuracy.
+      # If the specific HexVS is HexVS+ variety, returns a "+" string, otherwise nil.
+      def is_hexvs_plus(testconfigname, slot)
+        if @testerconfig[testconfigname][slot][:instrument].to_s == 'HexVS'
+          @productnum = @testerconfig[testconfigname][slot][:idprom].split(' ')[0]
+          if (@productnum.include?('974-294-')) && (@productnum.split('-')[2].to_i >= 20)
+            return '+'
+          end
+        end
+        nil  # if nothing matched
+      end
+
+      # Check if a specific VHDVS (UVS256) supply is High-Accuracy (HA) variety, which has +/-5mV+0.1%*SUPPLY accuracy as opposed to
+      # +/-10mV+0.1%*SUPPLY accuracy.
+      # If the specific VHDVS is of High-Accuracy variety, returns a "+" string, otherwise nil.
+      def is_vhdvs_plus(testconfigname, slot)
+        if @testerconfig[testconfigname][slot][:instrument].to_s == 'VHDVS'
+          @productnum = @testerconfig[testconfigname][slot][:idprom].split(' ')[0]
+          # binding.pry
+          if (@productnum.include?('805-052-')) && (@productnum.split('-')[2].to_i >= 05)
+            return '+'
+          end
+        end
+        nil  # if nothing matched
+      end
+      # Check if a specific VHDVS (UVS256) channel assignment is _HC variety (high-current)
+      # If the specific VHDVS channel is _HC variety, returns a "_HC" string, otherwise nil.
+      def is_vhdvs_hc(chanmapname, pinname, sitenum)
+        if sitenum <= @max_site
+          if @channelmap[chanmapname][sitenum][pinname].channel.downcase.include?('hc')
+            return '_HC'
+          end
+        end
+        nil  # if nothing matched
       end
 
       def assign_dc_instr_pins(dc_pins)
