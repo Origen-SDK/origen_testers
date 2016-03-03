@@ -2,22 +2,14 @@ PATH
   remote: .
   specs:
     origen_testers (0.5.6)
-      atp (~> 0.4)
+      atp (~> 0.4, >= 0.4.1)
       origen (>= 0.4.0)
       require_all (~> 1)
-
-PATH
-  remote: /proj/mem_c40tfs_testeng/r49409/Code/github/atp
-  specs:
-    atp (0.4.0)
-      ast (~> 2)
-      origen (>= 0.2.3)
-      sexpistol (~> 0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.5.1)
+    activesupport (4.2.5.2)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -26,12 +18,16 @@ GEM
     ast (2.2.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
+    atp (0.4.1)
+      ast (~> 2)
+      origen (>= 0.2.3)
+      sexpistol (~> 0.0)
     builder (3.2.2)
     byebug (3.5.1)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
-    coderay (1.1.0)
+    coderay (1.1.1)
     colored (1.2)
     columnize (0.9.0)
     coveralls (0.8.10)
@@ -66,7 +62,7 @@ GEM
     httpclient (2.7.1)
     i18n (0.7.0)
     json (1.8.3)
-    kramdown (1.9.0)
+    kramdown (1.10.0)
     log4r (1.1.10)
     method_source (0.8.2)
     mime-types (2.99)
@@ -77,11 +73,11 @@ GEM
     nanoc (3.8.0)
       cri (~> 2.3)
     nesty (1.0.2)
-    net-ldap (0.13.0)
+    net-ldap (0.14.0)
     netrc (0.11.0)
     nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
-    origen (0.5.11)
+    origen (0.6.6)
       activesupport (~> 4.1)
       bundler (~> 1.7)
       coderay (~> 1.1)
@@ -114,7 +110,7 @@ GEM
       origen (~> 0.2)
     origen_swd (0.5.0)
       origen (~> 0.2)
-    parser (2.3.0.2)
+    parser (2.3.0.6)
       ast (~> 2.2)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -135,7 +131,7 @@ GEM
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.2)
+    rspec-core (3.4.3)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -184,7 +180,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  atp!
   byebug (~> 3.5)
   coveralls
   origen_arm_debug (= 0.4.3)
