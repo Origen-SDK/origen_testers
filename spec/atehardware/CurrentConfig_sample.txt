@@ -1,0 +1,196 @@
+# This file was generated on 02/16/16 at 12:48:59.
+
+#TesterConfig.txt loaded from: 
+
+# In order to load this configuration information in a pre-3.64.50
+# version of IG-XL, it must be converted to the version 0 format.
+# To convert this file from version 1 to version 0:
+#	1. Make a backup of this file.
+#	2. Copy the information between the tags <TEST_HEAD TH 1> and </TEST_HEAD TH 1>,
+#	   paste it into a new file, and save that file as SimulatedConfig.txt in the current test program's directory.
+#	3. Copy the information between the tags <BACKPLANE-DIB_CABLES TH 1> and </BACKPLANE-DIB_CABLES TH 1>,
+#	   paste it into a new file, and save that file as DibSlotConfig.txt in the current test program's directory.
+
+<Version>
+1
+</Version>
+
+<TESTER_INFO TI 1>
+TESTER SERIAL NUMBER: 0516N350
+TESTER PRODUCTION NUMBER: UF72
+IG-XL VERSION: 8.10.14_uflx (P303)
+IG-XL BUILD: 08.19.15.10.05
+CONFIG DATE: 02/16/16
+CONFIG TIME: 12:48:59
+</TESTER_INFO TI 1>
+
+<TEST_HEAD TH 1>
+#slot[.subslot]	Type		idprom (type serial rev company)
+
+0.0		VHDVS		805-052-05 0C354A43 1514-A 5445
+   		VHDVS		939-420-01 0C354613 1514-A 5445
+0.1		VHDVSPower		805-054-00 0C359E6C 1510-A 5445
+   		VHDVSPower		606-103-01 0C359E6C 1510-A 5445
+0.2		VHDVSRider-0		805-053-00 0C353F72 1510-A 5445
+   		VHDVSRider-0		939-421-02 0C353F72 1510-A 5445
+0.3		VHDVSRider-1		805-053-00 0C359EB5 1510-A 5445
+   		VHDVSRider-1		939-421-02 0C359EB5 1510-A 5445
+1.0		HSD-4G		974-245-15 900ea48 0939-A 5445
+   		HSD-4G		956-128-02 304ccc8 0931-A 5445
+   		PowerBoard		956-462-10 c061daa 0922-A 5445
+   		ChanBoard0		956-160-15 304cf2d 0939-A 5445
+   		ChanBoard1		956-160-15 304cf32 0939-A 5445
+3.0		HSD-4G		974-245-15 c0ae344 1008-A 5445
+   		HSD-4G		956-128-03 c086e3f 1008-A 5445
+   		PowerBoard		956-462-10 c08d445 0922-A 5445
+   		ChanBoard0		956-160-15 c09d37e 1002-A 5445
+   		ChanBoard1		956-160-15 c09d37d 1002-A 5445
+4.0		HSS-6400		974-338-02 3028d4d 1211-A 5445
+   		HSS-6400		956-422-00 3028be3 0650-A 5445
+   		PowerBoard		956-426-00 30275df 1211-A 5445
+   		PSP		956-308-00 301ff74 0833-B 5445
+   		Clock		956-423-01 3028520 0751-B 5445
+   		TxRx0		956-424-01 3026689 0744-B 5445
+   		TxRx1		956-424-01 304c1e9 0710-C 5445
+   		TxRx2		956-424-01 3026695 0744-B 5445
+   		TxRx3		956-424-01 3052edd 0710-C 5445
+5.0		HSD-4G		974-245-15 900ea3f 0939-A 5445
+   		HSD-4G		956-128-02 304ccb2 0931-A 5445
+   		PowerBoard		956-462-10 30350f9 0911-A 5445
+   		ChanBoard0		956-160-15 304cf33 0939-A 5445
+   		ChanBoard1		956-160-15 304cf30 0939-A 5445
+7.0		HSD-4G		974-245-15 900c583 1050-A 0000
+   		HSD-4G		956-128-02 304c73f 0911-B 0000
+   		PowerBoard		956-462-10 3035124 0911-A 0000
+   		ChanBoard0		956-160-15 304c8d7 0939-A 0000
+   		ChanBoard1		956-160-15 304c8d6 0939-A 0000
+11.0		VSM		974-296-01 c3166b5 1241-A 5445
+    		VSM		956-395-01 c158548 1203-A 5445
+    		PowerBoard		956-394-02 c313c68 0842-C 5445
+    		DigitalBoard		956-396-01 c310e53 1203-B 5445
+12.0		HSD-U		604-356-01 c3091dc 1429-A 5445
+    		HSD-U		612-073-00 c3076d7 1214-A 5445
+    		PowerBoard		608-808-01 c309016 1114-A 5445
+    		ChanBoard0		613-493-00 c30784d 1429-A 5445
+    		ChanBoard1		613-493-00 c30907d 1429-A 5445
+13.0		VSM		974-296-01 c319449 1241-A 5445
+    		VSM		956-395-01 c30e2d8 1241-A 5445
+    		PowerBoard		956-394-02 c313c6a 0842-C 5445
+    		DigitalBoard		956-396-01 c310e54 1203-B 5445
+14.0		HSD-U		604-356-01 c303cfc 1429-A 5445
+    		HSD-U		612-073-00 c191d53 1206-A 5445
+    		PowerBoard		608-808-01 c1907a5 1114-A 5445
+    		ChanBoard0		613-493-00 c3021df 1429-A 5445
+    		ChanBoard1		613-493-02 c31dfc9 1429-A 5445
+15.0		HSD-U		604-356-01 900cc40 1429-A 5445
+    		HSD-U		612-073-00 30597cb 1127-A 5445
+    		PowerBoard		608-808-00 c17886e 1114-A 5445
+    		ChanBoard0		613-493-02 c31dffb 1429-A 5445
+    		ChanBoard1		613-493-00 c185b60 1429-A 5445
+17.0		HSD-U		604-356-01 c1856c6 1304-A 5445
+    		HSD-U		612-073-00 c18e5d6 1206-A 5445
+    		PowerBoard		608-808-01 c18e5af 1114-A 5445
+    		ChanBoard0		613-493-00 c18e5fc 1304-A 5445
+    		ChanBoard1		613-493-00 c18528e 1304-A 5445
+18.0		HexVS		974-294-20 0C0B0456 0951-A 5445
+		aka: 974-294-00
+    		HexVS		956-388-00 0C08A07D 0724-A 5445
+    		HexVSAnalogBoard		956-387-00 0C086C69 0719-A 5445
+    		HexVSPowerBoard		939-266-02 0C086C7E 0951-B 5445
+19.0		HexVS		974-294-20 030123C4 0719-K 5445
+		aka: 974-294-00
+    		HexVS		956-388-00 0301022C 0448-A 5445
+    		HexVSAnalogBoard		956-387-00 03013A14 0719-A 5445
+    		HexVSPowerBoard		939-266-02 0301031A 0713-B 5445
+20.0		HSD-U		604-356-01 900cbb0 1321-A 5445
+    		HSD-U		612-073-00 30594ae 1206-A 5445
+    		PowerBoard		608-808-00 305ac52 1104-A 5445
+    		ChanBoard0		613-493-00 305992a 1321-A 5445
+    		ChanBoard1		613-493-00 c111416 1321-A 5445
+21.0		HexVS		974-294-20 0C3296EC 1330-A 5445
+		aka: 974-294-00
+    		HexVS		956-388-00 0C32BDD3 1330-A 5445
+    		HexVSAnalogBoard		956-387-00 0C32C265 1313-A 5445
+    		HexVSPowerBoard		939-266-02 0C32BD89 1308-B 5445
+23.0		HDVS1		974-232-00 0C1428C9 1206-B 5445
+    		HDVS1		956-071-00 0C11C25B 0826-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+    		HDVS1Power		956-073-00 03027757 0630-B 5445
+23.1		HDVS1Rider-0		974-233-00 0C111E5B 0634-B 5445
+    		HDVS1Rider-0		956-072-00 0C111E5B 0835-B 5445
+23.2		HDVS1Rider-1		974-233-00 0C111E5A 0634-B 5445
+    		HDVS1Rider-1		956-072-00 0C111E5A 0835-B 5445
+23.3		HDVS1Rider-2		974-233-00 0C111E58 0634-B 5445
+    		HDVS1Rider-2		956-072-00 0C111E58 0835-B 5445
+23.4		HDVS1Rider-3		974-233-00 0C111E48 0634-B 5445
+    		HDVS1Rider-3		956-072-00 0C111E48 0835-B 5445
+23.5		HDVS1Rider-4		974-233-00 0C111D9A 0634-B 5445
+    		HDVS1Rider-4		956-072-00 0C111D9A 0835-B 5445
+23.6		HDVS1Rider-5		974-233-00 0C111E47 0634-B 5445
+    		HDVS1Rider-5		956-072-00 0C111E47 0835-B 5445
+23.7		HDVS1Rider-6		974-233-00 0C111E59 0634-B 5445
+    		HDVS1Rider-6		956-072-00 0C111E59 0835-B 5445
+23.8		HDVS1Rider-7		974-233-00 0C111E49 0634-B 5445
+    		HDVS1Rider-7		956-072-00 0C111E49 0835-B 5445
+23.9		HDVS1Rider-8		974-233-00 0C111E7C 0634-B 5445
+    		HDVS1Rider-8		956-072-00 0C111E7C 0835-B 5445
+23.10		HDVS1Rider-9		974-233-00 0C111D77 0634-B 5445
+     		HDVS1Rider-9		956-072-00 0C111D77 0835-B 5445
+23.11		HDVS1Rider-10		974-233-00 0C111E36 0634-B 5445
+     		HDVS1Rider-10		956-072-00 0C111E36 0835-B 5445
+23.12		HDVS1Rider-11		974-233-00 0C111DB1 0634-B 5445
+     		HDVS1Rider-11		956-072-00 0C111DB1 0835-B 5445
+24.0		SupportBoard		974-221-03 c335b5e 1407-B 5445
+    		SupportBoard		956-416-30 c33c18c 1228-B 5445
+    		PowerBoard		956-359-10 c335e17 1407-C 5445
+    		TCM		956-419-02 c336197 0951-C 5445
+    		XGEM		956-364-00 30090be 0336-A 5445
+    		DCCM		949-938-23 C3361FB 0929-C 5445
+25.0		SupportBoard		974-221-01 02ad177 0510-A 0000
+    		SupportBoard		956-416-01 300a91f 0450-A 0000
+    		PowerBoard		956-359-11 300a953 0429-C 0000
+62.0		DistributionBoard		956-455-00 300b170 0514-A 5445
+    		DistributionBoard		956-455-00 300b170 0514-A 5445
+63.0		DistributionBoard		956-455-00 300b163 0514-A 5445
+    		DistributionBoard		956-455-00 300b163 0514-A 5445
+66.0		VirtualDSPBrd		979-223-00 1111111 0000-A 0000
+    		VirtualDSPBrd		979-223-00 1111111 0000-A 0000
+</TEST_HEAD TH 1>
+
+<DIB DIB 1>
+#idprom (type serial rev company)
+
+000-000-00 0000000 0000-A 5445
+000-000-00 0000000 0000-A 5445
+</DIB DIB 1>
+
+<LICENSE_ENABLERS>
+#Off-line enabling levels
+#FEATURE                      ENABLED LEVEL    LICENSE COUNT    LEGAL ENABLING POINTS
+HDVS1Channels                 48               N/A              768,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,0
+HSD_DSSC                      1                70               1,0
+HSD_MemoryDepth               256              221              1024,512,256,128,96,64,32,16,8
+HSD_MemoryDepth               128              10               1024,512,256,128,96,64,32,16,8
+HSD_MTO                       1                64               1,0
+HSD_SCAN                      1                16               1,0
+HSD_Speed                     1000             47               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     800              49               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     400              16               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     200              102              1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     100              16               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD1600_Channels              1                75               1
+IG-XL_TesterServiceDaemon     N/A              N/A              N/A              
+MainSlots                     24               N/A              36,24,16,12,8,6,4
+nWireEngine                   1                56               1
+UltraVIChannel                1                80               1
+</LICENSE_ENABLERS>
+
