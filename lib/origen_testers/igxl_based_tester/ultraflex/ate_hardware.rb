@@ -426,7 +426,7 @@ module OrigenTesters
             sink_fold_i = (20.mA..800.mA)
             sink_fold_t = (0.S..167.77.mS)
             meter_irange =  [40.uA, 400.uA, 4.mA, 40.mA, 400.mA, 4.A]
-            meter_vrange = [7.V]
+            meter_vrange = 7.V
             tdelay = 0                     # default tdelay
             accuracy = { neg: '-0.001xSUPPLY-10.mV', pos: '0.001xSUPPLY+10.mV' }
             filter = [1356, 2712, 5425, 10_850, 21_701, 43_402, 86_805, 173_611, 347_222,
