@@ -39,7 +39,34 @@ module ATEHardwareSpec
       $tester.is_vhdvs_hc('FTx4', :cvdd, 2).should == '_HC'
     end
     it 'Loading and Retrieving ATEHardware data properly' do
+      $tester.ate_hardware('HSD-M').ppmu.vclamp.min.should == -2
+      $tester.ate_hardware('HSD-4G').ppmu.measv.min.should == -1
+      $tester.ate_hardware('HSS-6G').ppmu.vclamp.max.should == 3.9
+      $tester.ate_hardware('VSM').supply.forcev.max.should == 4
       $tester.ate_hardware('VSMx2').supply.irange.max.should == 162
+      $tester.ate_hardware('HexVS').supply.forcev.max.should == 5.5
+      $tester.ate_hardware('HexVSx2').supply.filter.should == 10_000
+      $tester.ate_hardware('HexVSx4').supply.bandwidth.size.should == 8
+      $tester.ate_hardware('HexVSx6').supply.irange.size.should == 2
+      $tester.ate_hardware('HexVS+').supply.forcev.max.should == 5.5
+      $tester.ate_hardware('HexVS+x2').supply.filter.should == 10_000
+      $tester.ate_hardware('HexVS+x4').supply.bandwidth.size.should == 8
+      $tester.ate_hardware('HexVS+x6').supply.irange.size.should == 2
+      $tester.ate_hardware('HDVS1').supply.sink_fold_i.min.should == 5.mA
+      $tester.ate_hardware('HDVS1x2').supply.meter_vrange.should == 7
+      $tester.ate_hardware('HDVS1x4').supply.source_fold_i.max.should == 4
+      $tester.ate_hardware('VHDVS').supply.irange.size.should == 6
+      $tester.ate_hardware('VHDVS_HC').supply.sink_fold_t.max.should == 2
+      $tester.ate_hardware('VHDVSx2').supply.meter_vrange.should == 18
+      $tester.ate_hardware('VHDVS_HCx2').supply.forcev.min.should == -2
+      $tester.ate_hardware('VHDVS_HCx4').supply.source_fold_t.min.should == 300.uS
+      $tester.ate_hardware('VHDVS_HCx8').supply.bandwidth.max.should == 255
+      $tester.ate_hardware('VHDVS+').supply.irange.size.should == 6
+      $tester.ate_hardware('VHDVS_HC+').supply.sink_fold_t.max.should == 2
+      $tester.ate_hardware('VHDVS+x2').supply.meter_vrange.should == 18
+      $tester.ate_hardware('VHDVS_HC+x2').supply.forcev.min.should == -2
+      $tester.ate_hardware('VHDVS_HC+x4').supply.source_fold_t.min.should == 300.uS
+      $tester.ate_hardware('VHDVS_HC+x8').supply.bandwidth.max.should == 255
       $dut.pins(:pin1).ate_hardware.instrument.should == 'HSD-U'
       $dut.pins(:pin1).ate_hardware.ppmu.forcei.max.should == 0.05
       $dut.pins(:k1).instrument_type.instrument.should == 'SupportBoard'
