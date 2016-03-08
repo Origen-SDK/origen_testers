@@ -1,0 +1,35 @@
+DTChanMap,version=2.4:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Channel Map
+
+	DIB ID:			View Mode:	Signal		Site Replication:		USL Tag:
+
+	Device Under Test		Tester Channel
+	Pin Name	Package Pin	Type	Site 0	Site 1	Site 2	Site 3	Comment
+	AVDD	A1	DCVSMerged2	0.Sense13hc	0.Sense83hc	0.Sense237hc	0.Sense195hc	UVS256
+	BVDD	A8	DCVS	23.sense6	23.sense14	23.sense37	23.sense38	HDVS
+	CVDD	G10	DCVSMerged2	0.Sense39hc	0.Sense73hc	0.Sense175hc	0.Sense149hc	UVS256
+	DVDD	R11	DCVSMerged2	23.sense9	23.sense23	23.sense33	23.sense47	HDVS
+	EVDD	U14	DCVSMerged2	0.Sense21	0.Sense77	0.Sense219	0.Sense205	UVS256
+	FVDD	N8	DCVS	21.sense5	19.sense5	21.sense3	19.sense3	HEXVS
+	GVDD	K15	DCVS	21.sense1	19.sense1	18.sense1	18.sense5	HEXVS
+	HVDD	K12	DCVS	13.sense1	13.sense2	11.sense1	11.sense2	VSM
+	pin1	E6	I/O	14.ch28	12.ch28	20.ch28	15.ch28
+	pin2	E11	I/O	14.ch235	12.ch56	20.ch84	20.ch231
+	pin3	C6	I/O	14.ch124	17.ch203	12.ch233	20.ch244
+	pin4	K5	I/O	17.ch40	17.ch125	12.ch220	15.ch75
+	pin5	L5	I/O	17.ch42	17.ch115	20.ch58	15.ch107
+	pin6	M5	I/O	17.ch32	17.ch91	20.ch76	15.ch97
+	pin7	N5	I/O	14.ch153	17.ch99	20.ch32	15.ch19
+	pin8	AC22	I/O	14.ch145	17.ch145	12.ch145	15.ch145
+	pin9	Y19	I/O	14.ch253	17.ch253	12.ch253	15.ch253
+	pin10	V21	I/O	14.ch223	17.ch223	12.ch223	15.ch223
+	pin11	AC20	I/O	14.ch146	17.ch146	12.ch146	15.ch146
+	pin12	AA20	I/O	14.ch149	17.ch149	12.ch149	15.ch149
+	pin13	W20	I/O	14.ch182	17.ch182	12.ch182	15.ch182
+	pin14	AB21	I/O	14.ch148	17.ch148	12.ch148	15.ch148
+	K1	K9	Utility	24.util9	24.util29	24.util49	24.util69	
+	K2	K7	Utility	24.util7	24.util27	24.util47	24.util67	
+	K3	K8	Utility	24.util8	24.util28	24.util48	24.util68	
+	K4	K19	Utility	24.util19	24.util39	24.util59	24.util79	
+	K5	K18	Utility	24.util18	24.util38	24.util58	24.util78	
+	K6	K17	Utility	24.util17	24.util37	24.util57	24.util77	
+	K7	K16	Utility	24.util16	24.util36	24.util56	24.util76	
