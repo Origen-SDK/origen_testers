@@ -1,3 +1,71 @@
+<a class="anchor release_tag" name="v0_5_7"></a>
+<h1><a href="#v0_5_7">Tag: v0.5.7</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 08-Mar-2016 06:54AM
+
+
+* Added ATE\_Hardware Code and related syntatic sugar code for Origen Core \#7 (Scott Chen)
+  * Minor Updates for Import\_chanmap method.
+  * Added ATEHardware Class for PPMU/Supply spec look-up for Test Program Generation.  
+
+~~~ruby
+# Importing UltraFLEX tester config
+$tester.import\_tester\_config('FT', "#{Origen.root}/spec/atehardware/CurrentConfig\_sample.txt")
+$tester.default\_testerconfig                # => 'FT'
+$tester.get\_tester\_instrument('FT', 1)      # => 'HSD-4G'
+$tester.get\_instrument\_slots('FT', 'HSD-U') # => [12, 14, 15, 17, 20]
+
+# Importing UltraFLEX channel map
+$tester.import\_chanmap('FTx4', "#{Origen.root}/spec/atehardware/atehardware\_chanmap.txt")
+$tester.default\_channelmap                      # => 'FTx4'
+$tester.get\_tester\_channel('FTx4', :pin1, 0)    # => '14.ch28'
+$tester.get\_tester\_channel('FTx4', :pin2, 3)    # => '20.ch231'
+$tester.channelmap['FTx4'].size                 # => 4
+$tester.merged\_channels('FTx4', :avdd, 1)       # => 'x2'
+$tester.is\_hexvs\_plus('FT', 18)                 # => '+'
+$tester.is\_vhdvs\_plus('FT', 0)                  # => '+'
+$tester.is\_vhdvs\_hc('FTx4', :cvdd, 2)           # '\_HC'
+
+# Retrieving ATEHardware data properly
+$tester.ate\_hardware('HSD-M').ppmu.vclamp.min                 # => -2
+$tester.ate\_hardware('HSD-4G').ppmu.measv.min                 # => -1
+$tester.ate\_hardware('HSS-6G').ppmu.vclamp.max                # => 3.9
+$tester.ate\_hardware('VSM').supply.forcev.max                 # => 4
+$tester.ate\_hardware('VSMx2').supply.irange.max               # => 162
+$tester.ate\_hardware('HexVS').supply.forcev.max               # => 5.5
+$tester.ate\_hardware('HexVSx2').supply.filter                 # => 10\_000
+$tester.ate\_hardware('HexVSx4').supply.bandwidth.size         # => 8
+$tester.ate\_hardware('HexVSx6').supply.irange.size            # => 2
+$tester.ate\_hardware('HexVS+').supply.forcev.max              # => 5.5
+$tester.ate\_hardware('HexVS+x2').supply.filter                # => 10\_000
+$tester.ate\_hardware('HexVS+x4').supply.bandwidth.size        # => 8
+$tester.ate\_hardware('HexVS+x6').supply.irange.size           # => 2
+$tester.ate\_hardware('HDVS1').supply.sink\_fold\_i.min          # => 5.mA
+$tester.ate\_hardware('HDVS1x2').supply.meter\_vrange           # => 7
+$tester.ate\_hardware('HDVS1x4').supply.source\_fold\_i.max      # => 4
+$tester.ate\_hardware('VHDVS').supply.irange.size              # => 6
+$tester.ate\_hardware('VHDVS\_HC').supply.sink\_fold\_t.max       # => 2
+$tester.ate\_hardware('VHDVSx2').supply.meter\_vrange           # => 18
+$tester.ate\_hardware('VHDVS\_HCx2').supply.forcev.min          # => -2
+$tester.ate\_hardware('VHDVS\_HCx4').supply.source\_fold\_t.min   # => 300.uS
+$tester.ate\_hardware('VHDVS\_HCx8').supply.bandwidth.max       # => 255
+$tester.ate\_hardware('VHDVS+').supply.irange.size             # => 6
+$tester.ate\_hardware('VHDVS\_HC+').supply.sink\_fold\_t.max      # => 2
+$tester.ate\_hardware('VHDVS+x2').supply.meter\_vrange          # => 18
+$tester.ate\_hardware('VHDVS\_HC+x2').supply.forcev.min         # => -2
+$tester.ate\_hardware('VHDVS\_HC+x4').supply.source\_fold\_t.min  # => 300.uS
+$tester.ate\_hardware('VHDVS\_HC+x8').supply.bandwidth.max      # => 255
+
+# Pin objects are connected up to their underlying tester resource
+$dut.pins(:pin1).ate\_hardware.instrument                          # => 'HSD-U'
+$dut.pins(:pin1).ate\_hardware.ppmu.forcei.max                     # => 0.05
+$dut.pins(:k1).instrument\_type.instrument                         # => 'SupportBoard'
+$dut.power\_pin\_groups(:avdd).ate\_hardware.instrument              # => 'VHDVS\_HC+x2'
+$dut.power\_pin\_groups(:avdd).ate\_hardware.supply.forcev.cover?(4) # => true
+~~~
+
 <a class="anchor release_tag" name="v0_5_6"></a>
 <h1><a href="#v0_5_6">Tag: v0.5.6</a></h1>
 
