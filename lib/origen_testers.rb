@@ -19,6 +19,7 @@ module OrigenTesters
   autoload :ProgramGenerators,  'origen_testers/program_generators'
   autoload :Flow,               'origen_testers/flow'
   autoload :NoInterface,        'origen_testers/no_interface'
+
   # not yet autoload :Time,     'origen_testers/time'
 
   # The documentation tester model has been removed, but this keeps some
@@ -40,3 +41,5 @@ require 'origen_testers/pattern_compilers'
 
 require 'origen_testers/callback_handlers'
 require_relative '../config/application.rb'
+require 'origen_testers/origen_ext/pins/pin'
+require 'origen_testers/origen_ext/pins/pin_collection'

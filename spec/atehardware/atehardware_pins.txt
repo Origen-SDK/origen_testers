@@ -1,0 +1,46 @@
+DTPinMap,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pin Map
+			USL Tag:	
+	Group Name	Pin Name	Type	Comment
+		avdd	Power	
+		bvdd	Power	
+		cvdd	Power	
+		dvdd	Power	
+		evdd	Power	
+		fvdd	Power	
+		gvdd	Power	
+		hvdd	Power	
+		pin1	I/O	
+		pin2	I/O			
+		pin3	I/O	
+		pin4	I/O	
+		pin5	I/O	
+		pin6	I/O	
+		pin7	I/O	
+		pin8	I/O	
+		pin9	I/O	
+		pin10	I/O			
+		pin11	I/O	
+		pin12	I/O	
+		pin13	I/O	
+		pin14	I/O					
+		k_1	Utility	
+		k_2	Utility	
+		k_3	Utility	
+		k_4	Utility	
+		k_5	Utility	
+		k_6	Utility	
+		k_7	Utility	
+	ALL_PINS	pin1	I/O	# pin function:  blah
+	ALL_PINS	pin2		# pin function:  blah
+	ALL_PINS	pin3		# pin function:  blah
+	ALL_PINS	pin4		# pin function:  blah
+	ALL_PINS	pin5		# pin function:  blah
+	ALL_PINS	pin6		# pin function:  blah
+	ALL_PINS	pin7		# pin function:  blah
+	ALL_PINS	pin8		# pin function:  blah
+	ALL_PINS	pin9		# pin function:  blah
+	ALL_PINS	pin10		# pin function:  blah
+	ALL_PINS	pin11		# pin function:  blah
+	ALL_PINS	pin12		# pin function:  blah
+	ALL_PINS	pin13		# pin function:  blah
+	ALL_PINS	pin14		# pin function:  blah
