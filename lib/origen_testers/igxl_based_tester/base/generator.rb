@@ -27,6 +27,8 @@ module OrigenTesters
           @@test_instances_filename = nil
           @@patsets_filename = nil
           @@patgroups_filename = nil
+          @@edgesets_filename = nil
+          @@timesets_filename = nil
         end
 
         # @api private
@@ -36,11 +38,13 @@ module OrigenTesters
           @@patset_sheets = nil
           @@flow_sheets = nil
           @@patgroup_sheets = nil
+          @@edgeset_sheets = nil
+          @@timeset_sheets = nil
         end
         alias_method :reset_globals, :at_run_start
 
         # Convenience method to allow the current name for the test instance,
-        # patsets and patgroups sheets to be set to the same value.
+        # patsets, patgroups and timesets sheets to be set to the same value.
         #
         #   # my j750 interface
         #
@@ -51,10 +55,14 @@ module OrigenTesters
         #   test_instances_filename = "common"
         #   patsets_filename = "common"
         #   patgroups_filename = "common"
+        #   edgesets_filename = "common"
+        #   timesets_filename = "common"
         def resources_filename=(name)
           self.test_instances_filename = name
           self.patsets_filename = name
           self.patgroups_filename = name
+          self.edgesets_filename = name
+          self.timesets_filename = name
         end
 
         # Set the name of the current test instances sheet. This does not change
@@ -81,6 +89,22 @@ module OrigenTesters
           @@patgroups_filename = name
         end
 
+        # Set the name of the current edgesets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def edgesets_filename=(name)
+          @edgesets_filename = name
+          @@edgesets_filename = name
+        end
+
+        # Set the name of the current timesets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def timesets_filename=(name)
+          @timesets_filename = name
+          @@timesets_filename = name
+        end
+
         # Returns the name of the current test instances sheet
         def test_instances_filename
           @@test_instances_filename ||= @test_instances_filename || 'global'
@@ -94,6 +118,16 @@ module OrigenTesters
         # Returns the name of the current pat groups sheet
         def patgroups_filename
           @@patgroups_filename ||= @patgroups_filename || 'global'
+        end
+
+        # Returns the name of the current edgesets sheet
+        def edgesets_filename
+          @@edgesets_filename ||= @edgesets_filename || 'global'
+        end
+
+        # Returns the name of the current timesets sheet
+        def timesets_filename
+          @@timesets_filename ||= @timesets_filename || 'global'
         end
 
         # Returns a hash containing all test instance sheets
@@ -116,12 +150,22 @@ module OrigenTesters
           @@patgroup_sheets ||= {}
         end
 
+        # Returns a hash containing all edgeset sheets
+        def edgeset_sheets
+          @@edgeset_sheets ||= {}
+        end
+
+        # Returns a hash containing all timeset sheets
+        def timeset_sheets
+          @@timeset_sheets ||= {}
+        end
+
         # Returns an array containing all sheet generators where a sheet generator is a flow,
-        # test instance, patset or pat group sheet.
+        # test instance, patset, pat group or timeset sheet.
         # All Origen program generators must implement this method
         def sheet_generators # :nodoc:
           g = []
-          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets].each do |sheets|
+          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets, edgeset_sheets, timeset_sheets].each do |sheets|
             sheets.each do |name, sheet|
               g << sheet
             end
@@ -216,6 +260,38 @@ module OrigenTesters
         end
         alias_method :pat_groups, :patgroups
         alias_method :pattern_groups, :patgroups
+
+        # Returns the current edgesets sheet (as defined by the current value of
+        # edgesets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def edgesets(filename = edgesets_filename)
+          f = filename.to_sym
+          return edgeset_sheets[f] if edgeset_sheets[f]
+          p = platform::Edgesets.new
+          p.filename = f
+          edgeset_sheets[f] = p
+        end
+        alias_method :time_sets, :edgesets
+        alias_method :timing_sets, :edgesets
+
+        # Returns the current timesets sheet (as defined by the current value of
+        # timesets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def timesets(filename = timesets_filename)
+          f = filename.to_sym
+          return timeset_sheets[f] if timeset_sheets[f]
+          p = platform::Timesets.new
+          p.filename = f
+          timeset_sheets[f] = p
+        end
+        alias_method :time_sets, :timesets
+        alias_method :timing_sets, :timesets
 
         private
 
