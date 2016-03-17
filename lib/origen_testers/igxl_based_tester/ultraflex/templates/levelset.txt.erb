@@ -1,0 +1,121 @@
+% print_hdr = true
+%
+% ## Hash Autovivification
+% l = ->(h, k) { h[k] = Hash.new(&l) }
+% lset_eqns = Hash.new(&l)
+%
+% Origen.app.pin_pattern_order.each do |grp|
+%   if Origen.top_level.has_pin?(grp)
+%     pin_ary = get_pin_objects(grp)
+%     pin_ary.each do |next_pin|
+%       pin_nam = Origen.top_level.pin(next_pin.id).name
+%       found_pin_eqn = false
+%       if pins.key?(pin_nam)
+%         lset_eqns[grp][pin_nam] = pins[pin_nam]
+%         found_pin_eqn = true
+%       end
+%       unless found_pin_eqn
+%         Origen.log.error "LSET #{name},  GRP #{grp}, PIN #{pin_nam}:  Pin levels are not defined in levelset"
+%         next
+%       end
+%     end
+%   elsif Origen.top_level.has_power_pin?(grp)
+%     found_pin_eqn = false
+%     if pins.key?(grp)
+%       lset_eqns[grp][grp] = pins[grp]
+%       found_pin_eqn = true
+%     end
+%     unless found_pin_eqn
+%       Origen.log.error  "LSET #{name},  GRP #{grp}:  Power levels are not defined in levelset"
+%     end
+%   else
+%     Origen.log.error  "Undefined pin/pingroup in pattern header (#{grp})"
+%   end
+% end
+%
+% lset_eqns.keys.each do |grp|
+%   grp_level_same = true
+%   grp_level = nil
+%   if Origen.top_level.has_pin?(grp)
+%     pin_ary = get_pin_objects(grp)
+%     pin_ary.each do |next_pin|
+%       pin_nam = Origen.top_level.pin(next_pin.id).name
+%       if lset_eqns[grp].key?(pin_nam)
+%         if grp_level.nil?
+%           grp_level = lset_eqns[grp][pin_nam]
+%         elsif !levels_eql?(grp_level, lset_eqns[grp][pin_nam])
+%           grp_level_same = false
+%         end
+%       else
+%         grp_level_same = false
+%       end
+%     end
+%   elsif Origen.top_level.has_power_pin?(grp)
+%     nil
+%   end
+%
+%   pin_grp_done = false
+%   lset_eqns[grp].keys.each do |pin_nam|
+%     pin_grp_done ? break : nil
+%
+%     # determine if object is a power level (conatins :vmain) or a SE pin level (:vil)
+%     pin_type = nil
+%     lset_eqns[grp][pin_nam].respond_to?(:vmain) ? pin_type = 'pwr_pin' : nil
+%     lset_eqns[grp][pin_nam].respond_to?(:vil) ? pin_type = 'se_pin' : nil
+%
+%     case pin_type
+%     when 'pwr_pin'
+%       vmain     = format_uflex_level(pins[pin_nam].vmain)
+%       valt      = format_uflex_level(pins[pin_nam].valt)
+%       ifold     = format_uflex_level(pins[pin_nam].ifold)
+%       delay     = format_uflex_level(pins[pin_nam].delay)
+%     when 'se_pin'
+%       vil       = format_uflex_level(pins[pin_nam].vil)
+%       vih       = format_uflex_level(pins[pin_nam].vih)
+%       vol       = format_uflex_level(pins[pin_nam].vol)
+%       voh       = format_uflex_level(pins[pin_nam].voh)
+%       vcl       = format_uflex_level(pins[pin_nam].vcl)
+%       vch       = format_uflex_level(pins[pin_nam].vch)
+%       vt        = format_uflex_level(pins[pin_nam].vt)
+%       voutlotyp = format_uflex_level(pins[pin_nam].voutlotyp)
+%       vouthityp = format_uflex_level(pins[pin_nam].vouthityp)
+%       dmode     = pins[pin_nam].dmode
+%     else
+%       Origen.log.error "LSET #{name},  GRP #{grp}, PIN #{pin_nam}:  Unknown pin type: #{pin_type}"
+%     end
+%
+%     if print_hdr
+%       print_hdr = false
+<%= "DTLevelSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tPin Levels" %>
+<%= "" %>
+<%= "\tPin/Group\tSeq.\tParameter\tValue\tComment" %>
+%     end
+%
+%     if grp_level_same
+%       pin_grp_done = true
+%       pin_tmp = grp
+%     else
+%       pin_tmp = pin_nam
+%     end
+%
+%     case pin_type
+%     when 'pwr_pin'
+<%= "\t#{pin_tmp}\t\tVMain\t#{vmain}\t" %>
+<%= "\t#{pin_tmp}\t\tVAlt\t#{valt}\t" %>
+<%= "\t#{pin_tmp}\t\tIFoldLevel\t#{ifold}\t" %>
+<%= "\t#{pin_tmp}\t\tTdelay\t#{delay}\t" %>
+%     when 'se_pin'
+<%= "\t#{pin_tmp}\t\tVil\t#{vil}\t" %>
+<%= "\t#{pin_tmp}\t\tVih\t#{vih}\t" %>
+<%= "\t#{pin_tmp}\t\tVol\t#{vol}\t" %>
+<%= "\t#{pin_tmp}\t\tVoh\t#{voh}\t" %>
+<%= "\t#{pin_tmp}\t\tVt\t#{vt}\t" %>
+<%= "\t#{pin_tmp}\t\tVcl\t#{vcl}\t" %>
+<%= "\t#{pin_tmp}\t\tVch\t#{vch}\t" %>
+<%= "\t#{pin_tmp}\t\tVoutLoTyp\t#{voutlotyp}\t" %>
+<%= "\t#{pin_tmp}\t\tVoutHiTyp\t#{vouthityp}\t" %>
+<%= "\t#{pin_tmp}\t\tDriverMode\t#{dmode}\t" %>
+%     end
+%   end
+% end
+%

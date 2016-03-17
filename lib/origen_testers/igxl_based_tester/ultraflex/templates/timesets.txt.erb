@@ -1,0 +1,137 @@
+% line_cnt = 8
+% print_hdr = true
+%
+% ## Hash Autovivification
+% l = ->(h, k) { h[k] = Hash.new(&l) }
+% eset_eqns = Hash.new(&l)
+% eset_eqns_print = Hash.new(&l)
+% tset_eqns = Hash.new(&l)
+% tset_pin_list = []
+%
+% # binding.pry
+%
+%
+% # Look up edge information in the corresponding Edgesets sheet
+% edgesets = Origen.interface.edgeset_sheets[@filename]
+% Origen.app.pin_pattern_order.each do |grp|
+%   if Origen.top_level.has_pin?(grp)
+%     pin_ary = get_pin_objects(grp)
+%     pin_ary.each do |next_pin|
+%       pin_nam = Origen.top_level.pin(next_pin.id).name
+%       found_pin_eqn = false
+%       edgesets.es.keys.each do |eset|
+%         if edgesets.es[eset].pins.key?(pin_nam)
+%           eset_eqns[grp][eset][pin_nam] = edgesets.es[eset].pins[pin_nam]
+%           eset_eqns_print[grp][pin_nam][eset] = edgesets.es[eset].pins[pin_nam]
+%           found_pin_eqn = true
+%         end
+%       end
+%       unless found_pin_eqn
+%         Origen.log.error "GRP #{grp}, PIN #{pin_nam}:  Pin timing is not defined in any edgesets"
+%         next
+%       end
+%     end
+%   else
+%     Origen.log.error "Undefined pin/pingroup in pattern header (#{grp})"
+%   end
+% end
+%
+% eset_eqns.keys.each do |grp|
+%   grp_edge_same = true
+%   eset_eqns[grp].keys.each do |eset_key|
+%     grp_edge = nil
+%     pin_ary = get_pin_objects(grp)
+%     pin_ary.each do |next_pin|
+%       pin_nam = Origen.top_level.pin(next_pin.id).name
+%       if eset_eqns[grp][eset_key].key?(pin_nam)
+%         if grp_edge.nil?
+%           grp_edge = eset_eqns[grp][eset_key][pin_nam]
+%         elsif !edgesets.edges_eql?(grp_edge, eset_eqns[grp][eset_key][pin_nam])
+%           grp_edge_same = false
+%         end
+%       else
+%         grp_edge_same = false
+%       end
+%     end
+%   end
+%
+%   pin_grp_done = false
+%   eset_eqns_print[grp].keys.each do |pin_nam|
+%     pin_grp_done ? break : nil
+%     eset_eqns_print[grp][pin_nam].keys.each do |eset|
+%       clk_per   = edgesets.es[eset].pins[pin_nam].clk_per
+%       clk_per   = edgesets.format_uflex_edge(clk_per, line_cnt)
+%       if print_hdr
+%         print_hdr = false
+%         tim_mode  = edgesets.es[eset].t_mode
+%       end
+%       if grp_edge_same
+%         tset_pin_list.push(grp) unless tset_pin_list.include?(grp)
+%         line_cnt += 1
+%         pin_grp_done = true
+%       else
+%         tset_pin_list.push(pin_nam) unless tset_pin_list.include?(pin_nam)
+%         line_cnt += 1
+%       end
+%     end
+%   end
+% end
+%
+% # Print equations for all pins and pingroups in the pin header
+% @ts.keys.each do |tset|
+%   t_mode = ''
+%   period = ''
+%   Origen.app.pin_pattern_order.each do |grp|
+%     if Origen.top_level.has_pin?(grp)
+%       pin_ary = get_pin_objects(grp)
+%       pin_ary.each do |next_pin|
+%         pin_nam = Origen.top_level.pin(next_pin.id).name
+%         # If the edgeset for this pin is already specified within the timeset- apply it here
+%         if @ts[tset].pins.key?(pin_nam)
+%           tset_eqns[tset][grp][pin_nam] = @ts[tset].pins[pin_nam]
+%         else
+%           Origen.log.error "TSET #{tset},  PIN #{pin_nam}:  Pin timing cannot be found"
+%           next
+%         end
+%       end
+%     else
+%       Origen.log.error "Undefined pin/pingroup in pattern header (#{grp})"
+%     end
+%   end
+% end
+%
+% print_hdr = true
+% tset_eqns.keys.each do |tset_key|
+%   tset_eqns[tset_key].keys.each do |grp|
+%     tset_eqns[tset_key][grp].keys.each do |pin_nam|
+%       eset = @ts[tset_key].pins[pin_nam]
+%       edge = edgesets.es[eset].pins[pin_nam]
+%       tset_per  = edgesets.es[eset].period
+%       clk_per   = edge.clk_per
+%       tset_per  = edgesets.format_uflex_edge(tset_per, line_cnt)
+%       clk_per   = edgesets.format_uflex_edge(clk_per, line_cnt, no_disable: true)
+%       clk_per == '' ? setup = 'i/o' : setup = 'clock'
+%       if print_hdr
+%         print_hdr = false
+%         tim_mode  = @ts[tset_key].t_mode
+%         master_ts  = @ts[tset_key].master_ts
+<%= "DTTimesetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tTime Sets" %>
+<%= "" %>
+<%= "\tTiming Mode:\t#{tim_mode}\t\tMaster Timeset Name:\t" %>
+<%= "\tTime Domain:\t" %>
+<%= "" %>
+<%= "\t\t\tCycle\tPin/Group" %>
+<%= "\tTime Set\tPeriod\tName\tClock Period\tSetup\tEdge Set\tComment" %>
+%       end
+%       if tset_pin_list.include?(grp)
+<%= "\t#{tset_key}\t#{tset_per}\t#{grp}\t#{clk_per}\t#{setup}\t#{eset}\t" %>
+%         line_cnt += 1
+%         break
+%       elsif tset_pin_list.include?(pin_nam)
+<%= "\t#{tset_key}\t#{tset_per}\t#{pin_nam}\t#{clk_per}\t#{setup}\t#{eset}\t" %>
+%         line_cnt += 1
+%       end
+%     end
+%   end
+% end
+%
