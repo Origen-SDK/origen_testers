@@ -29,6 +29,9 @@ module OrigenTesters
           @@patgroups_filename = nil
           @@edgesets_filename = nil
           @@timesets_filename = nil
+          @@levelsets_filename = nil
+          @@ac_specsets_filename = nil
+          @@dc_specsets_filename = nil
         end
 
         # @api private
@@ -40,6 +43,9 @@ module OrigenTesters
           @@patgroup_sheets = nil
           @@edgeset_sheets = nil
           @@timeset_sheets = nil
+          @@levelset_sheets = nil
+          @@ac_specset_sheets = nil
+          @@dc_specset_sheets = nil
         end
         alias_method :reset_globals, :at_run_start
 
@@ -57,12 +63,18 @@ module OrigenTesters
         #   patgroups_filename = "common"
         #   edgesets_filename = "common"
         #   timesets_filename = "common"
+        #   levelsets_filename = "common"
+        #   ac_specsets_filename = "common"
+        #   dc_specsets_filename = "common"
         def resources_filename=(name)
           self.test_instances_filename = name
           self.patsets_filename = name
           self.patgroups_filename = name
           self.edgesets_filename = name
           self.timesets_filename = name
+          self.levelsets_filename = name
+          self.ac_specsets_filename = name
+          self.dc_specsets_filename = name
         end
 
         # Set the name of the current test instances sheet. This does not change
@@ -105,6 +117,30 @@ module OrigenTesters
           @@timesets_filename = name
         end
 
+        # Set the name of the current levelsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def levelsets_filename=(name)
+          @levelsets_filename = name
+          @@levelsets_filename = name
+        end
+
+        # Set the name of the current AC specsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def ac_specsets_filename=(name)
+          @ac_specsets_filename = name
+          @@ac_specsets_filename = name
+        end
+
+        # Set the name of the current DC specsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def dc_specsets_filename=(name)
+          @dc_specsets_filename = name
+          @@dc_specsets_filename = name
+        end
+
         # Returns the name of the current test instances sheet
         def test_instances_filename
           @@test_instances_filename ||= @test_instances_filename || 'global'
@@ -128,6 +164,21 @@ module OrigenTesters
         # Returns the name of the current timesets sheet
         def timesets_filename
           @@timesets_filename ||= @timesets_filename || 'global'
+        end
+
+        # Returns the name of the current levelsets sheet
+        def levelsets_filename
+          @@levelsets_filename ||= @levelsets_filename || 'global'
+        end
+
+        # Returns the name of the current AC specset sheet
+        def ac_specsets_filename
+          @@ac_specsets_filename ||= @ac_specsets_filename || 'global'
+        end
+
+        # Returns the name of the current DC specset sheet
+        def dc_specsets_filename
+          @@dc_specsets_filename ||= @dc_specsets_filename || 'global'
         end
 
         # Returns a hash containing all test instance sheets
@@ -160,12 +211,29 @@ module OrigenTesters
           @@timeset_sheets ||= {}
         end
 
+        # Returns a hash containing all levelset sheets
+        def levelset_sheets
+          @@levelset_sheets ||= {}
+        end
+
+        # Returns a hash containing all AC specsets sheets
+        def ac_specset_sheets
+          @@ac_specset_sheets ||= {}
+        end
+
+        # Returns a hash containing all DC specsets sheets
+        def dc_specset_sheets
+          @@dc_specset_sheets ||= {}
+        end
+
         # Returns an array containing all sheet generators where a sheet generator is a flow,
-        # test instance, patset, pat group or timeset sheet.
+        # test instance, patset, pat group, edgeset, timeset, or AC/DC specset sheet.
         # All Origen program generators must implement this method
         def sheet_generators # :nodoc:
           g = []
-          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets, edgeset_sheets, timeset_sheets].each do |sheets|
+          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets,
+           edgeset_sheets, timeset_sheets, levelset_sheets,
+           ac_specset_sheets, dc_specset_sheets].each do |sheets|
             sheets.each do |name, sheet|
               g << sheet
             end
@@ -261,6 +329,14 @@ module OrigenTesters
         alias_method :pat_groups, :patgroups
         alias_method :pattern_groups, :patgroups
 
+        # Returns the current collection of edges that are defined.  These are
+        # used in support of creating edgeset/timeset sheets.  They do not have
+        # an associated sheet of their own.
+        def edges
+          @@edges ||= platform::Edges.new
+        end
+        alias_method :edge_collection, :edges
+
         # Returns the current edgesets sheet (as defined by the current value of
         # edgesets_filename).
         #
@@ -270,12 +346,11 @@ module OrigenTesters
         def edgesets(filename = edgesets_filename)
           f = filename.to_sym
           return edgeset_sheets[f] if edgeset_sheets[f]
-          p = platform::Edgesets.new
-          p.filename = f
-          edgeset_sheets[f] = p
+          e = platform::Edgesets.new
+          e.filename = f
+          edgeset_sheets[f] = e
         end
-        alias_method :time_sets, :edgesets
-        alias_method :timing_sets, :edgesets
+        alias_method :edge_sets, :edgesets
 
         # Returns the current timesets sheet (as defined by the current value of
         # timesets_filename).
@@ -286,12 +361,64 @@ module OrigenTesters
         def timesets(filename = timesets_filename)
           f = filename.to_sym
           return timeset_sheets[f] if timeset_sheets[f]
-          p = platform::Timesets.new
-          p.filename = f
-          timeset_sheets[f] = p
+          t = platform::Timesets.new
+          t.filename = f
+          timeset_sheets[f] = t
         end
         alias_method :time_sets, :timesets
         alias_method :timing_sets, :timesets
+
+        # Returns the current collection of levels that are defined.  These are
+        # used in support of creating levelset sheets.  They do not have
+        # an associated sheet of their own.
+        def levels
+          @@levels ||= platform::Levels.new
+        end
+        alias_method :level_collection, :levels
+
+        # Returns the current levelsets sheet (as defined by the current value of
+        # levelsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def levelsets(filename = levelsets_filename)
+          f = filename.to_sym
+          return levelset_sheets[f] if levelset_sheets[f]
+          t = platform::Levelset.new
+          t.filename = f
+          levelset_sheets[f] = t
+        end
+        alias_method :time_sets, :timesets
+        alias_method :timing_sets, :timesets
+
+        # Returns the current AC specset sheet (as defined by the current value of
+        # ac_specsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def ac_specsets(filename = ac_specsets_filename)
+          f = filename.to_sym
+          return ac_specset_sheets[f] if ac_specset_sheets[f]
+          s = platform::ACSpecsets.new
+          s.filename = f
+          ac_specset_sheets[f] = s
+        end
+
+        # Returns the current DC specset sheet (as defined by the current value of
+        # dc_specsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def dc_specsets(filename = dc_specsets_filename)
+          f = filename.to_sym
+          return dc_specset_sheets[f] if dc_specset_sheets[f]
+          s = platform::DCSpecsets.new
+          s.filename = f
+          dc_specset_sheets[f] = s
+        end
 
         private
 

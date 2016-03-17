@@ -6,8 +6,8 @@ module OrigenTesters
 
         attr_accessor :es
 
-        OUTPUT_PREFIX = 'ES_'
-        OUTPUT_POSTFIX = ''
+        OUTPUT_PREFIX = 'ES'
+        OUTPUT_POSTFIX = 'ES'
 
         def initialize # :nodoc:
           @es = {}
@@ -21,6 +21,19 @@ module OrigenTesters
         end
 
         def finalize(options = {})
+        end
+
+        # Populate an array of pins based on the pin or pingroup
+        def get_pin_objects(grp)
+          pins = []
+          if Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
+            pins << Origen.top_level.pin(grp)
+          elsif Origen.top_level.pin(grp).is_a?(Origen::Pins::PinCollection)
+            Origen.top_level.pin(grp).each do |pin|
+              pins << pin
+            end
+          end
+          pins
         end
 
         # Equality check to compare full contents of edge object
@@ -46,6 +59,37 @@ module OrigenTesters
           edge.c2_edge = edge.c2_edge.gsub(/#{Regexp.escape(old_val)}/, new_val)
           edge.t_res   = edge.t_res.gsub(/#{Regexp.escape(old_val)}/, new_val)
           edge.clk_per = edge.clk_per.gsub(/#{Regexp.escape(old_val)}/, new_val)
+        end
+
+        # Prepare the edge information for ES/TS file output
+        def format_uflex_edge(data, line_cnt, options = {})
+          options = {
+            no_disable: false
+          }.merge(options)
+
+          if data !~ /^\s*$/
+            data = data.gsub(/^/, '=')
+          end
+          data = data.gsub(/(\W)([a-zA-Z])/, '\1_\2')
+
+          case data
+          when /_d0_edge|_d_on/
+            data = data.gsub(/_d0_edge|_d_on/, "F#{line_cnt}")
+          when /_d1_edge|_d_data/
+            data = data.gsub(/_d1_edge|_d_data/, "G#{line_cnt}")
+          when /_d2_edge|_dret/
+            data = data.gsub(/_d2_edge|_dret/, "H#{line_cnt}")
+          when /_d3_edge|_d_off/
+            data = data.gsub(/_d3_edge|_d_off/, "I#{line_cnt}")
+          when /_c1_edge|_c_open/
+            data = data.gsub(/_c1_edge|_c_open/, "K#{line_cnt}")
+          when /_c2_edge|_c_close/
+            data = data.gsub(/_c2_edge|_c_close/, "L#{line_cnt}")
+          when /^\s*$/
+            options[:no_disable] ? data = '' : data = 'disable'
+          else
+            data
+          end
         end
       end
     end

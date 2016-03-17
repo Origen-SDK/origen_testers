@@ -6,8 +6,8 @@ module OrigenTesters
 
         attr_accessor :ts
 
-        OUTPUT_PREFIX = 'TS_'
-        OUTPUT_POSTFIX = ''
+        OUTPUT_PREFIX = 'TS'
+        OUTPUT_POSTFIX = 'TS'
 
         def initialize # :nodoc:
           @ts = {}
@@ -22,6 +22,19 @@ module OrigenTesters
         end
 
         def finalize(options = {})
+        end
+
+        # Populate an array of pins based on the pin or pingroup
+        def get_pin_objects(grp)
+          pins = []
+          if Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
+            pins << Origen.top_level.pin(grp)
+          elsif Origen.top_level.pin(grp).is_a?(Origen::Pins::PinCollection)
+            Origen.top_level.pin(grp).each do |pin|
+              pins << pin
+            end
+          end
+          pins
         end
       end
     end
