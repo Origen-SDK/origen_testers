@@ -8,7 +8,7 @@ module OrigenTesters
         attr_accessor :ac_specsets
 
         OUTPUT_PREFIX = 'SpecsAC'
-        OUTPUT_POSTFIX = 'SpecsAC'
+        # OUTPUT_POSTFIX = 'SpecsAC'
 
         def initialize # :nodoc:
           ## Hash Autovivification

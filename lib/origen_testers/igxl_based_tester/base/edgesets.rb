@@ -5,9 +5,10 @@ module OrigenTesters
         include ::OrigenTesters::Generator
 
         attr_accessor :es
+        attr_accessor :es_sheet_pins
 
         OUTPUT_PREFIX = 'ES'
-        OUTPUT_POSTFIX = 'ES'
+        # OUTPUT_POSTFIX = 'ES'
 
         def initialize # :nodoc:
           @es = {}
@@ -17,6 +18,7 @@ module OrigenTesters
           esname = esname.to_sym unless esname.is_a? Symbol
           pin = pin.to_sym unless pin.is_a? Symbol
           @es.key?(esname) ? @es[esname].add_edge(pin, edge) : @es[esname] = platform::Edgeset.new(esname, pin, edge, options)
+          @es_sheet_pins = options[:es_sheet_pins] unless @es_sheet_pins
           @es
         end
 
@@ -38,12 +40,7 @@ module OrigenTesters
 
         # Equality check to compare full contents of edge object
         def edges_eql?(edge1, edge2)
-          edge1.d_src == edge2.d_src && edge1.d_fmt == edge2.d_fmt &&
-            edge1.d0_edge == edge2.d0_edge && edge1.d1_edge == edge2.d1_edge &&
-            edge1.d2_edge == edge2.d2_edge && edge1.d3_edge == edge2.d3_edge &&
-            edge1.c_mode == edge2.c_mode &&
-            edge1.c1_edge == edge2.c1_edge && edge1.c2_edge == edge2.c2_edge &&
-            edge1.t_res == edge2.t_res && edge1.clk_per == edge2.clk_per
+          edge1.instance_values == edge2.instance_values
         end
 
         # Globally modify text within the edge object

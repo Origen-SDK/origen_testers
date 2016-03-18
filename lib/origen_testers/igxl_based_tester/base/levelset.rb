@@ -5,13 +5,14 @@ module OrigenTesters
         include ::OrigenTesters::Generator
 
         attr_accessor :pins
-        attr_accessor :spec_category
+        attr_accessor :spec_sheet
+        attr_accessor :ls_sheet_pins
 
         # Levelset name
         attr_accessor :name
 
         OUTPUT_PREFIX = 'LV'
-        OUTPUT_POSTFIX = 'LV'
+        # OUTPUT_POSTFIX = 'LV'
 
         def initialize(options = {}) # :nodoc:
           @pins = {}
@@ -22,14 +23,15 @@ module OrigenTesters
         # Adds a pin level to the given levelset
         def add(lsname, pin, level, options = {})
           options = {
-            spec_category: 'default'  # defines which specset category to put variables in (e.g. func, scan) when generating specset files
+            spec_sheet: 'default'  # defines which specset sheet to put variables in (e.g. func, scan) when generating specset files
           }.merge(options)
           lsname = lsname.to_sym unless lsname.is_a? Symbol
           pin = pin.to_sym unless pin.is_a? Symbol
 
           add_level(pin, level)
           @name = lsname
-          @spec_category = options[:spec_category]
+          @spec_sheet = options[:spec_sheet]
+          @ls_sheet_pins = options[:ls_sheet_pins] unless @ls_sheet_pins
         end
 
         # Assigns a level object to the given pin for this levelset
@@ -59,16 +61,7 @@ module OrigenTesters
 
         # Equality check to compare full contents of 2 level objects
         def levels_eql?(level1, level2)
-          # determine if object is a power level (conatins :vmain) or a SE pin level (:vil)
-          if level1.respond_to?(:vmain) && level2.respond_to?(:vmain)
-            level1.vmain == level2.vmain && level1.valt == level2.valt && level1.ifold == level2.ifold && level1.delay == level2.delay
-          elsif level1.respond_to?(:vil) && level2.respond_to?(:vil)
-            level1.vil == level2.vil && level1.vih == level2.vih && level1.vol == level2.vol && level1.voh == level2.voh && level1.vcl == level2.vcl && level1.vch == level2.vch && level1.vt == level2.vt && level1.voutlotyp == level2.voutlotyp &&
-              level1.vouthityp == level2.vouthityp &&
-              level1.dmode == level2.dmode
-          else
-            false
-          end
+          level1.instance_values == level2.instance_values
         end
 
         # Globally modify text within the level object
