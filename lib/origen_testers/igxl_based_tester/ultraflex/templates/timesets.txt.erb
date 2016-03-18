@@ -13,7 +13,7 @@
 %
 % # Look up edge information in the corresponding Edgesets sheet
 % edgesets = Origen.interface.edgeset_sheets[@filename]
-% Origen.app.pin_pattern_order.each do |grp|
+% @ts_sheet_pins.each do |grp|
 %   if Origen.top_level.has_pin?(grp)
 %     pin_ary = get_pin_objects(grp)
 %     pin_ary.each do |next_pin|
@@ -81,7 +81,7 @@
 % @ts.keys.each do |tset|
 %   t_mode = ''
 %   period = ''
-%   Origen.app.pin_pattern_order.each do |grp|
+%   @ts_sheet_pins.each do |grp|
 %     if Origen.top_level.has_pin?(grp)
 %       pin_ary = get_pin_objects(grp)
 %       pin_ary.each do |next_pin|
