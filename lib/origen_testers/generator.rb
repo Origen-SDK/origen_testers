@@ -111,6 +111,12 @@ module OrigenTesters
       ext = f.extname.empty? ? file_extension : f.extname
       body = f.basename(".#{ext}").to_s
       body.gsub!('_resources', '')
+      if defined? self.class::OUTPUT_PREFIX
+        # Unless the fixfix is already in the name
+        unless body =~ /#{self.class::OUTPUT_PREFIX}$/i
+          body = "#{self.class::OUTPUT_PREFIX}_#{body}"
+        end
+      end
       if defined? self.class::OUTPUT_POSTFIX
         # Unless the postfix is already in the name
         unless body =~ /#{self.class::OUTPUT_POSTFIX}$/i
