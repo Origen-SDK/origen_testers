@@ -95,6 +95,10 @@ module OrigenTesters
           end
         end
 
+        def inspect
+          "<TestSuite: #{name}>"
+        end
+
         # The name is immutable once the test_suite is created, this will raise an error when called
         def name=(val, options = {})
           fail 'Once assigned the name of a test suite cannot be changed!'

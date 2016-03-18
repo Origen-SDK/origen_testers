@@ -3,6 +3,10 @@ module OrigenTesters
     class UltraFLEX
       require 'origen_testers/igxl_based_tester/base/custom_test_instance'
       class CustomTestInstance < Base::CustomTestInstance
+        # Give all UltraFLEX test instances the ability to contain limits, these will
+        # be rendered to Use-limit lines in the flow
+        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits
+
         # Attributes for each test instance line, first few are named directly
         TEST_INSTANCE_ATTRS = %w(
           test_name proc_type proc_name proc_called_as dc_category

@@ -1,168 +1,443 @@
 module OrigenTesters
   module IGXLBasedTester
     class Base
-      class Flow
-        include OrigenTesters::Generator
-        include OrigenTesters::Generator::FlowControlAPI
+      class Flow < ATP::Formatter
+        include OrigenTesters::Flow
 
         OUTPUT_POSTFIX = 'flow'
 
-        def add(type, options = {})
-          ins = false
-          options = save_context(options) if [:test, :cz].include?(type)
-          branch_unless_enabled(options) do |options|
-            ins = track_relationships(options) do |options|
-              platform::FlowLine.new(type, options)
+        attr_reader :branch
+        attr_reader :stack
+        attr_reader :current_group
+        attr_reader :context
+        attr_reader :set_run_flags
+        attr_accessor :run_flag
+        attr_accessor :flow_flag
+
+        class FlowLineAPI
+          def initialize(flow)
+            @flow = flow
+          end
+
+          def method_missing(method, *args, &block)
+            if Base::FlowLine::DEFAULTS.key?(method.to_sym)
+              line = @flow.platform::FlowLine.new(method, *args)
+              @flow.render(line)
+              line
+            else
+              super
             end
-            collection << ins unless Origen.interface.resources_mode?
-            if ins.test?
-              c = Origen.interface.consume_comments
-              unless Origen.interface.resources_mode?
-                Origen.interface.descriptions.add_for_test_usage(ins.parameter, Origen.interface.top_level_flow, c)
+          end
+
+          def respond_to?(method)
+            !!Base::FlowLine::DEFAULTS.key?(method.to_sym)
+          end
+        end
+
+        class TestCounter < ATP::Processor
+          def run(node)
+            @tests = 0
+            process(node)
+            @tests
+          end
+
+          def on_test(node)
+            @tests += 1
+          end
+        end
+
+        # Returns the API to manually generate an IG-XL flow line
+        def ultraflex
+          @flow_line_api ||= FlowLineAPI.new(self)
+        end
+        alias_method :uflex, :ultraflex
+        alias_method :j750, :ultraflex
+
+        def number_of_tests_in(node)
+          @test_counter ||= TestCounter.new
+          @test_counter.run(node)
+        end
+
+        # Will be called at the end to transform the final flow model into an array
+        # of lines to be rendered to the IG-XL flow sheet
+        def format
+          @lines = []
+          @stack = { jobs: [], groups: [] }
+          @set_run_flags = {}
+          @context = []
+          process(model.ast)
+          lines
+        end
+
+        def on_flow(node)
+          name, *nodes = *node
+          process_all(nodes)
+        end
+
+        def on_test(node)
+          line = new_line(:test) { |l| process_all(node) }
+
+          # In IG-XL you can't set the same flag in case of pass or fail, if that situation has
+          # occurred then rectify it now
+          if line.flag_fail && line.flag_fail == line.flag_pass
+            # If the test will bin, don't need to resolve the situation, the flag only matters
+            # in the pass case
+            if line.result = 'Fail'
+              line.flag_fail = nil
+              completed_lines << line
+            else
+              flag = line.flag_fail
+              line.flag_fail = "#{flag}_FAILED"
+              line.flag_pass = "#{flag}_PASSED"
+              completed_lines << line
+              existing_flag = run_flag
+              self.run_flag = [line.flag_fail, true]
+              completed_lines << new_line(:flag_true, parameter: flag)
+              self.run_flag = [line.flag_pass, true]
+              completed_lines << new_line(:flag_true, parameter: flag)
+              self.run_flag = existing_flag
+            end
+          else
+            completed_lines << line
+          end
+        end
+
+        def on_cz(node)
+          setup, test = *node
+          completed_lines << new_line(:cz, cz_setup: setup) do |line|
+            process_all(test)
+          end
+        end
+
+        def on_group(node)
+          stack[:groups] << []
+          post_group = node.children.select { |n| [:on_fail, :on_pass, :name].include?(n.try(:type)) }
+          process_all(node.children - post_group)
+          # Now process any on_fail and similar conditional logic attached to the group
+          @current_group = stack[:groups].last
+          process_all(post_group)
+          @current_group = nil
+          flags = { on_pass: [], on_fail: [] }
+          stack[:groups].pop.each do |test|
+            flags[:on_pass] << test.flag_pass
+            flags[:on_fail] << test.flag_fail
+            completed_lines << test
+          end
+          if @group_on_fail_flag
+            flags[:on_fail].each do |flag|
+              self.run_flag = [flag, true]
+              completed_lines << new_line(:flag_true, parameter: @group_on_fail_flag)
+            end
+            self.run_flag = nil
+            @group_on_fail_flag = nil
+          end
+          if @group_on_pass_flag
+            flags[:on_pass].each do |flag|
+              self.run_flag = [flag, true]
+              completed_lines << new_line(:flag_true, parameter: @group_on_pass_flag)
+            end
+            self.run_flag = nil
+            @group_on_pass_flag = nil
+          end
+        end
+
+        def on_name(node)
+          if current_group
+            # No action, groups will not actually appear in the flow sheet
+          else
+            current_line.tname = node.to_a[0]
+          end
+        end
+
+        def on_number(node)
+          if Origen.tester.diff_friendly_output?
+            current_line.tnum = 0
+          else
+            current_line.tnum = node.to_a[0]
+          end
+        end
+
+        def on_object(node)
+          instance = node.to_a[0]
+          if instance.is_a?(String)
+            current_line.instance_variable_set('@ignore_missing_instance', true)
+          end
+          current_line.parameter = instance
+        end
+
+        def on_continue(node)
+          if current_group
+            current_group.each { |line| line.result = 'None' }
+          else
+            current_line.result = 'None'
+          end
+        end
+
+        def on_set_run_flag(node)
+          flag = node.to_a[0]
+          set_run_flags[flag] = context.dup
+          if current_group
+            if branch == :on_fail
+              @group_on_fail_flag = flag
+              current_group.each_with_index do |line, i|
+                line.flag_fail = "#{flag}_#{i}" unless line.flag_fail
               end
             else
-              Origen.interface.discard_comments
+              @group_on_pass_flag = flag
+              current_group.each_with_index do |line, i|
+                line.flag_pass = "#{flag}_#{i}" unless line.flag_pass
+              end
             end
-          end
-          ins
-        end
-
-        def logprint(message, options = {})
-          message.gsub!(/\s/, '_')
-          add(:logprint, options.merge(parameter: message))
-        end
-
-        def test(instance, options = {})
-          add(:test, options.merge(parameter: instance))
-        end
-
-        def cz(instance, cz_setup, options = {})
-          add(:cz, options.merge(parameter: instance, cz_setup: cz_setup))
-        end
-
-        def use_limit(name, options = {})
-          add(:use_limit, options)
-        end
-
-        def goto(label, options = {})
-          add(:goto, options.merge(parameter: label))
-        end
-
-        def nop(options = {})
-          add(:nop, options.merge(parameter: nil))
-        end
-
-        def set_device(options = {})
-          add(:set_device, options)
-        end
-
-        def set_error_bin(options = {})
-          add(:set_error_bin, options)
-        end
-
-        def enable_flow_word(word, options = {})
-          add(:enable_flow_word, options.merge(parameter: word))
-        end
-
-        def disable_flow_word(word, options = {})
-          add(:disable_flow_word, options.merge(parameter: word))
-        end
-
-        def flag_false(name, options = {})
-          add(:flag_false, options.merge(parameter: name))
-        end
-
-        def flag_false_all(name, options = {})
-          add(:flag_false_all, options.merge(parameter: name))
-        end
-
-        #        def flag_true(name, options = {})
-        def flag_true(options = {})
-          add(:flag_true, options)
-        end
-
-        def flag_true_all(name, options = {})
-          add(:flag_true_all, options.merge(parameter: name))
-        end
-
-        # Generates 2 flow lines of flag-true to help set a single flag based on OR of 2 other flags
-        def or_flags(name1, name2, options = {})
-          options = {
-            condition: :fail, # condition to check for
-            flowname:  false,  # if flowname provided
-          }.merge(options)
-
-          case options[:condition]
-            when :fail
-              options[:condition] = 'FAILED'
-            when :pass
-              options[:condition] = 'PASSED'
+          else
+            if branch == :on_fail
+              current_line.flag_fail = flag
             else
-              options[:condition] = 'RAN'
-          end
-          id = options.delete(:id)  # get original ID
-
-          # set parameter names
-          parameter = "#{id}"
-          parameter += "_#{options[:flowname]}" if options[:flowname]
-          parameter += "_#{options[:condition]}"
-
-          options[:id] = id
-          add(:flag_true_all, options.merge(parameter: parameter))
-          options.delete(:id)
-          add(:flag_false, options.merge(parameter: parameter, if_passed: name1, result: '', flag_pass: '', flag_fail: '')) # No ID
-          add(:flag_false, options.merge(parameter: parameter, if_passed: name2)) # No ID
-          nop
-        end
-
-        # All tests generated will not run unless the given enable word is asserted.
-        #
-        # This is specially implemented for J750 since it does not have a native
-        # support for flow word not enabled.
-        # It will generate a goto branch around the tests contained with the block
-        # if the given flow word is enabled.
-        def unless_enable(word, options = {})
-          if options[:or]
-            yield
-          else
-            @unless_enable_block = word
-            options = options.merge(unless_enable: word)
-            branch_unless_enabled(options.merge(_force_unless_enable: true)) do
-              yield
+              current_line.flag_pass = flag
             end
-            @unless_enable_block = nil
           end
         end
-        alias_method :unless_enabled, :unless_enable
 
-        def start_flow_branch(identifier, options = {})
-          goto(identifier, options)
-        end
-
-        def skip(identifier = nil, options = {})
-          identifier, options = nil, identifier if identifier.is_a?(Hash)
-          identifier = generate_unique_label(identifier)
-          goto(identifier, options)
-          yield
-          nop(label: identifier)
-        end
-
-        private
-
-        # If the test has an unless_enable then branch around it
-        def branch_unless_enabled(options)
-          word = options.delete(:unless_enable) || options.delete(:unless_enabled)
-          if word && (word != @unless_enable_block || options.delete(:_force_unless_enable))
-            # Not sure if this is really required, but duplicating these hashes here to ensure
-            # that all other flow context keys are preserved and applied to the branch lines
-            orig_options = options.merge({})
-            close_options = options.merge({})
-            label = generate_unique_label
-            goto(label, options.merge(if_enable: word))
-            yield orig_options
-            nop(close_options.merge(label: label))
+        def on_set_result(node)
+          bin = node.find(:bin).try(:value)
+          sbin = node.find(:softbin).try(:value)
+          desc = node.find(:bin_description).try(:value)
+          if current_line
+            if branch == :on_fail
+              current_line.bin_fail = bin
+              current_line.sort_fail = sbin
+              current_line.comment = desc
+              current_line.result = 'Fail'
+            else
+              current_line.bin_pass = bin
+              current_line.sort_pass = sbin
+              current_line.comment = desc
+              current_line.result = 'Pass'
+            end
           else
-            yield options
+            line = new_line(:set_device)
+            if node.to_a[0] == 'pass'
+              line.bin_pass = bin
+              line.sort_pass = sbin
+              line.result = 'Pass'
+            else
+              line.bin_fail = bin
+              line.sort_fail = sbin
+              line.result = 'Fail'
+            end
+            line.comment = desc
+            completed_lines << line
+          end
+        end
+
+        def on_on_fail(node)
+          @branch = :on_fail
+          process_all(node)
+          @branch = nil
+        end
+
+        def on_on_pass(node)
+          @branch = :on_pass
+          process_all(node)
+          @branch = nil
+        end
+
+        def on_job(node)
+          jobs, state, *nodes = *node
+          jobs = clean_job(jobs)
+          unless state
+            jobs = jobs.map { |j| "!#{j}" }
+          end
+          stack[:jobs] << [stack[:jobs].last, jobs].compact.join(',')
+          context << stack[:jobs].last
+          process_all(node)
+          stack[:jobs].pop
+          context.pop
+        end
+
+        def on_run_flag(node)
+          flag, state, *nodes = *node
+          orig = run_flag
+          if flag.is_a?(Array)
+            or_flag = flag.join('_OR_')
+            or_flag = "NOT_#{flag}" unless state
+            flag.each do |f|
+              if run_flag
+                fail 'Not implemented yet!'
+              else
+                self.run_flag = [f, state]
+                completed_lines << new_line(:flag_true, parameter: or_flag)
+                self.run_flag = nil
+              end
+            end
+            # Don't need to create an AND flag if the flag on which this test is dependent was also
+            # set under the same context.
+            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
+              and_flag = flag_to_s(or_flag, state) + '_AND_' + flag_to_s(*run_flag)
+              # If the AND flag has already been created and set in this context (for a previous test),
+              # no need to re-create it
+              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
+                set_run_flags[and_flag] = context
+                existing_flag = run_flag
+                self.run_flag = nil
+                completed_lines << new_line(:flag_true, parameter: and_flag)
+                self.run_flag = [existing_flag[0], !existing_flag[1]]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+                self.run_flag = [flag, !state]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+              end
+              self.run_flag = [and_flag, true]
+            else
+              self.run_flag = [or_flag, true]
+            end
+          else
+            # Don't need to create an AND flag if the flag on which this test is dependent was also
+            # set under the same context.
+            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
+              and_flag = flag_to_s(flag, state) + '_AND_' + flag_to_s(*run_flag)
+              # If the AND flag has already been created and set in this context (for a previous test),
+              # no need to re-create it
+              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
+                set_run_flags[and_flag] = context
+                existing_flag = run_flag
+                self.run_flag = nil
+                completed_lines << new_line(:flag_true, parameter: and_flag)
+                self.run_flag = [existing_flag[0], !existing_flag[1]]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+                self.run_flag = [flag, !state]
+                completed_lines << new_line(:flag_false, parameter: and_flag)
+              end
+              self.run_flag = [and_flag, true]
+            else
+              self.run_flag = [flag, state]
+            end
+          end
+          context << run_flag
+          process_all(node)
+          context.pop
+          self.run_flag = orig
+        end
+
+        def on_flow_flag(node)
+          flag, value = *node.to_a.take(2)
+          orig = flow_flag
+          if flag.is_a?(Array)
+            if flag.size > 1
+              or_flag = flag.join('_OR_')
+              flag.each do |f|
+                completed_lines << new_line(:enable_flow_word, parameter: or_flag, enable: f)
+              end
+              flag = or_flag
+            else
+              flag = flag.first
+            end
+          end
+          if value
+            # IG-XL docs say that enable words are not optimized for test time, so branch around
+            # large blocks to minimize enable word evaluation
+            if number_of_tests_in(node) > 5
+              label = generate_unique_label
+              branch_if_enable(flag) do
+                completed_lines << new_line(:goto, parameter: label, enable: nil)
+              end
+              context << flag
+              process_all(node)
+              context.pop
+              completed_lines << new_line(:nop, label: label, enable: nil)
+            else
+              if flow_flag
+                and_flag = "#{flow_flag}_AND_#{flag}"
+                label = generate_unique_label
+                branch_if_enable(flow_flag) do
+                  completed_lines << new_line(:goto, parameter: label, enable: nil)
+                end
+                completed_lines << new_line(:enable_flow_word, parameter: and_flag, enable: flag)
+                completed_lines << new_line(:nop, label: label, enable: nil)
+                self.flow_flag = and_flag
+                context << and_flag
+                process_all(node)
+                context.pop
+                self.flow_flag = orig
+              else
+                self.flow_flag = flag
+                context << flag
+                process_all(node)
+                context.pop
+                self.flow_flag = orig
+              end
+            end
+          else
+            # IG-XL does not have a !enable option, so generate a branch around the tests
+            # to be skipped unless the required flag is enabled
+            context << "!#{flag}"
+            branch_if_enable(flag) do
+              process_all(node)
+            end
+            context.pop
+          end
+        end
+
+        def branch_if_enable(word)
+          label = generate_unique_label
+          completed_lines << new_line(:goto, parameter: label, enable: word)
+          yield
+          completed_lines << new_line(:nop, label: label, enable: nil)
+        end
+
+        def on_enable_flow_flag(node)
+          completed_lines << new_line(:enable_flow_word, parameter: node.value)
+        end
+
+        def on_disable_flow_flag(node)
+          completed_lines << new_line(:disable_flow_word, parameter: node.value)
+        end
+
+        def on_log(node)
+          completed_lines << new_line(:logprint, parameter: node.to_a[0].gsub(' ', '_'))
+        end
+
+        def on_render(node)
+          completed_lines << node.to_a[0]
+        end
+
+        def new_line(type, attrs = {})
+          attrs = {
+            job:    stack[:jobs].last,
+            enable: flow_flag
+          }.merge(attrs)
+          line = platform::FlowLine.new(type, attrs)
+          if run_flag
+            line.device_sense = 'not' unless run_flag[1]
+            line.device_name = run_flag[0]
+            line.device_condition = 'flag-true'
+          end
+          open_lines << line
+          yield line if block_given?
+          open_lines.pop
+          line
+        end
+
+        # Any completed lines should be pushed to the array that this returns
+        def completed_lines
+          stack[:groups].last || lines
+        end
+
+        def open_lines
+          @open_lines ||= []
+        end
+
+        def current_line
+          open_lines.last
+        end
+
+        def clean_job(job)
+          [job].flatten.map { |j| j.to_s.upcase }
+        end
+
+        def flag_to_s(flag, state)
+          if state
+            flag
+          else
+            "NOT_#{flag}"
           end
         end
       end

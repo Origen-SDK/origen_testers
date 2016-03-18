@@ -8,7 +8,6 @@ module OrigenTesters
   module Generator
     autoload :Placeholder,   'origen_testers/generator/placeholder'
     autoload :IdentityMap,   'origen_testers/generator/identity_map'
-    autoload :FlowControlAPI, 'origen_testers/generator/flow_control_api'
 
     extend ActiveSupport::Concern
 
@@ -16,19 +15,8 @@ module OrigenTesters
       include Origen::Generator::Comparator
     end
 
-    # The program source files are executed by eval to allow the tester to filter the
-    # source contents before executing. For examples the doc tester replaces all comments
-    # with a method call containing each comment so that they can be captured.
     def self.execute_source(file)
-      if Origen.interface.respond_to?(:filter_source)
-        File.open(file) do |f|
-          src = f.read
-          src = Origen.interface.filter_source(src)
-          eval(src, global_binding)
-        end
-      else
-        load file
-      end
+      load file
     end
 
     # When called on a generator no output files will be created from it
@@ -97,6 +85,11 @@ module OrigenTesters
       @filename = name
     end
 
+    def name
+      @filename.to_sym
+    end
+    alias_method :id, :name
+
     def filename(options = {})
       options = {
         include_extension: true
@@ -157,13 +150,14 @@ module OrigenTesters
         if defined? self.class::TEMPLATE || Origen.tester.is_a?(OrigenTesters::Doc)
           write_from_template(options)
         else
-          fail "Don't know hot to write without a template!"
+          fail "Don't know how to write without a template!"
         end
         stats.completed_files += 1
       end
     end
 
     def write_from_template(options = {})
+      return unless Origen.interface.write?
       options = {
         quiet:     false,
         skip_diff: false
@@ -186,18 +180,8 @@ module OrigenTesters
         else
           @append = false
           Origen.file_handler.preserve_state do
-            if Origen.tester.is_a?(OrigenTesters::Doc)
-              if options[:return_model]
-                OrigenTesters::Doc.model.add_flow(filename(include_extension: false), to_yaml)
-              else
-                Origen.file_handler.open_for_write(output_file) do |f|
-                  f.puts YAML.dump(to_yaml(include_descriptions: false))
-                end
-              end
-            else
-              File.open(output_file, 'w') do |out|
-                out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
-              end
+            File.open(output_file, 'w') do |out|
+              out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
             end
           end
           @@opened_files << output_file
@@ -239,10 +223,23 @@ module OrigenTesters
     end
 
     def render(file, options = {})
-      if options.delete(:_inline)
-        super Origen.file_handler.clean_path_to_sub_template(file), options
+      # Since the flow is now handled via ATP, render the string immediately
+      # for insertion into the AST
+      if try(:is_the_flow?)
+        val = nil
+        Origen.file_handler.preserve_current_file do
+          Origen.file_handler.default_extension = file_extension
+          file = Origen.file_handler.clean_path_to_sub_template(file)
+          placeholder = compiler.render(file, options)
+          val = compiler.insert(placeholder).chomp
+        end
+        val
       else
-        collection << Placeholder.new(:render, file, options)
+        if options.delete(:_inline)
+          super Origen.file_handler.clean_path_to_sub_template(file), options
+        else
+          collection << Placeholder.new(:render, file, options)
+        end
       end
     end
 

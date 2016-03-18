@@ -3,6 +3,10 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	Pattern Set	TD Group	Time Domain	File/Group Name	Burst	Start Label	Stop Label	Comment	
 	another_not_p1_or_p2_test_pset			another_not_p1_or_p2_test.PAT	Yes				
 	another_not_p1_or_p2_test_pset			nvm_global_subs.PAT	Yes	subr			
+	bgap_voltage_meas1_pset			bgap_voltage_meas1.PAT	Yes				
+	bgap_voltage_meas1_pset			nvm_global_subs.PAT	Yes	subr			
+	bgap_voltage_meas_pset			bgap_voltage_meas.PAT	Yes				
+	bgap_voltage_meas_pset			nvm_global_subs.PAT	Yes	subr			
 	bitcell_iv_0_pset			bitcell_iv_0.PAT	Yes				
 	bitcell_iv_0_pset			nvm_global_subs.PAT	Yes	subr			
 	bitcell_iv_1_pset			bitcell_iv_1.PAT	Yes				

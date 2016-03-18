@@ -7,7 +7,35 @@ module OrigenTesters
 
     included do
       Origen.add_interface(self)
-      include Generator::FlowControlAPI::Interface
+
+      (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log]).each do |method|
+        define_method method do |*args, &block|
+          flow.send(method, *args, &block)
+        end
+      end
+    end
+
+    def self.with_resources_mode
+      orig = @resources_mode
+      @resources_mode = true
+      yield
+      @resources_mode = orig
+    end
+
+    def self.resources_mode?
+      !!@resources_mode
+    end
+
+    def self.write=(val)
+      @write = val
+    end
+
+    def self.write?
+      !!@write
+    end
+
+    def write?
+      OrigenTesters::Interface.write?
     end
 
     # This identifier will be used to make labels and other references unique to the
@@ -28,6 +56,7 @@ module OrigenTesters
 
     # Compile a template file
     def compile(file, options = {})
+      return unless write?
       # Any options passed in from an interface will be passed to the compiler and to
       # the templates being compiled
       options[:initial_options] = options
@@ -66,7 +95,13 @@ module OrigenTesters
         generator.write_to_file(options) if generator.to_be_written?
       end
       clean_referenced_patterns
+      flow.save_program
+    end
+
+    def on_program_completion(options = {})
       reset_globals
+      @@referenced_patterns = nil
+      @@referenced_subroutine_patterns = nil
     end
 
     # All generators should push to this array whenever they reference a pattern
@@ -151,14 +186,14 @@ module OrigenTesters
     # Generally this means that all resources for a given test will be generated but
     # flow entries will be inhibited.
     def resources_mode
-      orig = @resources_mode
-      @resources_mode = true
-      yield
-      @resources_mode = orig
+      OrigenTesters::Interface.with_resources_mode do
+        yield
+      end
     end
+    alias_method :with_resources_mode, :resources_mode
 
     def resources_mode?
-      @resources_mode
+      OrigenTesters::Interface.resources_mode?
     end
 
     def identity_map # :nodoc:

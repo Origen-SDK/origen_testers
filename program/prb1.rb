@@ -101,10 +101,8 @@ Flow.create do
     func :erase_all
   end
 
-  unless_enable 'no_extra_erase', :or => true do
-    func :erase_all
-    func :erase_all
-  end
+  func :erase_all
+  func :erase_all
 
   log 'Test if_passed'
   func :erase_all, :id => 'erase_passed_1'
@@ -160,51 +158,6 @@ Flow.create do
     func :margin_read1_all1
   end
 
-  log 'Test if_all_passed'
-  func :erase_all, :id => 'erase_all_passed_1'
-  func :erase_all, :id => 'erase_all_passed_2'
-
-  func :margin_read1_all1, :if_all_passed => 'erase_all_passed_1'
-  if_all_passed 'erase_all_passed_2' do
-    func :margin_read1_all1
-  end
-
-  log 'Test unless_any_failed'
-  func :erase_all, :id => 'erase_all_passed_3'
-  func :erase_all, :id => 'erase_all_passed_4'
-
-  func :margin_read1_all1, :unless_any_failed => 'erase_all_passed_3'
-  unless_any_failed 'erase_all_passed_4' do
-    func :margin_read1_all1
-  end
-
-  log 'Test if_any_passed'
-  func :erase_all, :id => 'erase_any_passed_1'
-  func :erase_all, :id => 'erase_any_passed_2'
-
-  func :margin_read1_all1, :if_any_passed => 'erase_any_passed_1'
-  if_any_passed 'erase_any_passed_2' do
-    func :margin_read1_all1
-  end
-
-  log 'Test if_all_failed'
-  func :erase_all, :id => 'erase_all_failed_1'
-  func :erase_all, :id => 'erase_all_failed_2'
-
-  func :margin_read1_all1, :if_all_failed => 'erase_all_failed_1'
-  if_all_failed 'erase_all_failed_2' do
-    func :margin_read1_all1
-  end
-
-  log 'Test if_any_failed'
-  func :erase_all, :id => 'erase_any_failed_1'
-  func :erase_all, :id => 'erase_any_failed_2'
-
-  func :margin_read1_all1, :if_any_failed => 'erase_any_failed_1'
-  if_any_failed 'erase_any_failed_2' do
-    func :margin_read1_all1
-  end
-
   log 'Verify that job context wraps import'
   if_job :fr do
     import 'erase'
@@ -222,5 +175,15 @@ Flow.create do
   log 'Verify that MTO template works...'
   mto_memory :mto_read1_all1
 
-  bin 1, description: "Good die!"
+  if tester.uflex?
+    log 'import statement'
+    import 'components/temp' 
+
+    log 'direct call'
+    
+    meas :bgap_voltage_meas, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45
+    meas :bgap_voltage_meas1
+  end
+
+  pass 1, description: "Good die!", softbin: 1
 end

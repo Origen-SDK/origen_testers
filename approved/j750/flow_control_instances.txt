@@ -10,9 +10,36 @@ DFF 1.3	Test Instances
 	extra_test	IG-XL Template	Functional_T	VB DLL									extra_test_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	ft_only_test1	IG-XL Template	Functional_T	VB DLL									ft_only_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	ft_only_test2	IG-XL Template	Functional_T	VB DLL									ft_only_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp1_test1	IG-XL Template	Functional_T	VB DLL									grp1_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp1_test2	IG-XL Template	Functional_T	VB DLL									grp1_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp1_test3	IG-XL Template	Functional_T	VB DLL									grp1_test3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp2_test1	IG-XL Template	Functional_T	VB DLL									grp2_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp2_test2	IG-XL Template	Functional_T	VB DLL									grp2_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	grp2_test3	IG-XL Template	Functional_T	VB DLL									grp2_test3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt1	IG-XL Template	Functional_T	VB DLL									gt1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt2	IG-XL Template	Functional_T	VB DLL									gt2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt3	IG-XL Template	Functional_T	VB DLL									gt3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt_grp1_test1	IG-XL Template	Functional_T	VB DLL									gt_grp1_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt_grp1_test2	IG-XL Template	Functional_T	VB DLL									gt_grp1_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt_grp2_test1	IG-XL Template	Functional_T	VB DLL									gt_grp2_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	gt_grp2_test2	IG-XL Template	Functional_T	VB DLL									gt_grp2_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev1_test1	IG-XL Template	Functional_T	VB DLL									lev1_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev1_test2	IG-XL Template	Functional_T	VB DLL									lev1_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev1_test3	IG-XL Template	Functional_T	VB DLL									lev1_test3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev1_test4	IG-XL Template	Functional_T	VB DLL									lev1_test4_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev1_test5	IG-XL Template	Functional_T	VB DLL									lev1_test5_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev2_test1	IG-XL Template	Functional_T	VB DLL									lev2_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev2_test2	IG-XL Template	Functional_T	VB DLL									lev2_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev2_test3	IG-XL Template	Functional_T	VB DLL									lev2_test3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev2_test4	IG-XL Template	Functional_T	VB DLL									lev2_test4_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	lev2_test5	IG-XL Template	Functional_T	VB DLL									lev2_test5_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	long_test	IG-XL Template	Functional_T	VB DLL									long_test_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	long_test1	IG-XL Template	Functional_T	VB DLL									long_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	long_test2	IG-XL Template	Functional_T	VB DLL									long_test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	nt1	IG-XL Template	Functional_T	VB DLL									nt1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	nt2	IG-XL Template	Functional_T	VB DLL									nt2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	nt3	IG-XL Template	Functional_T	VB DLL									nt3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	nt4	IG-XL Template	Functional_T	VB DLL									nt4_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	pgm	IG-XL Template	Functional_T	VB DLL									pgm_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	pgm1	IG-XL Template	Functional_T	VB DLL									pgm1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	probe_only_test1	IG-XL Template	Functional_T	VB DLL									probe_only_test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
@@ -20,4 +47,12 @@ DFF 1.3	Test Instances
 	read0	IG-XL Template	Functional_T	VB DLL									read0_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	read1	IG-XL Template	Functional_T	VB DLL									read1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	read2	IG-XL Template	Functional_T	VB DLL									read2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test1	IG-XL Template	Functional_T	VB DLL									test1_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test2	IG-XL Template	Functional_T	VB DLL									test2_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test3	IG-XL Template	Functional_T	VB DLL									test3_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test4	IG-XL Template	Functional_T	VB DLL									test4_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test5	IG-XL Template	Functional_T	VB DLL									test5_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test6	IG-XL Template	Functional_T	VB DLL									test6_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test7	IG-XL Template	Functional_T	VB DLL									test7_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
+	test8	IG-XL Template	Functional_T	VB DLL									test8_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
 	warmish_test	IG-XL Template	Functional_T	VB DLL									warmish_test_pset							1														XXXX	30			1	0	0			0	0	0	256	0	0																																														
