@@ -19,6 +19,17 @@ module OrigenTesters
           @delay = options[:delay]
         end
 
+        def ==(level)
+          if level.is_a? PinLevelSingle
+            vmain == level.vmain &&
+            valt == level.valt &&
+            ifold == level.ifold &&
+            delay == level.delay
+          else
+            super
+          end
+        end
+
         def platform
           Origen.interface.platform
         end

@@ -33,6 +33,24 @@ module OrigenTesters
           @clk_per  = options[:clk_per]
         end
 
+        def ==(edge)
+          if edge.is_a? Edge
+            d_src == edge.d_src &&
+            d_fmt == edge.d_fmt &&
+            d0_edge == edge.d0_edge &&
+            d1_edge == edge.d1_edge &&
+            d2_edge == edge.d2_edge &&
+            d3_edge == edge.d3_edge &&
+            c_mode == edge.c_mode &&
+            c1_edge == edge.c1_edge &&
+            c2_edge == edge.c2_edge &&
+            t_res == edge.t_res &&
+            clk_per == edge.clk_per
+          else
+            super
+          end
+        end
+
         def platform
           Origen.interface.platform
         end

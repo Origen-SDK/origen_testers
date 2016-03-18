@@ -40,7 +40,7 @@ module OrigenTesters
 
         # Equality check to compare full contents of edge object
         def edges_eql?(edge1, edge2)
-          edge1.instance_values == edge2.instance_values
+          edge1 == edge2
         end
 
         # Globally modify text within the edge object

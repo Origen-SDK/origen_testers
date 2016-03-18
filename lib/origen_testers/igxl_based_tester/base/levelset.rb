@@ -61,7 +61,7 @@ module OrigenTesters
 
         # Equality check to compare full contents of 2 level objects
         def levels_eql?(level1, level2)
-          level1.instance_values == level2.instance_values
+          level1 == level2
         end
 
         # Globally modify text within the level object

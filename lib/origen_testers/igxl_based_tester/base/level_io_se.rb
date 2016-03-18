@@ -33,6 +33,23 @@ module OrigenTesters
           @dmode     = options[:dmode]
         end
 
+        def ==(level)
+          if level.is_a? PinLevelSingle
+            vil == level.vil &&
+            vih == level.vih &&
+            vol == level.vol &&
+            voh == level.voh &&
+            vcl == level.vcl &&
+            vch == level.vch &&
+            vt == level.vt &&
+            voutlotyp == level.voutlotyp &&
+            vouthityp == level.vouthityp &&
+            dmode == level.dmode
+          else
+            super
+          end
+        end
+
         def platform
           Origen.interface.platform
         end
