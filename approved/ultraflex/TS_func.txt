@@ -1,0 +1,15 @@
+DTTimesetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Time Sets
+
+	Timing Mode:			Master Timeset Name:	
+	Time Domain:	
+
+			Cycle	Pin/Group
+	Time Set	Period	Name	Clock Period	Setup	Edge Set	Comment
+	default	=_cycle	tclk		i/o	default	
+	default	=_cycle	tdi		i/o	default	
+	default	=_cycle	tdo		i/o	default	
+	default	=_cycle	tms		i/o	default	
+	jtag	=_cycle	tclk	=_mcg_cycle	clock	es_jtag	
+	jtag	=_cycle	tdi		i/o	es_jtag	
+	jtag	=_cycle	tdo		i/o	es_jtag	
+	jtag	=_cycle	tms		i/o	es_jtag	
