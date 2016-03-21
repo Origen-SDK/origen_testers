@@ -20,6 +20,11 @@ module OrigenTesters
         add_pin :tdi
         add_pin :tdo
         add_pin :tms
+        # add_pin_group :jtag, :tdi, :tdo, :tms
+        add_power_pin_group :vdd1
+        add_power_pin_group :vdd2
+        add_virtual_pin :virtual1, type: :virtual_pin
+        add_virtual_pin :virtual2, type: :ate_ch
 
         reg :testme32, 0x007a do |reg|
           reg.bits 31..16, :portB
