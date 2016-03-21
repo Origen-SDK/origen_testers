@@ -6,7 +6,7 @@
 # global variable in Ruby, and this is required in order for the objects instantiated
 # here to be visible throughout your application code.
 
-$tester = Origen::Tester::Ultraflex.new  # Set the tester to the Origen model
+$tester = OrigenTesters::Ultraflex.new   # Set the tester to the Origen model
 
 $dut    = OrigenTesters::Test::DUT.new   # Instantiate a DUT instance
 
