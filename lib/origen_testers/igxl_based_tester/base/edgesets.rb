@@ -28,12 +28,15 @@ module OrigenTesters
         # Populate an array of pins based on the pin or pingroup
         def get_pin_objects(grp)
           pins = []
-          if Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
+          if Origen.top_level.pin(grp).is_a?(Origen::Pins::Pin) ||
+            Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
             pins << Origen.top_level.pin(grp)
           elsif Origen.top_level.pin(grp).is_a?(Origen::Pins::PinCollection)
             Origen.top_level.pin(grp).each do |pin|
               pins << pin
             end
+          else
+            Origen.log.error "Could not find pin class: #{grp}  #{Origen.top_level.pin(grp).class}"
           end
           pins
         end

@@ -24,6 +24,7 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
+          @@pinmaps_filename = nil
           @@test_instances_filename = nil
           @@patsets_filename = nil
           @@patgroups_filename = nil
@@ -37,6 +38,7 @@ module OrigenTesters
         # @api private
         def at_run_start
           flow.at_run_start
+          @@pinmap_sheets = nil
           @@test_instance_sheets = nil
           @@patset_sheets = nil
           @@flow_sheets = nil
@@ -58,6 +60,7 @@ module OrigenTesters
         #
         #   # The above is equivalent to:
         #
+        #   pinmaps_filename = "common"
         #   test_instances_filename = "common"
         #   patsets_filename = "common"
         #   patgroups_filename = "common"
@@ -67,6 +70,7 @@ module OrigenTesters
         #   ac_specsets_filename = "common"
         #   dc_specsets_filename = "common"
         def resources_filename=(name)
+          self.pinmaps_filename = name
           self.test_instances_filename = name
           self.patsets_filename = name
           self.patgroups_filename = name
@@ -75,6 +79,14 @@ module OrigenTesters
           self.levelsets_filename = name
           self.ac_specsets_filename = name
           self.dc_specsets_filename = name
+        end
+
+        # Set the name of the current pinmap sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access pinmaps.
+        def pinmaps_filename=(name)
+          @pinmaps_filename = name
+          @@pinmaps_filename = name
         end
 
         # Set the name of the current test instances sheet. This does not change
@@ -141,6 +153,11 @@ module OrigenTesters
           @@dc_specsets_filename = name
         end
 
+        # Returns the name of the current pinmaps sheet
+        def pinmaps_filename
+          @@pinmaps_filename ||= @pinmaps_filename || 'global'
+        end
+
         # Returns the name of the current test instances sheet
         def test_instances_filename
           @@test_instances_filename ||= @test_instances_filename || 'global'
@@ -179,6 +196,11 @@ module OrigenTesters
         # Returns the name of the current DC specset sheet
         def dc_specsets_filename
           @@dc_specsets_filename ||= @dc_specsets_filename || 'global'
+        end
+
+        # Returns a hash containing all pinmap sheets
+        def pinmap_sheets
+          @@pinmap_sheets ||= {}
         end
 
         # Returns a hash containing all test instance sheets
@@ -231,8 +253,8 @@ module OrigenTesters
         # All Origen program generators must implement this method
         def sheet_generators # :nodoc:
           g = []
-          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets,
-           edgeset_sheets, timeset_sheets, levelset_sheets,
+          [pinmap_sheets, flow_sheets, test_instance_sheets, patset_sheets,
+           patgroup_sheets, edgeset_sheets, timeset_sheets, levelset_sheets,
            ac_specset_sheets, dc_specset_sheets].each do |sheets|
             sheets.each do |name, sheet|
               g << sheet
@@ -250,6 +272,23 @@ module OrigenTesters
           end
           g
         end
+
+        # Returns the current pinmaps sheet (as defined by the current value of
+        # pinmaps_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def pinmaps(filename = pinmaps_filename)
+          f = filename.to_sym
+          return pinmap_sheets[f] if pinmap_sheets[f]
+          p = platform::Pinmap.new
+          p.filename = f
+          pinmap_sheets[f] = p
+        end
+        alias_method :pinmap, :pinmaps
+        alias_method :pin_map, :pinmaps
+        alias_method :pin_maps, :pinmaps
 
         # Returns the current test instances sheet (as defined by the current value of
         # test_instances_filename).
