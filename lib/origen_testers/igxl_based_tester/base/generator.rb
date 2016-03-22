@@ -286,8 +286,6 @@ module OrigenTesters
           p.filename = f
           pinmap_sheets[f] = p
         end
-        alias_method :pinmap, :pinmaps
-        alias_method :pin_map, :pinmaps
         alias_method :pin_maps, :pinmaps
 
         # Returns the current test instances sheet (as defined by the current value of
