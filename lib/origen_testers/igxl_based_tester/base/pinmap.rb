@@ -22,7 +22,7 @@ module OrigenTesters
 
         def add_pin(pin_name, attrs = {})
           attrs = {
-            type: 'I/O',
+            type:    'I/O',
             comment: ''
           }.merge(attrs)
           pin_name = pin_name.to_sym unless pin_name.is_a? Symbol
@@ -37,7 +37,7 @@ module OrigenTesters
 
         def add_group_pin(grp_name, pin_name, attrs = {})
           attrs = {
-            type: 'I/O',
+            type:    'I/O',
             comment: ''
           }.merge(attrs)
           grp_name = grp_name.to_sym unless grp_name.is_a? Symbol
@@ -53,7 +53,7 @@ module OrigenTesters
 
         def add_power_pin(pin_name, attrs = {})
           attrs = {
-            type: 'Power',
+            type:    'Power',
             comment: ''
           }.merge(attrs)
           pin_name = pin_name.to_sym unless pin_name.is_a? Symbol
@@ -68,7 +68,7 @@ module OrigenTesters
 
         def add_utility_pin(pin_name, attrs = {})
           attrs = {
-            type: 'Utility',
+            type:    'Utility',
             comment: ''
           }.merge(attrs)
           pin_name = pin_name.to_sym unless pin_name.is_a? Symbol

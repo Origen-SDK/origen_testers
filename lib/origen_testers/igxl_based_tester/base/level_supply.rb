@@ -22,9 +22,9 @@ module OrigenTesters
         def ==(level)
           if level.is_a? PinLevelSingle
             vmain == level.vmain &&
-            valt == level.valt &&
-            ifold == level.ifold &&
-            delay == level.delay
+              valt == level.valt &&
+              ifold == level.ifold &&
+              delay == level.delay
           else
             super
           end

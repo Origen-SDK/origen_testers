@@ -50,7 +50,7 @@ module OrigenTesters
         def get_pin_objects(grp)
           pins = []
           if Origen.top_level.pin(grp).is_a?(Origen::Pins::Pin) ||
-            Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
+             Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
             pins << Origen.top_level.pin(grp)
           elsif Origen.top_level.pin(grp).is_a?(Origen::Pins::PinCollection)
             Origen.top_level.pin(grp).each do |pin|
@@ -98,58 +98,6 @@ module OrigenTesters
           end
           data = data.gsub(/(\W)([a-zA-Z])/, '\1_\2')
           data = data.gsub(/(\*\s*)_([kmun]{0,1}[AVs]{1})/, '\1\2')
-        end
-
-        # Prepare the spec information for file output
-        def format_uflex_level(data, options = {})
-          options = {
-            spec: nil
-          }.update(options)
-
-          case options[:spec]
-          when /(voh|vol|vt|vcl|vch|vdd)/i
-            spec_type = 'volt'
-          when /(ioh|iol)/i
-            spec_type = 'curr'
-          else
-            spec_type = nil
-          end
-
-          case data
-          when NilClass
-            data_new = 0
-          when Fixnum, Float
-            case
-            when data == 0
-              data_new = data.to_s
-            when data.abs < 1e-6
-              data_new = (data * 1_000_000_000).round(4).to_s + '*nV' if spec_type == 'volt'
-              data_new = (data * 1_000_000_000).round(4).to_s + '*nA' if spec_type == 'curr'
-              data_new = data.to_s if spec_type.nil?
-            when data.abs < 1e-3
-              data_new = (data * 1_000_000).round(4).to_s + '*uV' if spec_type == 'volt'
-              data_new = (data * 1_000_000).round(4).to_s + '*uA' if spec_type == 'curr'
-              data_new = data.to_s if spec_type.nil?
-            when data.abs < 1
-              data_new = data.to_s + '*V' if spec_type == 'volt'
-              data_new = (data * 1_000).round(4).to_s + '*mA' if spec_type == 'curr'
-              data_new = data.to_s if spec_type.nil?
-            else
-              data_new = data.to_s + '*V' if spec_type == 'volt'
-              data_new = data.to_s + '*A' if spec_type == 'curr'
-              data_new = data.to_s if spec_type.nil?
-            end
-            data_new = data_new.gsub(/^/, '=')
-          when String
-            data_new = data.gsub(/^/, '=').gsub(/(\W)([a-zA-Z])/, '\1_\2')
-            # Remove underscores from unit designations
-            data_new.gsub!(/(\W)_(nV|uV|mV|V|nA|uA|mA|A)(\W)/i, '\1\2\3')
-            data_new.gsub!(/(\W)_(nV|uV|mV|V|nA|uA|mA|A)$/i, '\1\2')
-          else
-            Origen.log.error "Unknown class type (#{data.class}) for spec value:  #{data}"
-            fail
-          end
-          data_new
         end
 
         def platform

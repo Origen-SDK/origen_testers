@@ -30,7 +30,7 @@ module OrigenTesters
         def get_pin_objects(grp)
           pins = []
           if Origen.top_level.pin(grp).is_a?(Origen::Pins::Pin) ||
-            Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
+             Origen.top_level.pin(grp).is_a?(Origen::Pins::FunctionProxy)
             pins << Origen.top_level.pin(grp)
           elsif Origen.top_level.pin(grp).is_a?(Origen::Pins::PinCollection)
             Origen.top_level.pin(grp).each do |pin|

@@ -190,7 +190,7 @@ module OrigenTesters
       def ac_specset(sheet_name, expression, options = {})
         options = {
           specset: :default,
-          nom: { typ:  nil }
+          nom:     { typ:  nil }
         }.merge(options)
 
         ss = ac_specsets(sheet_name)
@@ -217,10 +217,10 @@ module OrigenTesters
       # Adds new AC Spec object(s) to the given Specset
       def add_ac_specs(ss, expression, options = {})
         options = {
-          specset: :default,
+          specset: :default
         }.merge(options)
 
-        return if !expression.is_a? String
+        return unless expression.is_a? String
         # collect all variable names within the expression
         vars = expression.scan(/[a-zA-Z][\w]+/).map(&:to_sym)
         vars.each do |var|
@@ -228,7 +228,7 @@ module OrigenTesters
           # The substitutions below are used for backward compatibility
           next if var =~ /^(d_on|d_data|d_ret|d_off|c_open|c_close)$/
           next if var =~ /^(nS|uS|mS|S)$/i
-          next if (ss.ac_specsets.key?(options[:specset]) && ss.ac_specsets[options[:specset]].include?(var))
+          next if ss.ac_specsets.key?(options[:specset]) && ss.ac_specsets[options[:specset]].include?(var)
 
           ss.add(var, options)
         end
@@ -320,10 +320,10 @@ module OrigenTesters
       # Adds new DC Spec object(s) to the given Specset
       def add_dc_specs(ss, expression, options = {})
         options = {
-          specset: :default,
+          specset: :default
         }.merge(options)
 
-        return if !expression.is_a? String
+        return unless expression.is_a? String
         vars = expression.scan(/[a-zA-Z][\w]+/).map(&:to_sym)
         vars.each do |var|
           next if var =~ /^(nA|uA|mA|A|nV|uV|mV|V)$/i

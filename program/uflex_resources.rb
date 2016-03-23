@@ -116,8 +116,8 @@ Resources.create do
     vcl:       'vclamp_low',          # Voltage clamp low
     vch:       'vclamp_low',          # Voltage clamp high
     vt:        'pin_supply * 0.50',   # Termination voltage
-    voutlotyp: 0,            #
-    vouthityp: 0,            #
+    voutlotyp: '0',            #
+    vouthityp: '0',            #
     dmode:     'Largeswing-VT' # Driver mode (possibly ATE-specific)
   }
   se_pin_options2 = {
@@ -128,8 +128,8 @@ Resources.create do
     vcl:       'vclamp_low',          # Voltage clamp low
     vch:       'vclamp_low',          # Voltage clamp high
     vt:        'pin_supply * 0.50',   # Termination voltage
-    voutlotyp: 0,            #
-    vouthityp: 0,            #
+    voutlotyp: '0',            #
+    vouthityp: '0',            #
     dmode:     'Largeswing-VT' # Driver mode (possibly ATE-specific)
   }
 
