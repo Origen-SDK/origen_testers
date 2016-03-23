@@ -1,0 +1,51 @@
+DTLevelSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pin Levels
+
+	Pin/Group	Seq.	Parameter	Value	Comment
+	vdd1		VMain	=_vdd_main_val	
+	vdd1		VAlt	=_vdd_alt_val	
+	vdd1		IFoldLevel	=_fold_val	
+	vdd1		Tdelay	=_delay_val	
+	vdd2		VMain	=_vdd_main_val	
+	vdd2		VAlt	=_vdd_alt_val	
+	vdd2		IFoldLevel	=_fold_val	
+	vdd2		Tdelay	=_delay_val	
+	tclk		Vil	=_pin_supply * 0.25	
+	tclk		Vih	=_pin_supply * 0.75	
+	tclk		Vol	=_pin_supply * 0.45	
+	tclk		Voh	=_pin_supply * 0.55	
+	tclk		Vt	=_pin_supply * 0.50	
+	tclk		Vcl	=_vclamp_low	
+	tclk		Vch	=_vclamp_low	
+	tclk		VoutLoTyp	=0	
+	tclk		VoutHiTyp	=0	
+	tclk		DriverMode	Largeswing-VT	
+	tdi		Vil	=_pin_supply * 0.25	
+	tdi		Vih	=_pin_supply * 0.75	
+	tdi		Vol	=_pin_supply * 0.45	
+	tdi		Voh	=_pin_supply * 0.55	
+	tdi		Vt	=_pin_supply * 0.50	
+	tdi		Vcl	=_vclamp_low	
+	tdi		Vch	=_vclamp_low	
+	tdi		VoutLoTyp	=0	
+	tdi		VoutHiTyp	=0	
+	tdi		DriverMode	Largeswing-VT	
+	tdo		Vil	=_pin_supply * 0.10	
+	tdo		Vih	=_pin_supply * 0.90	
+	tdo		Vol	=_pin_supply * 0.50	
+	tdo		Voh	=_pin_supply * 0.50	
+	tdo		Vt	=_pin_supply * 0.50	
+	tdo		Vcl	=_vclamp_low	
+	tdo		Vch	=_vclamp_low	
+	tdo		VoutLoTyp	=0	
+	tdo		VoutHiTyp	=0	
+	tdo		DriverMode	Largeswing-VT	
+	tms		Vil	=_pin_supply * 0.10	
+	tms		Vih	=_pin_supply * 0.90	
+	tms		Vol	=_pin_supply * 0.50	
+	tms		Voh	=_pin_supply * 0.50	
+	tms		Vt	=_pin_supply * 0.50	
+	tms		Vcl	=_vclamp_low	
+	tms		Vch	=_vclamp_low	
+	tms		VoutLoTyp	=0	
+	tms		VoutHiTyp	=0	
+	tms		DriverMode	Largeswing-VT	

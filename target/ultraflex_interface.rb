@@ -6,10 +6,8 @@
 # global variable in Ruby, and this is required in order for the objects instantiated
 # here to be visible throughout your application code.
 
-$tester = OrigenTesters::Ultraflex.new   # Set the tester to the Origen model
-
-$dut    = OrigenTesters::Test::DUT.new   # Instantiate a DUT instance
+$tester = OrigenTesters::UltraFLEX.new   # Use Tester plug-in
+$dut    = OrigenTesters::Test::UltraFLEXInterface.new
 
 # You can also perform global configuration here, e.g. 
 # $dut.do_something_before_every_job
-Origen.mode = :debug

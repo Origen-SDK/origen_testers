@@ -1,0 +1,25 @@
+DTDCSpecSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	DC Specs
+
+			Selector		default			power_down_levels			power_up_levels			
+	Symbol	Value	Name	Val	Typ	Min	Max	Typ	Min	Max	Typ	Min	Max	
+	vdd_main_val		nom	Typ	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
+	vdd_main_val		min	Min	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
+	vdd_main_val		max	Max	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
+	vdd_alt_val		nom	Typ	0	0	0	=8*V	=7*V	=9*V	0	0	0	
+	vdd_alt_val		min	Min	0	0	0	=8*V	=7*V	=9*V	0	0	0	
+	vdd_alt_val		max	Max	0	0	0	=8*V	=7*V	=9*V	0	0	0	
+	fold_val		nom	Typ	0	0	0	0	0	0	0	0	0	
+	fold_val		min	Min	0	0	0	0	0	0	0	0	0	
+	fold_val		max	Max	0	0	0	0	0	0	0	0	0	
+	pin_supply		nom	Typ	0	0	0	0	0	0	0	0	0	
+	pin_supply		min	Min	0	0	0	0	0	0	0	0	0	
+	pin_supply		max	Max	0	0	0	0	0	0	0	0	0	
+	vclamp_low		nom	Typ	0	0	0	0	0	0	0	0	0	
+	vclamp_low		min	Min	0	0	0	0	0	0	0	0	0	
+	vclamp_low		max	Max	0	0	0	0	0	0	0	0	0	
+	current1		nom	Typ	0	0	0	0	0	0	=2*mA	=1*mA	=3*mA	
+	current1		min	Min	0	0	0	0	0	0	=2*mA	=1*mA	=3*mA	
+	current1		max	Max	0	0	0	0	0	0	=2*mA	=1*mA	=3*mA	
+	voltage1		nom	Typ	0	0	0	0	0	0	=5*mV	=4*mV	=6*mV	
+	voltage1		min	Min	0	0	0	0	0	0	=5*mV	=4*mV	=6*mV	
+	voltage1		max	Max	0	0	0	0	0	0	=5*mV	=4*mV	=6*mV	

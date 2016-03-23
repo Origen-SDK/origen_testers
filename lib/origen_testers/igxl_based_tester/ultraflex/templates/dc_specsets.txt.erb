@@ -1,0 +1,58 @@
+% line_cnt = 5
+%
+% specset_names = dc_specsets.keys.join("\t\t\t") + "\t\t\t"
+% categories = "Typ\tMin\tMax\t" * dc_specsets.keys.size
+%
+<%= "DTDCSpecSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tDC Specs" %>
+<%= "" %>
+<%= "\t\t\tSelector\t\t#{specset_names}" %>
+<%= "\tSymbol\tValue\tName\tVal\t#{categories}" %>
+%
+% # Gather spec selectors
+% selectors = []
+% dc_specs.each do |next_spec|
+%   dc_specsets.each do |specset_name, ss|
+%     ss[next_spec].keys.each do |sel|
+%       selectors << sel unless selectors.include?(sel)
+%     end
+%   end
+% end
+%
+% # Gather spec values per category for each spec/specset
+% dc_specs.each do |next_spec|
+%   spec_line = ''
+%   categories = {}
+%   dc_specsets.each do |specset_name, ss|
+%     category_vals = {}
+%     ss[next_spec].keys.each do |selector|
+%       ss[next_spec][selector].each do |category, value|
+%         categories[selector] = category
+%
+%         case category
+%         when /^(typ|min|max)$/
+%         else
+%           Origen.log.error "Specset: #{specset_name}, Spec: #{next_spec} category (#{category}) is not one of :typ, :min, :max"
+%           fail
+%         end
+%
+%         if category_vals.key?(category) && category_vals[category] != ss[next_spec][selector][category]
+%           Origen.log.error "Specset: #{specset_name}, Spec: #{next_spec} has more than one value for category: #{category}"
+%           fail
+%         elsif !category_vals.key?(category)
+%           category_vals[category] = ss[next_spec][selector][category]
+%         end
+%       end
+%     end
+%     !category_vals.key?(:typ) ? category_vals[:typ] = nil : nil
+%     !category_vals.key?(:min) ? category_vals[:min] = nil : nil
+%     !category_vals.key?(:max) ? category_vals[:max] = nil : nil
+%     typ_val = format_uflex_dc_spec(category_vals[:typ], spec: next_spec)
+%     min_val = format_uflex_dc_spec(category_vals[:min], spec: next_spec)
+%     max_val = format_uflex_dc_spec(category_vals[:max], spec: next_spec)
+%     spec_line = spec_line + "#{typ_val}\t#{min_val}\t#{max_val}\t"
+%   end
+%   selectors.each do |selector|
+<%= "\t#{next_spec}\t\t#{selector}\t#{categories[selector].capitalize}\t#{spec_line}" %>
+%   end
+% end
+%

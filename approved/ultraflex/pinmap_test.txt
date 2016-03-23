@@ -1,0 +1,14 @@
+DTPinMap,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pin Map
+			USL Tag:	
+	Group Name	Pin Name	Type	Comment
+		vdd1	Power	# vdd1
+		vdd2	Power	# vdd2
+		virtual1	Utility	# virtual1
+		virtual2	I/O	# virtual2
+		tclk	I/O	# tclk
+		tdi	I/O	# tdi
+		tdo	I/O	# tdo
+		tms	I/O	# tms
+	JTAG	tdi	I/O	# JTAG
+	JTAG	tdo		# JTAG
+	JTAG	tms		# JTAG

@@ -1,0 +1,15 @@
+DTEdgesetSheet,version=2.3:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Edge Sets
+
+	Timing Mode:	Machine
+	Time Domain:				Strobe Ref Setup Name:
+
+			Data		Drive				Compare				Edge Resolution
+	Pin/Group	Edge Set	Src	Fmt	On	Data	Return	Off	Mode	Open	Close	Ref Offset	Mode	Comment
+	tclk	default	PAT	NR	=G8	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine
+	tclk	es_jtag	PAT	RL	=G9	=_clkre	=_clkre + 0.5 * _cycle	disable	Off	disable	disable		Machine
+	tdi	default	PAT	NR	=G10	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine
+	tdi	es_jtag	PAT	NR	=G11	=_clkre - _jtag_su	disable	disable	Off	disable	disable		Machine
+	tdo	default	PAT	NR	=G12	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine
+	tdo	es_jtag	PAT	NR	=G13	=_clkre	disable	disable	Edge	=_clkre + _jtag_ov	disable		Machine
+	tms	default	PAT	NR	=G14	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine
+	tms	es_jtag	PAT	NR	=G15	=_clkre - _jtag_su	disable	disable	Off	disable	disable		Machine

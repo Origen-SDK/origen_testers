@@ -1,0 +1,24 @@
+<%= "DTPinMap,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tPin Map" %>
+<%= "\t\t\tUSL Tag:\t" %>
+<%= "\tGroup Name\tPin Name\tType\tComment" %>
+% @power_pins.each do |pwr_pin, attrs|
+<%= "\t\t#{pwr_pin}\t#{attrs[:type]}\t#{attrs[:comment]}" %>
+% end
+% @utility_pins.each do |util_pin, attrs|
+<%= "\t\t#{util_pin}\t#{attrs[:type]}\t#{attrs[:comment]}" %>
+% end
+% @pins.each do |pin, attrs|
+<%= "\t\t#{pin}\t#{attrs[:type]}\t#{attrs[:comment]}" %>
+% end
+% @pin_groups.each do |group, pins|
+%   first_pin = true
+%   pins.each do |pin, attrs|
+%     if first_pin
+<%= "\t#{group}\t#{pin}\t#{attrs[:type]}\t#{attrs[:comment]}" %>
+%     else
+<%= "\t#{group}\t#{pin}\t\t#{attrs[:comment]}" %>
+%     end
+%     first_pin = false
+%   end
+% end
+%

@@ -27,23 +27,35 @@ module OrigenTesters
           unless Origen.interface.resources_mode?
             flow.at_flow_start if flow
           end
+          @@pinmaps_filename = nil
           @@test_instances_filename = nil
           @@patsets_filename = nil
           @@patgroups_filename = nil
+          @@edgesets_filename = nil
+          @@timesets_filename = nil
+          @@levelsets_filename = nil
+          @@ac_specsets_filename = nil
+          @@dc_specsets_filename = nil
         end
 
         # @api private
         def at_run_start
           flow.at_run_start
+          @@pinmap_sheets = nil
           @@test_instance_sheets = nil
           @@patset_sheets = nil
           @@flow_sheets = nil
           @@patgroup_sheets = nil
+          @@edgeset_sheets = nil
+          @@timeset_sheets = nil
+          @@levelset_sheets = nil
+          @@ac_specset_sheets = nil
+          @@dc_specset_sheets = nil
         end
         alias_method :reset_globals, :at_run_start
 
         # Convenience method to allow the current name for the test instance,
-        # patsets and patgroups sheets to be set to the same value.
+        # patsets, patgroups and timesets sheets to be set to the same value.
         #
         #   # my j750 interface
         #
@@ -51,13 +63,33 @@ module OrigenTesters
         #
         #   # The above is equivalent to:
         #
+        #   pinmaps_filename = "common"
         #   test_instances_filename = "common"
         #   patsets_filename = "common"
         #   patgroups_filename = "common"
+        #   edgesets_filename = "common"
+        #   timesets_filename = "common"
+        #   levelsets_filename = "common"
+        #   ac_specsets_filename = "common"
+        #   dc_specsets_filename = "common"
         def resources_filename=(name)
+          self.pinmaps_filename = name
           self.test_instances_filename = name
           self.patsets_filename = name
           self.patgroups_filename = name
+          self.edgesets_filename = name
+          self.timesets_filename = name
+          self.levelsets_filename = name
+          self.ac_specsets_filename = name
+          self.dc_specsets_filename = name
+        end
+
+        # Set the name of the current pinmap sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access pinmaps.
+        def pinmaps_filename=(name)
+          @pinmaps_filename = name
+          @@pinmaps_filename = name
         end
 
         # Set the name of the current test instances sheet. This does not change
@@ -84,6 +116,51 @@ module OrigenTesters
           @@patgroups_filename = name
         end
 
+        # Set the name of the current edgesets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def edgesets_filename=(name)
+          @edgesets_filename = name
+          @@edgesets_filename = name
+        end
+
+        # Set the name of the current timesets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def timesets_filename=(name)
+          @timesets_filename = name
+          @@timesets_filename = name
+        end
+
+        # Set the name of the current levelsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def levelsets_filename=(name)
+          @levelsets_filename = name
+          @@levelsets_filename = name
+        end
+
+        # Set the name of the current AC specsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def ac_specsets_filename=(name)
+          @ac_specsets_filename = name
+          @@ac_specsets_filename = name
+        end
+
+        # Set the name of the current DC specsets sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def dc_specsets_filename=(name)
+          @dc_specsets_filename = name
+          @@dc_specsets_filename = name
+        end
+
+        # Returns the name of the current pinmaps sheet
+        def pinmaps_filename
+          @@pinmaps_filename ||= @pinmaps_filename || 'global'
+        end
+
         # Returns the name of the current test instances sheet
         def test_instances_filename
           @@test_instances_filename ||= @test_instances_filename || 'global'
@@ -97,6 +174,36 @@ module OrigenTesters
         # Returns the name of the current pat groups sheet
         def patgroups_filename
           @@patgroups_filename ||= @patgroups_filename || 'global'
+        end
+
+        # Returns the name of the current edgesets sheet
+        def edgesets_filename
+          @@edgesets_filename ||= @edgesets_filename || 'global'
+        end
+
+        # Returns the name of the current timesets sheet
+        def timesets_filename
+          @@timesets_filename ||= @timesets_filename || 'global'
+        end
+
+        # Returns the name of the current levelsets sheet
+        def levelsets_filename
+          @@levelsets_filename ||= @levelsets_filename || 'global'
+        end
+
+        # Returns the name of the current AC specset sheet
+        def ac_specsets_filename
+          @@ac_specsets_filename ||= @ac_specsets_filename || 'global'
+        end
+
+        # Returns the name of the current DC specset sheet
+        def dc_specsets_filename
+          @@dc_specsets_filename ||= @dc_specsets_filename || 'global'
+        end
+
+        # Returns a hash containing all pinmap sheets
+        def pinmap_sheets
+          @@pinmap_sheets ||= {}
         end
 
         # Returns a hash containing all test instance sheets
@@ -119,12 +226,39 @@ module OrigenTesters
           @@patgroup_sheets ||= {}
         end
 
+        # Returns a hash containing all edgeset sheets
+        def edgeset_sheets
+          @@edgeset_sheets ||= {}
+        end
+
+        # Returns a hash containing all timeset sheets
+        def timeset_sheets
+          @@timeset_sheets ||= {}
+        end
+
+        # Returns a hash containing all levelset sheets
+        def levelset_sheets
+          @@levelset_sheets ||= {}
+        end
+
+        # Returns a hash containing all AC specsets sheets
+        def ac_specset_sheets
+          @@ac_specset_sheets ||= {}
+        end
+
+        # Returns a hash containing all DC specsets sheets
+        def dc_specset_sheets
+          @@dc_specset_sheets ||= {}
+        end
+
         # Returns an array containing all sheet generators where a sheet generator is a flow,
-        # test instance, patset or pat group sheet.
+        # test instance, patset, pat group, edgeset, timeset, or AC/DC specset sheet.
         # All Origen program generators must implement this method
         def sheet_generators # :nodoc:
           g = []
-          [flow_sheets, test_instance_sheets, patset_sheets, patgroup_sheets].each do |sheets|
+          [pinmap_sheets, flow_sheets, test_instance_sheets, patset_sheets,
+           patgroup_sheets, edgeset_sheets, timeset_sheets, levelset_sheets,
+           ac_specset_sheets, dc_specset_sheets].each do |sheets|
             sheets.each do |name, sheet|
               g << sheet
             end
@@ -141,6 +275,21 @@ module OrigenTesters
           end
           g
         end
+
+        # Returns the current pinmaps sheet (as defined by the current value of
+        # pinmaps_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def pinmaps(filename = pinmaps_filename)
+          f = filename.to_sym
+          return pinmap_sheets[f] if pinmap_sheets[f]
+          p = platform::Pinmap.new
+          p.filename = f
+          pinmap_sheets[f] = p
+        end
+        alias_method :pin_maps, :pinmaps
 
         # Returns the current test instances sheet (as defined by the current value of
         # test_instances_filename).
@@ -222,6 +371,97 @@ module OrigenTesters
         end
         alias_method :pat_groups, :patgroups
         alias_method :pattern_groups, :patgroups
+
+        # Returns the current collection of edges that are defined.  These are
+        # used in support of creating edgeset/timeset sheets.  They do not have
+        # an associated sheet of their own.
+        def edges
+          @@edges ||= platform::Edges.new
+        end
+        alias_method :edge_collection, :edges
+
+        # Returns the current edgesets sheet (as defined by the current value of
+        # edgesets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def edgesets(filename = edgesets_filename)
+          f = filename.to_sym
+          return edgeset_sheets[f] if edgeset_sheets[f]
+          e = platform::Edgesets.new
+          e.filename = f
+          edgeset_sheets[f] = e
+        end
+        alias_method :edge_sets, :edgesets
+
+        # Returns the current timesets sheet (as defined by the current value of
+        # timesets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def timesets(filename = timesets_filename)
+          f = filename.to_sym
+          return timeset_sheets[f] if timeset_sheets[f]
+          t = platform::Timesets.new
+          t.filename = f
+          timeset_sheets[f] = t
+        end
+        alias_method :time_sets, :timesets
+        alias_method :timing_sets, :timesets
+
+        # Returns the current collection of levels that are defined.  These are
+        # used in support of creating levelset sheets.  They do not have
+        # an associated sheet of their own.
+        def levels
+          @@levels ||= platform::Levels.new
+        end
+        alias_method :level_collection, :levels
+
+        # Returns the current levelsets sheet (as defined by the current value of
+        # levelsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def levelsets(filename = levelsets_filename)
+          f = filename.to_sym
+          return levelset_sheets[f] if levelset_sheets[f]
+          t = platform::Levelset.new
+          t.filename = f
+          levelset_sheets[f] = t
+        end
+        alias_method :time_sets, :timesets
+        alias_method :timing_sets, :timesets
+
+        # Returns the current AC specset sheet (as defined by the current value of
+        # ac_specsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def ac_specsets(filename = ac_specsets_filename)
+          f = filename.to_sym
+          return ac_specset_sheets[f] if ac_specset_sheets[f]
+          s = platform::ACSpecsets.new
+          s.filename = f
+          ac_specset_sheets[f] = s
+        end
+
+        # Returns the current DC specset sheet (as defined by the current value of
+        # dc_specsets_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def dc_specsets(filename = dc_specsets_filename)
+          f = filename.to_sym
+          return dc_specset_sheets[f] if dc_specset_sheets[f]
+          s = platform::DCSpecsets.new
+          s.filename = f
+          dc_specset_sheets[f] = s
+        end
 
         private
 
