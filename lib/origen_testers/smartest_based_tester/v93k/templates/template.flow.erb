@@ -28,6 +28,9 @@ declarations
 %   flow_control_variables.each do |var|
 @<%= var.to_s.upcase %> = -1;
 %   end
+%   runtime_control_variables.each do |var|
+@<%= var.to_s.upcase %> = -1;
+%   end
 % end
 end
 --------------------------------------------------
@@ -160,16 +163,12 @@ test_flow
 %   end
 % else
 {
-%   flow_control_variables.each do |var|
+%   runtime_control_variables.each do |var|
     @<%= var.to_s.upcase %> = -1;
 %   end
 }, open,"Init Flow Control Vars", ""
-%   collection.each do |node|
-%     unless node.rendered? || node.deleted? || node.empty?
-%       node.lines.each do |line|
+%   lines.each do |line|
 <%= line %>
-%       end
-%     end
 %   end
 % end
 end

@@ -4,7 +4,7 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.3.0.pre38";
+test_revision = "0.5.6";
 -- STARTDIFF
  
 end
@@ -156,6 +156,70 @@ tm_6:
   "ppmuClampHigh" = "0[V]";
   "output" = "None";
   "testName" = "passLimit_uA_mV";
+tm_7:
+  "pinlist" = "@";
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "spmuClamp" = "0[A]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "settlingTime" = "0[s]";
+  "testerState" = "CONNECTED";
+  "termination" = "OFF";
+  "measureMode" = "PPMUpar";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "ppmuClampLow" = "0[V]";
+  "ppmuClampHigh" = "0[V]";
+  "output" = "None";
+  "testName" = "passLimit_uA_mV";
+tm_8:
+  "pinlist" = "@";
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "spmuClamp" = "0[A]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "settlingTime" = "0[s]";
+  "testerState" = "CONNECTED";
+  "termination" = "OFF";
+  "measureMode" = "PPMUpar";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "ppmuClampLow" = "0[V]";
+  "ppmuClampHigh" = "0[V]";
+  "output" = "None";
+  "testName" = "passLimit_uA_mV";
+tm_9:
+  "pinlist" = "@";
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "spmuClamp" = "0[A]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "settlingTime" = "0[s]";
+  "testerState" = "CONNECTED";
+  "termination" = "OFF";
+  "measureMode" = "PPMUpar";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "ppmuClampLow" = "0[V]";
+  "ppmuClampHigh" = "0[V]";
+  "output" = "None";
+  "testName" = "passLimit_uA_mV";
+tm_10:
+  "pinlist" = "@";
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "spmuClamp" = "0[A]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "settlingTime" = "0[s]";
+  "testerState" = "CONNECTED";
+  "termination" = "OFF";
+  "measureMode" = "PPMUpar";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "ppmuClampLow" = "0[V]";
+  "ppmuClampHigh" = "0[V]";
+  "output" = "None";
+  "testName" = "passLimit_uA_mV";
 end
 --------------------------------------------------
 testmethodlimits
@@ -168,9 +232,17 @@ tm_3:
 tm_4:
   "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
 tm_5:
-  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
 tm_6:
-  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
+tm_7:
+  "passLimit_uA_mV" = "0.01":"GE":"2000":"LE":"":"":"0";
+tm_8:
+  "passLimit_uA_mV" = "0.01":"GE":"_some_spec":"LE":"":"":"0";
+tm_9:
+  "passLimit_uA_mV" = "":"NA":"[1, 2]":"LE":"":"":"0";
+tm_10:
+  "passLimit_uA_mV" = "[1.0e-06, 2.0e-06, 3.0e-06]":"GE":"[4.0e-06, 5.0e-06]":"LE":"":"":"0";
 end
 --------------------------------------------------
 testmethods
@@ -185,6 +257,14 @@ tm_4:
 tm_5:
   testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_6:
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
+tm_7:
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
+tm_8:
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
+tm_9:
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
+tm_10:
   testmethod_class = "dc_tml.DcTest.GeneralPMU";
 end
 --------------------------------------------------
@@ -231,6 +311,34 @@ meas_read_pump_5:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
+meas_read_pump_6:
+  override = 1;
+ override_seqlbl = "meas_read_pump";
+ override_testf = tm_7;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+meas_read_pump_7:
+  override = 1;
+ override_seqlbl = "meas_read_pump";
+ override_testf = tm_8;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+meas_read_pump_8:
+  override = 1;
+ override_seqlbl = "meas_read_pump";
+ override_testf = tm_9;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+meas_read_pump_9:
+  override = 1;
+ override_seqlbl = "meas_read_pump";
+ override_testf = tm_10;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
 end
 --------------------------------------------------
 test_flow
@@ -242,7 +350,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_1)
 then
@@ -250,7 +358,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_2)
 then
@@ -258,7 +366,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_3)
 then
@@ -266,7 +374,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_4)
 then
@@ -274,7 +382,7 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 run_and_branch(meas_read_pump_5)
 then
@@ -282,7 +390,36 @@ then
 }
 else
 {
-   stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+}
+run_and_branch(meas_read_pump_6)
+then
+{
+}
+else
+{
+}
+run_and_branch(meas_read_pump_7)
+then
+{
+}
+else
+{
+}
+run_and_branch(meas_read_pump_8)
+then
+{
+}
+else
+{
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+}
+run_and_branch(meas_read_pump_9)
+then
+{
+}
+else
+{
+  stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
 }
 end
 -------------------------------------------------

@@ -61,8 +61,6 @@ p1_or_p2_only_test.binl.gz
 pgm.binl.gz
 pgm1.binl.gz
 pgm_ckbd.binl.gz
-pgm_vfy_oof_passcode_redcols_utst.binl.gz
-pgm_vfy_oof_passcode_tst.binl.gz
 por_ins.binl.gz
 probe_only_test1.binl.gz
 probe_only_test2.binl.gz
@@ -72,10 +70,14 @@ program_ckbd_b1.binl.gz
 program_ckbd_b2.binl.gz
 read0.binl.gz
 read1.binl.gz
-read1_b0.binl.gz
-read1_b1.binl.gz
-read1_b2.binl.gz
 read2.binl.gz
 test1.binl.gz
+test2.binl.gz
+test3.binl.gz
+test4.binl.gz
+test5.binl.gz
+test6.binl.gz
+test7.binl.gz
+test8.binl.gz
 warmish_test.binl.gz
 

@@ -51,6 +51,11 @@ module OrigenTesters
         ins = test_instances.functional(name)
         ins.set_wait_flags(:a) if options[:duration] == :dynamic
         ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
+        ins.lo_limit = options[:lo_limit]
+        ins.hi_limit = options[:hi_limit]
+        ins.scale = options[:scale]
+        ins.units = options[:units]
+        ins.defer_limits = options[:defer_limits]
 
         pname = "#{name}_pset"
         patsets.add(pname, [{ pattern: "#{name}.PAT" },
@@ -59,10 +64,7 @@ module OrigenTesters
         if options[:cz_setup]
           flow.cz(ins, options[:cz_setup], options)
         else
-          use_limit_params = [:lo_limit, :hi_limit, :scale, :units] # define options to strip for flow.test
-          options_use_limit = options.dup                           # duplicate, as modifying options directly, even an assigned copy modifies original
-          flow.test(ins, options.reject! { |k, _| use_limit_params.include? k })    # set up test skipping use-limit options
-          flow.use_limit(name, options_use_limit) if options_use_limit[:hi_limit] || options_use_limit[:lo_limit]  # Only use use-limit if limits present in flow
+          flow.test(ins, options)
         end
       end
 

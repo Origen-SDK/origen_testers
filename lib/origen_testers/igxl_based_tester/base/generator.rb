@@ -24,6 +24,9 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
+          unless Origen.interface.resources_mode?
+            flow.at_flow_start if flow
+          end
           @@pinmaps_filename = nil
           @@test_instances_filename = nil
           @@patsets_filename = nil
@@ -340,14 +343,17 @@ module OrigenTesters
         # Pass in a filename argument to have a specific sheet returned instead.
         #
         # If the sheet does not exist yet it will be created.
-        def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
-          # DH here need to reset the flow!!
-          f = filename.to_sym
-          return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
-          p = platform::Flow.new
-          p.inhibit_output if Origen.interface.resources_mode?
-          p.filename = f
-          flow_sheets[f] = p
+        def flow(filename = nil)
+          if filename || Origen.file_handler.current_file
+            filename ||= Origen.file_handler.current_file.basename('.rb').to_s
+            # DH here need to reset the flow!!
+            f = filename.to_sym
+            return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
+            p = platform::Flow.new
+            p.inhibit_output if Origen.interface.resources_mode?
+            p.filename = f
+            flow_sheets[f] = p
+          end
         end
 
         # Returns the current pattern groups sheet (as defined by the current value of

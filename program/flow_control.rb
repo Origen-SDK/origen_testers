@@ -51,18 +51,6 @@ Flow.create do
     func :read0
   end
 
-  log "Test that skip works"
-  skip do
-    func :read0
-    func :read0
-  end
-
-  log "Test that conditional skip works"
-  skip if_passed: :t4 do
-    func :read0
-    func :read0
-  end
-
   log "Test that if_job works"
   func :cold_test, if_job: :fc
 
@@ -99,66 +87,206 @@ Flow.create do
     func :long_test2
   end
 
-  if $tester.v93k?
-    log "Test that an id can be assigned to a test group"
-    func :read1, id: :r1, bin: 10, by_block: true
-    func :erase1, if_failed: :r1
+  log "Test that if_any_failed works"
+  func :test1, id: :ifa1
+  func :test2, id: :ifa2
+  func :test3, if_any_failed: [:ifa1, :ifa2]
 
-    log "Test that group-level dependencies work"
-    group "grp1", id: :grp1 do
-      func :grp1_test1, bin: 5
-      func :grp1_test2, bin: 5
-      func :grp1_test3, bin: 5
-    end
+  log "Test the block form of if_any_failed"
+  func :test1, id: :oof_passcode1
+  func :test2, id: :oof_passcode2
+  if_any_failed :oof_passcode1, :oof_passcode2 do
+    func :test3
+    func :test4
+  end
 
-    group "grp2", if_failed: :grp1 do
-      func :grp2_test1, bin: 5
-      func :grp2_test2, bin: 5
-      func :grp2_test3, bin: 5
-    end
+  log "Test that if_all_failed works"
+  func :test1, id: :ifall1
+  func :test2, id: :ifall2
+  func :test3, if_all_failed: [:ifall1, :ifall2]
 
-    log "Another group-level dependencies test based on a real life use case"
-    func :gt1, bin: 90
-    group "gt_grp1", id: :gt_grp1 do
-      func :gt_grp1_test1, bin: 90, id: :gt_grp1
-      func :gt_grp1_test2, bin: 90, id: :gt_grp1
-    end
-    func :gt2, bin: 90, if_failed: :gt_grp1
-    group "gt_grp2", id: :gt_grp2, if_failed: :gt_grp1 do
-      # The if_failed and IDs here are redundant, but it should still generate
-      # valid output if an application were to do this
-      func :gt_grp2_test1, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
-      func :gt_grp2_test2, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
-    end
-    func :gt3, bin: 90, if_failed: :gt_grp2
+  log "Test the block form of if_all_failed"
+  func :test1, id: :ifallb1
+  func :test2, id: :ifallb2
+  if_all_failed [:ifallb1, :ifallb2] do
+    func :test3
+    func :test4
+  end
 
-    log "Test that nested groups work"
-    group "level1" do
-      func :lev1_test1, bin: 5
-      func :lev1_test2, bin: 5
-      func :lev1_test3, id: :l1t3, bin: 10
-      func :lev1_test4, if_failed: :l1t3, bin: 12
-      func :lev1_test5, id: :l1t5, bin: 12
-      group "level2" do
-        func :lev2_test1, bin: 5
-        func :lev2_test2, bin: 5
-        func :lev2_test3, id: :l2t3, bin: 10
-        func :lev2_test4, if_failed: :l2t3, bin: 12
-        # Test dependency on a test from another group
-        func :lev2_test5, if_failed: :l1t5, bin: 12
+  log "Test that if_any_passed works"
+  func :test1, id: :ifap1
+  func :test2, id: :ifap2
+  func :test3, if_any_passed: [:ifap1, :ifap2]
+
+  log "Test the block form of if_any_passed"
+  func :test1, id: :ifapb1
+  func :test2, id: :ifapb2
+  if_any_passed :ifapb1, :ifapb2 do
+    func :test3
+    func :test4
+  end
+
+  log "Test that if_all_passed works"
+  func :test1, id: :ifallp1
+  func :test2, id: :ifallp2
+  func :test3, if_all_passed: [:ifallp1, :ifallp2]
+
+  log "Test the block form of if_all_passed"
+  func :test1, id: :ifallpb1
+  func :test2, id: :ifallpb2
+  if_all_passed :ifallpb1, :ifallpb2 do
+    func :test3
+    func :test4
+  end
+
+  log "Test that group-level dependencies work"
+  group "grp1", id: :grp1 do
+    func :grp1_test1, bin: 5
+    func :grp1_test2, bin: 5
+    func :grp1_test3, bin: 5
+  end
+
+  group "grp2", if_failed: :grp1 do
+    func :grp2_test1, bin: 5
+    func :grp2_test2, bin: 5
+    func :grp2_test3, bin: 5
+  end
+
+  log "Another group-level dependencies test based on a real life use case"
+  func :gt1, bin: 90
+  group "gt_grp1", id: :gt_grp1 do
+    func :gt_grp1_test1, bin: 90, id: :gt_grp1
+    func :gt_grp1_test2, bin: 90, id: :gt_grp1
+  end
+  func :gt2, bin: 90, if_failed: :gt_grp1
+  group "gt_grp2", id: :gt_grp2, if_failed: :gt_grp1 do
+    # The if_failed and IDs here are redundant, but it should still generate
+    # valid output if an application were to do this
+    func :gt_grp2_test1, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
+    func :gt_grp2_test2, bin: 90, id: :gt_grp2, if_failed: :gt_grp1
+  end
+  func :gt3, bin: 90, if_failed: :gt_grp2
+
+  log "Test that nested groups work"
+  group "level1" do
+    func :lev1_test1, bin: 5
+    func :lev1_test2, bin: 5
+    func :lev1_test3, id: :l1t3, bin: 10
+    func :lev1_test4, if_failed: :l1t3, bin: 12
+    func :lev1_test5, id: :l1t5, bin: 12
+    group "level2" do
+      func :lev2_test1, bin: 5
+      func :lev2_test2, bin: 5
+      func :lev2_test3, id: :l2t3, bin: 10
+      func :lev2_test4, if_failed: :l2t3, bin: 12
+      # Test dependency on a test from another group
+      func :lev2_test5, if_failed: :l1t5, bin: 12
+    end
+  end
+
+  log "Test nested conditions on a group"
+  func :nt1, bin: 10, id: :nt1
+  if_failed :nt1 do
+    func :nt2, bin: 11, id: :nt2
+    group "ntg1", id: :ntg1, if_passed: :nt2 do
+      func :nt3, bin: 12
+    end
+    group "ntg2", id: :ntg2, if_failed: :nt2 do
+      func :nt4, bin: 13
+    end
+  end
+
+  log "Embedded conditional tests 1"
+  func :test1, id: :ect1_1
+  if_failed :ect1_1 do
+    func :test2
+    func :test3, id: :ect1_3
+    if_failed :ect1_3 do
+      func :test4
+    end
+  end
+
+  log "Embedded conditional tests 2"
+  func :test1, id: :ect2_1
+  func :test2, id: :ect2_2
+  if_failed :ect2_1 do
+    func :test3, if_failed: :ect2_2
+    func :test4, if_enable: "en1"
+    if_enable "en2" do
+      func :test5
+      func :test6
+    end
+    func :test7
+  end
+  func :test8
+
+  log "Nested enable word test 1"
+  if_enable "word1" do
+    func :test1
+    if_enable "word2" do
+      func :test2
+    end
+  end
+
+  log "Nested enable word test 2"
+  if_enable "word1" do
+    func :test1
+    unless_enable "word2" do
+      func :test2
+    end
+  end
+
+  log "Nested enable word test 3"
+  if_enable ["word1", "word2"] do
+    func :test1
+    if_enable "word3" do
+      func :test2
+    end
+  end
+
+  log "Conditional enable test"
+  enable :nvm_minimum_ft, if_enable: "nvm_minimum_room", if_job: :fr
+  enable :nvm_minimum_ft, if_enable: "nvm_minimum_cold", if_job: :fc
+  disable :nvm_minimum_ft, if_enable: "nvm_minimum_hot", if_job: :fh
+
+  log "Test enable words that wrap a lot of tests"
+  if_enable :word1 do
+    5.times do
+      func :test1
+    end
+    if_enable :word2 do
+      4.times do
+        func :test1
       end
+      func :test1, enable: :word3
     end
+  end
 
-    log "Test nested conditions on a group"
-    func :nt1, bin: 10, id: :nt1
-    if_failed :nt1 do
-      func :nt2, bin: 11, id: :nt2
-      group "ntg1", id: :ntg1, if_passed: :nt2 do
-        func :nt3, bin: 12
-      end
-      group "ntg2", id: :ntg2, if_failed: :nt2 do
-        func :nt4, bin: 13
-      end
-    end
+  if tester.j750?
+    log "This should generate an AND flag"
+    func :test1, id: :at1
+    func :test2, id: :at2
+    if_failed :at1 do
+      func :test3, if_failed: :at2
+      # This should re-use the AND flag, rather than create a duplicate
+      func :test4, if_failed: :at2
+    end 
+    log "This should NOT generate an AND flag"
+    # Creating an AND flag here is logically correct, but creates un-necessary flow lines. Since
+    # the test at11 is already gated by the at21 condition, it does not need to be applied to any
+    # tests that are dependent on at11.
+    func :test1, id: :at11
+    if_failed :at11 do
+      func :test2, id: :at21
+      func :test3, if_failed: :at21
+      func :test4, if_failed: :at21
+    end 
+  end
+
+  log "Manual flag setting"
+  test :test1, on_fail: { set_flag: :my_flag }, continue: true
+  test :test2, if_flag: :my_flag
+  unless_flag :my_flag do
+    test :test3
   end
 end

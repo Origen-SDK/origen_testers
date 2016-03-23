@@ -2,7 +2,7 @@ module OrigenTesters
   module IGXLBasedTester
     class Base
       class TestInstance
-        attr_accessor :type, :index, :version, :append_version, :finalize
+        attr_accessor :type, :index, :version, :append_version, :finalize, :meta
 
         def self.define
           # Generate accessors for all attributes and their aliases
@@ -46,6 +46,7 @@ module OrigenTesters
         end
 
         def initialize(name, type, attrs = {})
+          @meta = {}
           @type = type
           @append_version = true
           self.name = name
@@ -66,6 +67,35 @@ module OrigenTesters
           attrs.each do |k, v|
             send("#{k}=", v) if self.respond_to?("#{k}=", v)
           end
+        end
+
+        # Returns a hash containing key meta data about the test instance, this is
+        # intended to be used in documentation
+        def to_meta
+          m = { 'Test' => name,
+                'Type' => type
+          }
+          if type == :functional
+            m['Pattern'] = pattern
+          elsif type == :board_pmu || type == :pin_pmu
+            m['Measure'] = fvmi? ? 'current' : 'voltage'
+            if hi_lo_limit_valid & 2 != 0
+              m['Hi'] = hi_limit
+            end
+            if hi_lo_limit_valid & 1 != 0
+              m['Lo'] = lo_limit
+            end
+            if force_cond
+              m['Force'] = force_cond
+            end
+          end
+          m['DC'] = "#{dc_category} (#{dc_selector})"
+          m['AC'] = "#{ac_category} (#{ac_selector})"
+          m.merge(@meta)
+        end
+
+        def inspect
+          "<TestInstance: #{name}, Type: #{type}>"
         end
 
         def ==(other_instance)
@@ -167,6 +197,7 @@ module OrigenTesters
           end
           self
         end
+        alias_method :hi_limit=, :set_hi_limit
 
         # Set and enable the hi limit of a parametric test instance, passing in
         # nil or false as the lim parameter will disable the hi limit.
@@ -179,6 +210,7 @@ module OrigenTesters
           end
           self
         end
+        alias_method :lo_limit=, :set_lo_limit
 
         # Set the current range of the test instance, the following are valid:
         #

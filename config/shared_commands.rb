@@ -41,7 +41,13 @@ case @command
    require "#{Origen.root!}/lib/commands/build"
     exit 0
 
+  when "testers:run"
+   require "#{Origen.root!}/lib/commands/run"
+    exit 0
+
+
   else
   @plugin_commands << " testers:build   Build a test program from a collection of sub-programs"
+  @plugin_commands << " testers:run     Run the last test program generated for the current target"
 
 end 

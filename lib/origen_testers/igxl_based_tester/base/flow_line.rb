@@ -57,6 +57,10 @@ module OrigenTesters
             opcode: 'Test',
             result: 'Fail'
           },
+          test_defer_limits: {
+            opcode: 'Test-defer-limits',
+            result: 'Fail'
+          },
           cz:                {
             opcode: 'characterize',
             result: 'None'
@@ -198,59 +202,9 @@ module OrigenTesters
           "#{l}"
         end
 
-        def job
-          if !if_jobs.empty? && !unless_jobs.empty?
-            fail "Both if and unless jobs have been defined for test: #{parameter}"
-          elsif !if_jobs.empty?
-            if_jobs.join(',')
-          elsif !unless_jobs.empty?
-            unless_jobs.map { |j| "!#{j}" }.join(',')
-          else
-            ''
-          end
-        end
-        alias_method :jobs, :job
-
         def unless_enable=(*args)
         end
         alias_method :unless_enabled=, :unless_enable=
-
-        def if_jobs
-          @if_jobs ||= []
-        end
-
-        def unless_jobs
-          @unless_jobs ||= []
-        end
-
-        def if_job=(jobs)
-          [jobs].flatten.compact.each do |job|
-            job = job.to_s.upcase
-            if job =~ /!/
-              self.unless_job = job
-            else
-              if_jobs << job unless if_jobs.include?(job)
-            end
-          end
-        end
-        alias_method :if_jobs=, :if_job=
-        alias_method :add_if_jobs, :if_job=
-        alias_method :add_if_job, :if_job=
-
-        def unless_job=(jobs)
-          [jobs].flatten.compact.each do |job|
-            job = job.to_s.upcase
-            job.gsub!('!', '')
-            unless_jobs << job unless unless_jobs.include?(job)
-          end
-        end
-        alias_method :unless_jobs=, :unless_job=
-        alias_method :add_unless_jobs, :unless_job=
-        alias_method :add_unless_job, :unless_job=
-
-        def continue_on_fail
-          self.result = 'None'
-        end
 
         def continue_pass
           self.result = 'Pass'
@@ -267,10 +221,6 @@ module OrigenTesters
         #          def debug_sites
         #            self.debug_sites = "All"
         #          end
-
-        def set_flag_on_fail
-          self.flag_fail = "#{id}_FAILED"
-        end
 
         def set_flag_on_pass
           self.flag_pass = "#{id}_PASSED"

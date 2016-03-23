@@ -12,7 +12,6 @@ module OrigenTesters
 
     included do
       Origen.add_interface(self)
-      include Generator::FlowControlAPI::Interface
     end
 
     module ClassMethods

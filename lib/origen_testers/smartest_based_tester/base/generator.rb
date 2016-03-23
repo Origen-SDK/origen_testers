@@ -26,6 +26,7 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
+          flow.at_flow_start
         end
 
         # @api private
@@ -40,9 +41,7 @@ module OrigenTesters
 
         def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
           f = filename.to_sym
-          if Origen.interface.resources_mode?
-            f = f.to_s.sub(/_resources?/, '').to_sym
-          end
+          f = f.to_s.sub(/_resources?/, '').to_sym
           return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
           p = platform::Flow.new
           p.inhibit_output if Origen.interface.resources_mode?
