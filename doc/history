@@ -1,3 +1,28 @@
+<a class="anchor release_tag" name="v0_6_0"></a>
+<h1><a href="#v0_6_0">Tag: v0.6.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 23-Mar-2016 12:57PM
+
+
+Some major feature additions:
+
+Completely overhauled test flow generator backend, which now fully supports the same test flow
+source code rendering to J750, UltraFLEX and V93K.
+
+Official documentation for this is still to follow, but for now see the comments in the
+pull-request for some examples:
+[PR \#3](https://github.com/Origen-SDK/origen\_testers/pull/3)
+
+Added generator APIs for UltraFLEX pinmaps, edgesets, timesets, levelsets, and AC and DC
+spec sets (Aaron Burgmeier).
+
+Again the documentation is still to come, but examples of using these APIs can be found
+in lib/origen\_testers/test/ultraflex\_interface.rb on
+[Github](https://github.com/Origen-SDK/origen\_testers/blob/master/lib/origen\_testers/test/ultraflex\_interface.rb)
+
+
 <a class="anchor release_tag" name="v0_5_7"></a>
 <h1><a href="#v0_5_7">Tag: v0.5.7</a></h1>
 
