@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_6_1"></a>
+<h1><a href="#v0_6_1">Tag: v0.6.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 31-Mar-2016 07:36AM
+
+
+Added link? method to the common API (i.e. available on all tester objects) to check if
+the current tester is an OrigenLink driver
+
 <a class="anchor release_tag" name="v0_6_0"></a>
 <h1><a href="#v0_6_0">Tag: v0.6.0</a></h1>
 
