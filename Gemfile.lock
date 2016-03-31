@@ -58,6 +58,8 @@ GEM
     net-ldap (0.14.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.7.2-x86-mingw32)
+      mini_portile2 (~> 2.0.0.rc2)
     origen (0.7.0)
       activesupport (~> 4.1)
       bundler (~> 1.7)
@@ -143,6 +145,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   byebug (~> 3.5)
