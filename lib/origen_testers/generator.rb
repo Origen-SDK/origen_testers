@@ -204,11 +204,11 @@ module OrigenTesters
     def output_file
       if respond_to? :subdirectory
         p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
-        FileUtils.mkdir_p p.dirname.to_s unless p.dirname.exist?
-        p
       else
-        Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
+        p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
       end
+      FileUtils.mkdir_p p.dirname.to_s unless p.dirname.exist?
+      p
     end
 
     def reference_file
