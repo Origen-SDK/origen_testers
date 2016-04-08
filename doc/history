@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_6_2"></a>
+<h1><a href="#v0_6_2">Tag: v0.6.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 08-Apr-2016 09:02AM
+
+
+Minor patch to create the test program output directory if it doesn't exist
+
 <a class="anchor release_tag" name="v0_6_1"></a>
 <h1><a href="#v0_6_1">Tag: v0.6.1</a></h1>
 
