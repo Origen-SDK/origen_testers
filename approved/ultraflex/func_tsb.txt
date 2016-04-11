@@ -1,0 +1,15 @@
+DTTimesetBasicSheet,version=2.3:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Time Sets (Basic)
+
+	Timing Mode:			Master Timeset Name:	
+	Time Domain:			Strobe Ref Setup Name:
+
+		Cycle	Pin/Group			Data		Drive				Compare				Edge Resolution
+	Time Set	Period	Name	Clock Period	Setup	Src	Fmt	On	Data	Return	Off	Mode	Open	Close	Ref Offset	Mode	Comment
+	default	=_cycle	tclk		i/o	PAT	NR	=J8	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine	
+	default	=_cycle	tdi		i/o	PAT	NR	=J9	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine	
+	default	=_cycle	tdo		i/o	PAT	NR	=J10	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine	
+	default	=_cycle	tms		i/o	PAT	NR	=J11	=_clkre + 0.25 * _cycle	disable	disable	Edge	=_clkre + 0.75 * _cycle	disable		Machine	
+	jtag	=_cycle	tclk	=_mcg_cycle	clock	PAT	RL	=J12	=_clkre	=_clkre + 0.5 * _cycle	disable	Off	disable	disable		Machine	
+	jtag	=_cycle	tdi		i/o	PAT	NR	=J13	=_clkre - _jtag_su	disable	disable	Off	disable	disable		Machine	
+	jtag	=_cycle	tdo		i/o	PAT	NR	=J14	=_clkre	disable	disable	Edge	=_clkre + _jtag_ov	disable		Machine	
+	jtag	=_cycle	tms		i/o	PAT	NR	=J15	=_clkre - _jtag_su	disable	disable	Off	disable	disable		Machine	

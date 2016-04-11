@@ -90,7 +90,7 @@ GEM
       origen (~> 0.2)
     origen_swd (0.5.0)
       origen (~> 0.2)
-    parser (2.3.0.6)
+    parser (2.3.0.7)
       ast (~> 2.2)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -152,6 +152,3 @@ DEPENDENCIES
   origen_jtag (>= 0.12.0)
   origen_testers!
   yard-activesupport-concern
-
-BUNDLED WITH
-   1.11.2

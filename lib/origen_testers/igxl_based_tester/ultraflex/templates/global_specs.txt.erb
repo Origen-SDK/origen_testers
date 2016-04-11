@@ -1,0 +1,16 @@
+<%= "DTGlobalSpecSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tGlobal Specs" %>
+<%= "" %>
+<%= "\tSymbol\tJob\tValue\tComment" %>
+<%= "\tVcl_default\t\t-1\tDetector clamp voltage low" %>
+<%= "\tVch_default\t\t6\tDetector clamp voltage high" %>
+<%= "\tVph_default\t\t5\t" %>
+%
+% # Gather spec values per category for each spec/specset
+% global_specs.sort.each do |next_spec, jobs|
+%   jobs.each do |job, attrs|
+%   value = format_uflex_global_spec(attrs[:value], spec: next_spec)
+%   comnt = attrs[:comment]
+<%= "\t#{next_spec}\t#{job}\t#{value}\t#{comnt}" %>
+%   end
+% end
+%

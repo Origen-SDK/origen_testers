@@ -1,7 +1,7 @@
 DTACSpecSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	AC Specs
 
 			Selector		default			func_100MHz			func_125MHz			
-	Symbol	Value	Name	Val	Typ	Min	Max	Typ	Min	Max	Typ	Min	Max	
+	Symbol	Value	Name	Val	Typ	Min	Max	Typ	Min	Max	Typ	Min	Max	Comment
 	clkre		nom	Typ	0	0	0	0	0	0	0	0	0	
 	cycle		nom	Max	0	0	0	=10*ns	=9*ns	=11*ns	=8*ns	=7*ns	=9*ns	
 	mcg_cycle		nom	Typ	0	0	0	0	0	0	0	0	0	

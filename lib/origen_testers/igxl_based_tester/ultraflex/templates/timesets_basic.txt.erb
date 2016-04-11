@@ -64,11 +64,9 @@
 %       end
 %       if grp_edge_same
 %         tset_pin_list.push(grp) unless tset_pin_list.include?(grp)
-%         line_cnt += 1
 %         pin_grp_done = true
 %       else
 %         tset_pin_list.push(pin_nam) unless tset_pin_list.include?(pin_nam)
-%         line_cnt += 1
 %       end
 %     end
 %   end
@@ -103,29 +101,46 @@
 %     tset_eqns[tset_key][grp].keys.each do |pin_nam|
 %       eset = @ts[tset_key].pins[pin_nam]
 %       edge = edgesets.es[eset].pins[pin_nam]
-%       tset_per  = edgesets.es[eset].period
+%       data_src  = edge.d_src
+%       data_fmt  = edge.d_fmt
+%       drv_on    = edge.d0_edge
+%       drv_data  = edge.d1_edge
+%       drv_ret   = edge.d2_edge
+%       drv_off   = edge.d3_edge
+%       cmp_mode  = edge.c_mode
+%       cmp_open  = edge.c1_edge
+%       cmp_close = edge.c2_edge
+%       tim_res   = edge.t_res
 %       clk_per   = edge.clk_per
-%       tset_per  = edgesets.format_uflex_edge(tset_per, line_cnt)
-%       clk_per   = edgesets.format_uflex_edge(clk_per, line_cnt, no_disable: true)
+%       drv_on    = edgesets.format_uflex_edge_tsb(drv_on, line_cnt)
+%       drv_data  = edgesets.format_uflex_edge_tsb(drv_data, line_cnt)
+%       drv_ret   = edgesets.format_uflex_edge_tsb(drv_ret, line_cnt)
+%       drv_off   = edgesets.format_uflex_edge_tsb(drv_off, line_cnt)
+%       cmp_open  = edgesets.format_uflex_edge_tsb(cmp_open, line_cnt)
+%       cmp_close = edgesets.format_uflex_edge_tsb(cmp_close, line_cnt)
+%       clk_per   = edgesets.format_uflex_edge_tsb(clk_per, line_cnt, no_disable: true)
 %       clk_per == '' ? setup = 'i/o' : setup = 'clock'
+%
+%       tset_per  = edgesets.es[eset].period
+%       tset_per  = edgesets.format_uflex_edge_tsb(tset_per, line_cnt)
 %       if print_hdr
 %         print_hdr = false
 %         tim_mode  = @ts[tset_key].t_mode
 %         master_ts  = @ts[tset_key].master_ts
-<%= "DTTimesetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tTime Sets" %>
+<%= "DTTimesetBasicSheet,version=2.3:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tTime Sets (Basic)" %>
 <%= "" %>
 <%= "\tTiming Mode:\t#{tim_mode}\t\tMaster Timeset Name:\t" %>
-<%= "\tTime Domain:\t" %>
+<%= "\tTime Domain:\t\t\tStrobe Ref Setup Name:" %>
 <%= "" %>
-<%= "\t\t\tCycle\tPin/Group" %>
-<%= "\tTime Set\tPeriod\tName\tClock Period\tSetup\tEdge Set\tComment" %>
+<%= "\t\tCycle\tPin/Group\t\t\tData\t\tDrive\t\t\t\tCompare\t\t\t\tEdge Resolution" %>
+<%= "\tTime Set\tPeriod\tName\tClock Period\tSetup\tSrc\tFmt\tOn\tData\tReturn\tOff\tMode\tOpen\tClose\tRef Offset\tMode\tComment" %>
 %       end
 %       if tset_pin_list.include?(grp)
-<%= "\t#{tset_key}\t#{tset_per}\t#{grp}\t#{clk_per}\t#{setup}\t#{eset}\t" %>
+<%= "\t#{tset_key}\t#{tset_per}\t#{grp}\t#{clk_per}\t#{setup}\t#{data_src}\t#{data_fmt}\t#{drv_on}\t#{drv_data}\t#{drv_ret}\t#{drv_off}\t#{cmp_mode}\t#{cmp_open}\t#{cmp_close}\t\t#{tim_res}\t" %>
 %         line_cnt += 1
 %         break
 %       elsif tset_pin_list.include?(pin_nam)
-<%= "\t#{tset_key}\t#{tset_per}\t#{pin_nam}\t#{clk_per}\t#{setup}\t#{eset}\t" %>
+<%= "\t#{tset_key}\t#{tset_per}\t#{pin_nam}\t#{clk_per}\t#{setup}\t#{data_src}\t#{data_fmt}\t#{drv_on}\t#{drv_data}\t#{drv_ret}\t#{drv_off}\t#{cmp_mode}\t#{cmp_open}\t#{cmp_close}\t\t#{tim_res}\t" %>
 %         line_cnt += 1
 %       end
 %     end

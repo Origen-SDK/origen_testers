@@ -1,0 +1,27 @@
+<%= "DTJobListSheet,version=2.5:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tJob List" %>
+<%= "" %>
+<%= "\t\tSheet Parameters\t" %>
+<%= "\tJob Name\tPin Map\tTest Instances\tFlow Table\tAC Specs\tDC Specs\tPattern Sets\tPattern Groups\tBin Table\tCharacterization\tTest Procedures\tMixed Signal Timing\tWave Definitions\tPsets\tSignals\tPort Map\tFractional Bus\tConcurrent Sequence\tComment" %>
+% @jobs.each do |_key, job|
+%   name = job.name
+%   pinmap = job.pinmap.join(',')
+%   instances = job.instances.join(',')
+%   flows = job.flows.join(',')
+%   ac_specs = job.ac_specs.join(',')
+%   dc_specs = job.dc_specs.join(',')
+%   patsets = job.patsets.join(',')
+%   patgroups = job.patgroups.join(',')
+%   bintables = job.bintables.join(',')
+%   cz = job.cz.join(',')
+%   test_procs = job.test_procs.join(',')
+%   mix_sig_timing = job.mix_sig_timing.join(',')
+%   wave_defs = job.wave_defs.join(',')
+%   psets = job.psets.join(',')
+%   signals = job.signals.join(',')
+%   port_map = job.port_map.join(',')
+%   fract_bus = job.fract_bus.join(',')
+%   concurrent_seq = job.concurrent_seq.join(',')
+%   comment = job.comment
+<%= "\t#{name}\t#{pinmap}\t#{instances}\t#{flows}\t#{ac_specs}\t#{dc_specs}\t#{patsets}\t#{patgroups}\t#{bintables}\t#{cz}\t#{test_procs}\t#{mix_sig_timing}\t#{wave_defs}\t#{signals}\t#{port_map}\t#{fract_bus}\t#{concurrent_seq}\t#{comment}" %>
+% end
+%

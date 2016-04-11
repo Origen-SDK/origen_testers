@@ -1,0 +1,9 @@
+<%= "DTReferencesSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1\tReferences" %>
+<%= "" %>
+<%= "\tFile Path\tComment\t" %>
+% @references.each do |reference|
+%   ref     = reference[:ref]
+%   comment = reference[:comment]
+<%= "\t#{ref}\t#{comment}" %>
+% end
+%

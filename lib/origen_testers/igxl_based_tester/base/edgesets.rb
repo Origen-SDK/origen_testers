@@ -6,12 +6,14 @@ module OrigenTesters
 
         attr_accessor :es
         attr_accessor :es_sheet_pins
+        attr_accessor :ts_basic
 
         OUTPUT_PREFIX = 'ES'
         # OUTPUT_POSTFIX = 'ES'
 
-        def initialize # :nodoc:
-          @es = {}
+        def initialize(options = {}) # :nodoc:
+          @es       = {}
+          @ts_basic = options[:timeset_basic]
         end
 
         def add(esname, pin, edge, options = {})
@@ -85,6 +87,37 @@ module OrigenTesters
             data = data.gsub(/_c1_edge|_c_open/, "K#{line_cnt}")
           when /_c2_edge|_c_close/
             data = data.gsub(/_c2_edge|_c_close/, "L#{line_cnt}")
+          when /^\s*$/
+            options[:no_disable] ? data = '' : data = 'disable'
+          else
+            data
+          end
+        end
+
+        # Prepare the edge information for TSB file output
+        def format_uflex_edge_tsb(data, line_cnt, options = {})
+          options = {
+            no_disable: false
+          }.merge(options)
+
+          if data !~ /^\s*$/
+            data = data.gsub(/^/, '=')
+          end
+          data = data.gsub(/(\W)([a-zA-Z])/, '\1_\2')
+
+          case data
+          when /_d0_edge|_d_on/
+            data = data.gsub(/_d0_edge|_d_on/, "I#{line_cnt}")
+          when /_d1_edge|_d_data/
+            data = data.gsub(/_d1_edge|_d_data/, "J#{line_cnt}")
+          when /_d2_edge|_dret/
+            data = data.gsub(/_d2_edge|_dret/, "K#{line_cnt}")
+          when /_d3_edge|_d_off/
+            data = data.gsub(/_d3_edge|_d_off/, "L#{line_cnt}")
+          when /_c1_edge|_c_open/
+            data = data.gsub(/_c1_edge|_c_open/, "N#{line_cnt}")
+          when /_c2_edge|_c_close/
+            data = data.gsub(/_c2_edge|_c_close/, "O#{line_cnt}")
           when /^\s*$/
             options[:no_disable] ? data = '' : data = 'disable'
           else

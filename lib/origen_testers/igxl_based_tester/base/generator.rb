@@ -36,6 +36,9 @@ module OrigenTesters
           @@levelsets_filename = nil
           @@ac_specsets_filename = nil
           @@dc_specsets_filename = nil
+          @@global_specs_filename = nil
+          @@jobs_filename = nil
+          @@references_filename = nil
         end
 
         # @api private
@@ -51,6 +54,9 @@ module OrigenTesters
           @@levelset_sheets = nil
           @@ac_specset_sheets = nil
           @@dc_specset_sheets = nil
+          @@global_spec_sheets = nil
+          @@job_sheets = nil
+          @@reference_sheets = nil
         end
         alias_method :reset_globals, :at_run_start
 
@@ -72,6 +78,9 @@ module OrigenTesters
         #   levelsets_filename = "common"
         #   ac_specsets_filename = "common"
         #   dc_specsets_filename = "common"
+        #   global_specs_filename = "common"
+        #   jobs_filename = "common"
+        #   references_filename = "common"
         def resources_filename=(name)
           self.pinmaps_filename = name
           self.test_instances_filename = name
@@ -82,6 +91,9 @@ module OrigenTesters
           self.levelsets_filename = name
           self.ac_specsets_filename = name
           self.dc_specsets_filename = name
+          self.global_specs_filename = name
+          self.jobs_filename = name
+          self.references_filename = name
         end
 
         # Set the name of the current pinmap sheet. This does not change
@@ -156,6 +168,30 @@ module OrigenTesters
           @@dc_specsets_filename = name
         end
 
+        # Set the name of the global specs sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def global_specs_filename=(name)
+          @global_specs_filename = name
+          @@global_specs_filename = name
+        end
+
+        # Set the name of the jobs sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def jobs_filename=(name)
+          @jobs_filename = name
+          @@jobs_filename = name
+        end
+
+        # Set the name of the references sheet. This does not change
+        # the name of the current sheet, but rather sets the name of the sheet that
+        # will be generated the next time you access patgroups.
+        def references_filename=(name)
+          @references_filename = name
+          @@references_filename = name
+        end
+
         # Returns the name of the current pinmaps sheet
         def pinmaps_filename
           @@pinmaps_filename ||= @pinmaps_filename || 'global'
@@ -199,6 +235,21 @@ module OrigenTesters
         # Returns the name of the current DC specset sheet
         def dc_specsets_filename
           @@dc_specsets_filename ||= @dc_specsets_filename || 'global'
+        end
+
+        # Returns the name of the current global spec sheet
+        def global_specs_filename
+          @@global_specs_filename ||= @global_specs_filename || 'global'
+        end
+
+        # Returns the name of the current job sheet
+        def jobs_filename
+          @@jobs_filename ||= @jobs_filename || 'global'
+        end
+
+        # Returns the name of the current references sheet
+        def references_filename
+          @@references_filename ||= @references_filename || 'global'
         end
 
         # Returns a hash containing all pinmap sheets
@@ -251,15 +302,40 @@ module OrigenTesters
           @@dc_specset_sheets ||= {}
         end
 
+        # Returns a hash containing all global spec sheets
+        def global_spec_sheets
+          @@global_spec_sheets ||= {}
+        end
+
+        # Returns a hash containing all job sheets
+        def job_sheets
+          @@job_sheets ||= {}
+        end
+
+        # Returns a hash containing all reference sheets
+        def reference_sheets
+          @@reference_sheets ||= {}
+        end
+
         # Returns an array containing all sheet generators where a sheet generator is a flow,
-        # test instance, patset, pat group, edgeset, timeset, or AC/DC specset sheet.
+        # test instance, patset, pat group, edgeset, timeset, AC/DC/Global spec, job,
+        # or reference sheet.
         # All Origen program generators must implement this method
         def sheet_generators # :nodoc:
           g = []
+          # Generate all of these sheets verbatim
           [pinmap_sheets, flow_sheets, test_instance_sheets, patset_sheets,
-           patgroup_sheets, edgeset_sheets, timeset_sheets, levelset_sheets,
-           ac_specset_sheets, dc_specset_sheets].each do |sheets|
+           patgroup_sheets, levelset_sheets, ac_specset_sheets, dc_specset_sheets,
+           global_spec_sheets, job_sheets, reference_sheets].each do |sheets|
             sheets.each do |name, sheet|
+              g << sheet
+            end
+          end
+          # Choose whether to generate edgeset/timset or timeset_basic sheets
+          #  * Skip edgeset sheet generation when timeset_basic is selected
+          [edgeset_sheets, timeset_sheets].each do |sheets|
+            sheets.each do |name, sheet|
+              next if sheet.class.name =~ /Edgesets$/ && sheet.ts_basic
               g << sheet
             end
           end
@@ -386,25 +462,38 @@ module OrigenTesters
         # Pass in a filename argument to have a specific sheet returned instead.
         #
         # If the sheet does not exist yet it will be created.
-        def edgesets(filename = edgesets_filename)
+        def edgesets(filename = edgesets_filename, options = {})
+          options = {
+            timeset_basic: false
+          }.merge(options)
+
           f = filename.to_sym
           return edgeset_sheets[f] if edgeset_sheets[f]
-          e = platform::Edgesets.new
+          e = platform::Edgesets.new(options)
           e.filename = f
           edgeset_sheets[f] = e
         end
         alias_method :edge_sets, :edgesets
 
-        # Returns the current timesets sheet (as defined by the current value of
+        # Returns the current timesets or timesets_basic sheet (as defined by the current value of
         # timesets_filename).
         #
         # Pass in a filename argument to have a specific sheet returned instead.
         #
         # If the sheet does not exist yet it will be created.
-        def timesets(filename = timesets_filename)
+        def timesets(filename = timesets_filename, options = {})
+          options = {
+            timeset_basic: false
+          }.merge(options)
+
           f = filename.to_sym
           return timeset_sheets[f] if timeset_sheets[f]
-          t = platform::Timesets.new
+          case options[:timeset_basic]
+          when true
+            t = platform::TimesetsBasic.new(options)
+          when false
+            t = platform::Timesets.new(options)
+          end
           t.filename = f
           timeset_sheets[f] = t
         end
@@ -461,6 +550,48 @@ module OrigenTesters
           s = platform::DCSpecsets.new
           s.filename = f
           dc_specset_sheets[f] = s
+        end
+
+        # Returns the current global spec sheet (as defined by the current value of
+        # global_specs_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def global_specs(filename = global_specs_filename)
+          f = filename.to_sym
+          return global_spec_sheets[f] if global_spec_sheets[f]
+          s = platform::GlobalSpecs.new
+          s.filename = f
+          global_spec_sheets[f] = s
+        end
+
+        # Returns the current job sheet (as defined by the current value of
+        # jobs_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def program_jobs(filename = jobs_filename)
+          f = filename.to_sym
+          return job_sheets[f] if job_sheets[f]
+          j = platform::Jobs.new
+          j.filename = f
+          job_sheets[f] = j
+        end
+
+        # Returns the current reference sheet (as defined by the current value of
+        # references_filename).
+        #
+        # Pass in a filename argument to have a specific sheet returned instead.
+        #
+        # If the sheet does not exist yet it will be created.
+        def references(filename = references_filename)
+          f = filename.to_sym
+          return reference_sheets[f] if reference_sheets[f]
+          r = platform::References.new
+          r.filename = f
+          reference_sheets[f] = r
         end
 
         private
