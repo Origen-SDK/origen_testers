@@ -6,7 +6,7 @@ module OrigenTesters
 
         attr_accessor :global_specs
 
-        OUTPUT_PREFIX = 'Specs'
+        OUTPUT_PREFIX = 'SpecsGlobal'
         # OUTPUT_POSTFIX = 'SpecsGlobal'
 
         def initialize # :nodoc:
