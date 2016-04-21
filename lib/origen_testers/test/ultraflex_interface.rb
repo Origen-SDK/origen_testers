@@ -339,7 +339,7 @@ module OrigenTesters
           comment: nil
         }.merge(options)
 
-        global_specs('Global').add(var, job: options[:job], value: options[:value], comment: options[:comment])
+        global_specs('SpecsGlobal').add(var, job: options[:job], value: options[:value], comment: options[:comment])
       end
 
       def job_def(jname, options = {})
