@@ -13,7 +13,14 @@ module Origen
       # Create a call stack of flows so that we can work out where the nodes
       # of the ATP AST originated from
       def create(options = {}, &block)
-        file, line = *caller[0].split(':')
+        # Patch for Windows operation since the path can start with something like "C:/"
+        if caller[0] =~ /(:(\/|\\))/
+          orig_separator = $1
+          file, line = *caller[0].sub(/:(\/|\\)/, "_ORIG_SEPARATOR_").split(':')
+          file = file.sub("_ORIG_SEPARATOR_", orig_separator)
+        else
+          file, line = *caller[0].split(':')
+        end
         OrigenTesters::Flow.callstack << file
         flow_comments, comments = *_extract_comments(OrigenTesters::Flow.callstack.last, line.to_i)
         OrigenTesters::Flow.comment_stack << comments
