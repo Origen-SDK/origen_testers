@@ -339,13 +339,13 @@ module OrigenTesters
         pin_list = ordered_pins.map do |p|
           if Origen.app.pin_pattern_order.include?(p.id)
             # specified name overrides pin name
-            if p.is_a?(Origen::Pins::PinCollection) || p.id != p.name
+            if (p.is_a?(Origen::Pins::PinCollection) && p.size > 1) || p.id != p.name
               p.id.to_s # groups or aliases can be lower case
             else
               p.id.to_s.upcase # pins must be uppercase
             end
           else
-            if p.is_a?(Origen::Pins::PinCollection) || p.id != p.name
+            if (p.is_a?(Origen::Pins::PinCollection) && p.size > 1) || p.id != p.name
               p.name.to_s # groups or aliases can be lower case
             else
               p.name.to_s.upcase # pins must be uppercase
