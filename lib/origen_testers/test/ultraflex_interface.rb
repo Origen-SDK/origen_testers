@@ -169,7 +169,7 @@ module OrigenTesters
         pin = options.delete(:pin)
         edge = options.delete(:edge)
 
-        @edgeset = edgesets(sheet_name)
+        @edgeset = edgesets(sheet_name, options)
         @edgeset.add(edgeset, pin, edge, options)
         collect_ac_specs(@edgeset.es[edgeset].spec_sheet, edge)
       end
@@ -183,7 +183,7 @@ module OrigenTesters
         pin = options.delete(:pin)
         eset = options.delete(:eset)
 
-        @timeset = timesets(sheet_name)
+        @timeset = timesets(sheet_name, options)
         @timeset.add(timeset, pin, eset, options)
       end
 
@@ -330,6 +330,47 @@ module OrigenTesters
 
           ss.add(var, options)
         end
+      end
+
+      def global_spec(var, options = {})
+        options = {
+          job:     nil,
+          value:   nil,
+          comment: nil
+        }.merge(options)
+
+        global_specs('SpecsGlobal').add(var, job: options[:job], value: options[:value], comment: options[:comment])
+      end
+
+      def job_def(jname, options = {})
+        options = {
+          pinmap:         pinmap_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          instances:      test_instance_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          flows:          flow_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          ac_specs:       ac_specset_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          dc_specs:       dc_specset_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          patsets:        patset_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          patgroups:      patgroup_sheets.map { |k, v| v.filename.gsub(/\.txt$/, '') },
+          bintables:      [],
+          cz:             [],
+          test_procs:     [],
+          mix_sig_timing: [],
+          wave_defs:      [],
+          psets:          [],
+          sigs_port_map:  [],
+          fract_bus:      [],
+          comment:        nil
+        }.merge(options)
+
+        program_jobs('Jobs').add(jname, options)
+      end
+
+      def reference(reference, options = {})
+        options = {
+          comment:        nil
+        }.merge(options)
+
+        references('Refs').add(reference, options)
       end
     end
   end

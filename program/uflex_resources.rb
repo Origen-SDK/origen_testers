@@ -93,6 +93,30 @@ Resources.create do
   timeset :func, timeset: :jtag, pin: :tdi,  eset: :es_jtag
   timeset :func, timeset: :jtag, pin: :tdo,  eset: :es_jtag
 
+  # Now repeat the timing generation process to create a timeset_basic sheet
+  edgeset :func_tsb, edgeset: :default, pin: :tclk, edge: edge_collection.edges[:default][:default], spec_sheet: :func, es_sheet_pins: timing_sheet_pins, timeset_basic: true
+  edgeset :func_tsb, edgeset: :default, pin: :tms,  edge: edge_collection.edges[:default][:default], spec_sheet: :func
+  edgeset :func_tsb, edgeset: :default, pin: :tdi,  edge: edge_collection.edges[:default][:default], spec_sheet: :func
+  edgeset :func_tsb, edgeset: :default, pin: :tdo,  edge: edge_collection.edges[:default][:default], spec_sheet: :func
+  #   * now assign pins some more meaningful timing for JTAG operation...
+  edgeset :func_tsb, edgeset: :es_jtag, pin: :tclk, edge: edge_collection.edges[:clock][:clk], spec_sheet: :func, es_sheet_pins: timing_sheet_pins, timeset_basic: true
+  edgeset :func_tsb, edgeset: :es_jtag, pin: :tms,  edge: edge_collection.edges[:input][:default], spec_sheet: :func
+  edgeset :func_tsb, edgeset: :es_jtag, pin: :tdi,  edge: edge_collection.edges[:input][:default], spec_sheet: :func
+  edgeset :func_tsb, edgeset: :es_jtag, pin: :tdo,  edge: edge_collection.edges[:output][:default], spec_sheet: :func
+
+  # Assign edges to the pins for timeset sheet ':func'
+  #   * first a :default timeset
+  # FORMAT: timeset <timset sheet name>, timeset: <timeset>, pin: <pin_name>, eset: <edgeset name>, ts_sheet_pins: <array of pins>
+  timeset :func_tsb, timeset: :default, pin: :tclk, eset: :default, ts_sheet_pins: timing_sheet_pins, timeset_basic: true
+  timeset :func_tsb, timeset: :default, pin: :tms,  eset: :default
+  timeset :func_tsb, timeset: :default, pin: :tdi,  eset: :default
+  timeset :func_tsb, timeset: :default, pin: :tdo,  eset: :default
+  #   * now a :jtag timeset
+  timeset :func_tsb, timeset: :jtag, pin: :tclk, eset: :es_jtag, ts_sheet_pins: timing_sheet_pins, timeset_basic: true
+  timeset :func_tsb, timeset: :jtag, pin: :tms,  eset: :es_jtag
+  timeset :func_tsb, timeset: :jtag, pin: :tdi,  eset: :es_jtag
+  timeset :func_tsb, timeset: :jtag, pin: :tdo,  eset: :es_jtag
+
   #   * now define a few more AC specs and values
   ac_specset :func, 'cycle', specset: :func_100MHz, nom: { min: '9*ns', typ: '10*ns', max: '11*ns' }
   ac_specset :func, 'cycle', specset: :func_125MHz, nom: { min: '7*ns', typ: '8*ns', max: '9*ns' }
@@ -151,9 +175,25 @@ Resources.create do
   levelset :func, pin: :tdi,  level: level_collection.pin_group[:pin_type1], spec_sheet: :func
   levelset :func, pin: :tdo,  level: level_collection.pin_group[:pin_type2], spec_sheet: :func
 
-  #   * now define a few more AC specs and values
+  #   * now define a few more DC specs and values
   dc_specset :func, 'vdd_main_val', specset: :power_down_levels, min: { min: '0.1*V' }, nom: { typ: '0.2*V' }, max: { max: '0.3*V' }
   dc_specset :func, 'vdd_alt_val',  specset: :power_down_levels, min: { min: '7*V' },   nom: { typ: '8*V' },   max: { max: '9*V' }
   dc_specset :func, 'current1',     specset: :power_up_levels,   min: { min: '1*mA' },  nom: { typ: '2*mA' },  max: { max: '3*mA' }
   dc_specset :func, 'voltage1',     specset: :power_up_levels,   min: { min: '4*mV' },  nom: { typ: '5*mV' },  max: { max: '6*mV' }
+
+  # Define some global variables that will generate a Globals sheet
+  global_spec :spec1, job: 'FT', value: '17', comment: 'entering spec1'
+  global_spec :spec2, job: 'WT', value: '18', comment: 'entering spec2'
+  global_spec :spec3, job: 'FT1', value: '19', comment: 'entering spec3'
+  global_spec :spec4, job: 'WT1', value: '20', comment: 'entering spec4'
+
+  # Collect all the currently generated sheets and include them in the FT job
+  job_def   'FT'
+
+  # Add a couple additional flow sheets to define the WT job
+  job_def   'WT', flows: ['WT_flow1', 'WT_flow2']
+
+  # Add a couple of files to the references sheet
+  reference '.\inc\file1.xla', comment: 'Block1'
+  reference '.\inc\file2.xla', comment: 'Block2'
 end

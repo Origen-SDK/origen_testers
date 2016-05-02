@@ -1,14 +1,14 @@
 module OrigenTesters
   module IGXLBasedTester
     class Base
-      class Timesets
+      class TimesetsBasic
         include ::OrigenTesters::Generator
 
         attr_accessor :ts
         attr_accessor :ts_sheet_pins
         attr_accessor :ts_basic
 
-        OUTPUT_PREFIX = 'TS'
+        OUTPUT_PREFIX = 'TSB'
         # OUTPUT_POSTFIX = 'TS'
 
         def initialize(options = {}) # :nodoc:

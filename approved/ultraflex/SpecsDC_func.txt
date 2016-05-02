@@ -1,7 +1,7 @@
 DTDCSpecSheet,version=2.0:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	DC Specs
 
 			Selector		default			power_down_levels			power_up_levels			
-	Symbol	Value	Name	Val	Typ	Min	Max	Typ	Min	Max	Typ	Min	Max	
+	Symbol	Value	Name	Val	Typ	Min	Max	Typ	Min	Max	Typ	Min	Max	Comment
 	vdd_main_val		nom	Typ	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
 	vdd_main_val		min	Min	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
 	vdd_main_val		max	Max	0	0	0	=0.2*V	=0.1*V	=0.3*V	0	0	0	
