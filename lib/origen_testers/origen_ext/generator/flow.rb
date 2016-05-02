@@ -15,9 +15,9 @@ module Origen
       def create(options = {}, &block)
         # Patch for Windows operation since the path can start with something like "C:/"
         if caller[0] =~ /(:(\/|\\))/
-          orig_separator = $1
-          file, line = *caller[0].sub(/:(\/|\\)/, "_ORIG_SEPARATOR_").split(':')
-          file = file.sub("_ORIG_SEPARATOR_", orig_separator)
+          orig_separator = Regexp.last_match(1)
+          file, line = *caller[0].sub(/:(\/|\\)/, '_ORIG_SEPARATOR_').split(':')
+          file = file.sub('_ORIG_SEPARATOR_', orig_separator)
         else
           file, line = *caller[0].split(':')
         end
