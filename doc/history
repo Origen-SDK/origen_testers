@@ -1,3 +1,18 @@
+<a class="anchor release_tag" name="v0_7_0_pre0"></a>
+<h2><a href="#v0_7_0_pre0">Tag: v0.7.0.pre0</a></h2>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 04-May-2016 10:59AM
+
+
+Added check for size in header case change
+Patch for operation on Windows
+Corrected 'GlobalSpecs' output file for examples check
+93K - Allow pingroups and aliases to have lower case letters
+Updated sheet prefix for Global Specs
+Added UFlex sheet generation support for Timeset Basic, Global Specs,…
+
 <a class="anchor release_tag" name="v0_6_2"></a>
 <h1><a href="#v0_6_2">Tag: v0.6.2</a></h1>
 
