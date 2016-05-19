@@ -38,6 +38,8 @@ module OrigenTesters
         @digital_instrument = 'hsdm' # 'hsdm' for HSD1000 and UP800, ok with UP1600 though
 
         @capture_state = 'V'            # STV requires valid 'V' expect data
+
+        @set_msb_issued = false        # Internal flag to keep track of set_msb usage, allowing for set_lsb to be used as a readcode
       end
 
       def freq_count(pin, options = {})
@@ -127,9 +129,35 @@ module OrigenTesters
         fail 'Method call_match not yet supported for UltraFLEX!'
       end
 
-      def set_code(code)
-        Origen.log.warning 'Method set_code not supported for UltraFLEX! Find alternative solution.'
-        cc '*** WARNING! *** Method set_code not supported for UltraFLEX! Find alternative solution.'
+      # Ultraflex implementation of J750-style 'set_code'
+      #
+      # Set a readcode, using one of the Ultraflex general-purpose counters.
+      # Counter C15 is used by default, this can be changed by the caller if necessary.
+      #
+      # Use to set an explicit readcode for communicating with the tester. This method
+      # will generate an additional vector (or 2, depending if set_msb is needed).
+      #
+      # NOTE: Some caveats when using this method:
+      #   - When setting a counter from the pattern microcode, the actual Patgen counter value is set to n-1.
+      #     This method adjusts by using a value of n+1, so the value read by the tester is the original intended value.
+      #
+      #   - When setting a counter from pattern microcode, the upper bits must be loaded separately using 'set_msb'.
+      #     This method calls the set_msb opcode if needed - note the tester must mask the upper 16 bits to get the desired value.
+      #     The set_msb opcode will also generate a second vector the first time the set_code method is called.
+      #
+      # ==== Examples
+      #   $tester.set_code(55)
+      #
+      def set_code(*code)
+        options = code.last.is_a?(Hash) ? code.pop : {}
+        options = { counter: 'c15'
+                  }.merge(options)
+        cc " Using counter #{options[:counter]} as set_code replacement - value set to #{code[0]} + 1"
+        unless @set_msb_issued
+          set_msb(1)
+          cycle   # set_msb doesn't issue a cycle
+        end
+        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
       end
 
       def loop_vectors(name, number_of_loops, global = false, label_first = false)
@@ -168,7 +196,6 @@ module OrigenTesters
           yield
         end
       end
-
       alias_method :loop_vector, :loop_vectors
 
       def pattern_header(options = {})
@@ -187,42 +214,10 @@ module OrigenTesters
 
         options[:memory_test] = memory_test_en
         options[:dc_pins] = get_dc_instr_pins
-        options[:digsrc_pins] = get_digsrc_pins
-        options[:digcap_pins] = get_digcap_pins
 
         if options[:dc_pins]
           options[:dc_pins].each do |pin|
             options[:instruments].merge!(pin => 'DCVS')
-          end
-        end
-
-        # Syntax for Digital Source
-        # instruments = {
-        #   pin-item:digsrc instrument-width: bit-order: instrument-mode:
-        #   site-uniqueness: format: auto_cond;
-        # }
-
-        if options[:digsrc_pins]
-          @digsrc_settings.each do |setting_name, setting|
-            options.merge!(setting_name => setting) if options[setting_name].nil?
-          end
-          options[:digsrc_pins].each do |pin|
-            options[:instruments].merge!(pin => 'digsrc')
-          end
-        end
-
-        # Syntax for Digital Capture
-        # instruments = {
-        #   pin-item:digcap instrument-width: bit-order: instrument-mode:
-        #   format: data-type: auto_cond: auto_trig_enable: store_stv: receive_data;
-        # }
-
-        if options[:digcap_pins]
-          @digcap_settings.each do |setting_name, setting|
-            options.merge!(setting_name => setting) if options[setting_name].nil?
-          end
-          options[:digcap_pins].each do |pin|
-            options[:instruments].merge!(pin => 'digcap')
           end
         end
 
@@ -450,7 +445,8 @@ module OrigenTesters
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
+        options = { offset: 0,
+                    opcode: 'stv'
                   }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
@@ -459,8 +455,8 @@ module OrigenTesters
         pins.each do |pin|
           pin.restore_state do
             pin.capture
-            update_vector microcode: 'stv', offset: options[:offset]
-            update_vector_pin_val pin, microcode: 'stv', offset: options[:offset]
+            update_vector microcode: options[:opcode], offset: options[:offset]
+            update_vector_pin_val pin, microcode: options[:opcode], offset: options[:offset]
             last_vector(options[:offset]).dont_compress = true
           end
         end
@@ -472,8 +468,9 @@ module OrigenTesters
         microcode "reload #{name}"
       end
 
-      def set_msb(name)
-        microcode "set_msb #{name}"
+      def set_msb(integer)
+        microcode "set_msb #{integer}"
+        @set_msb_issued = true
       end
 
       # Capture the next vector generated to HRAM
@@ -490,6 +487,7 @@ module OrigenTesters
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
+          opcode: 'stv'
         }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
@@ -498,11 +496,213 @@ module OrigenTesters
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated (SMcG: cool or what! DH: Yes, very cool!)
-        preset_next_vector(microcode: 'stv') do
+        preset_next_vector(microcode: options[:opcode]) do
           pins.each(&:restore)
         end
       end
       alias_method :store!, :store_next_cycle
+
+      # Call this method at the start of any digsrc overlay operations, this method
+      # issues the 'Start <waveform>' microcode
+      # Required arguments:
+      #                     pins
+      # Optional arguments:
+      #                     signal-name  (DigSrc waveform)
+      #                     starte   (true or false, defaults to false)
+      # Note restrestions from IG-XL help around use of starte opcode spacing to end of the current segment.
+      def digsrc_start(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+          signal_name: '',
+          starte:      false
+        }.merge(options)
+
+        pins = pins.flatten.compact
+        options[:starte] ? start_syntax = 'Starte' : start_syntax = 'Start'
+        microcode "(#{format_multiple_instrument_pins(pins)}:DigSrc = #{start_syntax} #{options[:signal_name]})"
+
+        if options[:dssc_mode] == :single
+          $tester.cycle(repeat: 145) # minimum of 144 cycles, adding 1 for safey measures
+        elsif options[:dssc_mode] == :dual
+          $tester.cycle(repeat: 289) # minimum of 288 cycles, adding 1 for safety measures
+        else
+          $tester.cycle(repeat: 577) # minimum of 577 cycles, adding 1 for safety measures
+        end
+      end
+
+      # Call this method at the end of each digsrc overlay operation to clear the pattern
+      # memory pipeline, so that the pattern is ready to do the next digsrc overlay operation.
+      # Required arguments:
+      #                     pins
+      def digsrc_stop(*pins)
+        pins = pins.flatten.compact
+        microcode "(#{format_multiple_instrument_pins(pins)}:DigSrc = Stop)"
+      end
+
+      # Call this method to insert the digsrc SEND overlay microcode on the previous vector and change the pin state.
+      def digsrc_send(*pins)
+        dssc(pins, dssc_microcode: 'DigSrc = Send', pin_state: 'drive_mem')
+      end
+
+      # Call this method to insert the digsrc SEND overlay microcode on the next vector
+      def digsrc_send_next_cycle(*pins)
+        dssc_next_cycle(pins, dssc_microcode: 'DigSrc = Send', pin_state: 'drive_mem')
+      end
+      alias_method :digsrc_send!, :digsrc_send_next_cycle
+
+      # Call this method to insert the digcap TRIG microcode on the previous vector
+      def digcap_trig(*pins)
+        dssc(pins, dssc_microcode: 'DigCap = Trig')
+      end
+
+      # Call this method to insert the digcap TRIG microcode on the next vector
+      def digcap_trig_next_cycle(*pins)
+        dssc_next_cycle(pins, dssc_microcode: 'DigCap = Trig')
+      end
+      alias_method :digcap_trig!, :digcap_trig_next_cycle
+
+      # Call this method to insert the digcap STORE microcode on the previous vector
+      def digcap_store(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+          offset:         0,
+          dssc_microcode: 'DigCap = Store'
+        }.merge(options)
+        dssc(pins, options)
+      end
+
+      # Call this method to insert the digcap STORE microcode on the next vector
+      def digcap_store_next_cycle(*pins)
+        dssc_next_cycle(pins, dssc_microcode: 'DigSrc = Store')
+      end
+      alias_method :digcap_store!, :digcap_store_next_cycle
+
+      # Call this method before each tester cycle to insert DSSC microcode and change pin state for the previous vector
+      def dssc(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+          offset:         0,
+          dssc_microcode: '',    # ie 'DigSrc = Send' or 'DigCap = Store' or 'stv'
+          pin_state:      'capture'
+        }.merge(options)
+
+        pins = pins.flatten.compact
+        if (options[:dssc_microcode] == 'stv')
+          opcode = 'stv'
+        else
+          opcode = "(#{format_multiple_instrument_pins(pins)}:#{options[:dssc_microcode]})"
+        end
+
+        pins.each do |pin|
+          pin.restore_state do
+            # rubocop:disable Style/EmptyElse: Redundant else-clause.
+            case options[:pin_state]
+            when 'drive_mem'
+              pin.drive_mem
+            when 'expect_mem'
+              pin.expect_mem
+            when 'capture'
+              pin.capture
+            else
+              # no pin update by default
+            end
+            # rubocop:enable Style/EmptyElse: Redundant else-clause.
+            update_vector microcode: opcode, offset: options[:offset]
+            update_vector_pin_val pin, microcode: opcode, offset: options[:offset]
+            last_vector(options[:offset]).dont_compress = true
+          end
+        end
+      end
+
+      def dssc_next_cycle(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+          dssc_microcode: '',    # ie 'DigSrc = Send' or 'DigCap = Store' or 'stv'
+          pin_state:      'capture'
+        }.merge(options)
+        pins = pins.flatten.compact
+
+        if (options[:dssc_microcode] == 'stv')
+          opcode = 'stv'
+        else
+          opcode = "(#{format_multiple_instrument_pins(pins)}:#{options[:dssc_microcode]})"
+        end
+
+        if pins.empty?
+          fail 'You must supply a list of pins for DSSC'
+        end
+        pins.each do |pin|
+          pin.save
+          # rubocop:disable Style/EmptyElse: Redundant else-clause.
+          case options[:pin_state]
+            when 'drive_mem'
+              pin.drive_mem
+            when 'expect_mem'
+              pin.expect_mem
+            when 'capture'
+              pin.capture
+            else
+            # no pin update by default
+          end
+          # rubocop:enable Style/EmptyElse: Redundant else-clause.
+        end
+        # Register this clean up function to be run after the next vector
+        # is generated (SMcG: cool or what! DH: Yes, very cool!)
+        preset_next_vector(microcode: opcode) do
+          pins.each(&:restore)
+        end
+      end
+      alias_method :dssc!, :dssc_next_cycle
+
+      # This method builds a digsrc instrument statement for a list of pins or pingroups
+      def apply_digsrc_settings(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options[:instrument] = 'DigSrc'
+        apply_dssc_settings(pins, options)
+      end
+
+      # This method builds a digcap instrument statement for a list of pins or pingroups
+      def apply_digcap_settings(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options[:instrument] = 'DigCap'
+        apply_dssc_settings(pins, options)
+      end
+
+      # This method builds a digcap or digsrc instrument statement for a list of pins or pingroups
+      def apply_dssc_settings(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+          instrument:       'DigCap',   # DigCap or DigSrc
+          width:            1,               # Required: integer value 1 to 32
+          bit_order:        nil,         # Optional: lsb or msb (default)
+          mode:             nil,              # Optional: serial or parallel (default)
+          format:           nil,            # Optional: (see IGXL help for details)
+          data_type:        nil,         # Optional: default, long or double
+          auto_cond:        nil,         # Optional: auto_cond_enable or auto_cond_disable (default)
+          auto_trig_enable: nil,  # Optional: auto_trig_enable or auto_trig_disable (default)
+          site_sharing:     nil,      # Optional: nonunique_sites or unique_sites (default)
+          store_stv:        nil,         # Optional: store_stv_enable or store_stv_disable (default)
+          receive_data:     nil,      # Optional: fail or logic (default)
+        }.merge(options)
+
+        # Build the instrument portion - only add options if they were specified, use tester defaults otherwise
+        inst_string = "#{options[:instrument]} #{options[:width]}"   # required syntax
+        inst_string = inst_string + ":#{options[:bit_order]}" unless options[:bit_order].nil?
+        inst_string = inst_string + ":#{options[:mode]}" unless options[:mode].nil?
+        inst_string = inst_string + ":format=#{options[:format]}" unless options[:format].nil?
+        inst_string = inst_string + ":data_type=#{options[:data_type]}" unless options[:data_type].nil?
+        inst_string = inst_string + ":#{options[:auto_cond]}" unless options[:auto_cond].nil?
+        inst_string = inst_string + ":#{options[:auto_trig_enable]}" unless options[:auto_trig_enable].nil?
+        if (options[:instrument] == 'DigCap')
+          # these settings only available for digcap
+          inst_string = inst_string + ":#{options[:store_stv]}" unless options[:store_stv].nil?
+          inst_string = inst_string + ":receive_data=#{options[:receive_data]}" unless options[:receive_data].nil?
+        end
+
+        # Add new entry for this pins / instrument combination
+        pins = pins.flatten.compact
+        @instrument_strings.merge!(format_multiple_instrument_pins(pins) => inst_string)
+      end
     end
   end
   UltraFLEX = IGXLBasedTester::UltraFLEX

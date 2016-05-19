@@ -35,10 +35,10 @@ unless $tester.v93k?
 
       if $tester.ultraflex?
         # Define digsrc_overlay_testme32 subr
-        $dut.digsrc_overlay(:subr_name => 'digsrc_overlay_testme32', :define => true, overlay_reg: :testme32)
+        $dut.digsrc_overlay(:digsrc_pins => [$dut.pin(:tdi), $dut.pin(:tms)], :subr_name => 'digsrc_overlay_testme32', :define => true, overlay_reg: :testme32)
 
         # Define digsrc_overlay subr
-        $dut.digsrc_overlay(:subr_name => 'digsrc_overlay', :define => true, overlay_cycle_num: 64)
+        $dut.digsrc_overlay(:digsrc_pins => [$dut.pin(:tdi), $dut.pin(:tms)], :subr_name => 'digsrc_overlay', :define => true, overlay_cycle_num: 64)
       end 
     end
   end

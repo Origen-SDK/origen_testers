@@ -148,9 +148,8 @@ module OrigenTesters
         pin.groups.each { |i| port = i[1] if port.nil? && Origen.tester.ordered_pins.include?(i[1]) } # see if group is included in ordered pins
         if port
           ix = Origen.tester.ordered_pins.index(port) # find index of port
-          i = port.index(pin)
-        else
-          ix = Origen.tester.ordered_pins.index(pin)
+          i = port.find_index(pin)
+        elsif ix = Origen.tester.ordered_pins.index(pin)
           i = 0
         end
       else

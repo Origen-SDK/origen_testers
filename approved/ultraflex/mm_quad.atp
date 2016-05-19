@@ -1,20 +1,20 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    02-Sep-2015 11:39AM
-//   By:      Stephen McGinty
+//   Time:    18-Feb-2016 18:33PM
+//   By:      ra8585
 //   Command: origen g multi_vector -t debug_ultraflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.0
-//     Branch:    master(295ad2cc603)
+//     Version:   0.5.5
+//     Branch:    feature/uflex_update(d3fa0ce00af)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.4.0
+//     Version:   0.5.8
 //   Plugins
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.2.0
+//     origen_doc_helpers:       0.2.1
 //     origen_jtag:              0.12.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
@@ -26,10 +26,9 @@ compressed = yes;
 instruments = {                                                                                 
                VDDHV:DCVS;                                                                      
                VDDLV:DCVS;                                                                      
-               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
-               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
-               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
                mto;                                                                             
+               (tdi,tms):DigSrc 1;                                                              
+               (tdo):DigCap 1;                                                                  
 }                                                                                               
                                                                                                 
 vm_vector                                                                                       
