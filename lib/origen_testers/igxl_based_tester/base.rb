@@ -267,6 +267,7 @@ module OrigenTesters
         options = { offset: 0
                   }.merge(options)
         update_vector microcode: 'stv', offset: options[:offset]
+        last_vector(options[:offset]).contains_capture = true
       end
       alias_method :to_hram, :store
       alias_method :capture, :store
@@ -285,9 +286,17 @@ module OrigenTesters
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
         }.merge(options)
-        preset_next_vector microcode: 'stv'
+        preset_next_vector microcode: 'stv' do |vector|
+          vector.contains_capture = true
+        end
       end
       alias_method :store!, :store_next_cycle
+
+      # @api private
+      def remove_store_from_vector(vector)
+        super
+        vector.microcode = nil
+      end
 
       # Call a subroutine.
       #

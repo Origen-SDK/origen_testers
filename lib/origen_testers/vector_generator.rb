@@ -229,11 +229,12 @@ module OrigenTesters
           end
           @preset_next_vector = nil
         end
+        v = Vector.new(attrs)
         stage.store Vector.new(attrs)
         inc_vec_count
         inc_cycle_count(attrs[:repeat] || 1)
         if @preset_next_vector_cleanup
-          @preset_next_vector_cleanup.call
+          @preset_next_vector_cleanup.call(v)
           @preset_next_vector_cleanup = nil
         end
       end
@@ -635,6 +636,11 @@ module OrigenTesters
       else
         @dont_care_state || 'X'
       end
+    end
+
+    # @api private
+    def remove_store_from_vector(vector)
+      vector.pin_vals.sub!('C', 'X')
     end
   end
 end

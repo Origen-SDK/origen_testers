@@ -3,7 +3,7 @@ module OrigenTesters
   class Vector
     attr_accessor :repeat, :microcode, :timeset, :pin_vals,
                   :number, :cycle_number, :dont_compress,
-                  :comments, :inline_comment, :cycle, :number
+                  :comments, :inline_comment, :cycle, :number, :contains_capture
 
     def initialize(attrs = {})
       @inline_comment = ''
@@ -73,7 +73,9 @@ module OrigenTesters
         if timeset.period_in_ns % tset.period_in_ns != 0
           fail "The period of timeset #{timeset.name} is not a multiple of the period of timeset #{tset.name}!"
         end
-        if $tester.timing_toggled_pins.empty?
+        if contains_capture
+          vector_modification_required = true
+        elsif $tester.timing_toggled_pins.empty?
           vector_modification_required = false
         else
           # If the timing toggled pins are not driving on this vector, then no
@@ -102,6 +104,7 @@ module OrigenTesters
             v = dup
             v.repeat = 1
             v.pin_vals = inhibit_compares
+            $tester.remove_store_from_vector(v) if v.contains_capture
             yield v
             # Then drive the pin 'off' value for the remainder
             v = dup
@@ -110,6 +113,7 @@ module OrigenTesters
               v = dup
               v.repeat = r - 1
               pin_values.each { |vals| v.set_pin_value(vals[:pin], vals[:off]) if vals }
+              $tester.remove_store_from_vector(v) if v.contains_capture
               yield v
             end
             v = dup

@@ -1,19 +1,21 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    31-Aug-2015 03:38AM
+#   Time:    23-May-2016 03:09AM
 #   By:      Stephen McGinty
 #   Command: origen g multi_vector -t debug_v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.5.0
-#     Branch:    master(e3384c47ea4) (+local edits)
+#     Version:   0.7.0.pre0
+#     Branch:    master(8cecd7b648c) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.2.4
+#     Version:   0.7.0
 #   Plugins
+#     atp:                      0.4.1
 #     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.3.0
 #     origen_jtag:              0.12.0
 #     origen_swd:               0.5.0
 # ***************************************************************************
@@ -991,6 +993,25 @@ R1                       nvmbist                    1 X X X ; # Period levelled 
 R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
 R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
 R1                       nvmbist                    0 X L X ; # Period levelled (nvmbist_readout)
+# ######################################################################
+# ## Test that additional stores are not injected, only 4 TDO vectors should be captured
+# ######################################################################
+R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X C X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X C X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X C X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X C X ; # Period levelled (nvmbist_readout)
 # ######################################################################
 # ## Test that these collapse to a single repeat in the single vector case
 # ######################################################################

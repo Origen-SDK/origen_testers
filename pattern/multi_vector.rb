@@ -84,6 +84,11 @@ SetupTester.new
     8.cycles
     $tester.set_timeset("nvmbist_readout", 160)
     8.cycles
+    ss "Test that additional stores are not injected, only 4 TDO vectors should be captured"
+    4.times do
+      1.cycle
+      $tester.store($dut.pin(:tdo))
+    end
     $dut.pin(:tdo).dont_care
     $tester.set_timeset("nvmbist", 40)
 

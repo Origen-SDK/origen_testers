@@ -69,6 +69,7 @@ module OrigenTesters
             pin.capture
             update_vector_pin_val pin, offset: options[:offset]
             last_vector(options[:offset]).dont_compress = true
+            last_vector(options[:offset]).contains_capture = true
           end
         end
       end
@@ -95,7 +96,8 @@ module OrigenTesters
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated, cool or what!
-        preset_next_vector do
+        preset_next_vector do |vector|
+          vector.contains_capture = true
           pins.each(&:restore)
         end
       end
