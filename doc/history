@@ -1,3 +1,32 @@
+<a class="anchor release_tag" name="v0_7_0"></a>
+<h1><a href="#v0_7_0">Tag: v0.7.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 23-May-2016 03:22AM
+
+
+Fixed bug from additional capture cycles being inserted into period levelled vector
+on V93K, now works correctly like this:
+
+~~~text
+$tester.set\_timeset("fast", 40)
+2.cycles                        #    fast   1 0 C 1 0
+                                #    fast   1 0 C 1 0
+
+$tester.level\_period = false  # Without levelling enabled
+$tester.set\_timeset("slow", 80)
+2.cycles                        #    slow   1 0 C 1 0
+                                #    slow   1 0 C 1 0
+
+$tester.level\_period = true   # With levelling enabled
+$tester.set\_timeset("slow", 80)
+2.cycles                        #    fast   1 0 X 1 0
+                                #    fast   1 0 C 1 0
+                                #    fast   1 0 X 1 0
+                                #    fast   1 0 C 1 0
+~~~
+
 <a class="anchor release_tag" name="v0_7_0_pre0"></a>
 <h2><a href="#v0_7_0_pre0">Tag: v0.7.0.pre0</a></h2>
 

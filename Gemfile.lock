@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    origen_testers (0.7.0.pre0)
+    origen_testers (0.7.0)
       atp (~> 0.4, >= 0.4.1)
       origen (>= 0.7.0)
       require_all (~> 1)
@@ -155,3 +155,6 @@ DEPENDENCIES
   origen_jtag (>= 0.12.0)
   origen_testers!
   yard-activesupport-concern
+
+BUNDLED WITH
+   1.11.2
