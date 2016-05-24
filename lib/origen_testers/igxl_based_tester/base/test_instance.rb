@@ -80,12 +80,12 @@ module OrigenTesters
           elsif type == :board_pmu || type == :pin_pmu
             m['Measure'] = fvmi? ? 'current' : 'voltage'
             if $tester.j750?
-            if hi_lo_limit_valid & 2 != 0
-              m['Hi'] = hi_limit
-            end
-            if hi_lo_limit_valid & 1 != 0
-              m['Lo'] = lo_limit
-            end
+              if hi_lo_limit_valid & 2 != 0
+                m['Hi'] = hi_limit
+              end
+              if hi_lo_limit_valid & 1 != 0
+                m['Lo'] = lo_limit
+              end
             else
               m['Hi'] = hi_limit
               m['Lo'] = lo_limit
@@ -182,14 +182,14 @@ module OrigenTesters
         # Set and enable the pre-charge voltage of a parametric test instance.
         def set_pre_charge(val)
           if $tester.j750?
-          if val
-            self.pre_charge_enable = 1
-            self.pre_charge = val
-          else
-            self.pre_charge_enable = 0
+            if val
+              self.pre_charge_enable = 1
+              self.pre_charge = val
+            else
+              self.pre_charge_enable = 0
+            end
+            self
           end
-          self
-        end
         end
         alias_method :set_precharge, :set_pre_charge
 
@@ -198,13 +198,13 @@ module OrigenTesters
         def set_hi_limit(lim)
           if lim
             if $tester.j750?
-            self.hi_lo_limit_valid = hi_lo_limit_valid | 2
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 2
             end
             self.hi_limit = lim
           else
             if $tester.j750?
-            self.hi_lo_limit_valid = hi_lo_limit_valid & 1
-          end
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 1
+            end
           end
           self
         end
@@ -215,13 +215,13 @@ module OrigenTesters
         def set_lo_limit(lim)
           if lim
             if $tester.j750?
-            self.hi_lo_limit_valid = hi_lo_limit_valid | 1
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 1
             end
             self.lo_limit = lim
           else
             if $tester.j750?
-            self.hi_lo_limit_valid = hi_lo_limit_valid & 2
-          end
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 2
+            end
           end
           self
         end
@@ -350,11 +350,11 @@ module OrigenTesters
         # * :current / :fvmi
         def set_measure_mode(mode)
           if mode == :current || mode == :fvmi
-           if $tester.ultraflex?
-            self.measure_mode = 2
-           else
-            self.measure_mode = 0
-           end
+            if $tester.ultraflex?
+              self.measure_mode = 2
+            else
+              self.measure_mode = 0
+            end
           elsif mode == :voltage || mode == :fimv
             self.measure_mode = 1
           else

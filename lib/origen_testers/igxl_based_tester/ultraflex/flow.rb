@@ -19,17 +19,17 @@ module OrigenTesters
             limit.opcode = 'Use-Limit'
             limit.parameter = nil
             if ins.respond_to?(:lo_limit)
-            lo = ins.lo_limit
-            hi = ins.hi_limit
+              lo = ins.lo_limit
+              hi = ins.hi_limit
               if lo.nil?
-               lo = ins.lo
+                lo = ins.lo
               end
               if hi.nil?
-               hi = ins.hi
+                hi = ins.hi
               end
             elsif ins.respond_to?(:lo)
-             lo = ins.lo
-             hi = ins.hi
+              lo = ins.lo
+              hi = ins.hi
             end
             size = 1
             if lo.is_a?(Array)
@@ -61,11 +61,11 @@ module OrigenTesters
                   s = ins.scale
                 end
               else
-               unless $tester.ultraflex?
-                s = lowest_scale(scale_of(l), scale_of(h))
-                l = scaled(l, s)
-                h = scaled(h, s)
-               end
+                unless $tester.ultraflex?
+                  s = lowest_scale(scale_of(l), scale_of(h))
+                  l = scaled(l, s)
+                  h = scaled(h, s)
+                end
               end
               line.lolim = l
               line.hilim = h

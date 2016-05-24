@@ -163,11 +163,11 @@ module OrigenTesters
         cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
       end
 
-    def set_code_no_msb(*code)
-     options = code.last.is_a?(Hash) ? code.pop : {}
+      def set_code_no_msb(*code)
+        options = code.last.is_a?(Hash) ? code.pop : {}
         options = { counter: 'c15'
                   }.merge(options)
-     unless @set_msb_issued
+        unless @set_msb_issued
           cycle   # set_msb doesn't issue a cycle
         end
         cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
