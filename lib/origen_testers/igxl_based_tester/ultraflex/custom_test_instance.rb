@@ -5,7 +5,7 @@ module OrigenTesters
       class CustomTestInstance < Base::CustomTestInstance
         # Give all UltraFLEX test instances the ability to contain limits, these will
         # be rendered to Use-limit lines in the flow
-        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits
+        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits, :lo, :hi
 
         # Attributes for each test instance line, first few are named directly
         TEST_INSTANCE_ATTRS = %w(

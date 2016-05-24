@@ -38,6 +38,8 @@ module OrigenTesters
         @digital_instrument = 'hsdm' # 'hsdm' for HSD1000 and UP800, ok with UP1600 though
 
         @capture_state = 'V'            # STV requires valid 'V' expect data
+
+        @set_msb_issued = false        # Internal flag to keep track of set_msb usage, allowing for set_lsb to be used as a readcode
       end
 
       def freq_count(pin, options = {})
@@ -124,12 +126,51 @@ module OrigenTesters
       end
 
       def call_match
-        fail 'Method call_match not yet supported for UltraFLEX!'
+        #        fail 'Method call_match not yet supported for UltraFLEX!'
+        @match_counter = @match_counter || 0
+        call_subroutine("match_done_#{@match_counter}")
+        @match_counter += 1 unless @match_counter == (@match_entries || 1) - 1
       end
 
-      def set_code(code)
-        Origen.log.warning 'Method set_code not supported for UltraFLEX! Find alternative solution.'
-        cc '*** WARNING! *** Method set_code not supported for UltraFLEX! Find alternative solution.'
+      # Ultraflex implementation of J750-style 'set_code'
+      #
+      # Set a readcode, using one of the Ultraflex general-purpose counters.
+      # Counter C15 is used by default, this can be changed by the caller if necessary.
+      #
+      # Use to set an explicit readcode for communicating with the tester. This method
+      # will generate an additional vector (or 2, depending if set_msb is needed).
+      #
+      # NOTE: Some caveats when using this method:
+      #   - When setting a counter from the pattern microcode, the actual Patgen counter value is set to n-1.
+      #     This method adjusts by using a value of n+1, so the value read by the tester is the original intended value.
+      #
+      #   - When setting a counter from pattern microcode, the upper bits must be loaded separately using 'set_msb'.
+      #     This method calls the set_msb opcode if needed - note the tester must mask the upper 16 bits to get the desired value.
+      #     The set_msb opcode will also generate a second vector the first time the set_code method is called.
+      #
+      # ==== Examples
+      #   $tester.set_code(55)
+      #
+      def set_code(*code)
+        options = code.last.is_a?(Hash) ? code.pop : {}
+        options = { counter: 'c15'
+                  }.merge(options)
+        cc " Using counter #{options[:counter]} as set_code replacement - value set to #{code[0]} + 1"
+        unless @set_msb_issued
+          set_msb(1)
+          cycle   # set_msb doesn't issue a cycle
+        end
+        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
+      end
+
+    def set_code_no_msb(*code)
+     options = code.last.is_a?(Hash) ? code.pop : {}
+        options = { counter: 'c15'
+                  }.merge(options)
+     unless @set_msb_issued
+          cycle   # set_msb doesn't issue a cycle
+        end
+        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
       end
 
       def loop_vectors(name, number_of_loops, global = false, label_first = false)
@@ -189,7 +230,6 @@ module OrigenTesters
         options[:dc_pins] = get_dc_instr_pins
         options[:digsrc_pins] = get_digsrc_pins
         options[:digcap_pins] = get_digcap_pins
-
         if options[:dc_pins]
           options[:dc_pins].each do |pin|
             options[:instruments].merge!(pin => 'DCVS')
@@ -292,11 +332,11 @@ module OrigenTesters
           fail 'ERROR: block not passed to match_block!'
         end
 
-        if options[:check_for_fails]
-          cc 'NOTE: check for fails prior to match loop not necessary on UltraFlex'
-        end
+        #        if options[:check_for_fails]
+        #          cc 'NOTE: check for fails prior to match loop not necessary on UltraFlex'
+        #        end
 
-        ss 'WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT'
+        #        ss 'WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT'
 
         # Create BlockArgs objects in order to receive multiple blocks
         match_conditions = Origen::Utility::BlockArgs.new
@@ -309,6 +349,23 @@ module OrigenTesters
           # for backwards compatibility with Origen core call to match_block
           match_conditions.add(&block)
           fail_conditions.add(&block)
+        end
+
+        if options[:check_for_fails]
+          if options[:multiple_entries]
+            @match_entries.times do |i|
+              microcode "global subr match_done_#{i}:"
+              set_code(i + 100)
+              cycle(microcode: 'jump call_tester') unless i == @match_entries - 1
+            end
+            microcode 'call_tester:'
+          else
+            set_code(100)
+          end
+          cc 'Wait for any prior failures to propagate through the pipeline'
+          cycle(microcode: 'pipe_minus 1')
+          cc 'Now handshake with the tester to bin out and parts that have failed before they got here'
+          handshake(manual_stop: options[:manual_stop])
         end
 
         # Now do the main match loop
@@ -450,7 +507,8 @@ module OrigenTesters
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
+        options = { offset: 0,
+                    opcode: 'stv'
                   }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
@@ -459,8 +517,8 @@ module OrigenTesters
         pins.each do |pin|
           pin.restore_state do
             pin.capture
-            update_vector microcode: 'stv', offset: options[:offset]
-            update_vector_pin_val pin, microcode: 'stv', offset: options[:offset]
+            update_vector microcode: options[:opcode], offset: options[:offset]
+            update_vector_pin_val pin, microcode: options[:opcode], offset: options[:offset]
             last_vector(options[:offset]).dont_compress = true
           end
         end
@@ -472,8 +530,8 @@ module OrigenTesters
         microcode "reload #{name}"
       end
 
-      def set_msb(name)
-        microcode "set_msb #{name}"
+      def set_msb(integer)
+        microcode "set_msb #{integer}"
       end
 
       # Capture the next vector generated to HRAM
@@ -490,6 +548,7 @@ module OrigenTesters
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
+          opcode: 'stv'
         }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
@@ -498,7 +557,7 @@ module OrigenTesters
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated (SMcG: cool or what! DH: Yes, very cool!)
-        preset_next_vector(microcode: 'stv') do
+        preset_next_vector(microcode: options[:opcode]) do
           pins.each(&:restore)
         end
       end

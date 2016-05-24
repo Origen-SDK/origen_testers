@@ -12,7 +12,7 @@ module OrigenTesters
 
         # Give all UltraFLEX test instances the ability to contain limits, these will
         # be rendered to Use-limit lines in the flow
-        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits
+        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits, :lo, :hi
 
         # Attributes for additional test instance arguments beyond those described above
         TEST_INSTANCE_EXTRA_ARGS = 130

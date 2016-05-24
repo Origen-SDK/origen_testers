@@ -10,7 +10,7 @@ module OrigenTesters
         def on_test(node)
           super
           ins = node.find(:object).value
-          if ins.respond_to?(:lo_limit) && (ins.lo_limit || ins.hi_limit)
+          if ins.respond_to?(:lo_limit) && (ins.lo_limit || ins.hi_limit) || ins.respond_to?(:lo) && (ins.lo || ins.hi)
             if ins.defer_limits
               completed_lines.last.opcode = 'Test-defer-limits'
             end
@@ -18,10 +18,19 @@ module OrigenTesters
             limit.type = :use_limit
             limit.opcode = 'Use-Limit'
             limit.parameter = nil
-
+            if ins.respond_to?(:lo_limit)
             lo = ins.lo_limit
             hi = ins.hi_limit
-
+              if lo.nil?
+               lo = ins.lo
+              end
+              if hi.nil?
+               hi = ins.hi
+              end
+            elsif ins.respond_to?(:lo)
+             lo = ins.lo
+             hi = ins.hi
+            end
             size = 1
             if lo.is_a?(Array)
               size = lo.size if lo.size > size
@@ -52,9 +61,11 @@ module OrigenTesters
                   s = ins.scale
                 end
               else
+               unless $tester.ultraflex?
                 s = lowest_scale(scale_of(l), scale_of(h))
                 l = scaled(l, s)
                 h = scaled(h, s)
+               end
               end
               line.lolim = l
               line.hilim = h
