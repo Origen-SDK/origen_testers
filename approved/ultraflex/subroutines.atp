@@ -1,20 +1,21 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    02-Sep-2015 11:39AM
-//   By:      Stephen McGinty
+//   Time:    24-May-2016 13:17PM
+//   By:      Kumar Priyavadan-B21094
 //   Command: origen g subroutines -t debug_ultraflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.0
-//     Branch:    master(295ad2cc603)
+//     Version:   0.7.0
+//     Branch:    feature/uf_updates(7928fb83ba4)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.4.0
+//     Version:   0.7.0
 //   Plugins
+//     atp:                      0.4.1
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.2.0
+//     origen_doc_helpers:       0.3.0
 //     origen_jtag:              0.12.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
@@ -44,43 +45,16 @@ return                                                           > tp0          
 global subr match_pin:                                                                          
                                                                  > tp0                          X X X X ;
 // Wait for a maximum of 5.0us
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
-// Start the match loop
-set_msb 1                                                        > tp0                          X X X X ;
-branch_expr = (fail)                                             > tp0                          X X X X ;
-global match_loop_0:                                                                            
-set c0 1                                                         > tp0                          X X X X ;
-match_result_loop_0:                                                                            
-loop c0                                                          > tp0                          X X X X ;
-// Check if tdo is high
- mask                                                            > tp0                          X X H X ;
-//  Wait for the result to propagate through the pipeline
-pipe_minus 1                                                     > tp0                          X X X X ;
-// Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_0                   > tp0                          X X X X ;
-// Match found
-pop_loop                                                         > tp0                          X X X X ;
-return                                                           > tp0                          X X X X ;
-// Match not yet found
-block_0_notyet_matched_0:                                        > tp0                          X X X X ;
-// Match loop cycle count = 260
-end_loop match_result_loop_0                                     > tp0                          X X X X ;
-// To get here something has gone wrong, check blocks again to force a pattern failure
-pipe_minus 1                                                     > tp0                          X X X X ;
-// Check if tdo is high
-                                                                 > tp0                          X X H X ;
-return                                                           > tp0                          X X X X ;
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
                                                                  > tp0                          X X X X ;
-global subr match_2pins:                                                                        
-                                                                 > tp0                          X X X X ;
-// Wait for a maximum of 5.0us
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+set c15 101                                                      > tp0                          X X X X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          X X X X ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          X X X X ;
+loop_here_0: if (branch_expr) jump loop_here_0                   > tp0                          X X X X ;
 // Start the match loop
 set_msb 1                                                        > tp0                          X X X X ;
 branch_expr = (fail)                                             > tp0                          X X X X ;
@@ -99,19 +73,58 @@ pop_loop                                                         > tp0          
 return                                                           > tp0                          X X X X ;
 // Match not yet found
 block_0_notyet_matched_1:                                        > tp0                          X X X X ;
+// Match loop cycle count = 260
+end_loop match_result_loop_1                                     > tp0                          X X X X ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Check if tdo is high
+                                                                 > tp0                          X X H X ;
+return                                                           > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+global subr match_2pins:                                                                        
+                                                                 > tp0                          X X X X ;
+// Wait for a maximum of 5.0us
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          X X X X ;
+set c15 101                                                      > tp0                          X X X X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          X X X X ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          X X X X ;
+loop_here_2: if (branch_expr) jump loop_here_2                   > tp0                          X X X X ;
+// Start the match loop
+set_msb 1                                                        > tp0                          X X X X ;
+branch_expr = (fail)                                             > tp0                          X X X X ;
+global match_loop_3:                                                                            
+set c0 1                                                         > tp0                          X X X X ;
+match_result_loop_3:                                                                            
+loop c0                                                          > tp0                          X X X X ;
+// Check if tdo is high
+ mask                                                            > tp0                          X X H X ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_3                   > tp0                          X X X X ;
+// Match found
+pop_loop                                                         > tp0                          X X X X ;
+return                                                           > tp0                          X X X X ;
+// Match not yet found
+block_0_notyet_matched_3:                                        > tp0                          X X X X ;
 // Check if tms is high
  mask                                                            > tp0                          X X L H ;
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          X X X X ;
 // Branch if block condition 1 not yet met
-if (branch_expr) jump block_1_notyet_matched_1                   > tp0                          X X X X ;
+if (branch_expr) jump block_1_notyet_matched_3                   > tp0                          X X X X ;
 // Match found
 pop_loop                                                         > tp0                          X X X X ;
 return                                                           > tp0                          X X X X ;
 // Match not yet found
-block_1_notyet_matched_1:                                        > tp0                          X X X X ;
+block_1_notyet_matched_3:                                        > tp0                          X X X X ;
 // Match loop cycle count = 520
-end_loop match_result_loop_1                                     > tp0                          X X X X ;
+end_loop match_result_loop_3                                     > tp0                          X X X X ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          X X X X ;
 // Check if tdo is high
@@ -122,16 +135,22 @@ return                                                           > tp0          
 global subr match_done:                                                                         
                                                                  > tp0                          X X X X ;
 // Wait for a maximum of 5.0us
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          X X X X ;
+set c15 101                                                      > tp0                          X X X X ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          X X X X ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          X X X X ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          X X X X ;
+loop_here_4: if (branch_expr) jump loop_here_4                   > tp0                          X X X X ;
 // Start the match loop
 set_msb 1                                                        > tp0                          X X X X ;
 branch_expr = (fail)                                             > tp0                          X X X X ;
-global match_loop_2:                                                                            
+global match_loop_5:                                                                            
 set c0 1                                                         > tp0                          X X X X ;
-match_result_loop_2:                                                                            
+match_result_loop_5:                                                                            
 loop c0                                                          > tp0                          X X X X ;
  mask                                                            > tp0                          0 X X 1 ;
  mask                                                            > tp0                          0 X X 1 ;
@@ -401,14 +420,14 @@ repeat 15                                                        > tp0          
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_2                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_5                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_2:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_5:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 556
-end_loop match_result_loop_2                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_5                                     > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
@@ -430,16 +449,22 @@ return                                                           > tp0          
 global subr match_done2:                                                                        
                                                                  > tp0                          0 0 X 0 ;
 // Wait for a maximum of 7.0ms
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
+loop_here_6: if (branch_expr) jump loop_here_6                   > tp0                          0 0 X 0 ;
 // Start the match loop
 set_msb 1                                                        > tp0                          0 0 X 0 ;
 branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
-global match_loop_3:                                                                            
+global match_loop_7:                                                                            
 set c0 372                                                       > tp0                          0 0 X 0 ;
-match_result_loop_3:                                                                            
+match_result_loop_7:                                                                            
 loop c0                                                          > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -489,14 +514,14 @@ repeat 15                                                        > tp0          
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_3                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_7                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_3:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_7:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
-end_loop match_result_loop_3                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_7                                     > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
@@ -518,16 +543,22 @@ return                                                           > tp0          
 global subr match_done3:                                                                        
                                                                  > tp0                          0 0 X 0 ;
 // Wait for a maximum of 7.00s
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
+loop_here_8: if (branch_expr) jump loop_here_8                   > tp0                          0 0 X 0 ;
 // Start the match loop
 set_msb 371550                                                   > tp0                          0 0 X 0 ;
 branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
-global match_loop_4:                                                                            
+global match_loop_9:                                                                            
 set c0 43870                                                     > tp0                          0 0 X 0 ;
-match_result_loop_4:                                                                            
+match_result_loop_9:                                                                            
 loop c0                                                          > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -577,14 +608,14 @@ repeat 15                                                        > tp0          
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_4                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_9                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_4:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_9:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
-end_loop match_result_loop_4                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_9                                     > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
@@ -606,16 +637,22 @@ return                                                           > tp0          
 global subr match_done4:                                                                        
                                                                  > tp0                          0 0 X 0 ;
 // Wait for a maximum of 72.00s
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
+loop_here_10: if (branch_expr) jump loop_here_10                 > tp0                          0 0 X 0 ;
 // Start the match loop
 set_msb 3821657                                                  > tp0                          0 0 X 0 ;
 branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
-global match_loop_5:                                                                            
+global match_loop_11:                                                                           
 set c0 20569                                                     > tp0                          0 0 X 0 ;
-match_result_loop_5:                                                                            
+match_result_loop_11:                                                                           
 loop c0                                                          > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -665,14 +702,14 @@ repeat 15                                                        > tp0          
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_5                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_11                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_5:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_11:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
-end_loop match_result_loop_5                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_11                                    > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
@@ -694,16 +731,22 @@ return                                                           > tp0          
 global subr match_done5:                                                                        
                                                                  > tp0                          0 0 X 0 ;
 // Wait for a maximum of 7000.00s
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
+loop_here_12: if (branch_expr) jump loop_here_12                 > tp0                          0 0 X 0 ;
 // Start the match loop
 set_msb 185774947                                                > tp0                          0 0 X 0 ;
 branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
-global match_loop_6:                                                                            
+global match_loop_13:                                                                           
 set c0 45923                                                     > tp0                          0 0 X 0 ;
-match_result_loop_6:                                                                            
+match_result_loop_13:                                                                           
 loop c0                                                          > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -753,16 +796,16 @@ repeat 15                                                        > tp0          
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_6                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_13                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_6:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_13:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
 // Delay to meet timeout value
 repeat 2                                                         > tp0                          0 0 X 0 ;
-end_loop match_result_loop_6                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_13                                    > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
@@ -784,30 +827,92 @@ return                                                           > tp0          
 global subr match_done6:                                                                        
                                                                  > tp0                          0 0 X 0 ;
 // Wait for a maximum of 15.00s
-// NOTE: check for fails prior to match loop not necessary on UltraFlex
-// ######################################################################
-// ## WARNING: MATCH LOOP FOR ULTRAFLEX STILL UNDER DEVELOPMENT
-// ######################################################################
+global subr match_done_0:                                                                       
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_1:                                                                       
+//  Using counter c15 as set_code replacement - value set to 101 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 102                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_2:                                                                       
+//  Using counter c15 as set_code replacement - value set to 102 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 103                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_3:                                                                       
+//  Using counter c15 as set_code replacement - value set to 103 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 104                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_4:                                                                       
+//  Using counter c15 as set_code replacement - value set to 104 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 105                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_5:                                                                       
+//  Using counter c15 as set_code replacement - value set to 105 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 106                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_6:                                                                       
+//  Using counter c15 as set_code replacement - value set to 106 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 107                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_7:                                                                       
+//  Using counter c15 as set_code replacement - value set to 107 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 108                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_8:                                                                       
+//  Using counter c15 as set_code replacement - value set to 108 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 109                                                      > tp0                          0 0 X 0 ;
+jump call_tester                                                 > tp0                          0 0 X 0 ;
+global subr match_done_9:                                                                       
+//  Using counter c15 as set_code replacement - value set to 109 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 110                                                      > tp0                          0 0 X 0 ;
+call_tester:                                                                                    
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
+loop_here_14: if (branch_expr) jump loop_here_14                 > tp0                          0 0 X 0 ;
 // Start the match loop
 set_msb 961539                                                   > tp0                          0 0 X 0 ;
 branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
-global match_loop_7:                                                                            
+global match_loop_15:                                                                           
 set c0 44035                                                     > tp0                          0 0 X 0 ;
-match_result_loop_7:                                                                            
+match_result_loop_15:                                                                           
 loop c0                                                          > tp0                          0 0 X 0 ;
 // Check if tdo is high
  mask                                                            > tp0                          0 0 H 0 ;
 //  Wait for the result to propagate through the pipeline
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Branch if block condition 0 not yet met
-if (branch_expr) jump block_0_notyet_matched_7                   > tp0                          0 0 X 0 ;
+if (branch_expr) jump block_0_notyet_matched_15                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 // Match not yet found
-block_0_notyet_matched_7:                                        > tp0                          0 0 X 0 ;
+block_0_notyet_matched_15:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 260
-end_loop match_result_loop_7                                     > tp0                          0 0 X 0 ;
+end_loop match_result_loop_15                                    > tp0                          0 0 X 0 ;
 // To get here something has gone wrong, check blocks again to force a pattern failure
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Check if tdo is high
@@ -815,10 +920,13 @@ pipe_minus 1                                                     > tp0          
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr handshake:                                                                          
-// *** WARNING! *** Method set_code not supported for UltraFLEX! Find alternative solution.
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X 0 ;
+set c15 101                                                      > tp0                          0 0 X 0 ;
 branch_expr = (cpuA_cond)                                        > tp0                          0 0 X 0 ;
 set_cpu_cond (cpuA_cond)                                         > tp0                          0 0 X 0 ;
-loop_here_8: if (branch_expr) jump loop_here_8                   > tp0                          0 0 X 0 ;
+loop_here_16: if (branch_expr) jump loop_here_16                 > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
 global subr digsrc_overlay_testme32:                                                            
