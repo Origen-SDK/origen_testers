@@ -717,7 +717,7 @@ module OrigenTesters
         $tester.align_to_last
         # cycle(:microcode => "#{$dut.end_of_pattern_label}:") if $dut.end_of_pattern_label
         if options[:end_in_ka]
-            $tester.cycle microcode: "#{@microcode[:keepalive]}"
+          $tester.cycle microcode: "#{@microcode[:keepalive]}"
         else
           if options[:end_with_halt]
             $tester.cycle microcode: 'halt'
