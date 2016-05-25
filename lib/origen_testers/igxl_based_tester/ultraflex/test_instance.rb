@@ -295,6 +295,20 @@ module OrigenTesters
           m['AC'] = "#{ac_category} (#{ac_selector})"
           m.merge(@meta)
         end
+
+        # Set the meaure mode of a parametric test instance, either:
+        # * :voltage / :fimv
+        # * :current / :fvmi
+        def set_measure_mode(mode)
+          if mode == :current || mode == :fvmi
+              self.measure_mode = 2
+          elsif mode == :voltage || mode == :fimv
+            self.measure_mode = 1
+          else
+            fail "Unknown measure mode: #{mode}"
+          end
+        end
+
       end
     end
   end

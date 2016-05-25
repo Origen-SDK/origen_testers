@@ -301,23 +301,6 @@ module OrigenTesters
           self
         end
 
-        # Set the meaure mode of a parametric test instance, either:
-        # * :voltage / :fimv
-        # * :current / :fvmi
-        def set_measure_mode(mode)
-          if mode == :current || mode == :fvmi
-            if $tester.ultraflex?
-              self.measure_mode = 2
-            else
-              self.measure_mode = 0
-            end
-          elsif mode == :voltage || mode == :fimv
-            self.measure_mode = 1
-          else
-            fail "Unknown measure mode: #{mode}"
-          end
-        end
-
         # Returns true if instance configured for force current, measure voltage
         def fimv?
           measure_mode == 1
