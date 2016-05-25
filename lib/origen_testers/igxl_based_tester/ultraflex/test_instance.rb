@@ -301,14 +301,13 @@ module OrigenTesters
         # * :current / :fvmi
         def set_measure_mode(mode)
           if mode == :current || mode == :fvmi
-              self.measure_mode = 2
+            self.measure_mode = 2
           elsif mode == :voltage || mode == :fimv
             self.measure_mode = 1
           else
             fail "Unknown measure mode: #{mode}"
           end
         end
-
       end
     end
   end
