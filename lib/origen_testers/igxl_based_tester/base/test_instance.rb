@@ -69,36 +69,6 @@ module OrigenTesters
           end
         end
 
-        # Returns a hash containing key meta data about the test instance, this is
-        # intended to be used in documentation
-        def to_meta
-          m = { 'Test' => name,
-                'Type' => type
-          }
-          if type == :functional
-            m['Pattern'] = pattern
-          elsif type == :board_pmu || type == :pin_pmu
-            m['Measure'] = fvmi? ? 'current' : 'voltage'
-            if $tester.j750?
-              if hi_lo_limit_valid & 2 != 0
-                m['Hi'] = hi_limit
-              end
-              if hi_lo_limit_valid & 1 != 0
-                m['Lo'] = lo_limit
-              end
-            else
-              m['Hi'] = hi_limit
-              m['Lo'] = lo_limit
-            end
-            if force_cond
-              m['Force'] = force_cond
-            end
-          end
-          m['DC'] = "#{dc_category} (#{dc_selector})"
-          m['AC'] = "#{ac_category} (#{ac_selector})"
-          m.merge(@meta)
-        end
-
         def inspect
           "<TestInstance: #{name}, Type: #{type}>"
         end
@@ -178,20 +148,6 @@ module OrigenTesters
           # This method is tester-specific and must be overridden by the child class
           fail 'The #{self.class} class has not defined a set_wait_flags method!'
         end
-
-        # Set and enable the pre-charge voltage of a parametric test instance.
-        def set_pre_charge(val)
-          if $tester.j750?
-            if val
-              self.pre_charge_enable = 1
-              self.pre_charge = val
-            else
-              self.pre_charge_enable = 0
-            end
-            self
-          end
-        end
-        alias_method :set_precharge, :set_pre_charge
 
         # Set and enable the hi limit of a parametric test instance, passing in
         # nil or false as the lim parameter will disable the hi limit.

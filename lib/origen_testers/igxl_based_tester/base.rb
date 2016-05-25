@@ -717,11 +717,7 @@ module OrigenTesters
         $tester.align_to_last
         # cycle(:microcode => "#{$dut.end_of_pattern_label}:") if $dut.end_of_pattern_label
         if options[:end_in_ka]
-          if $tester.j750?
-            $tester.cycle microcode: 'keep_alive'
-          elsif $tester.ultraflex?
-            $tester.cycle microcode: 'keepalive' # PPKK need to add a new keepalive subroutine (either in global subs or a new keepalive subroutine pattern in Pset sheet)
-          end
+            $tester.cycle microcode: "#{@microcode[:keepalive]}"
         else
           if options[:end_with_halt]
             $tester.cycle microcode: 'halt'

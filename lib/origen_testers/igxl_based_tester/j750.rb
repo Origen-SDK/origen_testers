@@ -40,6 +40,7 @@ module OrigenTesters
         @microcode[:enable] = 'enable'
         @microcode[:set_flag] = 'set_cpu'
         @microcode[:mask_vector] = 'ign ifc icc'
+        @microcode[:keepalive] = 'keep_alive'
       end
 
       def pattern_header(options = {})

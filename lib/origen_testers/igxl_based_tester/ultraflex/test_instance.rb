@@ -268,6 +268,36 @@ module OrigenTesters
           self.wait_flag4 = d
           self
         end
+
+        # Set and enable the pre-charge voltage of a parametric test instance.
+       def set_pre_charge(val)
+        self
+       end
+       alias_method :set_precharge, :set_pre_charge
+
+
+       # Returns a hash containing key meta data about the test instance, this is
+        # intended to be used in documentation
+        def to_meta
+          m = { 'Test' => name,
+                'Type' => type
+          }
+          if type == :functional
+            m['Pattern'] = pattern
+          elsif type == :board_pmu || type == :pin_pmu
+            m['Measure'] = fvmi? ? 'current' : 'voltage'
+                m['Hi'] = hi_limit
+                m['Lo'] = lo_limit
+            if force_cond
+              m['Force'] = force_cond
+            end
+          end
+          m['DC'] = "#{dc_category} (#{dc_selector})"
+          m['AC'] = "#{ac_category} (#{ac_selector})"
+          m.merge(@meta)
+        end
+
+
       end
     end
   end

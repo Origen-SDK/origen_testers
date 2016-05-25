@@ -40,6 +40,7 @@ module OrigenTesters
         @capture_state = 'V'            # STV requires valid 'V' expect data
 
         @set_msb_issued = false        # Internal flag to keep track of set_msb usage, allowing for set_lsb to be used as a readcode
+        @microcode[:keepalive] = 'keepalive'
       end
 
       def freq_count(pin, options = {})
