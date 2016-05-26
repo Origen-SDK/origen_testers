@@ -154,7 +154,6 @@ module OrigenTesters
         def set_hi_limit(lim)
           if lim
             self.hi_limit = lim
-          else
           end
           self
         end
@@ -165,7 +164,6 @@ module OrigenTesters
         def set_lo_limit(lim)
           if lim
             self.lo_limit = lim
-          else
           end
           self
         end

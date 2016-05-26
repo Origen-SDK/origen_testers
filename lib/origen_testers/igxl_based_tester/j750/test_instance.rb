@@ -627,8 +627,6 @@ module OrigenTesters
           self
         end
         alias_method :lo_limit=, :set_lo_limit
-
-
       end
     end
   end
