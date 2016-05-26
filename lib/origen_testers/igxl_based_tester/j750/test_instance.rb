@@ -593,6 +593,42 @@ module OrigenTesters
             fail "Unknown measure mode: #{mode}"
           end
         end
+
+        # Set and enable the hi limit of a parametric test instance, passing in
+        # nil or false as the lim parameter will disable the hi limit.
+        def set_hi_limit(lim)
+          if lim
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 2
+            end
+            self.hi_limit = lim
+          else
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 1
+            end
+          end
+          self
+        end
+        alias_method :hi_limit=, :set_hi_limit
+
+        # Set and enable the hi limit of a parametric test instance, passing in
+        # nil or false as the lim parameter will disable the hi limit.
+        def set_lo_limit(lim)
+          if lim
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 1
+            end
+            self.lo_limit = lim
+          else
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 2
+            end
+          end
+          self
+        end
+        alias_method :lo_limit=, :set_lo_limit
+
+
       end
     end
   end
