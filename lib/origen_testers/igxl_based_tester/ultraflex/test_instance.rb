@@ -12,7 +12,7 @@ module OrigenTesters
 
         # Give all UltraFLEX test instances the ability to contain limits, these will
         # be rendered to Use-limit lines in the flow
-        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits
+        attr_accessor :lo_limit, :hi_limit, :scale, :units, :defer_limits, :lo, :hi
 
         # Attributes for additional test instance arguments beyond those described above
         TEST_INSTANCE_EXTRA_ARGS = 130
@@ -267,6 +267,46 @@ module OrigenTesters
           self.wait_flag3 = c
           self.wait_flag4 = d
           self
+        end
+
+        # Set and enable the pre-charge voltage of a parametric test instance.
+        def set_pre_charge(val)
+          self
+        end
+        alias_method :set_precharge, :set_pre_charge
+
+        # Returns a hash containing key meta data about the test instance, this is
+        # intended to be used in documentation
+        def to_meta
+          m = { 'Test' => name,
+                'Type' => type
+          }
+          if type == :functional
+            m['Pattern'] = pattern
+          elsif type == :board_pmu || type == :pin_pmu
+            m['Measure'] = fvmi? ? 'current' : 'voltage'
+            m['Hi'] = hi_limit
+            m['Lo'] = lo_limit
+            if force_cond
+              m['Force'] = force_cond
+            end
+          end
+          m['DC'] = "#{dc_category} (#{dc_selector})"
+          m['AC'] = "#{ac_category} (#{ac_selector})"
+          m.merge(@meta)
+        end
+
+        # Set the meaure mode of a parametric test instance, either:
+        # * :voltage / :fimv
+        # * :current / :fvmi
+        def set_measure_mode(mode)
+          if mode == :current || mode == :fvmi
+            self.measure_mode = 2
+          elsif mode == :voltage || mode == :fimv
+            self.measure_mode = 1
+          else
+            fail "Unknown measure mode: #{mode}"
+          end
         end
       end
     end

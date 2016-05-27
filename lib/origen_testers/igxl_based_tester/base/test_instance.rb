@@ -69,31 +69,6 @@ module OrigenTesters
           end
         end
 
-        # Returns a hash containing key meta data about the test instance, this is
-        # intended to be used in documentation
-        def to_meta
-          m = { 'Test' => name,
-                'Type' => type
-          }
-          if type == :functional
-            m['Pattern'] = pattern
-          elsif type == :board_pmu || type == :pin_pmu
-            m['Measure'] = fvmi? ? 'current' : 'voltage'
-            if hi_lo_limit_valid & 2 != 0
-              m['Hi'] = hi_limit
-            end
-            if hi_lo_limit_valid & 1 != 0
-              m['Lo'] = lo_limit
-            end
-            if force_cond
-              m['Force'] = force_cond
-            end
-          end
-          m['DC'] = "#{dc_category} (#{dc_selector})"
-          m['AC'] = "#{ac_category} (#{ac_selector})"
-          m.merge(@meta)
-        end
-
         def inspect
           "<TestInstance: #{name}, Type: #{type}>"
         end
@@ -174,26 +149,11 @@ module OrigenTesters
           fail 'The #{self.class} class has not defined a set_wait_flags method!'
         end
 
-        # Set and enable the pre-charge voltage of a parametric test instance.
-        def set_pre_charge(val)
-          if val
-            self.pre_charge_enable = 1
-            self.pre_charge = val
-          else
-            self.pre_charge_enable = 0
-          end
-          self
-        end
-        alias_method :set_precharge, :set_pre_charge
-
         # Set and enable the hi limit of a parametric test instance, passing in
         # nil or false as the lim parameter will disable the hi limit.
         def set_hi_limit(lim)
           if lim
-            self.hi_lo_limit_valid = hi_lo_limit_valid | 2
             self.hi_limit = lim
-          else
-            self.hi_lo_limit_valid = hi_lo_limit_valid & 1
           end
           self
         end
@@ -203,10 +163,7 @@ module OrigenTesters
         # nil or false as the lim parameter will disable the hi limit.
         def set_lo_limit(lim)
           if lim
-            self.hi_lo_limit_valid = hi_lo_limit_valid | 1
             self.lo_limit = lim
-          else
-            self.hi_lo_limit_valid = hi_lo_limit_valid & 2
           end
           self
         end
@@ -328,19 +285,6 @@ module OrigenTesters
             else 0
             end
           self
-        end
-
-        # Set the meaure mode of a parametric test instance, either:
-        # * :voltage / :fimv
-        # * :current / :fvmi
-        def set_measure_mode(mode)
-          if mode == :current || mode == :fvmi
-            self.measure_mode = 0
-          elsif mode == :voltage || mode == :fimv
-            self.measure_mode = 1
-          else
-            fail "Unknown measure mode: #{mode}"
-          end
         end
 
         # Returns true if instance configured for force current, measure voltage

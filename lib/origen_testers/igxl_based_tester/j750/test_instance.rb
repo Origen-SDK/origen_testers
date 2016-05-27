@@ -541,6 +541,92 @@ module OrigenTesters
           self.wait_flags = d + c + b + a
           self
         end
+
+        # Set and enable the pre-charge voltage of a parametric test instance.
+        def set_pre_charge(val)
+          if val
+            self.pre_charge_enable = 1
+            self.pre_charge = val
+          else
+            self.pre_charge_enable = 0
+          end
+          self
+        end
+        alias_method :set_precharge, :set_pre_charge
+
+        # Returns a hash containing key meta data about the test instance, this is
+        # intended to be used in documentation
+        def to_meta
+          m = { 'Test' => name,
+                'Type' => type
+          }
+          if type == :functional
+            m['Pattern'] = pattern
+          elsif type == :board_pmu || type == :pin_pmu
+            m['Measure'] = fvmi? ? 'current' : 'voltage'
+            if hi_lo_limit_valid & 2 != 0
+              m['Hi'] = hi_limit
+            end
+            if hi_lo_limit_valid & 1 != 0
+              m['Lo'] = lo_limit
+            end
+            m['Hi'] = hi_limit
+            m['Lo'] = lo_limit
+            if force_cond
+              m['Force'] = force_cond
+            end
+          end
+          m['DC'] = "#{dc_category} (#{dc_selector})"
+          m['AC'] = "#{ac_category} (#{ac_selector})"
+          m.merge(@meta)
+        end
+
+        # Set the meaure mode of a parametric test instance, either:
+        # * :voltage / :fimv
+        # * :current / :fvmi
+        def set_measure_mode(mode)
+          if mode == :current || mode == :fvmi
+            self.measure_mode = 0
+          elsif mode == :voltage || mode == :fimv
+            self.measure_mode = 1
+          else
+            fail "Unknown measure mode: #{mode}"
+          end
+        end
+
+        # Set and enable the hi limit of a parametric test instance, passing in
+        # nil or false as the lim parameter will disable the hi limit.
+        def set_hi_limit(lim)
+          if lim
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 2
+            end
+            self.hi_limit = lim
+          else
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 1
+            end
+          end
+          self
+        end
+        alias_method :hi_limit=, :set_hi_limit
+
+        # Set and enable the hi limit of a parametric test instance, passing in
+        # nil or false as the lim parameter will disable the hi limit.
+        def set_lo_limit(lim)
+          if lim
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid | 1
+            end
+            self.lo_limit = lim
+          else
+            if $tester.j750?
+              self.hi_lo_limit_valid = hi_lo_limit_valid & 2
+            end
+          end
+          self
+        end
+        alias_method :lo_limit=, :set_lo_limit
       end
     end
   end
