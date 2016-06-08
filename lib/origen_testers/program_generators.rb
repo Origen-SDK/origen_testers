@@ -47,7 +47,7 @@ module OrigenTesters
       elsif tester.ultraflex?
         class << self; include OrigenTesters::UltraFLEX::Generator; end
       else
-        fail "The Testers::ProgramGenerators module does not support #{tester.class}!"
+        fail "The OrigenTesters::ProgramGenerators module does not support #{tester.class}!"
       end
     end
   end
