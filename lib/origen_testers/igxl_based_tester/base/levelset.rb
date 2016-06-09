@@ -97,7 +97,8 @@ module OrigenTesters
             data = data.gsub(/^/, '=')
           end
           data = data.gsub(/(\W)([a-zA-Z])/, '\1_\2')
-          data = data.gsub(/(\*\s*)_([kmun]{0,1}[AVs]{1})/, '\1\2')
+          data = data.gsub(/(\*\s*)_([kmun]{0,1}[AVs]{1}\W)/, '\1\2')
+          data = data.gsub(/(\*\s*)_([kmun]{0,1}[AVs]{1})$/, '\1\2')
         end
 
         def platform
