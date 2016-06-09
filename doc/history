@@ -1,3 +1,52 @@
+<a class="anchor release_tag" name="v0_7_2"></a>
+<h1><a href="#v0_7_2">Tag: v0.7.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-Jun-2016 09:40AM
+
+
+* Corrected formatting bug in (UltraFLEX) Levelset sheet creation (Aaron Burgmeier)
+* Added a hook to allow 3rd party plugins that provide a tester driver, to easily 
+  make their program generator API available to their user's interface:
+
+~~~ruby
+# Application interface
+module MyApp
+  class Interface
+    # All interfaces should include this, adds the program generator APIs for all
+    # platforms supported by OrigenTesters, and now also any platforms provided
+    # by 3rd parties
+    include OrigenTesters::ProgramGenerators
+  end
+end
+
+# 3rd Party Plugin, this is the class that will be instantiated in the target/environment
+module MyTester
+ class Tester
+   # By defining this constant OrigenTesters will load the API into the interface
+   # whenever an instance of this class is the current tester loaded by the target 
+   TEST\_PROGRAM\_GENERATOR = MyTester::Generator
+  end
+end
+
+# 3rd Party Plugin, this implements the program generator API
+module MyTester
+  class Generator
+    extend ActiveSupport::Concern
+
+    included do
+      include OrigenTesters::Interface  # adds the interface helpers/Origen hook-up
+    end
+
+    # This method will now be available within the above application interface
+    def some\_api\_method
+      # Generator some test program item
+    end
+  end
+end
+~~~
+
 <a class="anchor release_tag" name="v0_7_1"></a>
 <h1><a href="#v0_7_1">Tag: v0.7.1</a></h1>
 
