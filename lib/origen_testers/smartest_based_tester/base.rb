@@ -200,7 +200,6 @@ module OrigenTesters
           check_for_fails:       false,
           pin2:                  false,
           state2:                false,
-          force_fail_on_timeout: true,
           global_loops:          false,
           generate_subroutine:   false,
           force_fail_on_timeout: true

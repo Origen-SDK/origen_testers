@@ -46,6 +46,8 @@ module OrigenTesters
         class << self; include OrigenTesters::J750::Generator; end
       elsif tester.ultraflex?
         class << self; include OrigenTesters::UltraFLEX::Generator; end
+      elsif defined? tester.class::TEST_PROGRAM_GENERATOR
+        class << self; include tester.class::TEST_PROGRAM_GENERATOR; end
       else
         fail "The OrigenTesters::ProgramGenerators module does not support #{tester.class}!"
       end
