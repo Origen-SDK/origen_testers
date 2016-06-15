@@ -44,15 +44,15 @@ module OrigenTesters
       end
 
       def freq_count(pin, options = {})
-       options = { readcode: false
-                 }.merge(options)
+        options = { readcode: false
+                  }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})")
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})")
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[1]})")
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[2]})")
-        cycle(microcode: "freq_loop_1: #{@microcode[:enable]} (#{@flags[0]})") 
+        cycle(microcode: "freq_loop_1: #{@microcode[:enable]} (#{@flags[0]})")
         cycle(microcode: 'if (branch_expr) jump freq_loop_1')
         pin.drive_lo
         delay(2000)
