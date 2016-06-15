@@ -44,6 +44,13 @@ module OrigenTesters
       end
 
       def pattern_header(options = {})
+        # pin setup type => freq_counter is only for the J750.
+        # UltraFLEX has frequency counter capability behind every pin.
+        options[:high_voltage] = @use_hv_pin
+        microcode "pin_setup = {#{options[:high_voltage]} high_voltage;}" if options[:high_voltage]
+        microcode "pin_setup = {#{options[:freq_counter]} freq_count;}" if options[:freq_counter]
+        microcode ''
+
         super(options) do |pin_list|
           microcode "vector ($tset, #{pin_list})"
           microcode '{'
