@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_7_3"></a>
+<h1><a href="#v0_7_3">Tag: v0.7.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 15-Jun-2016 09:33AM
+
+
+Minor update to smartest\_based\_tester to allow for lower-case naming of pin groups of size
+1 (or more).
+
 <a class="anchor release_tag" name="v0_7_2"></a>
 <h1><a href="#v0_7_2">Tag: v0.7.2</a></h1>
 
