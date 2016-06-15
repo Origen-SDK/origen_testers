@@ -43,6 +43,14 @@ module OrigenTesters
         @microcode[:keepalive] = 'keepalive'
       end
 
+      # Do a frequency measure.
+      #
+      # Write the necessary micro code to do a frequency measure on the given pin,
+      # optionally supply a read code to pass information to the tester.
+      #
+      # ==== Examples
+      #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
+      #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
         options = { readcode: false
                   }.merge(options)
