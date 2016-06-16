@@ -43,8 +43,32 @@ module OrigenTesters
         @microcode[:keepalive] = 'keepalive'
       end
 
+      # Do a frequency measure.
+      #
+      # Write the necessary micro code to do a frequency measure on the given pin,
+      # optionally supply a read code to pass information to the tester.
+      #
+      # ==== Examples
+      #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
+      #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        fail 'Method freq_count not yet supported for UltraFLEX!'
+        options = { readcode: false
+                  }.merge(options)
+
+        set_code(options[:readcode]) if options[:readcode]
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuA
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuB
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[1]})") # set cpuC
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[2]})") # set cpuD
+        cycle(microcode: "freq_loop_1: #{@microcode[:enable]} (#{@flags[0]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_1')
+        pin.drive_lo
+        delay(2000)
+        pin.dont_care
+        cycle(microcode: "freq_loop_2: #{@microcode[:enable]} (#{@flags[1]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_2')
+        cycle(microcode: "#{@microcode[:enable]} (#{@flags[2]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_1')
       end
 
       def memory_test(options = {})
