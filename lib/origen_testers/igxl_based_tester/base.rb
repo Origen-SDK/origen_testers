@@ -689,6 +689,7 @@ module OrigenTesters
 
         options[:high_voltage] = @use_hv_pin
         microcode "pin_setup = {#{options[:high_voltage]} high_voltage;}" if options[:high_voltage]
+        microcode ''
 
         pin_list = ordered_pins.map(&:name).join(', ')
 
