@@ -224,6 +224,13 @@ module OrigenTesters
         $tester.memory_test(pin: pin(:tdo), pin_data: :expect)
       end
 
+      def freq_count(options = {})
+        options = {
+        }.merge(options)
+
+       $tester.freq_count($dut.pin(:tdo), readcode: 73)
+      end
+
       # dummy flag to check for a particular design bug for this DUT
       def has_margin0_bug?
         false
