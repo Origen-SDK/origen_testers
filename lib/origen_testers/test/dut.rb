@@ -228,7 +228,7 @@ module OrigenTesters
         options = {
         }.merge(options)
 
-       $tester.freq_count($dut.pin(:tdo), readcode: 73)
+        $tester.freq_count($dut.pin(:tdo), readcode: 73)
       end
 
       # dummy flag to check for a particular design bug for this DUT
