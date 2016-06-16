@@ -56,10 +56,10 @@ module OrigenTesters
                   }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
-        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") #set cpuA
-        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") #set cpuB
-        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[1]})") #set cpuC
-        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[2]})") #set cpuD
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuA
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuB
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[1]})") # set cpuC
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[2]})") # set cpuD
         cycle(microcode: "freq_loop_1: #{@microcode[:enable]} (#{@flags[0]})")
         cycle(microcode: 'if (branch_expr) jump freq_loop_1')
         pin.drive_lo
