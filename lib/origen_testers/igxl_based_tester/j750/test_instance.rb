@@ -336,7 +336,7 @@ module OrigenTesters
             serialize_meas_f_args:    :arg45
           },
 
-          powersupply: {
+          powersupply:      {
             precond_pat:              :arg0,
             pre_cond_pat:             :arg0,
             start_func:               :arg1,
@@ -415,7 +415,7 @@ module OrigenTesters
             serialize_meas_f_args:    :arg45,
             precond_pat_clamp:        :arg46,
             threading:                :arg47
-            
+
           },
 
           mto_memory:       {
@@ -576,7 +576,7 @@ module OrigenTesters
             resume_pat:      0,
             test_control:    0
           },
-          powersupply: {
+          powersupply:      {
             proc_type:       'IG-XL Template',
             proc_name:       'PowerSupply_T',
             proc_called_as:  'VB DLL',
