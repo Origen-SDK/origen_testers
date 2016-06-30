@@ -107,6 +107,10 @@ module OrigenTesters
           new(name, :apmu_powersupply, attrs)
         end
 
+        def self.new_powersupply(name, attrs = {})
+          new(name, :powersupply, attrs)
+        end
+
         def self.new_mto_memory(name, attrs = {})
           new(name, :mto_memory, attrs)
         end
