@@ -1,5 +1,6 @@
 DFF 1.1	Pattern Sets					
 						
 	Pattern Set	File/Group Name	Start Label	Stop Label	Comment	
-	read_pump_pset	read_pump.PAT				
+	meas_read_pump_pset	meas_read_pump.PAT				
+	meas_read_pump_pset	nvm_global_subs.PAT	subr			
 	test1_pset	test1.PAT				
