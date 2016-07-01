@@ -415,7 +415,6 @@ module OrigenTesters
             serialize_meas_f_args:    :arg45,
             precond_pat_clamp:        :arg46,
             threading:                :arg47
-
           },
 
           mto_memory:       {
@@ -663,6 +662,18 @@ module OrigenTesters
             m['Pattern'] = pattern
           elsif type == :board_pmu || type == :pin_pmu
             m['Measure'] = fvmi? ? 'current' : 'voltage'
+            if hi_lo_limit_valid & 2 != 0
+              m['Hi'] = hi_limit
+            end
+            if hi_lo_limit_valid & 1 != 0
+              m['Lo'] = lo_limit
+            end
+            m['Hi'] = hi_limit
+            m['Lo'] = lo_limit
+            if force_cond
+              m['Force'] = force_cond
+            end
+          elsif type == :powersupply
             if hi_lo_limit_valid & 2 != 0
               m['Hi'] = hi_limit
             end

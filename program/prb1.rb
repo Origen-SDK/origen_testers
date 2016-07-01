@@ -185,5 +185,11 @@ Flow.create do
     meas :bgap_voltage_meas1
   end
 
+  if tester.j750?
+    meas :lo_voltage, tnum: 1150, bin: 95, soft_bin: 5
+    meas :hi_voltage, pins: :hi_v, tnum: 1160, bin: 96, soft_bin: 6
+    meas :ps_leakage, pins: :power, tnum: 1170, bin: 97, soft_bin: 6
+  end
+
   pass 1, description: "Good die!", softbin: 1
 end

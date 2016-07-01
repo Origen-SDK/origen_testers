@@ -109,4 +109,7 @@ DFF 1.1	Flow Table
 						characterize	margin_read1_all1_v2 vbplus_sweep							None														
 						logprint	Verify_that_MTO_template_works...																					
 						Test	mto_read1_all1							Fail														
+						Test	meas_lo_voltage		1150		95		5	Fail														
+						Test	meas_hi_voltage		1160		96		6	Fail														
+						Test	meas_ps_leakage		1170		97		6	Fail														
 						set-device				1		1		Pass													Good die!	

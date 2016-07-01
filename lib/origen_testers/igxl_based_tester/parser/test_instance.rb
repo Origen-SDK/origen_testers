@@ -5,7 +5,7 @@ module OrigenTesters
         attr_accessor :parser
 
         TYPES = %w(
-          functional board_pmu empty pin_pmu power_supply mto_memory
+          functional board_pmu empty pin_pmu powersupply mto_memory
         )
 
         TYPE_ALIASES = {
@@ -17,7 +17,7 @@ module OrigenTesters
           pinpmu_t:             :pin_pmu,
           nvmpinpmucal_t:       :pin_pmu,
           nvmpinpmumeas_t:      :pin_pmu,
-          powersupply_t:        :power_supply,
+          powersupply_t:        :powersupply,
           mto_memory_t:         :mto_memory
         }
 
@@ -253,6 +253,86 @@ module OrigenTesters
             mapmem_1_input_set:        :arg65,
             threading:                 :arg69,
             match_all_sites:           :arg70
+          }
+
+          powersupply: {
+            precond_pat:              :arg0,
+            pre_cond_pat:             :arg0,
+            start_func:               :arg1,
+            start_of_body_f:          :arg1,
+            pre_pat_func:             :arg2,
+            pre_pat_f:                :arg2,
+            pre_test_func:            :arg3,
+            pre_test_f:               :arg3,
+            post_test_func:           :arg4,
+            post_test_f:              :arg4,
+            post_pat_func:            :arg5,
+            post_pat_f:               :arg5,
+            end_func:                 :arg6,
+            end_of_body_f:            :arg6,
+            hold_state_pat:           :arg7,
+            holdstate_pat:            :arg7,
+            wait_flags:               :arg8,
+            wait_time_out:            :arg9,
+            start_lo:                 :arg10,
+            start_init_lo:            :arg10,
+            init_lo:                  :arg10,
+            start_hi:                 :arg11,
+            start_init_hi:            :arg11,
+            init_hi:                  :arg11,
+            start_hiz:                :arg12,
+            start_init_hiz:           :arg12,
+            init_hiz:                 :arg12,
+            float_pins:               :arg13,
+            irange:                   :arg14,
+            sampling_time:            :arg15,
+            samples:                  :arg16,
+            settling_time:            :arg17,
+            hi_lo_lim_valid:          :arg18,
+            hi_lo_limit_valid:        :arg18,
+            hi_limit:                 :arg19,
+            lo_limit:                 :arg20,
+            force_cond_1:             :arg21,
+            force_cond:               :arg21,
+            force_condition:          :arg21,
+            force_condition_1:        :arg21,
+            force_cond_2:             :arg22,
+            force_condition_2:        :arg22,
+            power_pins:               :arg23,
+            pins:                     :arg23,
+            pin:                      :arg23,
+            force_source:             :arg24,
+            pcp_start:                :arg25,
+            pcp_stop:                 :arg26,
+            start_func_args:          :arg27,
+            start_of_body_f_args:     :arg27,
+            pre_pat_func_args:        :arg28,
+            pre_pat_f_args:           :arg28,
+            pre_test_func_args:       :arg29,
+            pre_test_f_args:          :arg29,
+            post_test_func_args:      :arg30,
+            post_test_f_args:         :arg30,
+            post_pat_func_args:       :arg31,
+            post_pat_f_args:          :arg31,
+            end_func_args:            :arg32,
+            end_of_body_f_args:       :arg32,
+            hsp_start:                :arg33,
+            hsp_stop:                 :arg34,
+            pcp_check_pg:             :arg35,
+            clamp:                    :arg36,
+            hsp_check_pg:             :arg37,
+            resume_pat:               :arg38,
+            relay_mode:               :arg39,
+            utility_pins_1:           :arg40,
+            utility_pins_0:           :arg41,
+            test_control:             :arg42,
+            serialize_meas:           :arg43,
+            serialize_meas_func:      :arg44,
+            serialize_meas_f:         :arg44,
+            serialize_meas_func_args: :arg45,
+            serialize_meas_f_args:    :arg45,
+            precond_pat_clam:    :arg46,
+            threading:    :arg47
           }
 
         }
