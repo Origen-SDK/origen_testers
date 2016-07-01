@@ -33,9 +33,9 @@ module OrigenTesters
         ATTRS = attributes
 
         ALIASES = {
-          name:       :test_name,
+          name:        :test_name,
 
-          functional: {
+          functional:  {
             pattern:             :arg0,
             start_func:          :arg1,
             pre_pat_func:        :arg2,
@@ -65,7 +65,7 @@ module OrigenTesters
             data_type:           :arg35
           },
 
-          board_pmu:  {
+          board_pmu:   {
             hsp_start:           :arg0,
             start_func:          :arg1,
             pre_pat_func:        :arg2,
@@ -120,7 +120,7 @@ module OrigenTesters
             threading:           :arg46
           },
 
-          pin_pmu:    {
+          pin_pmu:     {
             hsp_start:           :arg0,
             start_func:          :arg1,
             pre_pat_func:        :arg2,
@@ -175,7 +175,7 @@ module OrigenTesters
             pre_charge:          :arg45,
             threading:           :arg46
           },
-          mto_memory: {
+          mto_memory:  {
             patterns:                  :arg0,
             pattern:                   :arg0,
             start_func:                :arg1,
@@ -253,7 +253,7 @@ module OrigenTesters
             mapmem_1_input_set:        :arg65,
             threading:                 :arg69,
             match_all_sites:           :arg70
-          }
+          },
 
           powersupply: {
             precond_pat:              :arg0,
@@ -331,10 +331,9 @@ module OrigenTesters
             serialize_meas_f:         :arg44,
             serialize_meas_func_args: :arg45,
             serialize_meas_f_args:    :arg45,
-            precond_pat_clam:    :arg46,
-            threading:    :arg47
+            precond_pat_clam:         :arg46,
+            threading:                :arg47
           }
-
         }
 
         # Make readers for each low level attribute

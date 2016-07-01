@@ -184,10 +184,6 @@ module OrigenTesters
           add(name, :apmu_powersupply, options)
         end
 
-        def powersupply(name, options = {})
-          add(name, :powersupply, options)
-        end
-
         def mto_memory(name, options = {})
           add(name, :mto_memory, options)
         end

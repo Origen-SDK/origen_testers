@@ -237,9 +237,9 @@ module OrigenTesters
             else
               self.irange = case
                 when r > 0.25 then 4       # between 250mA - 1A
-                when r > 0.1 then 7       # between 100mA - 250mA    
+                when r > 0.1 then 7       # between 100mA - 250mA
                 when r > 0.01 then 0     # between 10mA - 100mA
-                when r > 0.0005 then 1    # between 500ua - 10mA    
+                when r > 0.0005 then 1    # between 500ua - 10mA
                 when r > 0.00005 then 2   # between 50ua - 500u
                 when r > 0.000005 then 3  # between 5u - 50u
                 else 8

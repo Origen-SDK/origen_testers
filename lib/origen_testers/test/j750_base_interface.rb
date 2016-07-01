@@ -110,36 +110,35 @@ module OrigenTesters
           end
         end
 
-      def meas(name, options = {})
-        options = {
-          duration: :static
-        }.merge(options)
+        def meas(name, options = {})
+          options = {
+            duration: :static
+          }.merge(options)
 
-        name = "meas_#{name}" unless name.to_s =~ /meas/
+          name = "meas_#{name}" unless name.to_s =~ /meas/
 
-        if options[:pins] == :hi_v
-          ins = test_instances.board_pmu(name)
-        elsif options[:pins] == :power
-          ins = test_instances.powersupply(name)
-        else
-          ins = test_instances.pin_pmu(name)
+          if options[:pins] == :hi_v
+            ins = test_instances.board_pmu(name)
+          elsif options[:pins] == :power
+            ins = test_instances.powersupply(name)
+          else
+            ins = test_instances.pin_pmu(name)
+          end
+          ins.set_wait_flags(:a) if options[:duration] == :dynamic
+          ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
+          ins.lo_limit = options[:lo_limit]
+          ins.hi_limit = options[:hi_limit]
+
+          pname = "#{name}_pset"
+          patsets.add(pname, [{ pattern: "#{name}.PAT" },
+                              { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
+          ins.pattern = pname
+          if options[:cz_setup]
+            flow.cz(ins, options[:cz_setup], options)
+          else
+            flow.test(ins, options)
+          end
         end
-        ins.set_wait_flags(:a) if options[:duration] == :dynamic
-        ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
-        ins.lo_limit = options[:lo_limit]
-        ins.hi_limit = options[:hi_limit]
-
-        pname = "#{name}_pset"
-        patsets.add(pname, [{ pattern: "#{name}.PAT" },
-                            { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
-        ins.pattern = pname
-        if options[:cz_setup]
-          flow.cz(ins, options[:cz_setup], options)
-        else
-          flow.test(ins, options)
-        end
-      end
-
       end
     end
   end

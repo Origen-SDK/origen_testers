@@ -336,7 +336,7 @@ module OrigenTesters
             serialize_meas_f_args:    :arg45
           },
 
-          powersupply: {
+          powersupply:      {
             precond_pat:              :arg0,
             pre_cond_pat:             :arg0,
             start_func:               :arg1,
@@ -413,8 +413,8 @@ module OrigenTesters
             serialize_meas_f:         :arg44,
             serialize_meas_func_args: :arg45,
             serialize_meas_f_args:    :arg45,
-            precond_pat_clam:    :arg46,
-            threading:    :arg47
+            precond_pat_clam:         :arg46,
+            threading:                :arg47
           },
 
           mto_memory:       {
