@@ -1,5 +1,6 @@
 # App specific
 /spec/patterns/bin
+/spec/patterns/atp
 
 # Editor cruft
 *.swp

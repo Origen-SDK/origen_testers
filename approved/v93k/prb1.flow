@@ -4,14 +4,14 @@ language_revision = 1;
 information
  
 -- STOPDIFF
-test_revision = "0.5.6";
+test_revision = "0.7.5";
 -- STARTDIFF
  
 end
 --------------------------------------------------
 declarations
 
-@JOB = -1;
+@JOB = "";
 @DO_ERASE = -1;
 @NO_EXTRA_ERASE = -1;
 @ADDITIONAL_ERASE = -1;
