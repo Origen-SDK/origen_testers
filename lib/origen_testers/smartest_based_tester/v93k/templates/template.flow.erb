@@ -26,10 +26,18 @@ declarations
 %   end
 % else
 %   flow_control_variables.each do |var|
+%     if var.is_a?(Array)
+@<%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%     else
 @<%= var.to_s.upcase %> = -1;
+%     end
 %   end
 %   runtime_control_variables.each do |var|
+%     if var.is_a?(Array)
+@<%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%     else
 @<%= var.to_s.upcase %> = -1;
+%     end
 %   end
 % end
 end
@@ -89,16 +97,20 @@ end
 testmethodparameters
 % if program
 %   program.testmethodparameters.each do |id, parameters|
+%     if parameters
 <%= id %>:
-%     parameters.each do |key, val|
+%       parameters.each do |key, val|
   <%= key %> = <%= val %>
+%       end
 %     end
 %   end
 % else
 %   test_methods.collection.each do |method|
+%     unless method.parameters.empty?
 <%= method.id %>:
-%     method.parameters.each do |name, type|
+%       method.parameters.each do |name, type|
   "<%= name.is_a?(String) ? name : name.to_s.camelize(:lower) %>" = "<%= method.format(name) %>";
+%       end
 %     end
 %   end
 % end

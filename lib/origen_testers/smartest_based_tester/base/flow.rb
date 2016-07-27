@@ -78,7 +78,7 @@ module OrigenTesters
         def on_job(node)
           jobs, state, *nodes = *node
           jobs = clean_job(jobs)
-          flow_control_variables << 'JOB'
+          flow_control_variables << ['JOB', '']
           condition = jobs.join(' or ')
           line "if #{condition} then"
           line '{'
