@@ -1,3 +1,16 @@
+<a class="anchor release_tag" name="v0_7_7"></a>
+<h1><a href="#v0_7_7">Tag: v0.7.7</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-Aug-2016 12:48PM
+
+
+Added a timestamp to all major step comments, useful when looking at a pattern in
+simulation.
+
+Bug fix for flow.render when called from a plugin via a top-level app.
+
 <a class="anchor release_tag" name="v0_7_6"></a>
 <h1><a href="#v0_7_6">Tag: v0.7.6</a></h1>
 
