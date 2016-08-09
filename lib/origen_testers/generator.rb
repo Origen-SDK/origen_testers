@@ -235,8 +235,9 @@ module OrigenTesters
         val = nil
         Origen.file_handler.preserve_current_file do
           Origen.file_handler.default_extension = file_extension
-          file = Origen.file_handler.clean_path_to_sub_template(file)
-          placeholder = compiler.render(file, options)
+          full_path = Origen.file_handler.clean_path_to(file, allow_missing: true)
+          full_path ||= Origen.file_handler.clean_path_to_sub_template(file)
+          placeholder = compiler.render(full_path, options)
           val = compiler.insert(placeholder).chomp
         end
         val
