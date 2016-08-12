@@ -89,7 +89,14 @@ module OrigenTesters
             type = parameters[attr]
           else
             # The type is based on the value of another attribute
-            type = send(clean_attr_name(parameters[attr]))
+            name = clean_attr_name(parameters[attr])
+            if respond_to?(name)
+              type = send(name)
+            elsif respond_to?(name.sub(/b$/, ''))
+              type = inverse_of(send(name.sub(/b$/, '')))
+            else
+              fail "Unknown attribute type: #{parameters[attr]}"
+            end
           end
           case type
           when :current, 'CURR'
@@ -129,6 +136,17 @@ module OrigenTesters
         end
 
         private
+
+        def inverse_of(type)
+          case type
+          when :current, 'CURR'
+            :voltage
+          when :voltage, 'VOLT'
+            :current
+          else
+            fail "Don't know the inverse of type: #{type}"
+          end
+        end
 
         def clean_attr_name(name)
           name.to_s.gsub(/\.|-/, '_')

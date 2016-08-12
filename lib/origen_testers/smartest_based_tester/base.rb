@@ -75,12 +75,8 @@ module OrigenTesters
       end
       alias_method :capture, :store
 
-      # Capture the next vector generated to HRAM
-      #
-      # This method applys a store vector (stv) opcode to the next vector to be generated,
-      # note that is does not actually generate a new vector.
-      #
-      # On J750 the pins argument is ignored since the tester only supports whole vector capture.
+      # Same as the store method, except that the capture will be applied to the next
+      # vector to be generated.
       #
       # @example
       #   $tester.store_next_cycle

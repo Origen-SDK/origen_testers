@@ -15,6 +15,19 @@ module OrigenTesters
       end
     end
 
+    class PatternArray < ::Array
+      def <<(pat)
+        push(pat)
+      end
+
+      # Override the array push method to capture the pattern under the new API, but
+      # maintain the old one where a pattern reference was just pushed to the
+      # referenced_patterns array
+      def push(pat)
+        Origen.interface.record_pattern_reference(pat)
+      end
+    end
+
     def self.with_resources_mode
       orig = @resources_mode
       @resources_mode = true
@@ -100,38 +113,108 @@ module OrigenTesters
 
     def on_program_completion(options = {})
       reset_globals
+      @@pattern_references = {}
       @@referenced_patterns = nil
-      @@referenced_subroutine_patterns = nil
     end
 
+    # A secondary pattern is one where the pattern has been created by Origen as an output from
+    # generating another pattern (a primary pattern). For example, on V93K anytime a tester
+    # handshake is done, the pattern will be split into separate components, such as
+    # meas_bgap.avc (the primary pattern) and meas_bgap_part1.avc (a secondary pattern).
+    #
+    # Any such secondary pattern references should be pushed to this array, rather than the
+    # referenced_patterns array.
+    # By using the dedicated secondary array, the pattern will not appear in the referenced.list
+    # file so that Origen is not asked to generate it (since it will be created naturally from
+    # the primary pattern reference).
+    # However if the ATE requires a reference to the pattern (e.g. the V93K pattern master file),
+    # then it will be included in the relevant ATE files.
+    def record_pattern_reference(name, options = {})
+      if name.is_a?(String) || name.is_a?(Symbol)
+        name = name.to_s
+      else
+        fail "Pattern name must be a string or a symbol, not a #{name.class}"
+      end
+      # Help out the user and force any multi-part patterns to :ate type
+      unless options[:type]
+        if name.sub(/\..*/, '') =~ /part\d+$/
+          options[:type] = :ate
+        end
+      end
+      unless options[:type] == :origen
+        # Inform the current generator that it has a new pattern reference to handle
+        if respond_to?(:pattern_reference_recorded)
+          pattern_reference_recorded(name, options)
+        end
+      end
+      base = options[:subroutine] ? pattern_references[:subroutine] : pattern_references[:main]
+      case options[:type]
+      when :origen
+        base[:origen] << name
+      when :ate
+        base[:ate] << name
+      when nil
+        base[:all] << name
+      else
+        fail "Unknown pattern reference type, #{options[:type]}, valid values are :origen or :ate"
+      end
+      nil
+    end
+
+    def pattern_references
+      @@pattern_references ||= {}
+      @@pattern_references[pattern_references_name] ||= {
+        main:       {
+          all:    [],
+          origen: [],
+          ate:    []
+        },
+        subroutine: {
+          all:    [],
+          origen: [],
+          ate:    []
+        }
+      }
+    end
+
+    def all_pattern_references
+      pattern_references
+      @@pattern_references
+    end
+
+    def pattern_references_name=(name)
+      @pattern_references_name = name
+    end
+
+    def pattern_references_name
+      @pattern_references_name || 'global'
+    end
+
+    # @deprecated Use record_pattern_reference instead
+    #
     # All generators should push to this array whenever they reference a pattern
     # so that it is captured in the pattern list, e.g.
     #   Origen.interface.referenced_patterns << pattern
+    #
+    # If the ATE platform also has a pattern list, e.g. the pattern master file on V93K,
+    # then this will also be updated.
+    # Duplicates will be automatically eliminated, so no duplicate checking should be
+    # performed on the application side.
     def referenced_patterns
-      @@referenced_patterns ||= []
-    end
-
-    # All generators should push to this array whenever they reference a subroutine
-    # pattern so that it is captured in the pattern list, e.g.
-    #   Origen.interface.referenced_subroutine_patterns << pattern
-    def referenced_subroutine_patterns
-      unless Origen.tester.v93k?
-        fail 'referenced_subroutine_patterns is currently only implemented for V93k!'
-      end
-      @@referenced_subroutine_patterns ||= []
+      @@referenced_patterns ||= PatternArray.new
     end
 
     # Remove duplicates and file extensions from the referenced pattern lists
     def clean_referenced_patterns
       refs = [:referenced_patterns]
-      refs << :referenced_subroutine_patterns if Origen.tester.v93k?
+      # refs << :referenced_subroutine_patterns if Origen.tester.v93k?
       refs.each do |ref|
-        ref = send(ref)
-        ref.uniq!
-        ref.map! do |pat|
-          pat.sub(/\..*/, '')
-        end
-        ref.uniq!
+        var = send(ref)
+        var = var.uniq.map do |pat|
+          pat = pat.sub(/\..*/, '')
+          pat unless pat =~ /_part\d+$/
+        end.uniq.compact
+        singleton_class.class_variable_set("@@#{ref}", var)
       end
     end
 

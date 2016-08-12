@@ -5,3 +5,4 @@ gemspec
 
 gem 'coveralls', require: false
 gem 'byebug', '~>3.5'
+gem 'ripper-tags'

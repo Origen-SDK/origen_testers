@@ -9,9 +9,9 @@ single_binary_pattern_dir       ./BINL/
 AI_V2B_OPTIONS  -ALT -c <%= $dut.name.to_s.upcase %>.vbc -k -z PS800
 
 PATTERNS name tmf_file v2b_options
-%   subroutines.uniq.sort.each do |pattern|
-<%= pattern.sub(/\..*/, '') %> <%= $dut.name.to_s.upcase %>.tmf -s
+%   subroutines.each do |pattern|
+<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf -s
 %   end
-%   patterns.uniq.sort.each do |pattern|
-<%= pattern.sub(/\..*/, '') %> <%= $dut.name.to_s.upcase %>.tmf
+%   patterns.each do |pattern|
+<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf
 %   end

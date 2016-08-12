@@ -95,6 +95,11 @@ module OrigenTesters
           end
         end
 
+        def pattern=(name)
+          Origen.interface.record_pattern_reference(name)
+          @pattern = name
+        end
+
         def inspect
           "<TestSuite: #{name}>"
         end

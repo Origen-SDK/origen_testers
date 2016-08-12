@@ -94,6 +94,7 @@ module OrigenTesters
           self.global_specs_filename = name
           self.jobs_filename = name
           self.references_filename = name
+          self.pattern_references_name = name
         end
 
         # Set the name of the current pinmap sheet. This does not change

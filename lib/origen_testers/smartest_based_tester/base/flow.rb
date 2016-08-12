@@ -4,10 +4,10 @@ module OrigenTesters
       class Flow < ATP::Formatter
         include OrigenTesters::Flow
 
-        attr_accessor :test_suites, :test_methods, :pattern_master, :lines, :stack
+        attr_accessor :test_suites, :test_methods, :lines, :stack
 
         def subdirectory
-          'testflow'
+          'testflow/mfh.testflow.group'
         end
 
         def filename
@@ -24,6 +24,12 @@ module OrigenTesters
 
         def runtime_control_variables
           @runtime_control_variables ||= []
+        end
+
+        def at_flow_start
+        end
+
+        def at_flow_end
         end
 
         def finalize(options = {})

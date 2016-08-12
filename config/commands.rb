@@ -21,6 +21,12 @@ aliases = {
 # Now branch to the specific task code
 case @command
 
+when "tags"
+  Dir.chdir Origen.root do
+    system "ripper-tags --recursive lib"
+  end
+  exit 0
+
 # Run the unit tests  
 when "specs"
   require "rspec"
@@ -68,6 +74,7 @@ else
  specs        Run the specs (tests), -c will enable coverage
  examples     Run the examples (tests), -c will enable coverage
  test         Run both specs and examples, -c will enable coverage
+ tags         Generate ctags for this app 
   EOT
 
 end 

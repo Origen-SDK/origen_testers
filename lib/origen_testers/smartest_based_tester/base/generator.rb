@@ -16,6 +16,8 @@ module OrigenTesters
         def initialize(options = {})
           super
           @initialized = true
+          @@pattern_masters ||= {}
+          @@pattern_compilers ||= {}
         end
 
         def add_tml(name, methods)
@@ -27,16 +29,34 @@ module OrigenTesters
         # @api private
         def at_flow_start
           flow.at_flow_start
+          @pattern_master_filename = nil
+        end
+
+        # @api private
+        def at_flow_end
+          flow.at_flow_end
         end
 
         # @api private
         def at_run_start
           flow.at_run_start
           @@flow_sheets = nil
+          @@pattern_masters = nil
+          @@pattern_compilers = nil
         end
         alias_method :reset_globals, :at_run_start
 
         def resources_filename=(name)
+          self.pattern_master_filename = name
+          self.pattern_references_name = name
+        end
+
+        def pattern_master_filename=(name)
+          @pattern_master_filename = name
+        end
+
+        def pattern_master_filename
+          @pattern_master_filename || 'global'
         end
 
         def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
@@ -48,33 +68,46 @@ module OrigenTesters
           p.filename = f
           p.test_suites ||= platform::TestSuites.new(p)
           p.test_methods ||= platform::TestMethods.new(p)
-          p.pattern_master ||= platform::PatternMaster.new(p)
           flow_sheets[f] = p
         end
 
-        # Returns a top-level pattern master file which will contain all patterns from
-        # all flows. Additionally each flow has its own pattern master file containing
-        # only the patterns for the specific flow.
+        # Returns the pattern master file (.pmfl) for the current flow, by default a common pattern
+        # master file called 'global' will be used for all flows.
+        # To use a different one set the resources_filename at the start of the flow.
         def pattern_master
-          @pattern_master ||= begin
+          @@pattern_masters ||= {}
+          @@pattern_masters[pattern_master_filename] ||= begin
             m = platform::PatternMaster.new(manually_register: true)
-            name = 'complete.pmfl'
+            name = "#{pattern_master_filename}.pmfl"
             name = "#{Origen.config.program_prefix}_#{name}" if Origen.config.program_prefix
             m.filename = name
+            m.id = pattern_master_filename
             m
           end
         end
 
-        # Generates a pattern compiler configuration file (.aiv) to compile all
-        # patterns referenced in all flows.
+        # Returns the pattern compiler file (.aiv) for the current flow, by default a common pattern
+        # compiler file called 'global' will be used for all flows.
+        # To use a different one set the resources_filename at the start of the flow.
         def pattern_compiler
-          @pattern_compiler ||= begin
+          @@pattern_compilers ||= {}
+          @@pattern_compilers[pattern_master_filename] ||= begin
             m = platform::PatternCompiler.new(manually_register: true)
-            name = 'complete.aiv'
+            name = "#{pattern_master_filename}.aiv"
             name = "#{Origen.config.program_prefix}_#{name}" if Origen.config.program_prefix
             m.filename = name
+            m.id = pattern_master_filename
             m
           end
+        end
+
+        # @api private
+        def pattern_reference_recorded(name, options = {})
+          # Will be called everytime a pattern reference is made that the ATE should be aware of,
+          # don't need to remember it as it can be fetched from all_pattern_references later, but
+          # need to instantiate a pattern master and compiler to handle it later
+          pattern_master
+          pattern_compiler
         end
 
         def test_suites
@@ -95,10 +128,13 @@ module OrigenTesters
           g = []
           flow_sheets.each do |_name, sheet|
             g << sheet
-            g << sheet.pattern_master
           end
-          g << pattern_master if pattern_master
-          g << pattern_compiler unless referenced_subroutine_patterns.empty? && referenced_patterns.empty?
+          Hash(@@pattern_masters).each do |name, sheet|
+            g << sheet
+          end
+          Hash(@@pattern_compilers).each do |name, sheet|
+            g << sheet
+          end
           g
         end
 

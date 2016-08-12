@@ -32,12 +32,8 @@ module OrigenTesters
         end
 
         def finalize
-          collection.each do |suite|
-            if suite.pattern
-              flow.pattern_master.add suite.pattern
-              Origen.interface.pattern_master.add suite.pattern
-            end
-          end
+          # collection.each do |suite|
+          # end
         end
 
         private
