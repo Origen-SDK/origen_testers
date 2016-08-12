@@ -1,3 +1,65 @@
+<a class="anchor release_tag" name="v0_7_8"></a>
+<h1><a href="#v0_7_8">Tag: v0.7.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 12-Aug-2016 12:15PM
+
+
+Various updates for V93K, this release puts the support for V93K on a par with
+that for J750 and UltraFLEX.
+
+* The list/referenced.list file output from the program generator is now diff
+  tracked
+* Added ability to specify a custom test method attribute's type as being the
+  inverse of another attribute, e.g.
+
+~~~ruby
+my\_test\_method:       {
+  force\_mode:  [:string, 'VOLT', %w(VOLT CURR)],
+  force\_value: [:force\_mode, 3800.mV],   # Type will be :voltage when force\_mode set to 'VOLT'
+  spmu\_clamp:  [:force\_modeb, 0]         # Type will be :current when force\_mode set to 'VOLT'
+}
+~~~
+
+* Changed the output directory/filename of flow files to align to the MFH
+  (master file handler) conventions
+* Pattern master (.pmfl) and compiler (.aiv) files now default to a file
+  called global and will contain all references for a given generator run,
+  this is equivalent to how pattern/instance sheets are handled for Teradyne.
+  The app can change this on a per-flow basis by setting the interface's
+  resources\_filename attribute, again same as Teradyne sheets.
+* Better naming of multi-part patterns. \_part1, \_part2, etc. is now appended
+  after the app's pattern postfix, this generally makes app-level pattern
+  references easier to handle.
+* On V93K there is sometimes the situation where you want the test program to
+  have a reference to a pattern (in the .pmfl), but you don't want it in
+  Origen's list/referenced.list, and vice versa. The API for adding a pattern
+  reference from the app has been improved to support this:
+
+~~~ruby
+# From the app's test program interface...
+
+# The original API is still supported, this will add a reference to
+# list/referenced.list and the .pmfl (and .aiv)
+referenced\_patterns << "some\_pattern"
+
+# This is equivalent with the new API
+record\_pattern\_reference("some\_pattern")
+
+# V93K needs to know if the reference is to a subroutine, this can be
+# indicated like this
+record\_pattern\_reference("some\_pattern", subroutine: true)
+
+# To make the reference appear in Origen's list/referenced.list only
+record\_pattern\_reference("some\_pattern", type: :origen)
+
+# To make the reference appear in the .pmfl (and .aiv) only
+record\_pattern\_reference("some\_pattern", type: :ate)
+~~~
+
+* Finally there are various minor bug fixes
+
 <a class="anchor release_tag" name="v0_7_7"></a>
 <h1><a href="#v0_7_7">Tag: v0.7.7</a></h1>
 
