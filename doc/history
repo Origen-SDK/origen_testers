@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_7_9"></a>
+<h1><a href="#v0_7_9">Tag: v0.7.9</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 15-Aug-2016 06:16AM
+
+
+* Bugfix to J750 pattern output to setup freq\_count after the opcode has been
+  defined (Thao Huynh)
+* Turned off timestamps in the pattern comments by default due to it causing
+  too many diffs when reviewing changes. It will now be enabled with the -v
+  option which already enabled vectors and cycle count comments.
+
 <a class="anchor release_tag" name="v0_7_8"></a>
 <h1><a href="#v0_7_8">Tag: v0.7.8</a></h1>
 
