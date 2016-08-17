@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    origen_testers (0.7.9)
+    origen_testers (0.7.10)
       atp (~> 0.4, >= 0.4.1)
       origen (>= 0.7.23)
       require_all (~> 1)

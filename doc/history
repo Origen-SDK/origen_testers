@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_7_10"></a>
+<h1><a href="#v0_7_10">Tag: v0.7.10</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 17-Aug-2016 06:57AM
+
+
+Added a variables file to the V93K program generator output (output to
+OUTPUT/testflow/mfh.testflow.setup/).
+
+By default this is a global file but it can be made flow specific by setting
+resources\_filename as per other file generators.
+
 <a class="anchor release_tag" name="v0_7_9"></a>
 <h1><a href="#v0_7_9">Tag: v0.7.9</a></h1>
 
