@@ -4,7 +4,11 @@ module OrigenTesters
       class Flow < ATP::Formatter
         include OrigenTesters::Flow
 
-        attr_accessor :test_suites, :test_methods, :lines, :stack
+        attr_accessor :test_suites, :test_methods, :lines, :stack, :var_filename
+
+        def var_filename
+          @var_filename || 'global'
+        end
 
         def subdirectory
           'testflow/mfh.testflow.group'
@@ -19,11 +23,11 @@ module OrigenTesters
         end
 
         def flow_control_variables
-          @flow_control_variables ||= []
+          Origen.interface.variables_file(self).flow_control_variables
         end
 
         def runtime_control_variables
-          @runtime_control_variables ||= []
+          Origen.interface.variables_file(self).runtime_control_variables
         end
 
         def at_flow_start
@@ -40,13 +44,19 @@ module OrigenTesters
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
           process(model.ast)
-          flow_control_variables.uniq!
-          runtime_control_variables.uniq!
         end
 
         def line(str)
           @lines << (' ' * @indent * 2) + str
         end
+
+        # def on_flow(node)
+        #  line '{'
+        #  @indent += 1
+        #  process_all(node.children)
+        #  @indent -= 1
+        #  line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
+        # end
 
         def on_test(node)
           name = node.find(:object).to_a[0]
@@ -84,7 +94,7 @@ module OrigenTesters
         def on_job(node)
           jobs, state, *nodes = *node
           jobs = clean_job(jobs)
-          flow_control_variables << ['JOB', '']
+          runtime_control_variables << ['JOB', '']
           condition = jobs.join(' or ')
           line "if #{condition} then"
           line '{'

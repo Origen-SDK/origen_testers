@@ -1,7 +1,7 @@
 hp93000,pattern_master_file,0.1
 
 path:
-.
+../vectors
 
 files:
 meas_read_pump.binl.gz

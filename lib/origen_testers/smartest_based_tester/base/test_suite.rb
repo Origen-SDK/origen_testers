@@ -85,6 +85,9 @@ module OrigenTesters
 
         def initialize(name, attrs = {})
           @name = name
+          if interface.flow.sig
+            @name = "#{name}_#{interface.flow.sig}"
+          end
           # Set the defaults
           DEFAULTS.each do |k, v|
             send("#{k}=", v)
@@ -141,6 +144,10 @@ module OrigenTesters
 
         def respond_to?(method)
           (test_method && test_method.respond_to?(method)) || super
+        end
+
+        def interface
+          Origen.interface
         end
 
         private

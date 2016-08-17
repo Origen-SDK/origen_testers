@@ -22,7 +22,7 @@ module OrigenTesters
         end
 
         def paths
-          { '.' => patterns }
+          { '../vectors' => patterns }
         end
 
         # def add(name, options = {})

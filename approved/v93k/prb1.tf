@@ -3,81 +3,11 @@ language_revision = 1;
  
 information
  
--- STOPDIFF
-test_revision = "0.7.7";
--- STARTDIFF
  
-end
---------------------------------------------------
-declarations
-
-@JOB = "";
-@DO_ERASE = -1;
-@NO_EXTRA_ERASE = -1;
-@ADDITIONAL_ERASE = -1;
-@ERASE_VFY_0_864CE8F_FAILED = -1;
-@ERASE_VFY_1_864CE8F_FAILED = -1;
-@ERASE_VFY_2_864CE8F_FAILED = -1;
-@ERASE_VFY_3_864CE8F_FAILED = -1;
-@ERASE_VFY_4_864CE8F_FAILED = -1;
-@ERASE_PASSED_1_864CE8F_PASSED = -1;
-@ERASE_PASSED_2_864CE8F_PASSED = -1;
-@ERASE_PASSED_3_864CE8F_FAILED = -1;
-@ERASE_PASSED_4_864CE8F_FAILED = -1;
-@ERASE_FAILED_1_864CE8F_FAILED = -1;
-@ERASE_FAILED_2_864CE8F_FAILED = -1;
-@ERASE_FAILED_3_864CE8F_PASSED = -1;
-@ERASE_FAILED_4_864CE8F_PASSED = -1;
-@ERASE_RAN_1_864CE8F_RAN = -1;
-@ERASE_RAN_2_864CE8F_RAN = -1;
-@ERASE_RAN_3_864CE8F_RAN = -1;
-@ERASE_RAN_4_864CE8F_RAN = -1;
 end
 --------------------------------------------------
 implicit_declarations
 
-end
------------------------------------------------------------------
-flags
-
-datalog_formatter = 0;
-datalog_sample_size = 1;
-graphic_result_displa = 1;
-state_display = 0;
-print_wafermap = 0;
-ink_wafer = 0;
-max_reprobes = 1;
-temp_monitor = 1;
-calib_age_monitor = 1;
-diag_monitor = 1;
-current_monitor = 1;
-log_events_enable = 1;
-set_pass_level = 0;
-set_fail_level = 0;
-set_bypass_level = 0;
-hold_on_fail = 0;
-global_hold = 0;
-debug_mode = 0;
-debug_analog = 0;
-parallel_mode = 1;
-site_match_mode = 2;
-global_overon = 0;
-limits_enable = 0;
-test_number_enable = 1;
-test_number_inc = 1;
-log_cycles_before = 0;
-log_cycles_after = 0;
-unburst_mode = 0;
-sqst_mode = 0;
-warn_as_fail = 1;
-use_hw_dsp = 0;
-dsp_file_enable = 0;
-buffer_testflow_log = 0;
-check_testmethod_api = 0;
-stdf_generation = 1;
-tm_crash_as_fatal = 1;
-hidden_datalog_mode = 0;
-multibin_mode = 0;
 end
 -----------------------------------------------------------------
 testmethodparameters
@@ -769,602 +699,602 @@ program_ckbd:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_ckbd:
+margin_read1_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_ckbd";
  override_testf = tm_2;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read0_ckbd:
+margin_read0_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read0_ckbd";
  override_testf = tm_3;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all:
+erase_all_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_4;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_1:
+erase_all_1_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_5;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_2:
+erase_all_2_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_6;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_3:
+erase_all_3_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_7;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_4:
+erase_all_4_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_8;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_5:
+erase_all_5_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_9;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1:
+margin_read1_all1_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_10;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd:
+program_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_11;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_1:
+program_ckbd_1_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_12;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_2:
+program_ckbd_2_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_13;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_3:
+program_ckbd_3_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_14;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_4:
+program_ckbd_4_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_15;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_5:
+program_ckbd_5_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_16;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_6:
+program_ckbd_6_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_17;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_7:
+program_ckbd_7_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_18;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_8:
+program_ckbd_8_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_19;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_9:
+program_ckbd_9_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_20;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_10:
+program_ckbd_10_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_21;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_11:
+program_ckbd_11_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_22;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_12:
+program_ckbd_12_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_23;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_13:
+program_ckbd_13_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_24;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_14:
+program_ckbd_14_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_25;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_15:
+program_ckbd_15_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_26;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-p1_only_test:
+p1_only_test_864CE8F:
   override = 1;
  override_seqlbl = "p1_only_test";
  override_testf = tm_27;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-p1_or_p2_only_test:
+p1_or_p2_only_test_864CE8F:
   override = 1;
  override_seqlbl = "p1_or_p2_only_test";
  override_testf = tm_28;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-not_p1_test:
+not_p1_test_864CE8F:
   override = 1;
  override_seqlbl = "not_p1_test";
  override_testf = tm_29;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-not_p1_or_p2_test:
+not_p1_or_p2_test_864CE8F:
   override = 1;
  override_seqlbl = "not_p1_or_p2_test";
  override_testf = tm_30;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-another_not_p1_or_p2_test:
+another_not_p1_or_p2_test_864CE8F:
   override = 1;
  override_seqlbl = "another_not_p1_or_p2_test";
  override_testf = tm_31;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-por_ins:
+por_ins_864CE8F:
   override = 1;
  override_seqlbl = "por_ins";
  override_testf = tm_32;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_6:
+erase_all_6_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_33;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_7:
+erase_all_7_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_34;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_8:
+erase_all_8_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_35;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_9:
+erase_all_9_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_36;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_10:
+erase_all_10_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_37;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_1:
+margin_read1_all1_1_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_38;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_11:
+erase_all_11_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_39;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_2:
+margin_read1_all1_2_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_40;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_12:
+erase_all_12_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_41;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_3:
+margin_read1_all1_3_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_42;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_13:
+erase_all_13_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_43;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_4:
+margin_read1_all1_4_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_44;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_14:
+erase_all_14_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_45;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_5:
+margin_read1_all1_5_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_46;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_15:
+erase_all_15_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_47;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_6:
+margin_read1_all1_6_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_48;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_16:
+erase_all_16_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_49;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_17:
+erase_all_17_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_50;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_18:
+erase_all_18_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_51;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_19:
+erase_all_19_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_52;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_20:
+erase_all_20_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_53;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_21:
+erase_all_21_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_54;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_22:
+erase_all_22_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_55;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_23:
+erase_all_23_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_56;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_24:
+erase_all_24_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_57;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_7:
+margin_read1_all1_7_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_58;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_8:
+margin_read1_all1_8_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_59;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_25:
+erase_all_25_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_60;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_26:
+erase_all_26_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_61;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_9:
+margin_read1_all1_9_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_62;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_10:
+margin_read1_all1_10_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_63;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_27:
+erase_all_27_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_64;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_28:
+erase_all_28_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_65;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_11:
+margin_read1_all1_11_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_66;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_12:
+margin_read1_all1_12_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_67;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_29:
+erase_all_29_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_68;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_30:
+erase_all_30_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_69;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_13:
+margin_read1_all1_13_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_70;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_14:
+margin_read1_all1_14_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_71;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_31:
+erase_all_31_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_72;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_32:
+erase_all_32_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_73;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_15:
+margin_read1_all1_15_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_74;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_16:
+margin_read1_all1_16_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_75;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_33:
+erase_all_33_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_76;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_34:
+erase_all_34_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_77;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_17:
+margin_read1_all1_17_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_78;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_18:
+margin_read1_all1_18_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_79;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_35:
+erase_all_35_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_80;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_36:
+erase_all_36_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_81;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_37:
+erase_all_37_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_82;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_38:
+erase_all_38_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_83;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_19:
+margin_read1_all1_19_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_84;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_39:
+erase_all_39_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_85;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_40:
+erase_all_40_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_86;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_20:
+margin_read1_all1_20_864CE8F:
   override = 1;
  override_levset = cz;
  override_seqlbl = "margin_read1_all1";
@@ -1372,63 +1302,63 @@ margin_read1_all1_20:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_16:
+program_ckbd_16_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_88;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-bitmap_all0:
+bitmap_all0_864CE8F:
   override = 1;
  override_seqlbl = "bitmap_all0";
  override_testf = tm_89;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-bitcell_iv_0:
+bitcell_iv_0_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_0";
  override_testf = tm_90;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-bitcell_iv_1:
+bitcell_iv_1_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_1";
  override_testf = tm_91;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-bitcell_iv_2:
+bitcell_iv_2_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_2";
  override_testf = tm_92;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_ckbd:
+margin_read1_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_ckbd";
  override_testf = tm_93;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-normal_read_ckbd:
+normal_read_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "normal_read_ckbd";
  override_testf = tm_94;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read0_ckbd:
+margin_read0_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read0_ckbd";
  override_testf = tm_95;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_41:
+erase_all_41_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_96;
@@ -1439,450 +1369,433 @@ end
 --------------------------------------------------
 test_flow
 {
-    @ERASE_VFY_0_864CE8F_FAILED = -1;
-    @ERASE_VFY_1_864CE8F_FAILED = -1;
-    @ERASE_VFY_2_864CE8F_FAILED = -1;
-    @ERASE_VFY_3_864CE8F_FAILED = -1;
-    @ERASE_VFY_4_864CE8F_FAILED = -1;
-    @ERASE_PASSED_1_864CE8F_PASSED = -1;
-    @ERASE_PASSED_2_864CE8F_PASSED = -1;
-    @ERASE_PASSED_3_864CE8F_FAILED = -1;
-    @ERASE_PASSED_4_864CE8F_FAILED = -1;
-    @ERASE_FAILED_1_864CE8F_FAILED = -1;
-    @ERASE_FAILED_2_864CE8F_FAILED = -1;
-    @ERASE_FAILED_3_864CE8F_PASSED = -1;
-    @ERASE_FAILED_4_864CE8F_PASSED = -1;
-    @ERASE_RAN_1_864CE8F_RAN = -1;
-    @ERASE_RAN_2_864CE8F_RAN = -1;
-    @ERASE_RAN_3_864CE8F_RAN = -1;
-    @ERASE_RAN_4_864CE8F_RAN = -1;
-}, open,"Init Flow Control Vars", ""
-run_and_branch(program_ckbd)
-then
-{
-}
-else
-{
-  stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
-}
-run(margin_read1_ckbd);
-run(margin_read0_ckbd);
-{
-  run(erase_all);
-  run(erase_all_1);
-  run(erase_all_2);
-  run(erase_all_3);
-  run(erase_all_4);
-  run(erase_all_5);
+  run_and_branch(program_ckbd)
+  then
   {
-    run(margin_read1_all1);
-  }, open,"erase_vfy", ""
-}, open,"erase", ""
-print_dl("Should be v1");
-run(program_ckbd);
-print_dl("Should be v2");
-run(program_ckbd_1);
-print_dl("Should be v1");
-run(program_ckbd_2);
-print_dl("Should be v2");
-run(program_ckbd_3);
-print_dl("Should be a v1 test instance group");
-{
-  run(program_ckbd_4);
-  run(program_ckbd_5);
-  run(program_ckbd_6);
-}, open,"program_ckbd", ""
-print_dl("Should be a v2 test instance group");
-{
-  run(program_ckbd_7);
-  run(program_ckbd_8);
-  run(program_ckbd_9);
-}, open,"program_ckbd_2", ""
-print_dl("Should be a v1 test instance group");
-{
-  run(program_ckbd_10);
-  run(program_ckbd_11);
-  run(program_ckbd_12);
-}, open,"program_ckbd_3", ""
-print_dl("Should be a v2 test instance group");
-{
-  run(program_ckbd_13);
-  run(program_ckbd_14);
-  run(program_ckbd_15);
-}, open,"program_ckbd_4", ""
-if @JOB == "P1" then
-{
-  run(p1_only_test);
-}
-else
-{
-}
-if @JOB == "P1" or @JOB == "P2" then
-{
-  run(p1_or_p2_only_test);
-}
-else
-{
-}
-if @JOB == "P1" then
-{
-}
-else
-{
-  run(not_p1_test);
-}
-if @JOB == "P1" or @JOB == "P2" then
-{
-}
-else
-{
-  run(not_p1_or_p2_test);
-  run(another_not_p1_or_p2_test);
-}
-print_dl("Verify that a test with an external instance works");
-run(por_ins);
-print_dl("Verify that a request to use the current context works");
-if @JOB == "P1" then
-{
-  run(erase_all_6);
-  run(erase_all_7);
-  run(erase_all_8);
-}
-else
-{
-}
-if @JOB == "P2" then
-{
-}
-else
-{
-  run(erase_all_9);
-}
-run(erase_all_10);
-run_and_branch(margin_read1_all1_1)
-then
-{
-}
-else
-{
-  @ERASE_VFY_0_864CE8F_FAILED = 1;
-}
-if @ERASE_VFY_0_864CE8F_FAILED == 1 then
-{
-  run(erase_all_11);
-}
-else
-{
-}
-run_and_branch(margin_read1_all1_2)
-then
-{
-}
-else
-{
-  @ERASE_VFY_1_864CE8F_FAILED = 1;
-}
-if @ERASE_VFY_1_864CE8F_FAILED == 1 then
-{
-  run(erase_all_12);
-}
-else
-{
-}
-run_and_branch(margin_read1_all1_3)
-then
-{
-}
-else
-{
-  @ERASE_VFY_2_864CE8F_FAILED = 1;
-}
-if @ERASE_VFY_2_864CE8F_FAILED == 1 then
-{
-  run(erase_all_13);
-}
-else
-{
-}
-run_and_branch(margin_read1_all1_4)
-then
-{
-}
-else
-{
-  @ERASE_VFY_3_864CE8F_FAILED = 1;
-}
-if @ERASE_VFY_3_864CE8F_FAILED == 1 then
-{
-  run(erase_all_14);
-}
-else
-{
-}
-run_and_branch(margin_read1_all1_5)
-then
-{
-}
-else
-{
-  @ERASE_VFY_4_864CE8F_FAILED = 1;
-}
-if @ERASE_VFY_4_864CE8F_FAILED == 1 then
-{
-  run(erase_all_15);
-}
-else
-{
-}
-run(margin_read1_all1_6);
-print_dl("Test if enable");
-if @DO_ERASE == 1 then
-{
-  run(erase_all_16);
-  run(erase_all_17);
-}
-else
-{
-}
-print_dl("Test unless enable");
-if @NO_EXTRA_ERASE == 1 then
-{
-}
-else
-{
-  run(erase_all_18);
-  run(erase_all_19);
-  run(erase_all_20);
-}
-run(erase_all_21);
-run(erase_all_22);
-print_dl("Test if_passed");
-run_and_branch(erase_all_23)
-then
-{
-  @ERASE_PASSED_1_864CE8F_PASSED = 1;
-}
-else
-{
-}
-run_and_branch(erase_all_24)
-then
-{
-  @ERASE_PASSED_2_864CE8F_PASSED = 1;
-}
-else
-{
-}
-if @ERASE_PASSED_1_864CE8F_PASSED == 1 then
-{
-  run(margin_read1_all1_7);
-}
-else
-{
-}
-if @ERASE_PASSED_2_864CE8F_PASSED == 1 then
-{
-  run(margin_read1_all1_8);
-}
-else
-{
-}
-print_dl("Test unless_passed");
-run_and_branch(erase_all_25)
-then
-{
-}
-else
-{
-  @ERASE_PASSED_3_864CE8F_FAILED = 1;
-}
-run_and_branch(erase_all_26)
-then
-{
-}
-else
-{
-  @ERASE_PASSED_4_864CE8F_FAILED = 1;
-}
-if @ERASE_PASSED_3_864CE8F_FAILED == 1 then
-{
-  run(margin_read1_all1_9);
-}
-else
-{
-}
-if @ERASE_PASSED_4_864CE8F_FAILED == 1 then
-{
-  run(margin_read1_all1_10);
-}
-else
-{
-}
-print_dl("Test if_failed");
-run_and_branch(erase_all_27)
-then
-{
-}
-else
-{
-  @ERASE_FAILED_1_864CE8F_FAILED = 1;
-}
-run_and_branch(erase_all_28)
-then
-{
-}
-else
-{
-  @ERASE_FAILED_2_864CE8F_FAILED = 1;
-}
-if @ERASE_FAILED_1_864CE8F_FAILED == 1 then
-{
-  run(margin_read1_all1_11);
-}
-else
-{
-}
-if @ERASE_FAILED_2_864CE8F_FAILED == 1 then
-{
-  run(margin_read1_all1_12);
-}
-else
-{
-}
-print_dl("Test unless_failed");
-run_and_branch(erase_all_29)
-then
-{
-  @ERASE_FAILED_3_864CE8F_PASSED = 1;
-}
-else
-{
-}
-run_and_branch(erase_all_30)
-then
-{
-  @ERASE_FAILED_4_864CE8F_PASSED = 1;
-}
-else
-{
-}
-if @ERASE_FAILED_3_864CE8F_PASSED == 1 then
-{
-  run(margin_read1_all1_13);
-}
-else
-{
-}
-if @ERASE_FAILED_4_864CE8F_PASSED == 1 then
-{
-  run(margin_read1_all1_14);
-}
-else
-{
-}
-print_dl("Test if_ran");
-run_and_branch(erase_all_31)
-then
-{
-  @ERASE_RAN_1_864CE8F_RAN = 1;
-}
-else
-{
-  @ERASE_RAN_1_864CE8F_RAN = 1;
-}
-run_and_branch(erase_all_32)
-then
-{
-  @ERASE_RAN_2_864CE8F_RAN = 1;
-}
-else
-{
-  @ERASE_RAN_2_864CE8F_RAN = 1;
-}
-if @ERASE_RAN_1_864CE8F_RAN == 1 then
-{
-  run(margin_read1_all1_15);
-}
-else
-{
-}
-if @ERASE_RAN_2_864CE8F_RAN == 1 then
-{
-  run(margin_read1_all1_16);
-}
-else
-{
-}
-print_dl("Test unless_ran");
-run_and_branch(erase_all_33)
-then
-{
-  @ERASE_RAN_3_864CE8F_RAN = 1;
-}
-else
-{
-  @ERASE_RAN_3_864CE8F_RAN = 1;
-}
-run_and_branch(erase_all_34)
-then
-{
-  @ERASE_RAN_4_864CE8F_RAN = 1;
-}
-else
-{
-  @ERASE_RAN_4_864CE8F_RAN = 1;
-}
-if @ERASE_RAN_3_864CE8F_RAN == 1 then
-{
-}
-else
-{
-  run(margin_read1_all1_17);
-}
-if @ERASE_RAN_4_864CE8F_RAN == 1 then
-{
-}
-else
-{
-  run(margin_read1_all1_18);
-}
-print_dl("Verify that job context wraps import");
-{
-  if @JOB == "FR" then
+  }
+  else
   {
-    run(erase_all_35);
-    run(erase_all_36);
-    run(erase_all_37);
-    run(erase_all_38);
+    stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
+  }
+  run(margin_read1_ckbd_864CE8F);
+  run(margin_read0_ckbd_864CE8F);
+  {
+    run(erase_all_864CE8F);
+    run(erase_all_1_864CE8F);
+    run(erase_all_2_864CE8F);
+    run(erase_all_3_864CE8F);
+    run(erase_all_4_864CE8F);
+    run(erase_all_5_864CE8F);
     {
-      run(margin_read1_all1_19);
-    }, open,"erase_vfy_2", ""
+      run(margin_read1_all1_864CE8F);
+    }, open,"erase_vfy", ""
+  }, open,"erase", ""
+  print_dl("Should be v1");
+  run(program_ckbd_864CE8F);
+  print_dl("Should be v2");
+  run(program_ckbd_1_864CE8F);
+  print_dl("Should be v1");
+  run(program_ckbd_2_864CE8F);
+  print_dl("Should be v2");
+  run(program_ckbd_3_864CE8F);
+  print_dl("Should be a v1 test instance group");
+  {
+    run(program_ckbd_4_864CE8F);
+    run(program_ckbd_5_864CE8F);
+    run(program_ckbd_6_864CE8F);
+  }, open,"program_ckbd", ""
+  print_dl("Should be a v2 test instance group");
+  {
+    run(program_ckbd_7_864CE8F);
+    run(program_ckbd_8_864CE8F);
+    run(program_ckbd_9_864CE8F);
+  }, open,"program_ckbd_2", ""
+  print_dl("Should be a v1 test instance group");
+  {
+    run(program_ckbd_10_864CE8F);
+    run(program_ckbd_11_864CE8F);
+    run(program_ckbd_12_864CE8F);
+  }, open,"program_ckbd_3", ""
+  print_dl("Should be a v2 test instance group");
+  {
+    run(program_ckbd_13_864CE8F);
+    run(program_ckbd_14_864CE8F);
+    run(program_ckbd_15_864CE8F);
+  }, open,"program_ckbd_4", ""
+  if @JOB == "P1" then
+  {
+    run(p1_only_test_864CE8F);
   }
   else
   {
   }
-}, open,"erase_2", ""
-print_dl("Verify that job context wraps enable block within an import");
-{
-  if @JOB == "FR" then
+  if @JOB == "P1" or @JOB == "P2" then
   {
-    if @ADDITIONAL_ERASE == 1 then
+    run(p1_or_p2_only_test_864CE8F);
+  }
+  else
+  {
+  }
+  if @JOB == "P1" then
+  {
+  }
+  else
+  {
+    run(not_p1_test_864CE8F);
+  }
+  if @JOB == "P1" or @JOB == "P2" then
+  {
+  }
+  else
+  {
+    run(not_p1_or_p2_test_864CE8F);
+    run(another_not_p1_or_p2_test_864CE8F);
+  }
+  print_dl("Verify that a test with an external instance works");
+  run(por_ins_864CE8F);
+  print_dl("Verify that a request to use the current context works");
+  if @JOB == "P1" then
+  {
+    run(erase_all_6_864CE8F);
+    run(erase_all_7_864CE8F);
+    run(erase_all_8_864CE8F);
+  }
+  else
+  {
+  }
+  if @JOB == "P2" then
+  {
+  }
+  else
+  {
+    run(erase_all_9_864CE8F);
+  }
+  run(erase_all_10_864CE8F);
+  run_and_branch(margin_read1_all1_1_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_VFY_0_864CE8F_FAILED = 1;
+  }
+  if @ERASE_VFY_0_864CE8F_FAILED == 1 then
+  {
+    run(erase_all_11_864CE8F);
+  }
+  else
+  {
+  }
+  run_and_branch(margin_read1_all1_2_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_VFY_1_864CE8F_FAILED = 1;
+  }
+  if @ERASE_VFY_1_864CE8F_FAILED == 1 then
+  {
+    run(erase_all_12_864CE8F);
+  }
+  else
+  {
+  }
+  run_and_branch(margin_read1_all1_3_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_VFY_2_864CE8F_FAILED = 1;
+  }
+  if @ERASE_VFY_2_864CE8F_FAILED == 1 then
+  {
+    run(erase_all_13_864CE8F);
+  }
+  else
+  {
+  }
+  run_and_branch(margin_read1_all1_4_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_VFY_3_864CE8F_FAILED = 1;
+  }
+  if @ERASE_VFY_3_864CE8F_FAILED == 1 then
+  {
+    run(erase_all_14_864CE8F);
+  }
+  else
+  {
+  }
+  run_and_branch(margin_read1_all1_5_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_VFY_4_864CE8F_FAILED = 1;
+  }
+  if @ERASE_VFY_4_864CE8F_FAILED == 1 then
+  {
+    run(erase_all_15_864CE8F);
+  }
+  else
+  {
+  }
+  run(margin_read1_all1_6_864CE8F);
+  print_dl("Test if enable");
+  if @DO_ERASE == 1 then
+  {
+    run(erase_all_16_864CE8F);
+    run(erase_all_17_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test unless enable");
+  if @NO_EXTRA_ERASE == 1 then
+  {
+  }
+  else
+  {
+    run(erase_all_18_864CE8F);
+    run(erase_all_19_864CE8F);
+    run(erase_all_20_864CE8F);
+  }
+  run(erase_all_21_864CE8F);
+  run(erase_all_22_864CE8F);
+  print_dl("Test if_passed");
+  run_and_branch(erase_all_23_864CE8F)
+  then
+  {
+    @ERASE_PASSED_1_864CE8F_PASSED = 1;
+  }
+  else
+  {
+  }
+  run_and_branch(erase_all_24_864CE8F)
+  then
+  {
+    @ERASE_PASSED_2_864CE8F_PASSED = 1;
+  }
+  else
+  {
+  }
+  if @ERASE_PASSED_1_864CE8F_PASSED == 1 then
+  {
+    run(margin_read1_all1_7_864CE8F);
+  }
+  else
+  {
+  }
+  if @ERASE_PASSED_2_864CE8F_PASSED == 1 then
+  {
+    run(margin_read1_all1_8_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test unless_passed");
+  run_and_branch(erase_all_25_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_PASSED_3_864CE8F_FAILED = 1;
+  }
+  run_and_branch(erase_all_26_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_PASSED_4_864CE8F_FAILED = 1;
+  }
+  if @ERASE_PASSED_3_864CE8F_FAILED == 1 then
+  {
+    run(margin_read1_all1_9_864CE8F);
+  }
+  else
+  {
+  }
+  if @ERASE_PASSED_4_864CE8F_FAILED == 1 then
+  {
+    run(margin_read1_all1_10_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test if_failed");
+  run_and_branch(erase_all_27_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_FAILED_1_864CE8F_FAILED = 1;
+  }
+  run_and_branch(erase_all_28_864CE8F)
+  then
+  {
+  }
+  else
+  {
+    @ERASE_FAILED_2_864CE8F_FAILED = 1;
+  }
+  if @ERASE_FAILED_1_864CE8F_FAILED == 1 then
+  {
+    run(margin_read1_all1_11_864CE8F);
+  }
+  else
+  {
+  }
+  if @ERASE_FAILED_2_864CE8F_FAILED == 1 then
+  {
+    run(margin_read1_all1_12_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test unless_failed");
+  run_and_branch(erase_all_29_864CE8F)
+  then
+  {
+    @ERASE_FAILED_3_864CE8F_PASSED = 1;
+  }
+  else
+  {
+  }
+  run_and_branch(erase_all_30_864CE8F)
+  then
+  {
+    @ERASE_FAILED_4_864CE8F_PASSED = 1;
+  }
+  else
+  {
+  }
+  if @ERASE_FAILED_3_864CE8F_PASSED == 1 then
+  {
+    run(margin_read1_all1_13_864CE8F);
+  }
+  else
+  {
+  }
+  if @ERASE_FAILED_4_864CE8F_PASSED == 1 then
+  {
+    run(margin_read1_all1_14_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test if_ran");
+  run_and_branch(erase_all_31_864CE8F)
+  then
+  {
+    @ERASE_RAN_1_864CE8F_RAN = 1;
+  }
+  else
+  {
+    @ERASE_RAN_1_864CE8F_RAN = 1;
+  }
+  run_and_branch(erase_all_32_864CE8F)
+  then
+  {
+    @ERASE_RAN_2_864CE8F_RAN = 1;
+  }
+  else
+  {
+    @ERASE_RAN_2_864CE8F_RAN = 1;
+  }
+  if @ERASE_RAN_1_864CE8F_RAN == 1 then
+  {
+    run(margin_read1_all1_15_864CE8F);
+  }
+  else
+  {
+  }
+  if @ERASE_RAN_2_864CE8F_RAN == 1 then
+  {
+    run(margin_read1_all1_16_864CE8F);
+  }
+  else
+  {
+  }
+  print_dl("Test unless_ran");
+  run_and_branch(erase_all_33_864CE8F)
+  then
+  {
+    @ERASE_RAN_3_864CE8F_RAN = 1;
+  }
+  else
+  {
+    @ERASE_RAN_3_864CE8F_RAN = 1;
+  }
+  run_and_branch(erase_all_34_864CE8F)
+  then
+  {
+    @ERASE_RAN_4_864CE8F_RAN = 1;
+  }
+  else
+  {
+    @ERASE_RAN_4_864CE8F_RAN = 1;
+  }
+  if @ERASE_RAN_3_864CE8F_RAN == 1 then
+  {
+  }
+  else
+  {
+    run(margin_read1_all1_17_864CE8F);
+  }
+  if @ERASE_RAN_4_864CE8F_RAN == 1 then
+  {
+  }
+  else
+  {
+    run(margin_read1_all1_18_864CE8F);
+  }
+  print_dl("Verify that job context wraps import");
+  {
+    if @JOB == "FR" then
     {
-      run(erase_all_39);
+      run(erase_all_35_864CE8F);
+      run(erase_all_36_864CE8F);
+      run(erase_all_37_864CE8F);
+      run(erase_all_38_864CE8F);
+      {
+        run(margin_read1_all1_19_864CE8F);
+      }, open,"erase_vfy_2", ""
     }
     else
     {
     }
-    run(erase_all_40);
-  }
-  else
+  }, open,"erase_2", ""
+  print_dl("Verify that job context wraps enable block within an import");
   {
-  }
-}, open,"additional_erase", ""
-print_dl("Verify that flow.cz works...");
-run(margin_read1_all1_20);
-print_dl("Verify that MTO template works...");
-stop_bin "1", "", , good, noreprobe, green, 1, over_on;
+    if @JOB == "FR" then
+    {
+      if @ADDITIONAL_ERASE == 1 then
+      {
+        run(erase_all_39_864CE8F);
+      }
+      else
+      {
+      }
+      run(erase_all_40_864CE8F);
+    }
+    else
+    {
+    }
+  }, open,"additional_erase", ""
+  print_dl("Verify that flow.cz works...");
+  run(margin_read1_all1_20_864CE8F);
+  print_dl("Verify that MTO template works...");
+  stop_bin "1", "", , good, noreprobe, green, 1, over_on;
+}, open,"PRB1", ""
 end
 -------------------------------------------------
 binning

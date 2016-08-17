@@ -16,8 +16,6 @@ module OrigenTesters
         def initialize(options = {})
           super
           @initialized = true
-          @@pattern_masters ||= {}
-          @@pattern_compilers ||= {}
         end
 
         def add_tml(name, methods)
@@ -43,12 +41,14 @@ module OrigenTesters
           @@flow_sheets = nil
           @@pattern_masters = nil
           @@pattern_compilers = nil
+          @@variables_files = nil
         end
         alias_method :reset_globals, :at_run_start
 
         def resources_filename=(name)
           self.pattern_master_filename = name
           self.pattern_references_name = name
+          flow.var_filename = name
         end
 
         def pattern_master_filename=(name)
@@ -75,8 +75,7 @@ module OrigenTesters
         # master file called 'global' will be used for all flows.
         # To use a different one set the resources_filename at the start of the flow.
         def pattern_master
-          @@pattern_masters ||= {}
-          @@pattern_masters[pattern_master_filename] ||= begin
+          pattern_masters[pattern_master_filename] ||= begin
             m = platform::PatternMaster.new(manually_register: true)
             name = "#{pattern_master_filename}.pmfl"
             name = "#{Origen.config.program_prefix}_#{name}" if Origen.config.program_prefix
@@ -86,12 +85,16 @@ module OrigenTesters
           end
         end
 
+        # Returns a hash containing all pattern master generators
+        def pattern_masters
+          @@pattern_masters ||= {}
+        end
+
         # Returns the pattern compiler file (.aiv) for the current flow, by default a common pattern
         # compiler file called 'global' will be used for all flows.
         # To use a different one set the resources_filename at the start of the flow.
         def pattern_compiler
-          @@pattern_compilers ||= {}
-          @@pattern_compilers[pattern_master_filename] ||= begin
+          pattern_compilers[pattern_master_filename] ||= begin
             m = platform::PatternCompiler.new(manually_register: true)
             name = "#{pattern_master_filename}.aiv"
             name = "#{Origen.config.program_prefix}_#{name}" if Origen.config.program_prefix
@@ -99,6 +102,31 @@ module OrigenTesters
             m.id = pattern_master_filename
             m
           end
+        end
+
+        # Returns a hash containing all pattern compiler generators
+        def pattern_compilers
+          @@pattern_compilers ||= {}
+        end
+
+        # Returns the variables file for the current or given flow, by default a common variable
+        # file called 'global' will be used for all flows.
+        # To use a different one set the resources_filename at the start of the flow.
+        def variables_file(flw = nil)
+          name = (flw || flow).var_filename
+          variables_files[name] ||= begin
+            m = platform::VariablesFile.new(manually_register: true)
+            filename = "#{name}_vars.tf"
+            filename = "#{Origen.config.program_prefix}_#{filename}" if Origen.config.program_prefix
+            m.filename = filename
+            m.id = name
+            m
+          end
+        end
+
+        # Returns a hash containing all variables file generators
+        def variables_files
+          @@variables_files ||= {}
         end
 
         # @api private
@@ -129,10 +157,13 @@ module OrigenTesters
           flow_sheets.each do |_name, sheet|
             g << sheet
           end
-          Hash(@@pattern_masters).each do |name, sheet|
+          pattern_masters.each do |name, sheet|
             g << sheet
           end
-          Hash(@@pattern_compilers).each do |name, sheet|
+          pattern_compilers.each do |name, sheet|
+            g << sheet
+          end
+          variables_files.each do |name, sheet|
             g << sheet
           end
           g

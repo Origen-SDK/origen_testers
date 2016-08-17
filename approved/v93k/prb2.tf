@@ -3,61 +3,11 @@ language_revision = 1;
  
 information
  
--- STOPDIFF
-test_revision = "0.5.6";
--- STARTDIFF
  
-end
---------------------------------------------------
-declarations
-
-@EXTRA_TESTS = -1;
 end
 --------------------------------------------------
 implicit_declarations
 
-end
------------------------------------------------------------------
-flags
-
-datalog_formatter = 0;
-datalog_sample_size = 1;
-graphic_result_displa = 1;
-state_display = 0;
-print_wafermap = 0;
-ink_wafer = 0;
-max_reprobes = 1;
-temp_monitor = 1;
-calib_age_monitor = 1;
-diag_monitor = 1;
-current_monitor = 1;
-log_events_enable = 1;
-set_pass_level = 0;
-set_fail_level = 0;
-set_bypass_level = 0;
-hold_on_fail = 0;
-global_hold = 0;
-debug_mode = 0;
-debug_analog = 0;
-parallel_mode = 1;
-site_match_mode = 2;
-global_overon = 0;
-limits_enable = 0;
-test_number_enable = 1;
-test_number_inc = 1;
-log_cycles_before = 0;
-log_cycles_after = 0;
-unburst_mode = 0;
-sqst_mode = 0;
-warn_as_fail = 1;
-use_hw_dsp = 0;
-dsp_file_enable = 0;
-buffer_testflow_log = 0;
-check_testmethod_api = 0;
-stdf_generation = 1;
-tm_crash_as_fatal = 1;
-hidden_datalog_mode = 0;
-multibin_mode = 0;
 end
 -----------------------------------------------------------------
 testmethodparameters
@@ -154,70 +104,70 @@ erase_all:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1:
+margin_read1_all1_814CEB0:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_2;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_1:
+erase_all_1_814CEB0:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_3;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_1:
+margin_read1_all1_1_814CEB0:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_4;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-pgm_ckbd:
+pgm_ckbd_814CEB0:
   override = 1;
  override_seqlbl = "pgm_ckbd";
  override_testf = tm_5;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-mrd_ckbd:
+mrd_ckbd_814CEB0:
   override = 1;
  override_seqlbl = "mrd_ckbd";
  override_testf = tm_6;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-erase_all_2:
+erase_all_2_814CEB0:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_7;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_2:
+margin_read1_all1_2_814CEB0:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_8;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-pgm_ckbd_1:
+pgm_ckbd_1_814CEB0:
   override = 1;
  override_seqlbl = "pgm_ckbd";
  override_testf = tm_9;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-mrd_ckbd_1:
+mrd_ckbd_1_814CEB0:
   override = 1;
  override_seqlbl = "mrd_ckbd";
  override_testf = tm_10;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-margin_read1_all1_3:
+margin_read1_all1_3_814CEB0:
   override = 1;
  override_seqlbl = "margin_read1_all1";
  override_testf = tm_11;
@@ -228,28 +178,28 @@ end
 --------------------------------------------------
 test_flow
 {
-}, open,"Init Flow Control Vars", ""
-run(erase_all);
-run(margin_read1_all1);
-run(erase_all_1);
-run(margin_read1_all1_1);
-{
-  run(pgm_ckbd);
-  run(mrd_ckbd);
-}, open,"prb2_main", ""
-run(erase_all_2);
-run(margin_read1_all1_2);
-{
-  if @EXTRA_TESTS == 1 then
+  run(erase_all);
+  run(margin_read1_all1_814CEB0);
+  run(erase_all_1_814CEB0);
+  run(margin_read1_all1_1_814CEB0);
   {
-    run(pgm_ckbd_1);
-    run(mrd_ckbd_1);
-  }
-  else
+    run(pgm_ckbd_814CEB0);
+    run(mrd_ckbd_814CEB0);
+  }, open,"prb2_main", ""
+  run(erase_all_2_814CEB0);
+  run(margin_read1_all1_2_814CEB0);
   {
-  }
-}, open,"prb2_main_2", ""
-run(margin_read1_all1_3);
+    if @EXTRA_TESTS == 1 then
+    {
+      run(pgm_ckbd_1_814CEB0);
+      run(mrd_ckbd_1_814CEB0);
+    }
+    else
+    {
+    }
+  }, open,"prb2_main_2", ""
+  run(margin_read1_all1_3_814CEB0);
+}, open,"PRB2", ""
 end
 -------------------------------------------------
 binning

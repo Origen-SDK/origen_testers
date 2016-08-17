@@ -3,60 +3,11 @@ language_revision = 1;
  
 information
  
--- STOPDIFF
-test_revision = "0.5.3";
--- STARTDIFF
  
-end
---------------------------------------------------
-declarations
-
 end
 --------------------------------------------------
 implicit_declarations
 
-end
------------------------------------------------------------------
-flags
-
-datalog_formatter = 0;
-datalog_sample_size = 1;
-graphic_result_displa = 1;
-state_display = 0;
-print_wafermap = 0;
-ink_wafer = 0;
-max_reprobes = 1;
-temp_monitor = 1;
-calib_age_monitor = 1;
-diag_monitor = 1;
-current_monitor = 1;
-log_events_enable = 1;
-set_pass_level = 0;
-set_fail_level = 0;
-set_bypass_level = 0;
-hold_on_fail = 0;
-global_hold = 0;
-debug_mode = 0;
-debug_analog = 0;
-parallel_mode = 1;
-site_match_mode = 2;
-global_overon = 0;
-limits_enable = 0;
-test_number_enable = 1;
-test_number_inc = 1;
-log_cycles_before = 0;
-log_cycles_after = 0;
-unburst_mode = 0;
-sqst_mode = 0;
-warn_as_fail = 1;
-use_hw_dsp = 0;
-dsp_file_enable = 0;
-buffer_testflow_log = 0;
-check_testmethod_api = 0;
-stdf_generation = 1;
-tm_crash_as_fatal = 1;
-hidden_datalog_mode = 0;
-multibin_mode = 0;
 end
 -----------------------------------------------------------------
 testmethodparameters
@@ -115,7 +66,7 @@ end
 --------------------------------------------------
 test_flow
 {
-}, open,"Init Flow Control Vars", ""
+}, open,"CUSTOM_TESTS", ""
 end
 -------------------------------------------------
 binning

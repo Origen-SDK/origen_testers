@@ -1,7 +1,7 @@
 hp93000,pattern_master_file,0.1
 
 path:
-.
+../vectors
 
 files:
 another_not_p1_or_p2_test.binl.gz
