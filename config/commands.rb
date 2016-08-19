@@ -52,6 +52,12 @@ when "examples", "test"
 
     Origen.app.stats.report_pass
   else
+
+    puts
+    puts "To approve any diffs in the reference.list files run the following command:"
+    puts
+    puts "cp list/j750/referenced.list approved/j750/referenced.list && cp list/j750_hpt/referenced.list approved/j750_hpt/referenced.list && cp list/ultraflex/referenced.list approved/ultraflex/referenced.list && cp list/v93k/referenced.list approved/v93k/referenced.list"
+    puts
     Origen.app.stats.report_fail
     status = 1
   end

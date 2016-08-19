@@ -61,28 +61,25 @@ module OrigenTesters
         def on_test(node)
           name = node.find(:object).to_a[0]
           name = name.name unless name.is_a?(String)
-          if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass }
+          if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
+             !stack[:on_pass].empty? || !stack[:on_fail].empty?
             line "run_and_branch(#{name})"
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
             line 'then'
             line '{'
             @indent += 1
             on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-            if on_pass
-              process_all(on_pass)
-              stack[:on_pass].each { |n| process_all(n) }
-            end
+            process_all(on_pass) if on_pass
+            stack[:on_pass].each { |n| process_all(n) }
             @indent -= 1
             line '}'
             line 'else'
             line '{'
             @indent += 1
             on_fail = node.children.find { |n| n.try(:type) == :on_fail }
-            if on_fail
-              with_continue(on_fail.children.any? { |n| n.try(:type) == :continue }) do
-                process_all(on_fail)
-                stack[:on_fail].each { |n| process_all(n) }
-              end
+            with_continue(on_fail ? on_fail.children.any? { |n| n.try(:type) == :continue } : false) do
+              process_all(on_fail) if on_fail
+              stack[:on_fail].each { |n| process_all(n) }
             end
             @indent -= 1
             line '}'

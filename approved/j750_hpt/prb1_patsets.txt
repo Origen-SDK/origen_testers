@@ -46,3 +46,5 @@ DFF 1.1	Pattern Sets
 	program_ckbd_b2_pset	nvm_global_subs.PAT	subr			
 	program_ckbd_pset	program_ckbd.PAT				
 	program_ckbd_pset	nvm_global_subs.PAT	subr			
+	xcvr_fs_vilvih_pset	xcvr_fs_vilvih.PAT				
+	xcvr_fs_vilvih_pset	nvm_global_subs.PAT	subr			

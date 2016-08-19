@@ -104,6 +104,11 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 			FR			Test	erase_all_v1												Fail														
 						logprint	Verify_that_flow.cz_works...																										
 						characterize	margin_read1_all1_v2 vbplus_sweep												None														
+						logprint	Verify_that_flow.cz_works_with_enable_words																										
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz												None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz												None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz												None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz												None														
 						logprint	Verify_that_MTO_template_works...																										
 						logprint	import_statement																										
 						Test	bgap_voltage_meas		1050							119		2	Fail														
@@ -113,4 +118,18 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	bgap_voltage_meas		1050							119		2	Fail														
 						Use-Limit			1050		45					119		2	Fail														
 						Test	bgap_voltage_meas1												Fail														
+						logprint	Speed_binning_example_bug_from_video_5																										
+						Test	test200_1												None		g200_7AF57D1_FAILED_0												
+						Test	test200_2												None		g200_7AF57D1_FAILED_1												
+						Test	test200_3												None		g200_7AF57D1_FAILED_2												
+						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_0				
+						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_1				
+						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_2				
+						Test	test100_1									5			Fail	g100_7AF57D1_RAN_0	g100_7AF57D1_RAN_0							flag-true	g200_7AF57D1_FAILED				
+						Test	test100_2									5			Fail	g100_7AF57D1_RAN_1	g100_7AF57D1_RAN_1							flag-true	g200_7AF57D1_FAILED				
+						Test	test100_3									5			Fail	g100_7AF57D1_RAN_2	g100_7AF57D1_RAN_2							flag-true	g200_7AF57D1_FAILED				
+						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_0				
+						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_1				
+						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_2				
+						set-device									2				Pass									flag-true	g100_7AF57D1_RAN				
 						set-device									1		1		Pass													Good die!	

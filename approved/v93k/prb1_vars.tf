@@ -20,6 +20,8 @@ declarations
 @ERASE_VFY_2_864CE8F_FAILED = 0;
 @ERASE_VFY_3_864CE8F_FAILED = 0;
 @ERASE_VFY_4_864CE8F_FAILED = 0;
+@G100_864CE8F_RAN = 0;
+@G200_864CE8F_FAILED = 0;
 @JOB = "";
 
 end
@@ -29,6 +31,7 @@ flags
 user ADDITIONAL_ERASE = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
+user USB_XCVR_CZ = 0;
 
 end
 -----------------------------------------------------------------

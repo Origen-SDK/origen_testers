@@ -129,16 +129,16 @@ module OrigenTesters
               completed_lines << new_line(:flag_true, parameter: @group_on_fail_flag)
             end
             self.run_flag = nil
-            @group_on_fail_flag = nil
           end
-          if @group_on_pass_flag
+          if @group_on_pass_flag && @group_on_pass_flag != @group_on_fail_flag
             flags[:on_pass].each do |flag|
               self.run_flag = [flag, true]
               completed_lines << new_line(:flag_true, parameter: @group_on_pass_flag)
             end
             self.run_flag = nil
-            @group_on_pass_flag = nil
           end
+          @group_on_fail_flag = nil
+          @group_on_pass_flag = nil
         end
 
         def on_name(node)

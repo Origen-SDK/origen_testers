@@ -172,6 +172,15 @@ Flow.create do
   log 'Verify that flow.cz works...'
   func :margin_read1_all1, :pin_levels => :cz, :cz_setup => 'vbplus_sweep'
 
+  log 'Verify that flow.cz works with enable words'
+  if_enable 'usb_xcvr_cz' do
+    func :xcvr_fs_vilvih, cz_setup: 'usb_fs_vil_cz'
+    func :xcvr_fs_vilvih, cz_setup: 'usb_fs_vih_cz'
+  end
+
+  func :xcvr_fs_vilvih, cz_setup: 'usb_fs_vil_cz', if_enable: 'usb_xcvr_cz'
+  func :xcvr_fs_vilvih, cz_setup: 'usb_fs_vih_cz', if_enable: 'usb_xcvr_cz'
+
   log 'Verify that MTO template works...'
   mto_memory :mto_read1_all1
 
@@ -190,6 +199,21 @@ Flow.create do
     meas :hi_voltage, pins: :hi_v, tnum: 1160, bin: 96, soft_bin: 6
     meas :ps_leakage, pins: :power, tnum: 1170, bin: 97, soft_bin: 6
   end
+
+  log 'Speed binning example bug from video 5'
+  group "200Mhz Tests", id: :g200 do
+    test :test200_1
+    test :test200_2
+    test :test200_3
+  end
+
+  group "100Mhz Tests", if_failed: :g200, id: :g100 do
+    test :test100_1, bin: 5
+    test :test100_2, bin: 5
+    test :test100_3, bin: 5
+  end
+
+  pass 2, if_ran: :g100
 
   pass 1, description: "Good die!", softbin: 1
 end
