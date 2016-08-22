@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_7_12"></a>
+<h1><a href="#v0_7_12">Tag: v0.7.12</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 22-Aug-2016 11:01AM
+
+
+Standardized the boot order of this plugin, fixes warnings in Origen 0.7.24 onwards
+
 <a class="anchor release_tag" name="v0_7_11"></a>
 <h1><a href="#v0_7_11">Tag: v0.7.11</a></h1>
 
