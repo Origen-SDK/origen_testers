@@ -175,6 +175,3 @@ DEPENDENCIES
   origen_testers!
   ripper-tags
   yard-activesupport-concern
-
-BUNDLED WITH
-   1.12.5
