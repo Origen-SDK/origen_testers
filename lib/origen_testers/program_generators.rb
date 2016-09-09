@@ -30,6 +30,11 @@ module OrigenTesters
       end
     end
 
+    # @api private
+    def pre_initialize(options = {})
+      _load_generator
+    end
+
     def initialize(options = {})
     end
 
