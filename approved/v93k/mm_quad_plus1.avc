@@ -1,19 +1,21 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    31-Aug-2015 03:38AM
-#   By:      Stephen McGinty
+#   Time:    09-Sep-2016 09:45AM
+#   By:      Chris Nappi
 #   Command: origen g multi_vector_plus1 -t debug_v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.5.0
-#     Branch:    master(e3384c47ea4) (+local edits)
+#     Version:   0.7.12
+#     Branch:    master(9796286926e) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.2.4
+#     Version:   0.7.25
 #   Plugins
+#     atp:                      0.4.2
 #     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.4.2
 #     origen_jtag:              0.12.0
 #     origen_swd:               0.5.0
 # ***************************************************************************
@@ -585,17 +587,17 @@ R1                       nvmbist                    1 X X X ;
 R1                       nvmbist                    1 X X X ;
 R1                       nvmbist                    1 X X X ;
 R1                       nvmbist                    1 X X X ;
-R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    0 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
-R1                       nvmbist                    1 X X X ; # Period levelled (nvmbist_readout)
+R1                       nvmbist                    0 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    0 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  # Period levelled (nvmbist_readout);
 # ######################################################################
 # ## Test that these collapse to correct multiple repeats
 # ######################################################################
@@ -621,4 +623,7 @@ R1                       nvmbist                    1 0 X X ;
 R1                       nvmbist                    1 0 X X ;
 R1                       nvmbist                    1 0 X X ;
 R1                       nvmbist                    1 0 X X ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
 SQPG STOP;

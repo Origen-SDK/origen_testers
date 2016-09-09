@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    20-Apr-2016 16:20PM
+#   Time:    20-Apr-2016 16:35PM
 #   By:      Chris Nappi
 #   Command: origen g v93k_workout -t v93k_legacy.rb
 # ***************************************************************************
@@ -8,7 +8,7 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.6.2
-#     Branch:    master(12496eb2cbe) (+local edits)
+#     Branch:    master(cf95300ee23)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.0
