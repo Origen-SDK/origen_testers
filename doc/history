@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_8_0_pre1"></a>
+<h2><a href="#v0_8_0_pre1">Tag: v0.8.0.pre1</a></h2>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 12-Sep-2016 12:51PM
+
+
+
+Include header comments in-line with embedded 'ctrl-m' so they are visible in gui
+Move comments before ';' so they translate into binl
+
 <a class="anchor release_tag" name="v0_7_13"></a>
 <h1><a href="#v0_7_13">Tag: v0.7.13</a></h1>
 
