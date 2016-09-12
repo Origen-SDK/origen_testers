@@ -20,10 +20,13 @@ describe "An interface" do
   end
 
   before :each do
+    # Ugly hack, should add a proper API for this, though it should only
+    # ever be needed in a test situation
+    Origen.instance_variable_set("@interface", nil)
     Origen.file_handler.current_file = Pathname.new("#{Origen.root}/spec/interface_spec")
   end
 
-  after :each do
+  after :all do
     # Ugly hack, should add a proper API for this, though it should only
     # ever be needed in a test situation
     Origen.instance_variable_set("@interface", nil)
