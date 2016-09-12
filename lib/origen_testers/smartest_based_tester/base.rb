@@ -379,18 +379,18 @@ module OrigenTesters
       # You can override this if you wish to change the output formatting at vector level
       def format_vector(vec)
         timeset = vec.timeset ? "#{vec.timeset.name}" : ''
-        pin_vals = vec.pin_vals ? "#{vec.pin_vals} ;" : ''
+        pin_vals = vec.pin_vals ? "#{vec.pin_vals} " : ''
         if vec.repeat # > 1
           microcode = "R#{vec.repeat}"
         else
           microcode = vec.microcode ? vec.microcode : ''
         end
-        if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
-          comment = " # #{vec.number}:#{vec.cycle} #{vec.inline_comment}"
+        if vec.pin_vals
+          comment = " #{vec.comments.join("\cm")} #{vec.number}:#{vec.cycle} #{vec.inline_comment}"
         else
           comment = vec.inline_comment.empty? ? '' : " # #{vec.inline_comment}"
         end
-        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment}"
+        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment};"
       end
 
       # All vectors generated with the supplied block will have all pins set
