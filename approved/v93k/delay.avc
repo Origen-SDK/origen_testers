@@ -1,21 +1,21 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    20-Apr-2016 16:35PM
+#   Time:    12-Sep-2016 08:58AM
 #   By:      Chris Nappi
 #   Command: origen g delay -t debug_v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.6.2
-#     Branch:    master(cf95300ee23)
+#     Version:   0.8.0.pre0
+#     Branch:    master(046672123d2)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.7.0
+#     Version:   0.7.31
 #   Plugins
-#     atp:                      0.4.1
+#     atp:                      0.4.2
 #     origen_arm_debug:         0.4.3
-#     origen_doc_helpers:       0.3.0
+#     origen_doc_helpers:       0.4.2
 #     origen_jtag:              0.12.0
 #     origen_swd:               0.5.0
 # ***************************************************************************
@@ -25,15 +25,18 @@ FORMAT TCLK TDI TDO TMS;
 #                                                   l i o s
 #                                                   k      
 # Wait for 40.0ms
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R65535                   tp0                        X X X X ;
-R11316                   tp0                        X X X X ;
+R65535                   tp0                        X X X X  # Wait for 40.0ms 0:0 ;
+R65535                   tp0                        X X X X   1:65535 ;
+R65535                   tp0                        X X X X   2:131070 ;
+R65535                   tp0                        X X X X   3:196605 ;
+R65535                   tp0                        X X X X   4:262140 ;
+R65535                   tp0                        X X X X   5:327675 ;
+R65535                   tp0                        X X X X   6:393210 ;
+R65535                   tp0                        X X X X   7:458745 ;
+R65535                   tp0                        X X X X   8:524280 ;
+R65535                   tp0                        X X X X   9:589815 ;
+R11316                   tp0                        X X X X   10:655350 ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
 SQPG STOP;
