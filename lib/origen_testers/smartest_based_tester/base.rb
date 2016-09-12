@@ -389,7 +389,7 @@ module OrigenTesters
           comment = " #{vec.comments.join("\cm")} #{vec.number}:#{vec.cycle} #{vec.inline_comment}"
         else
           inline = vec.inline_comment.empty? ? '' : " # #{vec.inline_comment}"
-          comment = " #{vec.comments.join("\cm")} # #{inline}"
+          comment = " #{vec.comments.join("\cm")} #{inline}"
         end
         "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment};"
       end
