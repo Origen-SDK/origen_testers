@@ -84,7 +84,7 @@ module OrigenTesters
       num, options = 1, num if num.is_a?(Hash)
       cycle_count if @cycle_count.nil? # define if not already
       execution_time_in_ns if @execution_time_in_ns.nil? # define if not already
-      @execution_time_in_ns += num * (options[:period_in_ns] || tester.timeset.period_in_ns)
+      @execution_time_in_ns += num * (options[:period_in_ns] || $tester.timeset.period_in_ns)
       @cycle_count = @cycle_count + num
     end
 

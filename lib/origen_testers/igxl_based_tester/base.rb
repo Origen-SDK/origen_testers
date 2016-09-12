@@ -669,7 +669,7 @@ module OrigenTesters
         microcode "opcode_mode = #{@opcode_mode};"
         microcode "digital_inst = #{options[:digital_inst]};" if options[:digital_inst]
         microcode 'compressed = yes;' # if $dut.gzip_patterns
-        if tester.j750? && options[:freq_counter]
+        if $tester.j750? && options[:freq_counter]
           # pin setup type => freq_counter is only for the J750.
           # UltraFLEX has frequency counter capability behind every pin.
           # need to make sure the pin_setup freq_count is defined after opcode_mode extended since freq count only work in extended mode
