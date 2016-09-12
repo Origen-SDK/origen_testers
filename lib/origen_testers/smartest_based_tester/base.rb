@@ -385,10 +385,11 @@ module OrigenTesters
         else
           microcode = vec.microcode ? vec.microcode : ''
         end
-        if vec.pin_vals
+        if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
           comment = " #{vec.comments.join("\cm")} #{vec.number}:#{vec.cycle} #{vec.inline_comment}"
         else
-          comment = vec.inline_comment.empty? ? '' : " # #{vec.inline_comment}"
+          inline = vec.inline_comment.empty? ? '' : " # #{vec.inline_comment}"
+          comment = " #{vec.comments.join("\cm")} # #{inline}"
         end
         "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment};"
       end
