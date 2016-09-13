@@ -27,7 +27,7 @@ tm_2:
   "myArg0" = "arg0_set";
   "myArg1" = "a_default_value";
   "myArg2" = "CURR";
-  "myArg3" = "";
+  "myArg3" = "arg3_set_from_finalize";
   "myArg4" = "arg4_set_from_method";
   "BadPractice" = "NO";
   "Really.BadPractice" = "";
@@ -37,7 +37,7 @@ tm_3:
   "myArg0" = "arg0_set";
   "myArg1" = "a_default_value";
   "myArg2" = "CURR";
-  "myArg3" = "";
+  "myArg3" = "arg3_set_from_finalize";
   "myArg4" = "arg4_set_from_method";
   "BadPractice" = "NO";
   "Really.BadPractice" = "";
