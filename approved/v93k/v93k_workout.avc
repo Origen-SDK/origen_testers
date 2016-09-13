@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    13-Sep-2016 11:02AM
+#   Time:    13-Sep-2016 12:49PM
 #   By:      Chris Nappi
 #   Command: origen g v93k_workout -t v93k_legacy.rb
 # ***************************************************************************
@@ -8,7 +8,7 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.0.pre0
-#     Branch:    master(10b530de2c5)
+#     Branch:    master(0a3ca62a9a5) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
@@ -34,7 +34,7 @@ FORMAT nvm_reset nvm_clk nvm_clk_mux porta portb nvm_invoke nvm_done nvm_fail nv
 # ######################################################################
 # ## Test that basic cycling works
 # ######################################################################
-R1                       nvmbist                    1 1 1 00000000 00000000 0 H L X X X 0 1  Test that basic cycling works;
+R1                       nvmbist                    1 1 1 00000000 00000000 0 H L X X X 0 1  Test that basic cycling works;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  R10;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  R9;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  R8;
@@ -58,7 +58,7 @@ R1                       nvmbist                    1 1 1 00000000 00000000 1 H 
 # ######################################################################
 # ## Test that the port API works
 # ######################################################################
-R1                       nvmbist                    1 1 1 01010101 00000000 1 H L X X X 0 1  Test that the port API works;
+R1                       nvmbist                    1 1 1 01010101 00000000 1 H L X X X 0 1  Test that the port API works;
 R1                       nvmbist                    1 1 1 HLHLHLHL 00000000 1 H L X X X 0 1  ;
 R1                       nvmbist                    1 1 1 01010101 00000000 1 H L X X X 0 1  ;
 R1                       nvmbist                    1 1 1 XXXXXXXX 00000000 1 H L X X X 0 1  ;
@@ -71,7 +71,7 @@ R1                       nvmbist                    1 1 1 LLLLLLLL 00000000 1 H 
 # ## Test that the store method works
 # ######################################################################
 # This vector should capture the FAIL pin data
-R1                       nvmbist                    1 1 1 00000000 00000000 1 H C X X X 0 1  Test that the store method worksThis vector should capture the FAIL pin data;
+R1                       nvmbist                    1 1 1 00000000 00000000 1 H C X X X 0 1  Test that the store method worksThis vector should capture the FAIL pin data;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  ;
 # This vector should capture the FAIL pin and the PORTA data
 R1                       nvmbist                    1 1 1 CCCCCCCC 00000000 1 H C X X X 0 1  This vector should capture the FAIL pin and the PORTA data;
@@ -84,7 +84,7 @@ R1                       nvmbist                    1 1 1 00000000 00000000 1 H 
 # ## Test calling a subroutine
 # ######################################################################
 # This vector should call subroutine 'sub1'
-R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  Test calling a subroutineThis vector should call subroutine 'sub1';
+R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  Test calling a subroutineThis vector should call subroutine 'sub1';
 SQPG JSUB sub1;
 # This vector should call subroutine 'sub2'
 R1                       nvmbist                    1 1 1 00000000 00000000 1 H L X X X 0 1  This vector should call subroutine 'sub2';
@@ -95,7 +95,7 @@ R1                       nvmbist                    1 1 1 00000000 00000000 1 H 
 # ######################################################################
 # Wait for a maximum of 5.0ms
 # for the NVM_DONE pin to go HIGH
-R1                       nvmbist                    1 1 1 00000000 00000000 1 X L X X X 0 1  Test a single pin match loopWait for a maximum of 5.0msfor the NVM_DONE pin to go HIGHR8;
+R1                       nvmbist                    1 1 1 00000000 00000000 1 X L X X X 0 1  Test a single pin match loopWait for a maximum of 5.0msfor the NVM_DONE pin to go HIGHR8;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 X L X X X 0 1  R7;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 X L X X X 0 1  R6;
 R1                       nvmbist                    1 1 1 00000000 00000000 1 X L X X X 0 1  R5;
@@ -138,7 +138,7 @@ R1                       nvmbist                    1 1 1 00000000 00000000 1 X 
 # or the NVM_FAIL pin to go LOW
 SQPG LBGN 11;
 # Check if NVM_DONE is HIGH yet
-R1                       nvmbist                    1 1 1 00000000 00000000 1 H X X X X 0 1  Test a two pin match loopWait for a maximum of 5.0msfor the NVM_DONE pin to go HIGHor the NVM_FAIL pin to go LOWCheck if NVM_DONE is HIGH yet;
+R1                       nvmbist                    1 1 1 00000000 00000000 1 H X X X X 0 1  Test a two pin match loopWait for a maximum of 5.0msfor the NVM_DONE pin to go HIGHor the NVM_FAIL pin to go LOWCheck if NVM_DONE is HIGH yet;
 # Wait for failure to propagate
 R6015                    nvmbist                    1 1 1 00000000 00000000 1 X X X X X 0 1  Wait for failure to propagate;
 # Exit match loop if pin has matched (no error), otherwise clear error and remain in loop
@@ -155,26 +155,26 @@ R1                       nvmbist                    1 1 1 00000000 00000000 1 H 
 # ######################################################################
 # ## Test looping, these vectors should be executed once
 # ######################################################################
-R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed once;
+R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed once;
 R1                       nvmbist                    1 1 1 01010101 00000000 1 X L X X X 0 1  ;
 # ######################################################################
 # ## Test looping, these vectors should be executed 3 times
 # ######################################################################
 SQPG LBGN 3;
-R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed 3 times;
+R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed 3 times;
 R1                       nvmbist                    1 1 1 01010101 00000000 1 X L X X X 0 1  ;
 SQPG LEND;
 # ######################################################################
 # ## Test looping, these vectors should be executed 5 times
 # ######################################################################
 SQPG LBGN 5;
-R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed 5 times;
+R1                       nvmbist                    1 1 1 10101010 00000000 1 X L X X X 0 1  Test looping, these vectors should be executed 5 times;
 R1                       nvmbist                    1 1 1 01010101 00000000 1 X L X X X 0 1  ;
 SQPG LEND;
 # ######################################################################
 # ## Test suspend compares
 # ######################################################################
-R1                       nvmbist                    1 1 1 01010101 00000000 1 X H X X X 0 1  Test suspend compares;
+R1                       nvmbist                    1 1 1 01010101 00000000 1 X H X X X 0 1  Test suspend compares;
 # The fail pin should not be compared on these vectors
 R1                       nvmbist                    1 1 1 01010101 00000000 1 X X X X X 0 1  The fail pin should not be compared on these vectorsR10;
 R1                       nvmbist                    1 1 1 01010101 00000000 1 X X X X X 0 1  R9;
@@ -192,7 +192,7 @@ R1                       nvmbist                    1 1 1 01010101 00000000 1 X 
 # ## Test inhibit vectors and comments
 # ######################################################################
 # The invoke pin should be driving high on this cycle
-R1                       nvmbist                    1 1 1 01010101 00000000 1 X H X X X 0 1  Test inhibit vectors and commentsThe invoke pin should be driving high on this cycle;
+R1                       nvmbist                    1 1 1 01010101 00000000 1 X H X X X 0 1  Test inhibit vectors and commentsThe invoke pin should be driving high on this cycle;
 # This should be the last thing you see until 'Inhibit complete!'
 # Inhibit complete!
 # The invoke pin should be driving low on this cycle

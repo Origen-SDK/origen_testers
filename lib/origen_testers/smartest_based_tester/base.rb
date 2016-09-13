@@ -388,8 +388,11 @@ module OrigenTesters
         header_comments = ''
         vec.comments.each do |comment|
           if comment.include? '#'
-            comment = comment.gsub(/#/, '').strip
-            header_comments << comment + "\cm"
+            comment = comment.gsub(/# /, '')
+            comment = comment.gsub(/#/, '')
+            if comment != ''
+              header_comments << comment + "\cm"
+            end
           end
         end
         if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)

@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    13-Sep-2016 11:02AM
+#   Time:    13-Sep-2016 12:49PM
 #   By:      Chris Nappi
 #   Command: origen g multi_vector -t debug_v93k.rb
 # ***************************************************************************
@@ -8,7 +8,7 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.0.pre0
-#     Branch:    master(10b530de2c5)
+#     Branch:    master(0a3ca62a9a5) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
@@ -27,7 +27,7 @@ FORMAT TCLK TDI TDO TMS;
 # ######################################################################
 # ## $tester.cycle(repeat: 128)
 # ######################################################################
-R1                       nvmbist                    X X X X  $tester.cycle(repeat: 128);
+R1                       nvmbist                    X X X X  $tester.cycle(repeat: 128);
 R1                       nvmbist                    X X X X  ;
 R1                       nvmbist                    X X X X  ;
 R32                      nvmbist                    X X X X  ;
@@ -37,7 +37,7 @@ R32                      nvmbist                    X X X X  ;
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X  64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    0 X X X  64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)end;
 R1                       nvmbist                    1 X X X  ;
 R1                       nvmbist                    0 X X X  ;
 R32                      nvmbist                    1 X X X  ;
@@ -49,7 +49,7 @@ R32                      nvmbist                    1 X X X  ;
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X  64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    0 X X X  64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)end;
 R1                       nvmbist                    0 X X X  ;
 R1                       nvmbist                    1 X X X  ;
 R64                      nvmbist                    1 X X X  ;
@@ -65,7 +65,7 @@ R64                      nvmbist                    1 X X X  ;
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X  64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    0 X X X  64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)end;
 R1                       nvmbist                    0 X X X  ;
 R1                       nvmbist                    0 X X X  ;
 R1                       nvmbist                    0 X X X  ;
@@ -580,7 +580,7 @@ R1                       nvmbist                    1 X X X  ;
 # ######################################################################
 # ## Test of period levelling
 # ######################################################################
-R1                       nvmbist                    1 X L X  Test of period levelling;
+R1                       nvmbist                    1 X L X  Test of period levelling;
 R1                       nvmbist                    1 X L X  ;
 R1                       nvmbist                    1 X L X  ;
 R1                       nvmbist                    1 X L X  R2;
@@ -599,7 +599,7 @@ R1                       nvmbist                    0 X L X  R1 # Period levell
 # ######################################################################
 # ## Test that additional stores are not injected, only 4 TDO vectors should be captured
 # ######################################################################
-R1                       nvmbist                    1 X X X  Test that additional stores are not injected, only 4 TDO vectors should be captured # Period levelled (nvmbist_readout);
+R1                       nvmbist                    1 X X X  Test that additional stores are not injected, only 4 TDO vectors should be captured # Period levelled (nvmbist_readout);
 R1                       nvmbist                    0 X X X   # Period levelled (nvmbist_readout);
 R1                       nvmbist                    0 X X X   # Period levelled (nvmbist_readout);
 R1                       nvmbist                    0 X C X   # Period levelled (nvmbist_readout);
@@ -619,7 +619,7 @@ R1                       nvmbist                    0 X C X   # Period levelled 
 # ## Test that these collapse to correct multiple repeats
 # ######################################################################
 # Wait for 12.0ms
-R1                       nvmbist                    1 1 X X  Test that these collapse to correct multiple repeatsWait for 12.0ms;
+R1                       nvmbist                    1 1 X X  Test that these collapse to correct multiple repeatsWait for 12.0ms;
 R1                       nvmbist                    1 1 X X  ;
 R1                       nvmbist                    1 1 X X  ;
 R65535                   nvmbist                    1 1 X X  ;
@@ -631,7 +631,7 @@ R9465                    nvmbist                    1 1 X X  ;
 # ## Verify that comments at the end of the pattern work OK
 # ######################################################################
 # Wait for 48.0us
-R1                       nvmbist                    1 0 X X  Verify that comments at the end of the pattern work OKWait for 48.0us;
+R1                       nvmbist                    1 0 X X  Verify that comments at the end of the pattern work OKWait for 48.0us;
 R1                       nvmbist                    1 0 X X  ;
 R1                       nvmbist                    1 0 X X  ;
 R300                     nvmbist                    1 0 X X  ;
