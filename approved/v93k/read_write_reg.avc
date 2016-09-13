@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    12-Sep-2016 10:36AM
+#   Time:    13-Sep-2016 11:02AM
 #   By:      Chris Nappi
 #   Command: origen g read_write_reg -t debug_v93k.rb
 # ***************************************************************************
@@ -8,7 +8,7 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.0.pre0
-#     Branch:    master(1b0e3629246) (+local edits)
+#     Branch:    master(10b530de2c5)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
@@ -27,590 +27,590 @@ FORMAT TCLK TDI TDO TMS;
 # ######################################################################
 # ## Test write register with all 1s
 # ######################################################################
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 1  # ####################################################################### ## Test write register with all 1s# ###################################################################### ;
-R1                       tp0                        0 X X 0   ;
-R1                       tp0                        0 X X 0   ;
-R1                       tp0                        0 X X 1   ;
-R1                       tp0                        0 X X 1   ;
-R1                       tp0                        0 X X 0   ;
-R1                       tp0                        0 X X 0   ;
+R1                       tp0                        0 X X 1  Test write register with all 1sR6;
+R1                       tp0                        0 X X 1  R5;
+R1                       tp0                        0 X X 1  R4;
+R1                       tp0                        0 X X 1  R3;
+R1                       tp0                        0 X X 1  R2;
+R1                       tp0                        0 X X 1  R1;
+R1                       tp0                        0 X X 0  R2;
+R1                       tp0                        0 X X 0  R1;
+R1                       tp0                        0 X X 1  R2;
+R1                       tp0                        0 X X 1  R1;
+R1                       tp0                        0 X X 0  R2;
+R1                       tp0                        0 X X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 1   ;
+R1                       tp0                        0 1 X 0  JTAG::TAPController - **** Data start ****R2;
+R1                       tp0                        0 1 X 0  R1;
+R1                       tp0                        0 0 X 0  ;
+R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 1 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 1   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 1  ;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R33                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 1 X 0  JTAG::TAPController - **** Data start ****;
+R33                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
-R1                       tp0                        0 0 X 1   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R1                       tp0                        0 0 X 1  R2;
+R1                       tp0                        0 0 X 1  R1;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 0 X 0  ;
+R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 1 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 1   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 1  ;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 1 X 0  JTAG::TAPController - **** Data start ****R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-DP: R-32: name='RDBUFF'
 # JTAG-AP: R-32: addr=0x00000000
-R1                       tp0                        0 0 X 1  # JTAG-DP: R-32: name='RDBUFF'# JTAG-AP: R-32: addr=0x00000000 ;
-R1                       tp0                        0 0 X 1  # JTAG-DP: R-32: name='RDBUFF'# JTAG-AP: R-32: addr=0x00000000 ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-DP: R-32: name='RDBUFF'JTAG-AP: R-32: addr=0x00000000R2;
+R1                       tp0                        0 0 X 1  R1;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 1   ;
+R1                       tp0                        0 1 X 0  JTAG::TAPController - **** Data start ****R2;
+R1                       tp0                        0 1 X 0  R1;
+R1                       tp0                        0 0 X 0  ;
+R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 1 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 1   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 1  ;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R17                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R1                       tp0                        0 1 X 0  ;
+R17                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x00000000, data=0x23000042
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x00000000, data=0x23000042 ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x00000000, data=0x23000042;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R24                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R1                       tp0                        0 1 X 0  ;
+R1                       tp0                        0 0 X 0  ;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R24                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x00000004, data=0x0000007a
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x00000004, data=0x0000007a ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x00000004, data=0x0000007a;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R23                      tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R23                      tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 1 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 1 X 0  R16;
+R1                       tp0                        0 1 X 0  R15;
+R1                       tp0                        0 1 X 0  R14;
+R1                       tp0                        0 1 X 0  R13;
+R1                       tp0                        0 1 X 0  R12;
+R1                       tp0                        0 1 X 0  R11;
+R1                       tp0                        0 1 X 0  R10;
+R1                       tp0                        0 1 X 0  R9;
+R1                       tp0                        0 1 X 0  R8;
+R1                       tp0                        0 1 X 0  R7;
+R1                       tp0                        0 1 X 0  R6;
+R1                       tp0                        0 1 X 0  R5;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
 # ######################################################################
 # ## Test read register after all 1s write
 # ######################################################################
-R1                       tp0                        0 1 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03# MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03# ####################################################################### ## Test read register after all 1s write# ###################################################################### ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03Test read register after all 1s write;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R23                      tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
+R23                      tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 1 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 1 X 0  R16;
+R1                       tp0                        0 1 X 0  R15;
+R1                       tp0                        0 1 X 0  R14;
+R1                       tp0                        0 1 X 0  R13;
+R1                       tp0                        0 1 X 0  R12;
+R1                       tp0                        0 1 X 0  R11;
+R1                       tp0                        0 1 X 0  R10;
+R1                       tp0                        0 1 X 0  R9;
+R1                       tp0                        0 1 X 0  R8;
+R1                       tp0                        0 1 X 0  R7;
+R1                       tp0                        0 1 X 0  R6;
+R1                       tp0                        0 1 X 0  R5;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
 # ######################################################################
 # ## Test write register with all 0s
 # ######################################################################
-R1                       tp0                        0 1 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03# MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03# ####################################################################### ## Test write register with all 0s# ###################################################################### ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
+R1                       tp0                        0 1 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03Test write register with all 0s;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test read register after all 0s write
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test read register after all 0s write# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test read register after all 0s write;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test store register, the whole register data should be stored
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test store register, the whole register data should be stored# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test store register, the whole register data should be stored;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test store bits, only enable bit should be captured
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test store bits, only enable bit should be captured# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test store bits, only enable bit should be captured;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test store bits, only port A should be captured
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test store bits, only port A should be captured# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test store bits, only port A should be captured;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test read of partial register, only portA should be read
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test read of partial register, only portA should be read# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test read of partial register, only portA should be read;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test overlay, all reg vectors should be from subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test overlay, all reg vectors should be from subroutine# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test overlay, all reg vectors should be from subroutine;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test overlay, same again but for read
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test overlay, same again but for read# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test overlay, same again but for read;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test bit level write overlay, only portA should be from subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test bit level write overlay, only portA should be from subroutine# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test bit level write overlay, only portA should be from subroutine;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Test bit level read overlay, only portA should be from subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 1  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Test bit level read overlay, only portA should be from subroutine# ###################################################################### ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Test bit level read overlay, only portA should be from subroutine;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG::TAPController - **** Data start ****
-R1                       tp0                        0 0 X 0  # JTAG::TAPController - **** Data start **** ;
-R1                       tp0                        0 1 X 0   ;
-R1                       tp0                        0 1 X 0   ;
-R31                      tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 1   ;
+R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
+R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
-R1                       tp0                        0 0 X 1  # JTAG::TAPController - **** Data stop **** ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
-R1                       tp0                        0 0 X 0   ;
+R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
 # MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
 # ######################################################################
 # ## Call execute subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 0  # JTAG-AP: W-32: addr=0x0000000c, data=0x00000000# MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000# ####################################################################### ## Call execute subroutine# ###################################################################### ;
+R1                       tp0                        0 0 X 0  JTAG-AP: W-32: addr=0x0000000c, data=0x00000000MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000Call execute subroutine;
 SQPG JSUB executefunc1;
-R1                       tp0                        0 0 X 0  SQPG JSUB executefunc1; ;
+R1                       tp0                        0 0 X 0  ;
 # ######################################################################
 # ## Call match_pin subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 0  # ####################################################################### ## Call match_pin subroutine# ###################################################################### ;
+R1                       tp0                        0 0 X 0  Call match_pin subroutine;
 SQPG JSUB match_pin;
-R1                       tp0                        0 0 X 0  SQPG JSUB match_pin; ;
+R1                       tp0                        0 0 X 0  ;
 # ######################################################################
 # ## Call match_2pins subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 0  # ####################################################################### ## Call match_2pins subroutine# ###################################################################### ;
+R1                       tp0                        0 0 X 0  Call match_2pins subroutine;
 SQPG JSUB match_2pins;
-R1                       tp0                        0 0 X 0  SQPG JSUB match_2pins; ;
+R1                       tp0                        0 0 X 0  ;
 # ######################################################################
 # ## Call match_done subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 0  # ####################################################################### ## Call match_done subroutine# ###################################################################### ;
+R1                       tp0                        0 0 X 0  Call match_done subroutine;
 SQPG JSUB match_done;
-R1                       tp0                        0 0 X 0  SQPG JSUB match_done; ;
+R1                       tp0                        0 0 X 0  ;
 # ######################################################################
 # ## Call handshake subroutine
 # ######################################################################
-R1                       tp0                        0 0 X 0  # ####################################################################### ## Call handshake subroutine# ###################################################################### ;
+R1                       tp0                        0 0 X 0  Call handshake subroutine;
 SQPG JSUB handshake;
 # ######################################################################
 # ## Pattern complete
