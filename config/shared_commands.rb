@@ -36,6 +36,7 @@ case @command
     ARGV.delete("--compile")
   end
   $_testers_enable_vector_comments = ARGV.delete("-v") || ARGV.delete("--vector_comments")
+  $_testers_no_inline_comments = ARGV.delete("--no_inline_comments")
 
   when "testers:build"
    require "#{Origen.root!}/lib/commands/build"
