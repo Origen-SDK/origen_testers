@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    12-Sep-2016 10:36AM
+#   Time:    13-Sep-2016 11:02AM
 #   By:      Chris Nappi
 #   Command: origen g delay -t debug_v93k.rb
 # ***************************************************************************
@@ -8,7 +8,7 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.0.pre0
-#     Branch:    master(1b0e3629246) (+local edits)
+#     Branch:    master(10b530de2c5)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
@@ -25,17 +25,17 @@ FORMAT TCLK TDI TDO TMS;
 #                                                   l i o s
 #                                                   k      
 # Wait for 40.0ms
-R65535                   tp0                        X X X X  # Wait for 40.0ms ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R65535                   tp0                        X X X X   ;
-R11316                   tp0                        X X X X   ;
+R65535                   tp0                        X X X X  Wait for 40.0ms;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R65535                   tp0                        X X X X  ;
+R11316                   tp0                        X X X X  ;
 # ######################################################################
 # ## Pattern complete
 # ######################################################################
