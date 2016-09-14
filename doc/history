@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_8_2"></a>
+<h1><a href="#v0_8_2">Tag: v0.8.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 14-Sep-2016 08:27AM
+
+
+Add --no\_inline\_comments option (can also use $\_testers\_no\_inline\_comments
+Fix cycle/vector count issue with expanded vectors
+Add repeat comment for expanded vectors
+Remove duplicate comments for expanded vectors
+Clean up 93K comment formatting
+
 <a class="anchor release_tag" name="v0_7_13"></a>
 <h1><a href="#v0_7_13">Tag: v0.7.13</a></h1>
 
