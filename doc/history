@@ -1,16 +1,35 @@
-<a class="anchor release_tag" name="v0_8_2"></a>
-<h1><a href="#v0_8_2">Tag: v0.8.2</a></h1>
+<a class="anchor release_tag" name="v0_8_1"></a>
+<h1><a href="#v0_8_1">Tag: v0.8.1</a></h1>
 
 ##### Branch: 'master'
 
-##### by Chris Nappi on 14-Sep-2016 08:27AM
+##### by Stephen McGinty on 13-Sep-2016 08:37AM
 
 
-Add --no\_inline\_comments option (can also use $\_testers\_no\_inline\_comments
-Fix cycle/vector count issue with expanded vectors
-Add repeat comment for expanded vectors
-Remove duplicate comments for expanded vectors
-Clean up 93K comment formatting
+Bugfix - Previously only the first test method object in a V93K test program had it's
+finalize method called (if defined). Now they are all called.
+
+<a class="anchor release_tag" name="v0_8_0"></a>
+<h1><a href="#v0_8_0">Tag: v0.8.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 13-Sep-2016 02:51AM
+
+
+Re-tagging as 0.8.0
+
+<a class="anchor release_tag" name="v0_8_0_pre1"></a>
+<h2><a href="#v0_8_0_pre1">Tag: v0.8.0.pre1</a></h2>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 12-Sep-2016 12:51PM
+
+
+
+Include header comments in-line with embedded 'ctrl-m' so they are visible in gui
+Move comments before ';' so they translate into binl
 
 <a class="anchor release_tag" name="v0_7_13"></a>
 <h1><a href="#v0_7_13">Tag: v0.7.13</a></h1>
