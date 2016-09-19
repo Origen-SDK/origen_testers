@@ -1,3 +1,36 @@
+<a class="anchor release_tag" name="v0_8_4"></a>
+<h1><a href="#v0_8_4">Tag: v0.8.4</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 19-Sep-2016 10:45AM
+
+
+Added meta attribute to test instance and test suite objects. If present, this
+will be included in test flow documentation.
+
+~~~ruby
+# Generate a test instance/method
+if tester.j750?
+  i = test\_instances.functional(name, options)
+elsif tester.v93k?
+  i = test\_suites.add(name, options)
+  i.test\_method = origen.functional\_test
+end
+i.pattern = "rambist\_march"
+
+# Add meta data
+i.meta = {
+  "Test" => i.name,        # 'Test' and 'Pattern' will be used in documentation
+  "Pattern" => i.pattern,  # to name the tests, all other attrs will simply
+  "Vdd" => vdd,            # be output verbatim
+  "Cycles" => cycles
+}
+
+# Insert test into flow as normal
+flow.test(i, options)
+~~~
+
 <a class="anchor release_tag" name="v0_8_3"></a>
 <h1><a href="#v0_8_3">Tag: v0.8.3</a></h1>
 
