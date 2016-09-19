@@ -2,6 +2,8 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestSuite
+        attr_accessor :meta
+
         ATTRS =
           %w(name
              comment
@@ -148,6 +150,10 @@ module OrigenTesters
 
         def interface
           Origen.interface
+        end
+
+        def to_meta
+          meta || {}
         end
 
         private

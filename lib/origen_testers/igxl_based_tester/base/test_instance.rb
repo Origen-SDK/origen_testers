@@ -46,7 +46,6 @@ module OrigenTesters
         end
 
         def initialize(name, type, attrs = {})
-          @meta = {}
           @type = type
           @append_version = true
           self.name = name
