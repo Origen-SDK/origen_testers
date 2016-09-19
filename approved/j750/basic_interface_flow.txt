@@ -2,4 +2,4 @@ DFF 1.1	Flow Table
 																												
 			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
-						Test	test1				3		100	Fail														
+						Test	test1	test1			3		100	Fail														
