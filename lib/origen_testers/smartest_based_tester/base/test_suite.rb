@@ -101,7 +101,7 @@ module OrigenTesters
         end
 
         def pattern=(name)
-          Origen.interface.record_pattern_reference(name)
+          Origen.interface.record_pattern_reference(name) if name
           @pattern = name
         end
 
