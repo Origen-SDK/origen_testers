@@ -1,19 +1,19 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    13-Sep-2016 12:49PM
+#   Time:    21-Oct-2016 08:42AM
 #   By:      Chris Nappi
 #   Command: origen g read_write_reg -t debug_v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.8.0.pre0
-#     Branch:    master(0a3ca62a9a5) (+local edits)
+#     Version:   0.8.5
+#     Branch:    master(1a1ee8ea168)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
 #   Plugins
-#     atp:                      0.4.2
+#     atp:                      0.4.3
 #     origen_arm_debug:         0.4.3
 #     origen_doc_helpers:       0.4.2
 #     origen_jtag:              0.12.0
@@ -83,7 +83,37 @@ R1                       tp0                        0 1 X 0  R1;
 R1                       tp0                        0 1 X 0  JTAG::TAPController - **** Data start ****R3;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -123,7 +153,23 @@ R1                       tp0                        0 0 X 0  R3;
 R1                       tp0                        0 0 X 0  R2;
 R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 1 X 0  ;
-R17                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
 R1                       tp0                        0 0 X 0  R3;
@@ -165,7 +211,30 @@ R1                       tp0                        0 1 X 0  R4;
 R1                       tp0                        0 1 X 0  R3;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R24                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -201,7 +270,29 @@ R1                       tp0                        0 0 X 0  R4;
 R1                       tp0                        0 0 X 0  R3;
 R1                       tp0                        0 0 X 0  R2;
 R1                       tp0                        0 0 X 0  R1;
-R23                      tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 0  R23;
+R1                       tp0                        0 1 X 0  R22;
+R1                       tp0                        0 1 X 0  R21;
+R1                       tp0                        0 1 X 0  R20;
+R1                       tp0                        0 1 X 0  R19;
+R1                       tp0                        0 1 X 0  R18;
+R1                       tp0                        0 1 X 0  R17;
+R1                       tp0                        0 1 X 0  R16;
+R1                       tp0                        0 1 X 0  R15;
+R1                       tp0                        0 1 X 0  R14;
+R1                       tp0                        0 1 X 0  R13;
+R1                       tp0                        0 1 X 0  R12;
+R1                       tp0                        0 1 X 0  R11;
+R1                       tp0                        0 1 X 0  R10;
+R1                       tp0                        0 1 X 0  R9;
+R1                       tp0                        0 1 X 0  R8;
+R1                       tp0                        0 1 X 0  R7;
+R1                       tp0                        0 1 X 0  R6;
+R1                       tp0                        0 1 X 0  R5;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
@@ -241,7 +332,29 @@ R1                       tp0                        0 0 X 0  R4;
 R1                       tp0                        0 0 X 0  R3;
 R1                       tp0                        0 0 X 0  R2;
 R1                       tp0                        0 0 X 0  R1;
-R23                      tp0                        0 1 X 0  ;
+R1                       tp0                        0 1 X 0  R23;
+R1                       tp0                        0 1 X 0  R22;
+R1                       tp0                        0 1 X 0  R21;
+R1                       tp0                        0 1 X 0  R20;
+R1                       tp0                        0 1 X 0  R19;
+R1                       tp0                        0 1 X 0  R18;
+R1                       tp0                        0 1 X 0  R17;
+R1                       tp0                        0 1 X 0  R16;
+R1                       tp0                        0 1 X 0  R15;
+R1                       tp0                        0 1 X 0  R14;
+R1                       tp0                        0 1 X 0  R13;
+R1                       tp0                        0 1 X 0  R12;
+R1                       tp0                        0 1 X 0  R11;
+R1                       tp0                        0 1 X 0  R10;
+R1                       tp0                        0 1 X 0  R9;
+R1                       tp0                        0 1 X 0  R8;
+R1                       tp0                        0 1 X 0  R7;
+R1                       tp0                        0 1 X 0  R6;
+R1                       tp0                        0 1 X 0  R5;
+R1                       tp0                        0 1 X 0  R4;
+R1                       tp0                        0 1 X 0  R3;
+R1                       tp0                        0 1 X 0  R2;
+R1                       tp0                        0 1 X 0  R1;
 R1                       tp0                        0 1 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 1 X 1  JTAG::TAPController - **** Data stop ****;
@@ -273,7 +386,37 @@ R1                       tp0                        0 1 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -305,7 +448,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -337,7 +510,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -369,7 +572,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -401,7 +634,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -433,7 +696,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -465,7 +758,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -497,7 +820,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -529,7 +882,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
@@ -561,7 +944,37 @@ R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 0  JTAG::TAPController - **** Data start ****;
 R1                       tp0                        0 1 X 0  R2;
 R1                       tp0                        0 1 X 0  R1;
-R31                      tp0                        0 0 X 0  ;
+R1                       tp0                        0 0 X 0  R31;
+R1                       tp0                        0 0 X 0  R30;
+R1                       tp0                        0 0 X 0  R29;
+R1                       tp0                        0 0 X 0  R28;
+R1                       tp0                        0 0 X 0  R27;
+R1                       tp0                        0 0 X 0  R26;
+R1                       tp0                        0 0 X 0  R25;
+R1                       tp0                        0 0 X 0  R24;
+R1                       tp0                        0 0 X 0  R23;
+R1                       tp0                        0 0 X 0  R22;
+R1                       tp0                        0 0 X 0  R21;
+R1                       tp0                        0 0 X 0  R20;
+R1                       tp0                        0 0 X 0  R19;
+R1                       tp0                        0 0 X 0  R18;
+R1                       tp0                        0 0 X 0  R17;
+R1                       tp0                        0 0 X 0  R16;
+R1                       tp0                        0 0 X 0  R15;
+R1                       tp0                        0 0 X 0  R14;
+R1                       tp0                        0 0 X 0  R13;
+R1                       tp0                        0 0 X 0  R12;
+R1                       tp0                        0 0 X 0  R11;
+R1                       tp0                        0 0 X 0  R10;
+R1                       tp0                        0 0 X 0  R9;
+R1                       tp0                        0 0 X 0  R8;
+R1                       tp0                        0 0 X 0  R7;
+R1                       tp0                        0 0 X 0  R6;
+R1                       tp0                        0 0 X 0  R5;
+R1                       tp0                        0 0 X 0  R4;
+R1                       tp0                        0 0 X 0  R3;
+R1                       tp0                        0 0 X 0  R2;
+R1                       tp0                        0 0 X 0  R1;
 R1                       tp0                        0 0 X 1  ;
 # JTAG::TAPController - **** Data stop ****
 R1                       tp0                        0 0 X 1  JTAG::TAPController - **** Data stop ****;
