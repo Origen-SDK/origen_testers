@@ -1,19 +1,19 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    13-Sep-2016 12:49PM
+#   Time:    21-Oct-2016 08:42AM
 #   By:      Chris Nappi
 #   Command: origen g multi_vector_plus1 -t debug_v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.8.0.pre0
-#     Branch:    master(0a3ca62a9a5) (+local edits)
+#     Version:   0.8.5
+#     Branch:    master(1a1ee8ea168)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
 #     Version:   0.7.31
 #   Plugins
-#     atp:                      0.4.2
+#     atp:                      0.4.3
 #     origen_arm_debug:         0.4.3
 #     origen_doc_helpers:       0.4.2
 #     origen_jtag:              0.12.0
@@ -30,7 +30,38 @@ FORMAT TCLK TDI TDO TMS;
 R1                       nvmbist                    X X X X  $tester.cycle(repeat: 128);
 R1                       nvmbist                    X X X X  ;
 R1                       nvmbist                    X X X X  ;
-R32                      nvmbist                    X X X X  ;
+R1                       nvmbist                    X X X X  R32;
+R1                       nvmbist                    X X X X  R31;
+R1                       nvmbist                    X X X X  R30;
+R1                       nvmbist                    X X X X  R29;
+R1                       nvmbist                    X X X X  R28;
+R1                       nvmbist                    X X X X  R27;
+R1                       nvmbist                    X X X X  R26;
+R1                       nvmbist                    X X X X  R25;
+R1                       nvmbist                    X X X X  R24;
+R1                       nvmbist                    X X X X  R23;
+R1                       nvmbist                    X X X X  R22;
+R1                       nvmbist                    X X X X  R21;
+R1                       nvmbist                    X X X X  R20;
+R1                       nvmbist                    X X X X  R19;
+R1                       nvmbist                    X X X X  R18;
+R1                       nvmbist                    X X X X  R17;
+R1                       nvmbist                    X X X X  R16;
+R1                       nvmbist                    X X X X  R15;
+R1                       nvmbist                    X X X X  R14;
+R1                       nvmbist                    X X X X  R13;
+R1                       nvmbist                    X X X X  R12;
+R1                       nvmbist                    X X X X  R11;
+R1                       nvmbist                    X X X X  R10;
+R1                       nvmbist                    X X X X  R9;
+R1                       nvmbist                    X X X X  R8;
+R1                       nvmbist                    X X X X  R7;
+R1                       nvmbist                    X X X X  R6;
+R1                       nvmbist                    X X X X  R5;
+R1                       nvmbist                    X X X X  R4;
+R1                       nvmbist                    X X X X  R3;
+R1                       nvmbist                    X X X X  R2;
+R1                       nvmbist                    X X X X  R1;
 # ######################################################################
 # ## 64.times do
 # ##   $dut.pin(:tclk).drive!(0)
@@ -40,7 +71,38 @@ R32                      nvmbist                    X X X X  ;
 R1                       nvmbist                    0 X X X  64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)end;
 R1                       nvmbist                    1 X X X  ;
 R1                       nvmbist                    0 X X X  ;
-R32                      nvmbist                    1 X X X  ;
+R1                       nvmbist                    1 X X X  R32;
+R1                       nvmbist                    1 X X X  R31;
+R1                       nvmbist                    1 X X X  R30;
+R1                       nvmbist                    1 X X X  R29;
+R1                       nvmbist                    1 X X X  R28;
+R1                       nvmbist                    1 X X X  R27;
+R1                       nvmbist                    1 X X X  R26;
+R1                       nvmbist                    1 X X X  R25;
+R1                       nvmbist                    1 X X X  R24;
+R1                       nvmbist                    1 X X X  R23;
+R1                       nvmbist                    1 X X X  R22;
+R1                       nvmbist                    1 X X X  R21;
+R1                       nvmbist                    1 X X X  R20;
+R1                       nvmbist                    1 X X X  R19;
+R1                       nvmbist                    1 X X X  R18;
+R1                       nvmbist                    1 X X X  R17;
+R1                       nvmbist                    1 X X X  R16;
+R1                       nvmbist                    1 X X X  R15;
+R1                       nvmbist                    1 X X X  R14;
+R1                       nvmbist                    1 X X X  R13;
+R1                       nvmbist                    1 X X X  R12;
+R1                       nvmbist                    1 X X X  R11;
+R1                       nvmbist                    1 X X X  R10;
+R1                       nvmbist                    1 X X X  R9;
+R1                       nvmbist                    1 X X X  R8;
+R1                       nvmbist                    1 X X X  R7;
+R1                       nvmbist                    1 X X X  R6;
+R1                       nvmbist                    1 X X X  R5;
+R1                       nvmbist                    1 X X X  R4;
+R1                       nvmbist                    1 X X X  R3;
+R1                       nvmbist                    1 X X X  R2;
+R1                       nvmbist                    1 X X X  R1;
 # ######################################################################
 # ## 64.times do
 # ##   $dut.pin(:tclk).drive!(0)

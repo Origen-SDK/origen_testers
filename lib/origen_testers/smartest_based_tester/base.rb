@@ -8,7 +8,7 @@ module OrigenTesters
       #   $tester = J750.new
       def initialize
         @max_repeat_loop = 65_535
-        @min_repeat_loop = 17
+        @min_repeat_loop = 33
         @pat_extension = 'avc'
         @compress = true
         # @support_repeat_previous = true
@@ -404,6 +404,7 @@ module OrigenTesters
         if Origen.mode.simulation? || $_testers_no_inline_comments
           comment = ''
         end
+        comment.slice! 250..-1 # Max comment length 250
         "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment};"
       end
 
