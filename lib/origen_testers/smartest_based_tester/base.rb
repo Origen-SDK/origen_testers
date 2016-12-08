@@ -3,6 +3,9 @@ module OrigenTesters
     class Base
       include VectorBasedTester
 
+      # Disable inline (end of vector) comments, enabled by default
+      attr_accessor :inline_comments
+
       # Returns a new J750 instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target:
       #   $tester = J750.new
@@ -16,6 +19,7 @@ module OrigenTesters
         @name = 'v93k'
         @comment_char = '#'
         @level_period = true
+        @inline_comments = true
       end
 
       # Capture the pin data from a vector to the tester.
@@ -385,27 +389,54 @@ module OrigenTesters
         else
           microcode = vec.microcode ? vec.microcode : ''
         end
-        header_comments = ''
-        vec.comments.each do |comment|
-          if comment.include? '#'
-            comment = comment.gsub(/# /, '')
-            comment = comment.gsub(/#/, '')
-            if comment != ''
-              header_comments << comment + "\cm"
+
+        if Origen.mode.simulation? || !inline_comments || $_testers_no_inline_comments
+          comment = ''
+        else
+
+          header_comments = []
+          repeat_comment = ''
+          vec.comments.each_with_index do |comment, i|
+            if comment =~ /^#/
+              if comment =~ /^#(R\d+)$/
+                repeat_comment = Regexp.last_match(1) + ' '
+              # Throw away the ############# headers and footers
+              elsif comment !~ /^# #+$/
+                comment = comment.strip.sub(/^# (## )?/, '')
+                if comment == ''
+                  # Throw away empty lines at the start/end, but preserve them in the middle
+                  unless header_comments.empty? || i == vec.comments.size - 1
+                    header_comments << comment
+                  end
+                else
+                  header_comments << comment
+                end
+              end
             end
           end
+
+          if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
+            comment = "#{vec.number}:#{vec.cycle}"
+          else
+            comment = ''
+          end
+          unless header_comments.empty?
+            comment += "\cm" unless comment.empty?
+            comment += header_comments.join("\cm")
+          end
+          unless vec.inline_comment.empty?
+            comment += "\cm" unless comment.empty?
+            comment += "(#{vec.inline_comment})"
+          end
+          comment = "#{repeat_comment}#{comment}"
+
+          # Put everything behind a "#", so that the Origen differ knows to ignore
+          # everything that follows
+          comment = "# #{comment}" unless comment.empty?
         end
-        if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
-          comment = "#{header_comments}#{vec.number}:#{vec.cycle} #{vec.inline_comment}"
-        else
-          inline = vec.inline_comment.empty? ? '' : " # #{vec.inline_comment}"
-          comment = " #{header_comments}#{inline}"
-        end
-        if Origen.mode.simulation? || $_testers_no_inline_comments
-          comment = ''
-        end
-        comment.slice! 250..-1 # Max comment length 250
-        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment};"
+
+        # Max comment length 250 at the end
+        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment[0, 249]}"
       end
 
       # All vectors generated with the supplied block will have all pins set

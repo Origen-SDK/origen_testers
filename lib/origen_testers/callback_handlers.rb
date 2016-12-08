@@ -29,9 +29,6 @@ module OrigenTesters
       end
       true
     end
-    # Instantiate an instance of this class immediately when this file is required, this object will
-    # then listen for the remainder of the Origen thread
-    CallbackHandlers.new
 
     private
 
@@ -55,4 +52,8 @@ module OrigenTesters
       end
     end
   end
+
+  # Instantiate an instance of this class immediately when this file is required, this object will
+  # then listen for the remainder of the Origen thread
+  CallbackHandlers.new
 end
