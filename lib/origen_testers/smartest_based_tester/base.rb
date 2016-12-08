@@ -401,7 +401,7 @@ module OrigenTesters
               if comment =~ /^#(R\d+)$/
                 repeat_comment = Regexp.last_match(1) + ' '
               # Throw away the ############# headers and footers
-              elsif comment !~ /^# #+$/
+              elsif comment !~ /^# ####################/
                 comment = comment.strip.sub(/^# (## )?/, '')
                 if comment == ''
                   # Throw away empty lines at the start/end, but preserve them in the middle
@@ -417,26 +417,20 @@ module OrigenTesters
 
           if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
             comment = "#{vec.number}:#{vec.cycle}"
+            comment += ': ' if !header_comments.empty? || !vec.inline_comment.empty?
           else
             comment = ''
           end
-          unless header_comments.empty?
-            comment += "\cm" unless comment.empty?
-            comment += header_comments.join("\cm")
-          end
+          comment += header_comments.join("\cm") unless header_comments.empty?
           unless vec.inline_comment.empty?
-            comment += "\cm" unless comment.empty?
+            comment += "\cm" unless header_comments.empty?
             comment += "(#{vec.inline_comment})"
           end
           comment = "#{repeat_comment}#{comment}"
-
-          # Put everything behind a "#", so that the Origen differ knows to ignore
-          # everything that follows
-          comment = "# #{comment}" unless comment.empty?
         end
 
         # Max comment length 250 at the end
-        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}#{comment[0, 249]}"
+        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}# #{comment[0, 247]};"
       end
 
       # All vectors generated with the supplied block will have all pins set

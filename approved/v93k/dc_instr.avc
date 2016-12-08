@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    08-Dec-2016 15:58PM
+#   Time:    08-Dec-2016 10:29AM
 #   By:      Stephen McGinty
 #   Command: origen g dc_instr -t debug_v93k.rb
 # ***************************************************************************
@@ -8,10 +8,10 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.6
-#     Branch:    master(a668d0ed512) (+local edits)
+#     Branch:    master(15e5ebee0f1) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.7.31
+#     Version:   0.7.40
 #   Plugins
 #     atp:                      0.4.3
 #     origen_arm_debug:         0.4.3

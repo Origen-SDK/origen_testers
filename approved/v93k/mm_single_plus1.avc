@@ -1,6 +1,6 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    08-Dec-2016 16:09PM
+#   Time:    08-Dec-2016 10:29AM
 #   By:      Stephen McGinty
 #   Command: origen g multi_vector_plus1 -t debug_v93k.rb
 # ***************************************************************************
@@ -8,10 +8,10 @@
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
 #     Version:   0.8.6
-#     Branch:    master(a668d0ed512) (+local edits)
+#     Branch:    master(15e5ebee0f1) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.7.31
+#     Version:   0.7.40
 #   Plugins
 #     atp:                      0.4.3
 #     origen_arm_debug:         0.4.3
@@ -27,141 +27,141 @@ FORMAT TCLK TDI TDO TMS;
 # ######################################################################
 # ## $tester.cycle(repeat: 128)
 # ######################################################################
-R128                     nvmbist                    X X X X # $tester.cycle(repeat: 128)
+R128                     nvmbist                    X X X X # $tester.cycle(repeat: 128);
 # ######################################################################
 # ## 64.times do
 # ##   $dut.pin(:tclk).drive!(0)
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X # 64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)end
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
+R1                       nvmbist                    0 X X X # 64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
 # ######################################################################
 # ## 64.times do
 # ##   $dut.pin(:tclk).drive!(0)
@@ -170,262 +170,262 @@ R1                       nvmbist                    1 X X X
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X # R2 64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)end
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
+R1                       nvmbist                    0 X X X # R2 64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
 # ######################################################################
 # ## 64.times do
 # ##   $dut.pin(:tclk).drive!(0)
@@ -438,590 +438,590 @@ R1                       nvmbist                    1 X X X # R1
 # ##   $dut.pin(:tclk).drive!(1)
 # ## end
 # ######################################################################
-R1                       nvmbist                    0 X X X # R4 64.times do$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(0)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)$dut.pin(:tclk).drive!(1)end
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
-R1                       nvmbist                    0 X X X # R4 
-R1                       nvmbist                    0 X X X # R3 
-R1                       nvmbist                    0 X X X # R2 
-R1                       nvmbist                    0 X X X # R1 
-R1                       nvmbist                    1 X X X # R4 
-R1                       nvmbist                    1 X X X # R3 
-R1                       nvmbist                    1 X X X # R2 
-R1                       nvmbist                    1 X X X # R1 
+R1                       nvmbist                    0 X X X # R4 64.times do  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(0)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)  $dut.pin(:tclk).drive!(1)end;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
+R1                       nvmbist                    0 X X X # R4 ;
+R1                       nvmbist                    0 X X X # R3 ;
+R1                       nvmbist                    0 X X X # R2 ;
+R1                       nvmbist                    0 X X X # R1 ;
+R1                       nvmbist                    1 X X X # R4 ;
+R1                       nvmbist                    1 X X X # R3 ;
+R1                       nvmbist                    1 X X X # R2 ;
+R1                       nvmbist                    1 X X X # R1 ;
 # ######################################################################
 # ## Test of period levelling
 # ######################################################################
-R1                       nvmbist                    0 X X X # Test of period levelling
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X 
-R1                       nvmbist                    1 X X X 
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout))
-R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout))
+R1                       nvmbist                    0 X X X # Test of period levelling;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # ;
+R1                       nvmbist                    1 X X X # ;
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    0 X X X # R1 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R2 (Period levelled (nvmbist_readout));
+R1                       nvmbist                    1 X X X # R1 (Period levelled (nvmbist_readout));
 # ######################################################################
 # ## Test that these collapse to a single repeat in the single vector case
 # ######################################################################
 # Wait for 2.4ms
-R60001                   nvmbist                    1 1 X X # Test that these collapse to a single repeat in the single vector caseWait for 2.4ms
+R60001                   nvmbist                    1 1 X X # Test that these collapse to a single repeat in the single vector caseWait for 2.4ms;
 # ######################################################################
 # ## Test that these collapse to correct multiple repeats
 # ######################################################################
 # Wait for 12.0ms
-R65535                   nvmbist                    1 1 X X # Test that these collapse to correct multiple repeatsWait for 12.0ms
-R65535                   nvmbist                    1 1 X X 
-R65535                   nvmbist                    1 1 X X 
-R65535                   nvmbist                    1 1 X X 
-R37860                   nvmbist                    1 1 X X 
+R65535                   nvmbist                    1 1 X X # Test that these collapse to correct multiple repeatsWait for 12.0ms;
+R65535                   nvmbist                    1 1 X X # ;
+R65535                   nvmbist                    1 1 X X # ;
+R65535                   nvmbist                    1 1 X X # ;
+R37860                   nvmbist                    1 1 X X # ;
 # ######################################################################
 # ## Verify that comments at the end of the pattern work OK
 # ######################################################################
 # Wait for 48.0us
-R1200                    nvmbist                    1 0 X X # Verify that comments at the end of the pattern work OKWait for 48.0us
+R1200                    nvmbist                    1 0 X X # Verify that comments at the end of the pattern work OKWait for 48.0us;
 # This comment should appear after the delay 1200
-R1                       nvmbist                    1 0 X X # This comment should appear after the delay 1200
+R1                       nvmbist                    1 0 X X # This comment should appear after the delay 1200;
 # ######################################################################
 # ## Pattern complete
 # ######################################################################
