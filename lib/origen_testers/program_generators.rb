@@ -7,6 +7,7 @@ module OrigenTesters
   # the Testers plugin.
   module ProgramGenerators
     extend ActiveSupport::Concern
+    include Interface
 
     PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K]
 

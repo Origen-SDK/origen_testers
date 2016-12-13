@@ -8,6 +8,15 @@ module OrigenTesters
       def initialize(options = {})
       end
 
+      # Test that the block form of flow control methods like this can
+      # be overridden by an interface
+      def if_job(*jobs)
+        jobs = jobs.flatten
+        jobs.delete(:prb9)
+        super
+      end
+      alias_method :if_jobs, :if_job
+
       def log(msg)
         if tester.j750? || tester.uflex?
           flow.logprint(msg)
@@ -219,7 +228,6 @@ module OrigenTesters
             yield group
           end
         end
-
 
         ####################################################
         #######  UltraFLEX Pinmap Stuff ####################
@@ -489,7 +497,6 @@ module OrigenTesters
 
           references('Refs').add(reference, options)
         end
-
       end
     end
   end

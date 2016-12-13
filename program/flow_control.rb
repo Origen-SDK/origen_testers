@@ -61,7 +61,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   end
 
   log "Test that the block form of if_job can be overridden, prb9 should be removed"
-  if_job [:prb1, :prb2] do#, :prb9] do
+  if_job [:prb1, :prb2, :prb9] do
     func :probe_only_test1
   end
 
