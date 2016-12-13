@@ -1,4 +1,4 @@
-Resources.create do
+Resources.create interface: 'OrigenTesters::Test::Interface' do
 
   pinmap :pinmap_test
 

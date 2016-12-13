@@ -1,5 +1,5 @@
 # Similar to the test flows an interface instance is passed in as the first argument.
-Resources.create do
+Resources.create interface: 'OrigenTesters::Test::Interface' do
 
   self.resources_filename = 'prb1'
 

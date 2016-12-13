@@ -2,7 +2,7 @@
 # passed in here, iterators and other
 # argument passing will be supported
 # similar to Pattern.create.
-Flow.create do
+Flow.create interface: 'OrigenTesters::Test::Interface' do
 
   self.resources_filename = 'prb1'
 

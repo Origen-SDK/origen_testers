@@ -43,11 +43,11 @@ module OrigenTesters
 
       def on_create
         if tester && tester.uflex?
-          tester.assign_dc_instr_pins([dut.hv_supply_pin, dut.lv_supply_pin])
-          tester.assign_digsrc_pins(dut.digsrc_pins)
-          tester.apply_digsrc_settings(dut.digsrc_settings)
-          tester.assign_digcap_pins(dut.digcap_pins)
-          tester.apply_digcap_settings(dut.digcap_settings)
+          tester.assign_dc_instr_pins([hv_supply_pin, lv_supply_pin])
+          tester.assign_digsrc_pins(digsrc_pins)
+          tester.apply_digsrc_settings(digsrc_settings)
+          tester.assign_digcap_pins(digcap_pins)
+          tester.apply_digcap_settings(digcap_settings)
           tester.memory_test_en = true
         end
       end

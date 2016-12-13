@@ -1,19 +1,10 @@
 require 'spec_helper'
 
 module ATEHardwareSpec
-  class ATEHardwareDUT
-    # include OrigenTesters::IGXLBasedTester::UltraFLEX::ATEHardware
-    include Origen::TopLevel
-
-    def initialize
-      # nothing to initialize
-    end
-  end
-
   describe 'ATEHardware Tester Modeling' do
     Origen.target.temporary = -> do
       $tester = OrigenTesters::UltraFLEX.new
-      $dut = ATEHardwareDUT.new
+      $dut = OrigenTesters::Test::DUT.new
       $tester.import_tester_config('FT', "#{Origen.root}/spec/atehardware/CurrentConfig_sample.txt")
       $tester.import_chanmap('FTx4', "#{Origen.root}/spec/atehardware/atehardware_chanmap.txt")
       $dut.add_pin :pin1

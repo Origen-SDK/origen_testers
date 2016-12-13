@@ -1,6 +1,6 @@
 # An example of creating an entire test program from
 # a single source file
-Flow.create do
+Flow.create interface: 'OrigenTesters::Test::Interface' do
 
   self.resources_filename = 'prb2'
 
