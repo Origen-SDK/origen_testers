@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_8_8"></a>
+<h1><a href="#v0_8_8">Tag: v0.8.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 13-Dec-2016 11:23AM
+
+
+Patch to allow the flow control methods, e.g. if\_job, to be be overridden by
+an interface.
+
+Also cleaned up the development environment a lot, to align the way that targets,
+environments and interface are handled with the latest best practices.
+
 <a class="anchor release_tag" name="v0_8_7"></a>
 <h1><a href="#v0_8_7">Tag: v0.8.7</a></h1>
 
