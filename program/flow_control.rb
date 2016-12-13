@@ -60,6 +60,11 @@ Flow.create do
     func :probe_only_test2
   end
 
+  log "Test that the block form of if_job can be overridden, prb9 should be removed"
+  if_job [:prb1, :prb2] do#, :prb9] do
+    func :probe_only_test1
+  end
+
   log "Test that unless_job works"
   func :warmish_test, unless_job: :fc
 

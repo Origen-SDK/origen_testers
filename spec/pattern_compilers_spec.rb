@@ -47,10 +47,11 @@ module CompilerSpec
   describe "Ultraflex Pattern Compiler" do
 
     before :all do
-      Origen.target.temporary = 'ultraflex_compiler'
-      Origen.app.load_target!
-      Origen.load_application
-      $dut = CompilerDUT.new
+      Origen.target.temporary = -> do
+        $tester = OrigenTesters::UltraFLEX.new
+        $dut = CompilerDUT.new
+      end
+      Origen.load_target
       $dut.pinmap = "#{Origen.root}/spec/patterns/compiler_pins.txt"
       # Clean up any .PAT and .log files in our spec testing area
       Dir.glob("#{$dut.ltg_compiler_options[:output_directory]}/**/*.PAT").each do |f|

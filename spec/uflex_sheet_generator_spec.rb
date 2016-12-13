@@ -11,10 +11,9 @@ module UFlexGenerator
 
   describe 'UFlex Pinmap Sheet Generator' do
     it 'Adding pins, groups, power pins and virtual pins' do
-      Origen.app.unload_target!
-      Origen.target.temporary = 'ultraflex_interface'
-      Origen.app.load_target!
-      pinmap = $dut.pinmaps('pinmap_name')
+      Origen.environment.temporary = "uflex"
+      Origen.load_target("dut")
+      pinmap = Origen.interface.pinmaps('pinmap_name')
       pinmap.add_pin(:pin1, type: 'I/O', comment: 'comment1')
       pinmap.add_pin(:pin2, type: 'I', comment: 'comment2')
       pinmap.add_pin(:pin3, type: 'O', comment: 'comment3')

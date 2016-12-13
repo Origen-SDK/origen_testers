@@ -11,16 +11,18 @@ module ATEHardwareSpec
   end
 
   describe 'ATEHardware Tester Modeling' do
-    Origen.target.temporary = 'ultraflex_atehardware'
-    Origen.app.load_target!
-    $dut = ATEHardwareDUT.new
-    Origen.tester.import_tester_config('FT', "#{Origen.root}/spec/atehardware/CurrentConfig_sample.txt")
-    Origen.tester.import_chanmap('FTx4', "#{Origen.root}/spec/atehardware/atehardware_chanmap.txt")
-    $dut.add_pin :pin1
-    $dut.add_pin :pin2
-    $dut.add_pin :pin3
-    $dut.add_pin :k1
-    $dut.add_power_pin_group :avdd
+    Origen.target.temporary = -> do
+      $tester = OrigenTesters::UltraFLEX.new
+      $dut = ATEHardwareDUT.new
+      $tester.import_tester_config('FT', "#{Origen.root}/spec/atehardware/CurrentConfig_sample.txt")
+      $tester.import_chanmap('FTx4', "#{Origen.root}/spec/atehardware/atehardware_chanmap.txt")
+      $dut.add_pin :pin1
+      $dut.add_pin :pin2
+      $dut.add_pin :pin3
+      $dut.add_pin :k1
+      $dut.add_power_pin_group :avdd
+    end
+    Origen.load_target
 
     it 'Importing UltraFLEX tester config properly' do
       $tester.name.should == 'ultraflex'

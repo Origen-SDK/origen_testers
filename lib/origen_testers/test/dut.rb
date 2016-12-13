@@ -41,6 +41,17 @@ module OrigenTesters
         @blocks = [Block.new(0, self), Block.new(1, self), Block.new(2, self)]
       end
 
+      def on_create
+        if tester && tester.uflex?
+          tester.assign_dc_instr_pins([dut.hv_supply_pin, dut.lv_supply_pin])
+          tester.assign_digsrc_pins(dut.digsrc_pins)
+          tester.apply_digsrc_settings(dut.digsrc_settings)
+          tester.assign_digcap_pins(dut.digcap_pins)
+          tester.apply_digcap_settings(dut.digcap_settings)
+          tester.memory_test_en = true
+        end
+      end
+
       def startup(options)
         $tester.set_timeset('tp0', 60)
       end

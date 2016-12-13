@@ -35,6 +35,8 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						logprint	Test_the_block_form_of_if_job																										
 			PRB1,PRB2			Test	probe_only_test1	probe_only_test1											Fail														
 			PRB1,PRB2			Test	probe_only_test2	probe_only_test2											Fail														
+						logprint	Test_that_the_block_form_of_if_job_can_be_overridden,_prb9_should_be_removed																										
+			PRB1,PRB2			Test	probe_only_test1	probe_only_test1											Fail														
 						logprint	Test_that_unless_job_works																										
 			!FC			Test	warmish_test	warmish_test											Fail														
 						logprint	Test_the_block_form_of_unless_job																										
