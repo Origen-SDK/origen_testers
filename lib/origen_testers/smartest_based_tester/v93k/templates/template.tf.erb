@@ -110,7 +110,7 @@ testmethodparameters
 %     unless method.parameters.empty?
 <%= method.id %>:
 %       method.parameters.each do |name, type|
-  "<%= name.is_a?(String) ? name : name.to_s.camelize(:lower) %>" = "<%= method.format(name) %>";
+  "<%= name.is_a?(String) ? name : name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower) %>" = "<%= method.format(name) %>";
 %       end
 %     end
 %   end
