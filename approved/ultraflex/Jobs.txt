@@ -2,5 +2,5 @@ DTJobListSheet,version=2.5:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Job 
 
 		Sheet Parameters	
 	Job Name	Pin Map	Test Instances	Flow Table	AC Specs	DC Specs	Pattern Sets	Pattern Groups	Bin Table	Characterization	Test Procedures	Mixed Signal Timing	Wave Definitions	Psets	Signals	Port Map	Fractional Bus	Concurrent Sequence	Comment
-	FT	pinmap_test			SpecsAC_func	SpecsDC_func												
-	WT	pinmap_test		WT_flow1,WT_flow2	SpecsAC_func	SpecsDC_func												
+	FT	pinmap_test	prb1_instances,prb2_instances,global_instances,flow_control_instances	prb1_flow,prb2_flow,test_flow,flow_control_flow,basic_interface_flow,custom_tests_flow	SpecsAC_func	SpecsDC_func	prb1_patsets,prb2_patsets,global_patsets,flow_control_patsets											
+	WT	pinmap_test	prb1_instances,prb2_instances,global_instances,flow_control_instances	WT_flow1,WT_flow2	SpecsAC_func	SpecsDC_func	prb1_patsets,prb2_patsets,global_patsets,flow_control_patsets											

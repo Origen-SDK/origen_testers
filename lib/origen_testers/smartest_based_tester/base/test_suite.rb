@@ -2,6 +2,8 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestSuite
+        attr_accessor :meta
+
         ATTRS =
           %w(name
              comment
@@ -85,6 +87,9 @@ module OrigenTesters
 
         def initialize(name, attrs = {})
           @name = name
+          if interface.flow.sig
+            @name = "#{name}_#{interface.flow.sig}"
+          end
           # Set the defaults
           DEFAULTS.each do |k, v|
             send("#{k}=", v)
@@ -93,6 +98,11 @@ module OrigenTesters
           attrs.each do |k, v|
             send("#{k}=", v) if respond_to?("#{k}=") && k.to_sym != :name
           end
+        end
+
+        def pattern=(name)
+          Origen.interface.record_pattern_reference(name) if name
+          @pattern = name
         end
 
         def inspect
@@ -136,6 +146,14 @@ module OrigenTesters
 
         def respond_to?(method)
           (test_method && test_method.respond_to?(method)) || super
+        end
+
+        def interface
+          Origen.interface
+        end
+
+        def to_meta
+          meta || {}
         end
 
         private

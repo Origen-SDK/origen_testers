@@ -6,6 +6,10 @@ module OrigenTesters
           attr_reader :test_method
           attr_accessor :lo_limit, :hi_limit
           attr_accessor :unit
+          alias_method :lo, :lo_limit
+          alias_method :lo=, :lo_limit=
+          alias_method :hi, :hi_limit
+          alias_method :hi=, :hi_limit=
 
           def initialize(test_method)
             @test_method = test_method

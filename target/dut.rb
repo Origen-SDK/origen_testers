@@ -1,0 +1,1 @@
+OrigenTesters::Test::DUT.new

@@ -24,13 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Add any gems that your plugin needs to run within a host application
-  spec.add_runtime_dependency 'origen', '>= 0.7.0'
+  spec.add_runtime_dependency 'origen', '>= 0.7.40'
   spec.add_runtime_dependency 'require_all', '~> 1'
-  spec.add_runtime_dependency 'atp', '~>0.4', '>= 0.4.1'
-
-  # Add any gems that your plugin needs for its development environment only
-  spec.add_development_dependency 'origen_arm_debug', '0.4.3'
-  spec.add_development_dependency 'yard-activesupport-concern'
-  spec.add_development_dependency "origen_jtag", ">= 0.12.0"
-  spec.add_development_dependency "origen_doc_helpers", ">= 0.2.0"
+  spec.add_runtime_dependency 'atp', '~>0.4', '>= 0.4.3'
 end

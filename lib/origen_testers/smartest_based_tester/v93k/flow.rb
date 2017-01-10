@@ -3,7 +3,7 @@ module OrigenTesters
     class V93K
       require 'origen_testers/smartest_based_tester/base/flow'
       class Flow < Base::Flow
-        TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k/templates/template.flow.erb"
+        TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k/templates/template.tf.erb"
       end
     end
   end

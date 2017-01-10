@@ -41,7 +41,7 @@ module OrigenTesters
               pinlist:           [:string, '@'],
               force_mode:        [:string, 'VOLT', %w(VOLT CURR)],
               force_value:       [:force_mode, 3800.mV],
-              spmu_clamp:        [:current, 0],
+              spmu_clamp:        [:force_modeb, 0],
               precharge:         [:string, 'OFF', %w(ON OFF)],
               precharge_voltage: [:voltage, 0],
               settling_time:     [:time, 0],

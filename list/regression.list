@@ -5,3 +5,4 @@ dc_instr
 multi_vector
 multi_vector_plus1
 delay
+freq_counter

@@ -144,7 +144,13 @@ module OrigenTesters
         c1(msg)
       end
       @step_comment_on = false
-      c1(step_comment_prefix * (70 / div))
+      if $_testers_enable_vector_comments
+        timestamp = " #{execution_time_in_ns}ns #{step_comment_prefix}"
+        str = step_comment_prefix * (70 / div)
+        c1 str.sub(/#{step_comment_prefix}{#{timestamp.length - 1}}$/, timestamp)
+      else
+        c1(step_comment_prefix * (70 / div))
+      end
     end
 
     def snip(number, options = {})

@@ -1,0 +1,48 @@
+hp93000,testflow,0.1
+language_revision = 1;
+
+declarations
+
+% clean_runtime_control_variables.each do |var|
+%   if var.is_a?(Array)
+@<%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+@<%= var.to_s.upcase %> = 0;
+%   end
+% end
+
+end
+-----------------------------------------------------------------
+flags
+
+% clean_flow_control_variables.each do |var|
+%   if var.is_a?(Array)
+user <%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+user <%= var.to_s.upcase %> = 0;
+%   end
+% end
+
+end
+-----------------------------------------------------------------
+testmethodparameters
+end
+-----------------------------------------------------------------
+testmethodlimits
+end
+-----------------------------------------------------------------
+test_flow
+end
+-----------------------------------------------------------------
+binning
+end
+-----------------------------------------------------------------
+oocrule
+end
+-----------------------------------------------------------------
+context
+end
+-----------------------------------------------------------------
+hardware_bin_descriptions
+end
+-----------------------------------------------------------------

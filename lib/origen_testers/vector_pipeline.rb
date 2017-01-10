@@ -109,7 +109,14 @@ module OrigenTesters
       r = vector.repeat || 1
       if $tester.min_repeat_loop && r < $tester.min_repeat_loop
         vector.repeat = 1
-        r.times do
+        if r > 1
+          vector.comments << '#R' + r.to_s
+        end
+        yield vector
+        (r - 1).times do |index|
+          vector.comments = ['#R' + (r - 1 - index).to_s]
+          vector.number += 1
+          vector.cycle += 1
           yield vector
         end
         @vector_count += r

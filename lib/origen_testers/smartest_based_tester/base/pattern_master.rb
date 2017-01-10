@@ -6,7 +6,7 @@ module OrigenTesters
         include OrigenTesters::Generator
 
         attr_reader :flow, :paths
-        attr_accessor :filename
+        attr_accessor :filename, :id
 
         def initialize(flow = nil)
           @flow = flow
@@ -14,20 +14,42 @@ module OrigenTesters
         end
 
         def filename
-          @filename || flow.filename.sub('.flow', '.pmfl')
+          @filename || flow.filename.sub('.tf', '.pmfl')
         end
 
         def subdirectory
           'vectors'
         end
 
-        def add(name, options = {})
-          name, subdir = extract_subdir(name, options)
-          name += '.binl.gz' unless name =~ /binl.gz$/
-          Origen.interface.referenced_patterns << name
-          paths[subdir] ||= []
-          # Just add it, duplicates will be removed at render time
-          paths[subdir] << name unless paths[subdir].include?(name)
+        def paths
+          { '../vectors' => patterns }
+        end
+
+        # def add(name, options = {})
+        #  name, subdir = extract_subdir(name, options)
+        #  name += '.binl.gz' unless name =~ /binl.gz$/
+        #  # Don't want to ask Origen to compile these, but do want them in the v93k
+        #  # compile list
+        #  if name =~ /_part\d+\.binl\.gz$/
+        #    Origen.interface.pattern_compiler.part_patterns << name
+        #  else
+        #    Origen.interface.referenced_patterns << name
+        #  end
+        #  paths[subdir] ||= []
+        #  # Just add it, duplicates will be removed at render time
+        #  paths[subdir] << name unless paths[subdir].include?(name)
+        # end
+
+        def patterns
+          (references[:subroutine][:all] + references[:subroutine][:ate] +
+            references[:main][:all] + references[:main][:ate]).map do |p|
+            p = p.strip
+            p += '.binl.gz' unless p =~ /binl.gz$/
+          end.uniq
+        end
+
+        def references
+          Origen.interface.all_pattern_references[id]
         end
 
         private

@@ -1,3 +1,312 @@
+<a class="anchor release_tag" name="v0_8_8"></a>
+<h1><a href="#v0_8_8">Tag: v0.8.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 13-Dec-2016 11:23AM
+
+
+Patch to allow the flow control methods, e.g. if\_job, to be be overridden by
+an interface.
+
+Also cleaned up the development environment a lot, to align the way that targets,
+environments and interface are handled with the latest best practices.
+
+<a class="anchor release_tag" name="v0_8_7"></a>
+<h1><a href="#v0_8_7">Tag: v0.8.7</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 08-Dec-2016 10:35AM
+
+
+Clean up to how inline comments are handled on V93K which should fix the following
+issues:
+
+* The Origen diff tracker now ignores diffs in inline comments
+* Microcode is no longer included in the inline comments
+* Spacing/vertical alignment between multi-line comments is now preserved
+* Repeat numbers always appear at the start of the comment for better viewing
+* Removed trailing and superfluous carriage returns, tkdiff seems to handle these patterns
+  properly now
+
+Inline comments can now be disabled from your environment setup file like this:
+
+~~~ruby
+tester.inline\_comments = false
+~~~
+
+<a class="anchor release_tag" name="v0_8_6"></a>
+<h1><a href="#v0_8_6">Tag: v0.8.6</a></h1>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 21-Oct-2016 08:57AM
+
+
+Minor changes to 93K, change min repeat to 33 and cut comments at 250 chars
+
+<a class="anchor release_tag" name="v0_8_5"></a>
+<h1><a href="#v0_8_5">Tag: v0.8.5</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 06-Oct-2016 07:58AM
+
+
+Minor patch to prevent a runtime error if pattern = nil or false is ever called on a
+93K test suite object.
+
+<a class="anchor release_tag" name="v0_8_4"></a>
+<h1><a href="#v0_8_4">Tag: v0.8.4</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 19-Sep-2016 10:45AM
+
+
+Added meta attribute to test instance and test suite objects. If present, this
+will be included in test flow documentation.
+
+~~~ruby
+# Generate a test instance/method
+if tester.j750?
+  i = test\_instances.functional(name, options)
+elsif tester.v93k?
+  i = test\_suites.add(name, options)
+  i.test\_method = origen.functional\_test
+end
+i.pattern = "rambist\_march"
+
+# Add meta data
+i.meta = {
+  "Test" => i.name,        # 'Test' and 'Pattern' will be used in documentation
+  "Pattern" => i.pattern,  # to name the tests, all other attrs will simply
+  "Vdd" => vdd,            # be output verbatim
+  "Cycles" => cycles
+}
+
+# Insert test into flow as normal
+flow.test(i, options)
+~~~
+
+<a class="anchor release_tag" name="v0_8_3"></a>
+<h1><a href="#v0_8_3">Tag: v0.8.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 14-Sep-2016 08:56AM
+
+
+fix missed pull request
+
+<a class="anchor release_tag" name="v0_8_1"></a>
+<h1><a href="#v0_8_1">Tag: v0.8.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 13-Sep-2016 08:37AM
+
+
+Bugfix - Previously only the first test method object in a V93K test program had it's
+finalize method called (if defined). Now they are all called.
+
+<a class="anchor release_tag" name="v0_8_0"></a>
+<h1><a href="#v0_8_0">Tag: v0.8.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 13-Sep-2016 02:51AM
+
+
+Re-tagging as 0.8.0
+
+<a class="anchor release_tag" name="v0_8_0_pre1"></a>
+<h2><a href="#v0_8_0_pre1">Tag: v0.8.0.pre1</a></h2>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 12-Sep-2016 12:51PM
+
+
+
+Include header comments in-line with embedded 'ctrl-m' so they are visible in gui
+Move comments before ';' so they translate into binl
+
+<a class="anchor release_tag" name="v0_7_13"></a>
+<h1><a href="#v0_7_13">Tag: v0.7.13</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-Sep-2016 06:18AM
+
+
+Patch to allow interfaces to include Origen::Callbacks
+
+<a class="anchor release_tag" name="v0_7_12"></a>
+<h1><a href="#v0_7_12">Tag: v0.7.12</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 22-Aug-2016 11:01AM
+
+
+Standardized the boot order of this plugin, fixes warnings in Origen 0.7.24 onwards
+
+<a class="anchor release_tag" name="v0_7_11"></a>
+<h1><a href="#v0_7_11">Tag: v0.7.11</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 19-Aug-2016 07:01AM
+
+
+Fixes for Github issues #10 and #20
+
+<a class="anchor release_tag" name="v0_7_10"></a>
+<h1><a href="#v0_7_10">Tag: v0.7.10</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 17-Aug-2016 06:57AM
+
+
+Added a variables file to the V93K program generator output (output to
+OUTPUT/testflow/mfh.testflow.setup/).
+
+By default this is a global file but it can be made flow specific by setting
+resources\_filename as per other file generators.
+
+<a class="anchor release_tag" name="v0_7_9"></a>
+<h1><a href="#v0_7_9">Tag: v0.7.9</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 15-Aug-2016 06:16AM
+
+
+* Bugfix to J750 pattern output to setup freq\_count after the opcode has been
+  defined (Thao Huynh)
+* Turned off timestamps in the pattern comments by default due to it causing
+  too many diffs when reviewing changes. It will now be enabled with the -v
+  option which already enabled vectors and cycle count comments.
+
+<a class="anchor release_tag" name="v0_7_8"></a>
+<h1><a href="#v0_7_8">Tag: v0.7.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 12-Aug-2016 12:15PM
+
+
+Various updates for V93K, this release puts the support for V93K on a par with
+that for J750 and UltraFLEX.
+
+* The list/referenced.list file output from the program generator is now diff
+  tracked
+* Added ability to specify a custom test method attribute's type as being the
+  inverse of another attribute, e.g.
+
+~~~ruby
+my\_test\_method:       {
+  force\_mode:  [:string, 'VOLT', %w(VOLT CURR)],
+  force\_value: [:force\_mode, 3800.mV],   # Type will be :voltage when force\_mode set to 'VOLT'
+  spmu\_clamp:  [:force\_modeb, 0]         # Type will be :current when force\_mode set to 'VOLT'
+}
+~~~
+
+* Changed the output directory/filename of flow files to align to the MFH
+  (master file handler) conventions
+* Pattern master (.pmfl) and compiler (.aiv) files now default to a file
+  called global and will contain all references for a given generator run,
+  this is equivalent to how pattern/instance sheets are handled for Teradyne.
+  The app can change this on a per-flow basis by setting the interface's
+  resources\_filename attribute, again same as Teradyne sheets.
+* Better naming of multi-part patterns. \_part1, \_part2, etc. is now appended
+  after the app's pattern postfix, this generally makes app-level pattern
+  references easier to handle.
+* On V93K there is sometimes the situation where you want the test program to
+  have a reference to a pattern (in the .pmfl), but you don't want it in
+  Origen's list/referenced.list, and vice versa. The API for adding a pattern
+  reference from the app has been improved to support this:
+
+~~~ruby
+# From the app's test program interface...
+
+# The original API is still supported, this will add a reference to
+# list/referenced.list and the .pmfl (and .aiv)
+referenced\_patterns << "some\_pattern"
+
+# This is equivalent with the new API
+record\_pattern\_reference("some\_pattern")
+
+# V93K needs to know if the reference is to a subroutine, this can be
+# indicated like this
+record\_pattern\_reference("some\_pattern", subroutine: true)
+
+# To make the reference appear in Origen's list/referenced.list only
+record\_pattern\_reference("some\_pattern", type: :origen)
+
+# To make the reference appear in the .pmfl (and .aiv) only
+record\_pattern\_reference("some\_pattern", type: :ate)
+~~~
+
+* Finally there are various minor bug fixes
+
+<a class="anchor release_tag" name="v0_7_7"></a>
+<h1><a href="#v0_7_7">Tag: v0.7.7</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-Aug-2016 12:48PM
+
+
+Added a timestamp to all major step comments, useful when looking at a pattern in
+simulation.
+
+Bug fix for flow.render when called from a plugin via a top-level app.
+
+<a class="anchor release_tag" name="v0_7_6"></a>
+<h1><a href="#v0_7_6">Tag: v0.7.6</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 27-Jul-2016 08:49AM
+
+
+Fixed some syntax bugs in V93K flow output
+
+<a class="anchor release_tag" name="v0_7_5"></a>
+<h1><a href="#v0_7_5">Tag: v0.7.5</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 01-Jul-2016 15:05PM
+
+
+Updates from Thao
+
+<a class="anchor release_tag" name="v0_7_4"></a>
+<h1><a href="#v0_7_4">Tag: v0.7.4</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 16-Jun-2016 13:15PM
+
+
+Added Frequency Counter support for UltraFLEX.
+
+<a class="anchor release_tag" name="v0_7_3"></a>
+<h1><a href="#v0_7_3">Tag: v0.7.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 15-Jun-2016 09:33AM
+
+
+Minor update to smartest\_based\_tester to allow for lower-case naming of pin groups of size
+1 (or more).
+
 <a class="anchor release_tag" name="v0_7_2"></a>
 <h1><a href="#v0_7_2">Tag: v0.7.2</a></h1>
 

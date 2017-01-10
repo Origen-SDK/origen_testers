@@ -1,7 +1,7 @@
 hp93000,pattern_master_file,0.1
 
 path:
-.
+../vectors
 
 files:
 another_not_p1_or_p2_test.binl.gz
@@ -23,4 +23,5 @@ program_ckbd.binl.gz
 program_ckbd_b0.binl.gz
 program_ckbd_b1.binl.gz
 program_ckbd_b2.binl.gz
+xcvr_fs_vilvih.binl.gz
 

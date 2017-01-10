@@ -278,6 +278,7 @@ module OrigenTesters
         # Returns a hash containing key meta data about the test instance, this is
         # intended to be used in documentation
         def to_meta
+          return @meta if @meta
           m = { 'Test' => name,
                 'Type' => type
           }
@@ -293,7 +294,7 @@ module OrigenTesters
           end
           m['DC'] = "#{dc_category} (#{dc_selector})"
           m['AC'] = "#{ac_category} (#{ac_selector})"
-          m.merge(@meta)
+          m
         end
 
         # Set the meaure mode of a parametric test instance, either:

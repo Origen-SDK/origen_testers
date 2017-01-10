@@ -4,10 +4,14 @@ module OrigenTesters
       class Flow < ATP::Formatter
         include OrigenTesters::Flow
 
-        attr_accessor :test_suites, :test_methods, :pattern_master, :lines, :stack
+        attr_accessor :test_suites, :test_methods, :lines, :stack, :var_filename
+
+        def var_filename
+          @var_filename || 'global'
+        end
 
         def subdirectory
-          'testflow'
+          'testflow/mfh.testflow.group'
         end
 
         def filename
@@ -19,11 +23,17 @@ module OrigenTesters
         end
 
         def flow_control_variables
-          @flow_control_variables ||= []
+          Origen.interface.variables_file(self).flow_control_variables
         end
 
         def runtime_control_variables
-          @runtime_control_variables ||= []
+          Origen.interface.variables_file(self).runtime_control_variables
+        end
+
+        def at_flow_start
+        end
+
+        def at_flow_end
         end
 
         def finalize(options = {})
@@ -34,39 +44,42 @@ module OrigenTesters
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
           process(model.ast)
-          flow_control_variables.uniq!
-          runtime_control_variables.uniq!
         end
 
         def line(str)
           @lines << (' ' * @indent * 2) + str
         end
 
+        # def on_flow(node)
+        #  line '{'
+        #  @indent += 1
+        #  process_all(node.children)
+        #  @indent -= 1
+        #  line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
+        # end
+
         def on_test(node)
           name = node.find(:object).to_a[0]
           name = name.name unless name.is_a?(String)
-          if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass }
+          if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
+             !stack[:on_pass].empty? || !stack[:on_fail].empty?
             line "run_and_branch(#{name})"
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
             line 'then'
             line '{'
             @indent += 1
             on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-            if on_pass
-              process_all(on_pass)
-              stack[:on_pass].each { |n| process_all(n) }
-            end
+            process_all(on_pass) if on_pass
+            stack[:on_pass].each { |n| process_all(n) }
             @indent -= 1
             line '}'
             line 'else'
             line '{'
             @indent += 1
             on_fail = node.children.find { |n| n.try(:type) == :on_fail }
-            if on_fail
-              with_continue(on_fail.children.any? { |n| n.try(:type) == :continue }) do
-                process_all(on_fail)
-                stack[:on_fail].each { |n| process_all(n) }
-              end
+            with_continue(on_fail ? on_fail.children.any? { |n| n.try(:type) == :continue } : false) do
+              process_all(on_fail) if on_fail
+              stack[:on_fail].each { |n| process_all(n) }
             end
             @indent -= 1
             line '}'
@@ -78,7 +91,7 @@ module OrigenTesters
         def on_job(node)
           jobs, state, *nodes = *node
           jobs = clean_job(jobs)
-          flow_control_variables << 'JOB'
+          runtime_control_variables << ['JOB', '']
           condition = jobs.join(' or ')
           line "if #{condition} then"
           line '{'

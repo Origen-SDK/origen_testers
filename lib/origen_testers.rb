@@ -1,4 +1,6 @@
 require 'origen'
+require_relative '../config/application.rb'
+
 require 'active_support/concern'
 require 'require_all'
 require 'atp'
@@ -40,6 +42,5 @@ require 'origen_testers/smartest_based_tester'
 require 'origen_testers/pattern_compilers'
 
 require 'origen_testers/callback_handlers'
-require_relative '../config/application.rb'
 require 'origen_testers/origen_ext/pins/pin'
 require 'origen_testers/origen_ext/pins/pin_collection'

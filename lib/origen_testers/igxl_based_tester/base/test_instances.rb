@@ -158,6 +158,11 @@ module OrigenTesters
         end
         alias_method :board_pmu, :bpmu
 
+        def powersupply(name, options = {})
+          add(name, :powersupply, options)
+        end
+        alias_method :power_supply, :powersupply
+
         def ppmu(name, options = {})
           add(name, :pin_pmu, options)
         end

@@ -69,20 +69,29 @@ module OrigenTesters
       @vec_count = @vec_count - num
     end
 
-    # init cycle count when first accessed, otherwise return value
+    # Returns the current cycle count
     def cycle_count
       @cycle_count ||= 0
     end
 
+    # Returns the current execution time
+    def execution_time_in_ns
+      @execution_time_in_ns ||= 0
+    end
+
     # increment cycle count
-    def inc_cycle_count(num = 1)
+    def inc_cycle_count(num = 1, options = {})
+      num, options = 1, num if num.is_a?(Hash)
       cycle_count if @cycle_count.nil? # define if not already
+      execution_time_in_ns if @execution_time_in_ns.nil? # define if not already
+      @execution_time_in_ns += num * (options[:period_in_ns] || tester.timeset.period_in_ns)
       @cycle_count = @cycle_count + num
     end
 
     # reset_cycle_count
     def reset_cycle_count(num = 0)
       cycle_count if @cycle_count.nil? # define if not already
+      @execution_time_in_ns = 0
       @cycle_count = num
     end
 
@@ -232,7 +241,7 @@ module OrigenTesters
         v = Vector.new(attrs)
         stage.store Vector.new(attrs)
         inc_vec_count
-        inc_cycle_count(attrs[:repeat] || 1)
+        inc_cycle_count(attrs[:repeat] || 1, period_in_ns: v.timeset.period_in_ns)
         if @preset_next_vector_cleanup
           @preset_next_vector_cleanup.call(v)
           @preset_next_vector_cleanup = nil

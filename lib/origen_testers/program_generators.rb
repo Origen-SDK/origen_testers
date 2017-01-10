@@ -7,6 +7,7 @@ module OrigenTesters
   # the Testers plugin.
   module ProgramGenerators
     extend ActiveSupport::Concern
+    include Interface
 
     PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K]
 
@@ -28,6 +29,11 @@ module OrigenTesters
       def supports?(tester_instance)
         PLATFORMS.include?(tester_instance.class)
       end
+    end
+
+    # @api private
+    def pre_initialize(options = {})
+      _load_generator
     end
 
     def initialize(options = {})

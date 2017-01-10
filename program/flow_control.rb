@@ -3,7 +3,7 @@
 # Some of the other flows also cover the flow control API and those tests are used
 # to guarantee that the test ID references work when sub-flows are involved.
 # This flow provides a full checkout of all flow control methods.
-Flow.create do
+Flow.create interface: 'OrigenTesters::Test::Interface' do
 
   self.resources_filename = 'flow_control'
 
@@ -58,6 +58,11 @@ Flow.create do
   if_job [:prb1, :prb2] do
     func :probe_only_test1
     func :probe_only_test2
+  end
+
+  log "Test that the block form of if_job can be overridden, prb9 should be removed"
+  if_job [:prb1, :prb2, :prb9] do
+    func :probe_only_test1
   end
 
   log "Test that unless_job works"

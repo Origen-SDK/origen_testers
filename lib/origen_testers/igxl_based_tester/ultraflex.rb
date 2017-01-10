@@ -1,3 +1,4 @@
+require 'origen_testers/igxl_based_tester/ultraflex/ate_hardware'
 module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX < Base
@@ -43,8 +44,32 @@ module OrigenTesters
         @microcode[:keepalive] = 'keepalive'
       end
 
+      # Do a frequency measure.
+      #
+      # Write the necessary micro code to do a frequency measure on the given pin,
+      # optionally supply a read code to pass information to the tester.
+      #
+      # ==== Examples
+      #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
+      #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        fail 'Method freq_count not yet supported for UltraFLEX!'
+        options = { readcode: false
+                  }.merge(options)
+
+        set_code(options[:readcode]) if options[:readcode]
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuA
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuB
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[1]})") # set cpuC
+        cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[2]})") # set cpuD
+        cycle(microcode: "freq_loop_1: #{@microcode[:enable]} (#{@flags[0]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_1')
+        pin.drive_lo
+        delay(2000)
+        pin.dont_care
+        cycle(microcode: "freq_loop_2: #{@microcode[:enable]} (#{@flags[1]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_2')
+        cycle(microcode: "#{@microcode[:enable]} (#{@flags[2]})")
+        cycle(microcode: 'if (branch_expr) jump freq_loop_1')
       end
 
       def memory_test(options = {})
@@ -563,6 +588,22 @@ module OrigenTesters
         end
       end
       alias_method :store!, :store_next_cycle
+
+      # ate_hardware stores "key" UltraFLEX hardware information needed for test program generation
+      # Instrument types available for ppmu: "HSD-M", "HSD-U", "HSD-4G", and "HSS-6G".
+      # Sample usage: $tester.ate_hardware("HSD-U").ppmu
+      # Instrument types available for supply: "VSM", "VSMx2", "VSMx4", "HexVS", "HexVSx2", "HexVSx4",
+      # "HexVSx6", "HexVS+x2", "HexVS+x4", "HexVS+x6", "HDVS1", "HDVS1x2", "HDVS1x4", "VHDVS",
+      # "VHDVS_HC", "VHDVSx2", "VHDVS_HCx2", "VHDVS_HCx4", "VHDVS_HCx8", "VHDVS+", "VHDVS_HC+",
+      # "VHDVS+x2", "VHDVS_HC+x2", "VHDVS_HC+x4", and "VHDVS_HC+x8".
+      # HDVS1 is also known as HDVS.  VHDVS is also known as UVS256.
+      # x2 is Merged2, x4 is Merged4, x6 is Merged6.  _HC is High-Current.
+      # + is High-Accuracy.
+      # Sample usage: $tester.ate_hardware("VSM").supply
+      # Sample usage: $tester.ate_hardware("HSD-M").ppmu
+      def ate_hardware(instrumentname = '')
+        @ate_hardware = ATEHardware.new(instrumentname)
+      end
     end
   end
   UltraFLEX = IGXLBasedTester::UltraFLEX

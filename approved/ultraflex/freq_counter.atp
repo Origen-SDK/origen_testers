@@ -1,0 +1,110 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    16-Jun-2016 13:00PM
+//   By:      Priyavadan Kumar
+//   Command: origen g freq_counter -t debug_ultraflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.7.3
+//     Branch:    feature/uf_freq_counter(b8e01b8c47c) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.14
+//   Plugins
+//     atp:                      0.4.1
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.3.0
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
+               mto;                                                                             
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+freq_counter ($tset, tclk, tdi, tdo, tms)                                                       
+{                                                                                               
+start_label freq_counter_st:                                                                    
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+//  Using counter c15 as set_code replacement - value set to 73 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          X X X X ;
+set c15 74                                                       > tp0                          X X X X ;
+set_cpu_cond (cpuA_cond)                                         > tp0                          X X X X ;
+set_cpu_cond (cpuA_cond)                                         > tp0                          X X X X ;
+set_cpu_cond (cpuB_cond)                                         > tp0                          X X X X ;
+set_cpu_cond (cpuC_cond)                                         > tp0                          X X X X ;
+freq_loop_1: branch_expr = (cpuA_cond)                           > tp0                          X X X X ;
+if (branch_expr) jump freq_loop_1                                > tp0                          X X X X ;
+repeat 2000                                                      > tp0                          X X 0 X ;
+freq_loop_2: branch_expr = (cpuB_cond)                           > tp0                          X X X X ;
+if (branch_expr) jump freq_loop_2                                > tp0                          X X X X ;
+branch_expr = (cpuC_cond)                                        > tp0                          X X X X ;
+if (branch_expr) jump freq_loop_1                                > tp0                          X X X X ;
+// PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+}                                                                                               

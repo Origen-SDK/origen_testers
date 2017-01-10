@@ -1,0 +1,47 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    16-Jun-2016 12:59PM
+//   By:      Priyavadan Kumar
+//   Command: origen g freq_counter -t debug_j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.7.3
+//     Branch:    feature/uf_freq_counter(b8e01b8c47c) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.14
+//   Plugins
+//     atp:                      0.4.1
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.3.0
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+set_code 73                                                      > tp0                          X X X X ;
+set_cpu (cpuA)                                                   > tp0                          X X X X ;
+set_cpu (cpuA)                                                   > tp0                          X X X X ;
+set_cpu (cpuB)                                                   > tp0                          X X X X ;
+set_cpu (cpuC)                                                   > tp0                          X X X X ;
+freq_loop_1:                                                     > tp0                          X X X X ;
+if (cpuA) jump freq_loop_1                                       > tp0                          X X X X ;
+repeat 2000                                                      > tp0                          X X 0 X ;
+freq_loop_2: enable (cpuB)                                       > tp0                          X X X X ;
+if (flag) jump freq_loop_2                                       > tp0                          X X X X ;
+enable (cpuC)                                                    > tp0                          X X X X ;
+if (flag) jump freq_loop_1                                       > tp0                          X X X X ;
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

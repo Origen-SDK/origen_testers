@@ -2,4 +2,4 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Flow Domain:																											
 			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
-						Test	test1									3		100	Fail														
+						Test	test1	test1								3		100	Fail														

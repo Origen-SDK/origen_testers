@@ -41,6 +41,17 @@ module OrigenTesters
         @blocks = [Block.new(0, self), Block.new(1, self), Block.new(2, self)]
       end
 
+      def on_create
+        if tester && tester.uflex?
+          tester.assign_dc_instr_pins([hv_supply_pin, lv_supply_pin])
+          tester.assign_digsrc_pins(digsrc_pins)
+          tester.apply_digsrc_settings(digsrc_settings)
+          tester.assign_digcap_pins(digcap_pins)
+          tester.apply_digcap_settings(digcap_settings)
+          tester.memory_test_en = true
+        end
+      end
+
       def startup(options)
         $tester.set_timeset('tp0', 60)
       end
@@ -222,6 +233,13 @@ module OrigenTesters
         $tester.memory_test(inc_counter_y: true, capture_vector: true)
 
         $tester.memory_test(pin: pin(:tdo), pin_data: :expect)
+      end
+
+      def freq_count(options = {})
+        options = {
+        }.merge(options)
+
+        $tester.freq_count($dut.pin(:tdo), readcode: 73)
       end
 
       # dummy flag to check for a particular design bug for this DUT

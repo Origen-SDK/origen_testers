@@ -29,12 +29,14 @@ module OrigenTesters
           # Add any methods
           if options[:methods][:methods]
             methods = options[:methods][:methods]
-            @finalize = methods.delete(:finalize)
+            @finalize = methods[:finalize]
             methods.each do |method_name, function|
-              var_name = "@#{method_name}".gsub(/=|\?/, '_')
-              instance_variable_set(var_name, function)
-              define_singleton_method method_name do |*args|
-                instance_variable_get(var_name).call(self, *args)
+              unless method_name == :finalize
+                var_name = "@#{method_name}".gsub(/=|\?/, '_')
+                instance_variable_set(var_name, function)
+                define_singleton_method method_name do |*args|
+                  instance_variable_get(var_name).call(self, *args)
+                end
               end
             end
           end
@@ -51,6 +53,7 @@ module OrigenTesters
               aliases << clean_attr.underscore if clean_attr.underscore != clean_attr
               aliases.each do |alias_|
                 define_singleton_method("#{alias_}=") do |v|
+                  v = v.to_s if v.is_a?(Symbol)
                   if allowed
                     unless allowed.include?(v)
                       fail "Cannot set #{alias_} to #{v}, valid values are: #{allowed.join(', ')}"
@@ -89,7 +92,14 @@ module OrigenTesters
             type = parameters[attr]
           else
             # The type is based on the value of another attribute
-            type = send(clean_attr_name(parameters[attr]))
+            name = clean_attr_name(parameters[attr])
+            if respond_to?(name)
+              type = send(name)
+            elsif respond_to?(name.sub(/b$/, ''))
+              type = inverse_of(send(name.sub(/b$/, '')))
+            else
+              fail "Unknown attribute type: #{parameters[attr]}"
+            end
           end
           case type
           when :current, 'CURR'
@@ -129,6 +139,17 @@ module OrigenTesters
         end
 
         private
+
+        def inverse_of(type)
+          case type
+          when :current, 'CURR'
+            :voltage
+          when :voltage, 'VOLT'
+            :current
+          else
+            fail "Don't know the inverse of type: #{type}"
+          end
+        end
 
         def clean_attr_name(name)
           name.to_s.gsub(/\.|-/, '_')

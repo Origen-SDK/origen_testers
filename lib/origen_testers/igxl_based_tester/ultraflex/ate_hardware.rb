@@ -1,6 +1,6 @@
 module OrigenTesters
   module IGXLBasedTester
-    class UltraFLEX
+    class UltraFLEX < Base
       class ATEHardware
         attr_accessor :instrument
 
@@ -943,22 +943,6 @@ module OrigenTesters
             puts '+ is High-Accuracy.'
           end
         end
-      end
-
-      # ate_hardware stores "key" UltraFLEX hardware information needed for test program generation
-      # Instrument types available for ppmu: "HSD-M", "HSD-U", "HSD-4G", and "HSS-6G".
-      # Sample usage: $tester.ate_hardware("HSD-U").ppmu
-      # Instrument types available for supply: "VSM", "VSMx2", "VSMx4", "HexVS", "HexVSx2", "HexVSx4",
-      # "HexVSx6", "HexVS+x2", "HexVS+x4", "HexVS+x6", "HDVS1", "HDVS1x2", "HDVS1x4", "VHDVS",
-      # "VHDVS_HC", "VHDVSx2", "VHDVS_HCx2", "VHDVS_HCx4", "VHDVS_HCx8", "VHDVS+", "VHDVS_HC+",
-      # "VHDVS+x2", "VHDVS_HC+x2", "VHDVS_HC+x4", and "VHDVS_HC+x8".
-      # HDVS1 is also known as HDVS.  VHDVS is also known as UVS256.
-      # x2 is Merged2, x4 is Merged4, x6 is Merged6.  _HC is High-Current.
-      # + is High-Accuracy.
-      # Sample usage: $tester.ate_hardware("VSM").supply
-      # Sample usage: $tester.ate_hardware("HSD-M").ppmu
-      def ate_hardware(instrumentname = '')
-        @ate_hardware = ATEHardware.new(instrumentname)
       end
     end
   end
