@@ -1,3 +1,42 @@
+<a class="anchor release_tag" name="v0_8_9"></a>
+<h1><a href="#v0_8_9">Tag: v0.8.9</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 11-Jan-2017 09:37AM
+
+
+* Add functionality to alow for formatting of testmethodparamter names as
+first-letter-upper-case-camel-case.  To use, set the first character in the parameter name
+(in the add\_tml method) to '\_'.
+
+~~~ruby
+
+  Origen.interface.add\_tml :new\_method,
+                           class\_name: 'MCLASS',
+
+                           set\_and\_check\_fuses: {
+                             class\_name:          'MCLASS.MethodDescription',
+                             \_param\_one:          [:string, nil],
+                             \_param\_two:          [:string, nil],
+                             param\_three:         [:string, nil],
+                             param\_four:          [:string, nil],
+                           }
+
+~~~
+
+Generates:
+
+~~~text
+ testmethodparameters
+tm\_1:
+  "ParamOne" = "";
+  "ParamTwo" = "";
+  "paramThree" = "";
+  "paramFour" = "";
+~~~
+
+
 <a class="anchor release_tag" name="v0_8_8"></a>
 <h1><a href="#v0_8_8">Tag: v0.8.8</a></h1>
 
