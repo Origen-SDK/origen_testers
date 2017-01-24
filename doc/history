@@ -1,3 +1,62 @@
+<a class="anchor release_tag" name="v0_8_11"></a>
+<h1><a href="#v0_8_11">Tag: v0.8.11</a></h1>
+
+##### Branch: 'master'
+
+##### by Chris Nappi on 13-Jan-2017 11:34AM
+
+
+More flexible V93K testmethod naming
+
+<a class="anchor release_tag" name="v0_8_10"></a>
+<h1><a href="#v0_8_10">Tag: v0.8.10</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 11-Jan-2017 09:48AM
+
+
+Gem server path update to fix unsuccessful release issue.
+
+<a class="anchor release_tag" name="v0_8_9"></a>
+<h1><a href="#v0_8_9">Tag: v0.8.9</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 11-Jan-2017 09:37AM
+
+
+* Add functionality to alow for formatting of testmethodparamter names as
+first-letter-upper-case-camel-case.  To use, set the first character in the parameter name
+(in the add\_tml method) to '\_'.
+
+~~~ruby
+
+  Origen.interface.add\_tml :new\_method,
+                           class\_name: 'MCLASS',
+
+                           set\_and\_check\_fuses: {
+                             class\_name:          'MCLASS.MethodDescription',
+                             \_param\_one:          [:string, nil],
+                             \_param\_two:          [:string, nil],
+                             param\_three:         [:string, nil],
+                             param\_four:          [:string, nil],
+                           }
+
+~~~
+
+Generates:
+
+~~~text
+ testmethodparameters
+tm\_1:
+  "ParamOne" = "";
+  "ParamTwo" = "";
+  "paramThree" = "";
+  "paramFour" = "";
+~~~
+
+
 <a class="anchor release_tag" name="v0_8_8"></a>
 <h1><a href="#v0_8_8">Tag: v0.8.8</a></h1>
 
