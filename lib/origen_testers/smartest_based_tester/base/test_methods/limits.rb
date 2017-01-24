@@ -14,7 +14,7 @@ module OrigenTesters
 
           def initialize(test_method)
             @test_method = test_method
-            @tnum = ""
+            @tnum = ''
           end
 
           def unit=(val)
@@ -30,7 +30,7 @@ module OrigenTesters
 
           def to_s
             if !lo_limit && !hi_limit
-              if tnum == ""
+              if tnum == ''
                 "\"#{test_name}\"" + ' = "":"NA":"":"NA":"":"":""'
               else
                 "\"#{test_name}\"" + " = \"\":\"NA\":\"\":\"NA\":\"\":\"#{tnum}\":\"0\""
