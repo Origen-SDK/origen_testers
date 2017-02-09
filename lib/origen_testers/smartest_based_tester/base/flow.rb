@@ -88,6 +88,12 @@ module OrigenTesters
           end
         end
 
+        def on_render(node)
+          node.to_a[0].split("\n").each do |l|
+            line(l)
+          end
+        end
+
         def on_job(node)
           jobs, state, *nodes = *node
           jobs = clean_job(jobs)
