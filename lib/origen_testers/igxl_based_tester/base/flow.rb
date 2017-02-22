@@ -199,8 +199,8 @@ module OrigenTesters
 
         def on_set_result(node)
           bin = node.find(:bin).try(:value)
+          desc = node.find(:bin).to_a[1]
           sbin = node.find(:softbin).try(:value)
-          desc = node.find(:bin_description).try(:value)
           if current_line
             if branch == :on_fail
               current_line.bin_fail = bin
