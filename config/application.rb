@@ -30,11 +30,14 @@ class OrigenTestersApplication < Origen::Application
 
   config.semantically_version = true
 
+  # to handle for web compile where environment/tester not yet defined
+  tester_name = $tester.nil? ? '' : $tester.name
+
   # By default all generated output will end up in ./output.
   # Here you can specify an alternative directory entirely, or make it dynamic such that
   # the output ends up in a setup specific directory.
   config.output_directory do
-   dir =  "#{Origen.root}/output/#{$tester.name}"
+    dir =  "#{Origen.root}/output/#{tester_name}"
   # Check if running on windows, if so, substitute :: with _ 
    dir.gsub!("::","_") if Origen.os.windows?
    dir
@@ -43,7 +46,7 @@ class OrigenTestersApplication < Origen::Application
   # Similary for the reference files, generally you want to setup the reference directory
   # structure to mirror that of your output directory structure.
   config.reference_directory do
-    dir = "#{Origen.root}/.ref/#{$tester.name}"
+    dir = "#{Origen.root}/.ref/#{tester_name}"
   # Check if running on windows, if so, substitute :: with _
     dir.gsub!("::","_") if Origen.os.windows?
     dir
