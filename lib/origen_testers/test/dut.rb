@@ -65,14 +65,14 @@ module OrigenTesters
       end
 
       def execute(options = {})
-        options = { define: false,          # whether to define subr or call it
-                    name:   'executefunc1',
+        options = { define:    false,          # whether to define subr or call it
+                    name:      'executefunc1',
                     onemodsub: false        # whether to expects subr to be in single module
                 }.merge(options)
 
         if options[:define]
           # define subroutine
-          $tester.start_subroutine(options[:name], onemodsub: options[:onemodsub] )
+          $tester.start_subroutine(options[:name], onemodsub: options[:onemodsub])
           $tester.cycle
           $tester.end_subroutine(onemodsub: options[:onemodsub])
           $tester.cycle unless options[:onemodsub]

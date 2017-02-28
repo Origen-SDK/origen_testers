@@ -300,19 +300,18 @@ module OrigenTesters
           options[:instruments].merge!('nil' => 'mto')
         end
 
-
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
                             high_voltage: false,
                             svm_only:     false
                            )) do |pin_list|
-         # if subroutine pattern has only single-module subroutines then skip module start
-         # (will be taken care of elsewhere)
-         unless (options[:subroutine_pat] && @onemodsubs_found && !@nonmodsubs_found)
+          # if subroutine pattern has only single-module subroutines then skip module start
+          # (will be taken care of elsewhere)
+          unless options[:subroutine_pat] && @onemodsubs_found && !@nonmodsubs_found
             microcode "#{options[:subroutine_pat] ? 'srm_vector' : 'vm_vector'}"
             microcode "#{options[:pattern]} ($tset, #{pin_list})"
             microcode '{'
-         end
+          end
           # override min vector limit if subroutine pattern
           @min_pattern_vectors = 0 if options[:subroutine_pat]
           unless options[:subroutine_pat]
@@ -324,7 +323,7 @@ module OrigenTesters
       def pattern_footer(options = {})
         # if subroutine pattern has any single-module subroutines then skip module end
         # (will be taken care of elsewhere)
-        unless (options[:subroutine_pat] && @onemodsubs_found)
+        unless options[:subroutine_pat] && @onemodsubs_found
           super(options.merge(end_module: false))
         end
       end
@@ -345,7 +344,7 @@ module OrigenTesters
           microcode "#{name}_module ($tset, #{pin_list})"
           microcode '{'
         else
-          # normal subroutine to use common 
+          # normal subroutine to use common
           if @onemodsubs_found
             # give error -- requirement is that any normal subroutines using common pattern module
             # must be done BEFORE any subroutines that need their own module definition!
