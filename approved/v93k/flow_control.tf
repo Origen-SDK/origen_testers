@@ -1655,21 +1655,13 @@ test_flow
   }
   else
   {
-    @T1_BEA7F3B_FAILED = 1;
-  }
-  if @T1_BEA7F3B_FAILED == 1 then
-  {
     run_and_branch(erase1_BEA7F3B)
     then
     {
     }
     else
     {
-      stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
     }
-  }
-  else
-  {
   }
   print_dl("Test the block form of if_failed");
   run_and_branch(read2_BEA7F3B)
@@ -1678,26 +1670,12 @@ test_flow
   }
   else
   {
-    @T2_BEA7F3B_FAILED = 1;
-  }
-  if @T2_BEA7F3B_FAILED == 1 then
-  {
     run(erase2_BEA7F3B);
     run(erase2_1_BEA7F3B);
-  }
-  else
-  {
   }
   print_dl("Test that if_passed works");
   run_and_branch(read1_1_BEA7F3B)
   then
-  {
-    @T3_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @T3_BEA7F3B_PASSED == 1 then
   {
     run(pgm1_BEA7F3B);
   }
@@ -1707,13 +1685,6 @@ test_flow
   print_dl("Test the block form of if_passed");
   run_and_branch(read2_1_BEA7F3B)
   then
-  {
-    @T4_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @T4_BEA7F3B_PASSED == 1 then
   {
     run(pgm1_1_BEA7F3B);
     run(pgm1_2_BEA7F3B);
@@ -1725,38 +1696,24 @@ test_flow
   run_and_branch(pgm_BEA7F3B)
   then
   {
-    @T5_BEA7F3B_RAN = 1;
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-    @T5_BEA7F3B_RAN = 1;
-  }
-  if @T5_BEA7F3B_RAN == 1 then
-  {
     run(read0_BEA7F3B);
   }
   else
   {
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    @T5_BEA7F3B_RAN = 1;
   }
   print_dl("Test the block form of if_ran");
   run_and_branch(pgm_1_BEA7F3B)
   then
-  {
-    @T6_BEA7F3B_RAN = 1;
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-    @T6_BEA7F3B_RAN = 1;
-  }
-  if @T6_BEA7F3B_RAN == 1 then
   {
     run(read0_1_BEA7F3B);
     run(read0_2_BEA7F3B);
   }
   else
   {
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    @T6_BEA7F3B_RAN = 1;
   }
   print_dl("Test that unless_ran works");
   run_and_branch(pgm_2_BEA7F3B)
@@ -1935,10 +1892,6 @@ test_flow
   }
   else
   {
-    @IFALL2_BEA7F3B_FAILED = 1;
-  }
-  if @IFALL2_BEA7F3B_FAILED == 1 then
-  {
     if @IFALL1_BEA7F3B_FAILED == 1 then
     {
       run(test3_2_BEA7F3B);
@@ -1946,9 +1899,6 @@ test_flow
     else
     {
     }
-  }
-  else
-  {
   }
   print_dl("Test the block form of if_all_failed");
   run_and_branch(test1_3_BEA7F3B)
@@ -1965,10 +1915,6 @@ test_flow
   }
   else
   {
-    @IFALLB2_BEA7F3B_FAILED = 1;
-  }
-  if @IFALLB2_BEA7F3B_FAILED == 1 then
-  {
     if @IFALLB1_BEA7F3B_FAILED == 1 then
     {
       run(test3_3_BEA7F3B);
@@ -1977,9 +1923,6 @@ test_flow
     else
     {
     }
-  }
-  else
-  {
   }
   print_dl("Test that if_any_passed works");
   run_and_branch(test1_4_BEA7F3B)
@@ -2042,13 +1985,6 @@ test_flow
   run_and_branch(test2_6_BEA7F3B)
   then
   {
-    @IFALLP2_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @IFALLP2_BEA7F3B_PASSED == 1 then
-  {
     if @IFALLP1_BEA7F3B_PASSED == 1 then
     {
       run(test3_6_BEA7F3B);
@@ -2071,13 +2007,6 @@ test_flow
   }
   run_and_branch(test2_7_BEA7F3B)
   then
-  {
-    @IFALLPB2_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @IFALLPB2_BEA7F3B_PASSED == 1 then
   {
     if @IFALLPB1_BEA7F3B_PASSED == 1 then
     {
@@ -2333,10 +2262,6 @@ test_flow
   }
   else
   {
-    @NT1_BEA7F3B_FAILED = 1;
-  }
-  if @NT1_BEA7F3B_FAILED == 1 then
-  {
     run_and_branch(nt2_BEA7F3B)
     then
     {
@@ -2355,7 +2280,6 @@ test_flow
         }
         else
         {
-          stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
         }
       }, open,"ntg1", ""
     }
@@ -2371,7 +2295,6 @@ test_flow
         }
         else
         {
-          stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
         }
       }, open,"ntg2", ""
     }
@@ -2379,19 +2302,12 @@ test_flow
     {
     }
   }
-  else
-  {
-  }
   print_dl("Embedded conditional tests 1");
   run_and_branch(test1_8_BEA7F3B)
   then
   {
   }
   else
-  {
-    @ECT1_1_BEA7F3B_FAILED = 1;
-  }
-  if @ECT1_1_BEA7F3B_FAILED == 1 then
   {
     run(test2_8_BEA7F3B);
     run_and_branch(test3_8_BEA7F3B)
@@ -2409,9 +2325,6 @@ test_flow
     else
     {
     }
-  }
-  else
-  {
   }
   print_dl("Embedded conditional tests 2");
   run_and_branch(test1_9_BEA7F3B)
@@ -2581,14 +2494,7 @@ test_flow
   }
   else
   {
-    @MY_FLAG = 1;
-  }
-  if @MY_FLAG == 1 then
-  {
     run(test2);
-  }
-  else
-  {
   }
   if @MY_FLAG == 1 then
   {
