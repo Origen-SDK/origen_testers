@@ -1,3 +1,16 @@
+<a class="anchor release_tag" name="v0_9_2"></a>
+<h1><a href="#v0_9_2">Tag: v0.9.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 28-Feb-2017 15:31PM
+
+
+Added capability for UFLEX pattern generation to be able to have subroutines contained in
+their own module.
+This permits pattern sequencer on tester to swap the subroutines in and out.
+Closes issue #31.
+
 <a class="anchor release_tag" name="v0_9_1"></a>
 <h1><a href="#v0_9_1">Tag: v0.9.1</a></h1>
 
