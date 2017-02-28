@@ -42,6 +42,9 @@ module OrigenTesters
 
         @set_msb_issued = false        # Internal flag to keep track of set_msb usage, allowing for set_lsb to be used as a readcode
         @microcode[:keepalive] = 'keepalive'
+
+        @onemodsubs_found = false           # flag to indicate whether a single-module subroutine has been implemented in this pattern
+        @nonmodsubs_found = false           # flag to indicate whether a normal non-single-module subroutine has been implemented in this pattern
       end
 
       # Do a frequency measure.
@@ -297,14 +300,19 @@ module OrigenTesters
           options[:instruments].merge!('nil' => 'mto')
         end
 
+
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
                             high_voltage: false,
                             svm_only:     false
                            )) do |pin_list|
-          microcode "#{options[:subroutine_pat] ? 'srm_vector' : 'vm_vector'}"
-          microcode "#{options[:pattern]} ($tset, #{pin_list})"
-          microcode '{'
+         # if subroutine pattern has only single-module subroutines then skip module start
+         # (will be taken care of elsewhere)
+         unless (options[:subroutine_pat] && @onemodsubs_found && !@nonmodsubs_found)
+            microcode "#{options[:subroutine_pat] ? 'srm_vector' : 'vm_vector'}"
+            microcode "#{options[:pattern]} ($tset, #{pin_list})"
+            microcode '{'
+         end
           # override min vector limit if subroutine pattern
           @min_pattern_vectors = 0 if options[:subroutine_pat]
           unless options[:subroutine_pat]
@@ -314,7 +322,46 @@ module OrigenTesters
       end
 
       def pattern_footer(options = {})
-        super(options.merge(end_module: false))
+        # if subroutine pattern has any single-module subroutines then skip module end
+        # (will be taken care of elsewhere)
+        unless (options[:subroutine_pat] && @onemodsubs_found)
+          super(options.merge(end_module: false))
+        end
+      end
+
+      # allow for option of separate modules for each subroutine
+      # requirement is that any subroutines in their own module (options[:onemodsub] = true)
+      # MUST be implemented AFTER any subroutines in the common pattern module!
+      def start_subroutine(name, options = {})
+        if options[:onemodsub]
+          if @nonmodsubs_found && !@onemodsubs_found
+            # this means we need to do end module for non-single-module subroutines
+            # do only once!
+            pattern_footer(options.merge(subroutine_pat: true, end_module: false))
+          end
+          @onemodsubs_found = true  # importnat put this after the call to pattern_footer above
+          pin_list = ordered_pins.map(&:name).join(', ')
+          microcode 'srm_vector'
+          microcode "#{name}_module ($tset, #{pin_list})"
+          microcode '{'
+        else
+          # normal subroutine to use common 
+          if @onemodsubs_found
+            # give error -- requirement is that any normal subroutines using common pattern module
+            # must be done BEFORE any subroutines that need their own module definition!
+            fail "ERROR: Cannot implement any common module subroutines (#{name}) after implementing any single-module subroutines in the same pattern!"
+          end
+          @nonmodsubs_found = true
+        end
+        super(name, options)
+      end
+
+      def end_subroutine(cond = false, options = {})
+        (cond, options) = false, cond if cond.is_a?(Hash)
+        super(cond, options)
+        if options[:onemodsub]
+          microcode '}'
+        end
       end
 
       # Generates a match loop based on vector condition passed in via block

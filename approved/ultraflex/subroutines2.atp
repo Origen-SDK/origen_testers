@@ -1,0 +1,65 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    27-Feb-2017 19:35PM
+//   By:      Daniel Hadad
+//   Command: origen g subroutines -t dut.rb -e uflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.0
+//     Branch:    master(62d041ec4b2) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.40
+//   Plugins
+//     atp:                      0.5.0
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.2
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
+               mto;                                                                             
+}                                                                                               
+                                                                                                
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+srm_vector                                                                                      
+overlaysub5_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub5:                                                                        
+return                                                           > tp0                          X X X X ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub6_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub6:                                                                        
+return                                                           > tp0                          X X X X ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub7_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub7:                                                                        
+return                                                           > tp0                          X X X X ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub4_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub4:                                                                        
+return                                                           > tp0                          X X X X ;
+}                                                                                               
+// ######################################################################
+// ## Pattern complete
+// ######################################################################

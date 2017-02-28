@@ -1085,3 +1085,30 @@ repeat 145                                                       > tp0          
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 }                                                                                               
+srm_vector                                                                                      
+overlaysub1_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub1:                                                                        
+return                                                           > tp0                          0 0 X 0 ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub2_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub2:                                                                        
+return                                                           > tp0                          0 0 X 0 ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub3_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub3:                                                                        
+return                                                           > tp0                          0 0 X 0 ;
+}                                                                                               
+srm_vector                                                                                      
+overlaysub4_module ($tset, tclk, tdi, tdo, tms)                                                 
+{                                                                                               
+global subr overlaysub4:                                                                        
+return                                                           > tp0                          0 0 X 0 ;
+}                                                                                               
+// ######################################################################
+// ## Pattern complete
+// ######################################################################

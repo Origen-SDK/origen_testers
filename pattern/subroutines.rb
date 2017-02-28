@@ -39,7 +39,26 @@ unless $tester.v93k?
 
         # Define digsrc_overlay subr
         $dut.digsrc_overlay(:subr_name => 'digsrc_overlay', :define => true, overlay_cycle_num: 64)
+
+        # test out single module subroutine capability, integrated with other normal subroutines
+        # only for UltraFLEX
+        $dut.execute(define: true, name: 'overlaysub1', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub2', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub3', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub4', onemodsub: true )
+
       end 
+    end
+
+    if $tester.ultraflex?
+       # test out single module subroutine capability in standalone pattern
+       # only for UltraFLEX
+      Pattern.create(name: 'subroutines2', subroutine_pat: true) do
+        $dut.execute(define: true, name: 'overlaysub5', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub6', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub7', onemodsub: true )
+        $dut.execute(define: true, name: 'overlaysub4', onemodsub: true )
+      end
     end
   end
 end

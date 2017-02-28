@@ -329,7 +329,7 @@ module OrigenTesters
       #     $tester.start_subroutine("wait_for_done")
       #     < generate your subroutine vectors here >
       #     $tester.end_subroutine
-      def start_subroutine(name)
+      def start_subroutine(name, options = {})
         local_subroutines << name.to_s.chomp unless local_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
         microcode "global subr #{name}:"
       end
@@ -343,7 +343,8 @@ module OrigenTesters
       #     < generate your subroutine vectors here >
       #     $tester.end_subroutine
       # cond: whether return is conditional on a flag (to permit to mix subrs together)
-      def end_subroutine(cond = false)
+      def end_subroutine(cond = false, options = {})
+        (cond, options) = false, cond if cond.is_a?(Hash)
         if cond
           update_vector microcode: 'if (flag) return'
         else
