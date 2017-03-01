@@ -55,7 +55,7 @@ module OrigenTesters
             node_a = nil
             nodes.each do |node_b|
               if node_a && node_a.type == :test && node_b.type == :run_flag
-                result, node_a = on_boolean_substitution(node_a, node_b)
+                result, node_a = remove_run_flag(node_a, node_b)
                 results << result
               else
                 results << node_a unless node_a.nil?
@@ -69,7 +69,7 @@ module OrigenTesters
           # Given two adjacent nodes, where the first (a) is a test and the second (b)
           # is a run_flag, determine if (a) conditionally sets the same flag that (b)
           # uses.  If it does, do a logical replacement, if not, move on quietly.
-          def on_boolean_substitution(node_a, node_b)
+          def remove_run_flag(node_a, node_b)
             on_pass = node_a.find(:on_pass)
             on_fail = node_a.find(:on_fail)
 
