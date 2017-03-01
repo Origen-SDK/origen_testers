@@ -3,6 +3,7 @@ module OrigenTesters
     class Base
       module Processors
         class FlagOptimizer < ATP::Processor
+          attr_reader :run_flag_table
           # This optimizes the AST such that any adjacent flow noes that
           #
           # For example this AST:
@@ -46,10 +47,41 @@ module OrigenTesters
           #           (name "test6")))
           #       (on-fail
           #         (continue))))
+          
+          # Processes the AST and tabulates occurences of unique set_run_flag nodes
+          class ExtractRunFlagTable < ATP::Processor
+            # Hash table of run_flag name with number of times used
+            attr_reader :run_flag_table
+
+            # Reset hash table
+            def initialize
+              @run_flag_table = {}
+            end
+
+            # For run_flag nodes, increment # of occurences for specified flag
+            def on_run_flag(node)
+              children = node.children.dup
+              name = children.shift
+              state = children.shift
+              unless name.is_a?(Array)
+                if @run_flag_table[name.to_sym].nil?
+                  @run_flag_table[name.to_sym] = 1
+                else
+                  @run_flag_table[name.to_sym] += 1
+                end
+              end
+            end
+          end
+
 
           # Only run this on top level flow and consider adjacent nodes, no need for
           # looking at nested conditions.
           def on_flow(node)
+            # Pre-process the AST for # of occurences of each run-flag used
+            t = ExtractRunFlagTable.new
+            t.process(node)
+            @run_flag_table = t.run_flag_table
+
             name, *nodes = *node
             results = []
             node_a = nil
@@ -90,9 +122,9 @@ module OrigenTesters
               flag_node_b = n1(:set_run_flag, name) if state == true
 
               if conditional.first == flag_node_b
-                o = conditional.last.dup
-                result = node_a.remove(o)
-                n = o.remove(conditional.first)
+                n = conditional.last.dup
+                result = node_a.remove(n)
+                n = n.remove(conditional.first) if @run_flag_table[name.to_sym] == 1
                 n = n.updated(nil, n.children + (nodes.is_a?(Array) ? nodes : [nodes]))
                 result = result.updated(nil, result.children + (n.is_a?(Array) ? n : [n]))
                 return result, nil
