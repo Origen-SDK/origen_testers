@@ -119,12 +119,15 @@ module OrigenTesters
               name = children.shift
               state = children.shift
               *nodes = *children
-              flag_node_b = n1(:set_run_flag, name) if state == true
+              flag_node_b = n2(:set_run_flag, name, "auto_generated") if state == true
 
               if conditional.first == flag_node_b
                 n = conditional.last.dup
                 result = node_a.remove(n)
                 n = n.remove(conditional.first) if @run_flag_table[name.to_sym] == 1
+                n = n.remove(n0(:continue)) if n.type == :on_fail
+                s = n.find(:set_result) if n.type == :on_fail
+                n = n.remove(s) if s
                 n = n.updated(nil, n.children + (nodes.is_a?(Array) ? nodes : [nodes]))
                 result = result.updated(nil, result.children + (n.is_a?(Array) ? n : [n]))
                 return result, nil

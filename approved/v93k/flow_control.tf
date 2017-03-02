@@ -359,6 +359,27 @@ tm_115:
 tm_116:
   "testName" = "Functional";
   "output" = "None";
+tm_117:
+  "testName" = "Functional";
+  "output" = "None";
+tm_118:
+  "testName" = "Functional";
+  "output" = "None";
+tm_119:
+  "testName" = "Functional";
+  "output" = "None";
+tm_120:
+  "testName" = "Functional";
+  "output" = "None";
+tm_121:
+  "testName" = "Functional";
+  "output" = "None";
+tm_122:
+  "testName" = "Functional";
+  "output" = "None";
+tm_123:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -594,6 +615,20 @@ tm_115:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_116:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_117:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_118:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_119:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_120:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_121:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_122:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_123:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -828,6 +863,20 @@ tm_114:
 tm_115:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_116:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_117:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_118:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_119:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_120:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_121:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_122:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_123:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1644,6 +1693,55 @@ test1_22_BEA7F3B:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
+test22_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22";
+ override_testf = tm_117;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22a_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22a";
+ override_testf = tm_118;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22b_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22b";
+ override_testf = tm_119;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22c_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22c";
+ override_testf = tm_120;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22d_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22d";
+ override_testf = tm_121;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22e_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22e";
+ override_testf = tm_122;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test22f_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test22f";
+ override_testf = tm_123;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
 end
 --------------------------------------------------
 test_flow
@@ -1661,6 +1759,7 @@ test_flow
     }
     else
     {
+      stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
     }
   }
   print_dl("Test the block form of if_failed");
@@ -2280,6 +2379,7 @@ test_flow
         }
         else
         {
+          stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
         }
       }, open,"ntg1", ""
     }
@@ -2295,6 +2395,7 @@ test_flow
         }
         else
         {
+          stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
         }
       }, open,"ntg2", ""
     }
@@ -2494,7 +2595,14 @@ test_flow
   }
   else
   {
+    @MY_FLAG = 1;
+  }
+  if @MY_FLAG == 1 then
+  {
     run(test2);
+  }
+  else
+  {
   }
   if @MY_FLAG == 1 then
   {
@@ -2502,6 +2610,27 @@ test_flow
   else
   {
     run(test3);
+  }
+  print_dl("This should retain the set-run-flag in the else conditional");
+  run_and_branch(test22_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @AT22_BEA7F3B_FAILED = 1;
+    run(test22a_BEA7F3B);
+    run(test22b_BEA7F3B);
+  }
+  run(test22c_BEA7F3B);
+  run(test22d_BEA7F3B);
+  if @AT22_BEA7F3B_FAILED == 1 then
+  {
+    run(test22e_BEA7F3B);
+    run(test22f_BEA7F3B);
+  }
+  else
+  {
   }
 }, open,"FLOW_CONTROL", ""
 end

@@ -3,6 +3,7 @@ language_revision = 1;
 
 declarations
 
+@AT22_BEA7F3B_FAILED = 0;
 @ECT1_3_BEA7F3B_FAILED = 0;
 @ECT2_1_BEA7F3B_FAILED = 0;
 @ECT2_2_BEA7F3B_FAILED = 0;
