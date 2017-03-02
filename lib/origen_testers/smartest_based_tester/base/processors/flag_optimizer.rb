@@ -47,7 +47,7 @@ module OrigenTesters
           #           (name "test6")))
           #       (on-fail
           #         (continue))))
-          
+
           # Processes the AST and tabulates occurences of unique set_run_flag nodes
           class ExtractRunFlagTable < ATP::Processor
             # Hash table of run_flag name with number of times used
@@ -72,7 +72,6 @@ module OrigenTesters
               end
             end
           end
-
 
           # Only run this on top level flow and consider adjacent nodes, no need for
           # looking at nested conditions.
@@ -119,7 +118,7 @@ module OrigenTesters
               name = children.shift
               state = children.shift
               *nodes = *children
-              flag_node_b = n2(:set_run_flag, name, "auto_generated") if state == true
+              flag_node_b = n2(:set_run_flag, name, 'auto_generated') if state == true
 
               if conditional.first == flag_node_b
                 n = conditional.last.dup
