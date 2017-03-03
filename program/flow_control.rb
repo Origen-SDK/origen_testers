@@ -294,4 +294,23 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   unless_flag :my_flag do
     test :test3
   end
+  
+  if tester.v93k?
+    log "This should retain the set-run-flag in the else conditional"
+    func :test22, id: :at22
+    
+    if_failed :at22 do
+      func :test22a
+      func :test22b
+    end 
+    
+    func :test22c
+    func :test22d
+  
+    if_failed :at22 do
+      func :test22e
+      func :test22f
+    end 
+  
+  end
 end

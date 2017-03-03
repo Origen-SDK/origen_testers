@@ -1533,14 +1533,7 @@ test_flow
   }
   else
   {
-    @ERASE_VFY_0_864CE8F_FAILED = 1;
-  }
-  if @ERASE_VFY_0_864CE8F_FAILED == 1 then
-  {
     run(erase_all_11_864CE8F);
-  }
-  else
-  {
   }
   run_and_branch(margin_read1_all1_2_864CE8F)
   then
@@ -1548,14 +1541,7 @@ test_flow
   }
   else
   {
-    @ERASE_VFY_1_864CE8F_FAILED = 1;
-  }
-  if @ERASE_VFY_1_864CE8F_FAILED == 1 then
-  {
     run(erase_all_12_864CE8F);
-  }
-  else
-  {
   }
   run_and_branch(margin_read1_all1_3_864CE8F)
   then
@@ -1563,14 +1549,7 @@ test_flow
   }
   else
   {
-    @ERASE_VFY_2_864CE8F_FAILED = 1;
-  }
-  if @ERASE_VFY_2_864CE8F_FAILED == 1 then
-  {
     run(erase_all_13_864CE8F);
-  }
-  else
-  {
   }
   run_and_branch(margin_read1_all1_4_864CE8F)
   then
@@ -1578,14 +1557,7 @@ test_flow
   }
   else
   {
-    @ERASE_VFY_3_864CE8F_FAILED = 1;
-  }
-  if @ERASE_VFY_3_864CE8F_FAILED == 1 then
-  {
     run(erase_all_14_864CE8F);
-  }
-  else
-  {
   }
   run_and_branch(margin_read1_all1_5_864CE8F)
   then
@@ -1593,14 +1565,7 @@ test_flow
   }
   else
   {
-    @ERASE_VFY_4_864CE8F_FAILED = 1;
-  }
-  if @ERASE_VFY_4_864CE8F_FAILED == 1 then
-  {
     run(erase_all_15_864CE8F);
-  }
-  else
-  {
   }
   run(margin_read1_all1_6_864CE8F);
   print_dl("Test if enable");

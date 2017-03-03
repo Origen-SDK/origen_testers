@@ -1,3 +1,4 @@
+require 'origen_testers/smartest_based_tester/base/processors'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -43,7 +44,9 @@ module OrigenTesters
           @indent = 0
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
-          process(model.ast)
+          m = Processors::IfRanCleaner.new.process(model.ast)
+          m = Processors::FlagOptimizer.new.process(m)
+          process(m)
         end
 
         def line(str)
