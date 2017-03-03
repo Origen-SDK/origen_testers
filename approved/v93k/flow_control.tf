@@ -1795,24 +1795,36 @@ test_flow
   run_and_branch(pgm_BEA7F3B)
   then
   {
+    @T5_BEA7F3B_RAN = 1;
+  }
+  else
+  {
+    @T5_BEA7F3B_RAN = 1;
+  }
+  if @T5_BEA7F3B_RAN == 1 then
+  {
     run(read0_BEA7F3B);
   }
   else
   {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-    @T5_BEA7F3B_RAN = 1;
   }
   print_dl("Test the block form of if_ran");
   run_and_branch(pgm_1_BEA7F3B)
   then
+  {
+    @T6_BEA7F3B_RAN = 1;
+  }
+  else
+  {
+    @T6_BEA7F3B_RAN = 1;
+  }
+  if @T6_BEA7F3B_RAN == 1 then
   {
     run(read0_1_BEA7F3B);
     run(read0_2_BEA7F3B);
   }
   else
   {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-    @T6_BEA7F3B_RAN = 1;
   }
   print_dl("Test that unless_ran works");
   run_and_branch(pgm_2_BEA7F3B)
@@ -1822,7 +1834,6 @@ test_flow
   }
   else
   {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
     @T7_BEA7F3B_RAN = 1;
   }
   if @T7_BEA7F3B_RAN == 1 then
@@ -1840,7 +1851,6 @@ test_flow
   }
   else
   {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
     @T8_BEA7F3B_RAN = 1;
   }
   if @T8_BEA7F3B_RAN == 1 then

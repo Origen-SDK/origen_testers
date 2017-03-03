@@ -44,7 +44,9 @@ module OrigenTesters
           @indent = 0
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
-          process(Processors::FlagOptimizer.new.process(model.ast))
+          m = Processors::IfRanCleaner.new.process(model.ast)
+          m = Processors::FlagOptimizer.new.process(m)
+          process(m)
         end
 
         def line(str)

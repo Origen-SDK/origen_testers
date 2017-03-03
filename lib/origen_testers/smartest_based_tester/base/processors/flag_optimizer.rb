@@ -116,6 +116,8 @@ module OrigenTesters
             unless conditional.nil?
               children = node_b.children.dup
               name = children.shift
+              # remove the '_RAN' here so it won't match and if_ran cases are ignored
+              name = name.gsub(/_RAN$/, '') unless name.is_a?(Array)
               state = children.shift
               *nodes = *children
               flag_node_b = n2(:set_run_flag, name, 'auto_generated') if state == true
