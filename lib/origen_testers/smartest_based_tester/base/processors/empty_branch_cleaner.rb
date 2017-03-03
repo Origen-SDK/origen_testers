@@ -13,12 +13,12 @@ module OrigenTesters
             end
             node
           end
-          
+
           # Returns true if node is completely empty or if (continue) is only child
           def branch_is_empty?(node)
             children = node.children.dup
             return true if children.nil?
-            first_born = children.shift   
+            first_born = children.shift
             return true if children.empty? && first_born == n0(:continue)
             false
           end
