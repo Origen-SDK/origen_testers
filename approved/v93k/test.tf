@@ -334,27 +334,9 @@ test_flow
   {
     stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
   }
-  run_and_branch(meas_read_pump_5_2D155E0)
-  then
-  {
-  }
-  else
-  {
-  }
-  run_and_branch(meas_read_pump_6_2D155E0)
-  then
-  {
-  }
-  else
-  {
-  }
-  run_and_branch(meas_read_pump_7_2D155E0)
-  then
-  {
-  }
-  else
-  {
-  }
+  run(meas_read_pump_5_2D155E0);
+  run(meas_read_pump_6_2D155E0);
+  run(meas_read_pump_7_2D155E0);
   run_and_branch(meas_read_pump_8_2D155E0)
   then
   {

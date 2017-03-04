@@ -316,5 +316,6 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   if tester.v93k?
     log "This should optimize away then/else branches that are empty"
     func :test36, continue: true
+    func :test36b, bin: 12, continue:true
   end
 end
