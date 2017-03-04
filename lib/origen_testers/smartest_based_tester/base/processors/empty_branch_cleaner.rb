@@ -16,13 +16,13 @@ module OrigenTesters
 
           # Returns true if:
           #   - node is completely empty
-          #   - only child is (conitinue) node
+          #   - only child is (continue) node
           #   - only two children, one continue and one set-result
           def branch_is_empty?(node)
             children = node.children.dup
             return true if children.nil?
 
-            # only-child situation
+            # test for only-child situation
             first_born = children.shift
             if children.empty?
               if first_born == n0(:continue)
@@ -32,8 +32,8 @@ module OrigenTesters
               end
             end
 
+            # if only 2 children, check qualificataions, else done and return false
             next_born = children.shift
-            # if only children, check qualificataions, else done and return false
             if children.empty?
               if (first_born.type == :continue && next_born.type == :set_result) ||
                  (first_born.type == :set_result && next_born.type == :continue)
