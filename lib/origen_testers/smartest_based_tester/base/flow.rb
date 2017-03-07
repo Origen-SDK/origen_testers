@@ -45,8 +45,8 @@ module OrigenTesters
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
           m = Processors::IfRanCleaner.new.process(model.ast)
-          m = Processors::FlagOptimizer.new.process(m)
           m = Processors::EmptyBranchCleaner.new.process(m)
+          m = Processors::FlagOptimizer.new.process(m)
           process(m)
         end
 
