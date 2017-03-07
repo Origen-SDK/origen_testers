@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_9_3"></a>
+<h1><a href="#v0_9_3">Tag: v0.9.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 07-Mar-2017 10:21AM
+
+
+* Add V93K-specific AST processor chain to optimize test flow before final rendering. 
+More specifically, it removes replaces empty run\_and\_branch with run.  It replaces any
+one-use, auto-generated flags with the run-test with the same condition.
+
 <a class="anchor release_tag" name="v0_9_2"></a>
 <h1><a href="#v0_9_2">Tag: v0.9.2</a></h1>
 
