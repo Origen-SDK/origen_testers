@@ -199,6 +199,7 @@ module OrigenTesters
             slice[1].each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
             options[:pin_vals] = current_pin_vals
           end
+          pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
         else
           push_vector(options)
           pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
@@ -241,7 +242,16 @@ module OrigenTesters
       repeat_ary = []
       clocks_running.each do |name, clock_pin|
         if clock_pin.next_edge < (cycle_count + options[:repeat])
-          pin_slices = (clock_pin.next_edge..(cycle_count + options[:repeat])).step(clock_pin.half_period).to_a
+          if clock_pin.respond_to?(:duty_cycles)
+            d0, d1 = clock_pin.duty_cycles
+          else
+            # keep legacy support for older pin_clock styling, supports only 50% duty-cycle
+            d0 = clock_pin.half_period
+            d1 = clock_pin.half_period
+          end
+          pin_slices = (clock_pin.next_edge..(cycle_count + options[:repeat])).step(d0 + d1).to_a
+          pin_slices += ((clock_pin.next_edge + d0)..(cycle_count + options[:repeat])).step(d0 + d1).to_a
+          pin_slices.sort!
           pin_slices.insert(0, cycle_count)
         else
           pin_slices = [cycle_count]
