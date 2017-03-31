@@ -95,7 +95,7 @@ module OrigenTesters
             end_func_args:        :arg18,
             end_of_body_f_args:   :arg18,
             utility_pins_1:       :arg19,
-            utility_pins_0:       :arg20,            
+            utility_pins_0:       :arg20,
             wait_flags:           :arg21,
             wait_time:            :arg22,
             pattern_timeout:      :arg22,
