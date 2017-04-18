@@ -6,6 +6,8 @@ module OrigenTesters
         include OrigenTesters::Flow
 
         attr_accessor :test_suites, :test_methods, :lines, :stack, :var_filename
+        # Returns an array containing all runtime variables which get set by the flow
+        attr_reader :set_runtime_variables
 
         def var_filename
           @var_filename || 'global'
@@ -47,6 +49,7 @@ module OrigenTesters
           m = Processors::IfRanCleaner.new.process(model.ast)
           m = Processors::EmptyBranchCleaner.new.process(m)
           m = Processors::FlagOptimizer.new.process(m)
+          @set_runtime_variables = Processors::ExtractSetVariables.new.run(m)
           process(m)
         end
 
