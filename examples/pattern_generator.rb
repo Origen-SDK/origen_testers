@@ -19,3 +19,6 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(regression.list -t dut -e v93k -r approved/v93k)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(regression.list -t dut -e d10 -r approved/d10)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
