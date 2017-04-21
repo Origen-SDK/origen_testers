@@ -69,7 +69,8 @@ module OrigenTesters
         pin_vals = vec.pin_vals ? "#{vec.pin_vals};".gsub(' ', '') : ''
         sig_name = tester.ordered_pins_name
         if sig_name.nil?
-          fail 'SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>)'
+          Origen.log.warn "WARN: SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>).  Default to 'ALL'"
+          sig_name = 'ALL'
         end
         if vec.repeat > 1
           microcode = "Loop #{vec.repeat} {\n"
