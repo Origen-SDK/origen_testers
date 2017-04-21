@@ -1,0 +1,29 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    21-Apr-2017 08:33AM
+//   By:      Lajaunie Ronald-B01784
+//   Command: origen g dc_instr -t dut.rb -e d10.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.5
+//     Branch:    stil_based_tester(e7a231e825a) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.46
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+Pattern "dc_instr" {                                                                            
+dc_instr:                                                                                       
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = XXXX; }
+Stop;                                                                                           
+}                                                                                               

@@ -26,6 +26,13 @@ module OrigenTesters
         true
       end
 
+      def store(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = { offset: 0
+                  }.merge(options)
+        last_vector(options[:offset]).contains_capture = true
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -36,6 +43,10 @@ module OrigenTesters
         microcode "Pattern \"#{@pattern_name}\" {"
         microcode "#{@pattern_name}:"
         @header_done = true
+
+        if tester.ordered_pins_name.nil?
+          Origen.log.warn "WARN: SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>).  Defaulting to use 'ALL'"
+        end
       end
 
       # An internal method called by Origen to generate the pattern footer
@@ -67,7 +78,7 @@ module OrigenTesters
       def format_vector(vec)
         timeset = vec.timeset ? "#{vec.timeset.name}" : ''
         pin_vals = vec.pin_vals ? "#{vec.pin_vals};".gsub(' ', '') : ''
-        sig_name = tester.ordered_pins_name
+        sig_name = tester.ordered_pins_name || 'ALL'
         if sig_name.nil?
           Origen.log.warn "WARN: SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>).  Default to 'ALL'"
           sig_name = 'ALL'
