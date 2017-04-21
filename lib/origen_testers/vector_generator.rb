@@ -389,6 +389,16 @@ module OrigenTesters
       @ordered_pins_cache ||= ordered_pins(options)
     end
 
+    # Retrieve optional 'name' meta passed in with the pin_pattern_order call 
+    def ordered_pins_name
+      pinorder = Origen.app.pin_pattern_order.dup
+      if Origen.app.pin_pattern_order.last.is_a?(Hash)
+        options = pinorder.pop
+        name = options[:name]
+      end
+      name
+    end
+
     def ordered_pins(options = {})
       options = {
         include_inhibited_pins: false,

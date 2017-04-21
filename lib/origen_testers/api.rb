@@ -77,6 +77,10 @@ module OrigenTesters
     end
     alias_method :uflex?, :ultraflex?
 
+    def stil?
+      is_a?(OrigenTesters::StilBasedTester::Base)
+    end
+
     def link?
       !!(self.class.to_s =~ /^OrigenLink::/)
     end

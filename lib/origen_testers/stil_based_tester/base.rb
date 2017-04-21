@@ -40,10 +40,19 @@ module OrigenTesters
 
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
+        cycle dont_compress: true     # one extra single vector before stop microcode
         microcode 'Stop;' unless options[:subroutine]
         microcode '}'
         @footer_done = true
       end
+
+      # Subroutines not supported yet, print out an error to the output
+      # file to alert the user that execution has hit code that is not
+      # compatible.
+      def call_subroutine(sub)
+        microcode "Call_subroutine called to #{sub}"
+      end
+
 
       def push_comment(msg)
         if @footer_done
@@ -58,6 +67,10 @@ module OrigenTesters
       def format_vector(vec)
         timeset = vec.timeset ? "#{vec.timeset.name}" : ''
         pin_vals = vec.pin_vals ? "#{vec.pin_vals};".gsub(' ', '') : ''
+        sig_name = tester.ordered_pins_name
+        if sig_name.nil?
+          fail 'SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>)'
+        end
         if vec.repeat > 1
           microcode = "Loop #{vec.repeat} {\n"
         else
@@ -70,7 +83,7 @@ module OrigenTesters
         end
 
         microcode_post = vec.repeat > 1 ? "\n}" : ''
-        "#{microcode}  V { \"#{@pattern_name}\" = #{pin_vals} }#{comment}#{microcode_post}"
+        "#{microcode}  V { \"#{sig_name}\" = #{pin_vals} }#{comment}#{microcode_post}"
       end
 
       # Override this to force the formatting to match the v1 J750 model (easier diffs)
@@ -78,7 +91,6 @@ module OrigenTesters
         stage.store(code.ljust(65) + ''.ljust(31))
       end
       alias_method :microcode, :push_microcode
-
 
     end
   end
