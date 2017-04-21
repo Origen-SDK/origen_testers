@@ -389,7 +389,7 @@ module OrigenTesters
       @ordered_pins_cache ||= ordered_pins(options)
     end
 
-    # Retrieve optional 'name' meta passed in with the pin_pattern_order call 
+    # Retrieve optional 'name' meta passed in with the pin_pattern_order call
     def ordered_pins_name
       pinorder = Origen.app.pin_pattern_order.dup
       if Origen.app.pin_pattern_order.last.is_a?(Hash)

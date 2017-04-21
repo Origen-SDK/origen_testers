@@ -64,7 +64,6 @@ module OrigenTesters
         microcode "Call_subroutine called to #{sub}"
       end
 
-
       def push_comment(msg)
         if @footer_done
           stage.store msg unless @inhibit_comments
@@ -103,7 +102,6 @@ module OrigenTesters
         stage.store(code.ljust(65) + ''.ljust(31))
       end
       alias_method :microcode, :push_microcode
-
     end
   end
 end
