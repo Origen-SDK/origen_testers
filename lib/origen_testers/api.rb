@@ -81,6 +81,10 @@ module OrigenTesters
       is_a?(OrigenTesters::StilBasedTester::Base)
     end
 
+    def d10?
+      is_a?(OrigenTesters::StilBasedTester::D10)
+    end
+
     def link?
       !!(self.class.to_s =~ /^OrigenLink::/)
     end
