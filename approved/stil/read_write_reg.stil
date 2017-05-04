@@ -1,0 +1,519 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    04-May-2017 09:46AM
+//   By:      Stephen McGinty
+//   Command: origen g read_write_reg -t dut.rb -e stil.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.5
+//     Branch:    stil_based_tester(32b36374718) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.45
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+STIL 1.0;                                                                                       
+                                                                                                
+Signals {                                                                                       
+  tclk InOut;                                                                                   
+  tdi InOut;                                                                                    
+  tdo InOut;                                                                                    
+  tms InOut;                                                                                    
+}                                                                                               
+                                                                                                
+SignalGroups {                                                                                  
+  "ALL" = 'tclk+tdi+tdo+tms';                                                                   
+}                                                                                               
+                                                                                                
+Timing t_read_write_reg {                                                                       
+  WaveformTable Waveset1 {                                                                      
+    Period '60ns';                                                                              
+    Waveforms {                                                                                 
+      tclk { 01 { '0ns' D/U; }}                                                                 
+      tclk { LHX { '0ns' X; '30ns' L/H/X; }}                                                    
+      tdi { 01 { '0ns' D/U; }}                                                                  
+      tdi { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+      tdo { 01 { '0ns' D/U; }}                                                                  
+      tdo { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+      tms { 01 { '0ns' D/U; }}                                                                  
+      tms { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+    }                                                                                           
+  }                                                                                             
+}                                                                                               
+                                                                                                
+PatternBurst b_read_write_reg {                                                                 
+  PatList { read_write_reg; }                                                                   
+}                                                                                               
+                                                                                                
+PatternExec e_read_write_reg {                                                                  
+  Timing t_read_write_reg;                                                                      
+  PatternBurst b_read_write_reg;                                                                
+}                                                                                               
+                                                                                                
+Pattern "read_write_reg" {                                                                      
+read_write_reg:                                                                                 
+W Waveset1;                                                                                     
+Ann {*// ######################################################################*}
+Ann {*// ## Test write register with all 1s*}
+Ann {*// ######################################################################*}
+Loop 6 {
+  V { "ALL" = 0XX1; }
+}
+Loop 2 {
+  V { "ALL" = 0XX0; }
+}
+Loop 2 {
+  V { "ALL" = 0XX1; }
+}
+Loop 2 {
+  V { "ALL" = 0XX0; }
+}
+Ann {*// [JTAG] Write IR: 0xB*}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xB*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x1*}
+  V { "ALL" = 01X0; }
+Loop 33 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x1*}
+  V { "ALL" = 00X1; }
+Loop 8 {
+  V { "ALL" = 00X0; }
+}
+Loop 2 {
+  V { "ALL" = 00X1; }
+}
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write IR: 0xA*}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xA*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x7*}
+Loop 3 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x7*}
+  V { "ALL" = 00X1; }
+Loop 8 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-DP: R-32: name='RDBUFF'*}
+Ann {*// JTAG-AP: R-32: addr=0x00000000*}
+Loop 2 {
+  V { "ALL" = 00X1; }
+}
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write IR: 0xB*}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xB*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x118000210*}
+Loop 4 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+Loop 4 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+Loop 17 {
+  V { "ALL" = 00X0; }
+}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 3 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x118000210*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x00000000, data=0x23000042*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x3D2*}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X0; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+Loop 4 {
+  V { "ALL" = 01X0; }
+}
+Loop 24 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x3D2*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x00000004, data=0x0000007a*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 00X0; }
+Loop 4 {
+  V { "ALL" = 01X0; }
+}
+Loop 6 {
+  V { "ALL" = 00X0; }
+}
+Loop 23 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 01X1; }
+Loop 16 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test read register after all 1s write*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 00X0; }
+Loop 4 {
+  V { "ALL" = 01X0; }
+}
+Loop 6 {
+  V { "ALL" = 00X0; }
+}
+Loop 23 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 01X1; }
+Loop 16 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test write register with all 0s*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test read register after all 0s write*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test store register, the whole register data should be stored*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test store bits, only enable bit should be captured*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test store bits, only port A should be captured*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test read of partial register, only portA should be read*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test overlay, all reg vectors should be from subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test overlay, same again but for read*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test bit level write overlay, only portA should be from subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test bit level read overlay, only portA should be from subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x6*}
+  V { "ALL" = 00X0; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x6*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000*}
+Ann {*// ######################################################################*}
+Ann {*// ## Call execute subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Call_subroutine called to executefunc1                                                          
+  V { "ALL" = 00X0; }
+Ann {*// ######################################################################*}
+Ann {*// ## Call match_pin subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Call_subroutine called to match_pin                                                             
+  V { "ALL" = 00X0; }
+Ann {*// ######################################################################*}
+Ann {*// ## Call match_2pins subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Call_subroutine called to match_2pins                                                           
+  V { "ALL" = 00X0; }
+Ann {*// ######################################################################*}
+Ann {*// ## Call match_done subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Call_subroutine called to match_done                                                            
+  V { "ALL" = 00X0; }
+Ann {*// ######################################################################*}
+Ann {*// ## Call handshake subroutine*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Call_subroutine called to handshake                                                             
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 00X0; }
+Stop;                                                                                           
+}                                                                                               

@@ -1,0 +1,1 @@
+STIL::Tester.new

@@ -11,3 +11,5 @@ gem 'origen_doc_helpers', '>= 0.2.0'
 
 # Specify all runtime dependencies in origen_testers.gemspec
 gemspec
+
+gem "origen", git: "https://github.com/Origen-SDK/origen.git", branch: "timing_api"
