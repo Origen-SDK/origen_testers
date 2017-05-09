@@ -1425,6 +1425,22 @@ end
 --------------------------------------------------
 test_flow
 {
+  {
+    @ERASE_PASSED_1_864CE8F_PASSED = -1;
+    @ERASE_PASSED_2_864CE8F_PASSED = -1;
+    @ERASE_PASSED_3_864CE8F_FAILED = -1;
+    @ERASE_PASSED_4_864CE8F_FAILED = -1;
+    @ERASE_FAILED_1_864CE8F_FAILED = -1;
+    @ERASE_FAILED_2_864CE8F_FAILED = -1;
+    @ERASE_FAILED_3_864CE8F_PASSED = -1;
+    @ERASE_FAILED_4_864CE8F_PASSED = -1;
+    @ERASE_RAN_1_864CE8F_RAN = -1;
+    @ERASE_RAN_2_864CE8F_RAN = -1;
+    @ERASE_RAN_3_864CE8F_RAN = -1;
+    @ERASE_RAN_4_864CE8F_RAN = -1;
+    @G200_864CE8F_FAILED = -1;
+    @G100_864CE8F_RAN = -1;
+  }, open,"Init Flow Control Vars", ""
   run_and_branch(program_ckbd)
   then
   {

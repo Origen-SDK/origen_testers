@@ -1774,6 +1774,37 @@ end
 --------------------------------------------------
 test_flow
 {
+  {
+    @T5_BEA7F3B_RAN = -1;
+    @T6_BEA7F3B_RAN = -1;
+    @T7_BEA7F3B_RAN = -1;
+    @T8_BEA7F3B_RAN = -1;
+    @IFA1_BEA7F3B_FAILED = -1;
+    @IFA2_BEA7F3B_FAILED = -1;
+    @OOF_PASSCODE1_BEA7F3B_FAILED = -1;
+    @OOF_PASSCODE2_BEA7F3B_FAILED = -1;
+    @IFALL1_BEA7F3B_FAILED = -1;
+    @IFALLB1_BEA7F3B_FAILED = -1;
+    @IFAP1_BEA7F3B_PASSED = -1;
+    @IFAP2_BEA7F3B_PASSED = -1;
+    @IFAPB1_BEA7F3B_PASSED = -1;
+    @IFAPB2_BEA7F3B_PASSED = -1;
+    @IFALLP1_BEA7F3B_PASSED = -1;
+    @IFALLPB1_BEA7F3B_PASSED = -1;
+    @GRP1_BEA7F3B_FAILED = -1;
+    @GT_GRP1_BEA7F3B_FAILED = -1;
+    @GT_GRP2_BEA7F3B_FAILED = -1;
+    @L1T3_BEA7F3B_FAILED = -1;
+    @L1T5_BEA7F3B_FAILED = -1;
+    @L2T3_BEA7F3B_FAILED = -1;
+    @NT2_BEA7F3B_FAILED = -1;
+    @NT2_BEA7F3B_PASSED = -1;
+    @ECT1_3_BEA7F3B_FAILED = -1;
+    @ECT2_1_BEA7F3B_FAILED = -1;
+    @ECT2_2_BEA7F3B_FAILED = -1;
+    @MY_FLAG = -1;
+    @AT22_BEA7F3B_FAILED = -1;
+  }, open,"Init Flow Control Vars", ""
   print_dl("Test that if_failed works");
   run_and_branch(read1_BEA7F3B)
   then

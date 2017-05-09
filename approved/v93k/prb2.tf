@@ -178,6 +178,8 @@ end
 --------------------------------------------------
 test_flow
 {
+  {
+  }, open,"Init Flow Control Vars", ""
   run(erase_all);
   run(margin_read1_all1_814CEB0);
   run(erase_all_1_814CEB0);
