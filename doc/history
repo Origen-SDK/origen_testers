@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_9_6"></a>
+<h1><a href="#v0_9_6">Tag: v0.9.6</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 09-May-2017 13:54PM
+
+
+Bug fix for V93K test program generation - flow control vars are now initialized correctly
+upon each flow execution, whereas previously the value from one run would carry over into
+the next.
+
 <a class="anchor release_tag" name="v0_9_5"></a>
 <h1><a href="#v0_9_5">Tag: v0.9.5</a></h1>
 
