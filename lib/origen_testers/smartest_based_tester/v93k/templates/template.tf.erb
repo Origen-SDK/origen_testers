@@ -176,11 +176,11 @@ test_flow
 %   end
 % else
 {
-%#  {
-%#%   runtime_control_variables.each do |var|
-%#    @<%= var.to_s.upcase %> = -1;
-%#%   end
-%#  }, open,"Init Flow Control Vars", ""
+  {
+%   set_runtime_variables.each do |var|
+    @<%= var.to_s.upcase %> = -1;
+%   end
+  }, open,"Init Flow Control Vars", ""
 %   lines.each do |line|
   <%= line %>
 %   end
