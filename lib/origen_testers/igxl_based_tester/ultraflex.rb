@@ -3,6 +3,8 @@ module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX < Base
       autoload :Generator,   'origen_testers/igxl_based_tester/ultraflex/generator.rb'
+      
+      attr_reader :capture_style, :overlay_style
 
       # Tester model to generate .atp patterns for the Teradyne UltraFLEX
       #
@@ -45,6 +47,11 @@ module OrigenTesters
 
         @onemodsubs_found = false           # flag to indicate whether a single-module subroutine has been implemented in this pattern
         @nonmodsubs_found = false           # flag to indicate whether a normal non-single-module subroutine has been implemented in this pattern
+        
+        @overlay_style = :digsrc		# default to use digsrc for overlay
+        @capture_style = :digcap		# default to use digcap for capture
+        @source_memory_config = {}
+        @capture_memory_config = {}
       end
 
       # Do a frequency measure.
@@ -650,6 +657,103 @@ module OrigenTesters
       def ate_hardware(instrumentname = '')
         @ate_hardware = ATEHardware.new(instrumentname)
       end
+    
+      # Set the overlay style
+      #
+      # This method changes the way overlay is handled.
+      # The default value is :digsrc
+      #
+      # @example
+      #   tester.overlay_style = :label
+      def overlay_style=(val)
+        valid = false
+        valid = true if (val == :digsrc)
+        valid = true if (val == :label)
+        if valid
+          @overlay_style = val
+        else
+          fail "Trying to assign an invalid overlay style for this tester: #{val}"
+        end
+      end
+      
+      # Set the capture style
+      #
+      # This method changes the way tester.store() implements the store
+      # The default value is :digcap
+      #
+      # @example
+      #   tester.capture_style = :hram
+      def capture_style=(val)
+        valid = false
+        valid = true if (val == :digcap)
+        valid = true if (val == :hram)
+        if valid
+          @capture_style = val
+        else
+          fail "Trying to assign an invalid capture style for this tester: #{val}"
+        end
+      end
+      
+      # Configure source memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's source memory is used.
+      #
+      # @example
+      #   tester.source_memory :default do |mem|
+      #     mem.pin :tdi, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.source_memory(:default)
+      #   mem_style.contained_pins.each do |pin|
+      #     attributes_hash = mem_style.accumulate_attributes(pin)
+      #     
+      #   end
+      def source_memory(type = :digsrc)
+        type = :digsrc if type == :default
+        @source_memory_config[type] = OrigenTesters::MemoryStyle.new() unless @source_memory_config.key?(type)
+        if block_given?
+          yield @source_memory_config[type]
+        else
+          @source_memory_config[type]
+        end
+      end
+    
+      # Configure capture memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's capture memory is used.
+      #
+      # @example
+      #   tester.capture_memory :default do |mem|
+      #     mem.pin :tdo, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.capture_memory(:default)
+      #   if mem_style.contains_pin?(:tdo)
+      #     attributes_hash = mem_style.accumulate_attributes(:tdo)
+      #     
+      #   end
+      def capture_memory(type = :digcap)
+        type = :digcap if type == :default
+        @capture_memory_config[type] = OrigenTesters::MemoryStyle.new() unless @capture_memory_config.key?(type)
+        if block_given?
+          yield @capture_memory_config[type]
+        else
+          @capture_memory_config[type]
+        end
+      end
+    
     end
   end
   UltraFLEX = IGXLBasedTester::UltraFLEX
