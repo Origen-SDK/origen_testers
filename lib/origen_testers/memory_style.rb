@@ -1,11 +1,6 @@
 module OrigenTesters
   class MemoryStyle
-    # TODO: it doesn't seem likely that this will work well if a mix of base
-    # pin names and aliased (or grouped) pin names are used to refer to the
-    # same pin for multiple configuration settings.  Should update this code
-    # to always resolve the pin_id to it's base name.
-
-    attr_reader :pin_id, :size, :bit_order, :format, :trigger
+    attr_reader :pin_id, :size, :bit_order, :format, :trigger, :mode
 
     def initialize
       @pin_id = []
@@ -13,6 +8,7 @@ module OrigenTesters
       @bit_order = []
       @format = []
       @trigger = []
+      @mode = []
     end
 
     # Set memory style attributes for the given pin
@@ -21,11 +17,19 @@ module OrigenTesters
     #   mem.pin :tdi, size: 8, trigger: :auto
     def pin(*pin_ids)
       options = pin_ids.last.is_a?(Hash) ? pin_ids.pop : {}
+      pin_ids.each_index do |i|
+        if pin_ids[i].is_a?(Symbol)
+          pin_ids[i] = dut.pin(pin_ids[i]).name
+        else
+          pin_ids[i] = pin_ids[i].name
+        end
+      end
       @pin_id << pin_ids
       @size << options[:size]
       @bit_order << options[:bit_order]
       @format << options[:format]
       @trigger << options[:trigger]
+      @mode << options[:mode]
     end
 
     # Get the chronologically last setting for the given pin's attributes
@@ -45,6 +49,7 @@ module OrigenTesters
           a[:bit_order] = @bit_order[i]
           a[:format] = @format[i]
           a[:trigger] = @trigger[i]
+          a[:mode] = @mode[i]
         end
       end
       a

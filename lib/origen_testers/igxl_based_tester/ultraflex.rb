@@ -53,6 +53,9 @@ module OrigenTesters
         @source_memory_config = {}
         @capture_memory_config = {}
         @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
+        @dssc_send_delay = 144
+        @dssc_send_delay = 288 if @opcode_mode == :dual
+        @dssc_send_delay = 576 if @opcode_mode == :quad
       end
 
       # Do a frequency measure.
@@ -307,7 +310,36 @@ module OrigenTesters
         if options[:memory_test]
           options[:instruments].merge!('nil' => 'mto')
         end
-
+        
+        # If tester.overlay was used to implement dssc, update the header instruments
+        @overlay_history.each_pair do |pin_name, value|
+          if value[:is_digsrc]
+            new_instr = 'DigSrc '
+            
+            # override default settings
+            digsrc_overrides = source_memory(:digsrc).accumulate_attributes(pin_name)
+            
+            # append instrument width
+            digsrc_instr_width = (dut.pin(pin_name)).size
+            # override default width if requested
+            digsrc_instr_width = digsrc_overrides[:size] unless digsrc_overrides[:size].nil?
+            new_instr += digsrc_instr_width.to_s
+            
+            # append any other instrument override settings
+            if digsrc_instr_width > 1 && (dut.pin(pin_name)).size == 1
+              new_instr += ':serial'
+              if digsrc_overrides[:bit_order].nil?
+                new_instr += ':lsb'
+              else
+                new_instr += ':msb'
+              end
+            end
+            new_instr += "format=#{digsrc_overrides[:format].to_s}" unless digsrc_overrides[:format].nil?
+            
+            options[:instruments]["(#{pin_name})"] = new_instr
+          end
+        end
+        
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
                             high_voltage: false,
@@ -748,7 +780,7 @@ module OrigenTesters
       # the overlay.
       #
       # @example
-      #   tester.cycle				# The data has now been rendered to the pattern, no repeats!
+      #   tester.cycle				# The data has now been rendered to the pattern
       #
       #   if reg_or_val[i].has_overlay?		# Now check to see if special handling is needed for the bit previously rendered
       #     options[:pins] = dut.pin(:tdi)	# Tell the tester which pins to overlay
@@ -783,23 +815,74 @@ module OrigenTesters
       # Perform digsrc overlay (called by tester.overlay)
       def digsrc_overlay(options = {})
         pin_name = options[:pins].name
+        repeat_count = stage.bank[-1].repeat
         
-        if options[:change_data]
-          # add the send microcode
-          stage.bank[-1].microcode = "((#{pin_name.to_s}):DigSrc = SEND)"
-          # keep track of amount of digsrc used for header comment
-          if @overlay_history[pin_name].nil?
-            @overlay_history[pin_name] = {count: 1}
-          else
-            @overlay_history[pin_name][count] += 1
-          end
-        end
-          
         # update the previous vector pin data
         cur_pin_state = options[:pins].state.to_sym
         options[:pins].drive_mem
         stage.bank[-1].update_pin_val(options[:pins])
         options[:pins].state = cur_pin_state
+        
+        if options[:change_data]
+          # add the send microcode
+          stage.insert_from_end "((#{pin_name.to_s}):DigSrc = SEND)", 1
+          
+          # keep track of amount of digsrc used for header comment
+          if @overlay_history[pin_name].nil?
+            @overlay_history[pin_name] = {count: repeat_count, is_digsrc: true}
+          else
+            @overlay_history[pin_name][:count] += repeat_count
+          end
+          
+          # ensure no unwanted repeats on the send vector
+          stage.bank[-1].dont_compress = true
+          
+          # ensure start microcode is placed at the beginning of the pattern
+          if @overlay_history[pin_name][:start_applied].nil?
+            # insert start microcode at the beginning of the pattern
+            stage.insert_from_start "((#{pin_name.to_s}):DigSrc = Start)", 0
+            @overlay_history[pin_name][:start_applied] = true
+            
+            # get the first vector of the pattern
+            i = 0
+            until stage.bank[i].is_a?(OrigenTesters::Vector); i += 1; end
+            first_vector = stage.bank[i]
+            
+            # insert a copy of the first vector with no repeats
+            unless first_vector.inline_comment == 'added for digsrc start opcode'
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              v.inline_comment = 'added for digsrc start opcode'
+              v.dont_compress = true
+              stage.insert_from_start v, i
+            
+              # decrement repeat count of previous first vector if > 1
+              first_vector.repeat -= 1 if first_vector.repeat > 1
+            end
+            
+            # get cycle count up to this point, add repeat to beginning if needed
+            cycle_count = -1
+            stage.bank.each {|v| cycle_count += v.repeat if v.is_a?(OrigenTesters::Vector)}
+            if cycle_count < @dssc_send_delay
+              d = OrigenTesters::Vector.new
+              d.pin_vals = first_vector.pin_vals
+              d.timeset = first_vector.timeset
+              d.inline_comment = 'added for dssc start to send delay'
+              d.repeat = @dssc_send_delay - cycle_count
+              
+              # get the first vector of the pattern
+              i = 0
+              until stage.bank[i].is_a?(OrigenTesters::Vector); i += 1; end
+              
+              # insert new vector after the first vector
+              stage.insert_from_start d, i + 1
+            end
+            
+          end
+        
+        end # if options[:change_data]
+          
       end
       
     end

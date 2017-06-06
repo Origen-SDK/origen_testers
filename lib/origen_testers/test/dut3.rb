@@ -20,6 +20,11 @@ module OrigenTesters
         add_pin :tdi
         add_pin :tdo
         add_pin :tms
+        add_pin :pa0
+        add_pin :pa1
+        add_pin :pa2
+        add_pin_group :pa, :pa2, :pa1, :pa0
+        add_pin_alias :tdi_a, :tdi
         # add_pin_group :jtag, :tdi, :tdo, :tms
         add_power_pin_group :vdd1
         add_power_pin_group :vdd2

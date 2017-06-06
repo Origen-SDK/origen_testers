@@ -1,6 +1,20 @@
+require 'spec_helper'
+
 describe "memory style class" do
+  class MemoryStyleTestDUT
+    include Origen::TopLevel
+    
+    def initialize
+      add_pin :dummy_pin
+      add_pin :dummy_pin2
+      add_pin :dummy_1
+      add_pin :dummy_2
+    end
+  end
 
   it "initializes attributes to empty arrays" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin_id.should == []
     s.size.should == []
@@ -10,6 +24,8 @@ describe "memory style class" do
   end
   
   it "correctly adds only pin id" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_pin
     s.pin_id.should == [[:dummy_pin]]
@@ -20,6 +36,8 @@ describe "memory style class" do
   end
   
   it "correctly adds pin id and single attribute" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_pin, size: 8
     s.pin_id.should == [[:dummy_pin]]
@@ -30,6 +48,8 @@ describe "memory style class" do
   end
   
   it "correctly adds pin id and multiple attributes" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_pin, size: 8, format: :long
     s.pin_id.should == [[:dummy_pin]]
@@ -40,6 +60,8 @@ describe "memory style class" do
   end
   
   it "correctly sets attributes for multiple pins" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_1, :dummy_2, size: 8
     s.pin_id.should == [[:dummy_1, :dummy_2]]
@@ -50,6 +72,8 @@ describe "memory style class" do
   end
 
   it "correctly accumulates" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_pin, size: 8, format: :long
     s.pin :dummy_pin2
@@ -59,6 +83,8 @@ describe "memory style class" do
   end
   
   it "correctly identifies contained pins" do
+    Origen.target.temporary = -> { MemoryStyleTestDUT.new; OrigenTesters::UltraFLEX.new }
+    Origen.target.load!
     s = OrigenTesters::MemoryStyle.new()
     s.pin :dummy_pin, size: 8, format: :long
     s.pin :dummy_pin2
