@@ -52,6 +52,7 @@ module OrigenTesters
         @capture_style = :digcap		# default to use digcap for capture
         @source_memory_config = {}
         @capture_memory_config = {}
+        @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
       end
 
       # Do a frequency measure.
@@ -666,14 +667,7 @@ module OrigenTesters
       # @example
       #   tester.overlay_style = :label
       def overlay_style=(val)
-        valid = false
-        valid = true if (val == :digsrc)
-        valid = true if (val == :label)
-        if valid
-          @overlay_style = val
-        else
-          fail "Trying to assign an invalid overlay style for this tester: #{val}"
-        end
+        @overlay_style = val
       end
 
       # Set the capture style
@@ -684,14 +678,7 @@ module OrigenTesters
       # @example
       #   tester.capture_style = :hram
       def capture_style=(val)
-        valid = false
-        valid = true if (val == :digcap)
-        valid = true if (val == :hram)
-        if valid
-          @capture_style = val
-        else
-          fail "Trying to assign an invalid capture style for this tester: #{val}"
-        end
+        @capture_style = val
       end
 
       # Configure source memory to a non-default setting
@@ -753,6 +740,68 @@ module OrigenTesters
           @capture_memory_config[type]
         end
       end
+      
+      # Implements overlay style for this tester
+      #
+      # This method can be used by protocol drivers (etc) when overlay is requested.
+      # The caller does not need to know any of the specifics about how to implment
+      # the overlay.
+      #
+      # @example
+      #   tester.cycle				# The data has now been rendered to the pattern, no repeats!
+      #
+      #   if reg_or_val[i].has_overlay?		# Now check to see if special handling is needed for the bit previously rendered
+      #     options[:pins] = dut.pin(:tdi)	# Tell the tester which pins to overlay
+      #     # call tester.overlay
+      #     tester.overlay reg_or_val[i].overlay_str, options
+      #   end
+      #
+      #   # if the data being overlayed is present on multiple cycles do this for subsequent cycles:
+      #   tester.cycle				# Same bit is present on multiple cycles
+      #   if reg_or_val[i].has_overlay?
+      #     options[:pins] = dut.pin(:tdi)
+      #     options[:change_data] = false	# Keep same data as previous cycle, tester decides how to handle this
+      #     tester.overlay reg_or_val[i].overlay_str, options
+      #   end
+      def overlay(overlay_str, options = {})
+        options = {
+          change_data: true
+        }.merge(options)
+        
+        # route the overlay request to the appropriate method
+        case @overlay_style
+          when :digsrc, :default
+            digsrc_overlay(options)
+          when :label
+          when :subroutine
+          else
+            origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to digsrc")
+            origen.log.warn("Available overlay styles :digsrc, :label, :subroutine")
+        end
+      end
+      
+      # Perform digsrc overlay (called by tester.overlay)
+      def digsrc_overlay(options = {})
+        pin_name = options[:pins].name
+        
+        if options[:change_data]
+          # add the send microcode
+          stage.bank[-1].microcode = "((#{pin_name.to_s}):DigSrc = SEND)"
+          # keep track of amount of digsrc used for header comment
+          if @overlay_history[pin_name].nil?
+            @overlay_history[pin_name] = {count: 1}
+          else
+            @overlay_history[pin_name][count] += 1
+          end
+        end
+          
+        # update the previous vector pin data
+        cur_pin_state = options[:pins].state.to_sym
+        options[:pins].drive_mem
+        stage.bank[-1].update_pin_val(options[:pins])
+        options[:pins].state = cur_pin_state
+      end
+      
     end
   end
   UltraFLEX = IGXLBasedTester::UltraFLEX
