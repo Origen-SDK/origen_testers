@@ -1,6 +1,6 @@
 module OrigenTesters
   class MemoryStyle
-    attr_reader :pin_id, :size, :bit_order, :format, :trigger, :mode
+    attr_reader :pin_id, :size, :bit_order, :format, :trigger, :mode, :data_type
 
     def initialize
       @pin_id = []
@@ -9,6 +9,7 @@ module OrigenTesters
       @format = []
       @trigger = []
       @mode = []
+      @data_type = []
     end
 
     # Set memory style attributes for the given pin
@@ -30,6 +31,7 @@ module OrigenTesters
       @format << options[:format]
       @trigger << options[:trigger]
       @mode << options[:mode]
+      @data_type << options[:data_type]
     end
 
     # Get the chronologically last setting for the given pin's attributes
@@ -50,6 +52,7 @@ module OrigenTesters
           a[:format] = @format[i]
           a[:trigger] = @trigger[i]
           a[:mode] = @mode[i]
+          a[:data_type] = @data_type[i]
         end
       end
       a

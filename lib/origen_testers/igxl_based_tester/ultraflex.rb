@@ -312,6 +312,7 @@ module OrigenTesters
         end
 
         # If tester.overlay was used to implement dssc, update the header instruments
+        auto_instr = {}
         @overlay_history.each_pair do |pin_name, value|
           if value[:is_digsrc]
             microcode "//   DigSrc SEND count for #{pin_name}: #{value[:count]}"
@@ -336,10 +337,10 @@ module OrigenTesters
               end
             end
             new_instr += "format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
-
-            options[:instruments]["(#{pin_name})"] = new_instr
+            auto_instr["(#{pin_name})"] = new_instr
           end
         end
+        options[:instruments] = options[:instruments].merge(auto_instr)
 
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
@@ -810,6 +811,7 @@ module OrigenTesters
           else
             origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to digsrc")
             origen.log.warn('Available overlay styles :digsrc, :label, :subroutine')
+            digsrc_overlay(options)
         end
       end
 

@@ -1,4 +1,4 @@
-Pattern.create(name: "testout") do
+Pattern.create(name: "test_overlay") do
   cc 'should get a repeat count added to this vector for digsrc start minimum distance'
   tester.cycle
   
@@ -12,7 +12,7 @@ Pattern.create(name: "testout") do
   
   cc 'should get a send microcode and 1 cycle with D'
   tester.cycle
-  # configure memory over style right before overlay
+  # configure memory overlay style right before overlay
   tester.source_memory :digsrc do |mem|
     mem.pin :tdi, size: 32
   end
