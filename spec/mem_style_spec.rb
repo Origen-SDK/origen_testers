@@ -79,7 +79,7 @@ describe "memory style class" do
     s.pin :dummy_pin2
     s.pin :dummy_pin2, size: 1
     s.pin :dummy_pin2, size: 2
-    s.accumulate_attributes(:dummy_pin2).should == {pin_id: :dummy_pin2, size: 2, bit_order: nil, format: nil, trigger: nil}
+    s.accumulate_attributes(:dummy_pin2).should == {pin_id: :dummy_pin2, size: 2, bit_order: nil, format: nil, trigger: nil, mode: nil}
   end
   
   it "correctly identifies contained pins" do
