@@ -3,7 +3,7 @@
   files = []
   files << "program/prod.list"
   files << "program/uflex_resources.rb" if platform == 'ultraflex'
-  ARGV = [*files, "-t", "dut", "-e", "#{platform}.rb", "-r", "approved/#{platform}"]
+  ARGV = [*files, "-t", "dut.rb", "-e", "#{platform}.rb", "-r", "approved/#{platform}"]
   load 'origen/commands/program.rb'
   FileUtils.mkdir_p "#{Origen.root}/list/#{platform}"
   FileUtils.mv "#{Origen.root}/list/referenced.list", "#{Origen.root}/list/#{platform}/referenced.list"
