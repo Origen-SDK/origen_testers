@@ -47,6 +47,7 @@ module OrigenTesters
 
         @testerconfig ||= {}
         @channelmap ||= {}
+        @pushed_instrument_configs = {}
       end
 
       def igxl_based?
@@ -682,6 +683,7 @@ module OrigenTesters
         end
 
         # Take care of any instruments
+        options[:instruments] = options[:instruments].merge(@pushed_instrument_configs)
         if options[:instruments].length > 0
           microcode 'instruments = {'
           options[:instruments].each do |pins, instrument|
@@ -919,6 +921,18 @@ module OrigenTesters
 
       def mask_fails(setclr)
         @mask_vector = setclr
+      end
+
+      # Similar to push_microcode, but for the instrument statement in the pattern header
+      #
+      # @example
+      #   tester.push_instrument 'SAR_IN_1', 'UltraSource'
+      #   # results in the below line added
+      #   # instruments = {
+      #   #      SAR_IN_1:UltraSource;
+      #   # }
+      def push_instrument(pin_spec, instrument_def)
+        @pushed_instrument_configs[pin_spec] = instrument_def
       end
     end
   end

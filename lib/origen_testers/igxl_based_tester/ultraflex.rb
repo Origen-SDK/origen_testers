@@ -310,21 +310,22 @@ module OrigenTesters
         if options[:memory_test]
           options[:instruments].merge!('nil' => 'mto')
         end
-        
+
         # If tester.overlay was used to implement dssc, update the header instruments
         @overlay_history.each_pair do |pin_name, value|
           if value[:is_digsrc]
+            microcode "//   DigSrc SEND count for #{pin_name}: #{value[:count]}"
             new_instr = 'DigSrc '
-            
+
             # override default settings
             digsrc_overrides = source_memory(:digsrc).accumulate_attributes(pin_name)
-            
+
             # append instrument width
             digsrc_instr_width = (dut.pin(pin_name)).size
             # override default width if requested
             digsrc_instr_width = digsrc_overrides[:size] unless digsrc_overrides[:size].nil?
             new_instr += digsrc_instr_width.to_s
-            
+
             # append any other instrument override settings
             if digsrc_instr_width > 1 && (dut.pin(pin_name)).size == 1
               new_instr += ':serial'
@@ -334,12 +335,12 @@ module OrigenTesters
                 new_instr += ':msb'
               end
             end
-            new_instr += "format=#{digsrc_overrides[:format].to_s}" unless digsrc_overrides[:format].nil?
-            
+            new_instr += "format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
+
             options[:instruments]["(#{pin_name})"] = new_instr
           end
         end
-        
+
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
                             high_voltage: false,
@@ -772,7 +773,7 @@ module OrigenTesters
           @capture_memory_config[type]
         end
       end
-      
+
       # Implements overlay style for this tester
       #
       # This method can be used by protocol drivers (etc) when overlay is requested.
@@ -799,7 +800,7 @@ module OrigenTesters
         options = {
           change_data: true
         }.merge(options)
-        
+
         # route the overlay request to the appropriate method
         case @overlay_style
           when :digsrc, :default
@@ -808,46 +809,46 @@ module OrigenTesters
           when :subroutine
           else
             origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to digsrc")
-            origen.log.warn("Available overlay styles :digsrc, :label, :subroutine")
+            origen.log.warn('Available overlay styles :digsrc, :label, :subroutine')
         end
       end
-      
+
       # Perform digsrc overlay (called by tester.overlay)
       def digsrc_overlay(options = {})
         pin_name = options[:pins].name
         repeat_count = stage.bank[-1].repeat
-        
+
         # update the previous vector pin data
         cur_pin_state = options[:pins].state.to_sym
         options[:pins].drive_mem
         stage.bank[-1].update_pin_val(options[:pins])
         options[:pins].state = cur_pin_state
-        
+
         if options[:change_data]
           # add the send microcode
-          stage.insert_from_end "((#{pin_name.to_s}):DigSrc = SEND)", 1
-          
+          stage.insert_from_end "((#{pin_name}):DigSrc = SEND)", 1
+
           # keep track of amount of digsrc used for header comment
           if @overlay_history[pin_name].nil?
-            @overlay_history[pin_name] = {count: repeat_count, is_digsrc: true}
+            @overlay_history[pin_name] = { count: repeat_count, is_digsrc: true }
           else
             @overlay_history[pin_name][:count] += repeat_count
           end
-          
+
           # ensure no unwanted repeats on the send vector
           stage.bank[-1].dont_compress = true
-          
+
           # ensure start microcode is placed at the beginning of the pattern
           if @overlay_history[pin_name][:start_applied].nil?
             # insert start microcode at the beginning of the pattern
-            stage.insert_from_start "((#{pin_name.to_s}):DigSrc = Start)", 0
+            stage.insert_from_start "((#{pin_name}):DigSrc = Start)", 0
             @overlay_history[pin_name][:start_applied] = true
-            
+
             # get the first vector of the pattern
             i = 0
-            until stage.bank[i].is_a?(OrigenTesters::Vector); i += 1; end
+            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
             first_vector = stage.bank[i]
-            
+
             # insert a copy of the first vector with no repeats
             unless first_vector.inline_comment == 'added for digsrc start opcode'
               v = OrigenTesters::Vector.new
@@ -856,35 +857,33 @@ module OrigenTesters
               v.inline_comment = 'added for digsrc start opcode'
               v.dont_compress = true
               stage.insert_from_start v, i
-            
+
               # decrement repeat count of previous first vector if > 1
               first_vector.repeat -= 1 if first_vector.repeat > 1
             end
-            
+
             # get cycle count up to this point, add repeat to beginning if needed
             cycle_count = -1
-            stage.bank.each {|v| cycle_count += v.repeat if v.is_a?(OrigenTesters::Vector)}
+            stage.bank.each { |v| cycle_count += v.repeat if v.is_a?(OrigenTesters::Vector) }
             if cycle_count < @dssc_send_delay
               d = OrigenTesters::Vector.new
               d.pin_vals = first_vector.pin_vals
               d.timeset = first_vector.timeset
               d.inline_comment = 'added for dssc start to send delay'
               d.repeat = @dssc_send_delay - cycle_count
-              
+
               # get the first vector of the pattern
               i = 0
-              until stage.bank[i].is_a?(OrigenTesters::Vector); i += 1; end
-              
+              i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+
               # insert new vector after the first vector
               stage.insert_from_start d, i + 1
             end
-            
-          end
-        
+
+          end # of place start microcode
+
         end # if options[:change_data]
-          
-      end
-      
+      end # digsrc overlay
     end
   end
   UltraFLEX = IGXLBasedTester::UltraFLEX
