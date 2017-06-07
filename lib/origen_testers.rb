@@ -21,6 +21,7 @@ module OrigenTesters
   autoload :ProgramGenerators,  'origen_testers/program_generators'
   autoload :Flow,               'origen_testers/flow'
   autoload :NoInterface,        'origen_testers/no_interface'
+  autoload :MemoryStyle,        'origen_testers/memory_style'
 
   # not yet autoload :Time,     'origen_testers/time'
 
