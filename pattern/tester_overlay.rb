@@ -1,4 +1,5 @@
 Pattern.create(name: "test_overlay") do
+  tester.overlay_style = :digsrc
   cc 'should get a repeat count added to this vector for digsrc start minimum distance'
   tester.cycle
   
@@ -12,10 +13,6 @@ Pattern.create(name: "test_overlay") do
   
   cc 'should get a send microcode and 1 cycle with D'
   tester.cycle
-  # configure memory overlay style right before overlay
-  tester.source_memory :digsrc do |mem|
-    mem.pin :tdi, size: 32
-  end
   tester.overlay "dummy_str", pins: dut.pin(:tdi_a)
   cc 'should get a cycle with D and no send'
   tester.cycle
@@ -36,4 +33,12 @@ Pattern.create(name: "test_overlay") do
   tester.overlay "dummy_str", pins: dut.pin(:pa)
   cc 'cycle with 001 on pa'
   dut.pin(:pa).drive!(1)
+  
+  # Now kick the tires of subroutine based overlay
+  # No vectors with the comment "// overlay deletes" should be kept
+  tester.overlay_style = :subroutine
+  dut.pin(:pa).drive(7)
+  tester.cycle inline_comment: 'overlay keeps'
+  tester.cycle inline_comment: 'overlay deletes'
+  tester.overlay "subr_test", pins: dut.pin(:tdi)
 end

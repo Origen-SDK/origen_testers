@@ -48,11 +48,6 @@ module OrigenTesters
         @onemodsubs_found = false           # flag to indicate whether a single-module subroutine has been implemented in this pattern
         @nonmodsubs_found = false           # flag to indicate whether a normal non-single-module subroutine has been implemented in this pattern
 
-        @overlay_style = :digsrc		# default to use digsrc for overlay
-        @capture_style = :digcap		# default to use digcap for capture
-        @source_memory_config = {}
-        @capture_memory_config = {}
-        @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
         @dssc_send_delay = 144
         @dssc_send_delay = 288 if @opcode_mode == :dual
         @dssc_send_delay = 576 if @opcode_mode == :quad
@@ -330,13 +325,14 @@ module OrigenTesters
             # append any other instrument override settings
             if digsrc_instr_width > 1 && (dut.pin(pin_name)).size == 1
               new_instr += ':serial'
-              if digsrc_overrides[:bit_order].nil?
+              if digsrc_overrides[:bit_order] != :msb0
                 new_instr += ':lsb'
               else
                 new_instr += ':msb'
               end
             end
-            new_instr += "format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
+            new_instr += ":format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
+            new_instr += ":data_type=#{digsrc_overrides[:data_type]}" unless digsrc_overrides[:data_type].nil?
             auto_instr["(#{pin_name})"] = new_instr
           end
         end
@@ -693,88 +689,6 @@ module OrigenTesters
         @ate_hardware = ATEHardware.new(instrumentname)
       end
 
-      # Set the overlay style
-      #
-      # This method changes the way overlay is handled.
-      # The default value is :digsrc
-      #
-      # @example
-      #   tester.overlay_style = :label
-      def overlay_style=(val)
-        @overlay_style = val
-      end
-
-      # Set the capture style
-      #
-      # This method changes the way tester.store() implements the store
-      # The default value is :digcap
-      #
-      # @example
-      #   tester.capture_style = :hram
-      def capture_style=(val)
-        @capture_style = val
-      end
-
-      # Configure source memory to a non-default setting
-      #
-      # This method changes the way the instruments statement gets rendered
-      # if the tester's source memory is used.
-      #
-      # @example
-      #   tester.source_memory :default do |mem|
-      #     mem.pin :tdi, size: 32, format: :long
-      #   end
-      #
-      # If called without a block, this method will return
-      # the instance of type OrigenTesters::MemoryStyle for
-      # the corresponding memory type
-      #
-      # @example
-      #   mem_style = tester.source_memory(:default)
-      #   mem_style.contained_pins.each do |pin|
-      #     attributes_hash = mem_style.accumulate_attributes(pin)
-      #
-      #   end
-      def source_memory(type = :digsrc)
-        type = :digsrc if type == :default
-        @source_memory_config[type] = OrigenTesters::MemoryStyle.new unless @source_memory_config.key?(type)
-        if block_given?
-          yield @source_memory_config[type]
-        else
-          @source_memory_config[type]
-        end
-      end
-
-      # Configure capture memory to a non-default setting
-      #
-      # This method changes the way the instruments statement gets rendered
-      # if the tester's capture memory is used.
-      #
-      # @example
-      #   tester.capture_memory :default do |mem|
-      #     mem.pin :tdo, size: 32, format: :long
-      #   end
-      #
-      # If called without a block, this method will return
-      # the instance of type OrigenTesters::MemoryStyle for
-      # the corresponding memory type
-      #
-      # @example
-      #   mem_style = tester.capture_memory(:default)
-      #   if mem_style.contains_pin?(:tdo)
-      #     attributes_hash = mem_style.accumulate_attributes(:tdo)
-      #
-      #   end
-      def capture_memory(type = :digcap)
-        type = :digcap if type == :default
-        @capture_memory_config[type] = OrigenTesters::MemoryStyle.new unless @capture_memory_config.key?(type)
-        if block_given?
-          yield @capture_memory_config[type]
-        else
-          @capture_memory_config[type]
-        end
-      end
-
       # Implements overlay style for this tester
       #
       # This method can be used by protocol drivers (etc) when overlay is requested.
@@ -802,16 +716,15 @@ module OrigenTesters
           change_data: true
         }.merge(options)
 
+        ovly_style = options[:overlay_style].nil? ? @overlay_style : options[:overlay_style]
+
         # route the overlay request to the appropriate method
-        case @overlay_style
-          when :digsrc, :default
+        case ovly_style
+          when :digsrc
             digsrc_overlay(options)
-          when :label
-          when :subroutine
+          when :digsrc_subroutine
           else
-            origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to digsrc")
-            origen.log.warn('Available overlay styles :digsrc, :label, :subroutine')
-            digsrc_overlay(options)
+            super(overlay_str, options)
         end
       end
 

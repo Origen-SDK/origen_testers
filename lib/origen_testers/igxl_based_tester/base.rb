@@ -48,6 +48,11 @@ module OrigenTesters
         @testerconfig ||= {}
         @channelmap ||= {}
         @pushed_instrument_configs = {}
+        @overlay_style = :subroutine		# default to use digsrc for overlay
+        @capture_style = :hram			# default to use digcap for capture
+        @source_memory_config = {}
+        @capture_memory_config = {}
+        @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
       end
 
       def igxl_based?
@@ -934,6 +939,159 @@ module OrigenTesters
       def push_instrument(pin_spec, instrument_def)
         @pushed_instrument_configs[pin_spec] = instrument_def
       end
+
+      # Set the overlay style
+      #
+      # This method changes the way overlay is handled.
+      # The default value is :digsrc
+      #
+      # @example
+      #   tester.overlay_style = :label
+      def overlay_style=(val)
+        @overlay_style = val
+      end
+
+      # Set the capture style
+      #
+      # This method changes the way tester.store() implements the store
+      # The default value is :digcap
+      #
+      # @example
+      #   tester.capture_style = :hram
+      def capture_style=(val)
+        @capture_style = val
+      end
+
+      # Configure source memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's source memory is used.
+      #
+      # @example
+      #   tester.source_memory :default do |mem|
+      #     mem.pin :tdi, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.source_memory(:default)
+      #   mem_style.contained_pins.each do |pin|
+      #     attributes_hash = mem_style.accumulate_attributes(pin)
+      #
+      #   end
+      def source_memory(type = :default)
+        type = :subroutine if type == :default
+        @source_memory_config[type] = OrigenTesters::MemoryStyle.new unless @source_memory_config.key?(type)
+        if block_given?
+          yield @source_memory_config[type]
+        else
+          @source_memory_config[type]
+        end
+      end
+
+      # Configure capture memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's capture memory is used.
+      #
+      # @example
+      #   tester.capture_memory :default do |mem|
+      #     mem.pin :tdo, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.capture_memory(:default)
+      #   if mem_style.contains_pin?(:tdo)
+      #     attributes_hash = mem_style.accumulate_attributes(:tdo)
+      #
+      #   end
+      def capture_memory(type = :default)
+        type = :hram if type == :default
+        @capture_memory_config[type] = OrigenTesters::MemoryStyle.new unless @capture_memory_config.key?(type)
+        if block_given?
+          yield @capture_memory_config[type]
+        else
+          @capture_memory_config[type]
+        end
+      end
+
+      # Implements overlay style for this tester
+      #
+      # This method can be used by protocol drivers (etc) when overlay is requested.
+      # The caller does not need to know any of the specifics about how to implment
+      # the overlay.
+      #
+      # @example
+      #   tester.cycle				# The data has now been rendered to the pattern
+      #
+      #   if reg_or_val[i].has_overlay?		# Now check to see if special handling is needed for the bit previously rendered
+      #     options[:pins] = dut.pin(:tdi)	# Tell the tester which pins to overlay
+      #     # call tester.overlay
+      #     tester.overlay reg_or_val[i].overlay_str, options
+      #   end
+      #
+      #   # if the data being overlayed is present on multiple cycles do this for subsequent cycles:
+      #   tester.cycle				# Same bit is present on multiple cycles
+      #   if reg_or_val[i].has_overlay?
+      #     options[:pins] = dut.pin(:tdi)
+      #     options[:change_data] = false	# Keep same data as previous cycle, tester decides how to handle this
+      #     tester.overlay reg_or_val[i].overlay_str, options
+      #   end
+      def overlay(overlay_str, options = {})
+        options = {
+          change_data: true
+        }.merge(options)
+
+        ovly_style = options[:overlay_style].nil? ? @overlay_style : options[:overlay_style]
+
+        # route the overlay request to the appropriate method
+        case ovly_style
+          when :subroutine, :default
+            subroutine_overlay(overlay_str, options)
+          when :label
+          else
+            origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+            origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
+            origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
+            subroutine_overlay(overlay_str, options)
+        end
+      end
+
+      # Implement subroutine overlay, called by tester.overlay
+      def subroutine_overlay(sub_name, options = {})
+        # delete the previously rendered cycle, going to assume that comments may be present
+        i = -1
+        i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+        stage.bank[i] = 'vector deleted because subroutine overlay requested'
+
+        # unless the new last staged vector already has the subr call do the following
+        i = -1
+        i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+        if stage.bank[i].microcode !~ /call #{sub_name}/
+
+          # check for repeat on new last vector, unroll 1 if needed
+          if stage.bank[i].repeat > 1
+            v = OrigenTesters::Vector.new
+            v.pin_vals = stage.bank[i].pin_vals
+            v.timeset = stage.bank[i].timeset
+            stage.bank[i].repeat -= 1
+            stage.store(v)
+            i = -1
+          end
+
+          # mark last vector as dont_compress
+          stage.bank[i].dont_compress = true
+          # insert subroutine call
+          call_subroutine sub_name
+        end # if microcode not placed
+      end # subroutine_overlay
     end
   end
 end
