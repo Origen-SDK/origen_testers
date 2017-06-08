@@ -13,17 +13,17 @@ describe "Uflex configure source and capture memory" do
   it "defaults to digsrc for overlay, digcap for store" do
     Origen.target.temporary = -> { UFlexMemConfigDUT.new; OrigenTesters::UltraFLEX.new }
     Origen.target.load!
-    $tester.overlay_style.should == :digsrc
-    $tester.capture_style.should == :digcap
+    $tester.overlay_style.should == :subroutine
+    $tester.capture_style.should == :hram
   end
 
   it "can be configured to non-default styles" do
     Origen.target.temporary = -> { UFlexMemConfigDUT.new; OrigenTesters::UltraFLEX.new }
     Origen.target.load!
-    $tester.overlay_style = :label
-    $tester.capture_style = :hram
-    $tester.overlay_style.should == :label
-    $tester.capture_style.should == :hram
+    $tester.overlay_style = :digsrc
+    $tester.capture_style = :digcap
+    $tester.overlay_style.should == :digsrc
+    $tester.capture_style.should == :digcap
   end
   
   it "can configure non-default source/capture memory settings" do

@@ -21,6 +21,7 @@ describe "memory style class" do
     s.bit_order.should == []
     s.format.should == []
     s.trigger.should == []
+    s.data_type.should == []
   end
   
   it "correctly adds only pin id" do
@@ -33,6 +34,7 @@ describe "memory style class" do
     s.bit_order.should == [nil]
     s.format.should == [nil]
     s.trigger.should == [nil]
+    s.data_type.should == [nil]
   end
   
   it "correctly adds pin id and single attribute" do
@@ -45,6 +47,7 @@ describe "memory style class" do
     s.bit_order.should == [nil]
     s.format.should == [nil]
     s.trigger.should == [nil]
+    s.data_type.should == [nil]
   end
   
   it "correctly adds pin id and multiple attributes" do
@@ -57,6 +60,7 @@ describe "memory style class" do
     s.bit_order.should == [nil]
     s.format.should == [:long]
     s.trigger.should == [nil]
+    s.data_type.should == [nil]
   end
   
   it "correctly sets attributes for multiple pins" do
@@ -69,6 +73,7 @@ describe "memory style class" do
     s.bit_order.should == [nil]
     s.format.should == [nil]
     s.trigger.should == [nil]
+    s.data_type.should == [nil]
   end
 
   it "correctly accumulates" do
@@ -79,7 +84,7 @@ describe "memory style class" do
     s.pin :dummy_pin2
     s.pin :dummy_pin2, size: 1
     s.pin :dummy_pin2, size: 2
-    s.accumulate_attributes(:dummy_pin2).should == {pin_id: :dummy_pin2, size: 2, bit_order: nil, format: nil, trigger: nil, mode: nil}
+    s.accumulate_attributes(:dummy_pin2).should == {pin_id: :dummy_pin2, size: 2, bit_order: nil, format: nil, trigger: nil, mode: nil, data_type: nil}
   end
   
   it "correctly identifies contained pins" do
