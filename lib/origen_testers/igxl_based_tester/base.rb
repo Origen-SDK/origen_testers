@@ -1069,7 +1069,7 @@ module OrigenTesters
         # delete the previously rendered cycle, going to assume that comments may be present
         i = -1
         i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
-        stage.bank[i] = 'vector deleted because subroutine overlay requested'
+        stage.bank[i] = '// vector deleted because subroutine overlay requested'
 
         # unless the new last staged vector already has the subr call do the following
         i = -1
