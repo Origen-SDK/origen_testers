@@ -12,25 +12,22 @@ Pattern.create(name: "test_overlay") do
   tester.cycle repeat: 5
   
   cc 'should get a send microcode and 1 cycle with D'
-  tester.cycle
-  tester.overlay "dummy_str", pins: dut.pin(:tdi_a)
+  tester.cycle overlay: {overlay_str: 'dummy_str', pins: dut.pin(:tdi_a)}
   cc 'should get a cycle with D and no send'
-  tester.cycle
-  tester.overlay "dummy_str", pins: dut.pin(:tdi), change_data: false
+  tester.cycle overlay: {overlay_str: 'dummy_str', pins: dut.pin(:tdi_a), change_data: false}
   cc 'regular cycle with no D or send'
   tester.cycle
   
   cc 'cycle with 001 on pa'
   dut.pin(:pa).drive!(1)
   cc 'send microcode followed by DDD on pa'
-  dut.pin(:pa).drive!(0)
-  tester.overlay "dummy_str", pins: dut.pin(:pa)
+  dut.pin(:pa).drive(0)
+  tester.cycle overlay: {overlay_str: "dummy_str", pins: dut.pin(:pa)}
   cc 'cycle with 001 on pa'
   dut.pin(:pa).drive!(1)
   cc 'send microcode, DDD on pa with repeat 5 (will send 5 sets of data)'
   dut.pin(:pa).drive(0)
-  tester.cycle repeat: 5
-  tester.overlay "dummy_str", pins: dut.pin(:pa)
+  tester.cycle repeat: 5, overlay: {overlay_str: "dummy_str", pins: dut.pin(:pa)}
   cc 'cycle with 001 on pa'
   dut.pin(:pa).drive!(1)
   
@@ -39,6 +36,5 @@ Pattern.create(name: "test_overlay") do
   tester.overlay_style = :subroutine
   dut.pin(:pa).drive(7)
   tester.cycle inline_comment: 'overlay keeps'
-  tester.cycle inline_comment: 'overlay deletes'
-  tester.overlay "subr_test", pins: dut.pin(:tdi)
+  tester.cycle inline_comment: 'overlay deletes', overlay: {overlay_str: "subr_test", pins: dut.pin(:tdi)}
 end
