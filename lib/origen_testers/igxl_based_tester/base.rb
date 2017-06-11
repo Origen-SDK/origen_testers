@@ -54,6 +54,7 @@ module OrigenTesters
         @capture_memory_config = {}
         @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
         @overlay_subr = nil
+        @capture_history = {}
       end
 
       def igxl_based?
@@ -293,6 +294,7 @@ module OrigenTesters
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
         }.merge(options)
+
         preset_next_vector microcode: 'stv' do |vector|
           vector.contains_capture = true
         end
