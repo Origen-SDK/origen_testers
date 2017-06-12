@@ -60,6 +60,11 @@ module OrigenTesters
       !is_vector_based?
     end
 
+    def stil?
+      defined?(OrigenTesters::StilBasedTester::Base) &&
+        is_a?(OrigenTesters::StilBasedTester::Base)
+    end
+
     def j750?
       is_a?(OrigenTesters::IGXLBasedTester::J750)
     end

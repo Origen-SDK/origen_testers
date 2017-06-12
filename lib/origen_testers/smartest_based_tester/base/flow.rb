@@ -9,6 +9,8 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
+        attr_accessor :add_flow_enable
+
         def var_filename
           @var_filename || 'global'
         end
@@ -39,11 +41,48 @@ module OrigenTesters
         def at_flow_end
         end
 
+        def flow_header
+          h = ['{']
+          if add_flow_enable
+            var = filename.sub(/\..*/, '').upcase
+            var = "#{var}_ENABLE"
+            if add_flow_enable == :enabled
+              runtime_control_variables << [var, 1]
+            else
+              runtime_control_variables << [var, 0]
+            end
+            h << "  if @#{var} == 1 then"
+            h << '  {'
+            i = '  '
+          else
+            i = ''
+          end
+
+          h << i + '  {'
+          set_runtime_variables.each do |var|
+            h << i + "    @#{var.to_s.upcase} = -1;"
+          end
+          h << i + '  }, open,"Init Flow Control Vars", ""'
+          h
+        end
+
+        def flow_footer
+          f = []
+          if add_flow_enable
+            f << '  }'
+            f << '  else'
+            f << '  {'
+            f << '  }'
+          end
+          f << "}, open,\"#{filename.sub(/\..*/, '').upcase}\", \"\""
+          f
+        end
+
         def finalize(options = {})
           super
           test_suites.finalize
           test_methods.finalize
-          @indent = 0
+          @indent = add_flow_enable ? 2 : 1
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
           m = Processors::IfRanCleaner.new.process(model.ast)
@@ -54,7 +93,7 @@ module OrigenTesters
         end
 
         def line(str)
-          @lines << (' ' * @indent * 2) + str
+          @lines << ('  ' * @indent) + str
         end
 
         # def on_flow(node)
