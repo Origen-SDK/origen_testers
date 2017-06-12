@@ -37,4 +37,13 @@ Pattern.create(name: "test_overlay") do
   dut.pin(:pa).drive(7)
   tester.cycle inline_comment: 'overlay keeps'
   tester.cycle inline_comment: 'overlay deletes', overlay: {overlay_str: "subr_test", pins: dut.pin(:tdi)}
+
+  # Now kick the tires of label overlay
+  tester.cycle repeat: 20
+  tester.overlay_style = :label
+  dut.pin(:pa).drive(5)
+  tester.cycle inline_comment: '1st line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '2nd line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '3rd line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle repeat: 20
 end

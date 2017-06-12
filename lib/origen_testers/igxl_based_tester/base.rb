@@ -847,8 +847,9 @@ module OrigenTesters
               subroutine_overlay(overlay_str, options)
               ovly_style = :subroutine
             when :label
+              options[:dont_compress] = true
               unless @overlay_history.key?(overlay_str)
-                microcode "global #{overlay_str}:"
+                label "global #{overlay_str}:", true
                 @overlay_history[overlay_str] = { is_label: true }
               end
             when :digsrc && ultraflex?
