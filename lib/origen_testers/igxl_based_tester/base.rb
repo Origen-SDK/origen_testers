@@ -48,8 +48,8 @@ module OrigenTesters
         @testerconfig ||= {}
         @channelmap ||= {}
         @pushed_instrument_configs = {}
-        @overlay_style = :subroutine		# default to use digsrc for overlay
-        @capture_style = :hram			# default to use digcap for capture
+        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @capture_style = :hram			# default to use hram for capture
         @source_memory_config = {}
         @capture_memory_config = {}
         @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
@@ -849,7 +849,7 @@ module OrigenTesters
             when :label
               options[:dont_compress] = true
               unless @overlay_history.key?(overlay_str)
-                label "global #{overlay_str}:", true
+                label "#{overlay_str}:", true
                 @overlay_history[overlay_str] = { is_label: true }
               end
             when :digsrc && ultraflex?
