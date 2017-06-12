@@ -845,19 +845,22 @@ module OrigenTesters
           case ovly_style
             when :subroutine, :default
               subroutine_overlay(overlay_str, options)
+              ovly_style = :subroutine
             when :label
               unless @overlay_history.key?(overlay_str)
                 microcode "global #{overlay_str}:"
                 @overlay_history[overlay_str] = { is_label: true }
               end
-            when :digsrc
+            when :digsrc && ultraflex?
               cur_pin_state = options[:overlay][:pins].state.to_sym
               options[:overlay][:pins].drive_mem
               options = digsrc_overlay(options)
             else
-              origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
-              origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
-              origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
+              Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+              Origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
+              Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
+              ovly_style = :subroutine
+              @overlay_style = :subroutine		# Just give 1 warning
               subroutine_overlay(options[:overlay][:overlay_str], options)
           end # case ovly_style
         else

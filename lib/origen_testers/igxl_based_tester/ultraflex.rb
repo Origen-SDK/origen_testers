@@ -306,7 +306,7 @@ module OrigenTesters
           options[:instruments].merge!('nil' => 'mto')
         end
 
-        # If tester.overlay was used to implement dssc, update the header instruments
+        # If tester.overlay was used to implement digsrc, update the header instruments
         auto_instr = {}
         @overlay_history.each_pair do |pin_name, value|
           if value[:is_digsrc]
@@ -325,7 +325,7 @@ module OrigenTesters
             # append any other instrument override settings
             if digsrc_instr_width > 1 && (dut.pin(pin_name)).size == 1
               new_instr += ':serial'
-              if digsrc_overrides[:bit_order] != :msb0
+              if (digsrc_overrides[:bit_order] != :msb0) && (digsrc_overrides[:bit_order] != :msb)
                 new_instr += ':lsb'
               else
                 new_instr += ':msb'
@@ -333,6 +333,34 @@ module OrigenTesters
             end
             new_instr += ":format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
             new_instr += ":data_type=#{digsrc_overrides[:data_type]}" unless digsrc_overrides[:data_type].nil?
+            auto_instr["(#{pin_name})"] = new_instr
+          end
+        end
+        # If tester.store was used to implement digcap, update the header instruments
+        # TODO: a lot of duplication of digsrc logic here. This can be smart-ified.
+        @capture_history.each_pair do |pin_name, value|
+          if value[:is_digcap]
+            microcode "//   DigCap Store count for #{pin_name}: #{value[:count]}"
+            new_instr = 'DigCap '
+
+            # override default settings
+            digcap_overrides = capture_memory(:digcap).accumulate_attributes(pin_name)
+
+            # append instrument width
+            digcap_instr_width = (dut.pin(pin_name)).size
+            digcap_instr_width = digcap_overrides[:size] unless digcap_overrides[:size].nil?
+            new_instr += digcap_instr_width.to_s
+            if digcap_instr_width > 1 && (dut.pin(pin_name)).size == 1
+              new_instr += ':serial'
+              if (digcap_overrides[:bit_order] != :msb0) && (digcap_overrides[:bit_order] != :msb)
+                new_instr += ':lsb'
+              else
+                new_instr += ':msb'
+              end
+            end
+            new_instr += ":format=#{digcap_overrides[:format]}" unless digcap_overrides[:format].nil?
+            new_instr += ":data_type=#{digcap_overrides[:data_type]}" unless digcap_overrides[:data_type].nil?
+            new_instr += ':auto_trig_enable'			# always enable auto-trigger for digcap, trigger microcode isn't applied
             auto_instr["(#{pin_name})"] = new_instr
           end
         end
@@ -649,10 +677,10 @@ module OrigenTesters
         repeat_count = last_vector(options[:offset]).repeat
         capt_microcode = []
         pins.each do |pin|
-          if @capture_history[pin].nil?
-            @capture_history[pin] = { is_digcap: true, count: repeat_count }
+          if @capture_history[pin.name].nil?
+            @capture_history[pin.name] = { is_digcap: true, count: repeat_count }
           else
-            @capture_history[pin][:count] += repeat_count
+            @capture_history[pin.name][:count] += repeat_count
           end
           capt_microcode << "((#{pin.name}):DigCap = Store)"
         end
@@ -694,10 +722,10 @@ module OrigenTesters
           capt_microcode = []
           repeat_count = options[:repeat].nil? ? 1 : options[:repeat]
           pins.each do |pin|
-            if @capture_history[pin].nil?
-              @capture_history[pin] = { is_digcap: true, count: repeat_count }
+            if @capture_history[pin.name].nil?
+              @capture_history[pin.name] = { is_digcap: true, count: repeat_count }
             else
-              @capture_history[pin][:count] += repeat_count
+              @capture_history[pin.name][:count] += repeat_count
             end
             capt_microcode << "((#{pin.name}):DigCap = Store)"
           end

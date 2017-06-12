@@ -1,5 +1,10 @@
 Pattern.create(name: "test_store") do
   tester.capture_style = :digcap
+  # configure tdo to non-default settings
+  tester.capture_memory :digcap do |mem|
+    mem.pin :tdo, size: 8
+  end
+
   tester.cycle
 
   dut.pin(:tclk).drive(1)
@@ -18,5 +23,7 @@ Pattern.create(name: "test_store") do
   dut.pin(:tclk).drive(0)
   tester.store!(dut.pin(:tdo))
   tester.cycle
+  tester.cycle
+  tester.store!(dut.pin(:pa))
   tester.cycle
 end
