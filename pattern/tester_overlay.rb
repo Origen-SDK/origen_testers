@@ -1,5 +1,9 @@
 Pattern.create(name: "test_overlay") do
   tester.overlay_style = :digsrc
+  # increase coverage by changing tdi dig src settings
+  tester.source_memory :digsrc do |mem| 
+    mem.pin :tdi, size: 32
+  end
   cc 'should get a repeat count added to this vector for digsrc start minimum distance'
   tester.cycle
   

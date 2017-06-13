@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    13-Jun-2017 09:11AM
+//   Time:    13-Jun-2017 10:40AM
 //   By:      pderouen
 //   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e uflex.rb
 // ***************************************************************************
@@ -8,7 +8,7 @@
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.9.6
-//     Branch:    rfc2(22ce7eba536) (+local edits)
+//     Branch:    rfc2(2a6055ab71d) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.7.46
@@ -27,7 +27,7 @@ opcode_mode = single;
 digital_inst = hsdm;                                                                            
 compressed = yes;                                                                               
 instruments = {                                                                                 
-               (tdi):DigSrc 1;                                                                  
+               (tdi):DigSrc 32:serial:lsb;                                                      
                (pa):DigSrc 3;                                                                   
 }                                                                                               
                                                                                                 
