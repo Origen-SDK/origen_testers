@@ -1,0 +1,64 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    13-Jun-2017 09:59AM
+//   By:      pderouen
+//   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.6
+//     Branch:    rfc2(22ce7eba536) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.46
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+import svm_subr dummy_str;                                                                      
+import svm_subr subr_test;                                                                      
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms, pa)                                                         
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t p  
+//                                                                                              c d d m a  
+//                                                                                              l i o s    
+//                                                                                              k          
+// should get a repeat count added to this vector for digsrc start minimum distance
+                                                                 > tp0                          X X X X XXX ;
+// should get a repeat 5 vector
+repeat 4                                                         > tp0                          1 1 H 1 XXX ;
+// should get a send microcode and 1 cycle with D
+call dummy_str                                                   > tp0                          1 1 H 1 XXX ;
+// should get a cycle with D and no send
+// regular cycle with no D or send
+                                                                 > tp0                          1 1 H 1 XXX ;
+// cycle with 001 on pa
+call dummy_str                                                   > tp0                          1 1 H 1 001 ;
+// send microcode followed by DDD on pa
+// cycle with 001 on pa
+call dummy_str                                                   > tp0                          1 1 H 1 001 ;
+// send microcode, DDD on pa with repeat 5 (will send 5 sets of data)
+// cycle with 001 on pa
+                                                                 > tp0                          1 1 H 1 001 ;
+call subr_test                                                   > tp0                          1 1 H 1 111 ; // overlay keeps
+repeat 20                                                        > tp0                          1 1 H 1 111 ;
+global label_test:                                                                              
+                                                                 > tp0                          1 1 H 1 101 ; // 1st line after global label for overlay
+                                                                 > tp0                          1 1 H 1 101 ; // 2nd line after global label for overlay
+                                                                 > tp0                          1 1 H 1 101 ; // 3rd line after global label for overlay
+repeat 20                                                        > tp0                          1 1 H 1 101 ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+end_module                                                       > tp0                          1 1 H 1 101 ;
+}                                                                                               

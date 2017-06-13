@@ -849,20 +849,19 @@ module OrigenTesters
             when :label
               options[:dont_compress] = true
               unless @overlay_history.key?(overlay_str)
-                label "#{overlay_str}:", true
+                label "#{overlay_str}", true
                 @overlay_history[overlay_str] = { is_label: true }
               end
-            when :digsrc && ultraflex?
-              cur_pin_state = options[:overlay][:pins].state.to_sym
-              options[:overlay][:pins].drive_mem
-              options = digsrc_overlay(options)
+            when :digsrc
+              if ultraflex?
+                cur_pin_state = options[:overlay][:pins].state.to_sym
+                options[:overlay][:pins].drive_mem
+                options = digsrc_overlay(options)
+              else
+                ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+              end
             else
-              Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
-              Origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
-              Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
-              ovly_style = :subroutine
-              @overlay_style = :subroutine		# Just give 1 warning
-              subroutine_overlay(options[:overlay][:overlay_str], options)
+              ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
           end # case ovly_style
         else
           @overlay_subr = nil
@@ -882,6 +881,15 @@ module OrigenTesters
           options_overlay[:pins].state = cur_pin_state if ovly_style == :digsrc
           # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
         end
+      end
+
+      # Warn user of unsupported overlay style
+      def overlay_style_warn(overlay_str, options)
+        Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+        Origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
+        Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
+        subroutine_overlay(overlay_str, options)
+        @overlay_style = :subroutine		# Just give 1 warning
       end
 
       # Call this method at the start of any digsrc overlay operations, this method

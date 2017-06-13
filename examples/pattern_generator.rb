@@ -19,3 +19,9 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(regression.list -t dut.rb -e v93k -r approved/v93k)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(tester_overlay tester_store -t dut3.rb -e uflex -r approved/generic_overlay_capture/ultraflex)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(tester_overlay tester_store -t dut3.rb -e j750.rb -r approved/generic_overlay_capture/j750)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
