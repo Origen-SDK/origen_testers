@@ -47,9 +47,9 @@ module OrigenTesters
             var = filename.sub(/\..*/, '').upcase
             var = "#{var}_ENABLE"
             if add_flow_enable == :enabled
-              runtime_control_variables << [var, 1]
+              flow_control_variables << [var, 1]
             else
-              runtime_control_variables << [var, 0]
+              flow_control_variables << [var, 0]
             end
             h << "  if @#{var} == 1 then"
             h << '  {'

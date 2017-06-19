@@ -18,7 +18,6 @@ declarations
 @G100_864CE8F_RAN = 0;
 @G200_864CE8F_FAILED = 0;
 @JOB = "";
-@PRB1_ENABLE = 1;
 
 end
 -----------------------------------------------------------------
@@ -27,6 +26,7 @@ flags
 user ADDITIONAL_ERASE = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
+user PRB1_ENABLE = 1;
 user USB_XCVR_CZ = 0;
 
 end

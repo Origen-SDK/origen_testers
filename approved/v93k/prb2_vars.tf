@@ -3,13 +3,13 @@ language_revision = 1;
 
 declarations
 
-@PRB2_ENABLE = 1;
 
 end
 -----------------------------------------------------------------
 flags
 
 user EXTRA_TESTS = 0;
+user PRB2_ENABLE = 1;
 
 end
 -----------------------------------------------------------------
