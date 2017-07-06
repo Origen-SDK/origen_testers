@@ -71,7 +71,7 @@ module OrigenTesters
           # unless last staged vector already has the subr call do the following
           i = -1
           i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
-          if stage.bank[i].microcode !~ /call #{sub_name}/
+          if stage.bank[i].microcode !~ /#{sub_name}/
 
             # check for repeat on new last vector, unroll 1 if needed
             if stage.bank[i].repeat > 1
