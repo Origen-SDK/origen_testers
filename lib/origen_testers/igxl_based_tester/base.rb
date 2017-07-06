@@ -4,6 +4,7 @@ module OrigenTesters
     class Base
       include VectorBasedTester
 
+      attr_reader :capture_style, :overlay_style
       attr_accessor :software_version
       attr_accessor :pattern_compiler_pinmap
       attr_accessor :memory_test_en
@@ -995,7 +996,7 @@ module OrigenTesters
       # Set the overlay style
       #
       # This method changes the way overlay is handled.
-      # The default value is :digsrc
+      # The default value is :subroutine
       #
       # @example
       #   tester.overlay_style = :label
@@ -1006,7 +1007,7 @@ module OrigenTesters
       # Set the capture style
       #
       # This method changes the way tester.store() implements the store
-      # The default value is :digcap
+      # The default value is :hram
       #
       # @example
       #   tester.capture_style = :hram

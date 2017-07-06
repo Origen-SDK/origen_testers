@@ -3,6 +3,8 @@ module OrigenTesters
     class Base
       include VectorBasedTester
 
+      attr_reader :capture_style, :overlay_style
+
       # Disable inline (end of vector) comments, enabled by default
       attr_accessor :inline_comments
 
@@ -20,7 +22,77 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
+        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @capture_style = :hram			# default to use hram for capture
+        @source_memory_config = {}
+        @capture_memory_config = {}
+        @overlay_subr = nil
       end
+
+      def cycle(options = {})
+        # handle overlay if requested
+        ovly_style = nil
+        if options.key?(:overlay)
+          ovly_style = options[:overlay][:overlay_style].nil? ? @overlay_style : options[:overlay][:overlay_style]
+          overlay_str = options[:overlay][:overlay_str]
+
+          # route the overlay request to the appropriate method
+          case ovly_style
+            when :subroutine, :default
+              subroutine_overlay(overlay_str, options)
+              ovly_style = :subroutine
+            else
+              ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+          end # case ovly_style
+        else
+          @overlay_subr = nil
+        end # of handle overlay
+
+        options_overlay = options.delete(:overlay) if options.key?(:overlay)
+
+        super(options) unless ovly_style == :subroutine
+
+        unless options_overlay.nil?
+          # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
+        end
+      end
+
+      # Warn user of unsupported overlay style
+      def overlay_style_warn(overlay_str, options)
+        Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+        Origen.log.warn('Available overlay styles :subroutine')
+        subroutine_overlay(overlay_str, options)
+        @overlay_style = :subroutine		# Just give 1 warning
+      end
+
+      # Implement subroutine overlay, called by tester.cycle
+      def subroutine_overlay(sub_name, options = {})
+        if @overlay_subr != sub_name
+          # unless last staged vector already has the subr call do the following
+          i = -1
+          i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+          if stage.bank[i].microcode !~ /call #{sub_name}/
+
+            # check for repeat on new last vector, unroll 1 if needed
+            if stage.bank[i].repeat > 1
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              stage.bank[i].repeat -= 1
+              stage.store(v)
+              i = -1
+            end
+
+            # mark last vector as dont_compress
+            stage.bank[i].dont_compress = true
+            # insert subroutine call
+            call_subroutine sub_name
+          end # if microcode not placed
+          @overlay_subr = sub_name
+        end
+
+        # stage = sub_name
+      end # subroutine_overlay
 
       # Capture the pin data from a vector to the tester.
       #
@@ -101,6 +173,7 @@ module OrigenTesters
           pins.each(&:restore)
         end
       end
+      alias_method :store!, :store_next_cycle
 
       # Start a subroutine.
       #
@@ -453,6 +526,88 @@ module OrigenTesters
 
       def before_timeset_change(options = {})
         microcode "SQPG CTIM #{options[:new].name};" unless level_period?
+      end
+
+      # Set the overlay style
+      #
+      # This method changes the way overlay is handled.
+      # The default value is :subroutine
+      #
+      # @example
+      #   tester.overlay_style = :label
+      def overlay_style=(val)
+        @overlay_style = val
+      end
+
+      # Set the capture style
+      #
+      # This method changes the way tester.store() implements the store
+      # The default value is :hram
+      #
+      # @example
+      #   tester.capture_style = :hram
+      def capture_style=(val)
+        @capture_style = val
+      end
+
+      # Configure source memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's source memory is used.
+      #
+      # @example
+      #   tester.source_memory :default do |mem|
+      #     mem.pin :tdi, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.source_memory(:default)
+      #   mem_style.contained_pins.each do |pin|
+      #     attributes_hash = mem_style.accumulate_attributes(pin)
+      #
+      #   end
+      def source_memory(type = :default)
+        type = :subroutine if type == :default
+        @source_memory_config[type] = OrigenTesters::MemoryStyle.new unless @source_memory_config.key?(type)
+        if block_given?
+          yield @source_memory_config[type]
+        else
+          @source_memory_config[type]
+        end
+      end
+
+      # Configure capture memory to a non-default setting
+      #
+      # This method changes the way the instruments statement gets rendered
+      # if the tester's capture memory is used.
+      #
+      # @example
+      #   tester.capture_memory :default do |mem|
+      #     mem.pin :tdo, size: 32, format: :long
+      #   end
+      #
+      # If called without a block, this method will return
+      # the instance of type OrigenTesters::MemoryStyle for
+      # the corresponding memory type
+      #
+      # @example
+      #   mem_style = tester.capture_memory(:default)
+      #   if mem_style.contains_pin?(:tdo)
+      #     attributes_hash = mem_style.accumulate_attributes(:tdo)
+      #
+      #   end
+      def capture_memory(type = :default)
+        type = :hram if type == :default
+        @capture_memory_config[type] = OrigenTesters::MemoryStyle.new unless @capture_memory_config.key?(type)
+        if block_given?
+          yield @capture_memory_config[type]
+        else
+          @capture_memory_config[type]
+        end
       end
     end
   end

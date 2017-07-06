@@ -4,8 +4,6 @@ module OrigenTesters
     class UltraFLEX < Base
       autoload :Generator,   'origen_testers/igxl_based_tester/ultraflex/generator.rb'
 
-      attr_reader :capture_style, :overlay_style
-
       # Tester model to generate .atp patterns for the Teradyne UltraFLEX
       #
       # == Basic Usage
