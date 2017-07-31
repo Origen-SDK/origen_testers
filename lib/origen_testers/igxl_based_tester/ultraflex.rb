@@ -511,7 +511,7 @@ module OrigenTesters
         elsif counter_value < (2**(@counter_lsb_bits + @counter_msb_bits))
           # larger value, but smaller than counter maximum
           counter_msb = counter_value   # set MSB (lowest LSB bits get ignored)
-         counter_lsb = counter_value & (2**@counter_lsb_bits - 1) # set LSB
+          counter_lsb = counter_value & (2**@counter_lsb_bits - 1) # set LSB
         elsif counter_value < (2**(@counter_lsb_bits + @counter_msb_bits)) * @max_repeat_loop
           # larger value, greater than counter, so add time delay per instance of loop to avoid using second counter
           match_delay_cycles = (counter_value.to_f / (2**(@counter_lsb_bits + @counter_msb_bits))).ceil
@@ -589,7 +589,7 @@ module OrigenTesters
           @unique_counter += 1  # Increment so a different label will be applied if another
         else
           $tester.cycle
-          call_subroutine("keep_alive")
+          call_subroutine('keep_alive')
         end
       end
 
