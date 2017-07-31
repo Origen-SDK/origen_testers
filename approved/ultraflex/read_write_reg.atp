@@ -1,29 +1,32 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    02-Sep-2015 11:39AM
-//   By:      Stephen McGinty
-//   Command: origen g read_write_reg -t debug_ultraflex.rb
+//   Time:    31-Jul-2017 13:15PM
+//   By:      Daniel Hadad
+//   Command: origen g read_write_reg -t dut.rb -e uflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.0
-//     Branch:    master(295ad2cc603)
+//     Version:   0.9.6
+//     Branch:    match2_keepalive_updates(2862c9d5383) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.4.0
+//     Version:   0.7.46
 //   Plugins
+//     atp:                      0.5.4
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.2.0
-//     origen_jtag:              0.12.0
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
 import tset tp0;                                                                                
 import svm_subr executefunc1;                                                                   
 import svm_subr match_pin;                                                                      
 import svm_subr match_2pins;                                                                    
+import svm_subr match_2pins_custom_jump;                                                        
 import svm_subr match_done;                                                                     
 import svm_subr handshake;                                                                      
+import svm_subr keep_alive;                                                                     
 opcode_mode = single;                                                                           
 digital_inst = hsdm;                                                                            
 compressed = yes;                                                                               
@@ -51,55 +54,55 @@ repeat 6                                                         > tp0          
 repeat 2                                                         > tp0                          0 X X 0 ;
 repeat 2                                                         > tp0                          0 X X 1 ;
 repeat 2                                                         > tp0                          0 X X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
                                                                  > tp0                          0 1 X 1 ;
                                                                  > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x1
                                                                  > tp0                          0 1 X 0 ;
 repeat 33                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x1
                                                                  > tp0                          0 0 X 1 ;
 repeat 8                                                         > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xA
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xA
                                                                  > tp0                          0 1 X 1 ;
                                                                  > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x7
 repeat 3                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x7
                                                                  > tp0                          0 0 X 1 ;
 repeat 8                                                         > tp0                          0 0 X 0 ;
 // JTAG-DP: R-32: name='RDBUFF'
 // JTAG-AP: R-32: addr=0x00000000
 repeat 2                                                         > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
                                                                  > tp0                          0 1 X 1 ;
                                                                  > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x118000210
 repeat 4                                                         > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 4                                                         > tp0                          0 0 X 0 ;
@@ -110,13 +113,13 @@ repeat 3                                                         > tp0          
                                                                  > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x118000210
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x00000000, data=0x23000042
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x3D2
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
@@ -125,19 +128,19 @@ repeat 2                                                         > tp0          
 repeat 4                                                         > tp0                          0 1 X 0 ;
 repeat 24                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x3D2
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x00000004, data=0x0000007a
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x7FFFFF81E
                                                                  > tp0                          0 0 X 0 ;
 repeat 4                                                         > tp0                          0 1 X 0 ;
 repeat 6                                                         > tp0                          0 0 X 0 ;
 repeat 23                                                        > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x7FFFFF81E
                                                                  > tp0                          0 1 X 1 ;
 repeat 16                                                        > tp0                          0 1 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
@@ -147,13 +150,13 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 1 X 1 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x7FFFFF81E
                                                                  > tp0                          0 0 X 0 ;
 repeat 4                                                         > tp0                          0 1 X 0 ;
 repeat 6                                                         > tp0                          0 0 X 0 ;
 repeat 23                                                        > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x7FFFFF81E
                                                                  > tp0                          0 1 X 1 ;
 repeat 16                                                        > tp0                          0 1 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
@@ -163,12 +166,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 1 X 1 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -178,12 +181,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -193,12 +196,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -208,12 +211,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -223,12 +226,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -238,12 +241,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -253,12 +256,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -268,12 +271,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -283,12 +286,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -298,12 +301,12 @@ repeat 16                                                        > tp0          
 // ######################################################################
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x6
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
 repeat 31                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x6
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
@@ -324,6 +327,11 @@ call match_pin                                                   > tp0          
 call match_2pins                                                 > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 // ######################################################################
+// ## Call match_2pins custom_jump subroutine
+// ######################################################################
+call match_2pins_custom_jump                                     > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+// ######################################################################
 // ## Call match_done subroutine
 // ######################################################################
 call match_done                                                  > tp0                          0 0 X 0 ;
@@ -332,5 +340,12 @@ call match_done                                                  > tp0          
 // ## Call handshake subroutine
 // ######################################################################
 call handshake                                                   > tp0                          0 0 X 0 ;
+// ######################################################################
+// ## Call keep_alive subroutine
+// ######################################################################
+call keep_alive                                                  > tp0                          0 0 X 0 ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
                                                                  > tp0                          0 0 X 0 ;
 }                                                                                               

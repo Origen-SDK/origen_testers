@@ -1,21 +1,22 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    09-Sep-2015 05:01AM
-//   By:      Stephen McGinty
-//   Command: origen g subroutines -t debug_j750.rb
+//   Time:    31-Jul-2017 13:11PM
+//   By:      Daniel Hadad
+//   Command: origen g subroutines -t dut.rb -e j750.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.1
-//     Branch:    master(a7ea74ed484) (+local edits)
+//     Version:   0.9.6
+//     Branch:    match2_keepalive_updates(2862c9d5383) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.4.0
+//     Version:   0.7.46
 //   Plugins
+//     atp:                      0.5.4
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.2.0
-//     origen_jtag:              0.12.0
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
 import tset tp0;                                                                                
@@ -145,18 +146,18 @@ loopA 1 ign ifc icc                                              > tp0          
  ign ifc icc                                                     > tp0                          0 X X 1 ;
  ign ifc icc                                                     > tp0                          0 X X 0 ;
  ign ifc icc                                                     > tp0                          0 X X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x1
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
@@ -192,7 +193,7 @@ loopA 1 ign ifc icc                                              > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x1
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 7                                                         > tp0                          0 0 X 0 ;
@@ -200,18 +201,18 @@ repeat 7                                                         > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xA
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xA
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x7
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -247,7 +248,7 @@ repeat 7                                                         > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x7
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 7                                                         > tp0                          0 0 X 0 ;
@@ -257,18 +258,18 @@ repeat 7                                                         > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 1 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x118000210
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
@@ -304,7 +305,7 @@ repeat 7                                                         > tp0          
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x118000210
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -312,7 +313,7 @@ repeat 15                                                        > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x3D2
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
@@ -348,7 +349,7 @@ repeat 15                                                        > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x3D2
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -356,7 +357,7 @@ repeat 15                                                        > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -392,7 +393,7 @@ repeat 15                                                        > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -410,14 +411,14 @@ end_loopB match_outer_loop_5 icc                                 > tp0          
 // To get here something has gone wrong, check block again to force a pattern failure
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
@@ -448,7 +449,7 @@ loopA 1283 ign ifc icc                                           > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -484,7 +485,7 @@ loopA 1283 ign ifc icc                                           > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -502,14 +503,14 @@ end_loopB match_outer_loop_7 icc                                 > tp0          
 // To get here something has gone wrong, check block again to force a pattern failure
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
@@ -540,7 +541,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -576,7 +577,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -594,14 +595,14 @@ end_loopB match_outer_loop_9 icc                                 > tp0          
 // To get here something has gone wrong, check block again to force a pattern failure
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
@@ -632,7 +633,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -668,7 +669,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -686,14 +687,14 @@ end_loopB match_outer_loop_11 icc                                > tp0          
 // To get here something has gone wrong, check block again to force a pattern failure
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
@@ -724,7 +725,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
  ign ifc icc                                                     > tp0                          0 1 X 0 ;
@@ -760,7 +761,7 @@ loopA 65535 ign ifc icc                                          > tp0          
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  ign ifc icc                                                     > tp0                          0 0 X 1 ;
  ign ifc icc                                                     > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -778,14 +779,14 @@ end_loopB match_outer_loop_13 icc                                > tp0          
 // To get here something has gone wrong, check block again to force a pattern failure
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
@@ -864,10 +865,68 @@ match_loop_end_15:
 clr_fail                                                         > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
-global subr handshake:                                                                          
+global subr match_2pins_custom_jump:                                                            
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 5.0us
 set_code 100                                                     > tp0                          0 0 X 0 ;
-set_cpu (cpuA)                                                   > tp0                          0 0 X 0 ;
-loop_here_16: if (cpuA) jump loop_here_16                        > tp0                          0 0 X 0 ;
-repeat 2                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+enable (cpuB)                                                    > tp0                          0 0 X 0 ;
+set_cpu (cpuA cpuB)                                              > tp0                          0 0 X 0 ;
+loop_here_16: if (flag) jump loop_here_16                        > tp0                          0 0 X 0 ;
+// Start the match loop
+global match_outer_loop_17:                                                                     
+loopB 1 ign ifc icc                                              > tp0                          0 0 X 0 ;
+global match_inner_loop_17:                                                                     
+loopA 2 ign ifc icc                                              > tp0                          0 0 X 0 ;
+// Check if tdo is high
+ ign ifc icc                                                     > tp0                          0 0 H 0 ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          0 0 X 0 ;
+// Branch if block condition 0 met
+if (pass) jump block_0_matched_17 icc ifc                        > tp0                          0 0 X 0 ;
+clr_flag (fail) icc                                              > tp0                          0 0 X 0 ;
+// Check if tms is high
+ ign ifc icc                                                     > tp0                          0 0 L H ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1 ign ifc icc                                         > tp0                          0 0 X X ;
+// Branch if block condition 1 met
+if (pass) jump block_1_matched_17 icc ifc                        > tp0                          0 0 X X ;
+clr_flag (fail) icc                                              > tp0                          0 0 X X ;
+// Match loop cycle count = 74
+// Loop back around if time remaining
+end_loopA match_inner_loop_17 icc                                > tp0                          0 0 X X ;
+end_loopB match_outer_loop_17 icc                                > tp0                          0 0 X X ;
+// To get here something has gone wrong, check block again to force a pattern failure
+// Check if tdo is high
+// Check if tms is high
+                                                                 > tp0                          0 0 H H ;
+jump no_fails_found icc                                          > tp0                          0 0 X X ;
+block_0_matched_17:                                                                             
+pop_loop icc                                                     > tp0                          0 0 X X ;
+clr_fail                                                         > tp0                          0 0 X X ;
+jump no_fails_found                                              > tp0                          0 0 X X ;
+block_1_matched_17:                                                                             
+pop_loop icc                                                     > tp0                          0 0 X X ;
+clr_fail                                                         > tp0                          0 0 X X ;
+match_loop_end_17:                                                                              
+clr_fail                                                         > tp0                          0 0 X X ;
+                                                                 > tp0                          0 0 X X ;
+set_code 200                                                     > tp0                          0 0 X X ;
+jump match_done                                                  > tp0                          0 0 X X ;
+no_fails_found:                                                                                 
+set_code 201                                                     > tp0                          0 0 X X ;
+match_done:                                                                                     
+return                                                           > tp0                          0 0 X X ;
+                                                                 > tp0                          0 0 X X ;
+global subr handshake:                                                                          
+set_code 100                                                     > tp0                          0 0 X X ;
+set_cpu (cpuA)                                                   > tp0                          0 0 X X ;
+loop_here_18: if (cpuA) jump loop_here_18                        > tp0                          0 0 X X ;
+repeat 2                                                         > tp0                          0 0 X X ;
+return                                                           > tp0                          0 0 X X ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
 }                                                                                               
