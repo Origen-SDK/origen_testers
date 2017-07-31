@@ -259,6 +259,10 @@ module OrigenTesters
         @unique_counter += 1  # Increment so a different label will be applied if another
         # handshake is called in the same pattern
       end
+
+      def keep_alive
+        $tester.cycle microcode: "#{@microcode[:keepalive]}"
+      end
     end
   end
   J750 = IGXLBasedTester::J750

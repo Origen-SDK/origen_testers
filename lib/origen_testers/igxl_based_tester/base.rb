@@ -331,7 +331,11 @@ module OrigenTesters
       #     $tester.end_subroutine
       def start_subroutine(name, options = {})
         local_subroutines << name.to_s.chomp unless local_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
-        microcode "global subr #{name}:"
+        if $tester.ultraflex? && name =~ /keep_?alive/
+          microcode "keepalive subr #{name}:"
+        else
+          microcode "global subr #{name}:"
+        end
       end
 
       # End a subroutine.
@@ -727,7 +731,7 @@ module OrigenTesters
         $tester.align_to_last
         # cycle(:microcode => "#{$dut.end_of_pattern_label}:") if $dut.end_of_pattern_label
         if options[:end_in_ka]
-          $tester.cycle microcode: "#{@microcode[:keepalive]}"
+          keep_alive(options)
         else
           if options[:end_with_halt]
             $tester.cycle microcode: 'halt'
