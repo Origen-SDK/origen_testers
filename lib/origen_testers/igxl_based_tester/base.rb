@@ -331,7 +331,7 @@ module OrigenTesters
       #     $tester.end_subroutine
       def start_subroutine(name, options = {})
         local_subroutines << name.to_s.chomp unless local_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
-        if $tester.ultraflex? && name =~ /keep_?alive/
+        if $tester.ultraflex? && (name =~ /keep_?alive/ || options[:keep_alive])
           microcode "keepalive subr #{name}:"
         else
           microcode "global subr #{name}:"
