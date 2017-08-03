@@ -1,22 +1,22 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    24-May-2016 13:17PM
-//   By:      Kumar Priyavadan-B21094
-//   Command: origen g subroutines -t debug_ultraflex.rb
+//   Time:    31-Jul-2017 13:15PM
+//   By:      Daniel Hadad
+//   Command: origen g subroutines -t dut.rb -e uflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.7.0
-//     Branch:    feature/uf_updates(7928fb83ba4)
+//     Version:   0.9.6
+//     Branch:    match2_keepalive_updates(2862c9d5383) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.7.0
+//     Version:   0.7.46
 //   Plugins
-//     atp:                      0.4.1
+//     atp:                      0.5.4
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.3.0
-//     origen_jtag:              0.12.0
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
 //     origen_swd:               0.5.0
 // ***************************************************************************
 import tset tp0;                                                                                
@@ -70,7 +70,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_1                   > tp0                          X X X X ;
 // Match found
 pop_loop                                                         > tp0                          X X X X ;
-return                                                           > tp0                          X X X X ;
+jump match_loop_end_1                                            > tp0                          X X X X ;
 // Match not yet found
 block_0_notyet_matched_1:                                        > tp0                          X X X X ;
 // Match loop cycle count = 260
@@ -79,6 +79,8 @@ end_loop match_result_loop_1                                     > tp0          
 pipe_minus 1                                                     > tp0                          X X X X ;
 // Check if tdo is high
                                                                  > tp0                          X X H X ;
+jump match_loop_end_1                                            > tp0                          X X X X ;
+match_loop_end_1:                                                > tp0                          X X X X ;
 return                                                           > tp0                          X X X X ;
                                                                  > tp0                          X X X X ;
 global subr match_2pins:                                                                        
@@ -109,7 +111,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_3                   > tp0                          X X X X ;
 // Match found
 pop_loop                                                         > tp0                          X X X X ;
-return                                                           > tp0                          X X X X ;
+jump match_loop_end_3                                            > tp0                          X X X X ;
 // Match not yet found
 block_0_notyet_matched_3:                                        > tp0                          X X X X ;
 // Check if tms is high
@@ -120,7 +122,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_1_notyet_matched_3                   > tp0                          X X X X ;
 // Match found
 pop_loop                                                         > tp0                          X X X X ;
-return                                                           > tp0                          X X X X ;
+jump match_loop_end_3                                            > tp0                          X X X X ;
 // Match not yet found
 block_1_notyet_matched_3:                                        > tp0                          X X X X ;
 // Match loop cycle count = 520
@@ -130,6 +132,8 @@ pipe_minus 1                                                     > tp0          
 // Check if tdo is high
 // Check if tms is high
                                                                  > tp0                          X X H H ;
+jump match_loop_end_3                                            > tp0                          X X X X ;
+match_loop_end_3:                                                > tp0                          X X X X ;
 return                                                           > tp0                          X X X X ;
                                                                  > tp0                          X X X X ;
 global subr match_done:                                                                         
@@ -164,18 +168,18 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 X X 1 ;
  mask                                                            > tp0                          0 X X 0 ;
  mask                                                            > tp0                          0 X X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x1
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -211,7 +215,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x1
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 7                                                         > tp0                          0 0 X 0 ;
@@ -219,18 +223,18 @@ repeat 7                                                         > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xA
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xA
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x7
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -266,7 +270,7 @@ repeat 7                                                         > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x7
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 7                                                         > tp0                          0 0 X 0 ;
@@ -276,18 +280,18 @@ repeat 7                                                         > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write IR: 0xB
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write IR: 0xB
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 1 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x118000210
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -323,7 +327,7 @@ repeat 7                                                         > tp0          
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x118000210
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -331,7 +335,7 @@ repeat 15                                                        > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x3D2
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
@@ -367,7 +371,7 @@ repeat 15                                                        > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x3D2
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -375,7 +379,7 @@ repeat 15                                                        > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -411,7 +415,7 @@ repeat 15                                                        > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -423,7 +427,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_5                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_5                                            > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_5:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 556
@@ -432,18 +436,20 @@ end_loop match_result_loop_5                                     > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
 // MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000002
+jump match_loop_end_5                                            > tp0                          0 0 X 0 ;
+match_loop_end_5:                                                > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr match_done2:                                                                        
@@ -469,7 +475,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -505,7 +511,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -517,7 +523,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_7                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_7                                            > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_7:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
@@ -526,18 +532,20 @@ end_loop match_result_loop_7                                     > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
 // MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000002
+jump match_loop_end_7                                            > tp0                          0 0 X 0 ;
+match_loop_end_7:                                                > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr match_done3:                                                                        
@@ -563,7 +571,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -599,7 +607,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -611,7 +619,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_9                   > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_9                                            > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_9:                                        > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
@@ -620,18 +628,20 @@ end_loop match_result_loop_9                                     > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
 // MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000002
+jump match_loop_end_9                                            > tp0                          0 0 X 0 ;
+match_loop_end_9:                                                > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr match_done4:                                                                        
@@ -657,7 +667,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -693,7 +703,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -705,7 +715,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_11                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_11                                           > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_11:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
@@ -714,18 +724,20 @@ end_loop match_result_loop_11                                    > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
 // MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000002
+jump match_loop_end_11                                           > tp0                          0 0 X 0 ;
+match_loop_end_11:                                               > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr match_done5:                                                                        
@@ -751,7 +763,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
  mask                                                            > tp0                          0 1 X 0 ;
@@ -787,7 +799,7 @@ loop c0                                                          > tp0          
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 0 ;
  mask                                                            > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
  mask                                                            > tp0                          0 0 X 1 ;
  mask                                                            > tp0                          0 0 X 0 ;
 repeat 15                                                        > tp0                          0 0 X 0 ;
@@ -799,7 +811,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_13                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_13                                           > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_13:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 314
@@ -810,18 +822,20 @@ end_loop match_result_loop_13                                    > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
 repeat 2                                                         > tp0                          0 0 X 0 ;
-// JTAG::TAPController - **** Data start ****
+// [JTAG] Write DR: 0x16
                                                                  > tp0                          0 0 X 0 ;
 repeat 2                                                         > tp0                          0 1 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 1 X 0 ;
 repeat 29                                                        > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 1 ;
-// JTAG::TAPController - **** Data stop ****
+// [JTAG] /Write DR: 0x16
                                                                  > tp0                          0 0 X 1 ;
 repeat 16                                                        > tp0                          0 0 X 0 ;
 // JTAG-AP: W-32: addr=0x0000000c, data=0x00000002
 // MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000002
+jump match_loop_end_13                                           > tp0                          0 0 X 0 ;
+match_loop_end_13:                                               > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
 global subr match_done6:                                                                        
@@ -908,7 +922,7 @@ pipe_minus 1                                                     > tp0          
 if (branch_expr) jump block_0_notyet_matched_15                  > tp0                          0 0 X 0 ;
 // Match found
 pop_loop                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+jump match_loop_end_15                                           > tp0                          0 0 X 0 ;
 // Match not yet found
 block_0_notyet_matched_15:                                       > tp0                          0 0 X 0 ;
 // Match loop cycle count = 260
@@ -917,21 +931,88 @@ end_loop match_result_loop_15                                    > tp0          
 pipe_minus 1                                                     > tp0                          0 0 X 0 ;
 // Check if tdo is high
                                                                  > tp0                          0 0 H 0 ;
+jump match_loop_end_15                                           > tp0                          0 0 X 0 ;
+match_loop_end_15:                                               > tp0                          0 0 X 0 ;
 return                                                           > tp0                          0 0 X 0 ;
                                                                  > tp0                          0 0 X 0 ;
-global subr handshake:                                                                          
+global subr match_2pins_custom_jump:                                                            
+                                                                 > tp0                          0 0 X 0 ;
+// Wait for a maximum of 5.0us
 //  Using counter c15 as set_code replacement - value set to 100 + 1
 set_msb 1                                                                                       
                                                                  > tp0                          0 0 X 0 ;
 set c15 101                                                      > tp0                          0 0 X 0 ;
-branch_expr = (cpuA_cond)                                        > tp0                          0 0 X 0 ;
-set_cpu_cond (cpuA_cond)                                         > tp0                          0 0 X 0 ;
+// Wait for any prior failures to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Now handshake with the tester to bin out and parts that have failed before they got here
+branch_expr = (cpuB_cond)                                        > tp0                          0 0 X 0 ;
+set_cpu_cond (cpuA_cond cpuB_cond)                               > tp0                          0 0 X 0 ;
 loop_here_16: if (branch_expr) jump loop_here_16                 > tp0                          0 0 X 0 ;
-repeat 2                                                         > tp0                          0 0 X 0 ;
-return                                                           > tp0                          0 0 X 0 ;
+// Start the match loop
+set_msb 1                                                        > tp0                          0 0 X 0 ;
+branch_expr = (fail)                                             > tp0                          0 0 X 0 ;
+global match_loop_17:                                                                           
+set c0 1                                                         > tp0                          0 0 X 0 ;
+match_result_loop_17:                                                                           
+loop c0                                                          > tp0                          0 0 X 0 ;
+// Check if tdo is high
+ mask                                                            > tp0                          0 0 H 0 ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X 0 ;
+// Branch if block condition 0 not yet met
+if (branch_expr) jump block_0_notyet_matched_17                  > tp0                          0 0 X 0 ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X 0 ;
+jump no_fails_found                                              > tp0                          0 0 X 0 ;
+// Match not yet found
+block_0_notyet_matched_17:                                       > tp0                          0 0 X 0 ;
+// Check if tms is high
+ mask                                                            > tp0                          0 0 L H ;
+//  Wait for the result to propagate through the pipeline
+pipe_minus 1                                                     > tp0                          0 0 X X ;
+// Branch if block condition 1 not yet met
+if (branch_expr) jump block_1_notyet_matched_17                  > tp0                          0 0 X X ;
+// Match found
+pop_loop                                                         > tp0                          0 0 X X ;
+jump match_loop_end_17                                           > tp0                          0 0 X X ;
+// Match not yet found
+block_1_notyet_matched_17:                                       > tp0                          0 0 X X ;
+// Match loop cycle count = 520
+end_loop match_result_loop_17                                    > tp0                          0 0 X X ;
+// To get here something has gone wrong, check blocks again to force a pattern failure
+pipe_minus 1                                                     > tp0                          0 0 X X ;
+// Check if tdo is high
+// Check if tms is high
+                                                                 > tp0                          0 0 H H ;
+jump no_fails_found                                              > tp0                          0 0 X X ;
+match_loop_end_17:                                               > tp0                          0 0 X X ;
+                                                                 > tp0                          0 0 X X ;
+//  Using counter c15 as set_code replacement - value set to 200 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X X ;
+set c15 201                                                      > tp0                          0 0 X X ;
+jump match_done                                                  > tp0                          0 0 X X ;
+no_fails_found:                                                                                 
+//  Using counter c15 as set_code replacement - value set to 201 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X X ;
+set c15 202                                                      > tp0                          0 0 X X ;
+match_done:                                                                                     
+return                                                           > tp0                          0 0 X X ;
+                                                                 > tp0                          0 0 X X ;
+global subr handshake:                                                                          
+//  Using counter c15 as set_code replacement - value set to 100 + 1
+set_msb 1                                                                                       
+                                                                 > tp0                          0 0 X X ;
+set c15 101                                                      > tp0                          0 0 X X ;
+branch_expr = (cpuA_cond)                                        > tp0                          0 0 X X ;
+set_cpu_cond (cpuA_cond)                                         > tp0                          0 0 X X ;
+loop_here_18: if (branch_expr) jump loop_here_18                 > tp0                          0 0 X X ;
+repeat 2                                                         > tp0                          0 0 X X ;
+return                                                           > tp0                          0 0 X X ;
 global subr digsrc_overlay_testme32:                                                            
 ((tdi,tms):DigSrc = Start)                                                                      
-repeat 145                                                       > tp0                          0 0 X 0 ;
+repeat 145                                                       > tp0                          0 0 X X ;
 ((tdi,tms):DigSrc = SEND)                                                                       
                                                                  > tp0                          0 D X D ;
 ((tdi,tms):DigSrc = SEND)                                                                       
@@ -949,10 +1030,10 @@ repeat 145                                                       > tp0          
 ((tdi,tms):DigSrc = SEND)                                                                       
                                                                  > tp0                          0 D X D ;
 ((tdi,tms):DigSrc = Stop)                                                                       
-return                                                           > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
 global subr digsrc_overlay:                                                                     
 ((tdi,tms):DigSrc = Start)                                                                      
-repeat 145                                                       > tp0                          0 0 X 0 ;
+repeat 145                                                       > tp0                          0 0 X 1 ;
 ((tdi,tms):DigSrc = SEND)                                                                       
                                                                  > tp0                          0 D X D ;
 ((tdi,tms):DigSrc = SEND)                                                                       
@@ -1082,32 +1163,38 @@ repeat 145                                                       > tp0          
 ((tdi,tms):DigSrc = SEND)                                                                       
                                                                  > tp0                          0 D X D ;
 ((tdi,tms):DigSrc = Stop)                                                                       
-return                                                           > tp0                          0 0 X 0 ;
-                                                                 > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
+keepalive subr keep_alive:                                                                      
+clr_subr                                                         > tp0                          0 0 X 1 ;
+branch_expr = (cpuD_cond)                                        > tp0                          0 0 X 1 ;
+set_cpu_cond (cpuD_cond)                                         > tp0                          0 0 X 1 ;
+loop_here_19: if (branch_expr) jump loop_here_19                 > tp0                          0 0 X 1 ;
+return                                                           > tp0                          0 0 X 1 ;
+                                                                 > tp0                          0 0 X 1 ;
 }                                                                                               
 srm_vector                                                                                      
 overlaysub1_module ($tset, tclk, tdi, tdo, tms)                                                 
 {                                                                                               
 global subr overlaysub1:                                                                        
-return                                                           > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
 }                                                                                               
 srm_vector                                                                                      
 overlaysub2_module ($tset, tclk, tdi, tdo, tms)                                                 
 {                                                                                               
 global subr overlaysub2:                                                                        
-return                                                           > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
 }                                                                                               
 srm_vector                                                                                      
 overlaysub3_module ($tset, tclk, tdi, tdo, tms)                                                 
 {                                                                                               
 global subr overlaysub3:                                                                        
-return                                                           > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
 }                                                                                               
 srm_vector                                                                                      
 overlaysub4_module ($tset, tclk, tdi, tdo, tms)                                                 
 {                                                                                               
 global subr overlaysub4:                                                                        
-return                                                           > tp0                          0 0 X 0 ;
+return                                                           > tp0                          0 0 X 1 ;
 }                                                                                               
 // ######################################################################
 // ## Pattern complete
