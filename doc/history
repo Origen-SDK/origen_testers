@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_9_7"></a>
+<h1><a href="#v0_9_7">Tag: v0.9.7</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 03-Aug-2017 13:15PM
+
+
+Added capability for UltraFLEX to support pattern keep alive using keep\_alive subroutine.
+Updated 2pin match capability to support custom jump label usage.
+
 <a class="anchor release_tag" name="v0_9_6"></a>
 <h1><a href="#v0_9_6">Tag: v0.9.6</a></h1>
 
