@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_9_8"></a>
+<h1><a href="#v0_9_8">Tag: v0.9.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 04-Aug-2017 12:09PM
+
+
+Added bitmap testcase for keep\_alive capability.  Fixed type on J750 side.
+
 <a class="anchor release_tag" name="v0_9_7"></a>
 <h1><a href="#v0_9_7">Tag: v0.9.7</a></h1>
 
