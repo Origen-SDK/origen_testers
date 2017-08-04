@@ -260,7 +260,7 @@ module OrigenTesters
         # handshake is called in the same pattern
       end
 
-      def keep_alive
+      def keep_alive(options = {})
         $tester.cycle microcode: "#{@microcode[:keepalive]}"
       end
     end
