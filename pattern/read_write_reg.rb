@@ -58,10 +58,4 @@ Pattern.create do
   ss 'Call handshake subroutine'
   $dut.handshake
 
-  # UltraFlex call a keep alive as a subroutine
-  if $tester.ultraflex?
-    ss 'Call keep_alive subroutine'
-    $dut.keep_alive
-  end
-
 end

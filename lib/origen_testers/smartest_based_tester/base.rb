@@ -366,6 +366,13 @@ module OrigenTesters
 
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
+        options = {
+          end_in_ka:      false
+        }.merge(options)
+        if options[:end_in_ka]
+          Origen.log.warning '93K keep alive not yet implemented!'
+          ss 'WARNING: 93K keep alive not yet implemented!'
+        end
         microcode 'SQPG STOP;' unless options[:subroutine]
       end
 

@@ -1,14 +1,14 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    31-Jul-2017 13:15PM
+//   Time:    04-Aug-2017 11:59AM
 //   By:      Daniel Hadad
 //   Command: origen g read_write_reg -t dut.rb -e uflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.9.6
-//     Branch:    match2_keepalive_updates(2862c9d5383) (+local edits)
+//     Version:   0.9.7
+//     Branch:    master(fd9c65f5000) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.7.46
@@ -26,7 +26,6 @@ import svm_subr match_2pins;
 import svm_subr match_2pins_custom_jump;                                                        
 import svm_subr match_done;                                                                     
 import svm_subr handshake;                                                                      
-import svm_subr keep_alive;                                                                     
 opcode_mode = single;                                                                           
 digital_inst = hsdm;                                                                            
 compressed = yes;                                                                               
@@ -340,10 +339,6 @@ call match_done                                                  > tp0          
 // ## Call handshake subroutine
 // ######################################################################
 call handshake                                                   > tp0                          0 0 X 0 ;
-// ######################################################################
-// ## Call keep_alive subroutine
-// ######################################################################
-call keep_alive                                                  > tp0                          0 0 X 0 ;
 // ######################################################################
 // ## Pattern complete
 // ######################################################################

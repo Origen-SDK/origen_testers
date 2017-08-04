@@ -1,0 +1,146 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    04-Aug-2017 11:50AM
+//   By:      Daniel Hadad
+//   Command: origen g bitmap -t dut.rb -e uflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.7
+//     Branch:    master(fd9c65f5000) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.46
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+import svm_subr keep_alive;                                                                     
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
+               mto;                                                                             
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+bitmap ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label bitmap_st:                                                                          
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+// ######################################################################
+// ## Dummy write reg
+// ######################################################################
+repeat 6                                                         > tp0                          0 X X 1 ;
+repeat 2                                                         > tp0                          0 X X 0 ;
+repeat 2                                                         > tp0                          0 X X 1 ;
+repeat 2                                                         > tp0                          0 X X 0 ;
+// [JTAG] Write IR: 0xB
+repeat 2                                                         > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// [JTAG] /Write IR: 0xB
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// [JTAG] Write DR: 0x1
+                                                                 > tp0                          0 1 X 0 ;
+repeat 33                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// [JTAG] /Write DR: 0x1
+                                                                 > tp0                          0 0 X 1 ;
+repeat 8                                                         > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// [JTAG] Write IR: 0xA
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// [JTAG] /Write IR: 0xA
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// [JTAG] Write DR: 0x7
+repeat 3                                                         > tp0                          0 1 X 0 ;
+repeat 31                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// [JTAG] /Write DR: 0x7
+                                                                 > tp0                          0 0 X 1 ;
+repeat 8                                                         > tp0                          0 0 X 0 ;
+// JTAG-DP: R-32: name='RDBUFF'
+// JTAG-AP: R-32: addr=0x00000000
+repeat 2                                                         > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// [JTAG] Write IR: 0xB
+repeat 2                                                         > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// [JTAG] /Write IR: 0xB
+                                                                 > tp0                          0 1 X 1 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+// [JTAG] Write DR: 0x118000210
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 4                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 17                                                        > tp0                          0 0 X 0 ;
+repeat 2                                                         > tp0                          0 1 X 0 ;
+repeat 3                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// [JTAG] /Write DR: 0x118000210
+                                                                 > tp0                          0 0 X 1 ;
+repeat 16                                                        > tp0                          0 0 X 0 ;
+// JTAG-AP: W-32: addr=0x00000000, data=0x23000042
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// [JTAG] Write DR: 0x3D2
+                                                                 > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 24                                                        > tp0                          0 0 X 0 ;
+                                                                 > tp0                          0 0 X 1 ;
+// [JTAG] /Write DR: 0x3D2
+                                                                 > tp0                          0 0 X 1 ;
+repeat 16                                                        > tp0                          0 0 X 0 ;
+// JTAG-AP: W-32: addr=0x00000004, data=0x0000007a
+                                                                 > tp0                          0 0 X 1 ;
+repeat 2                                                         > tp0                          0 0 X 0 ;
+// [JTAG] Write DR: 0x7FFFFF81E
+                                                                 > tp0                          0 0 X 0 ;
+repeat 4                                                         > tp0                          0 1 X 0 ;
+repeat 6                                                         > tp0                          0 0 X 0 ;
+repeat 23                                                        > tp0                          0 1 X 0 ;
+                                                                 > tp0                          0 1 X 1 ;
+// [JTAG] /Write DR: 0x7FFFFF81E
+                                                                 > tp0                          0 1 X 1 ;
+repeat 16                                                        > tp0                          0 1 X 0 ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+call keep_alive                                                  > tp0                          0 1 X 0 ;
+}                                                                                               
