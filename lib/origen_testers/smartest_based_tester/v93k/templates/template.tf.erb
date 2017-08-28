@@ -175,16 +175,15 @@ test_flow
 <%= line %>
 %   end
 % else
-{
-  {
-%   set_runtime_variables.each do |var|
-    @<%= var.to_s.upcase %> = -1;
+%   flow_header.each do |line|
+<%= line %>
 %   end
-  }, open,"Init Flow Control Vars", ""
 %   lines.each do |line|
-  <%= line %>
+<%= line %>
 %   end
-}, open,"<%= filename.sub(/\..*/, '').upcase %>", ""
+%   flow_footer.each do |line|
+<%= line %>
+%   end
 % end
 end
 -------------------------------------------------
