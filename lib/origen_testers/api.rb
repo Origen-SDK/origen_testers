@@ -283,5 +283,10 @@ module OrigenTesters
         clock_pin.update_clock
       end
     end
+
+    def transaction
+      yield
+      true
+    end
   end
 end
