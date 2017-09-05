@@ -536,7 +536,22 @@ module OrigenTesters
           cycle(microcode: "if (branch_expr) jump block_#{i}_notyet_matched_#{@unique_counter}")
           cc 'Match found'
           cycle(microcode: 'pop_loop')
-          cycle(microcode: 'return') # DH ONLY IF SUBROUTINE!!
+          if options[:on_block_match_goto]
+            if options[:on_block_match_goto].is_a?(Hash)
+              if options[:on_block_match_goto][i]
+                custom_jump = options[:on_block_match_goto][i]
+              else
+                custom_jump = nil
+              end
+            else
+              custom_jump = options[:on_block_match_goto]
+            end
+          end
+          if custom_jump
+            cycle(microcode: "jump #{custom_jump}")
+          else
+            cycle(microcode: "jump match_loop_end_#{@unique_counter}")
+          end
           cc 'Match not yet found'
           cycle(microcode: "block_#{i}_notyet_matched_#{@unique_counter}:")
         end
@@ -588,6 +603,12 @@ module OrigenTesters
             condition.call
           end
         end
+        if options[:on_timeout_goto]
+          cycle(microcode: "jump #{options[:on_timeout_goto]}")
+        else
+          cycle(microcode: "jump match_loop_end_#{@unique_counter}")
+        end
+        cycle(microcode: "match_loop_end_#{@unique_counter}:")
 
         @unique_counter += 1  # Increment so a different label will be applied if another
         # handshake is called in the same pattern
@@ -620,6 +641,20 @@ module OrigenTesters
 
         @unique_counter += 1  # Increment so a different label will be applied if another
         # handshake is called in the same pattern
+      end
+
+      def keep_alive(options = {})
+        if options[:subroutine_pat]
+          cycle(microcode: 'clr_subr')
+          cycle(microcode: "#{@microcode[:enable]} (#{@flags[3]})")
+          cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[3]})")
+          cycle(microcode: "loop_here_#{@unique_counter}: if (branch_expr) jump loop_here_#{@unique_counter}")
+          cycle
+          @unique_counter += 1  # Increment so a different label will be applied if another
+        else
+          $tester.cycle
+          call_subroutine('keep_alive')
+        end
       end
 
       # Capture a vector to the tester HRAM.

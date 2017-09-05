@@ -49,6 +49,9 @@ Pattern.create do
   ss 'Call match_2pins subroutine'
   $dut.match(:type => :match_2pins)
 
+  ss 'Call match_2pins custom_jump subroutine'
+  $dut.match(:type => :match_2pins_custom_jump)
+
   ss 'Call match_done subroutine'
   $dut.match(:type => :match_done)
 

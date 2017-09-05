@@ -2,6 +2,9 @@
 # a single source file
 Flow.create interface: 'OrigenTesters::Test::Interface' do
 
+  # Test that this can be overridden from the target at flow-level
+  self.add_flow_enable = :enabled
+
   self.resources_filename = 'prb2'
 
   func :erase_all, :duration => :dynamic

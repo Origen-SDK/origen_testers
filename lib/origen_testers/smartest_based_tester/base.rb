@@ -8,10 +8,16 @@ module OrigenTesters
       # Disable inline (end of vector) comments, enabled by default
       attr_accessor :inline_comments
 
-      # Returns a new J750 instance, normally there would only ever be one of these
-      # assigned to the global variable such as $tester by your target:
-      #   $tester = J750.new
-      def initialize
+      # Returns whether the tester has been configured to wrap top-level flow modules with an
+      # enable or not.
+      #
+      # Returns nil if not.
+      #
+      # Returns :enabled if the enable is configured to be on by default, or :disabled if it is
+      # configured to be off by default.
+      attr_reader :add_flow_enable
+
+      def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
         @pat_extension = 'avc'
@@ -27,6 +33,27 @@ module OrigenTesters
         @source_memory_config = {}
         @capture_memory_config = {}
         @overlay_subr = nil
+
+        if options[:add_flow_enable]
+          self.add_flow_enable = options[:add_flow_enable]
+        end
+      end
+
+      # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable
+      # that is enabled by default (top-level flow has to disable modules it doesn't want).
+      #
+      # Set to :disabled to have the opposite, where the top-level flow has to enable all
+      # modules.
+      #
+      # Note that the interface can override this setting for each flow during program generation.
+      def add_flow_enable=(value)
+        if value == :enable || value == :enabled
+          @add_flow_enable = :enabled
+        elsif value == :disable || value == :disabled
+          @add_flow_enable = :disabled
+        else
+          fail "Unknown add_flow_enable value, #{value}, must be :enabled or :disabled"
+        end
       end
 
       def cycle(options = {})
@@ -439,6 +466,13 @@ module OrigenTesters
 
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
+        options = {
+          end_in_ka:      false
+        }.merge(options)
+        if options[:end_in_ka]
+          Origen.log.warning '93K keep alive not yet implemented!'
+          ss 'WARNING: 93K keep alive not yet implemented!'
+        end
         microcode 'SQPG STOP;' unless options[:subroutine]
       end
 
