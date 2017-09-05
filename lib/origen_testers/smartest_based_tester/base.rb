@@ -3,8 +3,6 @@ module OrigenTesters
     class Base
       include VectorBasedTester
 
-      attr_reader :capture_style, :overlay_style
-
       # Disable inline (end of vector) comments, enabled by default
       attr_accessor :inline_comments
 
@@ -30,8 +28,6 @@ module OrigenTesters
         @inline_comments = true
         @overlay_style = :subroutine		# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
-        @source_memory_config = {}
-        @capture_memory_config = {}
         @overlay_subr = nil
 
         if options[:add_flow_enable]
@@ -560,88 +556,6 @@ module OrigenTesters
 
       def before_timeset_change(options = {})
         microcode "SQPG CTIM #{options[:new].name};" unless level_period?
-      end
-
-      # Set the overlay style
-      #
-      # This method changes the way overlay is handled.
-      # The default value is :subroutine
-      #
-      # @example
-      #   tester.overlay_style = :label
-      def overlay_style=(val)
-        @overlay_style = val
-      end
-
-      # Set the capture style
-      #
-      # This method changes the way tester.store() implements the store
-      # The default value is :hram
-      #
-      # @example
-      #   tester.capture_style = :hram
-      def capture_style=(val)
-        @capture_style = val
-      end
-
-      # Configure source memory to a non-default setting
-      #
-      # This method changes the way the instruments statement gets rendered
-      # if the tester's source memory is used.
-      #
-      # @example
-      #   tester.source_memory :default do |mem|
-      #     mem.pin :tdi, size: 32, format: :long
-      #   end
-      #
-      # If called without a block, this method will return
-      # the instance of type OrigenTesters::MemoryStyle for
-      # the corresponding memory type
-      #
-      # @example
-      #   mem_style = tester.source_memory(:default)
-      #   mem_style.contained_pins.each do |pin|
-      #     attributes_hash = mem_style.accumulate_attributes(pin)
-      #
-      #   end
-      def source_memory(type = :default)
-        type = :subroutine if type == :default
-        @source_memory_config[type] = OrigenTesters::MemoryStyle.new unless @source_memory_config.key?(type)
-        if block_given?
-          yield @source_memory_config[type]
-        else
-          @source_memory_config[type]
-        end
-      end
-
-      # Configure capture memory to a non-default setting
-      #
-      # This method changes the way the instruments statement gets rendered
-      # if the tester's capture memory is used.
-      #
-      # @example
-      #   tester.capture_memory :default do |mem|
-      #     mem.pin :tdo, size: 32, format: :long
-      #   end
-      #
-      # If called without a block, this method will return
-      # the instance of type OrigenTesters::MemoryStyle for
-      # the corresponding memory type
-      #
-      # @example
-      #   mem_style = tester.capture_memory(:default)
-      #   if mem_style.contains_pin?(:tdo)
-      #     attributes_hash = mem_style.accumulate_attributes(:tdo)
-      #
-      #   end
-      def capture_memory(type = :default)
-        type = :hram if type == :default
-        @capture_memory_config[type] = OrigenTesters::MemoryStyle.new unless @capture_memory_config.key?(type)
-        if block_given?
-          yield @capture_memory_config[type]
-        else
-          @capture_memory_config[type]
-        end
       end
     end
   end
