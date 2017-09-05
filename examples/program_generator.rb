@@ -10,9 +10,9 @@
 end
 
 # Tests of the V93K flow enable/disable options
-ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut", "-e", "v93k_enable_flows.rb", "-r", "approved/v93k_enable_flow",
+ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut.rb", "-e", "v93k_enable_flows.rb", "-r", "approved/v93k_enable_flow",
         "-o", "#{Origen.root}/output/v93k_enable_flow"]
 load 'origen/commands/program.rb'
-ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut", "-e", "v93k_disable_flows.rb", "-r", "approved/v93k_disable_flow",
+ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut.rb", "-e", "v93k_disable_flows.rb", "-r", "approved/v93k_disable_flow",
         "-o", "#{Origen.root}/output/v93k_disable_flow"]
 load 'origen/commands/program.rb'
