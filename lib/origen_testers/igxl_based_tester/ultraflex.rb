@@ -45,6 +45,10 @@ module OrigenTesters
 
         @onemodsubs_found = false           # flag to indicate whether a single-module subroutine has been implemented in this pattern
         @nonmodsubs_found = false           # flag to indicate whether a normal non-single-module subroutine has been implemented in this pattern
+
+        @dssc_send_delay = 144
+        @dssc_send_delay = 288 if @opcode_mode == :dual
+        @dssc_send_delay = 576 if @opcode_mode == :quad
       end
 
       # Do a frequency measure.
@@ -299,6 +303,66 @@ module OrigenTesters
         if options[:memory_test]
           options[:instruments].merge!('nil' => 'mto')
         end
+
+        # If tester.overlay was used to implement digsrc, update the header instruments
+        auto_instr = {}
+        @overlay_history.each_pair do |pin_name, value|
+          if value[:is_digsrc]
+            microcode "//   DigSrc SEND count for #{pin_name}: #{value[:count]}"
+            new_instr = 'DigSrc '
+
+            # override default settings
+            digsrc_overrides = source_memory(:digsrc).accumulate_attributes(pin_name)
+
+            # append instrument width
+            digsrc_instr_width = (dut.pin(pin_name)).size
+            # override default width if requested
+            digsrc_instr_width = digsrc_overrides[:size] unless digsrc_overrides[:size].nil?
+            new_instr += digsrc_instr_width.to_s
+
+            # append any other instrument override settings
+            if digsrc_instr_width > 1 && (dut.pin(pin_name)).size == 1
+              new_instr += ':serial'
+              if (digsrc_overrides[:bit_order] != :msb0) && (digsrc_overrides[:bit_order] != :msb)
+                new_instr += ':lsb'
+              else
+                new_instr += ':msb'
+              end
+            end
+            new_instr += ":format=#{digsrc_overrides[:format]}" unless digsrc_overrides[:format].nil?
+            new_instr += ":data_type=#{digsrc_overrides[:data_type]}" unless digsrc_overrides[:data_type].nil?
+            auto_instr["(#{pin_name})"] = new_instr
+          end
+        end
+        # If tester.store was used to implement digcap, update the header instruments
+        # TODO: a lot of duplication of digsrc logic here. This can be smart-ified.
+        @capture_history.each_pair do |pin_name, value|
+          if value[:is_digcap]
+            microcode "//   DigCap Store count for #{pin_name}: #{value[:count]}"
+            new_instr = 'DigCap '
+
+            # override default settings
+            digcap_overrides = capture_memory(:digcap).accumulate_attributes(pin_name)
+
+            # append instrument width
+            digcap_instr_width = (dut.pin(pin_name)).size
+            digcap_instr_width = digcap_overrides[:size] unless digcap_overrides[:size].nil?
+            new_instr += digcap_instr_width.to_s
+            if digcap_instr_width > 1 && (dut.pin(pin_name)).size == 1
+              new_instr += ':serial'
+              if (digcap_overrides[:bit_order] != :msb0) && (digcap_overrides[:bit_order] != :msb)
+                new_instr += ':lsb'
+              else
+                new_instr += ':msb'
+              end
+            end
+            new_instr += ":format=#{digcap_overrides[:format]}" unless digcap_overrides[:format].nil?
+            new_instr += ":data_type=#{digcap_overrides[:data_type]}" unless digcap_overrides[:data_type].nil?
+            new_instr += ':auto_trig_enable'			# always enable auto-trigger for digcap, trigger microcode isn't applied
+            auto_instr["(#{pin_name})"] = new_instr
+          end
+        end
+        options[:instruments] = options[:instruments].merge(auto_instr)
 
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
@@ -621,17 +685,41 @@ module OrigenTesters
         if pins.empty?
           fail 'For the UltraFLEX you must supply the pins to store/capture'
         end
+
+        capt_style = options[:capture_style].nil? ? @capture_style : options[:capture_style]
+        if capt_style == :digcap
+          capt_microcode = dssc_store(pins, options)
+        else
+          capt_microcode = options[:opcode]
+        end
+
         pins.each do |pin|
           pin.restore_state do
             pin.capture
-            update_vector microcode: options[:opcode], offset: options[:offset]
-            update_vector_pin_val pin, microcode: options[:opcode], offset: options[:offset]
+            update_vector_pin_val pin, offset: options[:offset]
             last_vector(options[:offset]).dont_compress = true
           end
         end
+        update_vector microcode: capt_microcode, offset: options[:offset]
       end
       alias_method :to_hram, :store
       alias_method :capture, :store
+
+      # use digcap to store, called by tester.store()
+      def dssc_store(pins, options)
+        repeat_count = last_vector(options[:offset]).repeat
+        capt_microcode = []
+        pins.each do |pin|
+          if @capture_history[pin.name].nil?
+            @capture_history[pin.name] = { is_digcap: true, count: repeat_count }
+          else
+            @capture_history[pin.name][:count] += repeat_count
+          end
+          capt_microcode << "((#{pin.name}):DigCap = Store)"
+        end
+        capt_microcode << 'stv'
+        capt_microcode.join(',')
+      end
 
       def reload_counters(name)
         microcode "reload #{name}"
@@ -661,10 +749,29 @@ module OrigenTesters
         if pins.empty?
           fail 'For the UltraFLEX you must supply the pins to store/capture'
         end
+
+        capt_style = options[:capture_style].nil? ? @capture_style : options[:capture_style]
+        if capt_style == :digcap
+          capt_microcode = []
+          repeat_count = options[:repeat].nil? ? 1 : options[:repeat]
+          pins.each do |pin|
+            if @capture_history[pin.name].nil?
+              @capture_history[pin.name] = { is_digcap: true, count: repeat_count }
+            else
+              @capture_history[pin.name][:count] += repeat_count
+            end
+            capt_microcode << "((#{pin.name}):DigCap = Store)"
+          end
+          capt_microcode << 'stv'
+          capt_microcode = capt_microcode.join(',')
+        else
+          capt_microcode = options[:opcode]
+        end
+
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated (SMcG: cool or what! DH: Yes, very cool!)
-        preset_next_vector(microcode: options[:opcode]) do
+        preset_next_vector(microcode: capt_microcode) do
           pins.each(&:restore)
         end
       end

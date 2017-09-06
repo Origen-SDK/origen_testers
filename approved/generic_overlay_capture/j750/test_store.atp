@@ -1,0 +1,46 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    13-Jun-2017 09:58AM
+//   By:      pderouen
+//   Command: origen g pattern/tester_store.rb -t dut3.rb -e j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.6
+//     Branch:    rfc2(22ce7eba536) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.46
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms, pa)                                                         
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t p  
+//                                                                                              c d d m a  
+//                                                                                              l i o s    
+//                                                                                              k          
+                                                                 > tp0                          X X X X XXX ;
+// should get a repeat 5 vector
+repeat 5                                                         > tp0                          1 1 H 1 XXX ;
+stv                                                              > tp0                          1 1 H 1 XXX ;
+repeat 2                                                         > tp0                          1 1 H 1 XXX ;
+stv                                                              > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+stv                                                              > tp0                          0 1 H 1 XXX ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+end_module                                                       > tp0                          0 1 H 1 XXX ;
+}                                                                                               

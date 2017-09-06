@@ -26,6 +26,10 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
+        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @capture_style = :hram			# default to use hram for capture
+        @overlay_subr = nil
+
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]
         end
@@ -47,6 +51,71 @@ module OrigenTesters
           fail "Unknown add_flow_enable value, #{value}, must be :enabled or :disabled"
         end
       end
+
+      def cycle(options = {})
+        # handle overlay if requested
+        ovly_style = nil
+        if options.key?(:overlay)
+          ovly_style = options[:overlay][:overlay_style].nil? ? @overlay_style : options[:overlay][:overlay_style]
+          overlay_str = options[:overlay][:overlay_str]
+
+          # route the overlay request to the appropriate method
+          case ovly_style
+            when :subroutine, :default
+              subroutine_overlay(overlay_str, options)
+              ovly_style = :subroutine
+            else
+              ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+          end # case ovly_style
+        else
+          @overlay_subr = nil
+        end # of handle overlay
+
+        options_overlay = options.delete(:overlay) if options.key?(:overlay)
+
+        super(options) unless ovly_style == :subroutine
+
+        unless options_overlay.nil?
+          # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
+        end
+      end
+
+      # Warn user of unsupported overlay style
+      def overlay_style_warn(overlay_str, options)
+        Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+        Origen.log.warn('Available overlay styles :subroutine')
+        subroutine_overlay(overlay_str, options)
+        @overlay_style = :subroutine		# Just give 1 warning
+      end
+
+      # Implement subroutine overlay, called by tester.cycle
+      def subroutine_overlay(sub_name, options = {})
+        if @overlay_subr != sub_name
+          # unless last staged vector already has the subr call do the following
+          i = -1
+          i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+          if stage.bank[i].microcode !~ /#{sub_name}/
+
+            # check for repeat on new last vector, unroll 1 if needed
+            if stage.bank[i].repeat > 1
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              stage.bank[i].repeat -= 1
+              stage.store(v)
+              i = -1
+            end
+
+            # mark last vector as dont_compress
+            stage.bank[i].dont_compress = true
+            # insert subroutine call
+            call_subroutine sub_name
+          end # if microcode not placed
+          @overlay_subr = sub_name
+        end
+
+        # stage = sub_name
+      end # subroutine_overlay
 
       # Capture the pin data from a vector to the tester.
       #
@@ -127,6 +196,7 @@ module OrigenTesters
           pins.each(&:restore)
         end
       end
+      alias_method :store!, :store_next_cycle
 
       # Start a subroutine.
       #

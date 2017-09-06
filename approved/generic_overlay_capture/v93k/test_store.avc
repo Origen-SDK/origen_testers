@@ -1,0 +1,43 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    05-Jul-2017 21:08PM
+#   By:      pderouen
+#   Command: origen g pattern/tester_store.rb -t dut3.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.9.6
+#     Branch:    rfc2(a5edf3856e7) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.7.46
+#   Plugins
+#     atp:                      0.5.4
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.4.4
+#     origen_jtag:              0.13.0
+#     origen_swd:               0.5.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS pa;
+#                                                   t t t t p  
+#                                                   c d d m a  
+#                                                   l i o s    
+#                                                   k          
+R1                       tp0                        X X X X XXX # ;
+# should get a repeat 5 vector
+R1                       tp0                        1 1 H 1 XXX # R5 should get a repeat 5 vector;
+R1                       tp0                        1 1 H 1 XXX # R4 ;
+R1                       tp0                        1 1 H 1 XXX # R3 ;
+R1                       tp0                        1 1 H 1 XXX # R2 ;
+R1                       tp0                        1 1 H 1 XXX # R1 ;
+R1                       tp0                        1 1 C 1 XXX # ;
+R1                       tp0                        1 1 H 1 XXX # R2 ;
+R1                       tp0                        1 1 H 1 XXX # R1 ;
+R1                       tp0                        0 1 C 1 XXX # ;
+R1                       tp0                        0 1 H 1 XXX # ;
+R1                       tp0                        0 1 H 1 CCC # ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;
