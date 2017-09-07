@@ -220,7 +220,7 @@ tm_10:
 end
 --------------------------------------------------
 test_suites
-meas_read_pump:
+meas_read_pump_2D155E0:
   override = 1;
  override_seqlbl = "meas_read_pump";
  override_testf = tm_1;
@@ -296,7 +296,7 @@ test_flow
 {
   {
   }, open,"Init Flow Control Vars", ""
-  run_and_branch(meas_read_pump)
+  run_and_branch(meas_read_pump_2D155E0)
   then
   {
   }

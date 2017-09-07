@@ -657,7 +657,7 @@ tm_91:
 end
 --------------------------------------------------
 test_suites
-program_ckbd:
+program_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_1;
@@ -1317,7 +1317,7 @@ test_flow
       @G200_864CE8F_FAILED = -1;
       @G100_864CE8F_RAN = -1;
     }, open,"Init Flow Control Vars", ""
-    run_and_branch(program_ckbd)
+    run_and_branch(program_ckbd_864CE8F)
     then
     {
     }
