@@ -86,6 +86,7 @@ module OrigenTesters
           @indent = add_flow_enable ? 2 : 1
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
+          debugger
           m = Processors::IfRanCleaner.new.process(model.ast)
           m = Processors::EmptyBranchCleaner.new.process(m)
           m = Processors::FlagOptimizer.new.process(m)

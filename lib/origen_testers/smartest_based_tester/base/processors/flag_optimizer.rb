@@ -4,51 +4,8 @@ module OrigenTesters
       module Processors
         class FlagOptimizer < ATP::Processor
           attr_reader :run_flag_table
-          # This optimizes the AST such that any adjacent flow noes that
-          #
-          # For example this AST:
-          #   (flow
-          #     (test
-          #       (name "test1")
-          #       (on-fail
-          #         (set-run-flag "t1_FAILED")))
-          #     (run-flag "t1_FAILED" true
-          #       (test
-          #         (name "test2"))
-          #       (test
-          #         (name "test3")))
-          #     (test
-          #       (name "test4")
-          #       (on-pass
-          #         (set-run-flag "t4_PASSED"))
-          #       (on-fail
-          #         (continue)))
-          #     (run-flag "t4_PASSED" true
-          #       (test
-          #         (name "test5"))
-          #       (test
-          #         (name "test6"))))
-          #
-          # Will be optimized to this:
-          #   (flow
-          #     (test
-          #       (name "test1")
-          #       (on-fail
-          #         (test
-          #           (name "test2"))
-          #         (test
-          #           (name "test3"))))
-          #     (test
-          #       (name "test4")
-          #       (on-pass
-          #         (test
-          #           (name "test5"))
-          #         (test
-          #           (name "test6")))
-          #       (on-fail
-          #         (continue))))
 
-          # Processes the AST and tabulates occurences of unique set_run_flag nodes
+          # Processes the AST and tabulates occurrences of unique set_run_flag nodes
           class ExtractRunFlagTable < ATP::Processor
             # Hash table of run_flag name with number of times used
             attr_reader :run_flag_table
@@ -58,7 +15,7 @@ module OrigenTesters
               @run_flag_table = {}
             end
 
-            # For run_flag nodes, increment # of occurences for specified flag
+            # For run_flag nodes, increment # of occurrences for specified flag
             def on_run_flag(node)
               children = node.children.dup
               name = children.shift
@@ -76,7 +33,7 @@ module OrigenTesters
           # Only run this on top level flow and consider adjacent nodes, no need for
           # looking at nested conditions.
           def on_flow(node)
-            # Pre-process the AST for # of occurences of each run-flag used
+            # Pre-process the AST for # of occurrences of each run-flag used
             t = ExtractRunFlagTable.new
             t.process(node)
             @run_flag_table = t.run_flag_table
