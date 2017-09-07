@@ -36,6 +36,7 @@ module OrigenTesters
         end
 
         def at_flow_start
+          model # Call to ensure the signature gets populated
         end
 
         def at_flow_end
