@@ -2,6 +2,30 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       module Processors
+        # This processor eliminates the use of run flags between adjacent tests:
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:test,
+        #       s(:name, "test1"),
+        #       s(:id, "t1"),
+        #       s(:on_fail,
+        #         s(:set_run_flag, "t1_FAILED", "auto_generated"),
+        #         s(:continue))),
+        #     s(:run_flag, "t1_FAILED", true,
+        #       s(:test,
+        #         s(:name, "test2"))))
+        #
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:test,
+        #       s(:name, "test1"),
+        #       s(:id, "t1"),
+        #       s(:on_fail,
+        #         s(:test,
+        #           s(:name, "test2")))))
+        #
         class FlagOptimizer < ATP::Processor
           attr_reader :run_flag_table
 
@@ -30,8 +54,6 @@ module OrigenTesters
             end
           end
 
-          # Only run this on top level flow and consider adjacent nodes, no need for
-          # looking at nested conditions.
           def on_flow(node)
             # Pre-process the AST for # of occurrences of each run-flag used
             t = ExtractRunFlagTable.new
@@ -39,6 +61,15 @@ module OrigenTesters
             @run_flag_table = t.run_flag_table
 
             name, *nodes = *node
+            node.updated(nil, [name] + optimize(process_all(nodes)))
+          end
+
+          def on_group(node)
+            name, *nodes = *node
+            node.updated(nil, [name] + optimize(process_all(nodes)))
+          end
+
+          def optimize(nodes)
             results = []
             node_a = nil
             nodes.each do |node_b|
@@ -51,7 +82,7 @@ module OrigenTesters
               end
             end
             results << node_a unless node_a.nil?
-            node.updated(nil, [name] + results)
+            results
           end
 
           # Given two adjacent nodes, where the first (a) is a test and the second (b)

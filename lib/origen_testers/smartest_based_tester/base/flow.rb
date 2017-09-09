@@ -89,7 +89,7 @@ module OrigenTesters
           m = Processors::IfRanCleaner.new.process(model.ast)
           m = Processors::EmptyBranchCleaner.new.process(m)
           m = Processors::FlagOptimizer.new.process(m)
-          debugger
+          m = Processors::AdjacentIfCombiner.new.process(m)
           @set_runtime_variables = Processors::ExtractSetVariables.new.run(m)
           process(m)
         end
@@ -163,6 +163,8 @@ module OrigenTesters
 
         def on_condition_flag(node)
           flag, state, *nodes = *node
+          flag_true = node.find(:flag_true)
+          flag_false = node.find(:flag_false)
           if flag.is_a?(Array)
             condition = flag.map { |f| "@#{f.upcase} == 1" }.join(' or ')
           else
@@ -171,13 +173,21 @@ module OrigenTesters
           line "if #{condition} then"
           line '{'
           @indent += 1
-          process_all(nodes) if state
+          if flag_true
+            process_all(flag_true.children)
+          else
+            process_all(nodes) if state
+          end
           @indent -= 1
           line '}'
           line 'else'
           line '{'
           @indent += 1
-          process_all(nodes) unless state
+          if flag_false
+            process_all(flag_false.children)
+          else
+            process_all(nodes) unless state
+          end
           @indent -= 1
           line '}'
         end

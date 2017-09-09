@@ -1794,9 +1794,7 @@ test_flow
     @GRP1_BEA7F3B_FAILED = -1;
     @GT_GRP1_BEA7F3B_FAILED = -1;
     @GT_GRP2_BEA7F3B_FAILED = -1;
-    @L1T3_BEA7F3B_FAILED = -1;
     @L1T5_BEA7F3B_FAILED = -1;
-    @L2T3_BEA7F3B_FAILED = -1;
     @NT2_BEA7F3B_FAILED = -1;
     @NT2_BEA7F3B_PASSED = -1;
     @ECT1_3_BEA7F3B_FAILED = -1;
@@ -2344,10 +2342,6 @@ test_flow
     }
     else
     {
-      @L1T3_BEA7F3B_FAILED = 1;
-    }
-    if @L1T3_BEA7F3B_FAILED == 1 then
-    {
       run_and_branch(lev1_test4_BEA7F3B)
       then
       {
@@ -2356,9 +2350,6 @@ test_flow
       {
         stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
       }
-    }
-    else
-    {
     }
     run_and_branch(lev1_test5_BEA7F3B)
     then
@@ -2391,10 +2382,6 @@ test_flow
       }
       else
       {
-        @L2T3_BEA7F3B_FAILED = 1;
-      }
-      if @L2T3_BEA7F3B_FAILED == 1 then
-      {
         run_and_branch(lev2_test4_BEA7F3B)
         then
         {
@@ -2403,9 +2390,6 @@ test_flow
         {
           stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
         }
-      }
-      else
-      {
       }
       if @L1T5_BEA7F3B_FAILED == 1 then
       {

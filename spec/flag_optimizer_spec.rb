@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'origen_testers/smartest_based_tester/base/processors'
 
-describe 'The V93K flah optimizer' do
+describe 'The V93K flag optimizer' do
 
   Processors = OrigenTesters::SmartestBasedTester::Base::Processors
 
@@ -86,5 +86,4 @@ describe 'The V93K flah optimizer' do
 
     process(ast1).should == ast2
   end
-
 end
