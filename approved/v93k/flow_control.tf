@@ -2656,12 +2656,6 @@ test_flow
   }
   else
   {
-  }
-  if @MY_FLAG == 1 then
-  {
-  }
-  else
-  {
     run(test3);
   }
   print_dl("This should retain the set-run-flag in the else conditional");
