@@ -2,6 +2,29 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       module Processors
+        # This combines adjacent if flag nodes where the flag is in the opposite state
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:run_flag, "SOME_FLAG", true,
+        #       s(:test,
+        #         s(:name, "test1"))),
+        #     s(:run_flag, "SOME_FLAG", false,
+        #       s(:test,
+        #         s(:name, "test2"))))
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:run_flag, "SOME_FLAG",
+        #       s(:flag_true,
+        #         s(:test,
+        #           s(:name, "test1"))),
+        #       s(:flag_false,
+        #         s(:test,
+        #           s(:name, "test2")))))
+        #
+        # See here for an example of the kind of flow level effect it has:
+        # https://github.com/Origen-SDK/origen_testers/issues/43
         class AdjacentIfCombiner < ATP::Processor
           class SetRunFlagFinder < ATP::Processor
             def contains?(node, flag_name)
@@ -65,8 +88,9 @@ module OrigenTesters
           end
 
           def safe_to_combine?(node1, node2)
-            !SetRunFlagFinder.new.contains?(node1, node1.to_a[0]) &&
-              !SetRunFlagFinder.new.contains?(node2, node2.to_a[0])
+            # Nodes won't be collapsed if node1 touches the shared run flag, i.e. if there is any chance
+            # that by the time it would naturally execute node2, the flag could have been changed by node1
+            !SetRunFlagFinder.new.contains?(node1, node1.to_a[0])
           end
         end
       end
