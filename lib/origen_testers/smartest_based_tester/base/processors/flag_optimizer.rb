@@ -2,53 +2,34 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       module Processors
+        # This processor eliminates the use of run flags between adjacent tests:
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:test,
+        #       s(:name, "test1"),
+        #       s(:id, "t1"),
+        #       s(:on_fail,
+        #         s(:set_run_flag, "t1_FAILED", "auto_generated"),
+        #         s(:continue))),
+        #     s(:run_flag, "t1_FAILED", true,
+        #       s(:test,
+        #         s(:name, "test2"))))
+        #
+        #
+        #   s(:flow,
+        #     s(:name, "prb1"),
+        #     s(:test,
+        #       s(:name, "test1"),
+        #       s(:id, "t1"),
+        #       s(:on_fail,
+        #         s(:test,
+        #           s(:name, "test2")))))
+        #
         class FlagOptimizer < ATP::Processor
           attr_reader :run_flag_table
-          # This optimizes the AST such that any adjacent flow noes that
-          #
-          # For example this AST:
-          #   (flow
-          #     (test
-          #       (name "test1")
-          #       (on-fail
-          #         (set-run-flag "t1_FAILED")))
-          #     (run-flag "t1_FAILED" true
-          #       (test
-          #         (name "test2"))
-          #       (test
-          #         (name "test3")))
-          #     (test
-          #       (name "test4")
-          #       (on-pass
-          #         (set-run-flag "t4_PASSED"))
-          #       (on-fail
-          #         (continue)))
-          #     (run-flag "t4_PASSED" true
-          #       (test
-          #         (name "test5"))
-          #       (test
-          #         (name "test6"))))
-          #
-          # Will be optimized to this:
-          #   (flow
-          #     (test
-          #       (name "test1")
-          #       (on-fail
-          #         (test
-          #           (name "test2"))
-          #         (test
-          #           (name "test3"))))
-          #     (test
-          #       (name "test4")
-          #       (on-pass
-          #         (test
-          #           (name "test5"))
-          #         (test
-          #           (name "test6")))
-          #       (on-fail
-          #         (continue))))
 
-          # Processes the AST and tabulates occurences of unique set_run_flag nodes
+          # Processes the AST and tabulates occurrences of unique set_run_flag nodes
           class ExtractRunFlagTable < ATP::Processor
             # Hash table of run_flag name with number of times used
             attr_reader :run_flag_table
@@ -58,7 +39,7 @@ module OrigenTesters
               @run_flag_table = {}
             end
 
-            # For run_flag nodes, increment # of occurences for specified flag
+            # For run_flag nodes, increment # of occurrences for specified flag
             def on_run_flag(node)
               children = node.children.dup
               name = children.shift
@@ -73,15 +54,22 @@ module OrigenTesters
             end
           end
 
-          # Only run this on top level flow and consider adjacent nodes, no need for
-          # looking at nested conditions.
           def on_flow(node)
-            # Pre-process the AST for # of occurences of each run-flag used
+            # Pre-process the AST for # of occurrences of each run-flag used
             t = ExtractRunFlagTable.new
             t.process(node)
             @run_flag_table = t.run_flag_table
 
             name, *nodes = *node
+            node.updated(nil, [name] + optimize(process_all(nodes)))
+          end
+
+          def on_group(node)
+            name, *nodes = *node
+            node.updated(nil, [name] + optimize(process_all(nodes)))
+          end
+
+          def optimize(nodes)
             results = []
             node_a = nil
             nodes.each do |node_b|
@@ -94,7 +82,7 @@ module OrigenTesters
               end
             end
             results << node_a unless node_a.nil?
-            node.updated(nil, [name] + results)
+            results
           end
 
           # Given two adjacent nodes, where the first (a) is a test and the second (b)
