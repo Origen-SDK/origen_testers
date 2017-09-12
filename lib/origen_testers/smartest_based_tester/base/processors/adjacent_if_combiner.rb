@@ -39,7 +39,14 @@ module OrigenTesters
                 @result = true
               end
             end
+            alias_method :on_set_flow_flag, :on_set_run_flag
           end
+
+          def on_unnamed_collection(node)
+            node.updated(nil, optimize(process_all(node.children)))
+          end
+          alias_method :on_on_fail, :on_unnamed_collection
+          alias_method :on_on_pass, :on_unnamed_collection
 
           def on_named_collection(node)
             name, *nodes = *node
@@ -83,7 +90,7 @@ module OrigenTesters
           end
 
           def opposite_flag_states?(node1, node2)
-            node1.type == :run_flag && node2.type == :run_flag &&
+            ((node1.type == :run_flag && node2.type == :run_flag) || (node1.type == :flow_flag && node2.type == :flow_flag)) &&
               node1.to_a[0] == node2.to_a[0] && node1.to_a[1] != node2.to_a[1]
           end
 

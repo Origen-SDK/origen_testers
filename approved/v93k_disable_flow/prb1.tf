@@ -284,6 +284,9 @@ tm_90:
 tm_91:
   "testName" = "Functional";
   "output" = "None";
+tm_92:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -469,6 +472,8 @@ tm_90:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_91:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_92:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -653,6 +658,8 @@ tm_89:
 tm_90:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_91:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_92:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1295,6 +1302,13 @@ xcvr_fs_vilvih_3_864CE8F:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
+some_func_test_864CE8F:
+  override = 1;
+ override_seqlbl = "some_func_test";
+ override_testf = tm_92;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
 end
 --------------------------------------------------
 test_flow
@@ -1790,6 +1804,30 @@ test_flow
       }
       else
       {
+      }
+      print_dl("Test node optimization within an if_failed branch");
+      run_and_branch(some_func_test_864CE8F)
+      then
+      {
+      }
+      else
+      {
+        if @ALARM == 1 then
+        {
+          stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+        }
+        else
+        {
+          stop_bin "", "fail", , bad, noreprobe, red, 11, over_on;
+        }
+        if @ALARMENABLED == 1 then
+        {
+          stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+        }
+        else
+        {
+          stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
+        }
       }
       stop_bin "1", "", , good, noreprobe, green, 1, over_on;
     }, open,"prb1_main", ""

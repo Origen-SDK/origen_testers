@@ -3,6 +3,7 @@ language_revision = 1;
 
 declarations
 
+@ALARM = 0;
 @ERASE_FAILED_1_864CE8F_FAILED = 0;
 @ERASE_FAILED_2_864CE8F_FAILED = 0;
 @ERASE_FAILED_3_864CE8F_PASSED = 0;
@@ -24,6 +25,7 @@ end
 flags
 
 user ADDITIONAL_ERASE = 0;
+user ALARMENABLED = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
 user PRB1_ENABLE = 0;

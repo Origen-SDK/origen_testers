@@ -69,6 +69,11 @@ module OrigenTesters
             node.updated(nil, [name] + optimize(process_all(nodes)))
           end
 
+          def on_on_fail(node)
+            node.updated(nil, optimize(process_all(node.children)))
+          end
+          alias_method :on_on_pass, :on_on_fail
+
           def optimize(nodes)
             results = []
             node_a = nil

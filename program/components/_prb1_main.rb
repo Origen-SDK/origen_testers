@@ -208,5 +208,15 @@ Flow.create do |options|
 
   pass 2, if_ran: :g100
 
+  log 'Test node optimization within an if_failed branch'
+  func :some_func_test, id: :sft1
+
+  if_failed :sft1 do
+    bin 10, if_flag: "Alarm"
+    bin 11, unless_flag: "Alarm"
+    bin 12, if_enable: "AlarmEnabled"
+    bin 13, unless_enable: "AlarmEnabled"
+  end
+
   pass 1, description: "Good die!", softbin: 1
 end
