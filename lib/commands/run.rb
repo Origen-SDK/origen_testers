@@ -33,12 +33,16 @@ unless program
   exit 1
 end
 
-flow = ARGV.first
-
-unless flow
-  puts 'You must supply the name of the flow to execute, the current program has these flows'
-  puts OrigenTesters.program.flows.keys
-  exit 1
+unless ARGV.first
+  if OrigenTesters.program.flows.keys.size == 1
+    ARGV << OrigenTesters.program.flows.keys.first
+  else
+    puts 'You must supply the name of the flow to execute, the current program has these flows'
+    puts OrigenTesters.program.flows.keys
+    exit 1
+  end
 end
 
-OrigenTesters.program.flows[flow.to_sym].run(options)
+ARGV.each do |flow|
+  OrigenTesters.program.flows[flow.to_sym].run(options)
+end
