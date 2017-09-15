@@ -273,8 +273,9 @@ module OrigenTesters
           yield
           @continue = orig
         end
-        
+
         private
+
         def generate_flag_name(flag)
           case flag[0]
           when '!'
@@ -287,7 +288,6 @@ module OrigenTesters
             flag.upcase
           end
         end
-        
       end
     end
   end
