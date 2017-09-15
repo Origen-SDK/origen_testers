@@ -123,9 +123,9 @@ module OrigenTesters
         def on_condition_flag(node)
           flag, state, *nodes = *node
           if flag.is_a?(Array)
-            condition = flag.map { |f| "@#{f.upcase} == 1" }.join(' or ')
+            condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
           else
-            condition = "@#{flag.upcase} == 1"
+            condition = "@#{generate_flag_name(flag)} == 1"
           end
           line "if #{condition} then"
           line '{'
@@ -234,6 +234,21 @@ module OrigenTesters
           yield
           @continue = orig
         end
+        
+        private
+        def generate_flag_name(flag)
+          case flag[0]
+          when '!'
+            flag[0] = ''
+            flag
+          when '@' '#' '$' '%' '^' '&' '*'
+            flag[0] = ''
+            flag.upcase
+          else
+            flag.upcase
+          end
+        end
+        
       end
     end
   end
