@@ -281,9 +281,6 @@ module OrigenTesters
           when '!'
             flag[0] = ''
             flag
-          when '@' '#' '$' '%' '^' '&' '*'
-            flag[0] = ''
-            flag.upcase
           else
             flag.upcase
           end
