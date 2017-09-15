@@ -320,10 +320,8 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
 
     log "Tests of render"
 
-    if_flag :my_flag do
-      render 'multi_bin;'
+    render 'multi_bin;', if_flag: :my_flag
 
-      func :test36, on_fail: { render: 'multi_bin;' }
-    end
+    func :test36, on_fail: { render: 'multi_bin;' }, if_flag: :my_flag
   end
 end
