@@ -119,8 +119,10 @@ module OrigenTesters
           @current_group = nil
           flags = { on_pass: [], on_fail: [] }
           stack[:groups].pop.each do |test|
-            flags[:on_pass] << test.flag_pass
-            flags[:on_fail] << test.flag_fail
+            unless test.is_a?(String)
+              flags[:on_pass] << test.flag_pass
+              flags[:on_fail] << test.flag_fail
+            end
             completed_lines << test
           end
           if @group_on_fail_flag

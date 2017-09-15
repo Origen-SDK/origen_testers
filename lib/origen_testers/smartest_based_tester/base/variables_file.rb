@@ -18,8 +18,11 @@ module OrigenTesters
         end
 
         def clean_flow_control_variables
-          # These map to user flags and can only be integers
-          flow_control_variables.uniq.sort
+          flow_control_variables.uniq.sort do |x, y|
+            x = x[0] if x.is_a?(Array)
+            y = y[0] if y.is_a?(Array)
+            x <=> y
+          end
         end
 
         def clean_runtime_control_variables
