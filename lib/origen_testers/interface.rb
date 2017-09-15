@@ -117,11 +117,7 @@ module OrigenTesters
     end
 
     def render(file, options = {})
-      if sheet_generators.size > 1
-        fail "You must specify which generator to render content to! e.g.  i.test_instances.render '#{file}'"
-      else
-        sheet_generators.first.render(file, options)
-      end
+      flow.render(file, options)
     end
 
     def write_files(options = {})

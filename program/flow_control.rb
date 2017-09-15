@@ -317,5 +317,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     log "This should optimize away then/else branches that are empty"
     func :test36, continue: true
     func :test36b, bin: 12, continue:true
+
+    log "Tests of render"
+
+    if_flag :my_flag do
+      render 'multi_bin;'
+
+      func :test36, on_fail: { render: 'multi_bin;' }
+    end
   end
 end
