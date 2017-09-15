@@ -152,7 +152,7 @@ module OrigenTesters
         end
 
         def clean_attr_name(name)
-          name.to_s.gsub(/\.|-/, '_')
+          name.to_s.gsub(/\.|-|\s+/, '_')
         end
 
         def id=(val)
