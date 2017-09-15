@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_11_1"></a>
+<h1><a href="#v0_11_1">Tag: v0.11.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 15-Sep-2017 22:10PM
+
+
+Patch to apply any in-line flow conditions passed to render
+
 <a class="anchor release_tag" name="v0_11_0"></a>
 <h1><a href="#v0_11_0">Tag: v0.11.0</a></h1>
 
