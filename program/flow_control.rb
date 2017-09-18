@@ -295,6 +295,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     test :test3
   end
   
+  log "Mixed-case manual flags"
+  test :test1, on_fail: { set_flag: :$My_Mixed_Flag }, continue: true
+  test :test2, if_flag: "$My_Mixed_Flag"
+  unless_flag "$My_Mixed_Flag" do
+    test :test3
+  end
+  
   if tester.v93k?
     log "This should retain the set-run-flag in the else conditional"
     func :test22, id: :at22
