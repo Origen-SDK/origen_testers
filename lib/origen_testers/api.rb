@@ -102,6 +102,10 @@ module OrigenTesters
       !!(self.class.to_s =~ /^OrigenLink::/)
     end
 
+    def pxie6570?
+      is_a?(OrigenTesters::LabVIEWBasedTester::Pxie6570)
+    end
+
     def doc?
       false
     end

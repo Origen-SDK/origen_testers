@@ -38,6 +38,15 @@ module OrigenTesters
 
         "#{microcode.ljust(65)}#{timeset.ljust(31)}#{pin_vals}#{comment}"
       end
+
+      def call_subroutine(name, options = {})
+        # not yet implemented
+      end
+
+      def store(*pins)
+        # not yet implemented
+      end
+      alias_method :capture, :store
     end
   end
   Pxie6570 = LabVIEWBasedTester::Pxie6570
