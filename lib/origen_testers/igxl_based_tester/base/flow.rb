@@ -411,7 +411,6 @@ module OrigenTesters
           }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
           if run_flag
-#            binding.pry
             line.device_sense = 'not' unless run_flag[1]
             line.device_name = remove_symbols_from_flag(run_flag[0])
             line.device_condition = 'flag-true'
@@ -446,16 +445,15 @@ module OrigenTesters
             "NOT_#{flag}"
           end
         end
-        
+
         private
-        
+
         def remove_symbols_from_flag(flag)
           if flag[0] == '$'
             flag[0] = ''
           end
           flag
         end
-
       end
     end
   end
