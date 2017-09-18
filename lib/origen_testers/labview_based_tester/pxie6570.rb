@@ -47,6 +47,16 @@ module OrigenTesters
         # not yet implemented
       end
       alias_method :capture, :store
+
+      def cycle(options = {})
+        options.delete(:overlay)
+        super(options)
+      end
+
+      def store_next_cycle(*pins)
+        # not yet implemented
+      end
+      alias_method :store!, :store_next_cycle
     end
   end
   Pxie6570 = LabVIEWBasedTester::Pxie6570
