@@ -386,6 +386,9 @@ tm_124:
 tm_125:
   "testName" = "Functional";
   "output" = "None";
+tm_126:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -639,6 +642,8 @@ tm_124:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_125:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_126:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -891,6 +896,8 @@ tm_123:
 tm_124:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_125:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_126:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1767,6 +1774,13 @@ test36b_BEA7F3B:
   override = 1;
  override_seqlbl = "test36b";
  override_testf = tm_125;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test36_1_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test36";
+ override_testf = tm_126;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -2682,6 +2696,22 @@ test_flow
   print_dl("This should optimize away then/else branches that are empty");
   run(test36_BEA7F3B);
   run(test36b_BEA7F3B);
+  print_dl("Tests of render");
+  if @MY_FLAG == 1 then
+  {
+    multi_bin;
+    run_and_branch(test36_1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+      multi_bin;
+    }
+  }
+  else
+  {
+  }
 }, open,"FLOW_CONTROL", ""
 end
 -------------------------------------------------
