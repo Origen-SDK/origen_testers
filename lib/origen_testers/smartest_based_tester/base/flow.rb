@@ -278,7 +278,7 @@ module OrigenTesters
 
         def generate_flag_name(flag)
           case flag[0]
-          when '!'
+          when '$'
             flag[0] = ''
             flag
           else
