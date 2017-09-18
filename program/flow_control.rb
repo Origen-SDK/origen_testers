@@ -302,6 +302,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     test :test3
   end
   
+  log "Mixed-case enables"
+  test :extra_test, if_enable: :$MCEn_extras
+  unless_enable "$MCEn_test" do
+    test :test1
+    test :test2
+  end
+
   if tester.v93k?
     log "This should retain the set-run-flag in the else conditional"
     func :test22, id: :at22

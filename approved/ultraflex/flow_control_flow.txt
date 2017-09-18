@@ -218,3 +218,13 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	test1												None		my_flag												
 						Test	test2												Fail									flag-true	my_flag				
 						Test	test3												Fail								not	flag-true	my_flag				
+						logprint	Mixed-case_manual_flags																										
+						Test	test1												None		My_Mixed_Flag												
+						Test	test2												Fail									flag-true	My_Mixed_Flag				
+						Test	test3												Fail								not	flag-true	My_Mixed_Flag				
+						logprint	Mixed-case_enables																										
+		MCEn_extras				Test	extra_test												Fail														
+		MCEn_test				goto	LABEL_12_C2A232F																										
+						Test	test1												Fail														
+						Test	test2												Fail														
+	LABEL_12_C2A232F					nop																											

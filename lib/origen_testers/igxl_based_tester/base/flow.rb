@@ -176,7 +176,7 @@ module OrigenTesters
         end
 
         def on_set_run_flag(node)
-          flag = node.to_a[0]
+          flag = remove_symbols_from_flag(node.to_a[0])
           set_run_flags[flag] = context.dup
           if current_group
             if branch == :on_fail
@@ -323,6 +323,7 @@ module OrigenTesters
           flag, value = *node.to_a.take(2)
           orig = flow_flag
           if flag.is_a?(Array)
+            flag.map! { |a_flag| remove_symbols_from_flag(a_flag) }
             if flag.size > 1
               or_flag = flag.join('_OR_')
               flag.each do |f|
@@ -332,6 +333,8 @@ module OrigenTesters
             else
               flag = flag.first
             end
+          else
+            flag = remove_symbols_from_flag(flag)
           end
           if value
             # IG-XL docs say that enable words are not optimized for test time, so branch around
@@ -408,8 +411,9 @@ module OrigenTesters
           }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
           if run_flag
+#            binding.pry
             line.device_sense = 'not' unless run_flag[1]
-            line.device_name = run_flag[0]
+            line.device_name = remove_symbols_from_flag(run_flag[0])
             line.device_condition = 'flag-true'
           end
           open_lines << line
@@ -442,6 +446,16 @@ module OrigenTesters
             "NOT_#{flag}"
           end
         end
+        
+        private
+        
+        def remove_symbols_from_flag(flag)
+          if flag[0] == '$'
+            flag[0] = ''
+          end
+          flag
+        end
+
       end
     end
   end
