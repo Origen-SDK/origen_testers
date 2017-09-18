@@ -57,10 +57,9 @@ module OrigenTesters
           else
             i = ''
           end
-
           h << i + '  {'
           set_runtime_variables.each do |var|
-            h << i + "    @#{var.to_s.upcase} = -1;"
+            h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
           end
           h << i + '  }, open,"Init Flow Control Vars", ""'
           h
@@ -183,7 +182,7 @@ module OrigenTesters
         def on_flow_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            flow_control_variables << f.upcase
+            flow_control_variables << f
           end
           on_condition_flag(node)
         end
@@ -191,7 +190,7 @@ module OrigenTesters
         def on_run_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            runtime_control_variables << f.upcase
+            runtime_control_variables << f
           end
           on_condition_flag(node)
         end
@@ -209,9 +208,9 @@ module OrigenTesters
         end
 
         def on_set_run_flag(node)
-          flag = node.value.upcase
+          flag = node.value
           runtime_control_variables << flag
-          line "@#{flag} = 1;"
+          line "@#{generate_flag_name(flag)} = 1;"
         end
 
         def on_group(node)
@@ -279,8 +278,7 @@ module OrigenTesters
         def generate_flag_name(flag)
           case flag[0]
           when '$'
-            flag[0] = ''
-            flag
+            flag[1..-1]
           else
             flag.upcase
           end

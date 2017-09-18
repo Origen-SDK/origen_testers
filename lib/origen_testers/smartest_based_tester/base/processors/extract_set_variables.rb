@@ -12,7 +12,7 @@ module OrigenTesters
           end
 
           def on_set_run_flag(node)
-            flag = node.value.upcase
+            flag = node.value
             @results << flag
           end
         end
