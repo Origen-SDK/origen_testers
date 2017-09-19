@@ -32,6 +32,7 @@ module OrigenTesters
       def format_vector(vec)
         timeset = vec.timeset ? " #{vec.timeset.name}" : ''
         pin_vals = vec.pin_vals ? "#{vec.pin_vals} ;" : ''
+        microcode = vec.microcode ? vec.microcode : ''
         if vec.repeat > 1
           microcode = "repeat (#{vec.repeat})"
         else
@@ -77,8 +78,54 @@ module OrigenTesters
       alias_method :capture, :store
 
       def cycle(options = {})
-        options.delete(:overlay)
+        # handle overlay if requested
+        overlay_options = options.key?(:overlay) ? options.delete(:overlay) : {}
+        cur_pin_state = nil
+        if overlay_options.key?(:pins)
+          overlay_options = { change_data: true }.merge(overlay_options)
+          unless @source_started[:default]
+            # add the source start opcode to the top of the pattern
+            i = 0
+            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+            first_vector = stage.bank[i]
+
+            if first_vector.has_microcode? || first_vector.repeat > 1
+              v = OrigenTesters::Vector.new
+              v.pin_vals = first_vector.pin_vals
+              v.timeset = first_vector.timeset
+              v.inline_comment = 'added for source start opcode'
+              v.dont_compress = true
+              v.microcode = 'source_start(default_source_waveform)'
+              stage.insert_from_start v, i
+
+              # decrement repeat count of previous first vector if > 1
+              first_vector.repeat -= 1 if first_vector.repeat > 1
+            else
+              first_vector.microcode = 'source_start(default_source_waveform)'
+            end if
+
+            @source_started[:default] = true
+          end
+
+          # ensure no unwanted repeats on the source line
+          options[:dont_compress] = true
+
+          if overlay_options[:change_data]
+            if options[:microcode].nil?
+              options[:microcode] = 'source'
+            else
+              options[:microcode] = options[:microcode] + ', source'
+            end
+            options[:microcode] = options[:microcode] + ", repeat (#{options[:repeat]})" unless options[:repeat].nil?
+            options.delete(:repeat)
+          end
+
+          # set pins to drive data
+          cur_pin_state = overlay_options[:pins].state.to_sym
+          overlay_options[:pins].drive_mem
+        end
         super(options)
+        overlay_options[:pins].state = cur_pin_state if overlay_options.key?(:pins)
       end
 
       # store/capture the provided pins on the next cycle
