@@ -105,6 +105,12 @@ module OrigenTesters
       def label(name, global = false)
         microcode name + ':'
       end
+
+      # change the capture state character
+      def format_pin_state(pin)
+        response = super(pin)
+        response.sub('C', 'V')
+      end
     end
   end
   Pxie6570 = LabVIEWBasedTester::Pxie6570
