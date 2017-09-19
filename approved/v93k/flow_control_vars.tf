@@ -3,6 +3,8 @@ language_revision = 1;
 
 declarations
 
+@$MY_MIXED_FLAG = 0;
+@JOB = "";
 @AT22_BEA7F3B_FAILED = 0;
 @ECT1_3_BEA7F3B_FAILED = 0;
 @ECT2_1_BEA7F3B_FAILED = 0;
@@ -20,7 +22,6 @@ declarations
 @IFAP2_BEA7F3B_PASSED = 0;
 @IFAPB1_BEA7F3B_PASSED = 0;
 @IFAPB2_BEA7F3B_PASSED = 0;
-@JOB = "";
 @L1T3_BEA7F3B_FAILED = 0;
 @L1T5_BEA7F3B_FAILED = 0;
 @L2T3_BEA7F3B_FAILED = 0;
@@ -38,12 +39,14 @@ end
 -----------------------------------------------------------------
 flags
 
+user $MCEN_EXTRAS = 0;
+user $MCEN_TEST = 0;
+user NVM_MINIMUM_FT = 0;
 user CZ = 0;
 user EN1 = 0;
 user EN2 = 0;
 user EXTRAS = 0;
 user NVM_MINIMUM_COLD = 0;
-user NVM_MINIMUM_FT = 0;
 user NVM_MINIMUM_HOT = 0;
 user NVM_MINIMUM_ROOM = 0;
 user QUICK = 0;
