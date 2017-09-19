@@ -104,7 +104,7 @@ module OrigenTesters
       rescue
         text = file
       end
-      model.render(text)
+      model.render(text, clean_options(options))
     end
 
     def cz(instance, cz_setup, options = {})
