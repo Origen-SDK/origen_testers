@@ -7,11 +7,13 @@ module OrigenTesters
         @pat_extension = 'digipatsrc'
         @capture_started = {}
         @source_started = {}
+        @global_label_export = []
       end
 
       # Internal method called by Origen
       def pattern_header(options = {})
         microcode 'file_format_version 1.0;'
+        @global_label_export.each { |label| microcode "export #{label};" }
         called_timesets.each do |timeset|
           microcode "timeset #{timeset.name};"
         end
@@ -151,6 +153,7 @@ module OrigenTesters
       # add a label to the output pattern
       def label(name, global = false)
         microcode name + ':'
+        @global_label_export << name if global
       end
 
       # change the capture state character
