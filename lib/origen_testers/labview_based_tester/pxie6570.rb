@@ -8,12 +8,14 @@ module OrigenTesters
         @capture_started = {}
         @source_started = {}
         @global_label_export = []
+        @called_subroutines = []
       end
 
       # Internal method called by Origen
       def pattern_header(options = {})
         microcode 'file_format_version 1.0;'
         @global_label_export.each { |label| microcode "export #{label};" }
+        @called_subroutines.each { |sub| microcode "import #{sub};" }
         called_timesets.each do |timeset|
           microcode "timeset #{timeset.name};"
         end
@@ -49,8 +51,21 @@ module OrigenTesters
         "#{microcode.ljust(65)}#{timeset.ljust(31)}#{pin_vals}#{comment}"
       end
 
+      # insert a subroutine call
+      # provide optional argument to implement as jump instead of call:
+      #
+      # @example
+      #   tester.call_subroutine 'my_sub', jump: true
       def call_subroutine(name, options = {})
-        # not yet implemented
+        options = { jump: false }.merge(options)
+        @called_subroutines << name.to_s.chomp unless @called_subroutines.include?(name.to_s.chomp)
+        local_microcode = ''
+        if options[:jump]
+          local_microcode = "jump #{name}"
+        else
+          local_microcode = "call #{name}"
+        end
+        update_vector microcode: local_microcode, offset: options[:offset]
       end
 
       # store/capture the state of the provided pins
