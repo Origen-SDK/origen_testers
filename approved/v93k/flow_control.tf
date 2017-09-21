@@ -1896,6 +1896,7 @@ test_flow
     @ECT2_1_BEA7F3B_FAILED = -1;
     @ECT2_2_BEA7F3B_FAILED = -1;
     @MY_FLAG = -1;
+    @My_Mixed_Flag = -1;
     @AT22_BEA7F3B_FAILED = -1;
   }, open,"Init Flow Control Vars", ""
   print_dl("Test that if_failed works");
@@ -2731,6 +2732,39 @@ test_flow
   else
   {
     run(test3);
+  }
+  print_dl("Mixed-case manual flags");
+  run_and_branch(test1)
+  then
+  {
+  }
+  else
+  {
+    @My_Mixed_Flag = 1;
+  }
+  if @My_Mixed_Flag == 1 then
+  {
+    run(test2);
+  }
+  else
+  {
+    run(test3);
+  }
+  print_dl("Mixed-case enables");
+  if @MCEn_extras == 1 then
+  {
+    run(extra_test);
+  }
+  else
+  {
+  }
+  if @MCEn_test == 1 then
+  {
+  }
+  else
+  {
+    run(test1);
+    run(test2);
   }
   print_dl("This should retain the set-run-flag in the else conditional");
   run_and_branch(test22_BEA7F3B)
