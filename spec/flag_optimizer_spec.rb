@@ -6,7 +6,7 @@ describe 'The V93K flag optimizer' do
   Processors = OrigenTesters::SmartestBasedTester::Base::Processors
 
   def process(ast)
-    Processors::FlagOptimizer.new.process(ast)
+    Processors::FlagOptimizer.new.run(ast)
   end
 
   it "works at the top-level" do
@@ -83,6 +83,51 @@ describe 'The V93K flag optimizer' do
             s(:on_fail,
               s(:test,
                 s(:name, "test2"))))))
+
+    process(ast1).should == ast2
+  end
+
+  it "a more complex test case with both pass and fail branches to be optimized" do
+    ast1 = 
+      s(:flow,
+        s(:name, "flow_control"),
+        s(:test,
+          s(:name, "test1_BEA7F3B"),
+          s(:number, 0),
+          s(:id, "t1f_BEA7F3B"),
+          s(:on_pass,
+            s(:set_run_flag, "t1f_BEA7F3B_PASSED", "auto_generated")),
+          s(:on_fail,
+            s(:continue),
+            s(:set_run_flag, "t1f_BEA7F3B_FAILED", "auto_generated"))),
+        s(:run_flag, "t1f_BEA7F3B_PASSED", true,
+          s(:test,
+            s(:name, "test2_BEA7F3B"),
+            s(:number, 0))),
+        s(:run_flag, "t1f_BEA7F3B_FAILED", true,
+          s(:test,
+            s(:name, "test3_BEA7F3B"),
+            s(:number, 0)),
+          s(:set_result, "fail",
+            s(:bin, 10))))
+      
+    ast2 = 
+      s(:flow,
+        s(:name, "flow_control"),
+        s(:test,
+          s(:name, "test1_BEA7F3B"),
+          s(:number, 0),
+          s(:id, "t1f_BEA7F3B"),
+          s(:on_pass,
+            s(:test,
+              s(:name, "test2_BEA7F3B"),
+              s(:number, 0))),
+          s(:on_fail,
+            s(:test,
+              s(:name, "test3_BEA7F3B"),
+              s(:number, 0)),
+            s(:set_result, "fail",
+              s(:bin, 10)))))
 
     process(ast1).should == ast2
   end

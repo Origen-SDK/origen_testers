@@ -29,105 +29,90 @@ module OrigenTesters
         class FlagOptimizer < ATP::Processor
           attr_reader :run_flag_table
 
-          # Processes the AST and tabulates occurrences of unique set_run_flag nodes
-          class ExtractRunFlagTable < ATP::Processor
-            # Hash table of run_flag name with number of times used
-            attr_reader :run_flag_table
-
-            # Reset hash table
-            def initialize
-              @run_flag_table = {}
-            end
-
-            # For run_flag nodes, increment # of occurrences for specified flag
-            def on_run_flag(node)
-              children = node.children.dup
-              name = children.shift
-              state = children.shift
-              unless name.is_a?(Array)
-                if @run_flag_table[name.to_sym].nil?
-                  @run_flag_table[name.to_sym] = 1
-                else
-                  @run_flag_table[name.to_sym] += 1
-                end
-              end
-            end
-          end
-
-          def on_flow(node)
+          def run(node)
             # Pre-process the AST for # of occurrences of each run-flag used
             t = ExtractRunFlagTable.new
             t.process(node)
             @run_flag_table = t.run_flag_table
+            process(node)
+          end
 
+          def on_named_collection(node)
             name, *nodes = *node
             node.updated(nil, [name] + optimize(process_all(nodes)))
           end
-
-          def on_group(node)
-            name, *nodes = *node
-            node.updated(nil, [name] + optimize(process_all(nodes)))
-          end
+          alias_method :on_flow, :on_named_collection
+          alias_method :on_group, :on_named_collection
 
           def on_on_fail(node)
-            node.updated(nil, optimize(process_all(node.children)))
+            if to_inline = nodes_to_inline_on_pass_or_fail.last
+              # If this node sets the flag that gates the node to be inlined
+              set_run_flag = node.find(:set_run_flag)
+              if set_run_flag && set_run_flag.to_a[0] == to_inline.to_a[0]
+                # Remove the sub-node that sets the flag if there are no further references to it
+
+                if @run_flag_table[set_run_flag.to_a[0]] == 1 || !@run_flag_table[set_run_flag.to_a[0]]
+                  node = node.updated(nil, node.children - [set_run_flag])
+                end
+
+                # And append the content of the node to be in_lined at the end of this on pass/fail node
+                append = to_inline.to_a[2..-1]
+
+                # Belt and braces approach to make sure this node to be inlined does
+                # not get picked up anywhere else
+                nodes_to_inline_on_pass_or_fail.pop
+                nodes_to_inline_on_pass_or_fail << nil
+              end
+            end
+            node.updated(nil, optimize(process_all(node.children + Array(append))))
           end
           alias_method :on_on_pass, :on_on_fail
 
           def optimize(nodes)
             results = []
-            node_a = nil
-            nodes.each do |node_b|
-              if node_a && node_a.type == :test && node_b.type == :run_flag
-                result, node_a = remove_run_flag(node_a, node_b)
-                results << result
+            node1 = nil
+            nodes.each do |node2|
+              if node1
+                if can_be_combined?(node1, node2)
+                  node1 = combine(node1, node2)
+                else
+                  results << node1
+                  node1 = node2
+                end
               else
-                results << node_a unless node_a.nil?
-                node_a = node_b
+                node1 = node2
               end
             end
-            results << node_a unless node_a.nil?
+            results << node1 if node1
             results
           end
 
-          # Given two adjacent nodes, where the first (a) is a test and the second (b)
-          # is a run_flag, determine if (a) conditionally sets the same flag that (b)
-          # uses.  If it does, do a logical replacement, if not, move on quietly.
-          def remove_run_flag(node_a, node_b)
-            on_pass = node_a.find(:on_pass)
-            on_fail = node_a.find(:on_fail)
-
-            unless on_pass.nil? && on_fail.nil?
-              if on_pass.nil?
-                flag_node = on_fail.find(:set_run_flag)
-                conditional = [flag_node, on_fail]
-              else
-                flag_node = on_pass.find(:set_run_flag)
-                conditional = [flag_node, on_pass]
+          def can_be_combined?(node1, node2)
+            if node1.type == :test && node2.type == :run_flag
+              if node1.find_all(:on_fail, :on_pass).any? do |node|
+                if n = node.find(:set_run_flag)
+                  # Inline instead of setting a flag if...
+                  n.to_a[0] == node2.to_a[0] && # The flag set by node1 is gating node2
+                  n.to_a[1] == 'auto_generated' && # The flag has been generated and not specified by the user
+                  node2.to_a[1] == true && # Node2 is gated by the flag being in the set state
+                  n.to_a[0] !~ /_RAN$/ # And don't compress RAN flags because they can be set by both on_fail and on_pass
+                end
+              end
+                return true
               end
             end
-            unless conditional.nil?
-              children = node_b.children.dup
-              name = children.shift
-              # remove the '_RAN' here so it won't match and if_ran cases are ignored
-              name = name.gsub(/_RAN$/, '') unless name.is_a?(Array)
-              state = children.shift
-              *nodes = *children
-              flag_node_b = n2(:set_run_flag, name, 'auto_generated') if state == true
+            false
+          end
 
-              if conditional.first == flag_node_b
-                n = conditional.last.dup
-                result = node_a.remove(n)
-                n = n.remove(conditional.first) if @run_flag_table[name.to_sym] == 1
-                n = n.remove(n0(:continue)) if n.type == :on_fail
-                s = n.find(:set_result) if n.type == :on_fail
-                n = n.remove(s) if s
-                n = n.updated(nil, n.children + (nodes.is_a?(Array) ? nodes : [nodes]))
-                result = result.updated(nil, result.children + (n.is_a?(Array) ? n : [n]))
-                return result, nil
-              end
-            end
-            [node_a, node_b]
+          def combine(node1, node2)
+            nodes_to_inline_on_pass_or_fail << node2
+            node1 = node1.updated(nil, process_all(node1.children))
+            nodes_to_inline_on_pass_or_fail.pop
+            node1
+          end
+
+          def nodes_to_inline_on_pass_or_fail
+            @nodes_to_inline_on_pass_or_fail ||= []
           end
         end
       end

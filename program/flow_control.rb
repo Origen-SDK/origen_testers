@@ -324,4 +324,28 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
 
     func :test36, on_fail: { render: 'multi_bin;' }, if_flag: :my_flag
   end
+
+  log 'An optimization test case, this should not generate a flag on V93K'
+  func :test1, id: :t1a
+
+  if_passed :t1a do
+    func :test2
+  end
+
+  if_failed :t1a do
+    func :test3
+    bin 10
+  end
+
+  log 'The reverse optimization test case, this should not generate a flag on V93K'
+  func :test1, id: :t1b
+
+  if_failed :t1b do
+    func :test3
+    bin 10
+  end
+
+  if_passed :t1b do
+    func :test2
+  end
 end
