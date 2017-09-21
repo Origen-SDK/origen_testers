@@ -12,7 +12,7 @@ module OrigenTesters
             if on_fail = node.find(:on_fail)
               node = node.remove(on_fail) if on_fail.children.empty?
             end
-            node
+            node = node.updated(nil, process_all(node.children))
           end
         end
       end
