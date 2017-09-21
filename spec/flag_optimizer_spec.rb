@@ -17,8 +17,7 @@ describe 'The V93K flag optimizer' do
           s(:name, "test1"),
           s(:id, "t1"),
           s(:on_fail,
-            s(:set_run_flag, "t1_FAILED", "auto_generated"),
-            s(:continue))),
+            s(:set_run_flag, "t1_FAILED", "auto_generated"))),
         s(:run_flag, "t1_FAILED", true,
           s(:test,
             s(:name, "test2"))))
@@ -66,8 +65,7 @@ describe 'The V93K flag optimizer' do
             s(:name, "test1"),
             s(:id, "t1"),
             s(:on_fail,
-              s(:set_run_flag, "t1_FAILED", "auto_generated"),
-              s(:continue))),
+              s(:set_run_flag, "t1_FAILED", "auto_generated"))),
           s(:run_flag, "t1_FAILED", true,
             s(:test,
               s(:name, "test2")))))
@@ -98,7 +96,6 @@ describe 'The V93K flag optimizer' do
           s(:on_pass,
             s(:set_run_flag, "t1f_BEA7F3B_PASSED", "auto_generated")),
           s(:on_fail,
-            s(:continue),
             s(:set_run_flag, "t1f_BEA7F3B_FAILED", "auto_generated"))),
         s(:run_flag, "t1f_BEA7F3B_PASSED", true,
           s(:test,
