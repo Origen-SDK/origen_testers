@@ -407,6 +407,15 @@ tm_131:
 tm_132:
   "testName" = "Functional";
   "output" = "None";
+tm_133:
+  "testName" = "Functional";
+  "output" = "None";
+tm_134:
+  "testName" = "Functional";
+  "output" = "None";
+tm_135:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -674,6 +683,12 @@ tm_131:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_132:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_133:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_134:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_135:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -940,6 +955,12 @@ tm_130:
 tm_131:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_132:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_133:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_134:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_135:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1865,6 +1886,27 @@ test2_14_BEA7F3B:
   override = 1;
  override_seqlbl = "test2";
  override_testf = tm_132;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+outer_test_BEA7F3B:
+  override = 1;
+ override_seqlbl = "outer_test";
+ override_testf = tm_133;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+inner_test1_BEA7F3B:
+  override = 1;
+ override_seqlbl = "inner_test1";
+ override_testf = tm_134;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_6_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_135;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -2827,6 +2869,43 @@ test_flow
   {
     run(test3_11_BEA7F3B);
     stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  }
+  print_dl("Nested optimization test case");
+  run_and_branch(outer_test_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    if @FLAG1 == 1 then
+    {
+    }
+    else
+    {
+      run_and_branch(inner_test1_BEA7F3B)
+      then
+      {
+      }
+      else
+      {
+        multi_bin;
+      }
+    }
+  }
+  print_dl("Nested flag optimization test case");
+  if @FLAG1 == 1 then
+  {
+    run_and_branch(test4_6_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+      multi_bin;
+    }
+  }
+  else
+  {
   }
 }, open,"FLOW_CONTROL", ""
 end

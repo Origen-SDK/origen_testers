@@ -362,4 +362,23 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   if_passed :t1b do
     func :test2
   end
+
+  if tester.v93k?
+    log 'Nested optimization test case'
+    func :outer_test, id: :ot
+    if_failed :ot do
+      unless_flag :flag1 do
+        func :inner_test1, id: :it1
+        render 'multi_bin;', if_failed: :it1
+      end
+    end
+
+    log 'Nested flag optimization test case'
+    if_flag :flag1 do
+      func :test4, id: :nf_t4
+      if_failed :nf_t4 do
+        render 'multi_bin;', if_flag: :flag1
+      end
+    end
+  end
 end
