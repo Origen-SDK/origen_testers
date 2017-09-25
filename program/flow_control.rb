@@ -380,5 +380,31 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
         render 'multi_bin;', if_flag: :flag1
       end
     end
+
+    log 'The setting of flags used in later OR conditions should be preserved'
+    func :test2, id: :of1
+    func :test3, if_failed: :of1
+    func :test2, id: :of2
+    func :test3, if_failed: :of2
+    func :test4
+    func :test4, if_any_failed: [:of1, :of2]
+
+    log 'The setting of flags used in later AND conditions should be preserved'
+    func :test2, id: :af1
+    func :test3, if_failed: :af1
+    func :test2, id: :af2
+    func :test3, if_failed: :af2
+    func :test4
+    func :test4, if_all_failed: [:af1, :af2]
+    
+    log 'Adjacent tests that set a flag and then use it in an OR condition should be valid'
+    func :test2, id: :of11
+    func :test2, id: :of12
+    func :test4, if_any_failed: [:of11, :of12]
+
+    log 'Adjacent tests that set a flag and then use it in an AND condition should be valid'
+    func :test2, id: :af11
+    func :test2, id: :af12
+    func :test4, if_all_failed: [:af11, :af12]
   end
 end

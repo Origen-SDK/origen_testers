@@ -15,15 +15,16 @@ module OrigenTesters
           # For run_flag nodes, increment # of occurrences for specified flag
           def on_run_flag(node)
             children = node.children.dup
-            name = children.shift
+            names = children.shift
             state = children.shift
-            unless name.is_a?(Array)
+            Array(names).each do |name|
               if @run_flag_table[name.to_sym].nil?
                 @run_flag_table[name.to_sym] = 1
               else
                 @run_flag_table[name.to_sym] += 1
               end
             end
+            process_all(node.children)
           end
         end
       end

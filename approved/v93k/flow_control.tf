@@ -416,6 +416,60 @@ tm_134:
 tm_135:
   "testName" = "Functional";
   "output" = "None";
+tm_136:
+  "testName" = "Functional";
+  "output" = "None";
+tm_137:
+  "testName" = "Functional";
+  "output" = "None";
+tm_138:
+  "testName" = "Functional";
+  "output" = "None";
+tm_139:
+  "testName" = "Functional";
+  "output" = "None";
+tm_140:
+  "testName" = "Functional";
+  "output" = "None";
+tm_141:
+  "testName" = "Functional";
+  "output" = "None";
+tm_142:
+  "testName" = "Functional";
+  "output" = "None";
+tm_143:
+  "testName" = "Functional";
+  "output" = "None";
+tm_144:
+  "testName" = "Functional";
+  "output" = "None";
+tm_145:
+  "testName" = "Functional";
+  "output" = "None";
+tm_146:
+  "testName" = "Functional";
+  "output" = "None";
+tm_147:
+  "testName" = "Functional";
+  "output" = "None";
+tm_148:
+  "testName" = "Functional";
+  "output" = "None";
+tm_149:
+  "testName" = "Functional";
+  "output" = "None";
+tm_150:
+  "testName" = "Functional";
+  "output" = "None";
+tm_151:
+  "testName" = "Functional";
+  "output" = "None";
+tm_152:
+  "testName" = "Functional";
+  "output" = "None";
+tm_153:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -689,6 +743,42 @@ tm_134:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_135:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_136:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_137:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_138:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_139:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_140:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_141:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_142:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_143:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_144:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_145:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_146:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_147:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_148:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_149:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_150:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_151:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_152:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_153:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -961,6 +1051,42 @@ tm_133:
 tm_134:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_135:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_136:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_137:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_138:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_139:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_140:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_141:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_142:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_143:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_144:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_145:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_146:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_147:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_148:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_149:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_150:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_151:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_152:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_153:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1910,6 +2036,132 @@ test4_6_BEA7F3B:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
+test2_15_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_136;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_12_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_137;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_16_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_138;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_13_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_139;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_7_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_140;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_8_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_141;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_17_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_142;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_14_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_143;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_18_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_144;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_15_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_145;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_9_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_146;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_10_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_147;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_19_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_148;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_20_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_149;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_11_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_150;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_21_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_151;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_22_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_152;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test4_12_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test4";
+ override_testf = tm_153;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
 end
 --------------------------------------------------
 test_flow
@@ -1940,6 +2192,13 @@ test_flow
     @MY_FLAG = -1;
     @My_Mixed_Flag = -1;
     @AT22_BEA7F3B_FAILED = -1;
+    @OF1_BEA7F3B_FAILED = -1;
+    @OF2_BEA7F3B_FAILED = -1;
+    @AF1_BEA7F3B_FAILED = -1;
+    @AF2_BEA7F3B_FAILED = -1;
+    @OF11_BEA7F3B_FAILED = -1;
+    @OF12_BEA7F3B_FAILED = -1;
+    @AF11_BEA7F3B_FAILED = -1;
   }, open,"Init Flow Control Vars", ""
   print_dl("Test that if_failed works");
   run_and_branch(read1_BEA7F3B)
@@ -2906,6 +3165,113 @@ test_flow
   }
   else
   {
+  }
+  print_dl("The setting of flags used in later OR conditions should be preserved");
+  run_and_branch(test2_15_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @OF1_BEA7F3B_FAILED = 1;
+    run(test3_12_BEA7F3B);
+  }
+  run_and_branch(test2_16_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @OF2_BEA7F3B_FAILED = 1;
+    run(test3_13_BEA7F3B);
+  }
+  run(test4_7_BEA7F3B);
+  if @OF1_BEA7F3B_FAILED == 1 or @OF2_BEA7F3B_FAILED == 1 then
+  {
+    run(test4_8_BEA7F3B);
+  }
+  else
+  {
+  }
+  print_dl("The setting of flags used in later AND conditions should be preserved");
+  run_and_branch(test2_17_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @AF1_BEA7F3B_FAILED = 1;
+    run(test3_14_BEA7F3B);
+  }
+  run_and_branch(test2_18_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @AF2_BEA7F3B_FAILED = 1;
+    run(test3_15_BEA7F3B);
+  }
+  run(test4_9_BEA7F3B);
+  if @AF2_BEA7F3B_FAILED == 1 then
+  {
+    if @AF1_BEA7F3B_FAILED == 1 then
+    {
+      run(test4_10_BEA7F3B);
+    }
+    else
+    {
+    }
+  }
+  else
+  {
+  }
+  print_dl("Adjacent tests that set a flag and then use it in an OR condition should be valid");
+  run_and_branch(test2_19_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @OF11_BEA7F3B_FAILED = 1;
+  }
+  run_and_branch(test2_20_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @OF12_BEA7F3B_FAILED = 1;
+  }
+  if @OF11_BEA7F3B_FAILED == 1 or @OF12_BEA7F3B_FAILED == 1 then
+  {
+    run(test4_11_BEA7F3B);
+  }
+  else
+  {
+  }
+  print_dl("Adjacent tests that set a flag and then use it in an AND condition should be valid");
+  run_and_branch(test2_21_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    @AF11_BEA7F3B_FAILED = 1;
+  }
+  run_and_branch(test2_22_BEA7F3B)
+  then
+  {
+  }
+  else
+  {
+    if @AF11_BEA7F3B_FAILED == 1 then
+    {
+      run(test4_12_BEA7F3B);
+    }
+    else
+    {
+    }
   }
 }, open,"FLOW_CONTROL", ""
 end
