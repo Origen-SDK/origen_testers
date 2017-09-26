@@ -3405,19 +3405,19 @@ test_flow
   print_dl("Adjacent if combiner test case 2");
   if @MY_ENABLE_WORD == 1 then
   {
-    run(test2_25_BEA7F3B);
+    run(test1_27_BEA7F3B);
   }
   else
   {
-    run(test1_27_BEA7F3B);
+    run(test2_25_BEA7F3B);
   }
   if @MY_FLAG == 1 then
   {
-    run(test2_26_BEA7F3B);
+    run(test1_28_BEA7F3B);
   }
   else
   {
-    run(test1_28_BEA7F3B);
+    run(test2_26_BEA7F3B);
   }
 }, open,"FLOW_CONTROL", ""
 end
