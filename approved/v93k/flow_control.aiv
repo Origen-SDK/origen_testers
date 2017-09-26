@@ -30,6 +30,7 @@ gt_grp1_test1 .tmf
 gt_grp1_test2 .tmf
 gt_grp2_test1 .tmf
 gt_grp2_test2 .tmf
+inner_test1 .tmf
 lev1_test1 .tmf
 lev1_test2 .tmf
 lev1_test3 .tmf
@@ -47,6 +48,7 @@ nt1 .tmf
 nt2 .tmf
 nt3 .tmf
 nt4 .tmf
+outer_test .tmf
 pgm .tmf
 pgm1 .tmf
 probe_only_test1 .tmf

@@ -36,6 +36,7 @@ module OrigenTesters
         end
 
         def at_flow_start
+          model # Call to ensure the signature gets populated
         end
 
         def at_flow_end
@@ -84,9 +85,11 @@ module OrigenTesters
           @indent = add_flow_enable ? 2 : 1
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
-          m = Processors::IfRanCleaner.new.process(model.ast)
+          m = Processors::ContinueImplementer.new.process(model.ast)
+          m = Processors::IfRanCleaner.new.process(m)
+          m = Processors::FlagOptimizer.new.run(m)
+          m = Processors::AdjacentIfCombiner.new.process(m)
           m = Processors::EmptyBranchCleaner.new.process(m)
-          m = Processors::FlagOptimizer.new.process(m)
           @set_runtime_variables = Processors::ExtractSetVariables.new.run(m)
           process(m)
         end
@@ -122,10 +125,8 @@ module OrigenTesters
             line '{'
             @indent += 1
             on_fail = node.children.find { |n| n.try(:type) == :on_fail }
-            with_continue(on_fail ? on_fail.children.any? { |n| n.try(:type) == :continue } : false) do
-              process_all(on_fail) if on_fail
-              stack[:on_fail].each { |n| process_all(n) }
-            end
+            process_all(on_fail) if on_fail
+            stack[:on_fail].each { |n| process_all(n) }
             @indent -= 1
             line '}'
           else
@@ -160,6 +161,8 @@ module OrigenTesters
 
         def on_condition_flag(node)
           flag, state, *nodes = *node
+          flag_true = node.find(:flag_true)
+          flag_false = node.find(:flag_false)
           if flag.is_a?(Array)
             condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
           else
@@ -168,13 +171,21 @@ module OrigenTesters
           line "if #{condition} then"
           line '{'
           @indent += 1
-          process_all(nodes) if state
+          if flag_true
+            process_all(flag_true.children)
+          else
+            process_all(nodes) if state
+          end
           @indent -= 1
           line '}'
           line 'else'
           line '{'
           @indent += 1
-          process_all(nodes) unless state
+          if flag_false
+            process_all(flag_false.children)
+          else
+            process_all(nodes) unless state
+          end
           @indent -= 1
           line '}'
         end
@@ -216,34 +227,30 @@ module OrigenTesters
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
           on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-          with_continue(on_fail && on_fail.children.any? { |n| n.try(:type) == :continue }) do
-            line '{'
-            @indent += 1
-            stack[:on_fail] << on_fail if on_fail
-            stack[:on_pass] << on_pass if on_pass
-            process_all(node.children - [on_fail, on_pass])
-            stack[:on_fail].pop if on_fail
-            stack[:on_pass].pop if on_pass
-            @indent -= 1
-            line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
-          end
+          line '{'
+          @indent += 1
+          stack[:on_fail] << on_fail if on_fail
+          stack[:on_pass] << on_pass if on_pass
+          process_all(node.children - [on_fail, on_pass])
+          stack[:on_fail].pop if on_fail
+          stack[:on_pass].pop if on_pass
+          @indent -= 1
+          line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
         end
 
         def on_set_result(node)
-          unless @continue
-            bin = node.find(:bin).try(:value)
-            desc = node.find(:bin).to_a[1]
-            sbin = node.find(:softbin).try(:value)
-            sdesc = node.find(:softbin).to_a[1] || 'fail'
-            if bin && desc
-              hardware_bin_descriptions[bin] ||= desc
-            end
+          bin = node.find(:bin).try(:value)
+          desc = node.find(:bin).to_a[1]
+          sbin = node.find(:softbin).try(:value)
+          sdesc = node.find(:softbin).to_a[1] || 'fail'
+          if bin && desc
+            hardware_bin_descriptions[bin] ||= desc
+          end
 
-            if node.to_a[0] == 'pass'
-              line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
-            else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
-            end
+          if node.to_a[0] == 'pass'
+            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
+          else
+            line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
           end
         end
 
@@ -264,13 +271,6 @@ module OrigenTesters
 
         def clean_job(job)
           [job].flatten.map { |j| "@JOB == \"#{j.to_s.upcase}\"" }
-        end
-
-        def with_continue(value)
-          orig = @continue
-          @continue = true if value
-          yield
-          @continue = orig
         end
 
         private

@@ -27,7 +27,7 @@ tm_1:
 end
 --------------------------------------------------
 test_suites
-test1:
+test1_9D2D940:
   override = 1;
  override_timset = "Tim";
  override_levset = "Lvl";
@@ -42,7 +42,7 @@ test_flow
 {
   {
   }, open,"Init Flow Control Vars", ""
-  run_and_branch(test1)
+  run_and_branch(test1_9D2D940)
   then
   {
   }

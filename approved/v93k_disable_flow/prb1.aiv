@@ -23,4 +23,5 @@ program_ckbd .tmf
 program_ckbd_b0 .tmf
 program_ckbd_b1 .tmf
 program_ckbd_b2 .tmf
+some_func_test .tmf
 xcvr_fs_vilvih .tmf

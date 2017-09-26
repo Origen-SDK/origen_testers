@@ -311,6 +311,9 @@ tm_99:
 tm_100:
   "testName" = "Functional";
   "output" = "None";
+tm_101:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -514,6 +517,8 @@ tm_99:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_100:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_101:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -716,6 +721,8 @@ tm_98:
 tm_99:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_100:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_101:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -1358,66 +1365,73 @@ xcvr_fs_vilvih_3_864CE8F:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
+some_func_test_864CE8F:
+  override = 1;
+ override_seqlbl = "some_func_test";
+ override_testf = tm_92;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
 program_ckbd_16_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
- override_testf = tm_92;
+ override_testf = tm_93;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitmap_all0_864CE8F:
   override = 1;
  override_seqlbl = "bitmap_all0";
- override_testf = tm_93;
+ override_testf = tm_94;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_0_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_0";
- override_testf = tm_94;
+ override_testf = tm_95;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_1_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_1";
- override_testf = tm_95;
+ override_testf = tm_96;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 bitcell_iv_2_864CE8F:
   override = 1;
  override_seqlbl = "bitcell_iv_2";
- override_testf = tm_96;
+ override_testf = tm_97;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 margin_read1_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read1_ckbd";
- override_testf = tm_97;
+ override_testf = tm_98;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 normal_read_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "normal_read_ckbd";
- override_testf = tm_98;
+ override_testf = tm_99;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 margin_read0_ckbd_864CE8F:
   override = 1;
  override_seqlbl = "margin_read0_ckbd";
- override_testf = tm_99;
+ override_testf = tm_100;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
 erase_all_41_864CE8F:
   override = 1;
  override_seqlbl = "erase_all";
- override_testf = tm_100;
+ override_testf = tm_101;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -1426,11 +1440,6 @@ end
 test_flow
 {
   {
-    @ERASE_VFY_0_864CE8F_FAILED = -1;
-    @ERASE_VFY_1_864CE8F_FAILED = -1;
-    @ERASE_VFY_2_864CE8F_FAILED = -1;
-    @ERASE_VFY_3_864CE8F_FAILED = -1;
-    @ERASE_VFY_4_864CE8F_FAILED = -1;
     @ERASE_PASSED_1_864CE8F_PASSED = -1;
     @ERASE_PASSED_2_864CE8F_PASSED = -1;
     @ERASE_PASSED_3_864CE8F_FAILED = -1;
@@ -1555,14 +1564,7 @@ test_flow
     }
     else
     {
-      @ERASE_VFY_0_864CE8F_FAILED = 1;
-    }
-    if @ERASE_VFY_0_864CE8F_FAILED == 1 then
-    {
       run(erase_all_11_864CE8F);
-    }
-    else
-    {
     }
     run_and_branch(margin_read1_all1_2_864CE8F)
     then
@@ -1570,14 +1572,7 @@ test_flow
     }
     else
     {
-      @ERASE_VFY_1_864CE8F_FAILED = 1;
-    }
-    if @ERASE_VFY_1_864CE8F_FAILED == 1 then
-    {
       run(erase_all_12_864CE8F);
-    }
-    else
-    {
     }
     run_and_branch(margin_read1_all1_3_864CE8F)
     then
@@ -1585,14 +1580,7 @@ test_flow
     }
     else
     {
-      @ERASE_VFY_2_864CE8F_FAILED = 1;
-    }
-    if @ERASE_VFY_2_864CE8F_FAILED == 1 then
-    {
       run(erase_all_13_864CE8F);
-    }
-    else
-    {
     }
     run_and_branch(margin_read1_all1_4_864CE8F)
     then
@@ -1600,14 +1588,7 @@ test_flow
     }
     else
     {
-      @ERASE_VFY_3_864CE8F_FAILED = 1;
-    }
-    if @ERASE_VFY_3_864CE8F_FAILED == 1 then
-    {
       run(erase_all_14_864CE8F);
-    }
-    else
-    {
     }
     run_and_branch(margin_read1_all1_5_864CE8F)
     then
@@ -1615,14 +1596,7 @@ test_flow
     }
     else
     {
-      @ERASE_VFY_4_864CE8F_FAILED = 1;
-    }
-    if @ERASE_VFY_4_864CE8F_FAILED == 1 then
-    {
       run(erase_all_15_864CE8F);
-    }
-    else
-    {
     }
     run(margin_read1_all1_6_864CE8F);
     print_dl("Test if enable");
@@ -1954,6 +1928,30 @@ test_flow
     }
     else
     {
+    }
+    print_dl("Test node optimization within an if_failed branch");
+    run_and_branch(some_func_test_864CE8F)
+    then
+    {
+    }
+    else
+    {
+      if @ALARM == 1 then
+      {
+        stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+      }
+      else
+      {
+        stop_bin "", "fail", , bad, noreprobe, red, 11, over_on;
+      }
+      if @ALARMENABLED == 1 then
+      {
+        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+      }
+      else
+      {
+        stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
+      }
     }
     stop_bin "1", "", , good, noreprobe, green, 1, over_on;
   }, open,"prb1_main", ""

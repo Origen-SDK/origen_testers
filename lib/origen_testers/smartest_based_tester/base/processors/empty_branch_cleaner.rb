@@ -2,45 +2,17 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       module Processors
+        # Removes any empty on_pass and on_fail branches
         class EmptyBranchCleaner < ATP::Processor
           # Delete any on-fail child if it's 'empty'
           def on_test(node)
-            on_pass = node.find(:on_pass)
-            on_fail = node.find(:on_fail)
-            unless on_fail.nil?
-              n = node.remove(on_fail) if branch_is_empty?(on_fail)
-              return n
+            if on_pass = node.find(:on_pass)
+              node = node.remove(on_pass) if on_pass.children.empty?
             end
-            node
-          end
-
-          # Returns true if:
-          #   - node is completely empty
-          #   - only child is (continue) node
-          #   - only two children, one continue and one set-result
-          def branch_is_empty?(node)
-            children = node.children.dup
-            return true if children.nil?
-
-            # test for only-child situation
-            first_born = children.shift
-            if children.empty?
-              if first_born == n0(:continue)
-                return true
-              else
-                return false
-              end
+            if on_fail = node.find(:on_fail)
+              node = node.remove(on_fail) if on_fail.children.empty?
             end
-
-            # if only 2 children, check qualificataions, else done and return false
-            next_born = children.shift
-            if children.empty?
-              if (first_born.type == :continue && next_born.type == :set_result) ||
-                 (first_born.type == :set_result && next_born.type == :continue)
-                return true
-              end
-            end
-            false
+            node = node.updated(nil, process_all(node.children))
           end
         end
       end
