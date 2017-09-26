@@ -3,7 +3,6 @@ language_revision = 1;
 
 declarations
 
-@JOB = "";
 @ALARM = 0;
 @ERASE_FAILED_1_864CE8F_FAILED = 0;
 @ERASE_FAILED_2_864CE8F_FAILED = 0;
@@ -19,16 +18,17 @@ declarations
 @ERASE_RAN_4_864CE8F_RAN = 0;
 @G100_864CE8F_RAN = 0;
 @G200_864CE8F_FAILED = 0;
+@JOB = "";
 
 end
 -----------------------------------------------------------------
 flags
 
-user PRB1_ENABLE = 1;
 user ADDITIONAL_ERASE = 0;
 user ALARMENABLED = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
+user PRB1_ENABLE = 1;
 user USB_XCVR_CZ = 0;
 
 end

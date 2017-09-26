@@ -3,7 +3,6 @@ language_revision = 1;
 
 declarations
 
-@JOB = "";
 @ALARM = 0;
 @ERASE_FAILED_1_864CE8F_FAILED = 0;
 @ERASE_FAILED_2_864CE8F_FAILED = 0;
@@ -19,6 +18,7 @@ declarations
 @ERASE_RAN_4_864CE8F_RAN = 0;
 @G100_864CE8F_RAN = 0;
 @G200_864CE8F_FAILED = 0;
+@JOB = "";
 
 end
 -----------------------------------------------------------------

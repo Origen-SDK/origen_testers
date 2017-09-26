@@ -46,7 +46,7 @@ module OrigenTesters
           h = ['{']
           if add_flow_enable
             var = filename.sub(/\..*/, '').upcase
-            var = "#{var}_ENABLE"
+            var = generate_flag_name("#{var}_ENABLE")
             if add_flow_enable == :enabled
               flow_control_variables << [var, 1]
             else
@@ -193,7 +193,7 @@ module OrigenTesters
         def on_flow_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            flow_control_variables << f
+            flow_control_variables << generate_flag_name(f)
           end
           on_condition_flag(node)
         end
@@ -201,7 +201,7 @@ module OrigenTesters
         def on_run_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            runtime_control_variables << f
+            runtime_control_variables << generate_flag_name(f)
           end
           on_condition_flag(node)
         end
@@ -219,9 +219,9 @@ module OrigenTesters
         end
 
         def on_set_run_flag(node)
-          flag = node.value
+          flag = generate_flag_name(node.value)
           runtime_control_variables << flag
-          line "@#{generate_flag_name(flag)} = 1;"
+          line "@#{flag} = 1;"
         end
 
         def on_group(node)
