@@ -81,8 +81,8 @@ module OrigenTesters
           end
 
           def combine(node1, node2)
-            true_node = node1.to_a[0] ? node1 : node2
-            false_node = node1.to_a[0] ? node2 : node1
+            true_node = node1.to_a[1] ? node1 : node2
+            false_node = node1.to_a[1] ? node2 : node1
             true_node = n(:flag_true, process_all(true_node.to_a[2..-1]))
             false_node = n(:flag_false, process_all(false_node.to_a[2..-1]))
 

@@ -406,5 +406,17 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func :test2, id: :af11
     func :test2, id: :af12
     func :test4, if_all_failed: [:af11, :af12]
+
+    log 'Adjacent if combiner test case 1'
+    func :test1, if_enable: :my_enable_word
+    func :test2, unless_enable: :my_enable_word
+    func :test1, if_flag: :my_flag
+    func :test2, unless_flag: :my_flag
+
+    log 'Adjacent if combiner test case 2'
+    func :test2, unless_enable: :my_enable_word
+    func :test1, if_enable: :my_enable_word
+    func :test2, unless_flag: :my_flag
+    func :test1, if_flag: :my_flag
   end
 end

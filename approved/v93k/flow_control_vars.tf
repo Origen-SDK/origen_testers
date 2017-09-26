@@ -48,6 +48,7 @@ user EN2 = 0;
 user EXTRAS = 0;
 user MCEn_extras = 0;
 user MCEn_test = 0;
+user MY_ENABLE_WORD = 0;
 user NVM_MINIMUM_COLD = 0;
 user NVM_MINIMUM_FT = 0;
 user NVM_MINIMUM_HOT = 0;
