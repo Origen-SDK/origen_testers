@@ -58,11 +58,13 @@ module OrigenTesters
           else
             i = ''
           end
-          h << i + '  {'
-          set_runtime_variables.each do |var|
-            h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
+          if set_runtime_variables.size > 0
+            h << i + '  {'
+            set_runtime_variables.each do |var|
+              h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
+            end
+            h << i + '  }, open,"Init Flow Control Vars", ""'
           end
-          h << i + '  }, open,"Init Flow Control Vars", ""'
           h
         end
 
