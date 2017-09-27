@@ -97,7 +97,7 @@ tm_11:
 end
 --------------------------------------------------
 test_suites
-erase_all:
+erase_all_814CEB0:
   override = 1;
  override_seqlbl = "erase_all";
  override_testf = tm_1;
@@ -182,7 +182,7 @@ test_flow
   {
     {
     }, open,"Init Flow Control Vars", ""
-    run(erase_all);
+    run(erase_all_814CEB0);
     run(margin_read1_all1_814CEB0);
     run(erase_all_1_814CEB0);
     run(margin_read1_all1_1_814CEB0);

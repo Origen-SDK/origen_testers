@@ -71,6 +71,7 @@ program_ckbd_b2
 read0
 read1
 read2
+some_func_test
 test1
 test2
 test3

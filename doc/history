@@ -1,3 +1,27 @@
+<a class="anchor release_tag" name="v0_13_0"></a>
+<h1><a href="#v0_13_0">Tag: v0.13.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 26-Sep-2017 15:08PM
+
+
+This release contains significant optimization of the V93K test flow output,
+making better use of the available if/else branching constructs and eliminating
+the use of many runtime flags/variables.
+
+Significant additional test coverage has been added to origen\_testers to verify
+this and the output has been reviewed on at least 3 independent Origen applications,
+so the chances of a bug hitting an application is low. However, users are advised
+to review the changes that this release makes to their flow output to be sure.
+
+Additional changes included in this release:
+
+* Fix to how mixed case flags (added in 0.12.0) are handled in the variables
+  file (Adam Kohler)
+* Calling tester.set\_timeset will now automatically update the DUT timing period
+  referenced by the Origen timing API (Paul Derouen)
+
 <a class="anchor release_tag" name="v0_12_0"></a>
 <h1><a href="#v0_12_0">Tag: v0.12.0</a></h1>
 
@@ -6,7 +30,7 @@
 ##### by Stephen McGinty on 19-Sep-2017 20:46PM
 
 
-Added support for mixed-case flag references (arkholer)
+Added support for mixed-case flag references (arkohler)
 
 <a class="anchor release_tag" name="v0_11_1"></a>
 <h1><a href="#v0_11_1">Tag: v0.11.1</a></h1>

@@ -131,4 +131,12 @@ DFF 1.1	Flow Table
 						flag-true	g100_7AF57D1_RAN																flag-true	g100_7AF57D1_RAN_1				
 						flag-true	g100_7AF57D1_RAN																flag-true	g100_7AF57D1_RAN_2				
 						set-device				2				Pass									flag-true	g100_7AF57D1_RAN				
+						logprint	Test_node_optimization_within_an_if_failed_branch																					
+						Test	some_func_test	some_func_test						None		sft1_7AF57D1_FAILED												
+						set-device					10			Fail									flag-true	alarm				
+						set-device					11			Fail								not	flag-true	alarm				
+		alarmenabled				set-device					12			Fail									flag-true	sft1_7AF57D1_FAILED				
+		alarmenabled				goto	LABEL_2_7AF57D1																flag-true	sft1_7AF57D1_FAILED				
+						set-device					13			Fail									flag-true	sft1_7AF57D1_FAILED				
+	LABEL_2_7AF57D1					nop																	flag-true	sft1_7AF57D1_FAILED				
 						set-device				1		1		Pass													Good die!	

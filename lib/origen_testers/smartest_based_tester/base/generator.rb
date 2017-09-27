@@ -26,7 +26,8 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
-          flow.at_flow_start
+          f = flow
+          f.at_flow_start
           # Initialize this to the value currently set on the tester, any further setting of
           # this by the interface will override
           flow.add_flow_enable = tester.add_flow_enable

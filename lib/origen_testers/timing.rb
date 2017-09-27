@@ -146,12 +146,18 @@ module OrigenTesters
         original = @timeset
         timeset_changed(timeset)
         @timeset = timeset
+        dut.timeset = timeset.name if dut.timesets[timeset.name]
+        dut.current_timeset_period = timeset.period_in_ns
         yield
         timeset_changed(original)
         @timeset = original
+        dut.timeset = original.name if dut.timesets[original.name]
+        dut.current_timeset_period = original.period_in_ns
       else
         timeset_changed(timeset)
         @timeset = timeset
+        dut.timeset = timeset.name if dut.timesets[timeset.name]
+        dut.current_timeset_period = timeset.period_in_ns
       end
     end
 
