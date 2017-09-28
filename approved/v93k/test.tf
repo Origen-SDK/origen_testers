@@ -294,8 +294,6 @@ end
 --------------------------------------------------
 test_flow
 {
-  {
-  }, open,"Init Flow Control Vars", ""
   run_and_branch(meas_read_pump_2D155E0)
   then
   {
