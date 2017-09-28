@@ -180,8 +180,6 @@ test_flow
 {
   if @PRB2_ENABLE == 1 then
   {
-    {
-    }, open,"Init Flow Control Vars", ""
     run(erase_all_814CEB0);
     run(margin_read1_all1_814CEB0);
     run(erase_all_1_814CEB0);

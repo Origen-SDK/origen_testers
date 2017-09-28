@@ -40,8 +40,6 @@ end
 --------------------------------------------------
 test_flow
 {
-  {
-  }, open,"Init Flow Control Vars", ""
   run_and_branch(test1_9D2D940)
   then
   {
