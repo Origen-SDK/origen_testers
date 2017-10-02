@@ -279,6 +279,15 @@ module OrigenTesters
       end
     end
 
+    def volatile(*args)
+      model.volatile(*args)
+    end
+
+    def sub_test(instance, options = {})
+      add_meta_and_description!(options)
+      model.sub_test(instance, clean_options(options))
+    end
+
     # @api private
     def is_the_flow?
       true

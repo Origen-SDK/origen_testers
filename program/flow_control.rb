@@ -381,6 +381,15 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
       end
     end
 
+    log 'Same test case with volatile flag'
+    volatile :$Alarm
+    if_flag :$Alarm do
+      func :test4, id: :nf_t5
+      if_failed :nf_t5 do
+        render 'multi_bin;', if_flag: :$Alarm
+      end
+    end
+
     log 'The setting of flags used in later OR conditions should be preserved'
     func :test2, id: :of1
     func :test3, if_failed: :of1

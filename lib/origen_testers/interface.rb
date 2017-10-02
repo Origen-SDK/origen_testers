@@ -9,7 +9,7 @@ module OrigenTesters
       Origen.add_interface(self)
     end
 
-    (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log]).each do |method|
+    (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log, :volatile, :sub_test]).each do |method|
       define_method method do |*args, &block|
         flow.send(method, *args, &block)
       end
