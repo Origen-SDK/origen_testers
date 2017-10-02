@@ -497,6 +497,12 @@ tm_161:
 tm_162:
   "testName" = "Functional";
   "output" = "None";
+tm_163:
+  "testName" = "Functional";
+  "output" = "None";
+tm_164:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -824,6 +830,10 @@ tm_161:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_162:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_163:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_164:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -1150,6 +1160,10 @@ tm_160:
 tm_161:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_162:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_163:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_164:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -2285,6 +2299,20 @@ test1_28_BEA7F3B:
   override = 1;
  override_seqlbl = "test1";
  override_testf = tm_162;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_29_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_163;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_27_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_164;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -3467,6 +3495,21 @@ test_flow
   else
   {
     run(test2_26_BEA7F3B);
+  }
+  print_dl("Volatile if combiner test case");
+  if @Alarm == 1 then
+  {
+    run(test1_29_BEA7F3B);
+  }
+  else
+  {
+  }
+  if @Alarm == 1 then
+  {
+  }
+  else
+  {
+    run(test2_27_BEA7F3B);
   }
 }, open,"FLOW_CONTROL", ""
 end
