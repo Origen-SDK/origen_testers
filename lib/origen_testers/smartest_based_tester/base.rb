@@ -15,6 +15,12 @@ module OrigenTesters
       # configured to be off by default.
       attr_reader :add_flow_enable
 
+      # permit option to generate multiport type patterns
+      # and use multiport type code
+      attr_accessor :multiport
+      alias_method :multi_port, :multiport
+      alias_method :multi_port=, :multiport=
+
       def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
@@ -26,7 +32,9 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
-        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @multiport = false              # whether to use multiport bursts or not, if so this
+                                        # indicates the name of the port to use
+        @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
 

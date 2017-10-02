@@ -115,6 +115,9 @@ module OrigenTesters
         end
 
         def lines
+          if pattern
+            burst = $tester.multiport ? "#{pattern}_pset" : "#{pattern}"
+          end
           l = []
           l << '  override = 1;'
           l << " override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
@@ -124,7 +127,7 @@ module OrigenTesters
           l << " override_anaset = #{wrap_if_string(analog_set)};" if analog_set
           l << " override_timset = #{wrap_if_string(timing_set)};" if timing_set
           l << " override_levset = #{wrap_if_string(level_set)};" if level_set
-          l << " override_seqlbl = #{wrap_if_string(pattern)};" if pattern
+          l << " override_seqlbl = #{wrap_if_string(burst)};" if pattern
           l << " override_test_number = #{test_number};" if test_number
           l << " override_testf = #{test_method.id};" if test_method
           l << "  test_level = #{test_level};" if test_level
