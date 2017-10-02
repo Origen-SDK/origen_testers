@@ -1,0 +1,15 @@
+hp93000,pattern_master_file,0.1
+
+path:
+../vectors
+
+files:
+erase_all.binl.gz
+erase_all_pset.binl.gz
+margin_read1_all1.binl.gz
+margin_read1_all1_pset.binl.gz
+mrd_ckbd.binl.gz
+mrd_ckbd_pset.binl.gz
+pgm_ckbd.binl.gz
+pgm_ckbd_pset.binl.gz
+
