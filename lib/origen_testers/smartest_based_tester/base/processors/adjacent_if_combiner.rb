@@ -42,23 +42,22 @@ module OrigenTesters
             alias_method :on_set_flow_flag, :on_set_run_flag
           end
 
-          def on_unnamed_collection(node)
-            node.updated(nil, optimize(process_all(node.children)))
-          end
-          alias_method :on_on_fail, :on_unnamed_collection
-          alias_method :on_on_pass, :on_unnamed_collection
-
-          def on_named_collection(node)
+          def on_flow(node)
+            extract_volatiles(node)
             name, *nodes = *node
             node.updated(nil, [name] + optimize(process_all(nodes)))
           end
-          alias_method :on_flow, :on_named_collection
-          alias_method :on_group, :on_named_collection
 
           def on_group(node)
             name, *nodes = *node
             node.updated(nil, [name] + optimize(process_all(nodes)))
           end
+
+          def on_unnamed_collection(node)
+            node.updated(nil, optimize(process_all(node.children)))
+          end
+          alias_method :on_on_fail, :on_unnamed_collection
+          alias_method :on_on_pass, :on_unnamed_collection
 
           def optimize(nodes)
             results = []
@@ -97,7 +96,7 @@ module OrigenTesters
           def safe_to_combine?(node1, node2)
             # Nodes won't be collapsed if node1 touches the shared run flag, i.e. if there is any chance
             # that by the time it would naturally execute node2, the flag could have been changed by node1
-            !SetRunFlagFinder.new.contains?(node1, node1.to_a[0])
+            !volatile?(node1.to_a[0]) && !SetRunFlagFinder.new.contains?(node1, node1.to_a[0])
           end
         end
       end

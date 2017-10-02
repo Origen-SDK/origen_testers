@@ -427,5 +427,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func :test1, if_enable: :my_enable_word
     func :test2, unless_flag: :my_flag
     func :test1, if_flag: :my_flag
+
+    log 'Volatile if combiner test case'
+    func :test1, if_flag: :$Alarm
+    func :test2, unless_flag: :$Alarm
   end
 end
