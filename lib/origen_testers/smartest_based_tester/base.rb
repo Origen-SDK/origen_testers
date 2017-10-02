@@ -20,6 +20,8 @@ module OrigenTesters
       attr_accessor :multiport
       alias_method :multi_port, :multiport
       alias_method :multi_port=, :multiport=
+      attr_accessor :multiport_ext     # burst name extension to use with multiport
+
 
       def initialize(options = {})
         @max_repeat_loop = 65_535
@@ -34,6 +36,7 @@ module OrigenTesters
         @inline_comments = true
         @multiport = false              # whether to use multiport bursts or not, if so this
                                         # indicates the name of the port to use
+        @multiport_ext = 'pset'         # default multiport name extension (adds '_pset' to the end of burst name)
         @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil

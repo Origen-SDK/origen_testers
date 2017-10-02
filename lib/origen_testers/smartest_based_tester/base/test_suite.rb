@@ -116,7 +116,7 @@ module OrigenTesters
 
         def lines
           if pattern
-            burst = $tester.multiport ? "#{pattern}_pset" : "#{pattern}"
+            burst = $tester.multiport ? "#{pattern}_#{$tester.multiport_ext}" : "#{pattern}"
           end
           l = []
           l << '  override = 1;'

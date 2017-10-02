@@ -49,7 +49,7 @@ module OrigenTesters
           if $tester.multiport
             return_arr += (references[:main][:all] + references[:main][:ate]).map do |p|
               p = p.strip
-              p += '_pset.binl.gz' unless p =~ /_pset.binl.gz$/
+              p += "_#{$tester.multiport_ext}.binl.gz" unless p =~ /_#{$tester.multiport_ext}.binl.gz$/
             end.uniq
           end
           return_arr
