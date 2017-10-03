@@ -44,10 +44,6 @@ when "examples", "test"
   # Compiler tests
 #    ARGV = %w(templates/example.txt.erb -t debug -r approved)
 #    load "origen/commands/compile.rb"
-  puts '##########################################'
-  puts 'Temporary diff for travis'
-  system('diff approved/v93k/prb1.tf output/v93k/testflow/mfh.testflow.group/prb1.tf')
-  puts '##########################################'
   if Origen.app.stats.changed_files == 0 &&
      Origen.app.stats.new_files == 0 &&
      Origen.app.stats.changed_patterns == 0 &&

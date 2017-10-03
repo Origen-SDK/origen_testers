@@ -44,11 +44,11 @@ module OrigenTesters
 
         def make_unique(name)
           @existing_names ||= {}
-          if @existing_names[name]
-            @existing_names[name] += 1
-            "#{name}_#{@existing_names[name]}"
+          if @existing_names[name.to_sym]
+            @existing_names[name.to_sym] += 1
+            "#{name}_#{@existing_names[name.to_sym]}"
           else
-            @existing_names[name] = 0
+            @existing_names[name.to_sym] = 0
             name
           end
         end
