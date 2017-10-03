@@ -734,112 +734,112 @@ margin_read1_all1_864CE8F:
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_864CE8F:
+program_ckbd_1_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_11;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_1_864CE8F:
+program_ckbd_2_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_12;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_2_864CE8F:
+program_ckbd_3_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_13;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_3_864CE8F:
+program_ckbd_4_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd";
  override_testf = tm_14;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_4_864CE8F:
+program_ckbd_5_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_15;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_5_864CE8F:
+program_ckbd_6_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_16;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_6_864CE8F:
+program_ckbd_7_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_17;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_7_864CE8F:
+program_ckbd_8_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_18;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_8_864CE8F:
+program_ckbd_9_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_19;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_9_864CE8F:
+program_ckbd_10_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_20;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_10_864CE8F:
+program_ckbd_11_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_21;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_11_864CE8F:
+program_ckbd_12_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_22;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_12_864CE8F:
+program_ckbd_13_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_23;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_13_864CE8F:
+program_ckbd_14_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b0";
  override_testf = tm_24;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_14_864CE8F:
+program_ckbd_15_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b1";
  override_testf = tm_25;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
-program_ckbd_15_864CE8F:
+program_ckbd_16_864CE8F:
   override = 1;
  override_seqlbl = "program_ckbd_b2";
  override_testf = tm_26;
@@ -1354,36 +1354,36 @@ test_flow
         }, open,"erase_vfy", ""
       }, open,"erase", ""
       print_dl("Should be v1");
-      run(program_ckbd_864CE8F);
-      print_dl("Should be v2");
       run(program_ckbd_1_864CE8F);
-      print_dl("Should be v1");
-      run(program_ckbd_2_864CE8F);
       print_dl("Should be v2");
+      run(program_ckbd_2_864CE8F);
+      print_dl("Should be v1");
       run(program_ckbd_3_864CE8F);
+      print_dl("Should be v2");
+      run(program_ckbd_4_864CE8F);
       print_dl("Should be a v1 test instance group");
       {
-        run(program_ckbd_4_864CE8F);
         run(program_ckbd_5_864CE8F);
         run(program_ckbd_6_864CE8F);
+        run(program_ckbd_7_864CE8F);
       }, open,"program_ckbd", ""
       print_dl("Should be a v2 test instance group");
       {
-        run(program_ckbd_7_864CE8F);
         run(program_ckbd_8_864CE8F);
         run(program_ckbd_9_864CE8F);
+        run(program_ckbd_10_864CE8F);
       }, open,"program_ckbd_2", ""
       print_dl("Should be a v1 test instance group");
       {
-        run(program_ckbd_10_864CE8F);
         run(program_ckbd_11_864CE8F);
         run(program_ckbd_12_864CE8F);
+        run(program_ckbd_13_864CE8F);
       }, open,"program_ckbd_3", ""
       print_dl("Should be a v2 test instance group");
       {
-        run(program_ckbd_13_864CE8F);
         run(program_ckbd_14_864CE8F);
         run(program_ckbd_15_864CE8F);
+        run(program_ckbd_16_864CE8F);
       }, open,"program_ckbd_4", ""
       if @JOB == "P1" then
       {
