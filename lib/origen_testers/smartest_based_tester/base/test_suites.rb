@@ -36,6 +36,10 @@ module OrigenTesters
           # end
         end
 
+        def sorted_collection
+          @collection.sort_by { |ts| ts.name.to_s }
+        end
+
         private
 
         def make_unique(name)
