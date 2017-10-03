@@ -42,7 +42,7 @@ module OrigenTesters
           @existing_names ||= {}
           if @existing_names[name.to_sym]
             @existing_names[name.to_sym] += 1
-            "#{name}_#{@existing_names[name]}"
+            "#{name}_#{@existing_names[name.to_sym]}"
           else
             @existing_names[name.to_sym] = 0
             name
