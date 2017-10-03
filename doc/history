@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_13_1"></a>
+<h1><a href="#v0_13_1">Tag: v0.13.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 03-Oct-2017 09:09AM
+
+
+Provide accessor to min\_repeat\_loop so user can change if desired.
+
 <a class="anchor release_tag" name="v0_13_0"></a>
 <h1><a href="#v0_13_0">Tag: v0.13.0</a></h1>
 
