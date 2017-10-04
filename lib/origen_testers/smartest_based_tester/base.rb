@@ -25,7 +25,8 @@ module OrigenTesters
       attr_accessor :multiport
       alias_method :multi_port, :multiport
       alias_method :multi_port=, :multiport=
-      attr_accessor :multiport_ext     # burst name extension to use with multiport
+      attr_accessor :multiport_prefix     # multiport burst name prefix
+      attr_accessor :multiport_postfix     # multiport burst name postfix
 
       def initialize(options = {})
         @max_repeat_loop = 65_535
@@ -40,7 +41,8 @@ module OrigenTesters
         @inline_comments = true
         @multiport = false              # whether to use multiport bursts or not, if so this
         # indicates the name of the port to use
-        @multiport_ext = 'pset'         # default multiport name extension (adds '_pset' to the end of burst name)
+        @multiport_prefix = false      # default multiport name prefix
+        @multiport_postfix = false      # default multiport name postfix
         @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
@@ -48,6 +50,17 @@ module OrigenTesters
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]
         end
+      end
+
+      # return the multiport burst name
+      # provide the name you want to obtain multiport for
+      def multiport_name(patt_name)
+        name = "#{patt_name}"
+        if @multiport
+          name = "#{@multiport_prefix}_#{name}" if @multiport_prefix
+          name = "#{name}_#{@multiport_postfix}" if @multiport_postfix
+        end
+        name
       end
 
       # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable

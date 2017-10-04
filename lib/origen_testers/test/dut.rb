@@ -74,6 +74,7 @@ module OrigenTesters
           end
           if @test_options[:test_multiport_v93k]
             tester.multiport = 'mPort' if tester && tester.v93k?
+            tester.multiport_postfix = 'pset' if tester && tester.v93k?
           end
         end
       end

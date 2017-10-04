@@ -8,8 +8,28 @@ single_binary_pattern_dir       ./BINL/
  
 AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
 
-PATTERNS name tmf_file v2b_options
-erase_all .tmf
-margin_read1_all1 .tmf
-mrd_ckbd .tmf
-pgm_ckbd .tmf
+PATTERNS name tmf_file port v2b_options
+erase_all .tmf mPort
+margin_read1_all1 .tmf mPort
+mrd_ckbd .tmf mPort
+pgm_ckbd .tmf mPort
+
+MULTI_PORT_BURST "erase_all_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          erase_all
+
+MULTI_PORT_BURST "margin_read1_all1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          margin_read1_all1
+
+MULTI_PORT_BURST "mrd_ckbd_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          mrd_ckbd
+
+MULTI_PORT_BURST "pgm_ckbd_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          pgm_ckbd

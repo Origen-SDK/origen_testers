@@ -116,7 +116,7 @@ module OrigenTesters
 
         def lines
           if pattern
-            burst = $tester.multiport ? "#{pattern}_#{$tester.multiport_ext}" : "#{pattern}"
+            burst = $tester.multiport ? "#{$tester.multiport_name(pattern)}" : "#{pattern}"
           end
           l = []
           l << "  comment = \"#{comment}\";" if comment

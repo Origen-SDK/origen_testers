@@ -8,69 +8,394 @@ single_binary_pattern_dir       ./BINL/
  
 AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
 
-PATTERNS name tmf_file v2b_options
-cold_test .tmf
-cz_test1 .tmf
-cz_test2 .tmf
-erase1 .tmf
-erase2 .tmf
-extra_test .tmf
-ft_only_test1 .tmf
-ft_only_test2 .tmf
-grp1_test1 .tmf
-grp1_test2 .tmf
-grp1_test3 .tmf
-grp2_test1 .tmf
-grp2_test2 .tmf
-grp2_test3 .tmf
-gt1 .tmf
-gt2 .tmf
-gt3 .tmf
-gt_grp1_test1 .tmf
-gt_grp1_test2 .tmf
-gt_grp2_test1 .tmf
-gt_grp2_test2 .tmf
-inner_test1 .tmf
-lev1_test1 .tmf
-lev1_test2 .tmf
-lev1_test3 .tmf
-lev1_test4 .tmf
-lev1_test5 .tmf
-lev2_test1 .tmf
-lev2_test2 .tmf
-lev2_test3 .tmf
-lev2_test4 .tmf
-lev2_test5 .tmf
-long_test .tmf
-long_test1 .tmf
-long_test2 .tmf
-nt1 .tmf
-nt2 .tmf
-nt3 .tmf
-nt4 .tmf
-outer_test .tmf
-pgm .tmf
-pgm1 .tmf
-probe_only_test1 .tmf
-probe_only_test2 .tmf
-read0 .tmf
-read1 .tmf
-read2 .tmf
-test1 .tmf
-test2 .tmf
-test22 .tmf
-test22a .tmf
-test22b .tmf
-test22c .tmf
-test22d .tmf
-test22e .tmf
-test22f .tmf
-test3 .tmf
-test36 .tmf
-test36b .tmf
-test4 .tmf
-test5 .tmf
-test6 .tmf
-test7 .tmf
-test8 .tmf
-warmish_test .tmf
+PATTERNS name tmf_file port v2b_options
+cold_test .tmf mPort
+cz_test1 .tmf mPort
+cz_test2 .tmf mPort
+erase1 .tmf mPort
+erase2 .tmf mPort
+extra_test .tmf mPort
+ft_only_test1 .tmf mPort
+ft_only_test2 .tmf mPort
+grp1_test1 .tmf mPort
+grp1_test2 .tmf mPort
+grp1_test3 .tmf mPort
+grp2_test1 .tmf mPort
+grp2_test2 .tmf mPort
+grp2_test3 .tmf mPort
+gt1 .tmf mPort
+gt2 .tmf mPort
+gt3 .tmf mPort
+gt_grp1_test1 .tmf mPort
+gt_grp1_test2 .tmf mPort
+gt_grp2_test1 .tmf mPort
+gt_grp2_test2 .tmf mPort
+inner_test1 .tmf mPort
+lev1_test1 .tmf mPort
+lev1_test2 .tmf mPort
+lev1_test3 .tmf mPort
+lev1_test4 .tmf mPort
+lev1_test5 .tmf mPort
+lev2_test1 .tmf mPort
+lev2_test2 .tmf mPort
+lev2_test3 .tmf mPort
+lev2_test4 .tmf mPort
+lev2_test5 .tmf mPort
+long_test .tmf mPort
+long_test1 .tmf mPort
+long_test2 .tmf mPort
+nt1 .tmf mPort
+nt2 .tmf mPort
+nt3 .tmf mPort
+nt4 .tmf mPort
+outer_test .tmf mPort
+pgm .tmf mPort
+pgm1 .tmf mPort
+probe_only_test1 .tmf mPort
+probe_only_test2 .tmf mPort
+read0 .tmf mPort
+read1 .tmf mPort
+read2 .tmf mPort
+test1 .tmf mPort
+test2 .tmf mPort
+test22 .tmf mPort
+test22a .tmf mPort
+test22b .tmf mPort
+test22c .tmf mPort
+test22d .tmf mPort
+test22e .tmf mPort
+test22f .tmf mPort
+test3 .tmf mPort
+test36 .tmf mPort
+test36b .tmf mPort
+test4 .tmf mPort
+test5 .tmf mPort
+test6 .tmf mPort
+test7 .tmf mPort
+test8 .tmf mPort
+warmish_test .tmf mPort
+
+MULTI_PORT_BURST "cold_test_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cold_test
+
+MULTI_PORT_BURST "cz_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cz_test1
+
+MULTI_PORT_BURST "cz_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cz_test2
+
+MULTI_PORT_BURST "erase1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          erase1
+
+MULTI_PORT_BURST "erase2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          erase2
+
+MULTI_PORT_BURST "extra_test_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          extra_test
+
+MULTI_PORT_BURST "ft_only_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          ft_only_test1
+
+MULTI_PORT_BURST "ft_only_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          ft_only_test2
+
+MULTI_PORT_BURST "grp1_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp1_test1
+
+MULTI_PORT_BURST "grp1_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp1_test2
+
+MULTI_PORT_BURST "grp1_test3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp1_test3
+
+MULTI_PORT_BURST "grp2_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp2_test1
+
+MULTI_PORT_BURST "grp2_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp2_test2
+
+MULTI_PORT_BURST "grp2_test3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          grp2_test3
+
+MULTI_PORT_BURST "gt1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt1
+
+MULTI_PORT_BURST "gt2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt2
+
+MULTI_PORT_BURST "gt3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt3
+
+MULTI_PORT_BURST "gt_grp1_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt_grp1_test1
+
+MULTI_PORT_BURST "gt_grp1_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt_grp1_test2
+
+MULTI_PORT_BURST "gt_grp2_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt_grp2_test1
+
+MULTI_PORT_BURST "gt_grp2_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          gt_grp2_test2
+
+MULTI_PORT_BURST "inner_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          inner_test1
+
+MULTI_PORT_BURST "lev1_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev1_test1
+
+MULTI_PORT_BURST "lev1_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev1_test2
+
+MULTI_PORT_BURST "lev1_test3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev1_test3
+
+MULTI_PORT_BURST "lev1_test4_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev1_test4
+
+MULTI_PORT_BURST "lev1_test5_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev1_test5
+
+MULTI_PORT_BURST "lev2_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev2_test1
+
+MULTI_PORT_BURST "lev2_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev2_test2
+
+MULTI_PORT_BURST "lev2_test3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev2_test3
+
+MULTI_PORT_BURST "lev2_test4_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev2_test4
+
+MULTI_PORT_BURST "lev2_test5_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          lev2_test5
+
+MULTI_PORT_BURST "long_test_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          long_test
+
+MULTI_PORT_BURST "long_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          long_test1
+
+MULTI_PORT_BURST "long_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          long_test2
+
+MULTI_PORT_BURST "nt1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          nt1
+
+MULTI_PORT_BURST "nt2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          nt2
+
+MULTI_PORT_BURST "nt3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          nt3
+
+MULTI_PORT_BURST "nt4_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          nt4
+
+MULTI_PORT_BURST "outer_test_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          outer_test
+
+MULTI_PORT_BURST "pgm_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          pgm
+
+MULTI_PORT_BURST "pgm1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          pgm1
+
+MULTI_PORT_BURST "probe_only_test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          probe_only_test1
+
+MULTI_PORT_BURST "probe_only_test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          probe_only_test2
+
+MULTI_PORT_BURST "read0_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          read0
+
+MULTI_PORT_BURST "read1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          read1
+
+MULTI_PORT_BURST "read2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          read2
+
+MULTI_PORT_BURST "test1_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test1
+
+MULTI_PORT_BURST "test2_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test2
+
+MULTI_PORT_BURST "test22_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22
+
+MULTI_PORT_BURST "test22a_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22a
+
+MULTI_PORT_BURST "test22b_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22b
+
+MULTI_PORT_BURST "test22c_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22c
+
+MULTI_PORT_BURST "test22d_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22d
+
+MULTI_PORT_BURST "test22e_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22e
+
+MULTI_PORT_BURST "test22f_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test22f
+
+MULTI_PORT_BURST "test3_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test3
+
+MULTI_PORT_BURST "test36_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test36
+
+MULTI_PORT_BURST "test36b_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test36b
+
+MULTI_PORT_BURST "test4_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test4
+
+MULTI_PORT_BURST "test5_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test5
+
+MULTI_PORT_BURST "test6_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test6
+
+MULTI_PORT_BURST "test7_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test7
+
+MULTI_PORT_BURST "test8_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test8
+
+MULTI_PORT_BURST "warmish_test_pset" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          warmish_test
