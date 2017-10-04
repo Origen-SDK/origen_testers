@@ -38,6 +38,8 @@ module OrigenTesters
   end
 end
 
+require 'origen_testers/site_config'
+
 require 'origen_testers/igxl_based_tester'
 require 'origen_testers/smartest_based_tester'
 require 'origen_testers/pattern_compilers'

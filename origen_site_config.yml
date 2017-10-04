@@ -1,0 +1,11 @@
+# OrigenTesters Example Setup (these are only active when origen_testers is run stand-alone; for specs test)
+#   These yaml definitions should be placed in your top-level application origen_site_config.yml or 
+#   higher up in the site configs of your company-wide origen-core installation.
+#   See http://origen-sdk.org/origen/guides/starting/company for more details.
+origen_testers:
+  - v93k_linux_pattern_compiler: '/company/path/to/v93k/linux/pattern/compiler'
+  - uflex_linux_pattern_compiler: '/company/path/to/uflex/linux/pattern/compiler'
+  - uflex_windows_pattern_compiler: '/company/path/to/uflex/windows/pattern/compiler'
+  - j750_linux_pattern_compiler: '/company/path/to/j750/linux/pattern/compiler'
+  - j750_windows_pattern_compiler: '/company/path/to/j750/windows/pattern/compiler'
+
