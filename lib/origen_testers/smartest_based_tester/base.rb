@@ -15,6 +15,11 @@ module OrigenTesters
       # configured to be off by default.
       attr_reader :add_flow_enable
 
+      # permit modification of minimum repeat count
+      attr_accessor :min_repeat_loop
+      alias_method :min_repeat_count, :min_repeat_loop
+      alias_method :min_repeat_count=, :min_repeat_loop=
+
       # permit option to generate multiport type patterns
       # and use multiport type code
       attr_accessor :multiport
