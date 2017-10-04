@@ -59,6 +59,9 @@ module OrigenTesters
         if @multiport
           name = "#{@multiport_prefix}_#{name}" if @multiport_prefix
           name = "#{name}_#{@multiport_postfix}" if @multiport_postfix
+          unless @multiport_prefix || @multiport_postfix
+            fail 'ERROR: you must specify a multiport prefix or postfix if using multiport!'
+          end
         end
         name
       end
