@@ -1,1 +1,1 @@
-OrigenTesters::Test::DUT4.new
+OrigenTesters::Test::DUT.new(test_multiport_v93k: true)

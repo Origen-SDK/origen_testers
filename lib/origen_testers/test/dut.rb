@@ -16,6 +16,14 @@ module OrigenTesters
       include OrigenJTAG
 
       def initialize(options = {})
+        options = {
+          test_multiport_v93k: false,
+        }.merge(options)
+
+        @test_options = {
+           test_multiport_v93k: options[:test_multiport_v93k],
+        }
+
         add_pin :tclk
         add_pin :tdi
         add_pin :tdo
@@ -49,6 +57,9 @@ module OrigenTesters
           tester.assign_digcap_pins(digcap_pins)
           tester.apply_digcap_settings(digcap_settings)
           tester.memory_test_en = true
+        end
+        if @test_options[:test_multiport_v93k]
+          tester.multiport = 'mPort' if tester && tester.v93k?
         end
       end
 
