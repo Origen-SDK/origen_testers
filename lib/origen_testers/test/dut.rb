@@ -17,13 +17,13 @@ module OrigenTesters
 
       def initialize(options = {})
         options = {
-          test_multiport_v93k: false,
-          test_generic_overlay_capture: false,
+          test_multiport_v93k:          false,
+          test_generic_overlay_capture: false
         }.merge(options)
 
         @test_options = {
-           test_multiport_v93k: options[:test_multiport_v93k],
-           test_generic_overlay_capture: options[:test_generic_overlay_capture],
+          test_multiport_v93k:          options[:test_multiport_v93k],
+          test_generic_overlay_capture: options[:test_generic_overlay_capture]
         }
 
         add_pin :tclk
