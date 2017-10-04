@@ -1,23 +1,23 @@
 hp93000,testflow,0.1
 language_revision = 1;
- 
-information
- 
+
 % program = options[:program]
 % if program
+information
+
 %   program.information.each do |key, val|
 %     unless key == "test_revision"
 <%= key %> = <%= val %>
 %     end
 %   end
+
+end
 % else
 %# Disabled for now, SMT master file doesn't like it
 %#-- STOPDIFF
 %#test_revision = "<%= Origen.app.version %>";
 %#-- STARTDIFF
 % end
- 
-end
 %#--------------------------------------------------
 %#declarations
 %#
@@ -42,11 +42,11 @@ end
 %#%   end
 %#% end
 %#end
---------------------------------------------------
-implicit_declarations
-
-end
------------------------------------------------------------------
+%#-----------------------------------------------------------------
+%#implicit_declarations
+%#
+%#end
+%#-----------------------------------------------------------------
 %#flags
 %#
 %#% if program
@@ -106,18 +106,24 @@ testmethodparameters
 %     end
 %   end
 % else
-%   test_methods.collection.each do |method|
-%     unless method.parameters.empty?
+%   unless test_methods.collection.empty?
+
+%     test_methods.sorted_collection.each do |method|
+%       unless method.parameters.empty?
 <%= method.id %>:
-%       method.parameters.each do |name, type|
+%         method.sorted_parameters.each do |param|
+%           name = param[0]
   "<%= name.is_a?(String) ? name : name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower) %>" = "<%= method.format(name) %>";
+%         end
 %       end
 %     end
+
 %   end
 % end
 end
---------------------------------------------------
+-----------------------------------------------------------------
 testmethodlimits
+
 % if program
 %   program.testmethodlimits.each do |id, parameters|
 <%= id %>:
@@ -126,16 +132,18 @@ testmethodlimits
 %     end
 %   end
 % else
-%   test_methods.collection.each do |method|
+%   test_methods.sorted_collection.each do |method|
 %     if method.respond_to?(:limits) && method.limits
 <%= method.id %>:
   <%= method.limits %>;
 %     end
 %   end
 % end
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 testmethods
+
 % if program
 %   program.testmethods.each do |id, parameters|
 <%= id %>:
@@ -144,14 +152,16 @@ testmethods
 %     end
 %   end
 % else
-%   test_methods.collection.each do |method|
+%   test_methods.sorted_collection.each do |method|
 <%= method.id %>:
   testmethod_class = "<%= method.klass %>";
 %   end
 % end
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 test_suites
+
 % if program
 %   program.test_suites.each do |id, parameters|
 <%= id %>:
@@ -160,16 +170,18 @@ test_suites
 %     end
 %   end
 % else
-%   test_suites.collection.each do |suite|
+%   test_suites.sorted_collection.each do |suite|
 <%= suite.name %>:
 %     suite.lines.each do |line|
 <%= line %>
 %     end
 %   end
 % end
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 test_flow
+
 % if program
 %   program.test_flow.each do |line|
 <%= line %>
@@ -185,23 +197,31 @@ test_flow
 <%= line %>
 %   end
 % end
+
 end
--------------------------------------------------
+-----------------------------------------------------------------
 binning
 % if program
 %   program.binning.each do |line|
 <%= line %>
 %   end
 % else
-otherwise bin = "db", "", , bad, noreprobe, red, , not_over_on;
+%#otherwise bin = "db", "", , bad, noreprobe, red, , not_over_on;
 % end
 end
--------------------------------------------------
-context
- 
+-----------------------------------------------------------------
+oocrule
+
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
+context
+
+
+end
+-----------------------------------------------------------------
 hardware_bin_descriptions
+
 % if program
 %   program.hardware_bin_descriptions.each do |key, val|
 <%= key %> = <%= val %>
@@ -211,4 +231,6 @@ hardware_bin_descriptions
   <%= bin %> = "<%= desc %>";
 %   end
 % end
+
 end
+-----------------------------------------------------------------

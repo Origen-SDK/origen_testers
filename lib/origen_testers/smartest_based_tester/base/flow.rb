@@ -43,7 +43,7 @@ module OrigenTesters
         end
 
         def flow_header
-          h = ['{']
+          h = ['  {']
           if add_flow_enable
             var = filename.sub(/\..*/, '').upcase
             var = generate_flag_name("#{var}_ENABLE")
@@ -76,7 +76,8 @@ module OrigenTesters
             f << '  {'
             f << '  }'
           end
-          f << "}, open,\"#{filename.sub(/\..*/, '').upcase}\", \"\""
+          f << ''
+          f << "  }, open,\"#{filename.sub(/\..*/, '').upcase}\",\"\""
           f
         end
 

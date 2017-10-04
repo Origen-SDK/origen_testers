@@ -116,23 +116,23 @@ module OrigenTesters
 
         def lines
           l = []
-          l << '  override = 1;'
-          l << " override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
-          l << " override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
-          l << " override_tim_spec_set = #{wrap_if_string(timing_spec)};" if timing_spec
-          l << " override_lev_spec_set = #{wrap_if_string(level_spec)};" if level_spec
-          l << " override_anaset = #{wrap_if_string(analog_set)};" if analog_set
-          l << " override_timset = #{wrap_if_string(timing_set)};" if timing_set
-          l << " override_levset = #{wrap_if_string(level_set)};" if level_set
-          l << " override_seqlbl = #{wrap_if_string(pattern)};" if pattern
-          l << " override_test_number = #{test_number};" if test_number
-          l << " override_testf = #{test_method.id};" if test_method
-          l << "  test_level = #{test_level};" if test_level
+          l << "  comment = \"#{comment}\";" if comment
           l << "  ffc_on_fail = #{wrap_if_string(log_first)};" if log_first
-          l << " comment = \"#{comment}\";" if comment
-          l << "local_flags  = #{flags};"
-          l << ' site_match = 2;'
-          l << ' site_control = "parallel:";'
+          l << "  local_flags = #{flags};"
+          l << '  override = 1;'
+          l << "  override_anaset = #{wrap_if_string(analog_set)};" if analog_set
+          l << "  override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
+          l << "  override_lev_spec_set = #{wrap_if_string(level_spec)};" if level_spec
+          l << "  override_levset = #{wrap_if_string(level_set)};" if level_set
+          l << "  override_seqlbl = #{wrap_if_string(pattern)};" if pattern
+          l << "  override_test_number = #{test_number};" if test_number
+          l << "  override_testf = #{test_method.id};" if test_method
+          l << "  override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
+          l << "  override_tim_spec_set = #{wrap_if_string(timing_spec)};" if timing_spec
+          l << "  override_timset = #{wrap_if_string(timing_set)};" if timing_set
+          l << '  site_control = "parallel:";'
+          l << '  site_match = 2;'
+          l << "  test_level = #{test_level};" if test_level
           l
         end
 
