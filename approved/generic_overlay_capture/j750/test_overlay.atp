@@ -52,7 +52,7 @@ call dummy_str                                                   > tp0          
                                                                  > tp0                          1 1 H 1 001 ;
 call subr_test                                                   > tp0                          1 1 H 1 111 ; // overlay keeps
 repeat 20                                                        > tp0                          1 1 H 1 111 ;
-global label_test:                                                                              
+label_test:                                                                              
                                                                  > tp0                          1 1 H 1 101 ; // 1st line after global label for overlay
                                                                  > tp0                          1 1 H 1 101 ; // 2nd line after global label for overlay
                                                                  > tp0                          1 1 H 1 101 ; // 3rd line after global label for overlay
