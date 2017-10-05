@@ -855,7 +855,8 @@ module OrigenTesters
             when :label
               options[:dont_compress] = true
               unless @overlay_history.key?(overlay_str)
-                label "#{overlay_str}", true
+                # J750 behavior is local label not global
+                label "#{overlay_str}"
                 @overlay_history[overlay_str] = { is_label: true }
               end
             when :digsrc
