@@ -3420,7 +3420,7 @@ test_flow
     run(test2_26_BEA7F3B);
   }
 
-  }, open,"FLOW_CONTROL",""
+  }, open,"Flow Control Testing",""
 
 end
 -----------------------------------------------------------------
