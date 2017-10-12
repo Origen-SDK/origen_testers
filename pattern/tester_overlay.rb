@@ -46,8 +46,17 @@ Pattern.create(name: "test_overlay") do
   tester.cycle repeat: 20
   tester.overlay_style = :label
   dut.pin(:pa).drive(5)
-  tester.cycle inline_comment: '1st line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
-  tester.cycle inline_comment: '2nd line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
-  tester.cycle inline_comment: '3rd line after global label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '1st line after local label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '2nd line after local label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '3rd line after local label for overlay', overlay: {overlay_str: 'label_test', pins: dut.pin(:pa)}
+  tester.cycle repeat: 20
+  
+  # Now kick the tires of global label overlay
+  tester.cycle repeat: 20
+  tester.overlay_style = :global_label
+  dut.pin(:pa).drive(5)
+  tester.cycle inline_comment: '1st line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '2nd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
+  tester.cycle inline_comment: '3rd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
   tester.cycle repeat: 20
 end

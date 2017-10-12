@@ -1,23 +1,23 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    13-Jun-2017 10:40AM
-//   By:      pderouen
-//   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e uflex.rb
+//   Time:    12-Oct-2017 09:22AM
+//   By:      FSL\b04525
+//   Command: origen g .\pattern\tester_overlay.rb -t dut3.rb -e uflex.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.9.6
-//     Branch:    rfc2(2a6055ab71d) (+local edits)
+//     Version:   0.13.1
+//     Branch:    repair_overlay(5b780428500) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.7.46
+//     Version:   0.25.1
 //   Plugins
-//     atp:                      0.5.4
+//     atp:                      0.7.0
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.4.4
-//     origen_jtag:              0.13.0
-//     origen_swd:               0.5.0
+//     origen_doc_helpers:       0.5.0
+//     origen_jtag:              0.16.0
+//     origen_swd:               1.1.0
 // ***************************************************************************
 //   DigSrc SEND count for tdi: 1                                                               
 //   DigSrc SEND count for pa: 6                                                                
@@ -67,7 +67,12 @@ repeat 5                                                         > tp0          
                                                                  > tp0                          1 1 H 1 001 ;
 call subr_test                                                   > tp0                          1 1 H 1 111 ; // overlay keeps
 repeat 20                                                        > tp0                          1 1 H 1 111 ;
-label_test:                                                                              
+label_test:                                                                                     
+                                                                 > tp0                          1 1 H 1 101 ; // 1st line after local label for overlay
+                                                                 > tp0                          1 1 H 1 101 ; // 2nd line after local label for overlay
+                                                                 > tp0                          1 1 H 1 101 ; // 3rd line after local label for overlay
+repeat 40                                                        > tp0                          1 1 H 1 101 ;
+global global_label_test:                                                                       
                                                                  > tp0                          1 1 H 1 101 ; // 1st line after global label for overlay
                                                                  > tp0                          1 1 H 1 101 ; // 2nd line after global label for overlay
                                                                  > tp0                          1 1 H 1 101 ; // 3rd line after global label for overlay
@@ -76,10 +81,6 @@ repeat 20                                                        > tp0          
 // ## Pattern complete
 // ######################################################################
 // PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
-                                                                 > tp0                          1 1 H 1 101 ;
-                                                                 > tp0                          1 1 H 1 101 ;
-                                                                 > tp0                          1 1 H 1 101 ;
-                                                                 > tp0                          1 1 H 1 101 ;
                                                                  > tp0                          1 1 H 1 101 ;
                                                                  > tp0                          1 1 H 1 101 ;
                                                                  > tp0                          1 1 H 1 101 ;
