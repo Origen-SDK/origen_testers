@@ -22,7 +22,7 @@ module OrigenTesters
         # This will be called at the start of every Flow.create block, :top_level will be
         # true when it is a top-level Flow.create block
         def _internal_startup(options)
-          if options[:top_level] 
+          if options[:top_level]
             if options.key?(:unique_test_names)
               self.unique_test_names = options[:unique_test_names]
             end
