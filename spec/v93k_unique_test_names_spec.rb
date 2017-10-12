@@ -87,6 +87,17 @@ describe "V93K unique test name generation" do
     end
   end
 
+  it "Can be set to prepend the flow name at target-level" do
+    with_open_flow target_option: :preflowname do
+      tester.unique_test_names.should == :preflowname
+      interface.new_test(:blah).name.should == "temp_blah"
+    end
+    with_open_flow target_option: :pre_flow_name do
+      tester.unique_test_names.should == :pre_flow_name
+      interface.new_test(:blah).name.should == "temp_blah"
+    end
+  end
+  
   it "Can be set to use a unique string at target-level" do
     with_open_flow target_option: :nvm1 do
       tester.unique_test_names.should == :nvm1
@@ -95,6 +106,21 @@ describe "V93K unique test name generation" do
     with_open_flow target_option: 'nvm2' do
       tester.unique_test_names.should == 'nvm2'
       interface.new_test(:blah).name.should == "blah_nvm2"
+    end
+    with_open_flow target_option: 'append_nvm3' do
+      tester.unique_test_names.should == 'append_nvm3'
+      interface.new_test(:blah).name.should == "blah_nvm3"
+    end
+  end
+
+  it "Can be set to prepend a unique string at target-level" do
+    with_open_flow target_option: :prepend_nvm1 do
+      tester.unique_test_names.should == :prepend_nvm1
+      interface.new_test(:blah).name.should == "nvm1_blah"
+    end
+    with_open_flow target_option: 'prepend_nvm2' do
+      tester.unique_test_names.should == 'prepend_nvm2'
+      interface.new_test(:blah).name.should == "nvm2_blah"
     end
   end
 
