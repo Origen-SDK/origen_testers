@@ -3,7 +3,7 @@ tmp_dir                         ./tmp
 tmf_dir                         ./
 vbc_dir                         ./
 avc_dir                         ./AVC
-pinconfig_file                  /proj/tec_ulp1_verif/users/b01784/ulp1/origen/travis_ot/origen_testers/spec/patterns/compiler_pins.cfg
+pinconfig_file                  /travis_ot/origen_testers/spec/patterns/compiler_pins.cfg
 single_binary_pattern_dir       ./BINL
  
 AI_V2B_OPTIONS 
