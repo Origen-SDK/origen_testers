@@ -562,10 +562,11 @@ module CompilerSpec
         dut.v93k_compiler_options[:clean] = true
         dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
 
-        path_to_aiv = "#{Origen.root}/spec/patterns/atp/job_id1_B737230/bitmap.aiv"
-        msg = "undefined method `file?' for nil:NilClass"
+        path_to_aiv = "#{Origen.root}/spec/patterns/atp/does_not_exist/bitmap.aiv"
+        msg = 'File does not exist!  Please specify existin aiv file.'
         lambda { dut.pattern_compilers[:id1].run(path_to_aiv) }.should raise_error(msg)
         dut.pattern_compilers[:id1].clear
+        path_to_aiv = "#{Origen.root}/spec/patterns/bitmap.aiv"
         dut.pattern_compilers[:id1].run(path_to_aiv, ignore_ready: true, verbose: true)
       end
     end

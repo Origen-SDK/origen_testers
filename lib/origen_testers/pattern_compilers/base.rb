@@ -229,7 +229,7 @@ module OrigenTesters
           elsif @path.file?
             @user_options[:reference_directory] = @path.dirname
           else
-            debug "Path is set to #{@path} which is not a valid directory or file!"
+            fail "Path is set to #{@path} which is not a valid directory or file!"
           end
         end
       end

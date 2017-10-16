@@ -148,6 +148,7 @@ module OrigenTesters
         else
           # Assumes .aiv file and all workspace collateral has been built up
           aiv = convert_to_pathname(aiv)
+          fail 'File does not exist!  Please specify existing aiv file.' unless aiv.file? 
           current_job_options = @job_options.merge(@compiler_options_with_args)
           current_job_options = current_job_options.merge(extract_job_options_from_aiv(aiv))
           current_job_options = current_job_options.merge(options)
