@@ -24,7 +24,7 @@ module Origen
         else
           file = Origen.config.referenced_pattern_list
         end
-        puts "Referenced pattern list written to: #{Pathname.new(file).relative_path_from(Pathname.pwd)}"
+        Origen.log.info "Referenced pattern list written to: #{Pathname.new(file).relative_path_from(Pathname.pwd)}"
         dir = Pathname.new(file).dirname
         FileUtils.mkdir_p(dir) unless dir.exist?
         File.open(file, 'w') do |f|

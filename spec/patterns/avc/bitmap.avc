@@ -1,0 +1,323 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    04-Aug-2017 11:57AM
+#   By:      Daniel Hadad
+#   Command: origen g bitmap -t dut.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.9.7
+#     Branch:    master(fd9c65f5000) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.7.46
+#   Plugins
+#     atp:                      0.5.4
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.4.4
+#     origen_jtag:              0.13.0
+#     origen_swd:               0.5.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# ######################################################################
+# ## Dummy write reg
+# ######################################################################
+R1                       tp0                        0 X X 1 # R6 Dummy write reg;
+R1                       tp0                        0 X X 1 # R5 ;
+R1                       tp0                        0 X X 1 # R4 ;
+R1                       tp0                        0 X X 1 # R3 ;
+R1                       tp0                        0 X X 1 # R2 ;
+R1                       tp0                        0 X X 1 # R1 ;
+R1                       tp0                        0 X X 0 # R2 ;
+R1                       tp0                        0 X X 0 # R1 ;
+R1                       tp0                        0 X X 1 # R2 ;
+R1                       tp0                        0 X X 1 # R1 ;
+R1                       tp0                        0 X X 0 # R2 ;
+R1                       tp0                        0 X X 0 # R1 ;
+# [JTAG] Write IR: 0xB
+R1                       tp0                        0 1 X 0 # R2 [JTAG] Write IR: 0xB;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+# [JTAG] /Write IR: 0xB
+R1                       tp0                        0 1 X 1 # [JTAG] /Write IR: 0xB;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+# [JTAG] Write DR: 0x1
+R1                       tp0                        0 1 X 0 # [JTAG] Write DR: 0x1;
+R33                      tp0                        0 0 X 0 # ;
+R1                       tp0                        0 0 X 1 # ;
+# [JTAG] /Write DR: 0x1
+R1                       tp0                        0 0 X 1 # [JTAG] /Write DR: 0x1;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 0 X 1 # R2 ;
+R1                       tp0                        0 0 X 1 # R1 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# [JTAG] Write IR: 0xA
+R1                       tp0                        0 0 X 0 # [JTAG] Write IR: 0xA;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+# [JTAG] /Write IR: 0xA
+R1                       tp0                        0 1 X 1 # [JTAG] /Write IR: 0xA;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+# [JTAG] Write DR: 0x7
+R1                       tp0                        0 1 X 0 # R3 [JTAG] Write DR: 0x7;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # R31 ;
+R1                       tp0                        0 0 X 0 # R30 ;
+R1                       tp0                        0 0 X 0 # R29 ;
+R1                       tp0                        0 0 X 0 # R28 ;
+R1                       tp0                        0 0 X 0 # R27 ;
+R1                       tp0                        0 0 X 0 # R26 ;
+R1                       tp0                        0 0 X 0 # R25 ;
+R1                       tp0                        0 0 X 0 # R24 ;
+R1                       tp0                        0 0 X 0 # R23 ;
+R1                       tp0                        0 0 X 0 # R22 ;
+R1                       tp0                        0 0 X 0 # R21 ;
+R1                       tp0                        0 0 X 0 # R20 ;
+R1                       tp0                        0 0 X 0 # R19 ;
+R1                       tp0                        0 0 X 0 # R18 ;
+R1                       tp0                        0 0 X 0 # R17 ;
+R1                       tp0                        0 0 X 0 # R16 ;
+R1                       tp0                        0 0 X 0 # R15 ;
+R1                       tp0                        0 0 X 0 # R14 ;
+R1                       tp0                        0 0 X 0 # R13 ;
+R1                       tp0                        0 0 X 0 # R12 ;
+R1                       tp0                        0 0 X 0 # R11 ;
+R1                       tp0                        0 0 X 0 # R10 ;
+R1                       tp0                        0 0 X 0 # R9 ;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 0 X 1 # ;
+# [JTAG] /Write DR: 0x7
+R1                       tp0                        0 0 X 1 # [JTAG] /Write DR: 0x7;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# JTAG-DP: R-32: name='RDBUFF'
+# JTAG-AP: R-32: addr=0x00000000
+R1                       tp0                        0 0 X 1 # R2 JTAG-DP: R-32: name='RDBUFF'JTAG-AP: R-32: addr=0x00000000;
+R1                       tp0                        0 0 X 1 # R1 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# [JTAG] Write IR: 0xB
+R1                       tp0                        0 1 X 0 # R2 [JTAG] Write IR: 0xB;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+# [JTAG] /Write IR: 0xB
+R1                       tp0                        0 1 X 1 # [JTAG] /Write IR: 0xB;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 1 X 1 # ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+# [JTAG] Write DR: 0x118000210
+R1                       tp0                        0 0 X 0 # R4 [JTAG] Write DR: 0x118000210;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # R17 ;
+R1                       tp0                        0 0 X 0 # R16 ;
+R1                       tp0                        0 0 X 0 # R15 ;
+R1                       tp0                        0 0 X 0 # R14 ;
+R1                       tp0                        0 0 X 0 # R13 ;
+R1                       tp0                        0 0 X 0 # R12 ;
+R1                       tp0                        0 0 X 0 # R11 ;
+R1                       tp0                        0 0 X 0 # R10 ;
+R1                       tp0                        0 0 X 0 # R9 ;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # ;
+R1                       tp0                        0 0 X 1 # ;
+# [JTAG] /Write DR: 0x118000210
+R1                       tp0                        0 0 X 1 # [JTAG] /Write DR: 0x118000210;
+R1                       tp0                        0 0 X 0 # R16 ;
+R1                       tp0                        0 0 X 0 # R15 ;
+R1                       tp0                        0 0 X 0 # R14 ;
+R1                       tp0                        0 0 X 0 # R13 ;
+R1                       tp0                        0 0 X 0 # R12 ;
+R1                       tp0                        0 0 X 0 # R11 ;
+R1                       tp0                        0 0 X 0 # R10 ;
+R1                       tp0                        0 0 X 0 # R9 ;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# JTAG-AP: W-32: addr=0x00000000, data=0x23000042
+R1                       tp0                        0 0 X 1 # JTAG-AP: W-32: addr=0x00000000, data=0x23000042;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# [JTAG] Write DR: 0x3D2
+R1                       tp0                        0 0 X 0 # [JTAG] Write DR: 0x3D2;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # ;
+R1                       tp0                        0 0 X 0 # ;
+R1                       tp0                        0 1 X 0 # R4 ;
+R1                       tp0                        0 1 X 0 # R3 ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # R24 ;
+R1                       tp0                        0 0 X 0 # R23 ;
+R1                       tp0                        0 0 X 0 # R22 ;
+R1                       tp0                        0 0 X 0 # R21 ;
+R1                       tp0                        0 0 X 0 # R20 ;
+R1                       tp0                        0 0 X 0 # R19 ;
+R1                       tp0                        0 0 X 0 # R18 ;
+R1                       tp0                        0 0 X 0 # R17 ;
+R1                       tp0                        0 0 X 0 # R16 ;
+R1                       tp0                        0 0 X 0 # R15 ;
+R1                       tp0                        0 0 X 0 # R14 ;
+R1                       tp0                        0 0 X 0 # R13 ;
+R1                       tp0                        0 0 X 0 # R12 ;
+R1                       tp0                        0 0 X 0 # R11 ;
+R1                       tp0                        0 0 X 0 # R10 ;
+R1                       tp0                        0 0 X 0 # R9 ;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 0 X 1 # ;
+# [JTAG] /Write DR: 0x3D2
+R1                       tp0                        0 0 X 1 # [JTAG] /Write DR: 0x3D2;
+R1                       tp0                        0 0 X 0 # R16 ;
+R1                       tp0                        0 0 X 0 # R15 ;
+R1                       tp0                        0 0 X 0 # R14 ;
+R1                       tp0                        0 0 X 0 # R13 ;
+R1                       tp0                        0 0 X 0 # R12 ;
+R1                       tp0                        0 0 X 0 # R11 ;
+R1                       tp0                        0 0 X 0 # R10 ;
+R1                       tp0                        0 0 X 0 # R9 ;
+R1                       tp0                        0 0 X 0 # R8 ;
+R1                       tp0                        0 0 X 0 # R7 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# JTAG-AP: W-32: addr=0x00000004, data=0x0000007a
+R1                       tp0                        0 0 X 1 # JTAG-AP: W-32: addr=0x00000004, data=0x0000007a;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+# [JTAG] Write DR: 0x7FFFFF81E
+R1                       tp0                        0 0 X 0 # [JTAG] Write DR: 0x7FFFFF81E;
+R1                       tp0                        0 1 X 0 # R4 ;
+R1                       tp0                        0 1 X 0 # R3 ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 0 X 0 # R6 ;
+R1                       tp0                        0 0 X 0 # R5 ;
+R1                       tp0                        0 0 X 0 # R4 ;
+R1                       tp0                        0 0 X 0 # R3 ;
+R1                       tp0                        0 0 X 0 # R2 ;
+R1                       tp0                        0 0 X 0 # R1 ;
+R1                       tp0                        0 1 X 0 # R23 ;
+R1                       tp0                        0 1 X 0 # R22 ;
+R1                       tp0                        0 1 X 0 # R21 ;
+R1                       tp0                        0 1 X 0 # R20 ;
+R1                       tp0                        0 1 X 0 # R19 ;
+R1                       tp0                        0 1 X 0 # R18 ;
+R1                       tp0                        0 1 X 0 # R17 ;
+R1                       tp0                        0 1 X 0 # R16 ;
+R1                       tp0                        0 1 X 0 # R15 ;
+R1                       tp0                        0 1 X 0 # R14 ;
+R1                       tp0                        0 1 X 0 # R13 ;
+R1                       tp0                        0 1 X 0 # R12 ;
+R1                       tp0                        0 1 X 0 # R11 ;
+R1                       tp0                        0 1 X 0 # R10 ;
+R1                       tp0                        0 1 X 0 # R9 ;
+R1                       tp0                        0 1 X 0 # R8 ;
+R1                       tp0                        0 1 X 0 # R7 ;
+R1                       tp0                        0 1 X 0 # R6 ;
+R1                       tp0                        0 1 X 0 # R5 ;
+R1                       tp0                        0 1 X 0 # R4 ;
+R1                       tp0                        0 1 X 0 # R3 ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+R1                       tp0                        0 1 X 1 # ;
+# [JTAG] /Write DR: 0x7FFFFF81E
+R1                       tp0                        0 1 X 1 # [JTAG] /Write DR: 0x7FFFFF81E;
+R1                       tp0                        0 1 X 0 # R16 ;
+R1                       tp0                        0 1 X 0 # R15 ;
+R1                       tp0                        0 1 X 0 # R14 ;
+R1                       tp0                        0 1 X 0 # R13 ;
+R1                       tp0                        0 1 X 0 # R12 ;
+R1                       tp0                        0 1 X 0 # R11 ;
+R1                       tp0                        0 1 X 0 # R10 ;
+R1                       tp0                        0 1 X 0 # R9 ;
+R1                       tp0                        0 1 X 0 # R8 ;
+R1                       tp0                        0 1 X 0 # R7 ;
+R1                       tp0                        0 1 X 0 # R6 ;
+R1                       tp0                        0 1 X 0 # R5 ;
+R1                       tp0                        0 1 X 0 # R4 ;
+R1                       tp0                        0 1 X 0 # R3 ;
+R1                       tp0                        0 1 X 0 # R2 ;
+R1                       tp0                        0 1 X 0 # R1 ;
+# JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
+# MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+# ######################################################################
+# ## WARNING: 93K keep alive not yet implemented!
+# ######################################################################
+SQPG STOP;
