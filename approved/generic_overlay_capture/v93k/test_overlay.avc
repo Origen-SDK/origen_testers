@@ -1,23 +1,23 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    05-Jul-2017 21:06PM
-#   By:      pderouen
-#   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e v93k.rb
+#   Time:    12-Oct-2017 09:23AM
+#   By:      FSL\b04525
+#   Command: origen g .\pattern\tester_overlay.rb -t dut3.rb -e v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.9.6
-#     Branch:    rfc2(a5edf3856e7) (+local edits)
+#     Version:   0.13.1
+#     Branch:    repair_overlay(5b780428500) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.7.46
+#     Version:   0.25.1
 #   Plugins
-#     atp:                      0.5.4
+#     atp:                      0.7.0
 #     origen_arm_debug:         0.4.3
-#     origen_doc_helpers:       0.4.4
-#     origen_jtag:              0.13.0
-#     origen_swd:               0.5.0
+#     origen_doc_helpers:       0.5.0
+#     origen_jtag:              0.16.0
+#     origen_swd:               1.1.0
 # ***************************************************************************
 FORMAT TCLK TDI TDO TMS pa;
 #                                                   t t t t p  
@@ -70,6 +70,9 @@ R1                       tp0                        1 1 H 1 111 # R2 ;
 R1                       tp0                        1 1 H 1 111 # R1 ;
 R1                       tp0                        1 1 H 1 111 # ;
 SQPG JSUB label_test;
+R39                      tp0                        1 1 H 1 101 # ;
+R1                       tp0                        1 1 H 1 101 # ;
+SQPG JSUB global_label_test;
 R1                       tp0                        1 1 H 1 101 # R20 ;
 R1                       tp0                        1 1 H 1 101 # R19 ;
 R1                       tp0                        1 1 H 1 101 # R18 ;
