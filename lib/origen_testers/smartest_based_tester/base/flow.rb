@@ -9,7 +9,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable
+        attr_accessor :add_flow_enable, :flow_name
 
         def var_filename
           @var_filename || 'global'
@@ -21,6 +21,10 @@ module OrigenTesters
 
         def filename
           super.gsub('_flow', '')
+        end
+
+        def flow_name
+          @flow_name || filename.sub(/\..*/, '').upcase
         end
 
         def hardware_bin_descriptions
@@ -36,16 +40,17 @@ module OrigenTesters
         end
 
         def at_flow_start
+          model # Call to ensure the signature gets populated
         end
 
         def at_flow_end
         end
 
         def flow_header
-          h = ['{']
+          h = ['  {']
           if add_flow_enable
             var = filename.sub(/\..*/, '').upcase
-            var = "#{var}_ENABLE"
+            var = generate_flag_name("#{var}_ENABLE")
             if add_flow_enable == :enabled
               flow_control_variables << [var, 1]
             else
@@ -57,12 +62,13 @@ module OrigenTesters
           else
             i = ''
           end
-
-          h << i + '  {'
-          set_runtime_variables.each do |var|
-            h << i + "    @#{var.to_s.upcase} = -1;"
+          if set_runtime_variables.size > 0
+            h << i + '  {'
+            set_runtime_variables.each do |var|
+              h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
+            end
+            h << i + '  }, open,"Init Flow Control Vars", ""'
           end
-          h << i + '  }, open,"Init Flow Control Vars", ""'
           h
         end
 
@@ -74,7 +80,8 @@ module OrigenTesters
             f << '  {'
             f << '  }'
           end
-          f << "}, open,\"#{filename.sub(/\..*/, '').upcase}\", \"\""
+          f << ''
+          f << "  }, open,\"#{flow_name}\",\"\""
           f
         end
 
@@ -85,9 +92,11 @@ module OrigenTesters
           @indent = add_flow_enable ? 2 : 1
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
-          m = Processors::IfRanCleaner.new.process(model.ast)
+          m = Processors::ContinueImplementer.new.process(model.ast)
+          m = Processors::IfRanCleaner.new.process(m)
+          m = Processors::FlagOptimizer.new.run(m)
+          m = Processors::AdjacentIfCombiner.new.process(m)
           m = Processors::EmptyBranchCleaner.new.process(m)
-          m = Processors::FlagOptimizer.new.process(m)
           @set_runtime_variables = Processors::ExtractSetVariables.new.run(m)
           process(m)
         end
@@ -123,10 +132,8 @@ module OrigenTesters
             line '{'
             @indent += 1
             on_fail = node.children.find { |n| n.try(:type) == :on_fail }
-            with_continue(on_fail ? on_fail.children.any? { |n| n.try(:type) == :continue } : false) do
-              process_all(on_fail) if on_fail
-              stack[:on_fail].each { |n| process_all(n) }
-            end
+            process_all(on_fail) if on_fail
+            stack[:on_fail].each { |n| process_all(n) }
             @indent -= 1
             line '}'
           else
@@ -161,21 +168,31 @@ module OrigenTesters
 
         def on_condition_flag(node)
           flag, state, *nodes = *node
+          flag_true = node.find(:flag_true)
+          flag_false = node.find(:flag_false)
           if flag.is_a?(Array)
-            condition = flag.map { |f| "@#{f.upcase} == 1" }.join(' or ')
+            condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
           else
-            condition = "@#{flag.upcase} == 1"
+            condition = "@#{generate_flag_name(flag)} == 1"
           end
           line "if #{condition} then"
           line '{'
           @indent += 1
-          process_all(nodes) if state
+          if flag_true
+            process_all(flag_true.children)
+          else
+            process_all(nodes) if state
+          end
           @indent -= 1
           line '}'
           line 'else'
           line '{'
           @indent += 1
-          process_all(nodes) unless state
+          if flag_false
+            process_all(flag_false.children)
+          else
+            process_all(nodes) unless state
+          end
           @indent -= 1
           line '}'
         end
@@ -183,7 +200,7 @@ module OrigenTesters
         def on_flow_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            flow_control_variables << f.upcase
+            flow_control_variables << generate_flag_name(f)
           end
           on_condition_flag(node)
         end
@@ -191,7 +208,7 @@ module OrigenTesters
         def on_run_flag(node)
           flag, state, *nodes = *node
           [flag].flatten.each do |f|
-            runtime_control_variables << f.upcase
+            runtime_control_variables << generate_flag_name(f)
           end
           on_condition_flag(node)
         end
@@ -209,7 +226,7 @@ module OrigenTesters
         end
 
         def on_set_run_flag(node)
-          flag = node.value.upcase
+          flag = generate_flag_name(node.value)
           runtime_control_variables << flag
           line "@#{flag} = 1;"
         end
@@ -217,34 +234,30 @@ module OrigenTesters
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
           on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-          with_continue(on_fail && on_fail.children.any? { |n| n.try(:type) == :continue }) do
-            line '{'
-            @indent += 1
-            stack[:on_fail] << on_fail if on_fail
-            stack[:on_pass] << on_pass if on_pass
-            process_all(node.children - [on_fail, on_pass])
-            stack[:on_fail].pop if on_fail
-            stack[:on_pass].pop if on_pass
-            @indent -= 1
-            line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
-          end
+          line '{'
+          @indent += 1
+          stack[:on_fail] << on_fail if on_fail
+          stack[:on_pass] << on_pass if on_pass
+          process_all(node.children - [on_fail, on_pass])
+          stack[:on_fail].pop if on_fail
+          stack[:on_pass].pop if on_pass
+          @indent -= 1
+          line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
         end
 
         def on_set_result(node)
-          unless @continue
-            bin = node.find(:bin).try(:value)
-            desc = node.find(:bin).to_a[1]
-            sbin = node.find(:softbin).try(:value)
-            sdesc = node.find(:softbin).to_a[1] || 'fail'
-            if bin && desc
-              hardware_bin_descriptions[bin] ||= desc
-            end
+          bin = node.find(:bin).try(:value)
+          desc = node.find(:bin).to_a[1]
+          sbin = node.find(:softbin).try(:value)
+          sdesc = node.find(:softbin).to_a[1] || 'fail'
+          if bin && desc
+            hardware_bin_descriptions[bin] ||= desc
+          end
 
-            if node.to_a[0] == 'pass'
-              line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
-            else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
-            end
+          if node.to_a[0] == 'pass'
+            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
+          else
+            line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
           end
         end
 
@@ -267,11 +280,15 @@ module OrigenTesters
           [job].flatten.map { |j| "@JOB == \"#{j.to_s.upcase}\"" }
         end
 
-        def with_continue(value)
-          orig = @continue
-          @continue = true if value
-          yield
-          @continue = orig
+        private
+
+        def generate_flag_name(flag)
+          case flag[0]
+          when '$'
+            flag[1..-1]
+          else
+            flag.upcase
+          end
         end
       end
     end

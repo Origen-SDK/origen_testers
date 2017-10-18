@@ -5,9 +5,9 @@ declarations
 
 % clean_runtime_control_variables.each do |var|
 %   if var.is_a?(Array)
-@<%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+@<%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
 %   else
-@<%= var.to_s.upcase %> = 0;
+@<%= var.to_s %> = 0;
 %   end
 % end
 
@@ -17,9 +17,9 @@ flags
 
 % clean_flow_control_variables.each do |var|
 %   if var.is_a?(Array)
-user <%= var[0].to_s.upcase %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+user <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
 %   else
-user <%= var.to_s.upcase %> = 0;
+user <%= var.to_s %> = 0;
 %   end
 % end
 

@@ -3,7 +3,7 @@
 # Some of the other flows also cover the flow control API and those tests are used
 # to guarantee that the test ID references work when sub-flows are involved.
 # This flow provides a full checkout of all flow control methods.
-Flow.create interface: 'OrigenTesters::Test::Interface' do
+Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Control Testing" do
 
   self.resources_filename = 'flow_control'
 
@@ -295,6 +295,20 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     test :test3
   end
   
+  log "Mixed-case manual flags"
+  test :test1, on_fail: { set_flag: :$My_Mixed_Flag }, continue: true
+  test :test2, if_flag: "$My_Mixed_Flag"
+  unless_flag "$My_Mixed_Flag" do
+    test :test3
+  end
+  
+  log "Mixed-case enables"
+  test :extra_test, if_enable: :$MCEn_extras
+  unless_enable "$MCEn_test" do
+    test :test1
+    test :test2
+  end
+
   if tester.v93k?
     log "This should retain the set-run-flag in the else conditional"
     func :test22, id: :at22
@@ -317,5 +331,92 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     log "This should optimize away then/else branches that are empty"
     func :test36, continue: true
     func :test36b, bin: 12, continue:true
+
+    log "Tests of render"
+
+    render 'multi_bin;', if_flag: :my_flag
+
+    func :test36, on_fail: { render: 'multi_bin;' }, if_flag: :my_flag
+  end
+
+  log 'An optimization test case, this should not generate a flag on V93K'
+  func :test1, id: :t1a
+
+  if_passed :t1a do
+    func :test2
+  end
+
+  if_failed :t1a do
+    func :test3
+    bin 10
+  end
+
+  log 'The reverse optimization test case, this should not generate a flag on V93K'
+  func :test1, id: :t1b
+
+  if_failed :t1b do
+    func :test3
+    bin 10
+  end
+
+  if_passed :t1b do
+    func :test2
+  end
+
+  if tester.v93k?
+    log 'Nested optimization test case'
+    func :outer_test, id: :ot
+    if_failed :ot do
+      unless_flag :flag1 do
+        func :inner_test1, id: :it1
+        render 'multi_bin;', if_failed: :it1
+      end
+    end
+
+    log 'Nested flag optimization test case'
+    if_flag :flag1 do
+      func :test4, id: :nf_t4
+      if_failed :nf_t4 do
+        render 'multi_bin;', if_flag: :flag1
+      end
+    end
+
+    log 'The setting of flags used in later OR conditions should be preserved'
+    func :test2, id: :of1
+    func :test3, if_failed: :of1
+    func :test2, id: :of2
+    func :test3, if_failed: :of2
+    func :test4
+    func :test4, if_any_failed: [:of1, :of2]
+
+    log 'The setting of flags used in later AND conditions should be preserved'
+    func :test2, id: :af1
+    func :test3, if_failed: :af1
+    func :test2, id: :af2
+    func :test3, if_failed: :af2
+    func :test4
+    func :test4, if_all_failed: [:af1, :af2]
+    
+    log 'Adjacent tests that set a flag and then use it in an OR condition should be valid'
+    func :test2, id: :of11
+    func :test2, id: :of12
+    func :test4, if_any_failed: [:of11, :of12]
+
+    log 'Adjacent tests that set a flag and then use it in an AND condition should be valid'
+    func :test2, id: :af11
+    func :test2, id: :af12
+    func :test4, if_all_failed: [:af11, :af12]
+
+    log 'Adjacent if combiner test case 1'
+    func :test1, if_enable: :my_enable_word
+    func :test2, unless_enable: :my_enable_word
+    func :test1, if_flag: :my_flag
+    func :test2, unless_flag: :my_flag
+
+    log 'Adjacent if combiner test case 2'
+    func :test2, unless_enable: :my_enable_word
+    func :test1, if_enable: :my_enable_word
+    func :test2, unless_flag: :my_flag
+    func :test1, if_flag: :my_flag
   end
 end

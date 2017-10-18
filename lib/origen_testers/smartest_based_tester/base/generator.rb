@@ -18,6 +18,18 @@ module OrigenTesters
           @initialized = true
         end
 
+        # @api private
+        # This will be called at the start of every Flow.create block, :top_level will be
+        # true when it is a top-level Flow.create block
+        def _internal_startup(options)
+          if options[:top_level]
+            if options.key?(:unique_test_names)
+              self.unique_test_names = options[:unique_test_names]
+            end
+            flow.flow_name = options[:flow_name]
+          end
+        end
+
         def add_tml(name, methods)
           methods[:class_name] ||= name.to_s.camelize
           custom_tmls[name] = methods
@@ -26,10 +38,12 @@ module OrigenTesters
 
         # @api private
         def at_flow_start
-          flow.at_flow_start
+          f = flow
+          f.at_flow_start
           # Initialize this to the value currently set on the tester, any further setting of
           # this by the interface will override
           flow.add_flow_enable = tester.add_flow_enable
+          self.unique_test_names = tester.unique_test_names
           @pattern_master_filename = nil
         end
 

@@ -104,7 +104,7 @@ module OrigenTesters
       rescue
         text = file
       end
-      model.render(text)
+      model.render(text, clean_options(options))
     end
 
     def cz(instance, cz_setup, options = {})
@@ -130,13 +130,13 @@ module OrigenTesters
     end
 
     # @api private
-    # This fires between target loads
+    # This fires between target loads (unless overridden by the ATE specific flow class)
     def at_run_start
       @@program = nil
     end
 
     # @api private
-    # This fires between flows
+    # This fires between flows (unless overridden by the ATE specific flow class)
     def at_flow_start
       @labels = {}
     end
