@@ -2346,7 +2346,6 @@ test_flow
     @MY_FLAG = -1;
     @My_Mixed_Flag = -1;
     @AT22_BEA7F3B_FAILED = -1;
-    @NF_T5_BEA7F3B_FAILED = -1;
     @OF1_BEA7F3B_FAILED = -1;
     @OF2_BEA7F3B_FAILED = -1;
     @AF1_BEA7F3B_FAILED = -1;
@@ -2404,12 +2403,12 @@ test_flow
   run_and_branch(pgm_BEA7F3B)
   then
   {
-    @T5_BEA7F3B_RAN = 1;
   }
   else
   {
-    @T5_BEA7F3B_RAN = 1;
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
   }
+  @T5_BEA7F3B_RAN = 1;
   if @T5_BEA7F3B_RAN == 1 then
   {
     run(read0_BEA7F3B);
@@ -2421,12 +2420,12 @@ test_flow
   run_and_branch(pgm_1_BEA7F3B)
   then
   {
-    @T6_BEA7F3B_RAN = 1;
   }
   else
   {
-    @T6_BEA7F3B_RAN = 1;
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
   }
+  @T6_BEA7F3B_RAN = 1;
   if @T6_BEA7F3B_RAN == 1 then
   {
     run(read0_1_BEA7F3B);
@@ -2439,12 +2438,12 @@ test_flow
   run_and_branch(pgm_2_BEA7F3B)
   then
   {
-    @T7_BEA7F3B_RAN = 1;
   }
   else
   {
-    @T7_BEA7F3B_RAN = 1;
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
   }
+  @T7_BEA7F3B_RAN = 1;
   if @T7_BEA7F3B_RAN == 1 then
   {
   }
@@ -2456,12 +2455,12 @@ test_flow
   run_and_branch(pgm_3_BEA7F3B)
   then
   {
-    @T8_BEA7F3B_RAN = 1;
   }
   else
   {
-    @T8_BEA7F3B_RAN = 1;
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
   }
+  @T8_BEA7F3B_RAN = 1;
   if @T8_BEA7F3B_RAN == 1 then
   {
   }
@@ -3330,16 +3329,6 @@ test_flow
     }
     else
     {
-      @NF_T5_BEA7F3B_FAILED = 1;
-    }
-  }
-  else
-  {
-  }
-  if @NF_T5_BEA7F3B_FAILED == 1 then
-  {
-    if @Alarm == 1 then
-    {
       if @Alarm == 1 then
       {
         multi_bin;
@@ -3347,9 +3336,6 @@ test_flow
       else
       {
       }
-    }
-    else
-    {
     }
   }
   else
@@ -3402,9 +3388,9 @@ test_flow
     run(test3_15_BEA7F3B);
   }
   run(test4_10_BEA7F3B);
-  if @AF2_BEA7F3B_FAILED == 1 then
+  if @AF1_BEA7F3B_FAILED == 1 then
   {
-    if @AF1_BEA7F3B_FAILED == 1 then
+    if @AF2_BEA7F3B_FAILED == 1 then
     {
       run(test4_11_BEA7F3B);
     }

@@ -1621,24 +1621,10 @@ test_flow
       {
       }
       print_dl("Test if_ran");
-      run_and_branch(erase_all_31_864CE8F)
-      then
-      {
-        @ERASE_RAN_1_864CE8F_RAN = 1;
-      }
-      else
-      {
-        @ERASE_RAN_1_864CE8F_RAN = 1;
-      }
-      run_and_branch(erase_all_32_864CE8F)
-      then
-      {
-        @ERASE_RAN_2_864CE8F_RAN = 1;
-      }
-      else
-      {
-        @ERASE_RAN_2_864CE8F_RAN = 1;
-      }
+      run(erase_all_31_864CE8F);
+      @ERASE_RAN_1_864CE8F_RAN = 1;
+      run(erase_all_32_864CE8F);
+      @ERASE_RAN_2_864CE8F_RAN = 1;
       if @ERASE_RAN_1_864CE8F_RAN == 1 then
       {
         run(margin_read1_all1_15_864CE8F);
@@ -1654,24 +1640,10 @@ test_flow
       {
       }
       print_dl("Test unless_ran");
-      run_and_branch(erase_all_33_864CE8F)
-      then
-      {
-        @ERASE_RAN_3_864CE8F_RAN = 1;
-      }
-      else
-      {
-        @ERASE_RAN_3_864CE8F_RAN = 1;
-      }
-      run_and_branch(erase_all_34_864CE8F)
-      then
-      {
-        @ERASE_RAN_4_864CE8F_RAN = 1;
-      }
-      else
-      {
-        @ERASE_RAN_4_864CE8F_RAN = 1;
-      }
+      run(erase_all_33_864CE8F);
+      @ERASE_RAN_3_864CE8F_RAN = 1;
+      run(erase_all_34_864CE8F);
+      @ERASE_RAN_4_864CE8F_RAN = 1;
       if @ERASE_RAN_3_864CE8F_RAN == 1 then
       {
       }
@@ -1687,8 +1659,8 @@ test_flow
         run(margin_read1_all1_18_864CE8F);
       }
       print_dl("Verify that job context wraps import");
+      if @JOB == "FR" then
       {
-        if @JOB == "FR" then
         {
           run(erase_all_35_864CE8F);
           run(erase_all_36_864CE8F);
@@ -1697,14 +1669,14 @@ test_flow
           {
             run(margin_read1_all1_19_864CE8F);
           }, open,"erase_vfy_2", ""
-        }
-        else
-        {
-        }
-      }, open,"erase_2", ""
-      print_dl("Verify that job context wraps enable block within an import");
+        }, open,"erase_2", ""
+      }
+      else
       {
-        if @JOB == "FR" then
+      }
+      print_dl("Verify that job context wraps enable block within an import");
+      if @JOB == "FR" then
+      {
         {
           if @ADDITIONAL_ERASE == 1 then
           {
@@ -1714,11 +1686,11 @@ test_flow
           {
           }
           run(erase_all_40_864CE8F);
-        }
-        else
-        {
-        }
-      }, open,"additional_erase", ""
+        }, open,"additional_erase", ""
+      }
+      else
+      {
+      }
       print_dl("Verify that flow.cz works...");
       run(margin_read1_all1_20_864CE8F);
       print_dl("Verify that flow.cz works with enable words");
@@ -1763,35 +1735,30 @@ test_flow
       if @G200_864CE8F_FAILED == 1 then
       {
         {
+          @G100_864CE8F_RAN = 1;
           run_and_branch(test100_1)
           then
           {
-            @G100_864CE8F_RAN = 1;
           }
           else
           {
             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-            @G100_864CE8F_RAN = 1;
           }
           run_and_branch(test100_2)
           then
           {
-            @G100_864CE8F_RAN = 1;
           }
           else
           {
             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-            @G100_864CE8F_RAN = 1;
           }
           run_and_branch(test100_3)
           then
           {
-            @G100_864CE8F_RAN = 1;
           }
           else
           {
             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-            @G100_864CE8F_RAN = 1;
           }
         }, open,"100Mhz Tests", ""
       }

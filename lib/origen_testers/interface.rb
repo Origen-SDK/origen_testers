@@ -4,15 +4,10 @@ module OrigenTesters
   # Include this module in any class you define as a test interface
   module Interface
     extend ActiveSupport::Concern
+    include ATP::FlowAPI
 
     included do
       Origen.add_interface(self)
-    end
-
-    (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log, :volatile, :sub_test]).each do |method|
-      define_method method do |*args, &block|
-        flow.send(method, *args, &block)
-      end
     end
 
     class PatternArray < ::Array
@@ -45,6 +40,11 @@ module OrigenTesters
 
     def self.write?
       !!@write
+    end
+
+    # Returns the abstract test program model for the current flow
+    def atp
+      flow.model
     end
 
     def write?
@@ -118,6 +118,14 @@ module OrigenTesters
 
     def render(file, options = {})
       flow.render(file, options)
+    end
+
+    def add_meta!(options)
+      flow.send(:add_meta!, options)
+    end
+
+    def add_description!(options)
+      flow.send(:add_description!, options)
     end
 
     def write_files(options = {})
