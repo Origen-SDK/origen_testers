@@ -113,7 +113,7 @@ module OrigenTesters
           first_vector.repeat -= 1 if first_vector.repeat > 1
         else
           first_vector.microcode = statement
-        end if
+        end
       end
       
       def cycle(options = {})
