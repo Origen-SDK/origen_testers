@@ -77,7 +77,7 @@ module OrigenTesters
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
         unless @capture_started[:default]
           # add the capture start opcode to the top of the pattern
-          stage.insert_from_start 'capture_start(default_capture_waveform)', 0
+          add_microcode_to_first_vec 'capture_start(default_capture_waveform)', 0
           @capture_started[:default] = true
         end
 
@@ -94,6 +94,28 @@ module OrigenTesters
       alias_method :to_hram, :store
       alias_method :capture, :store
 
+      def add_microcode_to_first_vec(statement)
+        # find the first vector
+        i = 0
+        i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+        first_vector = stage.bank[i]
+
+        if first_vector.has_microcode? || first_vector.repeat > 1
+          v = OrigenTesters::Vector.new
+          v.pin_vals = first_vector.pin_vals
+          v.timeset = first_vector.timeset
+          v.inline_comment = 'added line for opcode insert'
+          v.dont_compress = true
+          v.microcode = statement
+          stage.insert_from_start v, i
+
+          # decrement repeat count of previous first vector if > 1
+          first_vector.repeat -= 1 if first_vector.repeat > 1
+        else
+          first_vector.microcode = statement
+        end if
+      end
+      
       def cycle(options = {})
         # handle overlay if requested
         overlay_options = options.key?(:overlay) ? options.delete(:overlay) : {}
@@ -101,26 +123,7 @@ module OrigenTesters
         if overlay_options.key?(:pins)
           overlay_options = { change_data: true }.merge(overlay_options)
           unless @source_started[:default]
-            # add the source start opcode to the top of the pattern
-            i = 0
-            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
-            first_vector = stage.bank[i]
-
-            if first_vector.has_microcode? || first_vector.repeat > 1
-              v = OrigenTesters::Vector.new
-              v.pin_vals = first_vector.pin_vals
-              v.timeset = first_vector.timeset
-              v.inline_comment = 'added for source start opcode'
-              v.dont_compress = true
-              v.microcode = 'source_start(default_source_waveform)'
-              stage.insert_from_start v, i
-
-              # decrement repeat count of previous first vector if > 1
-              first_vector.repeat -= 1 if first_vector.repeat > 1
-            else
-              first_vector.microcode = 'source_start(default_source_waveform)'
-            end if
-
+            add_microcode_to_first_vec 'source_start(default_source_waveform)'
             @source_started[:default] = true
           end
 
