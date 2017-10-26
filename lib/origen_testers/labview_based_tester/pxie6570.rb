@@ -157,7 +157,7 @@ module OrigenTesters
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
         unless @capture_started[:default]
           # add the capture start opcode to the top of the pattern
-          stage.insert_from_start 'capture_start(default_capture_waveform)', 0
+          add_microcode_to_first_vec 'capture_start(default_capture_waveform)'
           @capture_started[:default] = true
         end
 
