@@ -2,7 +2,7 @@ module OrigenTesters
   module LabVIEWBasedTester
     class Pxie6570
       include OrigenTesters::VectorBasedTester
-      
+
       attr_accessor :default_capture_wave_name, :default_capture_wave_name
 
       def initialize
@@ -115,7 +115,7 @@ module OrigenTesters
           first_vector.microcode = statement
         end
       end
-      
+
       def cycle(options = {})
         # handle overlay if requested
         overlay_options = options.key?(:overlay) ? options.delete(:overlay) : {}
@@ -156,7 +156,7 @@ module OrigenTesters
           @capture_started[:default] = true
         end
       end
-      
+
       # store/capture the provided pins on the next cycle
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
@@ -165,7 +165,7 @@ module OrigenTesters
 
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
         add_capture_start pins, options
-        
+
         pins.each { |pin| pin.save; pin.capture }
         preset_next_vector(microcode: 'capture') do
           pins.each(&:restore)
