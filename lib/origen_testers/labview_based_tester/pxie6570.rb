@@ -3,7 +3,7 @@ module OrigenTesters
     class Pxie6570
       include OrigenTesters::VectorBasedTester
 
-      attr_accessor :default_capture_wave_name, :default_capture_wave_name
+      attr_accessor :default_source_wave_name, :default_capture_wave_name
 
       def initialize
         @pat_extension = 'digipatsrc'
