@@ -2,6 +2,8 @@ module OrigenTesters
   module LabVIEWBasedTester
     class Pxie6570
       include OrigenTesters::VectorBasedTester
+      
+      attr_accessor :default_capture_wave_name, :default_capture_wave_name
 
       def initialize
         @pat_extension = 'digipatsrc'
@@ -9,6 +11,8 @@ module OrigenTesters
         @source_started = {}
         @global_label_export = []
         @called_subroutines = []
+        @default_capture_wave_name = 'default_capture_waveform'
+        @default_source_wave_name = 'default_source_waveform'
       end
 
       # Internal method called by Origen
@@ -75,11 +79,7 @@ module OrigenTesters
         pins = pins.flatten.compact
 
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
-        unless @capture_started[:default]
-          # add the capture start opcode to the top of the pattern
-          add_microcode_to_first_vec 'capture_start(default_capture_waveform)'
-          @capture_started[:default] = true
-        end
+        add_capture_start pins, options
 
         pins.each do |pin|
           pin.restore_state do
@@ -123,7 +123,7 @@ module OrigenTesters
         if overlay_options.key?(:pins)
           overlay_options = { change_data: true }.merge(overlay_options)
           unless @source_started[:default]
-            add_microcode_to_first_vec 'source_start(default_source_waveform)'
+            add_microcode_to_first_vec "source_start(#{@default_source_wave_name})"
             @source_started[:default] = true
           end
 
@@ -148,6 +148,15 @@ module OrigenTesters
         overlay_options[:pins].state = cur_pin_state if overlay_options.key?(:pins)
       end
 
+      # internal method to avoid needless code duplication
+      def add_capture_start(pins, options = {})
+        unless @capture_started[:default]
+          # add the capture start opcode to the top of the pattern
+          add_microcode_to_first_vec "capture_start(#{@default_capture_wave_name})"
+          @capture_started[:default] = true
+        end
+      end
+      
       # store/capture the provided pins on the next cycle
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
@@ -155,12 +164,8 @@ module OrigenTesters
         pins = pins.flatten.compact
 
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
-        unless @capture_started[:default]
-          # add the capture start opcode to the top of the pattern
-          add_microcode_to_first_vec 'capture_start(default_capture_waveform)'
-          @capture_started[:default] = true
-        end
-
+        add_capture_start pins, options
+        
         pins.each { |pin| pin.save; pin.capture }
         preset_next_vector(microcode: 'capture') do
           pins.each(&:restore)
