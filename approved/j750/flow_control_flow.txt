@@ -255,3 +255,15 @@ DFF 1.1	Flow Table
 						Test	test3	test3						Fail									flag-true	t1b_C2A232F_FAILED				
 						set-device					10			Fail									flag-true	t1b_C2A232F_FAILED				
 						Test	test2	test2						Fail									flag-true	t1b_C2A232F_PASSED				
+						logprint	Test_the_block_form_of_expressing_if_passed/failed_dependents																					
+						Test	test1	test1						None	t114_C2A232F_PASSED	t114_C2A232F_FAILED												
+						Test	test3	test3						Fail									flag-true	t114_C2A232F_FAILED				
+						set-device					10			Fail									flag-true	t114_C2A232F_FAILED				
+						Test	test2	test2						Fail									flag-true	t114_C2A232F_PASSED				
+						logprint	Test_the_else_block_on_a_flag_condition																					
+		bitmap				Test	test2							Fail														
+		bitmap				goto	LABEL_13_C2A232F																					
+						Test	test3							Fail														
+	LABEL_13_C2A232F					nop																						
+						Test	test2							Fail									flag-true	some_flag				
+						Test	test3							Fail								not	flag-true	some_flag				

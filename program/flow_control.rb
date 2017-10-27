@@ -432,4 +432,24 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func :test1, if_flag: :$Alarm
     func :test2, unless_flag: :$Alarm
   end
+
+  log 'Test the block form of expressing if passed/failed dependents'
+  func :test1, on_pass: ->{
+    func :test2
+  }, on_fail: ->{
+    func :test3
+    bin 10
+  }
+
+  log 'Test the else block on a flag condition'
+  if_enabled "bitmap", then: ->{
+    test :test2
+  }, else: ->{
+    test :test3
+  }
+  if_flag :some_flag, then: ->{
+    test :test2
+  }, else: ->{
+    test :test3
+  }
 end

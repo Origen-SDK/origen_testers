@@ -34,6 +34,7 @@ declarations
 @OF2_BEA7F3B_FAILED = 0;
 @OOF_PASSCODE1_BEA7F3B_FAILED = 0;
 @OOF_PASSCODE2_BEA7F3B_FAILED = 0;
+@SOME_FLAG = 0;
 @T5_BEA7F3B_RAN = 0;
 @T6_BEA7F3B_RAN = 0;
 @T7_BEA7F3B_RAN = 0;
@@ -43,6 +44,7 @@ end
 -----------------------------------------------------------------
 flags
 
+user BITMAP = 0;
 user CZ = 0;
 user EN1 = 0;
 user EN2 = 0;

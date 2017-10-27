@@ -503,6 +503,15 @@ tm_163:
 tm_164:
   "testName" = "Functional";
   "output" = "None";
+tm_165:
+  "testName" = "Functional";
+  "output" = "None";
+tm_166:
+  "testName" = "Functional";
+  "output" = "None";
+tm_167:
+  "testName" = "Functional";
+  "output" = "None";
 end
 --------------------------------------------------
 testmethodlimits
@@ -834,6 +843,12 @@ tm_163:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_164:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_165:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_166:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_167:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 end
 --------------------------------------------------
 testmethods
@@ -1164,6 +1179,12 @@ tm_162:
 tm_163:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_164:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_165:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_166:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_167:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 end
 --------------------------------------------------
@@ -2313,6 +2334,27 @@ test2_27_BEA7F3B:
   override = 1;
  override_seqlbl = "test2";
  override_testf = tm_164;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test1_30_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test1";
+ override_testf = tm_165;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test3_16_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test3";
+ override_testf = tm_166;
+local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+ site_match = 2;
+ site_control = "parallel:";
+test2_28_BEA7F3B:
+  override = 1;
+ override_seqlbl = "test2";
+ override_testf = tm_167;
 local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
  site_match = 2;
  site_control = "parallel:";
@@ -3496,6 +3538,34 @@ test_flow
   else
   {
     run(test2_27_BEA7F3B);
+  }
+  print_dl("Test the block form of expressing if passed/failed dependents");
+  run_and_branch(test1_30_BEA7F3B)
+  then
+  {
+    run(test2_28_BEA7F3B);
+  }
+  else
+  {
+    run(test3_16_BEA7F3B);
+    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+  }
+  print_dl("Test the else block on a flag condition");
+  if @BITMAP == 1 then
+  {
+    run(test2);
+  }
+  else
+  {
+    run(test3);
+  }
+  if @SOME_FLAG == 1 then
+  {
+    run(test2);
+  }
+  else
+  {
+    run(test3);
   }
 }, open,"FLOW_CONTROL", ""
 end
