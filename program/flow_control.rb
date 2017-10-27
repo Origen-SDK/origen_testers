@@ -384,7 +384,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     log 'Same test case with volatile flag'
     volatile :$Alarm
     if_flag :$Alarm do
-      func :test4, id: :nf_t5
+      func :test10, id: :nf_t5
       if_failed :nf_t5 do
         render 'multi_bin;', if_flag: :$Alarm
       end
