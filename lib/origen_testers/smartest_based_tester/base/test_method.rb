@@ -138,6 +138,20 @@ module OrigenTesters
           (limits && limits.respond_to?(method)) || super
         end
 
+        def sorted_parameters
+          @parameters.sort_by do |name|
+            if name.is_a?(String)
+              name
+            else
+              if name.to_s[0] == '_'
+                name.to_s.camelize(:upper)
+              else
+                name.to_s.camelize(:lower)
+              end
+            end
+          end
+        end
+
         private
 
         def inverse_of(type)

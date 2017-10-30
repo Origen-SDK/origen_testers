@@ -3,7 +3,7 @@
 # Some of the other flows also cover the flow control API and those tests are used
 # to guarantee that the test ID references work when sub-flows are involved.
 # This flow provides a full checkout of all flow control methods.
-Flow.create interface: 'OrigenTesters::Test::Interface' do
+Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Control Testing" do
 
   self.resources_filename = 'flow_control'
 

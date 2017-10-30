@@ -51,6 +51,27 @@ module OrigenTesters
       OrigenTesters::Interface.write?
     end
 
+    # Returns the value defined on if/how to make test names unique within a flow
+    def unique_test_names
+      @unique_test_names
+    end
+
+    # Set the value of unique_test_names
+    def unique_test_names=(val)
+      @unique_test_names = val
+    end
+
+    # Returns whether the tester has been configured to wrap top-level flow modules with an
+    # enable or not.
+    #
+    # Returns nil if not.
+    #
+    # Returns :enabled if the enable is configured to be on by default, or :disabled if it is
+    # configured to be off by default.
+    def add_flow_enable
+      @add_flow_enable
+    end
+
     # Set to :enabled to have the current flow wrapped by an enable flow variable
     # that is enabled by default (top-level flow has to disable modules it doesn't want).
     #

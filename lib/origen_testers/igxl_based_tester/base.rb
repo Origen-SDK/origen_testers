@@ -12,6 +12,10 @@ module OrigenTesters
       attr_accessor :default_channelmap
       attr_accessor :default_testerconfig
       attr_accessor :max_site
+      # permit modification of minimum repeat count
+      attr_accessor :min_repeat_loop
+      alias_method :min_repeat_count, :min_repeat_loop
+      alias_method :min_repeat_count=, :min_repeat_loop=
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
 
@@ -848,10 +852,11 @@ module OrigenTesters
             when :subroutine, :default
               subroutine_overlay(overlay_str, options)
               ovly_style = :subroutine
-            when :label
+            when :label, :global_label
               options[:dont_compress] = true
               unless @overlay_history.key?(overlay_str)
-                label "#{overlay_str}", true
+                # J750 behavior is local label not global
+                label "#{overlay_str}", (ovly_style == :global_label)
                 @overlay_history[overlay_str] = { is_label: true }
               end
             when :digsrc
@@ -888,8 +893,8 @@ module OrigenTesters
       # Warn user of unsupported overlay style
       def overlay_style_warn(overlay_str, options)
         Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
-        Origen.log.warn('Available overlay styles :label, :subroutine') if j750? || j750_hpt?
-        Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :subroutine') if ultraflex?
+        Origen.log.warn('Available overlay styles :label, :global_label, :subroutine') if j750? || j750_hpt?
+        Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :global_label, :subroutine') if ultraflex?
         subroutine_overlay(overlay_str, options)
         @overlay_style = :subroutine		# Just give 1 warning
       end

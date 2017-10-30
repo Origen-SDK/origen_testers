@@ -44,7 +44,6 @@ when "examples", "test"
   # Compiler tests
 #    ARGV = %w(templates/example.txt.erb -t debug -r approved)
 #    load "origen/commands/compile.rb"
-
   if Origen.app.stats.changed_files == 0 &&
      Origen.app.stats.new_files == 0 &&
      Origen.app.stats.changed_patterns == 0 &&
