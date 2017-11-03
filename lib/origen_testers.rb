@@ -40,6 +40,7 @@ end
 
 require 'origen_testers/igxl_based_tester'
 require 'origen_testers/smartest_based_tester'
+require 'origen_testers/labview_based_tester'
 require 'origen_testers/pattern_compilers'
 
 require 'origen_testers/callback_handlers'

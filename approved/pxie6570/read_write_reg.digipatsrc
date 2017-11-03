@@ -1,0 +1,329 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    27-Oct-2017 15:13PM
+//   By:      FSL\b04525
+//   Command: origen g ./pattern/read_write_reg.rb -t dut3.rb -e pxie6570.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.13.2
+//     Branch:    AddNITester(5a382a9841b)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.25.1
+//   Plugins
+//     atp:                      0.8.0
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.5.0
+//     origen_jtag:              0.16.0
+//     origen_swd:               1.1.0
+// ***************************************************************************
+file_format_version 1.0;
+import executefunc1;
+import match_pin;
+import match_2pins;
+import match_2pins_custom_jump;
+import match_done;
+import handshake;
+timeset tp0;
+pattern read_write_reg (tclk,tdi,tdo,tms,pa)
+{
+// ######################################################################
+// ## Test write register with all 1s
+// ######################################################################
+repeat (6)                                                        tp0                           0 X X 1 XXX ;
+repeat (2)                                                        tp0                           0 X X 0 XXX ;
+repeat (2)                                                        tp0                           0 X X 1 XXX ;
+repeat (2)                                                        tp0                           0 X X 0 XXX ;
+// [JTAG] Write IR: 0xB
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+// [JTAG] /Write IR: 0xB
+                                                                  tp0                           0 1 X 1 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+// [JTAG] Write DR: 0x1
+                                                                  tp0                           0 1 X 0 XXX ;
+repeat (33)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x1
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (8)                                                        tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write IR: 0xA
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+// [JTAG] /Write IR: 0xA
+                                                                  tp0                           0 1 X 1 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+// [JTAG] Write DR: 0x7
+repeat (3)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x7
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (8)                                                        tp0                           0 0 X 0 XXX ;
+// JTAG-DP: R-32: name='RDBUFF'
+// JTAG-AP: R-32: addr=0x00000000
+repeat (2)                                                        tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write IR: 0xB
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+// [JTAG] /Write IR: 0xB
+                                                                  tp0                           0 1 X 1 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+// [JTAG] Write DR: 0x118000210
+repeat (4)                                                        tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+repeat (4)                                                        tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+repeat (17)                                                       tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (3)                                                        tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x118000210
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x00000000, data=0x23000042
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x3D2
+                                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (4)                                                        tp0                           0 1 X 0 XXX ;
+repeat (24)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x3D2
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x00000004, data=0x0000007a
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x7FFFFF81E
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (4)                                                        tp0                           0 1 X 0 XXX ;
+repeat (6)                                                        tp0                           0 0 X 0 XXX ;
+repeat (23)                                                       tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+// [JTAG] /Write DR: 0x7FFFFF81E
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (16)                                                       tp0                           0 1 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
+// ######################################################################
+// ## Test read register after all 1s write
+// ######################################################################
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+// [JTAG] Write DR: 0x7FFFFF81E
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (4)                                                        tp0                           0 1 X 0 XXX ;
+repeat (6)                                                        tp0                           0 0 X 0 XXX ;
+repeat (23)                                                       tp0                           0 1 X 0 XXX ;
+                                                                  tp0                           0 1 X 1 XXX ;
+// [JTAG] /Write DR: 0x7FFFFF81E
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (16)                                                       tp0                           0 1 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03
+// ######################################################################
+// ## Test write register with all 0s
+// ######################################################################
+                                                                  tp0                           0 1 X 1 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test read register after all 0s write
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test store register, the whole register data should be stored
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test store bits, only enable bit should be captured
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test store bits, only port A should be captured
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test read of partial register, only portA should be read
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test overlay, all reg vectors should be from subroutine
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test overlay, same again but for read
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test bit level write overlay, only portA should be from subroutine
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Test bit level read overlay, only portA should be from subroutine
+// ######################################################################
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (2)                                                        tp0                           0 0 X 0 XXX ;
+// [JTAG] Write DR: 0x6
+                                                                  tp0                           0 0 X 0 XXX ;
+repeat (2)                                                        tp0                           0 1 X 0 XXX ;
+repeat (31)                                                       tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 1 XXX ;
+// [JTAG] /Write DR: 0x6
+                                                                  tp0                           0 0 X 1 XXX ;
+repeat (16)                                                       tp0                           0 0 X 0 XXX ;
+// JTAG-AP: W-32: addr=0x0000000c, data=0x00000000
+// MEM-AP(default): WR-32: addr=0x0000007a, data=0x00000000
+// ######################################################################
+// ## Call execute subroutine
+// ######################################################################
+call executefunc1                                                 tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Call match_pin subroutine
+// ######################################################################
+call match_pin                                                    tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Call match_2pins subroutine
+// ######################################################################
+call match_2pins                                                  tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Call match_2pins custom_jump subroutine
+// ######################################################################
+call match_2pins_custom_jump                                      tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Call match_done subroutine
+// ######################################################################
+call match_done                                                   tp0                           0 0 X 0 XXX ;
+                                                                  tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Call handshake subroutine
+// ######################################################################
+call handshake                                                    tp0                           0 0 X 0 XXX ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+halt                                                              tp0                           0 0 X 0 XXX ;
+}

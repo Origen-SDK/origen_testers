@@ -28,3 +28,6 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(tester_overlay tester_store -t dut3.rb -e v93k.rb -r approved/generic_overlay_capture/v93k)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(pxie6570.list -t dut3.rb -e pxie6570.rb -r approved/pxie6570)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
