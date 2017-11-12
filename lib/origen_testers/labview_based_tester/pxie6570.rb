@@ -26,6 +26,15 @@ module OrigenTesters
         pin_list = ordered_pins.map(&:name).join(',')
         microcode "pattern #{options[:pattern]} (#{pin_list})"
         microcode '{'
+        # try adding start label to first vector here (can't be comments between label and vector)
+        unless options[:subroutine_pat]
+          stage.with_bank(:body) do
+            # find the first vector
+            i = 0
+            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+            stage.insert_from_start "#{options[:pattern]}_st:", i
+          end
+        end
       end
 
       # Internal method called by Origen
@@ -70,6 +79,15 @@ module OrigenTesters
           local_microcode = "call #{name}"
         end
         update_vector microcode: local_microcode, offset: options[:offset]
+      end
+
+      def start_subroutine(name, options = {})
+        options = { global: false }.merge(options)
+        label name, options[:global]
+      end
+
+      def end_subroutine
+        update_vector microcode: 'return'
       end
 
       # store/capture the state of the provided pins
