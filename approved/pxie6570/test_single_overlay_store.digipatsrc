@@ -23,6 +23,7 @@ file_format_version 1.0;
 timeset tp0;
 pattern test_single_overlay_store (tclk,tdi,tdo,tms,pa)
 {
+test_single_overlay_store_st:
 capture_start(default_capture_waveform)                           tp0                           X X X X XXX ; // added line for opcode insert
 source_start(default_source_waveform)                             tp0                           X X X X XXX ;
 // should get a repeat 5 vector

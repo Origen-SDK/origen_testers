@@ -24,6 +24,7 @@ timeset tp0;
 pattern delay (tclk,tdi,tdo,tms,pa)
 {
 // Wait for 40.0ms
+delay_st:
 repeat (65535)                                                    tp0                           X X X X XXX ;
 repeat (65535)                                                    tp0                           X X X X XXX ;
 repeat (65535)                                                    tp0                           X X X X XXX ;
