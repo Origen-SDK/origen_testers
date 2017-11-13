@@ -42,6 +42,10 @@ module OrigenTesters
       !!@write
     end
 
+    def test(name, options = {})
+      flow.test(name, options)
+    end
+
     # Returns the abstract test program model for the current flow
     def atp
       flow.model
