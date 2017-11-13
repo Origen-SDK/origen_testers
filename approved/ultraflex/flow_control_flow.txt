@@ -254,3 +254,34 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 	LABEL_13_C2A232F					nop																											
 						Test	test2												Fail									flag-true	some_flag				
 						Test	test3												Fail								not	flag-true	some_flag				
+						logprint	Test_of_a_real_life_case_which_was_found_to_have_problems																										
+		eword1				goto	LABEL_14_C2A232F																										
+		eword2				goto	LABEL_15_C2A232F																										
+		small_flow				Test	test1												Fail														
+		small_flow				Test	test2												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+		small_flow				Test	test1												Fail														
+		small_flow				Test	test2												Fail														
+	LABEL_15_C2A232F					nop																											
+		eword2				goto	LABEL_17_C2A232F																										
+						goto	LABEL_16_C2A232F																										
+	LABEL_17_C2A232F					nop																											
+		small_flow				Test	test1												Fail														
+		small_flow				Test	test2												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+						Test	test1												Fail														
+		small_flow				Test	test1												Fail														
+		small_flow				Test	test2												Fail														
+	LABEL_16_C2A232F					nop																											
+	LABEL_14_C2A232F					nop																											

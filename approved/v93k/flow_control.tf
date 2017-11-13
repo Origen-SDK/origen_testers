@@ -3567,6 +3567,67 @@ test_flow
   {
     run(test3);
   }
+  print_dl("Test of a real life case which was found to have problems");
+  if @EWORD1 == 1 then
+  {
+  }
+  else
+  {
+    {
+      if @EWORD2 == 1 then
+      {
+        if @SMALL_FLOW == 1 then
+        {
+          run(test1);
+          run(test2);
+        }
+        else
+        {
+        }
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        if @SMALL_FLOW == 1 then
+        {
+          run(test1);
+          run(test2);
+        }
+        else
+        {
+        }
+      }
+      else
+      {
+        if @SMALL_FLOW == 1 then
+        {
+          run(test1);
+          run(test2);
+        }
+        else
+        {
+        }
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        run(test1);
+        if @SMALL_FLOW == 1 then
+        {
+          run(test1);
+          run(test2);
+        }
+        else
+        {
+        }
+      }
+    }, open,"small", ""
+  }
 
   }, open,"Flow Control Testing",""
 

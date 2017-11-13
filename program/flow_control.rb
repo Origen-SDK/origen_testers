@@ -452,4 +452,14 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   }, else: ->{
     test :test3
   }
+
+  log 'Test of a real life case which was found to have problems'
+  unless_enable "eword1" do
+    unless_enable "eword2" do
+      import 'components/small'
+    end
+    if_enable "eword2" do
+      import 'components/small'
+    end
+  end
 end

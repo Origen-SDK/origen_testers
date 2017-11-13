@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Origen-SDK/atp.git
-  revision: 9264b419c6ce55a408976a6e7aa1afa43e8ee606
+  revision: 6dafb5d5190921d3eaa0c898048e3b02ead4f65f
   branch: overhaul
   specs:
     atp (0.8.0)
@@ -57,7 +57,7 @@ GEM
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
-    i18n (0.9.0)
+    i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
     kramdown (1.15.0)
@@ -71,7 +71,7 @@ GEM
     nanoc (3.8.0)
       cri (~> 2.3)
     nesty (1.0.2)
-    net-ldap (0.16.0)
+    net-ldap (0.16.1)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     origen (0.27.0)
@@ -104,7 +104,7 @@ GEM
       origen (~> 0.2)
       origen_jtag (>= 0.12.0)
       origen_swd (>= 0.5.0)
-    origen_doc_helpers (0.5.0)
+    origen_doc_helpers (0.5.1)
       origen (>= 0.7.15)
     origen_jtag (0.17.1)
       origen (~> 0.7, >= 0.7.35)
@@ -163,7 +163,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (1.4.1)
-    tins (1.15.0)
+    tins (1.15.1)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     yard (0.9.9)
