@@ -84,13 +84,17 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_3_7AF57D1_PASSED				
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_4_7AF57D1_PASSED				
 						logprint	Test_if_ran																										
-						Test	erase_all_v1	erase_all											Fail	erase_ran_1_7AF57D1_RAN													
-						Test	erase_all_v1	erase_all											Fail	erase_ran_2_7AF57D1_RAN													
+						Test	erase_all_v1	erase_all											Fail														
+						flag-true	erase_ran_1_7AF57D1_RAN																										
+						Test	erase_all_v1	erase_all											Fail														
+						flag-true	erase_ran_2_7AF57D1_RAN																										
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_1_7AF57D1_RAN				
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_2_7AF57D1_RAN				
 						logprint	Test_unless_ran																										
-						Test	erase_all_v1	erase_all											Fail	erase_ran_3_7AF57D1_RAN													
-						Test	erase_all_v1	erase_all											Fail	erase_ran_4_7AF57D1_RAN													
+						Test	erase_all_v1	erase_all											Fail														
+						flag-true	erase_ran_3_7AF57D1_RAN																										
+						Test	erase_all_v1	erase_all											Fail														
+						flag-true	erase_ran_4_7AF57D1_RAN																										
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_3_7AF57D1_RAN				
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_4_7AF57D1_RAN				
 						logprint	Verify_that_job_context_wraps_import																										
@@ -120,22 +124,26 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	bgap_voltage_meas1	bgap_voltage_meas1											Fail														
 						logprint	Speed_binning_example_bug_from_video_5																										
 						Test	test200_1												None		g200_7AF57D1_FAILED_0												
-						Test	test200_2												None		g200_7AF57D1_FAILED_1												
-						Test	test200_3												None		g200_7AF57D1_FAILED_2												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_0				
+						Test	test200_2												None		g200_7AF57D1_FAILED_1												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_1				
+						Test	test200_3												None		g200_7AF57D1_FAILED_2												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_2				
-						Test	test100_1									5			Fail	g100_7AF57D1_RAN_0	g100_7AF57D1_RAN_0							flag-true	g200_7AF57D1_FAILED				
-						Test	test100_2									5			Fail	g100_7AF57D1_RAN_1	g100_7AF57D1_RAN_1							flag-true	g200_7AF57D1_FAILED				
-						Test	test100_3									5			Fail	g100_7AF57D1_RAN_2	g100_7AF57D1_RAN_2							flag-true	g200_7AF57D1_FAILED				
-						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_0				
-						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_1				
-						flag-true	g100_7AF57D1_RAN																					flag-true	g100_7AF57D1_RAN_2				
+						flag-true	g100_7AF57D1_RAN																					flag-true	g200_7AF57D1_FAILED				
+						Test	test100_1									5			Fail									flag-true	g200_7AF57D1_FAILED				
+						Test	test100_2									5			Fail									flag-true	g200_7AF57D1_FAILED				
+						Test	test100_3									5			Fail									flag-true	g200_7AF57D1_FAILED				
 						set-device									2				Pass									flag-true	g100_7AF57D1_RAN				
 						logprint	Test_node_optimization_within_an_if_failed_branch																										
 						Test	some_func_test	some_func_test											None		sft1_7AF57D1_FAILED												
-						set-device										10			Fail									flag-true	alarm				
-						set-device										11			Fail								not	flag-true	alarm				
+						flag-true	sft1_7AF57D1_FAILED_AND_Alarm																										
+						flag-false	sft1_7AF57D1_FAILED_AND_Alarm																				not	flag-true	Alarm				
+						flag-false	sft1_7AF57D1_FAILED_AND_Alarm																				not	flag-true	sft1_7AF57D1_FAILED				
+						set-device										10			Fail									flag-true	sft1_7AF57D1_FAILED_AND_Alarm				
+						flag-true	sft1_7AF57D1_FAILED_AND_NOT_Alarm																										
+						flag-false	sft1_7AF57D1_FAILED_AND_NOT_Alarm																					flag-true	Alarm				
+						flag-false	sft1_7AF57D1_FAILED_AND_NOT_Alarm																				not	flag-true	sft1_7AF57D1_FAILED				
+						set-device										11			Fail								not	flag-true	sft1_7AF57D1_FAILED_AND_NOT_Alarm				
 		alarmenabled				set-device										12			Fail									flag-true	sft1_7AF57D1_FAILED				
 		alarmenabled				goto	LABEL_2_7AF57D1																					flag-true	sft1_7AF57D1_FAILED				
 						set-device										13			Fail									flag-true	sft1_7AF57D1_FAILED				

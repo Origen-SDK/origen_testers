@@ -1,4 +1,3 @@
-require 'origen_testers/smartest_based_tester/base/processors'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -92,13 +91,9 @@ module OrigenTesters
           @indent = add_flow_enable ? 2 : 1
           @lines = []
           @stack = { on_fail: [], on_pass: [] }
-          m = Processors::ContinueImplementer.new.process(model.ast)
-          m = Processors::IfRanCleaner.new.process(m)
-          m = Processors::FlagOptimizer.new.run(m)
-          m = Processors::AdjacentIfCombiner.new.process(m)
-          m = Processors::EmptyBranchCleaner.new.process(m)
-          @set_runtime_variables = Processors::ExtractSetVariables.new.run(m)
-          process(m)
+          ast = atp.ast(unique_id: sig, optimization: :smt)
+          @set_runtime_variables = ast.set_flags
+          process(ast)
         end
 
         def line(str)
@@ -147,9 +142,10 @@ module OrigenTesters
           end
         end
 
-        def on_job(node)
-          jobs, state, *nodes = *node
+        def on_if_job(node)
+          jobs, *nodes = *node
           jobs = clean_job(jobs)
+          state = node.type == :if_job
           runtime_control_variables << ['JOB', '']
           condition = jobs.join(' or ')
           line "if #{condition} then"
@@ -165,11 +161,11 @@ module OrigenTesters
           @indent -= 1
           line '}'
         end
+        alias_method :on_unless_job, :on_if_job
 
-        def on_condition_flag(node)
-          flag, state, *nodes = *node
-          flag_true = node.find(:flag_true)
-          flag_false = node.find(:flag_false)
+        def on_condition_flag(node, state)
+          flag, *nodes = *node
+          else_node = node.find(:else)
           if flag.is_a?(Array)
             condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
           else
@@ -178,54 +174,58 @@ module OrigenTesters
           line "if #{condition} then"
           line '{'
           @indent += 1
-          if flag_true
-            process_all(flag_true.children)
+          if state
+            process_all(node.children - [else_node])
           else
-            process_all(nodes) if state
+            process(else_node) if else_node
           end
           @indent -= 1
           line '}'
           line 'else'
           line '{'
           @indent += 1
-          if flag_false
-            process_all(flag_false.children)
+          if state
+            process(else_node) if else_node
           else
-            process_all(nodes) unless state
+            process_all(node.children - [else_node])
           end
           @indent -= 1
           line '}'
         end
 
-        def on_flow_flag(node)
-          flag, state, *nodes = *node
+        def on_if_enabled(node)
+          flag, *nodes = *node
+          state = node.type == :if_enabled
           [flag].flatten.each do |f|
             flow_control_variables << generate_flag_name(f)
           end
-          on_condition_flag(node)
+          on_condition_flag(node, state)
         end
+        alias_method :on_unless_enabled, :on_if_enabled
 
-        def on_run_flag(node)
-          flag, state, *nodes = *node
+        def on_if_flag(node)
+          flag, *nodes = *node
+          state = node.type == :if_flag
           [flag].flatten.each do |f|
             runtime_control_variables << generate_flag_name(f)
           end
-          on_condition_flag(node)
+          on_condition_flag(node, state)
         end
+        alias_method :on_unless_flag, :on_if_flag
 
-        def on_enable_flow_flag(node)
+        def on_enable(node)
           flag = node.value.upcase
           flow_control_variables << flag
           line "@#{flag} = 1;"
         end
 
-        def on_disable_flow_flag(node)
+        def on_disable(node)
           flag = node.value.upcase
           flow_control_variables << flag
           line "@#{flag} = 0;"
         end
 
-        def on_set_run_flag(node)
+        def on_set_flag(node)
           flag = generate_flag_name(node.value)
           runtime_control_variables << flag
           line "@#{flag} = 1;"

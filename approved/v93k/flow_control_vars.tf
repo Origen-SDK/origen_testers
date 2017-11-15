@@ -7,6 +7,7 @@ declarations
 @AF1_BEA7F3B_FAILED = 0;
 @AF2_BEA7F3B_FAILED = 0;
 @AT22_BEA7F3B_FAILED = 0;
+@Alarm = 0;
 @ECT2_1_BEA7F3B_FAILED = 0;
 @ECT2_2_BEA7F3B_FAILED = 0;
 @FLAG1 = 0;
@@ -33,6 +34,7 @@ declarations
 @OF2_BEA7F3B_FAILED = 0;
 @OOF_PASSCODE1_BEA7F3B_FAILED = 0;
 @OOF_PASSCODE2_BEA7F3B_FAILED = 0;
+@SOME_FLAG = 0;
 @T5_BEA7F3B_RAN = 0;
 @T6_BEA7F3B_RAN = 0;
 @T7_BEA7F3B_RAN = 0;
@@ -42,9 +44,12 @@ end
 -----------------------------------------------------------------
 flags
 
+user BITMAP = 0;
 user CZ = 0;
 user EN1 = 0;
 user EN2 = 0;
+user EWORD1 = 0;
+user EWORD2 = 0;
 user EXTRAS = 0;
 user MCEn_extras = 0;
 user MCEn_test = 0;
@@ -54,6 +59,7 @@ user NVM_MINIMUM_FT = 0;
 user NVM_MINIMUM_HOT = 0;
 user NVM_MINIMUM_ROOM = 0;
 user QUICK = 0;
+user SMALL_FLOW = 0;
 user WORD1 = 0;
 user WORD2 = 0;
 user WORD3 = 0;
