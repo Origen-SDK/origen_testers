@@ -17,5 +17,7 @@ ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut.rb", "-e", "v93k_disabl
         "-o", "#{Origen.root}/output/v93k_disable_flow"]
 load 'origen/commands/program.rb'
 
-# Tests of the V93K unique test name options
-
+# Tests of the V93K create limit table option
+ARGV = ["program/test.rb", "-t", "dut.rb", "-e", "v93k_limits_file.rb", "-r", "approved/v93k_limits_file",
+        "-o", "#{Origen.root}/output/v93k_limits_file"]
+load 'origen/commands/program.rb'

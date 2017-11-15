@@ -94,6 +94,13 @@ module OrigenTesters
           ast = atp.ast(unique_id: sig, optimization: :smt)
           @set_runtime_variables = ast.set_flags
           process(ast)
+          render_limits_file(ast) if tester.create_limits_file
+        end
+
+        def render_limits_file(ast)
+          m = platform::LimitsFile.new(ast, manually_register: true)
+          m.filename = "#{name}_limits.csv"
+          m.write_to_file
         end
 
         def line(str)
@@ -257,7 +264,11 @@ module OrigenTesters
           if node.to_a[0] == 'pass'
             line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
           else
-            line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+            if tester.create_limits_file
+              line 'multi_bin;'
+            else
+              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+            end
           end
         end
 

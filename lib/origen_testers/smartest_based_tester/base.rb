@@ -24,6 +24,10 @@ module OrigenTesters
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
 
+      # When set to true, all test flows will be generated with a corresponding testtable limits
+      # file, rather than having the limits attached inline to the test suites
+      attr_accessor :create_limits_file
+
       def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
@@ -46,6 +50,11 @@ module OrigenTesters
           @unique_test_names = options[:unique_test_names]
         else
           @unique_test_names = :signature
+        end
+        if options.key?(:create_limits_file)
+          @create_limits_file = options[:create_limits_file]
+        else
+          @create_limits_file = false
         end
       end
 

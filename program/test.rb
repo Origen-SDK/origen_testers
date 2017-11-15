@@ -17,9 +17,11 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV, continue: true
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 2000, lo_limit: 0.01, continue: true
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: "_some_spec", lo_limit: 0.01, continue: true
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: [1, 2]
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: [1.uA, 2.uA, 3.uA], hi_limit: [4.uA,5.uA], units: "A", defer_limits: true
+  unless tester.v93k? && tester.create_limits_file
+    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: "_some_spec", lo_limit: 0.01, continue: true
+    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: [1, 2]
+    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: [1.uA, 2.uA, 3.uA], hi_limit: [4.uA,5.uA], units: "A", defer_limits: true
+  end
 
   if tester.uflex?
     log "Test of ultraflex render API"
