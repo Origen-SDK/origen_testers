@@ -120,6 +120,7 @@ module OrigenTesters
 
         def on_set_flag(node)
           flag = clean_flag(node.to_a[0])
+          set_previously = !!set_flags[flag]
           set_flags[flag] = context.dup
           if current_line
             if branch == :on_fail
@@ -128,6 +129,9 @@ module OrigenTesters
               current_line.flag_pass = flag
             end
           else
+            unless set_previously
+              completed_lines << platform::FlowLine.new(:defaults, flag_fail: flag)
+            end
             completed_lines << new_line(:flag_true, parameter: flag)
           end
         end

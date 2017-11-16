@@ -85,15 +85,19 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_4_7AF57D1_PASSED				
 						logprint	Test_if_ran																										
 						Test	erase_all_v1	erase_all											Fail														
+						defaults															erase_ran_1_7AF57D1_RAN												
 						flag-true	erase_ran_1_7AF57D1_RAN																										
 						Test	erase_all_v1	erase_all											Fail														
+						defaults															erase_ran_2_7AF57D1_RAN												
 						flag-true	erase_ran_2_7AF57D1_RAN																										
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_1_7AF57D1_RAN				
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_2_7AF57D1_RAN				
 						logprint	Test_unless_ran																										
 						Test	erase_all_v1	erase_all											Fail														
+						defaults															erase_ran_3_7AF57D1_RAN												
 						flag-true	erase_ran_3_7AF57D1_RAN																										
 						Test	erase_all_v1	erase_all											Fail														
+						defaults															erase_ran_4_7AF57D1_RAN												
 						flag-true	erase_ran_4_7AF57D1_RAN																										
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_3_7AF57D1_RAN				
 						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_4_7AF57D1_RAN				
@@ -124,11 +128,13 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	bgap_voltage_meas1	bgap_voltage_meas1											Fail														
 						logprint	Speed_binning_example_bug_from_video_5																										
 						Test	test200_1												None		g200_7AF57D1_FAILED_0												
+						defaults															g200_7AF57D1_FAILED												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_0				
 						Test	test200_2												None		g200_7AF57D1_FAILED_1												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_1				
 						Test	test200_3												None		g200_7AF57D1_FAILED_2												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_2				
+						defaults															g100_7AF57D1_RAN												
 						flag-true	g100_7AF57D1_RAN																					flag-true	g200_7AF57D1_FAILED				
 						Test	test100_1									5			Fail									flag-true	g200_7AF57D1_FAILED				
 						Test	test100_2									5			Fail									flag-true	g200_7AF57D1_FAILED				
