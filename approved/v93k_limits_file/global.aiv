@@ -10,3 +10,4 @@ AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
 
 PATTERNS name tmf_file v2b_options
 meas_read_pump .tmf
+program_ckbd .tmf

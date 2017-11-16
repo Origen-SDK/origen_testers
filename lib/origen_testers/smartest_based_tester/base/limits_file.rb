@@ -28,15 +28,23 @@ module OrigenTesters
           if limits.size > 2
             fail 'More than one pair of limits per test is not supported yet!'
           end
-          limits.each do |limit|
-            if limit.to_a[1] =~ /^G/i
-              o[:lsl] = limit.to_a[0]
-              o[:lsl_typ] = limit.to_a[1]
-            else
-              o[:usl] = limit.to_a[0]
-              o[:usl_typ] = limit.to_a[1]
+          if limits.empty?
+            # Assume it is a functional test in this case
+            o[:lsl] = 1
+            o[:lsl_typ] = 'GE'
+            o[:usl] = 1
+            o[:usl_typ] = 'LE'
+          else
+            limits.each do |limit|
+              if limit.to_a[1] =~ /^G/i
+                o[:lsl] = limit.to_a[0]
+                o[:lsl_typ] = limit.to_a[1]
+              else
+                o[:usl] = limit.to_a[0]
+                o[:usl_typ] = limit.to_a[1]
+              end
+              o[:units] = limit.to_a[2]
             end
-            o[:units] = limit.to_a[2]
           end
           if on_fail = node.find(:on_fail)
             if set_result = on_fail.find(:set_result)

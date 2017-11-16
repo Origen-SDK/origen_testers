@@ -1,4 +1,5 @@
 "Suite name","Pins","Test name","Test number","Lsl","Lsl_typ","Usl_typ","Usl","Units","Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"
+"program_ckbd_2D155E0","","","1000","1","GE","LE","1","","1100","","100","","","","",""
 "meas_read_pump_2D155E0","","","1050","","","LE","35","","2","","119","","","","",""
 "meas_read_pump_1_2D155E0","","","1050","45","GE","","","","2","","119","","","","",""
 "meas_read_pump_2_2D155E0","","","1050","45","GE","LE","35","","2","","119","","","","",""
