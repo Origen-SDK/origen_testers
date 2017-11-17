@@ -275,6 +275,7 @@ module OrigenTesters
         x = allocate
         x.send(:initialize, *args, &block)
         Origen.interface.sheet_generators << x unless options[:manually_register]
+        x.filename = options[:filename] if options[:filename]
         x
       end
     end

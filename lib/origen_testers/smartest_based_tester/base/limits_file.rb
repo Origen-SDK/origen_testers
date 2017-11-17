@@ -4,10 +4,11 @@ module OrigenTesters
       class LimitsFile < ATP::Formatter
         include OrigenTesters::Generator
 
-        attr_accessor :filename, :ast
+        attr_accessor :ast
 
         def initialize(ast, options = {})
           @ast = ast
+          @used_test_numbers = {}
           lines << '"Suite name","Pins","Test name","Test number","Lsl","Lsl_typ","Usl_typ","Usl","Units","Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
           process(ast)
         end
@@ -20,10 +21,22 @@ module OrigenTesters
           'testtable/limits'
         end
 
+        def on_flow(node)
+          @flowname = node.find(:name).value
+          process_all(node.children)
+        end
+
         def on_test(node)
           o = {}
           o[:suite_name] = node.find(:name).to_a[0]
-          o[:test_number] = (node.find(:number) || []).to_a[0]
+          number = (node.find(:number) || []).to_a[0]
+          if number
+            if @used_test_numbers[number]
+              fail "Test number #{number} cannot be assigned to #{o[:suite_name]} in limits file #{filename} (flow: #{@flowname}), since it has already be used for #{@used_test_numbers[number]}!"
+            end
+            o[:test_number] = number
+            @used_test_numbers[number] = o[:suite_name]
+          end
           limits = node.find_all(:limit)
           if limits.size > 2
             fail 'More than one pair of limits per test is not supported yet!'

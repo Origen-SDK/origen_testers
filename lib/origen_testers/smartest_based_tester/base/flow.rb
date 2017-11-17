@@ -98,8 +98,7 @@ module OrigenTesters
         end
 
         def render_limits_file(ast)
-          m = platform::LimitsFile.new(ast, manually_register: true)
-          m.filename = "#{name}_limits.csv"
+          m = platform::LimitsFile.new(ast, manually_register: true, filename: "#{name}_limits")
           m.write_to_file
         end
 

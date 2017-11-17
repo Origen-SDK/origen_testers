@@ -14,16 +14,16 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func :program_ckbd, :number => 1000, :bin => 100, :soft_bin => 1100
   end
   meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: 35
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV, continue: true
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 2000, lo_limit: 0.01, continue: true
+  meas :read_pump, tnum: 1060, bin: 119, soft_bin: 2, hi_limit: 45
+  meas :read_pump, tnum: 1070, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
+  meas :read_pump, tnum: 1080, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35
+  meas :read_pump, tnum: 1090, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV
+  meas :read_pump, tnum: 1100, bin: 119, soft_bin: 2, hi_limit: 45.mV, lo_limit: 35.mV, continue: true
+  meas :read_pump, tnum: 1110, bin: 119, soft_bin: 2, hi_limit: 2000, lo_limit: 0.01, continue: true
   unless tester.v93k? && tester.create_limits_file
-    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: "_some_spec", lo_limit: 0.01, continue: true
-    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: [1, 2]
-    meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: [1.uA, 2.uA, 3.uA], hi_limit: [4.uA,5.uA], units: "A", defer_limits: true
+    meas :read_pump, tnum: 1120, bin: 119, soft_bin: 2, hi_limit: "_some_spec", lo_limit: 0.01, continue: true
+    meas :read_pump, tnum: 1130, bin: 119, soft_bin: 2, hi_limit: [1, 2]
+    meas :read_pump, tnum: 1140, bin: 119, soft_bin: 2, lo_limit: [1.uA, 2.uA, 3.uA], hi_limit: [4.uA,5.uA], units: "A", defer_limits: true
   end
 
   if tester.uflex?
