@@ -28,6 +28,13 @@ module OrigenTesters
       # file, rather than having the limits attached inline to the test suites
       attr_accessor :create_limits_file
 
+      # Returns an array of strings that indicate which test modes will be included in limits files,
+      # by default returns an empty array.
+      # If no test modes have been specified then the limits file will simply be generated with no
+      # test modes.
+      attr_reader :limitfile_test_modes
+      alias_method :limitsfile_test_modes, :limitfile_test_modes
+
       def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
@@ -56,7 +63,15 @@ module OrigenTesters
         else
           @create_limits_file = false
         end
+        self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
       end
+
+      # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
+      # to set multiple.
+      def limitfile_test_modes=(val)
+        @limitfile_test_modes = Array(val).map(&:to_s)
+      end
+      alias_method :limitsfile_test_modes, :limitfile_test_modes=
 
       # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable
       # that is enabled by default (top-level flow has to disable modules it doesn't want).

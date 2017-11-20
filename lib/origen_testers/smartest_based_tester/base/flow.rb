@@ -43,6 +43,8 @@ module OrigenTesters
         end
 
         def at_flow_end
+          # Take whatever the test modes are set to at the end of the flow as what we go with
+          @test_modes = tester.limitfile_test_modes
         end
 
         def flow_header
@@ -98,7 +100,7 @@ module OrigenTesters
         end
 
         def render_limits_file(ast)
-          m = platform::LimitsFile.new(ast, manually_register: true, filename: "#{name}_limits")
+          m = platform::LimitsFile.new(self, ast, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
           m.write_to_file
         end
 

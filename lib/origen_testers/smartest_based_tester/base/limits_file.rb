@@ -4,12 +4,26 @@ module OrigenTesters
       class LimitsFile < ATP::Formatter
         include OrigenTesters::Generator
 
-        attr_accessor :ast
+        attr_reader :ast, :flow, :test_modes
 
-        def initialize(ast, options = {})
+        def initialize(flow, ast, options = {})
           @ast = ast
           @used_test_numbers = {}
-          lines << '"Suite name","Pins","Test name","Test number","Lsl","Lsl_typ","Usl_typ","Usl","Units","Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
+          @test_modes = Array(options[:test_modes])
+          l = '"Suite name","Pins","Test name","Test number"'
+          if test_modes.empty?
+            l += ',"Lsl","Lsl_typ","Usl_typ","Usl","Units","Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
+            lines << l
+          else
+            l += (',"Lsl","Lsl_typ","Usl_typ","Usl","Units"' * test_modes.size) + ',"Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
+            lines << l
+            l = ',,,"'
+            test_modes.each do |mode|
+              l += ",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\""
+            end
+            l += ',,,,,,,,'
+            lines << l
+          end
           process(ast)
         end
 
@@ -92,16 +106,31 @@ module OrigenTesters
           l << f(options[:test_name])
           # "Test number"
           l << f(options[:test_number])
-          # "Lsl"
-          l << f(options[:lsl])
-          # "Lsl_typ"
-          l << f(options[:lsl_typ])
-          # "Usl_typ"
-          l << f(options[:usl_typ])
-          # "Usl"
-          l << f(options[:usl])
-          # "Units"
-          l << f(options[:units])
+          if test_modes.empty?
+            # "Lsl"
+            l << f(options[:lsl])
+            # "Lsl_typ"
+            l << f(options[:lsl_typ])
+            # "Usl_typ"
+            l << f(options[:usl_typ])
+            # "Usl"
+            l << f(options[:usl])
+            # "Units"
+            l << f(options[:units])
+          else
+            test_modes.each do |mode|
+              # "Lsl"
+              l << f(options[:lsl])
+              # "Lsl_typ"
+              l << f(options[:lsl_typ])
+              # "Usl_typ"
+              l << f(options[:usl_typ])
+              # "Usl"
+              l << f(options[:usl])
+              # "Units"
+              l << f(options[:units])
+            end
+          end
           # "Bin_s_num"
           l << f(options[:bin_s_num])
           # "Bin_s_name"
