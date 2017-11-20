@@ -1,18 +1,8 @@
-GIT
-  remote: https://github.com/Origen-SDK/atp.git
-  revision: 6dafb5d5190921d3eaa0c898048e3b02ead4f65f
-  branch: overhaul
-  specs:
-    atp (0.8.0)
-      ast (~> 2)
-      origen (>= 0.2.3)
-      sexpistol (~> 0.0)
-
 PATH
   remote: .
   specs:
     origen_testers (0.13.2)
-      atp (~> 0.8)
+      atp (~> 1)
       origen (>= 0.7.40)
       require_all (~> 1)
 
@@ -27,6 +17,10 @@ GEM
     ast (2.3.0)
     astrolabe (1.3.1)
       parser (~> 2.2)
+    atp (1.0.0)
+      ast (~> 2)
+      origen (>= 0.2.3)
+      sexpistol (~> 0.0)
     builder (3.2.3)
     byebug (9.1.0)
     coderay (1.1.2)
@@ -67,7 +61,6 @@ GEM
     minitest (5.10.3)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mustermann (1.0.1)
     nanoc (3.8.0)
       cri (~> 2.3)
     nesty (1.0.2)
@@ -174,7 +167,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  atp!
   byebug
   coveralls
   origen_arm_debug (= 0.4.3)
