@@ -28,14 +28,23 @@ module OrigenTesters
 
         def on_test(node)
           o = {}
-          o[:suite_name] = node.find(:name).to_a[0]
+          test_obj = node.find(:object).to_a[0]
+          o[:suite_name] = test_obj.respond_to?(:name) ? test_obj.name : test_obj
+          o[:test_name] = (node.find(:name) || []).to_a[0]
           number = (node.find(:number) || []).to_a[0]
           if number
-            if @used_test_numbers[number]
-              fail "Test number #{number} cannot be assigned to #{o[:suite_name]} in limits file #{filename} (flow: #{@flowname}), since it has already be used for #{@used_test_numbers[number]}!"
+            if n1 = @used_test_numbers[number]
+              if n1.has_source? && node.has_source?
+                Origen.log.error "Test number #{number} has been assigned more than once in limits file #{filename} (flow: #{@flowname}):"
+                Origen.log.error "  #{n1.source}"
+                Origen.log.error "  #{node.source}"
+                exit 1
+              else
+                fail "Test number #{number} cannot be assigned to #{o[:suite_name]} in limits file #{filename} (flow: #{@flowname}), since it has already be used for #{@used_test_numbers[number]}!"
+              end
             end
             o[:test_number] = number
-            @used_test_numbers[number] = o[:suite_name]
+            @used_test_numbers[number] = node
           end
           limits = node.find_all(:limit)
           if limits.size > 2

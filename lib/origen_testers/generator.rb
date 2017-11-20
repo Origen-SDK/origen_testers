@@ -273,9 +273,9 @@ module OrigenTesters
       def new(*args, &block) # :nodoc:
         options = (args.last && args.last.is_a?(Hash)) ? args.last : {}
         x = allocate
+        x.filename = options[:filename] if options[:filename]
         x.send(:initialize, *args, &block)
         Origen.interface.sheet_generators << x unless options[:manually_register]
-        x.filename = options[:filename] if options[:filename]
         x
       end
     end

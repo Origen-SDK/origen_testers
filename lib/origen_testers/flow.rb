@@ -50,7 +50,7 @@ module OrigenTesters
 
     def test(obj, options = {})
       obj.extract_atp_attributes(options) if obj.respond_to?(:extract_atp_attributes)
-      atp.test(obj, options)
+      super(obj, options)
     end
 
     # Returns the abstract test program model, this is shared by all
