@@ -172,7 +172,7 @@ module OrigenTesters
         end
 
         def extract_atp_attributes(options)
-          options[:limits] = limits.to_atp_attributes
+          options[:limits] ||= limits.to_atp_attributes
         end
 
         private

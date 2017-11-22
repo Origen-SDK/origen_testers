@@ -4,10 +4,12 @@ module OrigenTesters
       class LimitsFile < ATP::Formatter
         include OrigenTesters::Generator
 
-        attr_reader :ast, :flow, :test_modes
+        attr_reader :ast, :flow, :test_modes, :flowname
 
         def initialize(flow, ast, options = {})
+          @flow = flow
           @ast = ast
+          @flowname = flow.filename.sub(/\..*/, '') # Base off the filename since it will include any prefix
           @used_test_numbers = {}
           @test_modes = Array(options[:test_modes])
           l = '"Suite name","Pins","Test name","Test number"'
@@ -17,7 +19,7 @@ module OrigenTesters
           else
             l += (',"Lsl","Lsl_typ","Usl_typ","Usl","Units"' * test_modes.size) + ',"Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
             lines << l
-            l = ',,,"'
+            l = ',,,'
             test_modes.each do |mode|
               l += ",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\""
             end
@@ -35,67 +37,100 @@ module OrigenTesters
           'testtable/limits'
         end
 
-        def on_flow(node)
-          @flowname = node.find(:name).value
-          process_all(node.children)
-        end
-
         def on_test(node)
           o = {}
-          test_obj = node.find(:object).to_a[0]
-          o[:suite_name] = test_obj.respond_to?(:name) ? test_obj.name : test_obj
-          o[:test_name] = (node.find(:name) || []).to_a[0]
+          o[:suite_name] = extract_test_suite_name(node, o)
+
+          lines << line(extract_line_options(node, o))
+
+          node.find_all(:sub_test).each do |sub_test|
+            lines << line(extract_line_options(sub_test, o.dup))
+          end
+        end
+
+        private
+
+        def extract_line_options(node, o)
+          o[:test_name] = extract_test_name(node, o)
+          o[:test_number] = extract_test_number(node, o)
+          o[:limits] = extract_limits(node, o)
+          if on_fail = node.find(:on_fail)
+            if set_result = on_fail.find(:set_result)
+              if bin = set_result.find(:bin)
+                o[:bin_h_num] = bin.to_a[0] || o[:bin_h_num]
+                o[:bin_h_name] = bin.to_a[1] || o[:bin_h_name] || flowname
+              end
+              if sbin = set_result.find(:softbin)
+                o[:bin_s_num] = sbin.to_a[0] || o[:bin_s_num]
+                o[:bin_s_name] = sbin.to_a[1] || o[:bin_s_name] || flowname
+              end
+            end
+          end
+          o
+        end
+
+        def extract_limits(node, o)
+          modes = test_modes
+          lims = {}
+          (modes + [nil]).each do |mode|
+            lims[mode] = {}
+            if node.find(:nolimits)
+              lims[mode][:lsl] = nil
+              lims[mode][:lsl_typ] = nil
+              lims[mode][:usl] = nil
+              lims[mode][:usl_typ] = nil
+            else
+              limits = node.find_all(:limit)
+              if limits.empty?
+                # Assume it is a functional test in this case
+                lims[mode][:lsl] = 0
+                lims[mode][:lsl_typ] = 'GE'
+                lims[mode][:usl] = 0
+                lims[mode][:usl_typ] = 'LE'
+              else
+                limits.find_all { |l| l.to_a[3].to_s == mode.to_s }.each do |limit|
+                  limit = limit.to_a
+                  if limit[1] =~ /^G/i
+                    lims[mode][:lsl] = limit[0]
+                    lims[mode][:lsl_typ] = limit[0] ? limit[1].to_s.upcase : nil
+                  else
+                    lims[mode][:usl] = limit[0]
+                    lims[mode][:usl_typ] = limit[0] ? limit[1].to_s.upcase : nil
+                  end
+                  lims[mode][:units] = limit[2]
+                end
+              end
+            end
+          end
+          lims
+        end
+
+        def extract_test_number(node, o)
           number = (node.find(:number) || []).to_a[0]
           if number
             if n1 = @used_test_numbers[number]
               if n1.has_source? && node.has_source?
-                Origen.log.error "Test number #{number} has been assigned more than once in limits file #{filename} (flow: #{@flowname}):"
+                Origen.log.error "Test number #{number} has been assigned more than once in limits file #{filename} (flow: #{flowname}):"
                 Origen.log.error "  #{n1.source}"
                 Origen.log.error "  #{node.source}"
                 exit 1
               else
-                fail "Test number #{number} cannot be assigned to #{o[:suite_name]} in limits file #{filename} (flow: #{@flowname}), since it has already be used for #{@used_test_numbers[number]}!"
+                fail "Test number #{number} cannot be assigned to #{o[:suite_name]} in limits file #{filename} (flow: #{flowname}), since it has already be used for #{@used_test_numbers[number]}!"
               end
             end
-            o[:test_number] = number
             @used_test_numbers[number] = node
+            number
           end
-          limits = node.find_all(:limit)
-          if limits.size > 2
-            fail 'More than one pair of limits per test is not supported yet!'
-          end
-          if limits.empty?
-            # Assume it is a functional test in this case
-            o[:lsl] = 1
-            o[:lsl_typ] = 'GE'
-            o[:usl] = 1
-            o[:usl_typ] = 'LE'
-          else
-            limits.each do |limit|
-              if limit.to_a[1] =~ /^G/i
-                o[:lsl] = limit.to_a[0]
-                o[:lsl_typ] = limit.to_a[1]
-              else
-                o[:usl] = limit.to_a[0]
-                o[:usl_typ] = limit.to_a[1]
-              end
-              o[:units] = limit.to_a[2]
-            end
-          end
-          if on_fail = node.find(:on_fail)
-            if set_result = on_fail.find(:set_result)
-              if bin = set_result.find(:bin)
-                o[:bin_h_num] = bin.to_a[0]
-              end
-              if sbin = set_result.find(:softbin)
-                o[:bin_s_num] = sbin.to_a[0]
-              end
-            end
-          end
-          lines << line(o)
         end
 
-        private
+        def extract_test_suite_name(node, o)
+          test_obj = node.find(:object).to_a[0]
+          test_obj.respond_to?(:name) ? test_obj.name : test_obj if test_obj
+        end
+
+        def extract_test_name(node, o)
+          (node.find(:name) || []).to_a[0] || extract_test_suite_name(node, o) || o[:suite_name]
+        end
 
         def line(options)
           # "Suite name"
@@ -108,27 +143,27 @@ module OrigenTesters
           l << f(options[:test_number])
           if test_modes.empty?
             # "Lsl"
-            l << f(options[:lsl])
+            l << f((options[:limits][nil] || {})[:lsl])
             # "Lsl_typ"
-            l << f(options[:lsl_typ])
+            l << f((options[:limits][nil] || {})[:lsl_typ])
             # "Usl_typ"
-            l << f(options[:usl_typ])
+            l << f((options[:limits][nil] || {})[:usl_typ])
             # "Usl"
-            l << f(options[:usl])
+            l << f((options[:limits][nil] || {})[:usl])
             # "Units"
-            l << f(options[:units])
+            l << f((options[:limits][nil] || {})[:units])
           else
             test_modes.each do |mode|
               # "Lsl"
-              l << f(options[:lsl])
+              l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl])
               # "Lsl_typ"
-              l << f(options[:lsl_typ])
+              l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl_typ])
               # "Usl_typ"
-              l << f(options[:usl_typ])
+              l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl_typ])
               # "Usl"
-              l << f(options[:usl])
+              l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl])
               # "Units"
-              l << f(options[:units])
+              l << f((options[:limits][mode] || options[:limits][nil] || {})[:units])
             end
           end
           # "Bin_s_num"
