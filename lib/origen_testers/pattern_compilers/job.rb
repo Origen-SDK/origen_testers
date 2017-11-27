@@ -19,8 +19,26 @@ module OrigenTesters
       # Output directory for the .PAT file
       attr_accessor :output_directory
 
-      # Pinmap file
+      # Pinmap file (IGXL-Based)
       attr_accessor :pinmap_workbook
+
+      # Pinmap file (Smartest-Based)
+      attr_accessor :pinconfig
+
+      # Pinmap file (Smartest-Based)
+      attr_accessor :avc_dir
+
+      # Pinmap file (Smartest-Based)
+      attr_accessor :binl_dir
+
+      # Pattern count - should be 1 for IGXL; number of AVC files listed in AIV file for Smartest
+      attr_accessor :count
+
+      # tmf file (Smartest-Based)
+      attr_accessor :tmf
+
+      # aiv2b options (Smartest-Based)
+      attr_accessor :aiv2b_opts
 
       # Compiler options where only the opt has to be passed as '-opt'
       attr_accessor :compiler_options
@@ -33,6 +51,7 @@ module OrigenTesters
 
       def initialize(pattern, options_with_args, options)
         @pattern = pattern
+        @tester = options_with_args.delete(:tester)
         @compiler = options_with_args.delete(:compiler)
         @id = options_with_args.delete(:id)
         @location = options_with_args.delete(:location)
@@ -40,6 +59,12 @@ module OrigenTesters
         @verbose = options_with_args.delete(:verbose)
         @output_directory = options_with_args.delete(:output_directory)
         @pinmap_workbook = options_with_args.delete(:pinmap_workbook)
+        @pinconfig = options_with_args.delete(:pinconfig)
+        @avc_dir = options_with_args.delete(:avc_dir)
+        @binl_dir = options_with_args.delete(:binl_dir)
+        @count = options_with_args.delete(:count) || 1
+        @tmf = options_with_args.delete(:tmf)
+        @aiv2b_opts = options_with_args.delete(:aiv2b_opts)
         @compiler_options_with_args = options_with_args.delete_if { |k, v| v.nil? }  # Whatever's left has to be valid compiler options
         @compiler_options = options.delete_if { |k, v| v == false }
       end
@@ -50,10 +75,17 @@ module OrigenTesters
 
       def cmd
         cmd = ''
-        cmd = "#{@compiler} -pinmap_workbook:#{@pinmap_workbook} -output:#{@output_directory}/#{@pattern.basename.to_s.split('.').first}.PAT #{@pattern} "
-        # add in any remaining compiler options
-        compiler_options.each_key { |k| cmd += "-#{k} " }
-        compiler_options_with_args.each_pair { |k, v| cmd += "-#{k}:#{v} " }
+        case @tester
+          when :v93k
+            cmd = "#{resolve_compiler_location} #{@pattern} "
+          when :ultraflex, :j750
+            cmd = "#{resolve_compiler_location} -pinmap_workbook:#{@pinmap_workbook} -output:#{@output_directory}/#{@pattern.basename.to_s.split('.').first}.PAT #{@pattern} "
+            # add in any remaining compiler options
+            compiler_options.each_key { |k| cmd += "-#{k} " }
+            compiler_options_with_args.each_pair { |k, v| cmd += "-#{k}:#{v} " }
+          else
+            fail 'Unsupported tester'
+        end
         if @verbose
           cmd += ';'
         else
@@ -66,12 +98,20 @@ module OrigenTesters
         cmd
       end
 
+      def resolve_compiler_location
+        Pathname.new(@compiler).absolute? ? @compiler : eval('"' + @compiler + '"')
+      end
+
       def ready?
         ready = true
-        ready && @output_directory.directory? &&
-          @pattern.file? && @pinmap_workbook.file? &&
-          [true, false].include?(@clean) &&
-          [:local, :lsf].include?(@location)
+        ready &= @output_directory.directory?
+        ready &= @pattern.file?
+        ready &= @pinmap_workbook.file? if @tester == :ultraflex || @tester == :j750
+        ready &= @pinconfig.file? if @tester == :v93k
+        ready &= @tmf.file? if @tester == :v93k
+        ready &= [true, false].include?(@clean)
+        ready &= [:local, :lsf].include?(@location)
+        ready
       end
 
       private

@@ -1,0 +1,6 @@
+origen_testers:
+  :v93k_linux_pattern_compiler: 'ruby #{Origen.root!}/spec/compilers/aiv.rb'
+  :j750_windows_pattern_compiler: 'ruby #{Origen.root!}/spec/compilers/j750compiler.rb'
+  :j750_linux_pattern_compiler: 'ruby #{Origen.root!}/spec/compilers/j750compiler.rb'
+  :uflex_linux_pattern_compiler: 'ruby #{Origen.root!}/spec/compilers/atpcompiler.rb'
+  :uflex_windows_pattern_compiler: 'ruby #{Origen.root!}/spec/compilers/atpcompiler.rb'

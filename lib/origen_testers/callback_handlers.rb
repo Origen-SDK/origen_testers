@@ -4,9 +4,13 @@ module OrigenTesters
 
     # Snoop the pattern path that was just created and then compile it
     # if the compiler was passed on the command line
-    def pattern_generated(path_to_generated_pattern)
-      current_compiler = select_compiler
-      run_compiler(current_compiler, path_to_generated_pattern)
+    def pattern_generated(path_to_generated_pattern, job_options = {})
+      if job_options[:testers_compile_pat]
+        opts = {}
+        opts[:compiler_instance] = job_options[:testers_compiler_instance_name]
+        opts[:pattern_generated] = true
+        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_generated_pattern, opts)
+      end
     end
 
     # Listen for a pattern with .atp or .atp.gz extension.  If found then compile the fileand kill the 'origen g' command
@@ -28,28 +32,6 @@ module OrigenTesters
         return false
       end
       true
-    end
-
-    private
-
-    def select_compiler
-      current_compiler = nil
-      if $compiler == :use_app_default
-        current_compiler = $dut.compiler
-        fail "DUT compiler '#{current_compiler}' is not instantiated" if $dut.pattern_compilers[current_compiler].nil?
-      elsif $compiler.is_a? Symbol
-        current_compiler = $compiler
-        fail "Command line compiler '#{current_compiler}' is not instantiated" if $dut.pattern_compilers[current_compiler].nil?
-      end
-      current_compiler
-    end
-
-    def run_compiler(current_compiler, pattern)
-      unless current_compiler.nil?
-        debug "Compiling pattern #{pattern} with compiler '#{current_compiler}'..."
-        $dut.pattern_compilers[current_compiler].find_jobs(pattern)
-        $dut.pattern_compilers[current_compiler].run
-      end
     end
   end
 

@@ -3,7 +3,7 @@ PATH
   specs:
     origen_testers (0.14.0)
       atp (~> 1)
-      origen (>= 0.7.40)
+      origen (>= 0.26.0)
       require_all (~> 1)
 
 GEM
