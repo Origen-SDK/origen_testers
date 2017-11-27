@@ -1,3 +1,102 @@
+<a class="anchor release_tag" name="v0_15_0"></a>
+<h1><a href="#v0_15_0">Tag: v0.15.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Lajaunie Ronald-B01784 on 27-Nov-2017 10:20AM
+
+
+### Extend existing PatternCompilers to include J750 and V93K Platforms (RP #69)
+
+
+#### Paths to compiler tools are now picked up as Origen site configs
+
+~~~ruby
+# origen\_site\_config.yml
+origen\_testers:
+  :v93k\_linux\_pattern\_compiler: '/path/to/v93k/tool/set'
+  :j750\_windows\_pattern\_compiler: '/path/to/j750/compiler'
+~~~
+
+
+#### UltraFLEX Compiler - Moved some code around to be shared with J750 compiler
+enablement, but functionally works the same as before.
+
+~~~ruby
+# inside of dut class
+      @ultraflex\_compiler\_options = {
+        path: "#{Origen.root}/spec/patterns/atp/functional",
+        clean: true,
+        location: :local,
+        recursive: false,
+        output\_directory: "#{Origen.root}/spec/patterns/bin",
+        opcode\_mode: 'single',
+        comments: false,
+        verbose: true
+      }
+#
+
+dut.add\_pattern\_compiler(:id1, :ultraflex, dut.ultraflex\_compiler\_options)
+~~~
+
+
+#### J750 Pattern compiler works pretty much same as UltraFLEX, of course with
+J750-specific options and it's own, unique toolset path.
+
+~~~ruby
+# inside of dut class
+      @j750\_compiler\_options = {
+        path: "#{Origen.root}/spec/patterns/atp/j750",
+        clean: true,
+        location: :local,
+        recursive: false,
+        output\_directory: "#{Origen.root}/spec/patterns/bin/j750",
+        pinmap\_workbook: "#{Origen.root}/spec/patterns/atp/bist/bist\_pins.txt",
+        opcode\_mode: 'single',
+        comments: false
+      }
+#
+
+dut.add\_pattern\_compiler(:id2, :j750, dut.j750\_compiler\_options)
+~~~
+
+
+#### V93K Supports:
+
+On-the-fly generation of aiv configuration file based on pattern compiler options (can
+specify compiler instance, or use default).
+Multiport burst enablement with pattern compiler options; both single port and multiple
+port cases are handled
+Digital Capture Settings auto-inserted into aiv (pre-compile) based on 'digcap' pattern
+compiler options
+Given exisiting aiv and workspace setup, can run stand-alone outside of pattern generation
+(e.g. during program generation/module builds)
+
+~~~ruby
+# inside of dut class
+      @v93k\_compiler\_options = {
+        config\_dir: "#{Origen.root}/spec/patterns",
+        pinconfig: "compiler\_pins.cfg",
+        tmf: "timing\_map\_file.tmf",
+        multiport: {
+          port\_bursts: {
+            p\_1: 'pattern\_burst\_1',
+            p\_2: 'pat\_burst\_two'
+          },
+          port\_in\_focus: 'p\_FOCUS',
+          prefix: 'mpb'
+        },
+        digcap: {
+          pins: :porta,
+          vps: 1,
+          nrf: 1,
+        },
+      }
+#
+
+dut.add\_pattern\_compiler(:id3, :v93k, dut.v93k\_compiler\_options)
+~~~
+
 <a class="anchor release_tag" name="v0_14_0"></a>
 <h1><a href="#v0_14_0">Tag: v0.14.0</a></h1>
 
