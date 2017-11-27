@@ -6,10 +6,9 @@
 ##### by Lajaunie Ronald-B01784 on 27-Nov-2017 10:20AM
 
 
-### Extend existing PatternCompilers to include J750 and V93K Platforms (RP #69)
+#### Extend existing PatternCompilers to include J750 and V93K Platforms (RP #69)
 
-
-#### Paths to compiler tools are now picked up as Origen site configs
+##### Paths to compiler tools are now picked up as Origen site configs
 
 ~~~ruby
 # origen\_site\_config.yml
@@ -19,8 +18,9 @@ origen\_testers:
 ~~~
 
 
-#### UltraFLEX Compiler - Moved some code around to be shared with J750 compiler
-enablement, but functionally works the same as before.
+##### UltraFLEX Compiler
+
+Moved some code around to be shared with J750 compiler enablement, but functionally works the same as before.
 
 ~~~ruby
 # inside of dut class
@@ -40,8 +40,9 @@ dut.add\_pattern\_compiler(:id1, :ultraflex, dut.ultraflex\_compiler\_options)
 ~~~
 
 
-#### J750 Pattern compiler works pretty much same as UltraFLEX, of course with
-J750-specific options and it's own, unique toolset path.
+##### J750 Pattern Compiler
+
+Works pretty much same as UltraFLEX, of course with J750-specific options and it's own, unique toolset path.
 
 ~~~ruby
 # inside of dut class
@@ -61,16 +62,12 @@ dut.add\_pattern\_compiler(:id2, :j750, dut.j750\_compiler\_options)
 ~~~
 
 
-#### V93K Supports:
+##### V93K Supports:
 
-On-the-fly generation of aiv configuration file based on pattern compiler options (can
-specify compiler instance, or use default).
-Multiport burst enablement with pattern compiler options; both single port and multiple
-port cases are handled
-Digital Capture Settings auto-inserted into aiv (pre-compile) based on 'digcap' pattern
-compiler options
-Given exisiting aiv and workspace setup, can run stand-alone outside of pattern generation
-(e.g. during program generation/module builds)
+* On-the-fly generation of aiv configuration file based on pattern compiler options (can specify compiler instance, or use default).
+* Multiport burst enablement with pattern compiler options; both single port and multiple port cases are handled
+* Digital Capture Settings auto-inserted into aiv (pre-compile) based on 'digcap' pattern compiler options
+* Given exisiting aiv and workspace setup, can run stand-alone outside of pattern generation (e.g. during program generation/module builds)
 
 ~~~ruby
 # inside of dut class
