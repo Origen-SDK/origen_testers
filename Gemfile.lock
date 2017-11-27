@@ -3,7 +3,7 @@ PATH
   specs:
     origen_testers (0.14.0)
       atp (~> 1)
-      origen (>= 0.7.40)
+      origen (>= 0.26.0)
       require_all (~> 1)
 
 GEM
@@ -111,6 +111,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rack (1.6.8)
+    rack-protection (1.5.3)
+      rack
     rainbow (2.2.2)
       rake
     rake (10.5.0)
