@@ -3,7 +3,7 @@
 # Some of the other flows also cover the flow control API and those tests are used
 # to guarantee that the test ID references work when sub-flows are involved.
 # This flow provides a full checkout of all flow control methods.
-Flow.create interface: 'OrigenTesters::Test::Interface' do
+Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Control Testing" do
 
   self.resources_filename = 'flow_control'
 
@@ -381,6 +381,15 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
       end
     end
 
+    log 'Same test case with volatile flag'
+    volatile :$Alarm
+    if_flag :$Alarm do
+      func :test10, id: :nf_t5
+      if_failed :nf_t5 do
+        render 'multi_bin;', if_flag: :$Alarm
+      end
+    end
+
     log 'The setting of flags used in later OR conditions should be preserved'
     func :test2, id: :of1
     func :test3, if_failed: :of1
@@ -418,5 +427,39 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func :test1, if_enable: :my_enable_word
     func :test2, unless_flag: :my_flag
     func :test1, if_flag: :my_flag
+
+    log 'Volatile if combiner test case'
+    func :test1, if_flag: :$Alarm
+    func :test2, unless_flag: :$Alarm
+  end
+
+  log 'Test the block form of expressing if passed/failed dependents'
+  func :test1, on_pass: ->{
+    func :test2
+  }, on_fail: ->{
+    func :test3
+    bin 10
+  }
+
+  log 'Test the else block on a flag condition'
+  if_enabled "bitmap", then: ->{
+    test :test2
+  }, else: ->{
+    test :test3
+  }
+  if_flag :some_flag, then: ->{
+    test :test2
+  }, else: ->{
+    test :test3
+  }
+
+  log 'Test of a real life case which was found to have problems'
+  unless_enable "eword1" do
+    unless_enable "eword2" do
+      import 'components/small'
+    end
+    if_enable "eword2" do
+      import 'components/small'
+    end
   end
 end

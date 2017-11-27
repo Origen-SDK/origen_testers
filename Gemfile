@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 # Development dependencies
 gem 'coveralls', require: false
-gem 'byebug', '~>3.5'
+gem 'byebug'
 gem 'ripper-tags'
 gem 'origen_arm_debug', '0.4.3'
 gem 'yard-activesupport-concern'

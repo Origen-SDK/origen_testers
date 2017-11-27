@@ -1,0 +1,42 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    27-Oct-2017 15:13PM
+//   By:      FSL\b04525
+//   Command: origen g ./pattern/single_overlay_store.rb -t dut3.rb -e pxie6570.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.13.2
+//     Branch:    AddNITester(5a382a9841b)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.25.1
+//   Plugins
+//     atp:                      0.8.0
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.5.0
+//     origen_jtag:              0.16.0
+//     origen_swd:               1.1.0
+// ***************************************************************************
+file_format_version 1.0;
+timeset tp0;
+pattern test_single_overlay_store (tclk,tdi,tdo,tms,pa)
+{
+capture_start(default_capture_waveform)                           tp0                           X X X X XXX ; // added line for opcode insert
+source_start(default_source_waveform)                             tp0                           X X X X XXX ;
+// should get a repeat 5 vector
+repeat (5)                                                        tp0                           1 1 H 1 XXX ;
+// should get a send microcode and 1 cycle with D
+source                                                            tp0                           1 D H 1 XXX ;
+// should get a cycle with D and no send
+                                                                  tp0                           1 D H 1 XXX ;
+// regular cycle with no D or send
+                                                                  tp0                           1 1 H 1 XXX ;
+capture                                                           tp0                           1 1 V 1 XXX ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+capture_stop                                                      tp0                           1 1 H 1 XXX ;
+halt                                                              tp0                           1 1 H 1 XXX ;
+}

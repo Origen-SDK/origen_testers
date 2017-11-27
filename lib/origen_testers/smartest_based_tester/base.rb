@@ -15,6 +15,10 @@ module OrigenTesters
       # configured to be off by default.
       attr_reader :add_flow_enable
 
+      # Returns the value defined at target-level on if/how to make test names unique within a
+      # flow, the default value is :signature
+      attr_reader :unique_test_names
+
       # permit modification of minimum repeat count
       attr_accessor :min_repeat_loop
       alias_method :min_repeat_count, :min_repeat_loop
@@ -37,6 +41,11 @@ module OrigenTesters
 
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]
+        end
+        if options.key?(:unique_test_names)
+          @unique_test_names = options[:unique_test_names]
+        else
+          @unique_test_names = :signature
         end
       end
 

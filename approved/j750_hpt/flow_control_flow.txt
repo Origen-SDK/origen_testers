@@ -17,17 +17,25 @@ DFF 1.1	Flow Table
 						Test	pgm1	pgm1						Fail									flag-true	t4_C2A232F_PASSED				
 						Test	pgm1	pgm1						Fail									flag-true	t4_C2A232F_PASSED				
 						logprint	Test_that_if_ran_works																					
-						Test	pgm	pgm			10			Fail	t5_C2A232F_RAN													
+						Test	pgm	pgm			10			Fail														
+						defaults										t5_C2A232F_RAN												
+						flag-true	t5_C2A232F_RAN																					
 						Test	read0	read0						Fail									flag-true	t5_C2A232F_RAN				
 						logprint	Test_the_block_form_of_if_ran																					
-						Test	pgm	pgm			10			Fail	t6_C2A232F_RAN													
+						Test	pgm	pgm			10			Fail														
+						defaults										t6_C2A232F_RAN												
+						flag-true	t6_C2A232F_RAN																					
 						Test	read0	read0						Fail									flag-true	t6_C2A232F_RAN				
 						Test	read0	read0						Fail									flag-true	t6_C2A232F_RAN				
 						logprint	Test_that_unless_ran_works																					
-						Test	pgm	pgm			10			Fail	t7_C2A232F_RAN													
+						Test	pgm	pgm			10			Fail														
+						defaults										t7_C2A232F_RAN												
+						flag-true	t7_C2A232F_RAN																					
 						Test	read0	read0						Fail								not	flag-true	t7_C2A232F_RAN				
 						logprint	Test_the_block_form_of_unless_ran																					
-						Test	pgm	pgm			10			Fail	t8_C2A232F_RAN													
+						Test	pgm	pgm			10			Fail														
+						defaults										t8_C2A232F_RAN												
+						flag-true	t8_C2A232F_RAN																					
 						Test	read0	read0						Fail								not	flag-true	t8_C2A232F_RAN				
 						Test	read0	read0						Fail								not	flag-true	t8_C2A232F_RAN				
 						logprint	Test_that_if_job_works																					
@@ -114,10 +122,11 @@ DFF 1.1	Flow Table
 						Test	test4	test4						Fail									flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED				
 						logprint	Test_that_group-level_dependencies_work																					
 						Test	grp1_test1	grp1_test1			5			None		grp1_C2A232F_FAILED_0												
-						Test	grp1_test2	grp1_test2			5			None		grp1_C2A232F_FAILED_1												
-						Test	grp1_test3	grp1_test3			5			None		grp1_C2A232F_FAILED_2												
+						defaults										grp1_C2A232F_FAILED												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_0				
+						Test	grp1_test2	grp1_test2			5			None		grp1_C2A232F_FAILED_1												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_1				
+						Test	grp1_test3	grp1_test3			5			None		grp1_C2A232F_FAILED_2												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_2				
 						Test	grp2_test1	grp2_test1			5			Fail									flag-true	grp1_C2A232F_FAILED				
 						Test	grp2_test2	grp2_test2			5			Fail									flag-true	grp1_C2A232F_FAILED				
@@ -125,13 +134,15 @@ DFF 1.1	Flow Table
 						logprint	Another_group-level_dependencies_test_based_on_a_real_life_use_case																					
 						Test	gt1	gt1			90			Fail														
 						Test	gt_grp1_test1	gt_grp1_test1			90			None		gt_grp1_C2A232F_FAILED_0												
-						Test	gt_grp1_test2	gt_grp1_test2			90			None		gt_grp1_C2A232F_FAILED_1												
+						defaults										gt_grp1_C2A232F_FAILED												
 						flag-true	gt_grp1_C2A232F_FAILED																flag-true	gt_grp1_C2A232F_FAILED_0				
+						Test	gt_grp1_test2	gt_grp1_test2			90			None		gt_grp1_C2A232F_FAILED_1												
 						flag-true	gt_grp1_C2A232F_FAILED																flag-true	gt_grp1_C2A232F_FAILED_1				
 						Test	gt2	gt2			90			Fail									flag-true	gt_grp1_C2A232F_FAILED				
 						Test	gt_grp2_test1	gt_grp2_test1			90			None		gt_grp2_C2A232F_FAILED_0							flag-true	gt_grp1_C2A232F_FAILED				
-						Test	gt_grp2_test2	gt_grp2_test2			90			None		gt_grp2_C2A232F_FAILED_1							flag-true	gt_grp1_C2A232F_FAILED				
+						defaults										gt_grp2_C2A232F_FAILED												
 						flag-true	gt_grp2_C2A232F_FAILED																flag-true	gt_grp2_C2A232F_FAILED_0				
+						Test	gt_grp2_test2	gt_grp2_test2			90			None		gt_grp2_C2A232F_FAILED_1							flag-true	gt_grp1_C2A232F_FAILED				
 						flag-true	gt_grp2_C2A232F_FAILED																flag-true	gt_grp2_C2A232F_FAILED_1				
 						Test	gt3	gt3			90			Fail									flag-true	gt_grp2_C2A232F_FAILED				
 						logprint	Test_that_nested_groups_work																					
@@ -158,10 +169,10 @@ DFF 1.1	Flow Table
 						logprint	Embedded_conditional_tests_2																					
 						Test	test1	test1						None		ect2_1_C2A232F_FAILED												
 						Test	test2	test2						None		ect2_2_C2A232F_FAILED												
-						flag-true	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED																					
-						flag-false	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED															not	flag-true	ect2_1_C2A232F_FAILED				
-						flag-false	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED															not	flag-true	ect2_2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED				
+						flag-true	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED																					
+						flag-false	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED															not	flag-true	ect2_2_C2A232F_FAILED				
+						flag-false	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED															not	flag-true	ect2_1_C2A232F_FAILED				
+						Test	test3	test3						Fail									flag-true	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED				
 		en1				Test	test4	test4						Fail									flag-true	ect2_1_C2A232F_FAILED				
 		en2				Test	test5	test5						Fail									flag-true	ect2_1_C2A232F_FAILED				
 		en2				Test	test6	test6						Fail									flag-true	ect2_1_C2A232F_FAILED				
@@ -217,11 +228,11 @@ DFF 1.1	Flow Table
 						logprint	This_should_generate_an_AND_flag																					
 						Test	test1	test1						None		at1_C2A232F_FAILED												
 						Test	test2	test2						None		at2_C2A232F_FAILED												
-						flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED																					
-						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at1_C2A232F_FAILED				
-						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
+						flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED																					
+						flag-false	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED															not	flag-true	at2_C2A232F_FAILED				
+						flag-false	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED															not	flag-true	at1_C2A232F_FAILED				
+						Test	test3	test3						Fail									flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED				
+						Test	test4	test4						Fail									flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED				
 						logprint	This_should_NOT_generate_an_AND_flag																					
 						Test	test1	test1						None		at11_C2A232F_FAILED												
 						Test	test2	test2						None		at21_C2A232F_FAILED							flag-true	at11_C2A232F_FAILED				
@@ -251,3 +262,46 @@ DFF 1.1	Flow Table
 						Test	test3	test3						Fail									flag-true	t1b_C2A232F_FAILED				
 						set-device					10			Fail									flag-true	t1b_C2A232F_FAILED				
 						Test	test2	test2						Fail									flag-true	t1b_C2A232F_PASSED				
+						logprint	Test_the_block_form_of_expressing_if_passed/failed_dependents																					
+						Test	test1	test1						None	t114_C2A232F_PASSED	t114_C2A232F_FAILED												
+						Test	test3	test3						Fail									flag-true	t114_C2A232F_FAILED				
+						set-device					10			Fail									flag-true	t114_C2A232F_FAILED				
+						Test	test2	test2						Fail									flag-true	t114_C2A232F_PASSED				
+						logprint	Test_the_else_block_on_a_flag_condition																					
+		bitmap				Test	test2							Fail														
+		bitmap				goto	LABEL_13_C2A232F																					
+						Test	test3							Fail														
+	LABEL_13_C2A232F					nop																						
+						Test	test2							Fail									flag-true	some_flag				
+						Test	test3							Fail								not	flag-true	some_flag				
+						logprint	Test_of_a_real_life_case_which_was_found_to_have_problems																					
+		eword1				goto	LABEL_14_C2A232F																					
+		eword2				goto	LABEL_15_C2A232F																					
+		small_flow				Test	test1							Fail														
+		small_flow				Test	test2							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+		small_flow				Test	test1							Fail														
+		small_flow				Test	test2							Fail														
+	LABEL_15_C2A232F					nop																						
+		eword2				goto	LABEL_17_C2A232F																					
+						goto	LABEL_16_C2A232F																					
+	LABEL_17_C2A232F					nop																						
+		small_flow				Test	test1							Fail														
+		small_flow				Test	test2							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+						Test	test1							Fail														
+		small_flow				Test	test1							Fail														
+		small_flow				Test	test2							Fail														
+	LABEL_16_C2A232F					nop																						
+	LABEL_14_C2A232F					nop																						

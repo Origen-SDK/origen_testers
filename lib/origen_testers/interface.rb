@@ -4,15 +4,10 @@ module OrigenTesters
   # Include this module in any class you define as a test interface
   module Interface
     extend ActiveSupport::Concern
+    include ATP::FlowAPI
 
     included do
       Origen.add_interface(self)
-    end
-
-    (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log]).each do |method|
-      define_method method do |*args, &block|
-        flow.send(method, *args, &block)
-      end
     end
 
     class PatternArray < ::Array
@@ -47,8 +42,38 @@ module OrigenTesters
       !!@write
     end
 
+    def test(name, options = {})
+      flow.test(name, options)
+    end
+
+    # Returns the abstract test program model for the current flow
+    def atp
+      flow.model
+    end
+
     def write?
       OrigenTesters::Interface.write?
+    end
+
+    # Returns the value defined on if/how to make test names unique within a flow
+    def unique_test_names
+      @unique_test_names
+    end
+
+    # Set the value of unique_test_names
+    def unique_test_names=(val)
+      @unique_test_names = val
+    end
+
+    # Returns whether the tester has been configured to wrap top-level flow modules with an
+    # enable or not.
+    #
+    # Returns nil if not.
+    #
+    # Returns :enabled if the enable is configured to be on by default, or :disabled if it is
+    # configured to be off by default.
+    def add_flow_enable
+      @add_flow_enable
     end
 
     # Set to :enabled to have the current flow wrapped by an enable flow variable
@@ -118,6 +143,14 @@ module OrigenTesters
 
     def render(file, options = {})
       flow.render(file, options)
+    end
+
+    def add_meta!(options)
+      flow.send(:add_meta!, options)
+    end
+
+    def add_description!(options)
+      flow.send(:add_description!, options)
     end
 
     def write_files(options = {})

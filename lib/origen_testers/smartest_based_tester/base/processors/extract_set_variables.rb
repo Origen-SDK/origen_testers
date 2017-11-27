@@ -11,7 +11,7 @@ module OrigenTesters
             @results.uniq
           end
 
-          def on_set_run_flag(node)
+          def on_set_flag(node)
             flag = node.value
             @results << flag
           end

@@ -35,6 +35,7 @@
 /.pdm/pi_attributes.txt
 /.irb_history
 /tmp
+/.byebug_history
 
 # Cruft from other revision control systems
 .SYNC

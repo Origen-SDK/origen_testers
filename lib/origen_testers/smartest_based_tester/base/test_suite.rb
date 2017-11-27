@@ -87,8 +87,23 @@ module OrigenTesters
 
         def initialize(name, attrs = {})
           @name = name
-          if interface.flow.sig
-            @name = "#{name}_#{interface.flow.sig}"
+          if interface.unique_test_names == :signature
+            if interface.flow.sig
+              @name = "#{name}_#{interface.flow.sig}"
+            end
+          elsif interface.unique_test_names == :flowname || interface.unique_test_names == :flow_name
+            @name = "#{name}_#{interface.flow.name.to_s.symbolize}"
+          elsif interface.unique_test_names == :preflowname || interface.unique_test_names == :pre_flow_name
+            @name = "#{interface.flow.name.to_s.symbolize}_#{name}"
+          elsif interface.unique_test_names
+            utn_string = interface.unique_test_names.to_s
+            if utn_string =~ /^prepend_/
+              utn_string = utn_string.gsub(/^prepend_/, '')
+              @name = "#{utn_string}_#{name}"
+            else
+              utn_string = utn_string.gsub(/^append_/, '')
+              @name = "#{name}_#{utn_string}"
+            end
           end
           # Set the defaults
           DEFAULTS.each do |k, v|

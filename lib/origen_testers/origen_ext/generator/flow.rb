@@ -74,4 +74,18 @@ module Origen
       end
     end
   end
+
+  # Provides a hook to enable an internal startup callback to
+  class OrigenTestersPersistentFlowCallbackHandler
+    include Origen::PersistentCallbacks
+
+    def on_flow_start(options)
+      if Origen.interface.respond_to?(:_internal_startup)
+        Origen.interface._internal_startup(options)
+      end
+    end
+  end
+  # Instantiate an instance of this class immediately when this file is loaded, this object will
+  # then listen for the remainder of the Origen thread
+  OrigenTestersPersistentFlowCallbackHandler.new
 end

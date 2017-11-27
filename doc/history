@@ -1,3 +1,29 @@
+<a class="anchor release_tag" name="v0_14_0"></a>
+<h1><a href="#v0_14_0">Tag: v0.14.0</a></h1>
+
+##### Branch: 'volatile\_flags'
+
+##### by Stephen McGinty on 20-Nov-2017 13:29PM
+
+
+* Improvements to the generated SmarTest output to align it more closely to how
+  SmarTest creates the flow files when they are saved - Ronnie Lajaunie
+* Added pattern generation support for the NI pcie6570 tester - Paul Derouen
+* Significant internal changes to align with the abstract test program model and
+  API provided by ATP v1
+* Various other minor improvements and bug fixes
+
+<a class="anchor release_tag" name="v0_13_2"></a>
+<h1><a href="#v0_13_2">Tag: v0.13.2</a></h1>
+
+##### Branch: 'master'
+
+##### by FSL\b04525 on 18-Oct-2017 09:19AM
+
+
+fixed label overlay behavior for IGXL testers
+V93K flow enhancements
+
 <a class="anchor release_tag" name="v0_13_1"></a>
 <h1><a href="#v0_13_1">Tag: v0.13.1</a></h1>
 
