@@ -18,6 +18,8 @@ module OrigenTesters
       # Internal method called by Origen
       def pattern_header(options = {})
         microcode 'file_format_version 1.0;'
+        start_label = "#{options[:pattern]}_st"
+        microcode "export #{start_label};"
         @global_label_export.each { |label| microcode "export #{label};" }
         @called_subroutines.each { |sub| microcode "import #{sub};" }
         called_timesets.each do |timeset|
@@ -26,13 +28,12 @@ module OrigenTesters
         pin_list = ordered_pins.map(&:name).join(',')
         microcode "pattern #{options[:pattern]} (#{pin_list})"
         microcode '{'
-        # try adding start label to first vector here (can't be comments between label and vector)
+        microcode "#{start_label}:"
+        # Remove any leading comments before first vector data
         unless options[:subroutine_pat]
           stage.with_bank(:body) do
             # find the first vector
-            i = 0
-            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
-            stage.insert_from_start "#{options[:pattern]}_st:", i
+            stage.bank.delete_at(0) until stage.bank[0].is_a?(OrigenTesters::Vector)
           end
         end
       end

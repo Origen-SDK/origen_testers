@@ -1,14 +1,14 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    27-Oct-2017 15:13PM
+//   Time:    28-Nov-2017 10:48AM
 //   By:      FSL\b04525
-//   Command: origen g ./pattern/single_overlay_store.rb -t dut3.rb -e pxie6570.rb
+//   Command: origen g single_overlay_store -t dut3.rb -e pxie6570.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.13.2
-//     Branch:    AddNITester(5a382a9841b)
+//     Branch:    UpdatePXI(46de16b4b0b) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.25.1
@@ -20,6 +20,7 @@
 //     origen_swd:               1.1.0
 // ***************************************************************************
 file_format_version 1.0;
+export test_single_overlay_store_st;
 timeset tp0;
 pattern test_single_overlay_store (tclk,tdi,tdo,tms,pa)
 {

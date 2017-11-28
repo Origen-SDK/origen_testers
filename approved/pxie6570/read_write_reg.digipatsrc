@@ -1,14 +1,14 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    27-Oct-2017 15:13PM
+//   Time:    28-Nov-2017 10:48AM
 //   By:      FSL\b04525
-//   Command: origen g ./pattern/read_write_reg.rb -t dut3.rb -e pxie6570.rb
+//   Command: origen g read_write_reg -t dut3.rb -e pxie6570.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.13.2
-//     Branch:    AddNITester(5a382a9841b)
+//     Branch:    UpdatePXI(46de16b4b0b) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.25.1
@@ -20,6 +20,7 @@
 //     origen_swd:               1.1.0
 // ***************************************************************************
 file_format_version 1.0;
+export read_write_reg_st;
 import executefunc1;
 import match_pin;
 import match_2pins;
@@ -29,9 +30,6 @@ import handshake;
 timeset tp0;
 pattern read_write_reg (tclk,tdi,tdo,tms,pa)
 {
-// ######################################################################
-// ## Test write register with all 1s
-// ######################################################################
 read_write_reg_st:
 repeat (6)                                                        tp0                           0 X X 1 XXX ;
 repeat (2)                                                        tp0                           0 X X 0 XXX ;
