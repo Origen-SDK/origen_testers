@@ -35,6 +35,14 @@ module OrigenTesters
       attr_reader :limitfile_test_modes
       alias_method :limitsfile_test_modes, :limitfile_test_modes
 
+      # When set to true, tests which are marked with continue: true will be forced to pass in
+      # generated test program flows. Flow branching based on the test result will be handled via
+      # some other means to give the same flow if the test 'fails', however the test will always
+      # appear as if it passed for data logging purposes.
+      #
+      # Testers which do not implement this option will ignore it.
+      attr_accessor :force_pass_on_continue
+
       def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
@@ -64,6 +72,7 @@ module OrigenTesters
           @create_limits_file = false
         end
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
+        self.force_pass_on_continue = options[:force_pass_on_continue]
       end
 
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names

@@ -19,7 +19,7 @@ module OrigenTesters
           else
             l += (',"Lsl","Lsl_typ","Usl_typ","Usl","Units"' * test_modes.size) + ',"Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
             lines << l
-            l = ',,,'
+            l = '"Test mode",,,'
             test_modes.each do |mode|
               l += ",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\",\"#{mode}\""
             end
@@ -46,6 +46,8 @@ module OrigenTesters
           node.find_all(:sub_test).each do |sub_test|
             lines << line(extract_line_options(sub_test, o.dup))
           end
+
+          process_all(node.children)
         end
 
         private
@@ -64,6 +66,11 @@ module OrigenTesters
                 o[:bin_s_num] = sbin.to_a[0] || o[:bin_s_num]
                 o[:bin_s_name] = sbin.to_a[1] || o[:bin_s_name] || flowname
               end
+            end
+            if on_fail.find(:delayed)
+              o[:bin_overon] = 'on'
+            else
+              o[:bin_overon] = 'no'
             end
           end
           o

@@ -88,14 +88,18 @@ module OrigenTesters
 
         def finalize(options = {})
           super
-          test_suites.finalize
-          test_methods.finalize
           @indent = add_flow_enable ? 2 : 1
           @lines = []
+          @open_test_methods = []
           @stack = { on_fail: [], on_pass: [] }
-          ast = atp.ast(unique_id: sig, optimization: :smt)
+          ast = atp.ast(unique_id: sig, optimization: :smt,
+                        implement_continue: !tester.force_pass_on_continue,
+                        optimize_flags_when_continue: !tester.force_pass_on_continue
+                       )
           @set_runtime_variables = ast.set_flags
           process(ast)
+          test_suites.finalize
+          test_methods.finalize
           render_limits_file(ast) if tester.create_limits_file
         end
 
@@ -117,28 +121,61 @@ module OrigenTesters
         # end
 
         def on_test(node)
-          name = node.find(:object).to_a[0]
-          name = name.name unless name.is_a?(String)
+          test_suite = node.find(:object).to_a[0]
+          if test_suite.is_a?(String)
+            name = test_suite
+          else
+            name = test_suite.name
+            test_method = test_suite.test_method
+            if test_method.respond_to?(:test_name) && test_method.test_name == '' &&
+               n = node.find(:name)
+              test_method.test_name = n.value
+            end
+          end
+
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
             line "run_and_branch(#{name})"
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
+            on_pass = node.find(:on_pass)
+            on_fail = node.find(:on_fail)
+
+            if on_fail && on_fail.find(:continue) && tester.force_pass_on_continue
+              if test_method.respond_to?(:force_pass)
+                test_method.force_pass = 1
+              else
+                Origen.log.error 'Force pass on continue has been enabled, but the test method does not have a force_pass attribute!'
+                Origen.log.error "  #{node.source}"
+                exit 1
+              end
+              @open_test_methods << test_method
+            else
+              if test_method.respond_to?(:force_pass)
+                test_method.force_pass = 0
+              end
+              @open_test_methods << nil
+            end
+
             line 'then'
             line '{'
             @indent += 1
-            on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-            process_all(on_pass) if on_pass
-            stack[:on_pass].each { |n| process_all(n) }
+            pass_branch do
+              process_all(on_pass) if on_pass
+              stack[:on_pass].each { |n| process_all(n) }
+            end
             @indent -= 1
             line '}'
             line 'else'
             line '{'
             @indent += 1
-            on_fail = node.children.find { |n| n.try(:type) == :on_fail }
-            process_all(on_fail) if on_fail
-            stack[:on_fail].each { |n| process_all(n) }
+            fail_branch do
+              process_all(on_fail) if on_fail
+              stack[:on_fail].each { |n| process_all(n) }
+            end
             @indent -= 1
             line '}'
+
+            @open_test_methods.pop
           else
             line "run(#{name});"
           end
@@ -236,7 +273,39 @@ module OrigenTesters
         def on_set_flag(node)
           flag = generate_flag_name(node.value)
           runtime_control_variables << flag
-          line "@#{flag} = 1;"
+          if @open_test_methods.last
+            if pass_branch?
+              if @open_test_methods.last.respond_to?(:on_pass_flag)
+                if @open_test_methods.last.on_pass_flag == ''
+                  @open_test_methods.last.on_pass_flag = flag
+                else
+                  Origen.log.error "The test method cannot set #{flag} on passing, because it already sets: #{@open_test_methods.last.on_pass_flag}"
+                  Origen.log.error "  #{node.source}"
+                  exit 1
+                end
+              else
+                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_pass_flag attribute:'
+                Origen.log.error "  #{node.source}"
+                exit 1
+              end
+            else
+              if @open_test_methods.last.respond_to?(:on_fail_flag)
+                if @open_test_methods.last.on_fail_flag == ''
+                  @open_test_methods.last.on_fail_flag = flag
+                else
+                  Origen.log.error "The test method cannot set #{flag} on failing, because it already sets: #{@open_test_methods.last.on_fail_flag}"
+                  Origen.log.error "  #{node.source}"
+                  exit 1
+                end
+              else
+                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_fail_flag attribute:'
+                Origen.log.error "  #{node.source}"
+                exit 1
+              end
+            end
+          else
+            line "@#{flag} = 1;"
+          end
         end
 
         def on_group(node)
@@ -293,6 +362,30 @@ module OrigenTesters
         end
 
         private
+
+        def pass_branch
+          open_branch_types << :pass
+          yield
+          open_branch_types.pop
+        end
+
+        def fail_branch
+          open_branch_types << :fail
+          yield
+          open_branch_types.pop
+        end
+
+        def pass_branch?
+          open_branch_types.last == :pass
+        end
+
+        def fail_branch?
+          open_branch_types.last == :fail
+        end
+
+        def open_branch_types
+          @open_branch_types ||= []
+        end
 
         def generate_flag_name(flag)
           case flag[0]
