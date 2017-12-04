@@ -83,9 +83,9 @@ module OrigenTesters
             lims[mode] = {}
             if node.find(:nolimits)
               lims[mode][:lsl] = nil
-              lims[mode][:lsl_typ] = nil
+              lims[mode][:lsl_typ] = 'NA'
               lims[mode][:usl] = nil
-              lims[mode][:usl_typ] = nil
+              lims[mode][:usl_typ] = 'NA'
             else
               limits = node.find_all(:limit)
               if limits.empty?
