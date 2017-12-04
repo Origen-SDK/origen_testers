@@ -100,9 +100,11 @@ module OrigenTesters
                   if limit[1] =~ /^G/i
                     lims[mode][:lsl] = limit[0]
                     lims[mode][:lsl_typ] = limit[0] ? limit[1].to_s.upcase : nil
+                    lims[mode][:lsl_typ] = 'GE' if lims[mode][:lsl_typ] == 'GTE'
                   else
                     lims[mode][:usl] = limit[0]
                     lims[mode][:usl_typ] = limit[0] ? limit[1].to_s.upcase : nil
+                    lims[mode][:usl_typ] = 'LE' if lims[mode][:usl_typ] == 'LTE'
                   end
                   lims[mode][:units] = limit[2]
                 end
