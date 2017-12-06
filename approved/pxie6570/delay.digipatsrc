@@ -1,14 +1,14 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    27-Oct-2017 15:13PM
+//   Time:    28-Nov-2017 10:48AM
 //   By:      FSL\b04525
-//   Command: origen g ./pattern/delay.rb -t dut3.rb -e pxie6570.rb
+//   Command: origen g delay -t dut3.rb -e pxie6570.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.13.2
-//     Branch:    AddNITester(5a382a9841b)
+//     Branch:    UpdatePXI(46de16b4b0b) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.25.1
@@ -20,10 +20,11 @@
 //     origen_swd:               1.1.0
 // ***************************************************************************
 file_format_version 1.0;
+export delay_st;
 timeset tp0;
 pattern delay (tclk,tdi,tdo,tms,pa)
 {
-// Wait for 40.0ms
+delay_st:
 repeat (65535)                                                    tp0                           X X X X XXX ;
 repeat (65535)                                                    tp0                           X X X X XXX ;
 repeat (65535)                                                    tp0                           X X X X XXX ;

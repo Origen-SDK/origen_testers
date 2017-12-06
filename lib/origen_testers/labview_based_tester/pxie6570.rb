@@ -18,6 +18,8 @@ module OrigenTesters
       # Internal method called by Origen
       def pattern_header(options = {})
         microcode 'file_format_version 1.0;'
+        start_label = "#{options[:pattern]}_st"
+        microcode "export #{start_label};"
         @global_label_export.each { |label| microcode "export #{label};" }
         @called_subroutines.each { |sub| microcode "import #{sub};" }
         called_timesets.each do |timeset|
@@ -26,6 +28,14 @@ module OrigenTesters
         pin_list = ordered_pins.map(&:name).join(',')
         microcode "pattern #{options[:pattern]} (#{pin_list})"
         microcode '{'
+        microcode "#{start_label}:"
+        # Remove any leading comments before first vector data
+        unless options[:subroutine_pat]
+          stage.with_bank(:body) do
+            # find the first vector
+            stage.bank.delete_at(0) until stage.bank[0].is_a?(OrigenTesters::Vector)
+          end
+        end
       end
 
       # Internal method called by Origen
@@ -70,6 +80,15 @@ module OrigenTesters
           local_microcode = "call #{name}"
         end
         update_vector microcode: local_microcode, offset: options[:offset]
+      end
+
+      def start_subroutine(name, options = {})
+        options = { global: false }.merge(options)
+        label name, options[:global]
+      end
+
+      def end_subroutine
+        update_vector microcode: 'return'
       end
 
       # store/capture the state of the provided pins
