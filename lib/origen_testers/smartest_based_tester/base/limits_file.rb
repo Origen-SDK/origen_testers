@@ -60,11 +60,11 @@ module OrigenTesters
             if set_result = on_fail.find(:set_result)
               if bin = set_result.find(:bin)
                 o[:bin_h_num] = bin.to_a[0] || o[:bin_h_num]
-                o[:bin_h_name] = bin.to_a[1] || o[:bin_h_name] || flowname
+                o[:bin_h_name] = bin.to_a[1] || o[:bin_h_name] || default_bin_name(o)
               end
               if sbin = set_result.find(:softbin)
                 o[:bin_s_num] = sbin.to_a[0] || o[:bin_s_num]
-                o[:bin_s_name] = sbin.to_a[1] || o[:bin_s_name] || flowname
+                o[:bin_s_name] = sbin.to_a[1] || o[:bin_s_name] || default_bin_name(o)
               end
             end
             if on_fail.find(:delayed)
@@ -74,6 +74,16 @@ module OrigenTesters
             end
           end
           o
+        end
+
+        def default_bin_name(o)
+          if o[:suite_name] == o [:test_name]
+            o[:suite_name]
+          elsif o[:suite_name] && o[:test_name]
+            "#{o[:suite_name]}_#{o[:test_name]}"
+          else
+            o[:suite_name] || o[:test_name]
+          end
         end
 
         def extract_limits(node, o)
