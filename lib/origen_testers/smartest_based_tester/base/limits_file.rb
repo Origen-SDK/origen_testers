@@ -1,17 +1,20 @@
+require 'origen_testers/smartest_based_tester/base/processors/extract_bin_names'
 module OrigenTesters
   module SmartestBasedTester
     class Base
       class LimitsFile < ATP::Formatter
         include OrigenTesters::Generator
 
-        attr_reader :ast, :flow, :test_modes, :flowname
+        attr_reader :ast, :flow, :test_modes, :flowname, :bin_names
 
         def initialize(flow, ast, options = {})
           @flow = flow
           @ast = ast
           @flowname = flow.filename.sub(/\..*/, '') # Base off the filename since it will include any prefix
           @used_test_numbers = {}
+          @bin_names = Processors::ExtractBinNames.new.run(ast)
           @test_modes = Array(options[:test_modes])
+          @empty = true
           l = '"Suite name","Pins","Test name","Test number"'
           if test_modes.empty?
             l += ',"Lsl","Lsl_typ","Usl_typ","Usl","Units","Bin_s_num","Bin_s_name","Bin_h_num","Bin_h_name","Bin_type","Bin_reprobe","Bin_overon","Test_remarks"'
@@ -50,6 +53,12 @@ module OrigenTesters
           process_all(node.children)
         end
 
+        # Returns true if the AST provided when initializing this limits table generator did not
+        # contain any tests, i.e. the resultant limits file is empty
+        def empty?
+          @empty
+        end
+
         private
 
         def extract_line_options(node, o)
@@ -60,11 +69,11 @@ module OrigenTesters
             if set_result = on_fail.find(:set_result)
               if bin = set_result.find(:bin)
                 o[:bin_h_num] = bin.to_a[0] || o[:bin_h_num]
-                o[:bin_h_name] = bin.to_a[1] || o[:bin_h_name] || default_bin_name(o)
+                o[:bin_h_name] = bin_names[:hard][bin.to_a[0]][:name]
               end
               if sbin = set_result.find(:softbin)
                 o[:bin_s_num] = sbin.to_a[0] || o[:bin_s_num]
-                o[:bin_s_name] = sbin.to_a[1] || o[:bin_s_name] || default_bin_name(o)
+                o[:bin_s_name] = bin_names[:soft][sbin.to_a[0]][:name]
               end
             end
             if on_fail.find(:delayed)
@@ -74,16 +83,6 @@ module OrigenTesters
             end
           end
           o
-        end
-
-        def default_bin_name(o)
-          if o[:suite_name] == o [:test_name]
-            o[:suite_name]
-          elsif o[:suite_name] && o[:test_name]
-            "#{o[:suite_name]}_#{o[:test_name]}"
-          else
-            o[:suite_name] || o[:test_name]
-          end
         end
 
         def extract_limits(node, o)
@@ -152,6 +151,7 @@ module OrigenTesters
         end
 
         def line(options)
+          @empty = false
           # "Suite name"
           l = "\"#{options[:suite_name]}\""
           # "Pins"
