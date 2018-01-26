@@ -43,6 +43,10 @@ module OrigenTesters
       # Testers which do not implement this option will ignore it.
       attr_accessor :force_pass_on_continue
 
+      # When set to true, tests will be set to delayed binning by default (overon = on) unless
+      # delayed: false is supplied when defining the test
+      attr_accessor :delayed_binning
+
       def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
@@ -73,6 +77,7 @@ module OrigenTesters
         end
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
+        self.delayed_binning = options[:delayed_binning]
       end
 
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names

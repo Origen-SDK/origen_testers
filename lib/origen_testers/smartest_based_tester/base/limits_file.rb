@@ -76,7 +76,10 @@ module OrigenTesters
                 o[:bin_s_name] = bin_names[:soft][sbin.to_a[0]][:name]
               end
             end
-            if on_fail.find(:delayed)
+            delayed = on_fail.find(:delayed)
+            if delayed && !delayed.to_a[0]
+              o[:bin_overon] = 'no'
+            elsif (delayed && delayed.to_a[0]) || tester.delayed_binning
               o[:bin_overon] = 'on'
             else
               o[:bin_overon] = 'no'
