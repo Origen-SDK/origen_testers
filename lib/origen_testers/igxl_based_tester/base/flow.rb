@@ -229,7 +229,7 @@ module OrigenTesters
               # If the AND flag has already been created and set in this context (for a previous test),
               # no need to re-create it
               if !set_flags[and_flag] || (set_flags[and_flag].hash != context.hash)
-                set_previously = !!set_flags[or_flag]
+                set_previously = !!set_flags[and_flag]
                 set_flags[and_flag] = context
                 existing_flag = current_flag
                 self.current_flag = nil
