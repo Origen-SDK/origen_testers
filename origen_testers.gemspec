@@ -10,8 +10,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "This plugin provides Origen tester models to drive ATE type testers like the J750, UltraFLEX, V93K,..."
   spec.homepage      = "http://origen-sdk.org/testers"
 
-  spec.required_ruby_version     = '>= 1.9.3'
-  spec.required_rubygems_version = '>= 1.8.11'
+  spec.required_ruby_version     = '>= 2'
 
   # Only the files that are hit by these wildcards will be included in the
   # packaged gem, the default should hit everything in most cases but this will
@@ -26,5 +25,5 @@ Gem::Specification.new do |spec|
   # Add any gems that your plugin needs to run within a host application
   spec.add_runtime_dependency 'origen', '>= 0.26.0'
   spec.add_runtime_dependency 'require_all', '~> 1'
-  spec.add_runtime_dependency 'atp', '~> 1'
+  spec.add_runtime_dependency 'atp', '~> 1.1'
 end
