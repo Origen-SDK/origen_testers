@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_16_1"></a>
+<h1><a href="#v0_16_1">Tag: v0.16.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 14-Feb-2018 11:18AM
+
+
+Now warns instead of crashing in the case where set\_timeset is called before instantiating
+the DUT. This was allowed in previous versions OrigenTesters and improves backwards
+compatibility.
+
 <a class="anchor release_tag" name="v0_16_0"></a>
 <h1><a href="#v0_16_0">Tag: v0.16.0</a></h1>
 
