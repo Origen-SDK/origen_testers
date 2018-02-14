@@ -146,18 +146,34 @@ module OrigenTesters
         original = @timeset
         timeset_changed(timeset)
         @timeset = timeset
-        dut.timeset = timeset.name if dut.timesets[timeset.name]
-        dut.current_timeset_period = timeset.period_in_ns
+        _if_dut do
+          dut.timeset = timeset.name if dut.timesets[timeset.name]
+          dut.current_timeset_period = timeset.period_in_ns
+        end
         yield
         timeset_changed(original)
         @timeset = original
-        dut.timeset = original.name if dut.timesets[original.name]
-        dut.current_timeset_period = original.period_in_ns
+        _if_dut do
+          dut.timeset = original.name if dut.timesets[original.name]
+          dut.current_timeset_period = original.period_in_ns
+        end
       else
         timeset_changed(timeset)
         @timeset = timeset
-        dut.timeset = timeset.name if dut.timesets[timeset.name]
-        dut.current_timeset_period = timeset.period_in_ns
+        _if_dut do
+          dut.timeset = timeset.name if dut.timesets[timeset.name]
+          dut.current_timeset_period = timeset.period_in_ns
+        end
+      end
+    end
+
+    # @api private
+    def _if_dut
+      if dut
+        true
+      else
+        Origen.log.warning 'It looks like you are calling tester.set_timeset before the DUT is instantiated, you should avoid doing that until the dut object is available'
+        false
       end
     end
 
