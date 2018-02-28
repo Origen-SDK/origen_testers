@@ -16,6 +16,18 @@ module OrigenTesters
             functional_test:              {
               test_name: [:string, 'Functional'],
               output:    [:string, 'None', %w(None ReportUI ShowFailOnly)]
+            },
+            spec_search:                  {
+              max:             [:string, nil],
+              method:          [:string, nil],
+              min:             [:string, nil],
+              output:          [:string, 'None', %w(None ReportUI ShowFailOnly)],
+              resolution:      [:string, ''],
+              result_pin_list: [:string, ''],
+              setup_pin_list:  [:string, ''],
+              spec:            [:string, nil],
+              step:            [:string, nil],
+              test_name:       [:string, 'SpecSearch_Test']
             }
           }
 
