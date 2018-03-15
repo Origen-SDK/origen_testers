@@ -19,15 +19,35 @@ module OrigenTesters
       # flow, the default value is :signature
       attr_reader :unique_test_names
 
+      # Returns the SMT version, defaults to 7
+      attr_reader :smt_version
+
       # permit modification of minimum repeat count
       attr_accessor :min_repeat_loop
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
 
+      attr_reader :disable_pattern_diffs
+
       def initialize(options = {})
+        @smt_version = options[:smt_version] || 7
+
+        if smt_version == 8
+          require_relative 'smt8'
+          extend SMT8
+        else
+          require_relative 'smt7'
+          extend SMT7
+        end
+
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
-        @pat_extension = 'avc'
+        if smt_version == 8
+          @pat_extension = 'pat'
+          @disable_pattern_diffs = true
+        else
+          @pat_extension = 'avc'
+        end
         @compress = true
         # @support_repeat_previous = true
         @match_entries = 10
@@ -494,60 +514,6 @@ module OrigenTesters
       # Returns an array of subroutines created by the current pattern
       def local_subroutines # :nodoc:
         @local_subroutines ||= []
-      end
-
-      # This is an internal method use by Origen which returns a fully formatted vector
-      # You can override this if you wish to change the output formatting at vector level
-      def format_vector(vec)
-        timeset = vec.timeset ? "#{vec.timeset.name}" : ''
-        pin_vals = vec.pin_vals ? "#{vec.pin_vals} " : ''
-        if vec.repeat # > 1
-          microcode = "R#{vec.repeat}"
-        else
-          microcode = vec.microcode ? vec.microcode : ''
-        end
-
-        if Origen.mode.simulation? || !inline_comments || $_testers_no_inline_comments
-          comment = ''
-        else
-
-          header_comments = []
-          repeat_comment = ''
-          vec.comments.each_with_index do |comment, i|
-            if comment =~ /^#/
-              if comment =~ /^#(R\d+)$/
-                repeat_comment = Regexp.last_match(1) + ' '
-              # Throw away the ############# headers and footers
-              elsif comment !~ /^# ####################/
-                comment = comment.strip.sub(/^# (## )?/, '')
-                if comment == ''
-                  # Throw away empty lines at the start/end, but preserve them in the middle
-                  unless header_comments.empty? || i == vec.comments.size - 1
-                    header_comments << comment
-                  end
-                else
-                  header_comments << comment
-                end
-              end
-            end
-          end
-
-          if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
-            comment = "#{vec.number}:#{vec.cycle}"
-            comment += ': ' if !header_comments.empty? || !vec.inline_comment.empty?
-          else
-            comment = ''
-          end
-          comment += header_comments.join("\cm") unless header_comments.empty?
-          unless vec.inline_comment.empty?
-            comment += "\cm" unless header_comments.empty?
-            comment += "(#{vec.inline_comment})"
-          end
-          comment = "#{repeat_comment}#{comment}"
-        end
-
-        # Max comment length 250 at the end
-        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}# #{comment[0, 247]};"
       end
 
       # All vectors generated with the supplied block will have all pins set
