@@ -124,6 +124,7 @@ module OrigenTesters
             @program_lines << "    <Instruction id=\"genVec\" value=\"1\">"
             @program_lines << "      <Assignment id=\"repeat\" value=\"#{vec.repeat}\"/>"
             @program_lines << '    </Instruction>'
+            @gen_vec -= 1
           end
           if has_microcode
             puts vec.microcode
