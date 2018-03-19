@@ -22,7 +22,7 @@ GEM
       origen (>= 0.2.3)
       sexpistol (~> 0.0)
     builder (3.2.3)
-    byebug (9.1.0)
+    byebug (8.2.5)
     coderay (1.1.2)
     colored (1.2)
     colorize (0.8.1)
@@ -165,7 +165,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  byebug (~> 8)
   coveralls
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers (>= 0.2.0)
