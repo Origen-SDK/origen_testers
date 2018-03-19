@@ -159,13 +159,15 @@ module OrigenTesters
           else
             comment = ''
           end
-          comment += header_comments.join("\cm") unless header_comments.empty?
+          # comment += header_comments.join("\cm") unless header_comments.empty?
+          # Seems that SMT8 does not support the above newline char, so identify split lines with something else
+          comment += header_comments.join('----') unless header_comments.empty?
           unless vec.inline_comment.empty?
             comment += "\cm" unless header_comments.empty?
             comment += "(#{vec.inline_comment})"
           end
           c = "#{repeat_comment}#{comment}"
-          @comment_lines << "#{@vector_number} #{c}" unless c.empty?
+          @comment_lines << "#{@vector_number} #{c}"[0, 3000] unless c.empty?
         end
 
         if vec.pin_vals
