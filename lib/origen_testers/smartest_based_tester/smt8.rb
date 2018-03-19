@@ -12,9 +12,18 @@ module OrigenTesters
         @program_lines << '  <Assignment id="memory" value="SM"/>'
         pin_list = ordered_pins.map do |p|
           if Origen.app.pin_pattern_order.include?(p.id)
-            p.id.to_s
+            # specified name overrides pin name
+            if (p.is_a?(Origen::Pins::PinCollection)) || p.id != p.name
+              p.id.to_s # groups or aliases can be lower case
+            else
+              p.id.to_s.upcase # pins must be uppercase
+            end
           else
-            p.name.to_s
+            if (p.is_a?(Origen::Pins::PinCollection)) || p.id != p.name
+              p.name.to_s # groups or aliases can be lower case
+            else
+              p.name.to_s.upcase # pins must be uppercase
+            end
           end
         end.join(',')
         @program_lines << "  <Instrument id=\"#{pin_list}\">"
@@ -159,7 +168,7 @@ module OrigenTesters
         end
 
         if vec.pin_vals
-          @vector_lines << vec.pin_vals
+          @vector_lines << vec.pin_vals.gsub(' ', '')
           @vector_number += 1
           @gen_vec += 1
         end
