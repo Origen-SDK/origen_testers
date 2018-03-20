@@ -148,7 +148,18 @@ module OrigenTesters
     def c2(msg, options = {})
       c1(msg, options)
     end
-
+    
+    def c3(msg, options = {}, line_number)
+      prefix = comment_char + ' '
+      prefix += step_comment_prefix + ' ' if @step_comment_on
+      c = prefix + msg.to_s
+      cc_coms = OrigenTesters::Flow.cc_comments
+      unless cc_coms[line_number]
+        cc_coms[line_number] = []
+      end
+      cc_coms[line_number] << msg
+    end
+    
     def pattern_section(msg)
       if generating_program?
         yield
