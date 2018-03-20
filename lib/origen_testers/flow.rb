@@ -47,7 +47,35 @@ module OrigenTesters
     def lines
       @lines
     end
+    
+    def self.ht_comments
+      unless @ht_comments.is_a? Hash
+        @ht_comments = {}
+      end
+      @ht_comments
+    end
 
+    def self.ht_comments=(val)
+      unless @ht_comments.is_a? Hash
+        @ht_comments = {}
+      end
+      @ht_comments = val
+    end
+
+    def self.cc_comments
+      unless @cc_comments.is_a? Hash
+        @cc_comments = {}
+      end
+      @cc_comments
+    end
+
+    def self.cc_comments=(val)
+      unless @cc_comments.is_a? Hash
+        @cc_comments = {}
+      end
+      @cc_comments = val
+    end
+ 
     # Returns the abstract test program model, this is shared by all
     # flow created together in a generation run
     def program
@@ -173,14 +201,20 @@ module OrigenTesters
       # e.g. a POR, in that case they will not want the description to be attached to the POR, but to
       # the test that follows it
       unless options[:inhibit_description_consumption]
-        comments = OrigenTesters::Flow.comment_stack.last
-        if options[:source_line_number]
-          while comments.first && comments.first.first < options[:source_line_number]
-            options[:description] ||= []
-            c = comments.shift
-            if c[0] + c[1].size == options[:source_line_number]
-              options[:description] += c[1]
-            end
+        ht_coms = OrigenTesters::Flow.ht_comments
+        cc_coms = OrigenTesters::Flow.cc_comments
+        line_no = options[:source_line_number]
+        # options[:then] only present on the second iteration of the same test same loop (not sure what this is really)
+        # This method is called twice per test method in a loop but the second call should not consume a comment
+        if line_no && !options[:then]  
+          unless options[:description]
+            options[:description] = []
+          end
+          if ht_coms[line_no]
+            options[:description] += ht_coms[line_no]
+          end
+          if cc_coms[line_no] && cc_coms[line_no].first
+            options[:description] << cc_coms[line_no].shift
           end
         end
       end
