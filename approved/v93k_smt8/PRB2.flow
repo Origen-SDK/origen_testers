@@ -1,0 +1,36 @@
+flow PRB2 {
+    in EXTRA_TESTS = false;
+
+    setup {
+    }
+
+    execute {
+
+        erase_all_C8A59CE.execute();
+        margin_read1_all1_C8A59CE.execute();
+        erase_all_1_C8A59CE.execute();
+        margin_read1_all1_1_C8A59CE.execute();
+        // *******************************************************
+        // GROUP - prb2_main
+        // *******************************************************
+            pgm_ckbd_C8A59CE.execute();
+            mrd_ckbd_C8A59CE.execute();
+        // *******************************************************
+        // /GROUP - prb2_main
+        // *******************************************************
+        erase_all_2_C8A59CE.execute();
+        margin_read1_all1_2_C8A59CE.execute();
+        if (EXTRA_TESTS == true) {
+            // *******************************************************
+            // GROUP - prb2_main_2
+            // *******************************************************
+                pgm_ckbd_1_C8A59CE.execute();
+                mrd_ckbd_1_C8A59CE.execute();
+            // *******************************************************
+            // /GROUP - prb2_main_2
+            // *******************************************************
+        } else {
+        }
+        margin_read1_all1_3_C8A59CE.execute();
+    }
+}

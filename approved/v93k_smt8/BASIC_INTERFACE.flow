@@ -1,0 +1,14 @@
+flow BASIC_INTERFACE {
+
+    setup {
+    }
+
+    execute {
+
+        test1_183B976.execute();
+        if (test1_183B976.pass) {
+        } else {
+            addBin(100);
+        }
+    }
+}

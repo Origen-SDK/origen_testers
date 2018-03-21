@@ -26,6 +26,10 @@ module OrigenTesters
         def references
           Origen.interface.all_pattern_references[id]
         end
+
+        def to_be_written?
+          tester.smt7?
+        end
       end
     end
   end

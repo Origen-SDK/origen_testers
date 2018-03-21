@@ -36,7 +36,12 @@ module OrigenTesters
         end
 
         def flow_name(filename = nil)
-          @flow_name || (filename || self.filename).sub(/\..*/, '').upcase
+          @flow_name ||= (filename || self.filename).sub(/\..*/, '').upcase
+          if smt8?
+            @flow_name.gsub(' ', '_')
+          else
+            @flow_name
+          end
         end
 
         def hardware_bin_descriptions
@@ -196,7 +201,11 @@ module OrigenTesters
             runtime_control_variables << ['JOB', '']
           end
           if smt8?
-            condition = jobs.size == 1 ? jobs.first : (jobs.map { |j| "(#{j})" }.join (' || '))
+            if jobs.size == 1
+              condition = jobs.first
+            else
+              condition = jobs.map { |j| "(#{j})" }.join(' || ')
+            end
             line "if (#{condition}) {"
           else
             condition = jobs.join(' or ')

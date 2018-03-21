@@ -1,0 +1,885 @@
+flow Flow_Control_Testing {
+    in BITMAP = false;
+    in CZ = false;
+    in EN1 = false;
+    in EN2 = false;
+    in EWORD1 = false;
+    in EWORD2 = false;
+    in EXTRAS = false;
+    in JOB = "";
+    in MCEn_extras = false;
+    in MCEn_test = false;
+    in MY_ENABLE_WORD = false;
+    in NVM_MINIMUM_COLD = false;
+    in NVM_MINIMUM_FT = false;
+    in NVM_MINIMUM_HOT = false;
+    in NVM_MINIMUM_ROOM = false;
+    in QUICK = false;
+    in SMALL_FLOW = false;
+    in WORD1 = false;
+    in WORD2 = false;
+    in WORD3 = false;
+
+    setup {
+    }
+
+    execute {
+        var T5_3C290C6_RAN = false;
+        var T6_3C290C6_RAN = false;
+        var T7_3C290C6_RAN = false;
+        var T8_3C290C6_RAN = false;
+        var IFA1_3C290C6_FAILED = false;
+        var IFA2_3C290C6_FAILED = false;
+        var OOF_PASSCODE1_3C290C6_FAILED = false;
+        var OOF_PASSCODE2_3C290C6_FAILED = false;
+        var IFALL1_3C290C6_FAILED = false;
+        var IFALLB1_3C290C6_FAILED = false;
+        var IFAP1_3C290C6_PASSED = false;
+        var IFAP2_3C290C6_PASSED = false;
+        var IFAPB1_3C290C6_PASSED = false;
+        var IFAPB2_3C290C6_PASSED = false;
+        var IFALLP1_3C290C6_PASSED = false;
+        var IFALLPB1_3C290C6_PASSED = false;
+        var GRP1_3C290C6_FAILED = false;
+        var GT_GRP1_3C290C6_FAILED = false;
+        var GT_GRP2_3C290C6_FAILED = false;
+        var L1T5_3C290C6_FAILED = false;
+        var ECT2_1_3C290C6_FAILED = false;
+        var ECT2_2_3C290C6_FAILED = false;
+        var MY_FLAG = false;
+        var My_Mixed_Flag = false;
+        var AT22_3C290C6_FAILED = false;
+        var OF1_3C290C6_FAILED = false;
+        var OF2_3C290C6_FAILED = false;
+        var AF1_3C290C6_FAILED = false;
+        var AF2_3C290C6_FAILED = false;
+        var OF11_3C290C6_FAILED = false;
+        var OF12_3C290C6_FAILED = false;
+        var AF11_3C290C6_FAILED = false;
+
+        println("Test that if_failed works");
+        read1_3C290C6.execute();
+        if (read1_3C290C6.pass) {
+        } else {
+            erase1_3C290C6.execute();
+            if (erase1_3C290C6.pass) {
+            } else {
+                addBin(12);
+            }
+        }
+        println("Test the block form of if_failed");
+        read2_3C290C6.execute();
+        if (read2_3C290C6.pass) {
+        } else {
+            erase2_3C290C6.execute();
+            erase2_1_3C290C6.execute();
+        }
+        println("Test that if_passed works");
+        read1_1_3C290C6.execute();
+        if (read1_1_3C290C6.pass) {
+            pgm1_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_passed");
+        read2_1_3C290C6.execute();
+        if (read2_1_3C290C6.pass) {
+            pgm1_1_3C290C6.execute();
+            pgm1_2_3C290C6.execute();
+        } else {
+        }
+        println("Test that if_ran works");
+        pgm_3C290C6.execute();
+        if (pgm_3C290C6.pass) {
+        } else {
+            addBin(10);
+        }
+        T5_3C290C6_RAN = true;
+        if (T5_3C290C6_RAN == true) {
+            read0_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_ran");
+        pgm_1_3C290C6.execute();
+        if (pgm_1_3C290C6.pass) {
+        } else {
+            addBin(10);
+        }
+        T6_3C290C6_RAN = true;
+        if (T6_3C290C6_RAN == true) {
+            read0_1_3C290C6.execute();
+            read0_2_3C290C6.execute();
+        } else {
+        }
+        println("Test that unless_ran works");
+        pgm_2_3C290C6.execute();
+        if (pgm_2_3C290C6.pass) {
+        } else {
+            addBin(10);
+        }
+        T7_3C290C6_RAN = true;
+        if (T7_3C290C6_RAN == true) {
+        } else {
+            read0_3_3C290C6.execute();
+        }
+        println("Test the block form of unless_ran");
+        pgm_3_3C290C6.execute();
+        if (pgm_3_3C290C6.pass) {
+        } else {
+            addBin(10);
+        }
+        T8_3C290C6_RAN = true;
+        if (T8_3C290C6_RAN == true) {
+        } else {
+            read0_4_3C290C6.execute();
+            read0_5_3C290C6.execute();
+        }
+        println("Test that if_job works");
+        if (JOB == "FC") {
+            cold_test_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_job");
+        if ((JOB == "PRB1") || (JOB == "PRB2")) {
+            probe_only_test1_3C290C6.execute();
+            probe_only_test2_3C290C6.execute();
+        } else {
+        }
+        println("Test that the block form of if_job can be overridden, prb9 should be removed");
+        if ((JOB == "PRB1") || (JOB == "PRB2")) {
+            probe_only_test1_1_3C290C6.execute();
+        } else {
+        }
+        println("Test that unless_job works");
+        if (JOB == "FC") {
+        } else {
+            warmish_test_3C290C6.execute();
+        }
+        println("Test the block form of unless_job");
+        if ((JOB == "PRB1") || (JOB == "PRB2")) {
+        } else {
+            ft_only_test1_3C290C6.execute();
+            ft_only_test2_3C290C6.execute();
+        }
+        println("Test that if_enable works");
+        if (EXTRAS == true) {
+            extra_test_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_enable");
+        if (CZ == true) {
+            cz_test1_3C290C6.execute();
+            cz_test2_3C290C6.execute();
+        } else {
+        }
+        println("Test that unless_enable works");
+        if (QUICK == true) {
+        } else {
+            long_test_3C290C6.execute();
+        }
+        println("Test the block form of unless_enable");
+        if (QUICK == true) {
+        } else {
+            long_test1_3C290C6.execute();
+            long_test2_3C290C6.execute();
+        }
+        println("Test that if_any_failed works");
+        test1_3C290C6.execute();
+        if (test1_3C290C6.pass) {
+        } else {
+            IFA1_3C290C6_FAILED = true;
+        }
+        test2_3C290C6.execute();
+        if (test2_3C290C6.pass) {
+        } else {
+            IFA2_3C290C6_FAILED = true;
+        }
+        if ((IFA1_3C290C6_FAILED == true) || (IFA2_3C290C6_FAILED == true)) {
+            test3_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_any_failed");
+        test1_1_3C290C6.execute();
+        if (test1_1_3C290C6.pass) {
+        } else {
+            OOF_PASSCODE1_3C290C6_FAILED = true;
+        }
+        test2_1_3C290C6.execute();
+        if (test2_1_3C290C6.pass) {
+        } else {
+            OOF_PASSCODE2_3C290C6_FAILED = true;
+        }
+        if ((OOF_PASSCODE1_3C290C6_FAILED == true) || (OOF_PASSCODE2_3C290C6_FAILED == true)) {
+            test3_1_3C290C6.execute();
+            test4_3C290C6.execute();
+        } else {
+        }
+        println("Test that if_all_failed works");
+        test1_2_3C290C6.execute();
+        if (test1_2_3C290C6.pass) {
+        } else {
+            IFALL1_3C290C6_FAILED = true;
+        }
+        test2_2_3C290C6.execute();
+        if (test2_2_3C290C6.pass) {
+        } else {
+            if (IFALL1_3C290C6_FAILED == true) {
+                test3_2_3C290C6.execute();
+            } else {
+            }
+        }
+        println("Test the block form of if_all_failed");
+        test1_3_3C290C6.execute();
+        if (test1_3_3C290C6.pass) {
+        } else {
+            IFALLB1_3C290C6_FAILED = true;
+        }
+        test2_3_3C290C6.execute();
+        if (test2_3_3C290C6.pass) {
+        } else {
+            if (IFALLB1_3C290C6_FAILED == true) {
+                test3_3_3C290C6.execute();
+                test4_1_3C290C6.execute();
+            } else {
+            }
+        }
+        println("Test that if_any_passed works");
+        test1_4_3C290C6.execute();
+        if (test1_4_3C290C6.pass) {
+            IFAP1_3C290C6_PASSED = true;
+        } else {
+        }
+        test2_4_3C290C6.execute();
+        if (test2_4_3C290C6.pass) {
+            IFAP2_3C290C6_PASSED = true;
+        } else {
+        }
+        if ((IFAP1_3C290C6_PASSED == true) || (IFAP2_3C290C6_PASSED == true)) {
+            test3_4_3C290C6.execute();
+        } else {
+        }
+        println("Test the block form of if_any_passed");
+        test1_5_3C290C6.execute();
+        if (test1_5_3C290C6.pass) {
+            IFAPB1_3C290C6_PASSED = true;
+        } else {
+        }
+        test2_5_3C290C6.execute();
+        if (test2_5_3C290C6.pass) {
+            IFAPB2_3C290C6_PASSED = true;
+        } else {
+        }
+        if ((IFAPB1_3C290C6_PASSED == true) || (IFAPB2_3C290C6_PASSED == true)) {
+            test3_5_3C290C6.execute();
+            test4_2_3C290C6.execute();
+        } else {
+        }
+        println("Test that if_all_passed works");
+        test1_6_3C290C6.execute();
+        if (test1_6_3C290C6.pass) {
+            IFALLP1_3C290C6_PASSED = true;
+        } else {
+        }
+        test2_6_3C290C6.execute();
+        if (test2_6_3C290C6.pass) {
+            if (IFALLP1_3C290C6_PASSED == true) {
+                test3_6_3C290C6.execute();
+            } else {
+            }
+        } else {
+        }
+        println("Test the block form of if_all_passed");
+        test1_7_3C290C6.execute();
+        if (test1_7_3C290C6.pass) {
+            IFALLPB1_3C290C6_PASSED = true;
+        } else {
+        }
+        test2_7_3C290C6.execute();
+        if (test2_7_3C290C6.pass) {
+            if (IFALLPB1_3C290C6_PASSED == true) {
+                test3_7_3C290C6.execute();
+                test4_3_3C290C6.execute();
+            } else {
+            }
+        } else {
+        }
+        println("Test that group-level dependencies work");
+        // *******************************************************
+        // GROUP - grp1
+        // *******************************************************
+            grp1_test1_3C290C6.execute();
+            if (grp1_test1_3C290C6.pass) {
+            } else {
+                GRP1_3C290C6_FAILED = true;
+            }
+            grp1_test2_3C290C6.execute();
+            if (grp1_test2_3C290C6.pass) {
+            } else {
+                GRP1_3C290C6_FAILED = true;
+            }
+            grp1_test3_3C290C6.execute();
+            if (grp1_test3_3C290C6.pass) {
+            } else {
+                GRP1_3C290C6_FAILED = true;
+            }
+        // *******************************************************
+        // /GROUP - grp1
+        // *******************************************************
+        if (GRP1_3C290C6_FAILED == true) {
+            // *******************************************************
+            // GROUP - grp2
+            // *******************************************************
+                grp2_test1_3C290C6.execute();
+                if (grp2_test1_3C290C6.pass) {
+                } else {
+                    addBin(5);
+                }
+                grp2_test2_3C290C6.execute();
+                if (grp2_test2_3C290C6.pass) {
+                } else {
+                    addBin(5);
+                }
+                grp2_test3_3C290C6.execute();
+                if (grp2_test3_3C290C6.pass) {
+                } else {
+                    addBin(5);
+                }
+            // *******************************************************
+            // /GROUP - grp2
+            // *******************************************************
+        } else {
+        }
+        println("Another group-level dependencies test based on a real life use case");
+        gt1_3C290C6.execute();
+        if (gt1_3C290C6.pass) {
+        } else {
+            addBin(90);
+        }
+        // *******************************************************
+        // GROUP - gt_grp1
+        // *******************************************************
+            gt_grp1_test1_3C290C6.execute();
+            if (gt_grp1_test1_3C290C6.pass) {
+            } else {
+                GT_GRP1_3C290C6_FAILED = true;
+            }
+            gt_grp1_test2_3C290C6.execute();
+            if (gt_grp1_test2_3C290C6.pass) {
+            } else {
+                GT_GRP1_3C290C6_FAILED = true;
+            }
+        // *******************************************************
+        // /GROUP - gt_grp1
+        // *******************************************************
+        if (GT_GRP1_3C290C6_FAILED == true) {
+            gt2_3C290C6.execute();
+            if (gt2_3C290C6.pass) {
+            } else {
+                addBin(90);
+            }
+            // *******************************************************
+            // GROUP - gt_grp2
+            // *******************************************************
+                gt_grp2_test1_3C290C6.execute();
+                if (gt_grp2_test1_3C290C6.pass) {
+                } else {
+                    GT_GRP2_3C290C6_FAILED = true;
+                }
+                gt_grp2_test2_3C290C6.execute();
+                if (gt_grp2_test2_3C290C6.pass) {
+                } else {
+                    GT_GRP2_3C290C6_FAILED = true;
+                }
+            // *******************************************************
+            // /GROUP - gt_grp2
+            // *******************************************************
+        } else {
+        }
+        if (GT_GRP2_3C290C6_FAILED == true) {
+            gt3_3C290C6.execute();
+            if (gt3_3C290C6.pass) {
+            } else {
+                addBin(90);
+            }
+        } else {
+        }
+        println("Test that nested groups work");
+        // *******************************************************
+        // GROUP - level1
+        // *******************************************************
+            lev1_test1_3C290C6.execute();
+            if (lev1_test1_3C290C6.pass) {
+            } else {
+                addBin(5);
+            }
+            lev1_test2_3C290C6.execute();
+            if (lev1_test2_3C290C6.pass) {
+            } else {
+                addBin(5);
+            }
+            lev1_test3_3C290C6.execute();
+            if (lev1_test3_3C290C6.pass) {
+            } else {
+                lev1_test4_3C290C6.execute();
+                if (lev1_test4_3C290C6.pass) {
+                } else {
+                    addBin(12);
+                }
+            }
+            lev1_test5_3C290C6.execute();
+            if (lev1_test5_3C290C6.pass) {
+            } else {
+                L1T5_3C290C6_FAILED = true;
+            }
+            // *******************************************************
+            // GROUP - level2
+            // *******************************************************
+                lev2_test1_3C290C6.execute();
+                if (lev2_test1_3C290C6.pass) {
+                } else {
+                    addBin(5);
+                }
+                lev2_test2_3C290C6.execute();
+                if (lev2_test2_3C290C6.pass) {
+                } else {
+                    addBin(5);
+                }
+                lev2_test3_3C290C6.execute();
+                if (lev2_test3_3C290C6.pass) {
+                } else {
+                    lev2_test4_3C290C6.execute();
+                    if (lev2_test4_3C290C6.pass) {
+                    } else {
+                        addBin(12);
+                    }
+                }
+                if (L1T5_3C290C6_FAILED == true) {
+                    lev2_test5_3C290C6.execute();
+                    if (lev2_test5_3C290C6.pass) {
+                    } else {
+                        addBin(12);
+                    }
+                } else {
+                }
+            // *******************************************************
+            // /GROUP - level2
+            // *******************************************************
+        // *******************************************************
+        // /GROUP - level1
+        // *******************************************************
+        println("Test nested conditions on a group");
+        nt1_3C290C6.execute();
+        if (nt1_3C290C6.pass) {
+        } else {
+            nt2_3C290C6.execute();
+            if (nt2_3C290C6.pass) {
+                // *******************************************************
+                // GROUP - ntg1
+                // *******************************************************
+                    nt3_3C290C6.execute();
+                    if (nt3_3C290C6.pass) {
+                    } else {
+                        addBin(12);
+                    }
+                // *******************************************************
+                // /GROUP - ntg1
+                // *******************************************************
+            } else {
+                // *******************************************************
+                // GROUP - ntg2
+                // *******************************************************
+                    nt4_3C290C6.execute();
+                    if (nt4_3C290C6.pass) {
+                    } else {
+                        addBin(13);
+                    }
+                // *******************************************************
+                // /GROUP - ntg2
+                // *******************************************************
+            }
+        }
+        println("Embedded conditional tests 1");
+        test1_8_3C290C6.execute();
+        if (test1_8_3C290C6.pass) {
+        } else {
+            test2_8_3C290C6.execute();
+            test3_8_3C290C6.execute();
+            if (test3_8_3C290C6.pass) {
+            } else {
+                test4_4_3C290C6.execute();
+            }
+        }
+        println("Embedded conditional tests 2");
+        test1_9_3C290C6.execute();
+        if (test1_9_3C290C6.pass) {
+        } else {
+            ECT2_1_3C290C6_FAILED = true;
+        }
+        test2_9_3C290C6.execute();
+        if (test2_9_3C290C6.pass) {
+        } else {
+            ECT2_2_3C290C6_FAILED = true;
+        }
+        if (ECT2_1_3C290C6_FAILED == true) {
+            if (ECT2_2_3C290C6_FAILED == true) {
+                test3_9_3C290C6.execute();
+            } else {
+            }
+            if (EN1 == true) {
+                test4_5_3C290C6.execute();
+            } else {
+            }
+            if (EN2 == true) {
+                test5_3C290C6.execute();
+                test6_3C290C6.execute();
+            } else {
+            }
+            test7_3C290C6.execute();
+        } else {
+        }
+        test8_3C290C6.execute();
+        println("Nested enable word test 1");
+        if (WORD1 == true) {
+            test1_10_3C290C6.execute();
+            if (WORD2 == true) {
+                test2_10_3C290C6.execute();
+            } else {
+            }
+        } else {
+        }
+        println("Nested enable word test 2");
+        if (WORD1 == true) {
+            test1_11_3C290C6.execute();
+            if (WORD2 == true) {
+            } else {
+                test2_11_3C290C6.execute();
+            }
+        } else {
+        }
+        println("Nested enable word test 3");
+        if ((WORD1 == true) || (WORD2 == true)) {
+            test1_12_3C290C6.execute();
+            if (WORD3 == true) {
+                test2_12_3C290C6.execute();
+            } else {
+            }
+        } else {
+        }
+        println("Conditional enable test");
+        if (JOB == "FR") {
+            if (NVM_MINIMUM_ROOM == true) {
+                NVM_MINIMUM_FT = true;
+            } else {
+            }
+        } else {
+        }
+        if (JOB == "FC") {
+            if (NVM_MINIMUM_COLD == true) {
+                NVM_MINIMUM_FT = true;
+            } else {
+            }
+        } else {
+        }
+        if (JOB == "FH") {
+            if (NVM_MINIMUM_HOT == true) {
+                NVM_MINIMUM_FT = false;
+            } else {
+            }
+        } else {
+        }
+        println("Test enable words that wrap a lot of tests");
+        if (WORD1 == true) {
+            test1_13_3C290C6.execute();
+            test1_14_3C290C6.execute();
+            test1_15_3C290C6.execute();
+            test1_16_3C290C6.execute();
+            test1_17_3C290C6.execute();
+            if (WORD2 == true) {
+                test1_18_3C290C6.execute();
+                test1_19_3C290C6.execute();
+                test1_20_3C290C6.execute();
+                test1_21_3C290C6.execute();
+                if (WORD3 == true) {
+                    test1_22_3C290C6.execute();
+                } else {
+                }
+            } else {
+            }
+        } else {
+        }
+        println("Manual flag setting");
+        test1.execute();
+        if (test1.pass) {
+        } else {
+            MY_FLAG = true;
+        }
+        if (MY_FLAG == true) {
+            test2.execute();
+        } else {
+            test3.execute();
+        }
+        println("Mixed-case manual flags");
+        test1.execute();
+        if (test1.pass) {
+        } else {
+            My_Mixed_Flag = true;
+        }
+        if (My_Mixed_Flag == true) {
+            test2.execute();
+        } else {
+            test3.execute();
+        }
+        println("Mixed-case enables");
+        if (MCEn_extras == true) {
+            extra_test.execute();
+        } else {
+        }
+        if (MCEn_test == true) {
+        } else {
+            test1.execute();
+            test2.execute();
+        }
+        println("This should retain the set-run-flag in the else conditional");
+        test22_3C290C6.execute();
+        if (test22_3C290C6.pass) {
+        } else {
+            AT22_3C290C6_FAILED = true;
+            test22a_3C290C6.execute();
+            test22b_3C290C6.execute();
+        }
+        test22c_3C290C6.execute();
+        test22d_3C290C6.execute();
+        if (AT22_3C290C6_FAILED == true) {
+            test22e_3C290C6.execute();
+            test22f_3C290C6.execute();
+        } else {
+        }
+        println("This should optimize away then/else branches that are empty");
+        test36_3C290C6.execute();
+        test36b_3C290C6.execute();
+        println("Tests of render");
+        if (MY_FLAG == true) {
+            multi_bin;
+            test36_1_3C290C6.execute();
+            if (test36_1_3C290C6.pass) {
+            } else {
+                multi_bin;
+            }
+        } else {
+        }
+        println("An optimization test case, this should not generate a flag on V93K");
+        test1_23_3C290C6.execute();
+        if (test1_23_3C290C6.pass) {
+            test2_13_3C290C6.execute();
+        } else {
+            test3_10_3C290C6.execute();
+            addBin(10);
+        }
+        println("The reverse optimization test case, this should not generate a flag on V93K");
+        test1_24_3C290C6.execute();
+        if (test1_24_3C290C6.pass) {
+            test2_14_3C290C6.execute();
+        } else {
+            test3_11_3C290C6.execute();
+            addBin(10);
+        }
+        println("Nested optimization test case");
+        outer_test_3C290C6.execute();
+        if (outer_test_3C290C6.pass) {
+        } else {
+            if (FLAG1 == true) {
+            } else {
+                inner_test1_3C290C6.execute();
+                if (inner_test1_3C290C6.pass) {
+                } else {
+                    multi_bin;
+                }
+            }
+        }
+        println("Nested flag optimization test case");
+        if (FLAG1 == true) {
+            test4_6_3C290C6.execute();
+            if (test4_6_3C290C6.pass) {
+            } else {
+                multi_bin;
+            }
+        } else {
+        }
+        println("Same test case with volatile flag");
+        if (Alarm == true) {
+            test10_3C290C6.execute();
+            if (test10_3C290C6.pass) {
+            } else {
+                if (Alarm == true) {
+                    multi_bin;
+                } else {
+                }
+            }
+        } else {
+        }
+        println("The setting of flags used in later OR conditions should be preserved");
+        test2_15_3C290C6.execute();
+        if (test2_15_3C290C6.pass) {
+        } else {
+            OF1_3C290C6_FAILED = true;
+            test3_12_3C290C6.execute();
+        }
+        test2_16_3C290C6.execute();
+        if (test2_16_3C290C6.pass) {
+        } else {
+            OF2_3C290C6_FAILED = true;
+            test3_13_3C290C6.execute();
+        }
+        test4_7_3C290C6.execute();
+        if ((OF1_3C290C6_FAILED == true) || (OF2_3C290C6_FAILED == true)) {
+            test4_8_3C290C6.execute();
+        } else {
+        }
+        println("The setting of flags used in later AND conditions should be preserved");
+        test2_17_3C290C6.execute();
+        if (test2_17_3C290C6.pass) {
+        } else {
+            AF1_3C290C6_FAILED = true;
+            test3_14_3C290C6.execute();
+        }
+        test2_18_3C290C6.execute();
+        if (test2_18_3C290C6.pass) {
+        } else {
+            AF2_3C290C6_FAILED = true;
+            test3_15_3C290C6.execute();
+        }
+        test4_9_3C290C6.execute();
+        if (AF1_3C290C6_FAILED == true) {
+            if (AF2_3C290C6_FAILED == true) {
+                test4_10_3C290C6.execute();
+            } else {
+            }
+        } else {
+        }
+        println("Adjacent tests that set a flag and then use it in an OR condition should be valid");
+        test2_19_3C290C6.execute();
+        if (test2_19_3C290C6.pass) {
+        } else {
+            OF11_3C290C6_FAILED = true;
+        }
+        test2_20_3C290C6.execute();
+        if (test2_20_3C290C6.pass) {
+        } else {
+            OF12_3C290C6_FAILED = true;
+        }
+        if ((OF11_3C290C6_FAILED == true) || (OF12_3C290C6_FAILED == true)) {
+            test4_11_3C290C6.execute();
+        } else {
+        }
+        println("Adjacent tests that set a flag and then use it in an AND condition should be valid");
+        test2_21_3C290C6.execute();
+        if (test2_21_3C290C6.pass) {
+        } else {
+            AF11_3C290C6_FAILED = true;
+        }
+        test2_22_3C290C6.execute();
+        if (test2_22_3C290C6.pass) {
+        } else {
+            if (AF11_3C290C6_FAILED == true) {
+                test4_12_3C290C6.execute();
+            } else {
+            }
+        }
+        println("Adjacent if combiner test case 1");
+        if (MY_ENABLE_WORD == true) {
+            test1_25_3C290C6.execute();
+        } else {
+            test2_23_3C290C6.execute();
+        }
+        if (MY_FLAG == true) {
+            test1_26_3C290C6.execute();
+        } else {
+            test2_24_3C290C6.execute();
+        }
+        println("Adjacent if combiner test case 2");
+        if (MY_ENABLE_WORD == true) {
+            test1_27_3C290C6.execute();
+        } else {
+            test2_25_3C290C6.execute();
+        }
+        if (MY_FLAG == true) {
+            test1_28_3C290C6.execute();
+        } else {
+            test2_26_3C290C6.execute();
+        }
+        println("Volatile if combiner test case");
+        if (Alarm == true) {
+            test1_29_3C290C6.execute();
+        } else {
+        }
+        if (Alarm == true) {
+        } else {
+            test2_27_3C290C6.execute();
+        }
+        println("Test the block form of expressing if passed/failed dependents");
+        test1_30_3C290C6.execute();
+        if (test1_30_3C290C6.pass) {
+            test2_28_3C290C6.execute();
+        } else {
+            test3_16_3C290C6.execute();
+            addBin(10);
+        }
+        println("Test the else block on a flag condition");
+        if (BITMAP == true) {
+            test2.execute();
+        } else {
+            test3.execute();
+        }
+        if (SOME_FLAG == true) {
+            test2.execute();
+        } else {
+            test3.execute();
+        }
+        println("Test of a real life case which was found to have problems");
+        if (EWORD1 == true) {
+        } else {
+            // *******************************************************
+            // GROUP - small
+            // *******************************************************
+                if (EWORD2 == true) {
+                    if (SMALL_FLOW == true) {
+                        test1.execute();
+                        test2.execute();
+                    } else {
+                    }
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    if (SMALL_FLOW == true) {
+                        test1.execute();
+                        test2.execute();
+                    } else {
+                    }
+                } else {
+                    if (SMALL_FLOW == true) {
+                        test1.execute();
+                        test2.execute();
+                    } else {
+                    }
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    test1.execute();
+                    if (SMALL_FLOW == true) {
+                        test1.execute();
+                        test2.execute();
+                    } else {
+                    }
+                }
+            // *******************************************************
+            // /GROUP - small
+            // *******************************************************
+        }
+    }
+}

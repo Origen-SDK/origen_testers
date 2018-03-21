@@ -1,5 +1,5 @@
 # Program generator tests
-%w(j750 j750_hpt ultraflex v93k).each do |platform|
+%w(j750 j750_hpt ultraflex v93k v93k_smt8).each do |platform|
   files = []
   files << "program/prod.list"
   files << "program/uflex_resources.rb" if platform == 'ultraflex'

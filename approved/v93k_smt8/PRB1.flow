@@ -1,0 +1,397 @@
+flow PRB1 {
+    in ADDITIONAL_ERASE = false;
+    in ALARMENABLED = false;
+    in DO_ERASE = false;
+    in JOB = "";
+    in NO_EXTRA_ERASE = false;
+    in USB_XCVR_CZ = false;
+
+    setup {
+    }
+
+    execute {
+        var ERASE_PASSED_1_AB74CCF_PASSED = false;
+        var ERASE_PASSED_2_AB74CCF_PASSED = false;
+        var ERASE_PASSED_3_AB74CCF_FAILED = false;
+        var ERASE_PASSED_4_AB74CCF_FAILED = false;
+        var ERASE_FAILED_1_AB74CCF_FAILED = false;
+        var ERASE_FAILED_2_AB74CCF_FAILED = false;
+        var ERASE_FAILED_3_AB74CCF_PASSED = false;
+        var ERASE_FAILED_4_AB74CCF_PASSED = false;
+        var ERASE_RAN_1_AB74CCF_RAN = false;
+        var ERASE_RAN_2_AB74CCF_RAN = false;
+        var ERASE_RAN_3_AB74CCF_RAN = false;
+        var ERASE_RAN_4_AB74CCF_RAN = false;
+        var G200_AB74CCF_FAILED = false;
+        var G100_AB74CCF_RAN = false;
+
+        // *******************************************************
+        // GROUP - prb1_main
+        // *******************************************************
+            program_ckbd_AB74CCF.execute();
+            if (program_ckbd_AB74CCF.pass) {
+            } else {
+                addBin(1100);
+            }
+            margin_read1_ckbd_AB74CCF.execute();
+            margin_read0_ckbd_AB74CCF.execute();
+            // *******************************************************
+            // GROUP - erase
+            // *******************************************************
+                erase_all_AB74CCF.execute();
+                erase_all_1_AB74CCF.execute();
+                erase_all_2_AB74CCF.execute();
+                erase_all_3_AB74CCF.execute();
+                erase_all_4_AB74CCF.execute();
+                erase_all_5_AB74CCF.execute();
+                // *******************************************************
+                // GROUP - erase_vfy
+                // *******************************************************
+                    margin_read1_all1_AB74CCF.execute();
+                // *******************************************************
+                // /GROUP - erase_vfy
+                // *******************************************************
+            // *******************************************************
+            // /GROUP - erase
+            // *******************************************************
+            println("Should be v1");
+            program_ckbd_1_AB74CCF.execute();
+            println("Should be v2");
+            program_ckbd_2_AB74CCF.execute();
+            println("Should be v1");
+            program_ckbd_3_AB74CCF.execute();
+            println("Should be v2");
+            program_ckbd_4_AB74CCF.execute();
+            println("Should be a v1 test instance group");
+            // *******************************************************
+            // GROUP - program_ckbd
+            // *******************************************************
+                program_ckbd_5_AB74CCF.execute();
+                program_ckbd_6_AB74CCF.execute();
+                program_ckbd_7_AB74CCF.execute();
+            // *******************************************************
+            // /GROUP - program_ckbd
+            // *******************************************************
+            println("Should be a v2 test instance group");
+            // *******************************************************
+            // GROUP - program_ckbd_2
+            // *******************************************************
+                program_ckbd_8_AB74CCF.execute();
+                program_ckbd_9_AB74CCF.execute();
+                program_ckbd_10_AB74CCF.execute();
+            // *******************************************************
+            // /GROUP - program_ckbd_2
+            // *******************************************************
+            println("Should be a v1 test instance group");
+            // *******************************************************
+            // GROUP - program_ckbd_3
+            // *******************************************************
+                program_ckbd_11_AB74CCF.execute();
+                program_ckbd_12_AB74CCF.execute();
+                program_ckbd_13_AB74CCF.execute();
+            // *******************************************************
+            // /GROUP - program_ckbd_3
+            // *******************************************************
+            println("Should be a v2 test instance group");
+            // *******************************************************
+            // GROUP - program_ckbd_4
+            // *******************************************************
+                program_ckbd_14_AB74CCF.execute();
+                program_ckbd_15_AB74CCF.execute();
+                program_ckbd_16_AB74CCF.execute();
+            // *******************************************************
+            // /GROUP - program_ckbd_4
+            // *******************************************************
+            if (JOB == "P1") {
+                p1_only_test_AB74CCF.execute();
+            } else {
+            }
+            if ((JOB == "P1") || (JOB == "P2")) {
+                p1_or_p2_only_test_AB74CCF.execute();
+            } else {
+            }
+            if (JOB == "P1") {
+            } else {
+                not_p1_test_AB74CCF.execute();
+            }
+            if ((JOB == "P1") || (JOB == "P2")) {
+            } else {
+                not_p1_or_p2_test_AB74CCF.execute();
+                another_not_p1_or_p2_test_AB74CCF.execute();
+            }
+            println("Verify that a test with an external instance works");
+            por_ins_AB74CCF.execute();
+            println("Verify that a request to use the current context works");
+            if (JOB == "P1") {
+                erase_all_6_AB74CCF.execute();
+                erase_all_7_AB74CCF.execute();
+                erase_all_8_AB74CCF.execute();
+            } else {
+            }
+            if (JOB == "P2") {
+            } else {
+                erase_all_9_AB74CCF.execute();
+            }
+            erase_all_10_AB74CCF.execute();
+            margin_read1_all1_1_AB74CCF.execute();
+            if (margin_read1_all1_1_AB74CCF.pass) {
+            } else {
+                erase_all_11_AB74CCF.execute();
+            }
+            margin_read1_all1_2_AB74CCF.execute();
+            if (margin_read1_all1_2_AB74CCF.pass) {
+            } else {
+                erase_all_12_AB74CCF.execute();
+            }
+            margin_read1_all1_3_AB74CCF.execute();
+            if (margin_read1_all1_3_AB74CCF.pass) {
+            } else {
+                erase_all_13_AB74CCF.execute();
+            }
+            margin_read1_all1_4_AB74CCF.execute();
+            if (margin_read1_all1_4_AB74CCF.pass) {
+            } else {
+                erase_all_14_AB74CCF.execute();
+            }
+            margin_read1_all1_5_AB74CCF.execute();
+            if (margin_read1_all1_5_AB74CCF.pass) {
+            } else {
+                erase_all_15_AB74CCF.execute();
+            }
+            margin_read1_all1_6_AB74CCF.execute();
+            println("Test if enable");
+            if (DO_ERASE == true) {
+                erase_all_16_AB74CCF.execute();
+                erase_all_17_AB74CCF.execute();
+            } else {
+            }
+            println("Test unless enable");
+            if (NO_EXTRA_ERASE == true) {
+            } else {
+                erase_all_18_AB74CCF.execute();
+                erase_all_19_AB74CCF.execute();
+                erase_all_20_AB74CCF.execute();
+            }
+            erase_all_21_AB74CCF.execute();
+            erase_all_22_AB74CCF.execute();
+            println("Test if_passed");
+            erase_all_23_AB74CCF.execute();
+            if (erase_all_23_AB74CCF.pass) {
+                ERASE_PASSED_1_AB74CCF_PASSED = true;
+            } else {
+            }
+            erase_all_24_AB74CCF.execute();
+            if (erase_all_24_AB74CCF.pass) {
+                ERASE_PASSED_2_AB74CCF_PASSED = true;
+            } else {
+            }
+            if (ERASE_PASSED_1_AB74CCF_PASSED == true) {
+                margin_read1_all1_7_AB74CCF.execute();
+            } else {
+            }
+            if (ERASE_PASSED_2_AB74CCF_PASSED == true) {
+                margin_read1_all1_8_AB74CCF.execute();
+            } else {
+            }
+            println("Test unless_passed");
+            erase_all_25_AB74CCF.execute();
+            if (erase_all_25_AB74CCF.pass) {
+            } else {
+                ERASE_PASSED_3_AB74CCF_FAILED = true;
+            }
+            erase_all_26_AB74CCF.execute();
+            if (erase_all_26_AB74CCF.pass) {
+            } else {
+                ERASE_PASSED_4_AB74CCF_FAILED = true;
+            }
+            if (ERASE_PASSED_3_AB74CCF_FAILED == true) {
+                margin_read1_all1_9_AB74CCF.execute();
+            } else {
+            }
+            if (ERASE_PASSED_4_AB74CCF_FAILED == true) {
+                margin_read1_all1_10_AB74CCF.execute();
+            } else {
+            }
+            println("Test if_failed");
+            erase_all_27_AB74CCF.execute();
+            if (erase_all_27_AB74CCF.pass) {
+            } else {
+                ERASE_FAILED_1_AB74CCF_FAILED = true;
+            }
+            erase_all_28_AB74CCF.execute();
+            if (erase_all_28_AB74CCF.pass) {
+            } else {
+                ERASE_FAILED_2_AB74CCF_FAILED = true;
+            }
+            if (ERASE_FAILED_1_AB74CCF_FAILED == true) {
+                margin_read1_all1_11_AB74CCF.execute();
+            } else {
+            }
+            if (ERASE_FAILED_2_AB74CCF_FAILED == true) {
+                margin_read1_all1_12_AB74CCF.execute();
+            } else {
+            }
+            println("Test unless_failed");
+            erase_all_29_AB74CCF.execute();
+            if (erase_all_29_AB74CCF.pass) {
+                ERASE_FAILED_3_AB74CCF_PASSED = true;
+            } else {
+            }
+            erase_all_30_AB74CCF.execute();
+            if (erase_all_30_AB74CCF.pass) {
+                ERASE_FAILED_4_AB74CCF_PASSED = true;
+            } else {
+            }
+            if (ERASE_FAILED_3_AB74CCF_PASSED == true) {
+                margin_read1_all1_13_AB74CCF.execute();
+            } else {
+            }
+            if (ERASE_FAILED_4_AB74CCF_PASSED == true) {
+                margin_read1_all1_14_AB74CCF.execute();
+            } else {
+            }
+            println("Test if_ran");
+            erase_all_31_AB74CCF.execute();
+            ERASE_RAN_1_AB74CCF_RAN = true;
+            erase_all_32_AB74CCF.execute();
+            ERASE_RAN_2_AB74CCF_RAN = true;
+            if (ERASE_RAN_1_AB74CCF_RAN == true) {
+                margin_read1_all1_15_AB74CCF.execute();
+            } else {
+            }
+            if (ERASE_RAN_2_AB74CCF_RAN == true) {
+                margin_read1_all1_16_AB74CCF.execute();
+            } else {
+            }
+            println("Test unless_ran");
+            erase_all_33_AB74CCF.execute();
+            ERASE_RAN_3_AB74CCF_RAN = true;
+            erase_all_34_AB74CCF.execute();
+            ERASE_RAN_4_AB74CCF_RAN = true;
+            if (ERASE_RAN_3_AB74CCF_RAN == true) {
+            } else {
+                margin_read1_all1_17_AB74CCF.execute();
+            }
+            if (ERASE_RAN_4_AB74CCF_RAN == true) {
+            } else {
+                margin_read1_all1_18_AB74CCF.execute();
+            }
+            println("Verify that job context wraps import");
+            if (JOB == "FR") {
+                // *******************************************************
+                // GROUP - erase_2
+                // *******************************************************
+                    erase_all_35_AB74CCF.execute();
+                    erase_all_36_AB74CCF.execute();
+                    erase_all_37_AB74CCF.execute();
+                    erase_all_38_AB74CCF.execute();
+                    // *******************************************************
+                    // GROUP - erase_vfy_2
+                    // *******************************************************
+                        margin_read1_all1_19_AB74CCF.execute();
+                    // *******************************************************
+                    // /GROUP - erase_vfy_2
+                    // *******************************************************
+                // *******************************************************
+                // /GROUP - erase_2
+                // *******************************************************
+            } else {
+            }
+            println("Verify that job context wraps enable block within an import");
+            if (JOB == "FR") {
+                // *******************************************************
+                // GROUP - additional_erase
+                // *******************************************************
+                    if (ADDITIONAL_ERASE == true) {
+                        erase_all_39_AB74CCF.execute();
+                    } else {
+                    }
+                    erase_all_40_AB74CCF.execute();
+                // *******************************************************
+                // /GROUP - additional_erase
+                // *******************************************************
+            } else {
+            }
+            println("Verify that flow.cz works...");
+            margin_read1_all1_20_AB74CCF.execute();
+            println("Verify that flow.cz works with enable words");
+            if (USB_XCVR_CZ == true) {
+                xcvr_fs_vilvih_AB74CCF.execute();
+                xcvr_fs_vilvih_1_AB74CCF.execute();
+                xcvr_fs_vilvih_2_AB74CCF.execute();
+                xcvr_fs_vilvih_3_AB74CCF.execute();
+            } else {
+            }
+            println("Verify that MTO template works...");
+            println("Speed binning example bug from video 5");
+            // *******************************************************
+            // GROUP - 200Mhz Tests
+            // *******************************************************
+                test200_1.execute();
+                if (test200_1.pass) {
+                } else {
+                    G200_AB74CCF_FAILED = true;
+                }
+                test200_2.execute();
+                if (test200_2.pass) {
+                } else {
+                    G200_AB74CCF_FAILED = true;
+                }
+                test200_3.execute();
+                if (test200_3.pass) {
+                } else {
+                    G200_AB74CCF_FAILED = true;
+                }
+            // *******************************************************
+            // /GROUP - 200Mhz Tests
+            // *******************************************************
+            if (G200_AB74CCF_FAILED == true) {
+                // *******************************************************
+                // GROUP - 100Mhz Tests
+                // *******************************************************
+                    G100_AB74CCF_RAN = true;
+                    test100_1.execute();
+                    if (test100_1.pass) {
+                    } else {
+                        addBin(5);
+                    }
+                    test100_2.execute();
+                    if (test100_2.pass) {
+                    } else {
+                        addBin(5);
+                    }
+                    test100_3.execute();
+                    if (test100_3.pass) {
+                    } else {
+                        addBin(5);
+                    }
+                // *******************************************************
+                // /GROUP - 100Mhz Tests
+                // *******************************************************
+            } else {
+            }
+            if (G100_AB74CCF_RAN == true) {
+                addBin(2);
+            } else {
+            }
+            println("Test node optimization within an if_failed branch");
+            some_func_test_AB74CCF.execute();
+            if (some_func_test_AB74CCF.pass) {
+            } else {
+                if (ALARM == true) {
+                    addBin(10);
+                } else {
+                    addBin(11);
+                }
+                if (ALARMENABLED == true) {
+                    addBin(12);
+                } else {
+                    addBin(13);
+                }
+            }
+            addBin(1);
+        // *******************************************************
+        // /GROUP - prb1_main
+        // *******************************************************
+    }
+}

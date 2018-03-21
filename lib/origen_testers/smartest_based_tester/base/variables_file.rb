@@ -32,6 +32,10 @@ module OrigenTesters
             x <=> y
           end
         end
+
+        def to_be_written?
+          tester.smt7?
+        end
       end
     end
   end
