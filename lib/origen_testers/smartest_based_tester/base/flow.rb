@@ -10,20 +10,33 @@ module OrigenTesters
 
         attr_accessor :add_flow_enable, :flow_name
 
+        def smt8?
+          tester.smt8?
+        end
+
         def var_filename
           @var_filename || 'global'
         end
 
         def subdirectory
-          'testflow/mfh.testflow.group'
+          if smt8?
+            'src/flows'
+          else
+            'testflow/mfh.testflow.group'
+          end
         end
 
         def filename
-          super.gsub('_flow', '')
+          base = super.gsub('_flow', '')
+          if smt8?
+            flow_name(base) + '.flow'
+          else
+            base
+          end
         end
 
-        def flow_name
-          @flow_name || filename.sub(/\..*/, '').upcase
+        def flow_name(filename = nil)
+          @flow_name || (filename || self.filename).sub(/\..*/, '').upcase
         end
 
         def hardware_bin_descriptions
@@ -32,6 +45,10 @@ module OrigenTesters
 
         def flow_control_variables
           Origen.interface.variables_file(self).flow_control_variables
+        end
+
+        def clean_flow_control_variables
+          Origen.interface.variables_file(self).clean_flow_control_variables
         end
 
         def runtime_control_variables
@@ -47,48 +64,13 @@ module OrigenTesters
           @test_modes = tester.limitfile_test_modes
         end
 
-        def flow_header
-          h = ['  {']
-          if add_flow_enable
-            var = filename.sub(/\..*/, '').upcase
-            var = generate_flag_name("#{var}_ENABLE")
-            if add_flow_enable == :enabled
-              flow_control_variables << [var, 1]
-            else
-              flow_control_variables << [var, 0]
-            end
-            h << "  if @#{var} == 1 then"
-            h << '  {'
-            i = '  '
-          else
-            i = ''
-          end
-          if set_runtime_variables.size > 0
-            h << i + '  {'
-            set_runtime_variables.each do |var|
-              h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
-            end
-            h << i + '  }, open,"Init Flow Control Vars", ""'
-          end
-          h
-        end
-
-        def flow_footer
-          f = []
-          if add_flow_enable
-            f << '  }'
-            f << '  else'
-            f << '  {'
-            f << '  }'
-          end
-          f << ''
-          f << "  }, open,\"#{flow_name}\",\"\""
-          f
-        end
-
         def finalize(options = {})
           super
-          @indent = add_flow_enable ? 2 : 1
+          if smt8?
+            @indent = 2
+          else
+            @indent = add_flow_enable ? 2 : 1
+          end
           @lines = []
           @open_test_methods = []
           @stack = { on_fail: [], on_pass: [] }
@@ -109,7 +91,8 @@ module OrigenTesters
         end
 
         def line(str)
-          @lines << ('  ' * @indent) + str
+          @tab ||= smt8? ? '    ' : '  '
+          @lines << (@tab * @indent) + str
         end
 
         # def on_flow(node)
@@ -135,7 +118,11 @@ module OrigenTesters
 
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
-            line "run_and_branch(#{name})"
+            if smt8?
+              line "#{name}.execute();"
+            else
+              line "run_and_branch(#{name})"
+            end
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
             on_pass = node.find(:on_pass)
             on_fail = node.find(:on_fail)
@@ -156,17 +143,25 @@ module OrigenTesters
               @open_test_methods << nil
             end
 
-            line 'then'
-            line '{'
+            if smt8?
+              line "if (#{name}.pass) {"
+            else
+              line 'then'
+              line '{'
+            end
             @indent += 1
             pass_branch do
               process_all(on_pass) if on_pass
               stack[:on_pass].each { |n| process_all(n) }
             end
             @indent -= 1
-            line '}'
-            line 'else'
-            line '{'
+            if smt8?
+              line '} else {'
+            else
+              line '}'
+              line 'else'
+              line '{'
+            end
             @indent += 1
             fail_branch do
               process_all(on_fail) if on_fail
@@ -177,7 +172,11 @@ module OrigenTesters
 
             @open_test_methods.pop
           else
-            line "run(#{name});"
+            if smt8?
+              line "#{name}.execute();"
+            else
+              line "run(#{name});"
+            end
           end
         end
 
@@ -191,16 +190,29 @@ module OrigenTesters
           jobs, *nodes = *node
           jobs = clean_job(jobs)
           state = node.type == :if_job
-          runtime_control_variables << ['JOB', '']
-          condition = jobs.join(' or ')
-          line "if #{condition} then"
-          line '{'
+          if smt8?
+            flow_control_variables << ['JOB', '']
+          else
+            runtime_control_variables << ['JOB', '']
+          end
+          if smt8?
+            condition = jobs.size == 1 ? jobs.first : (jobs.map { |j| "(#{j})" }.join (' || '))
+            line "if (#{condition}) {"
+          else
+            condition = jobs.join(' or ')
+            line "if #{condition} then"
+            line '{'
+          end
           @indent += 1
           process_all(node) if state
           @indent -= 1
-          line '}'
-          line 'else'
-          line '{'
+          if smt8?
+            line '} else {'
+          else
+            line '}'
+            line 'else'
+            line '{'
+          end
           @indent += 1
           process_all(node) unless state
           @indent -= 1
@@ -211,13 +223,22 @@ module OrigenTesters
         def on_condition_flag(node, state)
           flag, *nodes = *node
           else_node = node.find(:else)
-          if flag.is_a?(Array)
-            condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
+          if smt8?
+            if flag.is_a?(Array)
+              condition = flag.map { |f| "(#{generate_flag_name(f)} == true)" }.join(' || ')
+            else
+              condition = "#{generate_flag_name(flag)} == true"
+            end
+            line "if (#{condition}) {"
           else
-            condition = "@#{generate_flag_name(flag)} == 1"
+            if flag.is_a?(Array)
+              condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
+            else
+              condition = "@#{generate_flag_name(flag)} == 1"
+            end
+            line "if #{condition} then"
+            line '{'
           end
-          line "if #{condition} then"
-          line '{'
           @indent += 1
           if state
             process_all(node.children - [else_node])
@@ -225,9 +246,13 @@ module OrigenTesters
             process(else_node) if else_node
           end
           @indent -= 1
-          line '}'
-          line 'else'
-          line '{'
+          if smt8?
+            line '} else {'
+          else
+            line '}'
+            line 'else'
+            line '{'
+          end
           @indent += 1
           if state
             process(else_node) if else_node
@@ -261,13 +286,21 @@ module OrigenTesters
         def on_enable(node)
           flag = node.value.upcase
           flow_control_variables << flag
-          line "@#{flag} = 1;"
+          if smt8?
+            line "#{flag} = true;"
+          else
+            line "@#{flag} = 1;"
+          end
         end
 
         def on_disable(node)
           flag = node.value.upcase
           flow_control_variables << flag
-          line "@#{flag} = 0;"
+          if smt8?
+            line "#{flag} = false;"
+          else
+            line "@#{flag} = 0;"
+          end
         end
 
         def on_set_flag(node)
@@ -304,14 +337,25 @@ module OrigenTesters
               end
             end
           else
-            line "@#{flag} = 1;"
+            if smt8?
+              line "#{flag} = true;"
+            else
+              line "@#{flag} = 1;"
+            end
           end
         end
 
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
           on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-          line '{'
+          group_name = unique_group_name(node.find(:name).value)
+          if smt8?
+            line '// *******************************************************'
+            line "// GROUP - #{group_name}"
+            line '// *******************************************************'
+          else
+            line '{'
+          end
           @indent += 1
           stack[:on_fail] << on_fail if on_fail
           stack[:on_pass] << on_pass if on_pass
@@ -319,7 +363,13 @@ module OrigenTesters
           stack[:on_fail].pop if on_fail
           stack[:on_pass].pop if on_pass
           @indent -= 1
-          line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
+          if smt8?
+            line '// *******************************************************'
+            line "// /GROUP - #{group_name}"
+            line '// *******************************************************'
+          else
+            line "}, open,\"#{group_name}\", \"\""
+          end
         end
 
         def on_set_result(node)
@@ -331,19 +381,27 @@ module OrigenTesters
             hardware_bin_descriptions[bin] ||= desc
           end
 
-          if node.to_a[0] == 'pass'
-            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
+          if smt8?
+            line "addBin(#{sbin || bin});"
           else
-            if tester.create_limits_file
-              line 'multi_bin;'
+            if node.to_a[0] == 'pass'
+              line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
             else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+              if tester.create_limits_file
+                line 'multi_bin;'
+              else
+                line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+              end
             end
           end
         end
 
         def on_log(node)
-          line "print_dl(\"#{node.to_a[0]}\");"
+          if smt8?
+            line "println(\"#{node.to_a[0]}\");"
+          else
+            line "print_dl(\"#{node.to_a[0]}\");"
+          end
         end
 
         def unique_group_name(name)
@@ -358,7 +416,8 @@ module OrigenTesters
         end
 
         def clean_job(job)
-          [job].flatten.map { |j| "@JOB == \"#{j.to_s.upcase}\"" }
+          var = smt8? ? 'JOB' : '@JOB'
+          [job].flatten.map { |j| "#{var} == \"#{j.to_s.upcase}\"" }
         end
 
         private

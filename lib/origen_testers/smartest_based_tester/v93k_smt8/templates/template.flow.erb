@@ -1,0 +1,22 @@
+flow <%= flow_name %> {
+% clean_flow_control_variables.each do |var|
+%   if var.is_a?(Array)
+    in <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+    in <%= var.to_s %> = false;
+%   end
+% end
+
+    setup {
+    }
+
+    execute {
+% set_runtime_variables.each do |var|
+        var <%= generate_flag_name(var.to_s) %> = false;
+% end
+
+% lines.each do |line|
+<%= line %>
+% end
+    }
+}

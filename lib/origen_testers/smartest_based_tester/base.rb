@@ -55,7 +55,7 @@ module OrigenTesters
       def initialize(options = {})
         @smt_version = options[:smt_version] || 7
 
-        if smt_version == 8
+        if smt8?
           require_relative 'smt8'
           extend SMT8
         else
@@ -65,7 +65,7 @@ module OrigenTesters
 
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
-        if smt_version == 8
+        if smt8?
           @pat_extension = 'pat'
           @disable_pattern_diffs = true
         else
@@ -98,6 +98,14 @@ module OrigenTesters
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
+      end
+
+      def smt8?
+        smt_version.to_s[0] == '8'
+      end
+
+      def smt7?
+        smt_version.to_s[0] == '7'
       end
 
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
