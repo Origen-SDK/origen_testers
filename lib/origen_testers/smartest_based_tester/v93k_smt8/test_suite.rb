@@ -48,7 +48,9 @@ module OrigenTesters
           l << "    measurement.specification = setupRef(#{specification});"
           test_method.sorted_parameters.each do |param|
             name = param[0]
-            name = name.is_a?(String) ? name : name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
+            unless name.is_a?(String)
+              name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
+            end
             l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
           end
           l << '}'
