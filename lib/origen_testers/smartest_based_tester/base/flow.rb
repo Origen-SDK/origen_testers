@@ -92,7 +92,9 @@ module OrigenTesters
 
         def render_limits_file(ast)
           m = platform::LimitsFile.new(self, ast, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
-          m.write_to_file unless m.empty?
+          unless m.empty?
+            m.write_to_file if m.to_be_written?
+          end
         end
 
         def line(str)

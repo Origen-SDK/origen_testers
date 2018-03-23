@@ -59,6 +59,10 @@ module OrigenTesters
           @empty
         end
 
+        def to_be_written?
+          tester.smt7?
+        end
+
         private
 
         def extract_line_options(node, o)
