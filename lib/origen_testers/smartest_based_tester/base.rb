@@ -88,7 +88,11 @@ module OrigenTesters
         if options.key?(:unique_test_names)
           @unique_test_names = options[:unique_test_names]
         else
-          @unique_test_names = :signature
+          if smt8?
+            @unique_test_names = nil
+          else
+            @unique_test_names = :signature
+          end
         end
         if options.key?(:create_limits_file)
           @create_limits_file = options[:create_limits_file]

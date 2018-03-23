@@ -1,12 +1,19 @@
 flow BASIC_INTERFACE {
 
     setup {
+        suite test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(patterns.test1);
+            measurement.specification = setupRef();
+            output = "None";
+            testName = "Functional";
+        }
+
     }
 
     execute {
 
-        test1_183B976.execute();
-        if (test1_183B976.pass) {
+        test1.execute();
+        if (test1.pass) {
         } else {
             addBin(100);
         }

@@ -8,11 +8,12 @@ flow <%= flow_name %> {
 % end
 
     setup {
-%#% test_suites.sorted_collection.each do |suite|
-%#%   suite.lines.each do |line|
-%#<%= line %>
-%#%   end
-%#% end
+% test_suites.sorted_collection.each do |suite|
+%   suite.lines.each do |line|
+        <%= line %>
+%   end
+
+% end
     }
 
     execute {
