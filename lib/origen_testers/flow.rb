@@ -48,6 +48,7 @@ module OrigenTesters
       @lines
     end
     
+    # @api private
     def self.ht_comments
       unless @ht_comments.is_a? Hash
         @ht_comments = {}
@@ -55,6 +56,7 @@ module OrigenTesters
       @ht_comments
     end
 
+    # @api private
     def self.ht_comments=(val)
       unless @ht_comments.is_a? Hash
         @ht_comments = {}
@@ -62,6 +64,7 @@ module OrigenTesters
       @ht_comments = val
     end
 
+    # @api private
     def self.cc_comments
       unless @cc_comments.is_a? Hash
         @cc_comments = {}
@@ -69,6 +72,7 @@ module OrigenTesters
       @cc_comments
     end
 
+    # @api private
     def self.cc_comments=(val)
       unless @cc_comments.is_a? Hash
         @cc_comments = {}

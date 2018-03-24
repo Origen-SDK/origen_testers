@@ -142,22 +142,20 @@ module OrigenTesters
     def c1(msg, options = {})
       prefix = comment_char + ' '
       prefix += step_comment_prefix + ' ' if @step_comment_on
-      push_comment(prefix + msg.to_s)
+      if Origen.tester.generating == :program
+        cc_coms = OrigenTesters::Flow.cc_comments
+        line_number = caller_locations(2, 1)[0]
+        unless cc_coms[line_number]
+          cc_coms[line_number] = []
+        end
+        cc_coms[line_number] << msg
+      else
+        push_comment(prefix + msg.to_s)
+      end
     end
 
     def c2(msg, options = {})
       c1(msg, options)
-    end
-    
-    def c3(msg, options = {}, line_number)
-      prefix = comment_char + ' '
-      prefix += step_comment_prefix + ' ' if @step_comment_on
-      c = prefix + msg.to_s
-      cc_coms = OrigenTesters::Flow.cc_comments
-      unless cc_coms[line_number]
-        cc_coms[line_number] = []
-      end
-      cc_coms[line_number] << msg
     end
     
     def pattern_section(msg)
