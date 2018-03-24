@@ -47,7 +47,7 @@ module OrigenTesters
     def lines
       @lines
     end
-    
+
     # @api private
     def self.ht_comments
       unless @ht_comments.is_a? Hash
@@ -79,7 +79,7 @@ module OrigenTesters
       end
       @cc_comments = val
     end
- 
+
     # Returns the abstract test program model, this is shared by all
     # flow created together in a generation run
     def program
@@ -210,7 +210,7 @@ module OrigenTesters
         line_no = options[:source_line_number]
         # options[:then] only present on the second iteration of the same test same loop (not sure what this is really)
         # This method is called twice per test method in a loop but the second call should not consume a comment
-        if line_no && !options[:then]  
+        if line_no && !options[:then]
           unless options[:description]
             options[:description] = []
           end

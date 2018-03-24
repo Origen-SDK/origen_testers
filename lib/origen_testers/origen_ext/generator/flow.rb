@@ -28,8 +28,8 @@ module Origen
         comments.each do |src_line, com_array|
           flow_src_line = src_line + com_array.size
           OrigenTesters::Flow.ht_comments[flow_src_line] = com_array
-        end  
-        if OrigenTesters::Flow.flow_comments    
+        end
+        if OrigenTesters::Flow.flow_comments
           top = false
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
           Origen.interface.flow.group(name, description: flow_comments) do

@@ -158,7 +158,7 @@ module OrigenTesters
     def c2(msg, options = {})
       c1(msg, options)
     end
-    
+
     def pattern_section(msg)
       if generating_program?
         yield
