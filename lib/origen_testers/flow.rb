@@ -211,14 +211,11 @@ module OrigenTesters
         # options[:then] only present on the second iteration of the same test same loop (not sure what this is really)
         # This method is called twice per test method in a loop but the second call should not consume a comment
         if line_no && !options[:then]
-          unless options[:description]
-            options[:description] = []
-          end
           if ht_coms[line_no]
-            options[:description] += ht_coms[line_no]
+            options[:description] ||= ht_coms[line_no]
           end
           if cc_coms[line_no] && cc_coms[line_no].first
-            options[:description] << cc_coms[line_no].shift
+            options[:description] ||= [cc_coms[line_no].shift]
           end
         end
       end
