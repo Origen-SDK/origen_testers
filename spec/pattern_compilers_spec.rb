@@ -754,8 +754,6 @@ module CompilerSpec
         dut.pinmap = pinmap
       end
 
-      debugger
-
       it 'fails if dut.pinmap not a file' do
         pinmap = dut.pinmap
         dut.pinmap = 'asdfghjkl'
