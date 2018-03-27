@@ -109,18 +109,20 @@ module OrigenTesters
             "#{val}[Hz]"
           when :string
             val.to_s
-	  when :integer, :double
-	    val
-	  when :boolean
-            if val == 1
-	      true
-	    elsif val == 0
-	      false
-	    elsif val == false or val == true 
-	      val 
-	    else
+          when :integer, :double
+            val
+          when :boolean
+            # Check for valid values
+            if [0, 1, true, false].include?(val)
+              # Use true/false for smt8 and 0/1 for smt7
+              if [1, true].include?(val)
+                smt8? ? true : 1
+              else
+                smt8? ? false : 0
+              end
+            else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
-	    end
+            end
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end
