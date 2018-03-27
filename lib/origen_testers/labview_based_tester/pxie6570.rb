@@ -7,8 +7,8 @@ module OrigenTesters
 
       def initialize
         @pat_extension = 'digipatsrc'
-        @capture_started = {}
-        @source_started = {}
+        @capture_history = {}
+        @source_history = {}
         @global_label_export = []
         @called_subroutines = []
         @default_capture_wave_name = 'default_capture_waveform'
@@ -17,6 +17,8 @@ module OrigenTesters
 
       # Internal method called by Origen
       def pattern_header(options = {})
+        microcode "// source count: #{@source_history[:count]}" if @source_history[:started]
+        microcode "// capture count: #{@capture_history[:count]}" if @capture_history[:started]
         microcode 'file_format_version 1.0;'
         start_label = "#{options[:pattern]}_st"
         microcode "export #{start_label};"
@@ -41,7 +43,7 @@ module OrigenTesters
       # Internal method called by Origen
       def pattern_footer(options = {})
         # add capture/source stop to the end of the pattern
-        cycle microcode: 'capture_stop' if @capture_started[:default]
+        cycle microcode: 'capture_stop' if @capture_history[:started]
         cycle microcode: 'halt'
         microcode '}'
       end
@@ -141,15 +143,17 @@ module OrigenTesters
         cur_pin_state = nil
         if overlay_options.key?(:pins)
           overlay_options = { change_data: true }.merge(overlay_options)
-          unless @source_started[:default]
+          unless @source_history[:started]
             add_microcode_to_first_vec "source_start(#{@default_source_wave_name})"
-            @source_started[:default] = true
+            @source_history[:started] = true
+            @source_history[:count] = 0
           end
 
           # ensure no unwanted repeats on the source line
           options[:dont_compress] = true
 
           if overlay_options[:change_data]
+            @source_history[:count] += 1
             if options[:microcode].nil?
               options[:microcode] = 'source'
             else
@@ -169,10 +173,11 @@ module OrigenTesters
 
       # internal method to avoid needless code duplication
       def add_capture_start(pins, options = {})
-        unless @capture_started[:default]
+        unless @capture_history[:started]
           # add the capture start opcode to the top of the pattern
           add_microcode_to_first_vec "capture_start(#{@default_capture_wave_name})"
-          @capture_started[:default] = true
+          @capture_history[:started] = true
+          @capture_history[:count] = 0
         end
       end
 
@@ -182,8 +187,11 @@ module OrigenTesters
         options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
 
+        repeat_count = options[:repeat].nil? ? 1 : options[:repeat]
+
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
         add_capture_start pins, options
+        @capture_history[:count] += repeat_count
 
         pins.each { |pin| pin.save; pin.capture }
         preset_next_vector(microcode: 'capture') do
@@ -202,6 +210,11 @@ module OrigenTesters
       def format_pin_state(pin)
         response = super(pin)
         response.sub('C', 'V')
+      end
+
+      # warn but don't fail if an api for another platform is not yet implemented
+      def method_missing(m, *args, &block)
+        Origen.log.warn "#{m} is not yet implemented for LabVIEWBasedTester::Pxie6570"
       end
     end
   end
