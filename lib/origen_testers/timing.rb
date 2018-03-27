@@ -170,10 +170,9 @@ module OrigenTesters
     # @api private
     def _if_dut
       if dut
-        true
+        yield
       else
         Origen.log.warning 'It looks like you are calling tester.set_timeset before the DUT is instantiated, you should avoid doing that until the dut object is available'
-        false
       end
     end
 
