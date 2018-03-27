@@ -12,14 +12,18 @@ Flow.create do |options|
   # Define default options
   options = { :pulses      => 4,
               :post_verify => true,
+              :number => 0,
   }.merge(options)
 
-  options[:pulses].times do
-    func :erase_all
+  number = options[:number]
+
+  options[:pulses].times do |i|
+    func :erase_all, number: number
+    number += i * 10
   end
 
   if options[:post_verify]
-    import 'erase_vfy'
+    import 'erase_vfy', number: number
   end
 
 end
