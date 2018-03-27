@@ -109,18 +109,18 @@ module OrigenTesters
             "#{val}[Hz]"
           when :string
             val.to_s
-	        when :integer, :double
-	          val
-	       when :boolean
+	  when :integer, :double
+	    val
+	  when :boolean
             if val == 1
-	            true
-	          elsif val == 0
-	            false
-	          elsif val == false or val == true 
-	            val 
-	          else
+	      true
+	    elsif val == 0
+	      false
+	    elsif val == false or val == true 
+	      val 
+	    else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
-	          end
+	    end
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end
