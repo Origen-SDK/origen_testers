@@ -15,6 +15,7 @@ module OrigenTesters
         attr_reader :parameters
         attr_accessor :class_name
         attr_accessor :abs_class_name
+        attr_accessor :limits_id
 
         def initialize(options)
           @type = options[:type]
@@ -25,6 +26,7 @@ module OrigenTesters
           define_singleton_method('limits') do
             @limits
           end
+          @limits_id = options[:methods].delete(:limits_id)
           @limits = TestMethods::Limits.new(self)
           # Add any methods
           if options[:methods][:methods]
