@@ -116,9 +116,9 @@ module OrigenTesters
             if [0, 1, true, false].include?(val)
               # Use true/false for smt8 and 0/1 for smt7
               if [1, true].include?(val)
-                smt8? ? true : 1
+                tester.smt8? ? true : 1
               else
-                smt8? ? false : 0
+                tester.smt8? ? false : 0
               end
             else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
