@@ -1,3 +1,16 @@
+<a class="anchor release_tag" name="v0_17_0"></a>
+<h1><a href="#v0_17_0">Tag: v0.17.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 28-Mar-2018 09:40AM
+
+
+* Added definition for ac\_tml.AcTest.SpecSearch test method (Ronnie Lajaunie)
+* Added source/capture count comment in PXIE tester patterns (Paul Derouen)
+* Fix for bug introduced in 0.16.1 whereby tester.set\_timeset did not update the
+  corresponding DUT timing attributes
+
 <a class="anchor release_tag" name="v0_16_1"></a>
 <h1><a href="#v0_16_1">Tag: v0.16.1</a></h1>
 
