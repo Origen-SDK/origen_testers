@@ -1,6 +1,12 @@
 module OrigenTesters
   module SmartestBasedTester
     module SMT8
+      # This currently defines what subdirectory of the pattern output directory that
+      # patterns will be output to
+      def subdirectory
+        File.join(package_namespace, 'patterns')
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {

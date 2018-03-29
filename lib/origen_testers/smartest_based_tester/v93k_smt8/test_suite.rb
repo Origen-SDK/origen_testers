@@ -44,8 +44,12 @@ module OrigenTesters
         def lines
           l = []
           l << "suite #{name} calls #{test_method.klass} {"
-          l << "    measurement.pattern = setupRef(patterns.#{pattern});"
-          l << "    measurement.specification = setupRef(#{specification});"
+          if pattern && !pattern.to_s.empty?
+            l << "    measurement.pattern = setupRef(#{tester.package_namespace}.patterns.#{pattern});"
+          end
+          if specification && !specification.to_s.empty?
+            l << "    measurement.specification = setupRef(#{tester.package_namespace}.specs.#{specification});"
+          end
           test_method.sorted_parameters.each do |param|
             name = param[0]
             unless name.is_a?(String)

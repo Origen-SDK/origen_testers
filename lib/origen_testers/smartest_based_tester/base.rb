@@ -52,6 +52,10 @@ module OrigenTesters
       # delayed: false is supplied when defining the test
       attr_accessor :delayed_binning
 
+      # Sets the package namespace that all generated test collateral should be placed under,
+      # defaults to the application's namespace if not defined
+      attr_writer :package_namespace
+
       def initialize(options = {})
         @smt_version = options[:smt_version] || 7
 
@@ -99,9 +103,16 @@ module OrigenTesters
         else
           @create_limits_file = false
         end
+        @package_namespace = options.delete(:package_namespace)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
+      end
+
+      # Returns the package namespace that all generated test collateral should be placed under,
+      # defaults to the application's namespace if not defined
+      def package_namespace
+        @package_namespace || Origen.app.namespace
       end
 
       def smt8?

@@ -20,7 +20,7 @@ module OrigenTesters
 
         def subdirectory
           if smt8?
-            'src/flows'
+            "#{tester.package_namespace}/flows"
           else
             'testflow/mfh.testflow.group'
           end
