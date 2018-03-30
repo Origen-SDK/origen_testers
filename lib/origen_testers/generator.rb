@@ -13,6 +13,8 @@ module OrigenTesters
 
     included do
       include Origen::Generator::Comparator
+
+      attr_accessor :output_directory
     end
 
     def self.execute_source(file)
@@ -95,6 +97,7 @@ module OrigenTesters
         include_extension: true
       }.merge(options)
       name = (@filename || Origen.file_handler.current_file.basename('.rb')).to_s
+      name[0] = '' if name[0] == '_'
       if Origen.config.program_prefix
         unless name =~ /^#{Origen.config.program_prefix}/i
           name = "#{Origen.config.program_prefix}_#{name}"
@@ -201,10 +204,16 @@ module OrigenTesters
     end
 
     def output_file
-      if respond_to? :subdirectory
-        p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
+      # If an explicit output directory has been set, use it
+      if output_directory
+        p = Pathname.new("#{output_directory}/#{filename}")
+      # Otherwise resolve one
       else
-        p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
+        if respond_to? :subdirectory
+          p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
+        else
+          p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
+        end
       end
       FileUtils.mkdir_p p.dirname.to_s unless p.dirname.exist?
       p

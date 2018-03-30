@@ -214,9 +214,21 @@ module OrigenTesters
       nil
     end
 
-    def pattern_references
+    # @api private
+    def clear_pattern_references
+      @@pattern_references = nil
+    end
+
+    # @api private
+    def merge_pattern_references(references)
+      references.each do |name, values|
+        pattern_references(name)[:main][:all].push(*values[:main][:all])
+      end
+    end
+
+    def pattern_references(name = pattern_references_name)
       @@pattern_references ||= {}
-      @@pattern_references[pattern_references_name] ||= {
+      @@pattern_references[name] ||= {
         main:       {
           all:    [],
           origen: [],
@@ -295,6 +307,10 @@ module OrigenTesters
       @@top_level_flow ||= nil
     end
     alias_method :top_level_flow_filename, :top_level_flow
+
+    def discard_top_level_flow
+      @@top_level_flow = nil
+    end
 
     def flow_generator
       flow

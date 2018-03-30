@@ -27,8 +27,13 @@ module Origen
         if OrigenTesters::Flow.flow_comments
           top = false
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
-          Origen.interface.flow.group(name, description: flow_comments) do
-            orig_create(options, &block)
+          # Generate imports as separate sub-flow files on this platform
+          if false && tester.v93k? && tester.smt8?
+            Origen.generator.generate_sub_program(file, options)
+          else
+            Origen.interface.flow.group(name, description: flow_comments) do
+              orig_create(options, &block)
+            end
           end
         else
           OrigenTesters::Flow.flow_comments = flow_comments
