@@ -96,7 +96,7 @@ module OrigenTesters
         if comment =~ /^SQPG/
           write_gen_vec
           if comment =~ /^SQPG JSUB ([^;]+);/
-            @program_lines << "    <Instruction id=\"patternCall\" value=\"patterns.#{Regexp.last_match(1)}\"/>"
+            @program_lines << "    <Instruction id=\"patternCall\" value=\"#{tester.package_namespace}.patterns.#{Regexp.last_match(1)}\"/>"
           elsif comment =~ /^SQPG MACT (\d+);/
             @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\"/>"
           elsif comment =~ /^SQPG MRPT (\d+);/
