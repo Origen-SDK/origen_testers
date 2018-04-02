@@ -5,6 +5,9 @@ path:
 
 files:
 another_not_p1_or_p2_test.binl.gz
+cc_test_0.binl.gz
+cc_test_1.binl.gz
+cc_test_2.binl.gz
 erase_all.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz

@@ -155,4 +155,7 @@ DFF 1.1	Flow Table
 		alarmenabled				goto	LABEL_2_7AF57D1																flag-true	sft1_7AF57D1_FAILED				
 						set-device					13			Fail									flag-true	sft1_7AF57D1_FAILED				
 	LABEL_2_7AF57D1					nop																	flag-true	sft1_7AF57D1_FAILED				
+						Test	cc_test_0	cc_test_0						Fail														
+						Test	cc_test_1	cc_test_1						Fail														
+						Test	cc_test_2	cc_test_2						Fail														
 						set-device				1		1		Pass													Good die!	

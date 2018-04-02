@@ -279,6 +279,15 @@ tm_91:
 tm_92:
   "output" = "None";
   "testName" = "Functional";
+tm_93:
+  "output" = "None";
+  "testName" = "Functional";
+tm_94:
+  "output" = "None";
+  "testName" = "Functional";
+tm_95:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
@@ -467,6 +476,12 @@ tm_90:
 tm_91:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_92:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_93:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_94:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_95:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -657,6 +672,12 @@ tm_91:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_92:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_93:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_94:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_95:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
 -----------------------------------------------------------------
@@ -667,6 +688,27 @@ another_not_p1_or_p2_test_864CE8F:
   override = 1;
   override_seqlbl = "another_not_p1_or_p2_test";
   override_testf = tm_31;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_0_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_0";
+  override_testf = tm_93;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_1_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_1";
+  override_testf = tm_94;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_2_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_2";
+  override_testf = tm_95;
   site_control = "parallel:";
   site_match = 2;
 erase_all_10_864CE8F:
@@ -1796,6 +1838,9 @@ test_flow
           stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
         }
       }
+      run(cc_test_0_864CE8F);
+      run(cc_test_1_864CE8F);
+      run(cc_test_2_864CE8F);
       stop_bin "1", "", , good, noreprobe, green, 1, over_on;
     }, open,"prb1_main", ""
   }
