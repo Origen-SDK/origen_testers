@@ -221,5 +221,10 @@ Flow.create do |options|
     bin 13, unless_enable: "AlarmEnabled"
   end
 
+  3.times do |k|
+    cc "cc test #{k}"
+    func "cc_test_#{k}".to_sym
+  end
+
   pass 1, description: "Good die!", softbin: 1
 end

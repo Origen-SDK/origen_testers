@@ -1,3 +1,35 @@
+<a class="anchor release_tag" name="v0_18_0"></a>
+<h1><a href="#v0_18_0">Tag: v0.18.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 03-Apr-2018 11:38AM
+
+
+* `cc` style comments are now supported in test flow files to enable dynamic comments
+  to be created for documentation (Code Briscoe)
+  
+  ~~~ruby
+  # Regular Ruby comments can still be used to provide static documentation of tests
+  # in a test program flow file
+  test :my\_test
+
+  cc "The cc method can be used to create comments that contain dynamic data: #{4 + 4}"
+  test :my\_test
+
+  # This is expected to be most useful when generating tests in a loop:
+
+  [:min, :nom, :max].each do |vdd|
+    cc "Test something at #{vdd} vdd"
+    test :my\_test
+  end
+  ~~~
+
+* The test name for the main limits in a V93K test method can be set by a `limits\_id`
+  attribute instead of `test\_name`. When `limits\_id` is used it will set the name
+  of the limits but will not appear in the test methods attribute list (unlike
+  `test\_name` which will).  (Brian Caquelin)
+
 <a class="anchor release_tag" name="v0_17_0"></a>
 <h1><a href="#v0_17_0">Tag: v0.17.0</a></h1>
 

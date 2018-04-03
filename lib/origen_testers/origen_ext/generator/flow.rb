@@ -24,6 +24,11 @@ module Origen
         OrigenTesters::Flow.callstack << file
         flow_comments, comments = *_extract_comments(OrigenTesters::Flow.callstack.last, line.to_i)
         OrigenTesters::Flow.comment_stack << comments
+        OrigenTesters::Flow.ht_comments = {}
+        comments.each do |src_line, com_array|
+          flow_src_line = src_line + com_array.size
+          OrigenTesters::Flow.ht_comments[flow_src_line] = com_array
+        end
         if OrigenTesters::Flow.flow_comments
           top = false
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
