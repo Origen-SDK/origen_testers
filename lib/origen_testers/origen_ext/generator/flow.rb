@@ -8,8 +8,6 @@ end
 module Origen
   class Generator
     class Flow
-      alias_method :orig_create, :create
-
       # Create a call stack of flows so that we can work out where the nodes
       # of the ATP AST originated from
       def create(options = {}, &block)
@@ -34,10 +32,17 @@ module Origen
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
           # Generate imports as separate sub-flow files on this platform
           if false && tester.v93k? && tester.smt8?
+            # The generate_sub_program method will fork, so this @sub_program will live on in in that thread,
+            # where it is used in the _create method to stop the top_level: true option being passed into
+            # on_flow_start listeners
+            orig_sub_program = @sub_program
+            @sub_program = true
             Origen.generator.generate_sub_program(file, options)
+            # However, we don't want it to be set for the remainder of the master thread
+            @sub_program = orig_sub_program
           else
             Origen.interface.flow.group(name, description: flow_comments) do
-              orig_create(options, &block)
+              _create(options, &block)
             end
           end
         else
@@ -48,11 +53,66 @@ module Origen
             OrigenTesters::Flow.unique_ids = true
           end
           top = true
-          orig_create(options, &block)
+          _create(options, &block)
         end
         OrigenTesters::Flow.callstack.pop
         OrigenTesters::Flow.comment_stack.pop
         OrigenTesters::Flow.flow_comments = nil if top
+      end
+
+      # @api private
+      def _create(options = {}, &block)
+        # Refresh the target to start all settings from scratch each time
+        # This is an easy way to reset all registered values
+        Origen.app.reload_target!
+        Origen.tester.generating = :program
+        # Make the top level flow globally available, this helps to assign test descriptions
+        # to the correct flow whenever tests are instantiated from sub-flows
+        if Origen.interface_loaded? && Origen.interface.top_level_flow
+          sub_flow = true
+          if Origen.tester.doc?
+            Origen.interface.flow.start_section
+          end
+        else
+          sub_flow = false
+        end
+        job.output_file_body = options.delete(:name).to_s if options[:name]
+        if sub_flow
+          interface = Origen.interface
+          opts = Origen.generator.option_pipeline.pop || {}
+          Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
+          interface.instance_exec(opts, &block)
+          Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
+          if Origen.tester.doc?
+            Origen.interface.flow.stop_section
+          end
+          interface.close(flow: true, sub_flow: true)
+        else
+          Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
+          interface = Origen.reset_interface(options)
+          Origen.interface.set_top_level_flow
+          Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
+          options[:top_level] = @sub_program ? false : true
+          Origen.app.listeners_for(:on_flow_start).each do |listener|
+            listener.on_flow_start(options)
+          end
+          Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
+          interface.instance_eval(&block)
+          Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
+          interface.at_flow_end if interface.respond_to?(:at_flow_end)
+          Origen.app.listeners_for(:on_flow_end).each do |listener|
+            listener.on_flow_end(options)
+          end
+          interface.close(flow: true)
+        end
+      end
+
+      def reset
+        Origen.interface.clear_top_level_flow if Origen.interface_loaded?
+      end
+
+      def job
+        Origen.app.current_job
       end
 
       def _extract_comments(file, flow_line)

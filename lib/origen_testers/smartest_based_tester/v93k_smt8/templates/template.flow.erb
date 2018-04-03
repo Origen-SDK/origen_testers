@@ -14,6 +14,9 @@ flow <%= flow_name %> {
 %   end
 
 % end
+% sub_flows.each do |name, path|
+        flow <%= name %> calls <%= path %> { }
+% end
     }
 
     execute {

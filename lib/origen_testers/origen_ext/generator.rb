@@ -24,7 +24,11 @@ module Origen
         end
         return_data = {}
         return_data[:pattern_references] = Origen.interface.all_pattern_references
-        Marshal.dump(return_data, write)
+        return_data[:nodes] = Origen.interface.flow.atp.raw
+        return_data[:file] = Origen.interface.flow.output_file
+        # Marshal.dump(return_data, write)
+        data = Marshal.dump(return_data)
+        write.write(data)
         exit!(0) # Skips exit handlers
       end
       # Block until the fork finishes, let's keep the generation order sequential
@@ -33,6 +37,9 @@ module Origen
       return_data = Marshal.load(read.read)
       read.close
       Origen.interface.merge_pattern_references(return_data[:pattern_references])
+      basedir = Pathname.new(Origen.app.config.test_program_output_directory || Origen.app.config.output_directory)
+      path = Pathname.new(return_data[:file]).relative_path_from(basedir)
+      Origen.interface.flow.atp.sub_flow(return_data[:nodes], path: path.to_s)
     end
 
     # @api private
