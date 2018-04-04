@@ -13,7 +13,9 @@ module Origen
     def generate_sub_program(file, options)
       # Generate the sub flow in a forked process, allowing us to replace the current top-level
       # flow with a new one in the fork
-      read, write = IO.pipe
+      reader, writer = IO.pipe
+      reader.binmode
+      writer.binmode
       pid = fork do
         OrigenTesters::Flow.flow_comments = nil # Stop it going down the sub-flow branch in Flow.create
         output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*'))
@@ -28,14 +30,17 @@ module Origen
         return_data[:file] = Origen.interface.flow.output_file
         # Marshal.dump(return_data, write)
         data = Marshal.dump(return_data)
-        write.write(data)
+        writer.puts(data.bytesize)
+        writer.write(data)
+        writer.close
         exit!(0) # Skips exit handlers
       end
-      # Block until the fork finishes, let's keep the generation order sequential
-      Process.wait(pid)
-      write.close
-      return_data = Marshal.load(read.read)
-      read.close
+
+      # Get the size of the return packet, this will block until the fork has the data ready
+      size_in_bytes = reader.gets.strip.to_i
+      data = reader.read(size_in_bytes)
+      reader.close
+      return_data = Marshal.load(data)
       Origen.interface.merge_pattern_references(return_data[:pattern_references])
       basedir = Pathname.new(Origen.app.config.test_program_output_directory || Origen.app.config.output_directory)
       path = Pathname.new(return_data[:file]).relative_path_from(basedir)

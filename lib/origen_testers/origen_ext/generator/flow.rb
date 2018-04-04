@@ -31,7 +31,7 @@ module Origen
           top = false
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
           # Generate imports as separate sub-flow files on this platform
-          if false && tester.v93k? && tester.smt8?
+          if tester.v93k? && tester.smt8?
             # The generate_sub_program method will fork, so this @sub_program will live on in in that thread,
             # where it is used in the _create method to stop the top_level: true option being passed into
             # on_flow_start listeners
@@ -97,7 +97,11 @@ module Origen
             listener.on_flow_start(options)
           end
           Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
-          interface.instance_eval(&block)
+          if @sub_program
+            interface.instance_exec(Origen.generator.option_pipeline.pop || {}, &block)
+          else
+            interface.instance_eval(&block)
+          end
           Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
           interface.at_flow_end if interface.respond_to?(:at_flow_end)
           Origen.app.listeners_for(:on_flow_end).each do |listener|
