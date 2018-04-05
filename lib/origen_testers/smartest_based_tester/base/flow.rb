@@ -79,11 +79,12 @@ module OrigenTesters
           @lines = []
           @open_test_methods = []
           @stack = { on_fail: [], on_pass: [] }
-          ast = atp.ast(unique_id: sig, optimization: :smt,
+          unique_id = smt8? ? nil : sig
+          ast = atp.ast(unique_id: unique_id, optimization: :smt,
                         implement_continue: !tester.force_pass_on_continue,
                         optimize_flags_when_continue: !tester.force_pass_on_continue
                        )
-          @set_runtime_variables = ast.set_flags
+          @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
           test_suites.finalize
           test_methods.finalize

@@ -30,6 +30,8 @@ module Origen
         Origen.interface.clear_pattern_references
         Origen.generator.generate_program(file, action: :program, skip_referenced_pattern_write: true, skip_on_program_completion: true) do
           Origen.interface.flow.output_directory = @output_dir
+          # When the same sub flow is called/generated twice give it a unique name since different options
+          # could have been passed into the import statement in the flow
           if @generated_sub_programs[Origen.interface.flow.output_file]
             i = 1
             while @generated_sub_programs[Origen.interface.flow.output_file]
