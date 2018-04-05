@@ -26,6 +26,7 @@ module Origen
         else
           @output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*'))
         end
+        Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
         Origen.interface.reset_globals # Get rid of all already generated content, the parent process will handle those
         Origen.interface.clear_pattern_references
         Origen.generator.generate_program(file, action: :program, skip_referenced_pattern_write: true, skip_on_program_completion: true) do

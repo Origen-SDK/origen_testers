@@ -89,7 +89,11 @@ module Origen
           interface.close(flow: true, sub_flow: true)
         else
           Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
-          interface = Origen.reset_interface(options)
+          if @sub_program
+            interface = Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
+          else
+            interface = Origen.reset_interface(options)
+          end
           Origen.interface.set_top_level_flow
           Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
           options[:top_level] = @sub_program ? false : true
