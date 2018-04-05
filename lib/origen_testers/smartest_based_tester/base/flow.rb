@@ -36,11 +36,11 @@ module OrigenTesters
         end
 
         def flow_name(filename = nil)
-          @flow_name ||= (filename || self.filename).sub(/\..*/, '').upcase
+          flow_name ||= (filename || self.filename).sub(/\..*/, '').upcase
           if smt8?
-            @flow_name.gsub(' ', '_')
+            flow_name.gsub(' ', '_')
           else
-            @flow_name
+            flow_name
           end
         end
 
