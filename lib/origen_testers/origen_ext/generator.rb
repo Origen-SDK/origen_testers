@@ -17,18 +17,25 @@ module Origen
       reader.binmode
       writer.binmode
       pid = fork do
+        Origen.app.stats.reset_global_stats
         OrigenTesters::Flow.flow_comments = nil # Stop it going down the sub-flow branch in Flow.create
-        output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*'))
+        # If we are already in a sub-program and about to create a sub-flow from that...
+        if @output_dir
+          @output_dir = File.join(@output_dir, File.basename(Origen.interface.flow.filename, '.*'))
+        else
+          @output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*'))
+        end
         Origen.interface.reset_globals # Get rid of all already generated content, the parent process will handle those
         Origen.interface.clear_pattern_references
         Origen.generator.generate_program(file, action: :program, skip_referenced_pattern_write: true, skip_on_program_completion: true) do
-          Origen.interface.flow.output_directory = output_dir
+          Origen.interface.flow.output_directory = @output_dir
         end
         return_data = {}
         return_data[:pattern_references] = Origen.interface.all_pattern_references
         return_data[:nodes] = Origen.interface.flow.atp.raw
         return_data[:file] = Origen.interface.flow.output_file
-        # Marshal.dump(return_data, write)
+        return_data[:changed_files] = Origen.app.stats.changed_files
+        return_data[:new_files] = Origen.app.stats.new_files
         data = Marshal.dump(return_data)
         writer.puts(data.bytesize)
         writer.write(data)
@@ -45,6 +52,9 @@ module Origen
       basedir = Pathname.new(Origen.app.config.test_program_output_directory || Origen.app.config.output_directory)
       path = Pathname.new(return_data[:file]).relative_path_from(basedir)
       Origen.interface.flow.atp.sub_flow(return_data[:nodes], path: path.to_s)
+      Origen.app.stats.changed_files += return_data[:changed_files]
+      Origen.app.stats.new_files += return_data[:new_files]
+      Origen.app.stats.completed_files += (return_data[:new_files] || return_data[:changed_files])
     end
 
     # @api private
