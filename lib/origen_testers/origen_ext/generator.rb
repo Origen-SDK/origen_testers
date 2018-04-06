@@ -46,6 +46,7 @@ module Origen
         return_data[:pattern_references] = Origen.interface.all_pattern_references
         return_data[:nodes] = Origen.interface.flow.atp.raw
         return_data[:file] = Origen.interface.flow.output_file
+        return_data[:completed_files] = Origen.app.stats.completed_files
         return_data[:changed_files] = Origen.app.stats.changed_files
         return_data[:new_files] = Origen.app.stats.new_files
         data = Marshal.dump(return_data)
@@ -67,7 +68,7 @@ module Origen
       Origen.interface.flow.atp.sub_flow(return_data[:nodes], path: path.to_s)
       Origen.app.stats.changed_files += return_data[:changed_files]
       Origen.app.stats.new_files += return_data[:new_files]
-      Origen.app.stats.completed_files += (return_data[:new_files] || return_data[:changed_files])
+      Origen.app.stats.completed_files += return_data[:completed_files]
     end
 
     # @api private
