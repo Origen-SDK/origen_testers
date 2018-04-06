@@ -22,9 +22,9 @@ module Origen
         OrigenTesters::Flow.flow_comments = nil # Stop it going down the sub-flow branch in Flow.create
         # If we are already in a sub-program and about to create a sub-flow from that...
         if @output_dir
-          @output_dir = File.join(@output_dir, File.basename(Origen.interface.flow.filename, '.*'))
+          @output_dir = File.join(@output_dir, File.basename(Origen.interface.flow.filename, '.*').to_s.downcase)
         else
-          @output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*'))
+          @output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*').to_s.downcase)
         end
         Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
         Origen.interface.reset_globals # Get rid of all already generated content, the parent process will handle those
