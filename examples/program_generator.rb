@@ -17,11 +17,11 @@ ARGV = ["program/prb1.rb", "program/prb2.rb", "-t", "dut.rb", "-e", "v93k_disabl
         "-o", "#{Origen.root}/output/v93k_disable_flow"]
 load 'origen/commands/program.rb'
 
-# Test for DUT4 for V93K - multiport, smartbuild, limits file, vars file and pattern compiler updates.
-ARGV = ["program/prod.list", "-t", "dut4.rb", "-e", "v93k.rb", "-r", "approved/v93k_dut4", "-o", "#{Origen.root}/output/v93k_dut4"]
+# Test for V93K - multiport
+ARGV = ["program/prb1.rb", "-t", "dut4.rb", "-e", "v93k.rb", "-r", "approved/v93k_multiport", "-o", "#{Origen.root}/output/v93k_multiport"]
 load 'origen/commands/program.rb'
-FileUtils.mkdir_p "#{Origen.root}/list/v93k_dut4"
-FileUtils.mv "#{Origen.root}/list/referenced.list", "#{Origen.root}/list/v93k_dut4/referenced.list"
+FileUtils.mkdir_p "#{Origen.root}/list/v93k_multiport"
+FileUtils.mv "#{Origen.root}/list/referenced.list", "#{Origen.root}/list/v93k_multiport/referenced.list"
 
 # Tests of the V93K unique test name options
 

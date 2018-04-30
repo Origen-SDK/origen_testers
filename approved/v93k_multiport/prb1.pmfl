@@ -6,14 +6,6 @@ path:
 files:
 another_not_p1_or_p2_test.binl.gz
 another_not_p1_or_p2_test_pset.binl.gz
-bitcell_iv_0.binl.gz
-bitcell_iv_0_pset.binl.gz
-bitcell_iv_1.binl.gz
-bitcell_iv_1_pset.binl.gz
-bitcell_iv_2.binl.gz
-bitcell_iv_2_pset.binl.gz
-bitmap_all0.binl.gz
-bitmap_all0_pset.binl.gz
 erase_all.binl.gz
 erase_all_pset.binl.gz
 margin_read0_ckbd.binl.gz
@@ -22,8 +14,6 @@ margin_read1_all1.binl.gz
 margin_read1_all1_pset.binl.gz
 margin_read1_ckbd.binl.gz
 margin_read1_ckbd_pset.binl.gz
-normal_read_ckbd.binl.gz
-normal_read_ckbd_pset.binl.gz
 not_p1_or_p2_test.binl.gz
 not_p1_or_p2_test_pset.binl.gz
 not_p1_test.binl.gz
