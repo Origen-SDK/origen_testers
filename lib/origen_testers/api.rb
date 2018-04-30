@@ -102,6 +102,10 @@ module OrigenTesters
       !!(self.class.to_s =~ /^OrigenLink::/)
     end
 
+    def pxie6570?
+      is_a?(OrigenTesters::LabVIEWBasedTester::Pxie6570)
+    end
+
     def doc?
       false
     end
@@ -138,7 +142,17 @@ module OrigenTesters
     def c1(msg, options = {})
       prefix = comment_char + ' '
       prefix += step_comment_prefix + ' ' if @step_comment_on
-      push_comment(prefix + msg.to_s)
+      if Origen.tester.generating == :program
+        cc_coms = OrigenTesters::Flow.cc_comments
+        # cc call must be on line directly before test method
+        line_number = caller_locations(2, 1)[0].lineno + 1
+        unless cc_coms[line_number]
+          cc_coms[line_number] = []
+        end
+        cc_coms[line_number] << msg
+      else
+        push_comment(prefix + msg.to_s)
+      end
     end
 
     def c2(msg, options = {})

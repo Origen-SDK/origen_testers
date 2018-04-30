@@ -3,193 +3,213 @@ DFF 1.1	Flow Table
 			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
 						logprint	Test_that_if_failed_works																					
-						Test	read1	read1			10			None		t1_C2A232F_FAILED												
-						Test	erase1	erase1			12			Fail									flag-true	t1_C2A232F_FAILED				
+						Test	read1	read1	50000		10			None		t1_C2A232F_FAILED												
+						Test	erase1	erase1	50010		12			Fail									flag-true	t1_C2A232F_FAILED				
 						logprint	Test_the_block_form_of_if_failed																					
-						Test	read2	read2			10			None		t2_C2A232F_FAILED												
-						Test	erase2	erase2						Fail									flag-true	t2_C2A232F_FAILED				
-						Test	erase2	erase2						Fail									flag-true	t2_C2A232F_FAILED				
+						Test	read2	read2	50020		10			None		t2_C2A232F_FAILED												
+						Test	erase2	erase2	50030					Fail									flag-true	t2_C2A232F_FAILED				
+						Test	erase2	erase2	50040					Fail									flag-true	t2_C2A232F_FAILED				
 						logprint	Test_that_if_passed_works																					
-						Test	read1	read1			10			None	t3_C2A232F_PASSED													
-						Test	pgm1	pgm1						Fail									flag-true	t3_C2A232F_PASSED				
+						Test	read1	read1	50050		10			None	t3_C2A232F_PASSED													
+						Test	pgm1	pgm1	50060					Fail									flag-true	t3_C2A232F_PASSED				
 						logprint	Test_the_block_form_of_if_passed																					
-						Test	read2	read2			10			None	t4_C2A232F_PASSED													
-						Test	pgm1	pgm1						Fail									flag-true	t4_C2A232F_PASSED				
-						Test	pgm1	pgm1						Fail									flag-true	t4_C2A232F_PASSED				
+						Test	read2	read2	50070		10			None	t4_C2A232F_PASSED													
+						Test	pgm1	pgm1	50080					Fail									flag-true	t4_C2A232F_PASSED				
+						Test	pgm1	pgm1	50090					Fail									flag-true	t4_C2A232F_PASSED				
 						logprint	Test_that_if_ran_works																					
-						Test	pgm	pgm			10			Fail	t5_C2A232F_RAN													
-						Test	read0	read0						Fail									flag-true	t5_C2A232F_RAN				
+						Test	pgm	pgm	50100		10			Fail														
+						defaults										t5_C2A232F_RAN												
+						flag-true	t5_C2A232F_RAN																					
+						Test	read0	read0	50110					Fail									flag-true	t5_C2A232F_RAN				
 						logprint	Test_the_block_form_of_if_ran																					
-						Test	pgm	pgm			10			Fail	t6_C2A232F_RAN													
-						Test	read0	read0						Fail									flag-true	t6_C2A232F_RAN				
-						Test	read0	read0						Fail									flag-true	t6_C2A232F_RAN				
+						Test	pgm	pgm	50120		10			Fail														
+						defaults										t6_C2A232F_RAN												
+						flag-true	t6_C2A232F_RAN																					
+						Test	read0	read0	50130					Fail									flag-true	t6_C2A232F_RAN				
+						Test	read0	read0	50140					Fail									flag-true	t6_C2A232F_RAN				
 						logprint	Test_that_unless_ran_works																					
-						Test	pgm	pgm			10			Fail	t7_C2A232F_RAN													
-						Test	read0	read0						Fail								not	flag-true	t7_C2A232F_RAN				
+						Test	pgm	pgm	50150		10			Fail														
+						defaults										t7_C2A232F_RAN												
+						flag-true	t7_C2A232F_RAN																					
+						Test	read0	read0	50160					Fail								not	flag-true	t7_C2A232F_RAN				
 						logprint	Test_the_block_form_of_unless_ran																					
-						Test	pgm	pgm			10			Fail	t8_C2A232F_RAN													
-						Test	read0	read0						Fail								not	flag-true	t8_C2A232F_RAN				
-						Test	read0	read0						Fail								not	flag-true	t8_C2A232F_RAN				
+						Test	pgm	pgm	50170		10			Fail														
+						defaults										t8_C2A232F_RAN												
+						flag-true	t8_C2A232F_RAN																					
+						Test	read0	read0	50180					Fail								not	flag-true	t8_C2A232F_RAN				
+						Test	read0	read0	50190					Fail								not	flag-true	t8_C2A232F_RAN				
 						logprint	Test_that_if_job_works																					
-			FC			Test	cold_test	cold_test						Fail														
+			FC			Test	cold_test	cold_test	50200					Fail														
 						logprint	Test_the_block_form_of_if_job																					
-			PRB1,PRB2			Test	probe_only_test1	probe_only_test1						Fail														
-			PRB1,PRB2			Test	probe_only_test2	probe_only_test2						Fail														
+			PRB1,PRB2			Test	probe_only_test1	probe_only_test1	50210					Fail														
+			PRB1,PRB2			Test	probe_only_test2	probe_only_test2	50220					Fail														
 						logprint	Test_that_the_block_form_of_if_job_can_be_overridden,_prb9_should_be_removed																					
-			PRB1,PRB2			Test	probe_only_test1	probe_only_test1						Fail														
+			PRB1,PRB2			Test	probe_only_test1	probe_only_test1	50230					Fail														
 						logprint	Test_that_unless_job_works																					
-			!FC			Test	warmish_test	warmish_test						Fail														
+			!FC			Test	warmish_test	warmish_test	50240					Fail														
 						logprint	Test_the_block_form_of_unless_job																					
-			!PRB1,!PRB2			Test	ft_only_test1	ft_only_test1						Fail														
-			!PRB1,!PRB2			Test	ft_only_test2	ft_only_test2						Fail														
+			!PRB1,!PRB2			Test	ft_only_test1	ft_only_test1	50250					Fail														
+			!PRB1,!PRB2			Test	ft_only_test2	ft_only_test2	50260					Fail														
 						logprint	Test_that_if_enable_works																					
-		extras				Test	extra_test	extra_test						Fail														
+		extras				Test	extra_test	extra_test	50270					Fail														
 						logprint	Test_the_block_form_of_if_enable																					
-		cz				Test	cz_test1	cz_test1						Fail														
-		cz				Test	cz_test2	cz_test2						Fail														
+		cz				Test	cz_test1	cz_test1	50280					Fail														
+		cz				Test	cz_test2	cz_test2	50290					Fail														
 						logprint	Test_that_unless_enable_works																					
 		quick				goto	LABEL_1_C2A232F																					
-						Test	long_test	long_test						Fail														
+						Test	long_test	long_test	50300					Fail														
 	LABEL_1_C2A232F					nop																						
 						logprint	Test_the_block_form_of_unless_enable																					
 		quick				goto	LABEL_2_C2A232F																					
-						Test	long_test1	long_test1						Fail														
-						Test	long_test2	long_test2						Fail														
+						Test	long_test1	long_test1	50310					Fail														
+						Test	long_test2	long_test2	50320					Fail														
 	LABEL_2_C2A232F					nop																						
 						logprint	Test_that_if_any_failed_works																					
-						Test	test1	test1						None		ifa1_C2A232F_FAILED												
-						Test	test2	test2						None		ifa2_C2A232F_FAILED												
+						Test	test1	test1	50330					None		ifa1_C2A232F_FAILED												
+						Test	test2	test2	50340					None		ifa2_C2A232F_FAILED												
+						defaults										ifa1_C2A232F_FAILED_OR_ifa2_C2A232F_FAILED												
 						flag-true	ifa1_C2A232F_FAILED_OR_ifa2_C2A232F_FAILED																flag-true	ifa1_C2A232F_FAILED				
 						flag-true	ifa1_C2A232F_FAILED_OR_ifa2_C2A232F_FAILED																flag-true	ifa2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	ifa1_C2A232F_FAILED_OR_ifa2_C2A232F_FAILED				
+						Test	test3	test3	50350					Fail									flag-true	ifa1_C2A232F_FAILED_OR_ifa2_C2A232F_FAILED				
 						logprint	Test_the_block_form_of_if_any_failed																					
-						Test	test1	test1						None		oof_passcode1_C2A232F_FAILED												
-						Test	test2	test2						None		oof_passcode2_C2A232F_FAILED												
+						Test	test1	test1	50360					None		oof_passcode1_C2A232F_FAILED												
+						Test	test2	test2	50370					None		oof_passcode2_C2A232F_FAILED												
+						defaults										oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED												
 						flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED																flag-true	oof_passcode1_C2A232F_FAILED				
 						flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED																flag-true	oof_passcode2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED				
+						Test	test3	test3	50380					Fail									flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED				
+						Test	test4	test4	50390					Fail									flag-true	oof_passcode1_C2A232F_FAILED_OR_oof_passcode2_C2A232F_FAILED				
 						logprint	Test_that_if_all_failed_works																					
-						Test	test1	test1						None		ifall1_C2A232F_FAILED												
-						Test	test2	test2						None		ifall2_C2A232F_FAILED												
+						Test	test1	test1	50400					None		ifall1_C2A232F_FAILED												
+						Test	test2	test2	50410					None		ifall2_C2A232F_FAILED												
+						defaults										ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED												
 						flag-true	ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED																					
 						flag-false	ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED															not	flag-true	ifall2_C2A232F_FAILED				
 						flag-false	ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED															not	flag-true	ifall1_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED				
+						Test	test3	test3	50420					Fail									flag-true	ifall1_C2A232F_FAILED_AND_ifall2_C2A232F_FAILED				
 						logprint	Test_the_block_form_of_if_all_failed																					
-						Test	test1	test1						None		ifallb1_C2A232F_FAILED												
-						Test	test2	test2						None		ifallb2_C2A232F_FAILED												
+						Test	test1	test1	50430					None		ifallb1_C2A232F_FAILED												
+						Test	test2	test2	50440					None		ifallb2_C2A232F_FAILED												
+						defaults										ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED												
 						flag-true	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED																					
 						flag-false	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED															not	flag-true	ifallb2_C2A232F_FAILED				
 						flag-false	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED															not	flag-true	ifallb1_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED				
+						Test	test3	test3	50450					Fail									flag-true	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED				
+						Test	test4	test4	50460					Fail									flag-true	ifallb1_C2A232F_FAILED_AND_ifallb2_C2A232F_FAILED				
 						logprint	Test_that_if_any_passed_works																					
-						Test	test1	test1						None	ifap1_C2A232F_PASSED													
-						Test	test2	test2						None	ifap2_C2A232F_PASSED													
+						Test	test1	test1	50470					None	ifap1_C2A232F_PASSED													
+						Test	test2	test2	50480					None	ifap2_C2A232F_PASSED													
+						defaults										ifap1_C2A232F_PASSED_OR_ifap2_C2A232F_PASSED												
 						flag-true	ifap1_C2A232F_PASSED_OR_ifap2_C2A232F_PASSED																flag-true	ifap1_C2A232F_PASSED				
 						flag-true	ifap1_C2A232F_PASSED_OR_ifap2_C2A232F_PASSED																flag-true	ifap2_C2A232F_PASSED				
-						Test	test3	test3						Fail									flag-true	ifap1_C2A232F_PASSED_OR_ifap2_C2A232F_PASSED				
+						Test	test3	test3	50490					Fail									flag-true	ifap1_C2A232F_PASSED_OR_ifap2_C2A232F_PASSED				
 						logprint	Test_the_block_form_of_if_any_passed																					
-						Test	test1	test1						None	ifapb1_C2A232F_PASSED													
-						Test	test2	test2						None	ifapb2_C2A232F_PASSED													
+						Test	test1	test1	50500					None	ifapb1_C2A232F_PASSED													
+						Test	test2	test2	50510					None	ifapb2_C2A232F_PASSED													
+						defaults										ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED												
 						flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED																flag-true	ifapb1_C2A232F_PASSED				
 						flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED																flag-true	ifapb2_C2A232F_PASSED				
-						Test	test3	test3						Fail									flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED				
-						Test	test4	test4						Fail									flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED				
+						Test	test3	test3	50520					Fail									flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED				
+						Test	test4	test4	50530					Fail									flag-true	ifapb1_C2A232F_PASSED_OR_ifapb2_C2A232F_PASSED				
 						logprint	Test_that_if_all_passed_works																					
-						Test	test1	test1						None	ifallp1_C2A232F_PASSED													
-						Test	test2	test2						None	ifallp2_C2A232F_PASSED													
+						Test	test1	test1	50540					None	ifallp1_C2A232F_PASSED													
+						Test	test2	test2	50550					None	ifallp2_C2A232F_PASSED													
+						defaults										ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED												
 						flag-true	ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED																					
 						flag-false	ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED															not	flag-true	ifallp2_C2A232F_PASSED				
 						flag-false	ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED															not	flag-true	ifallp1_C2A232F_PASSED				
-						Test	test3	test3						Fail									flag-true	ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED				
+						Test	test3	test3	50560					Fail									flag-true	ifallp1_C2A232F_PASSED_AND_ifallp2_C2A232F_PASSED				
 						logprint	Test_the_block_form_of_if_all_passed																					
-						Test	test1	test1						None	ifallpb1_C2A232F_PASSED													
-						Test	test2	test2						None	ifallpb2_C2A232F_PASSED													
+						Test	test1	test1	50570					None	ifallpb1_C2A232F_PASSED													
+						Test	test2	test2	50580					None	ifallpb2_C2A232F_PASSED													
+						defaults										ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED												
 						flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED																					
 						flag-false	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED															not	flag-true	ifallpb2_C2A232F_PASSED				
 						flag-false	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED															not	flag-true	ifallpb1_C2A232F_PASSED				
-						Test	test3	test3						Fail									flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED				
-						Test	test4	test4						Fail									flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED				
+						Test	test3	test3	50590					Fail									flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED				
+						Test	test4	test4	50600					Fail									flag-true	ifallpb1_C2A232F_PASSED_AND_ifallpb2_C2A232F_PASSED				
 						logprint	Test_that_group-level_dependencies_work																					
-						Test	grp1_test1	grp1_test1			5			None		grp1_C2A232F_FAILED_0												
-						Test	grp1_test2	grp1_test2			5			None		grp1_C2A232F_FAILED_1												
-						Test	grp1_test3	grp1_test3			5			None		grp1_C2A232F_FAILED_2												
+						Test	grp1_test1	grp1_test1	50610		5			None		grp1_C2A232F_FAILED_0												
+						defaults										grp1_C2A232F_FAILED												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_0				
+						Test	grp1_test2	grp1_test2	50620		5			None		grp1_C2A232F_FAILED_1												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_1				
+						Test	grp1_test3	grp1_test3	50630		5			None		grp1_C2A232F_FAILED_2												
 						flag-true	grp1_C2A232F_FAILED																flag-true	grp1_C2A232F_FAILED_2				
-						Test	grp2_test1	grp2_test1			5			Fail									flag-true	grp1_C2A232F_FAILED				
-						Test	grp2_test2	grp2_test2			5			Fail									flag-true	grp1_C2A232F_FAILED				
-						Test	grp2_test3	grp2_test3			5			Fail									flag-true	grp1_C2A232F_FAILED				
+						Test	grp2_test1	grp2_test1	50640		5			Fail									flag-true	grp1_C2A232F_FAILED				
+						Test	grp2_test2	grp2_test2	50650		5			Fail									flag-true	grp1_C2A232F_FAILED				
+						Test	grp2_test3	grp2_test3	50660		5			Fail									flag-true	grp1_C2A232F_FAILED				
 						logprint	Another_group-level_dependencies_test_based_on_a_real_life_use_case																					
-						Test	gt1	gt1			90			Fail														
-						Test	gt_grp1_test1	gt_grp1_test1			90			None		gt_grp1_C2A232F_FAILED_0												
-						Test	gt_grp1_test2	gt_grp1_test2			90			None		gt_grp1_C2A232F_FAILED_1												
+						Test	gt1	gt1	50670		90			Fail														
+						Test	gt_grp1_test1	gt_grp1_test1	50680		90			None		gt_grp1_C2A232F_FAILED_0												
+						defaults										gt_grp1_C2A232F_FAILED												
 						flag-true	gt_grp1_C2A232F_FAILED																flag-true	gt_grp1_C2A232F_FAILED_0				
+						Test	gt_grp1_test2	gt_grp1_test2	50690		90			None		gt_grp1_C2A232F_FAILED_1												
 						flag-true	gt_grp1_C2A232F_FAILED																flag-true	gt_grp1_C2A232F_FAILED_1				
-						Test	gt2	gt2			90			Fail									flag-true	gt_grp1_C2A232F_FAILED				
-						Test	gt_grp2_test1	gt_grp2_test1			90			None		gt_grp2_C2A232F_FAILED_0							flag-true	gt_grp1_C2A232F_FAILED				
-						Test	gt_grp2_test2	gt_grp2_test2			90			None		gt_grp2_C2A232F_FAILED_1							flag-true	gt_grp1_C2A232F_FAILED				
+						Test	gt2	gt2	50700		90			Fail									flag-true	gt_grp1_C2A232F_FAILED				
+						Test	gt_grp2_test1	gt_grp2_test1	50710		90			None		gt_grp2_C2A232F_FAILED_0							flag-true	gt_grp1_C2A232F_FAILED				
+						defaults										gt_grp2_C2A232F_FAILED												
 						flag-true	gt_grp2_C2A232F_FAILED																flag-true	gt_grp2_C2A232F_FAILED_0				
+						Test	gt_grp2_test2	gt_grp2_test2	50720		90			None		gt_grp2_C2A232F_FAILED_1							flag-true	gt_grp1_C2A232F_FAILED				
 						flag-true	gt_grp2_C2A232F_FAILED																flag-true	gt_grp2_C2A232F_FAILED_1				
-						Test	gt3	gt3			90			Fail									flag-true	gt_grp2_C2A232F_FAILED				
+						Test	gt3	gt3	50730		90			Fail									flag-true	gt_grp2_C2A232F_FAILED				
 						logprint	Test_that_nested_groups_work																					
-						Test	lev1_test1	lev1_test1			5			Fail														
-						Test	lev1_test2	lev1_test2			5			Fail														
-						Test	lev1_test3	lev1_test3			10			None		l1t3_C2A232F_FAILED												
-						Test	lev1_test4	lev1_test4			12			Fail									flag-true	l1t3_C2A232F_FAILED				
-						Test	lev1_test5	lev1_test5			12			None		l1t5_C2A232F_FAILED												
-						Test	lev2_test1	lev2_test1			5			Fail														
-						Test	lev2_test2	lev2_test2			5			Fail														
-						Test	lev2_test3	lev2_test3			10			None		l2t3_C2A232F_FAILED												
-						Test	lev2_test4	lev2_test4			12			Fail									flag-true	l2t3_C2A232F_FAILED				
-						Test	lev2_test5	lev2_test5			12			Fail									flag-true	l1t5_C2A232F_FAILED				
+						Test	lev1_test1	lev1_test1	50740		5			Fail														
+						Test	lev1_test2	lev1_test2	50750		5			Fail														
+						Test	lev1_test3	lev1_test3	50760		10			None		l1t3_C2A232F_FAILED												
+						Test	lev1_test4	lev1_test4	50770		12			Fail									flag-true	l1t3_C2A232F_FAILED				
+						Test	lev1_test5	lev1_test5	50780		12			None		l1t5_C2A232F_FAILED												
+						Test	lev2_test1	lev2_test1	50790		5			Fail														
+						Test	lev2_test2	lev2_test2	50800		5			Fail														
+						Test	lev2_test3	lev2_test3	50810		10			None		l2t3_C2A232F_FAILED												
+						Test	lev2_test4	lev2_test4	50820		12			Fail									flag-true	l2t3_C2A232F_FAILED				
+						Test	lev2_test5	lev2_test5	50830		12			Fail									flag-true	l1t5_C2A232F_FAILED				
 						logprint	Test_nested_conditions_on_a_group																					
-						Test	nt1	nt1			10			None		nt1_C2A232F_FAILED												
-						Test	nt2	nt2			11			None	nt2_C2A232F_PASSED	nt2_C2A232F_FAILED							flag-true	nt1_C2A232F_FAILED				
-						Test	nt3	nt3			12			Fail									flag-true	nt2_C2A232F_PASSED				
-						Test	nt4	nt4			13			Fail									flag-true	nt2_C2A232F_FAILED				
+						Test	nt1	nt1	50840		10			None		nt1_C2A232F_FAILED												
+						Test	nt2	nt2	50850		11			None	nt2_C2A232F_PASSED	nt2_C2A232F_FAILED							flag-true	nt1_C2A232F_FAILED				
+						Test	nt3	nt3	50860		12			Fail									flag-true	nt2_C2A232F_PASSED				
+						Test	nt4	nt4	50870		13			Fail									flag-true	nt2_C2A232F_FAILED				
 						logprint	Embedded_conditional_tests_1																					
-						Test	test1	test1						None		ect1_1_C2A232F_FAILED												
-						Test	test2	test2						Fail									flag-true	ect1_1_C2A232F_FAILED				
-						Test	test3	test3						None		ect1_3_C2A232F_FAILED							flag-true	ect1_1_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	ect1_3_C2A232F_FAILED				
+						Test	test1	test1	50880					None		ect1_1_C2A232F_FAILED												
+						Test	test2	test2	50890					Fail									flag-true	ect1_1_C2A232F_FAILED				
+						Test	test3	test3	50900					None		ect1_3_C2A232F_FAILED							flag-true	ect1_1_C2A232F_FAILED				
+						Test	test4	test4	50910					Fail									flag-true	ect1_3_C2A232F_FAILED				
 						logprint	Embedded_conditional_tests_2																					
-						Test	test1	test1						None		ect2_1_C2A232F_FAILED												
-						Test	test2	test2						None		ect2_2_C2A232F_FAILED												
-						flag-true	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED																					
-						flag-false	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED															not	flag-true	ect2_1_C2A232F_FAILED				
-						flag-false	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED															not	flag-true	ect2_2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	ect2_2_C2A232F_FAILED_AND_ect2_1_C2A232F_FAILED				
-		en1				Test	test4	test4						Fail									flag-true	ect2_1_C2A232F_FAILED				
-		en2				Test	test5	test5						Fail									flag-true	ect2_1_C2A232F_FAILED				
-		en2				Test	test6	test6						Fail									flag-true	ect2_1_C2A232F_FAILED				
-						Test	test7	test7						Fail									flag-true	ect2_1_C2A232F_FAILED				
-						Test	test8	test8						Fail														
+						Test	test1	test1	50920					None		ect2_1_C2A232F_FAILED												
+						Test	test2	test2	50930					None		ect2_2_C2A232F_FAILED												
+						defaults										ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED												
+						flag-true	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED																					
+						flag-false	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED															not	flag-true	ect2_2_C2A232F_FAILED				
+						flag-false	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED															not	flag-true	ect2_1_C2A232F_FAILED				
+						Test	test3	test3	50940					Fail									flag-true	ect2_1_C2A232F_FAILED_AND_ect2_2_C2A232F_FAILED				
+		en1				Test	test4	test4	50950					Fail									flag-true	ect2_1_C2A232F_FAILED				
+		en2				Test	test5	test5	50960					Fail									flag-true	ect2_1_C2A232F_FAILED				
+		en2				Test	test6	test6	50970					Fail									flag-true	ect2_1_C2A232F_FAILED				
+						Test	test7	test7	50980					Fail									flag-true	ect2_1_C2A232F_FAILED				
+						Test	test8	test8	51000					Fail														
 						logprint	Nested_enable_word_test_1																					
-		word1				Test	test1	test1						Fail														
+		word1				Test	test1	test1	51010					Fail														
 		word1				goto	LABEL_4_C2A232F																					
 						goto	LABEL_3_C2A232F																					
 	LABEL_4_C2A232F					nop																						
 		word2				enable-flow-word	word1_AND_word2																					
 	LABEL_3_C2A232F					nop																						
-		word1_AND_word2				Test	test2	test2						Fail														
+		word1_AND_word2				Test	test2	test2	51020					Fail														
 						logprint	Nested_enable_word_test_2																					
-		word1				Test	test1	test1						Fail														
+		word1				Test	test1	test1	51030					Fail														
 		word2				goto	LABEL_5_C2A232F																					
-		word1				Test	test2	test2						Fail														
+		word1				Test	test2	test2	51040					Fail														
 	LABEL_5_C2A232F					nop																						
 						logprint	Nested_enable_word_test_3																					
 		word1				enable-flow-word	word1_OR_word2																					
 		word2				enable-flow-word	word1_OR_word2																					
-		word1_OR_word2				Test	test1	test1						Fail														
+		word1_OR_word2				Test	test1	test1	51050					Fail														
 		word1_OR_word2				goto	LABEL_7_C2A232F																					
 						goto	LABEL_6_C2A232F																					
 	LABEL_7_C2A232F					nop																						
 		word3				enable-flow-word	word1_OR_word2_AND_word3																					
 	LABEL_6_C2A232F					nop																						
-		word1_OR_word2_AND_word3				Test	test2	test2						Fail														
+		word1_OR_word2_AND_word3				Test	test2	test2	51060					Fail														
 						logprint	Conditional_enable_test																					
 		nvm_minimum_room	FR			enable-flow-word	nvm_minimum_ft																					
 		nvm_minimum_cold	FC			enable-flow-word	nvm_minimum_ft																					
@@ -198,56 +218,100 @@ DFF 1.1	Flow Table
 		word1				goto	LABEL_9_C2A232F																					
 						goto	LABEL_8_C2A232F																					
 	LABEL_9_C2A232F					nop																						
-						Test	test1	test1						Fail														
-						Test	test1	test1						Fail														
-						Test	test1	test1						Fail														
-						Test	test1	test1						Fail														
-						Test	test1	test1						Fail														
-		word2				Test	test1	test1						Fail														
-		word2				Test	test1	test1						Fail														
-		word2				Test	test1	test1						Fail														
-		word2				Test	test1	test1						Fail														
+						Test	test1	test1	51100					Fail														
+						Test	test1	test1	51110					Fail														
+						Test	test1	test1	51120					Fail														
+						Test	test1	test1	51130					Fail														
+						Test	test1	test1	51140					Fail														
+		word2				Test	test1	test1	51200					Fail														
+		word2				Test	test1	test1	51210					Fail														
+		word2				Test	test1	test1	51220					Fail														
+		word2				Test	test1	test1	51230					Fail														
 		word2				goto	LABEL_11_C2A232F																					
 						goto	LABEL_10_C2A232F																					
 	LABEL_11_C2A232F					nop																						
 		word3				enable-flow-word	word2_AND_word3																					
 	LABEL_10_C2A232F					nop																						
-		word2_AND_word3				Test	test1	test1						Fail														
+		word2_AND_word3				Test	test1	test1	51300					Fail														
 	LABEL_8_C2A232F					nop																						
 						logprint	This_should_generate_an_AND_flag																					
-						Test	test1	test1						None		at1_C2A232F_FAILED												
-						Test	test2	test2						None		at2_C2A232F_FAILED												
-						flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED																					
-						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at1_C2A232F_FAILED				
-						flag-false	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED															not	flag-true	at2_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	at2_C2A232F_FAILED_AND_at1_C2A232F_FAILED				
+						Test	test1	test1	51310					None		at1_C2A232F_FAILED												
+						Test	test2	test2	51320					None		at2_C2A232F_FAILED												
+						defaults										at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED												
+						flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED																					
+						flag-false	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED															not	flag-true	at2_C2A232F_FAILED				
+						flag-false	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED															not	flag-true	at1_C2A232F_FAILED				
+						Test	test3	test3	51330					Fail									flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED				
+						Test	test4	test4	51340					Fail									flag-true	at1_C2A232F_FAILED_AND_at2_C2A232F_FAILED				
 						logprint	This_should_NOT_generate_an_AND_flag																					
-						Test	test1	test1						None		at11_C2A232F_FAILED												
-						Test	test2	test2						None		at21_C2A232F_FAILED							flag-true	at11_C2A232F_FAILED				
-						Test	test3	test3						Fail									flag-true	at21_C2A232F_FAILED				
-						Test	test4	test4						Fail									flag-true	at21_C2A232F_FAILED				
+						Test	test1	test1	51350					None		at11_C2A232F_FAILED												
+						Test	test2	test2	51360					None		at21_C2A232F_FAILED							flag-true	at11_C2A232F_FAILED				
+						Test	test3	test3	51370					Fail									flag-true	at21_C2A232F_FAILED				
+						Test	test4	test4	51380					Fail									flag-true	at21_C2A232F_FAILED				
 						logprint	Manual_flag_setting																					
-						Test	test1							None		my_flag												
-						Test	test2							Fail									flag-true	my_flag				
-						Test	test3							Fail								not	flag-true	my_flag				
+						Test	test1		51390					None		my_flag												
+						Test	test2		51400					Fail									flag-true	my_flag				
+						Test	test3		51410					Fail								not	flag-true	my_flag				
 						logprint	Mixed-case_manual_flags																					
-						Test	test1							None		My_Mixed_Flag												
-						Test	test2							Fail									flag-true	My_Mixed_Flag				
-						Test	test3							Fail								not	flag-true	My_Mixed_Flag				
+						Test	test1		51420					None		My_Mixed_Flag												
+						Test	test2		51430					Fail									flag-true	My_Mixed_Flag				
+						Test	test3		51440					Fail								not	flag-true	My_Mixed_Flag				
 						logprint	Mixed-case_enables																					
-		MCEn_extras				Test	extra_test							Fail														
+		MCEn_extras				Test	extra_test		51450					Fail														
 		MCEn_test				goto	LABEL_12_C2A232F																					
-						Test	test1							Fail														
-						Test	test2							Fail														
+						Test	test1		51460					Fail														
+						Test	test2		51470					Fail														
 	LABEL_12_C2A232F					nop																						
 						logprint	An_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																					
-						Test	test1	test1						None	t1a_C2A232F_PASSED	t1a_C2A232F_FAILED												
-						Test	test2	test2						Fail									flag-true	t1a_C2A232F_PASSED				
-						Test	test3	test3						Fail									flag-true	t1a_C2A232F_FAILED				
+						Test	test1	test1	51580					None	t1a_C2A232F_PASSED	t1a_C2A232F_FAILED												
+						Test	test2	test2	51590					Fail									flag-true	t1a_C2A232F_PASSED				
+						Test	test3	test3	51600					Fail									flag-true	t1a_C2A232F_FAILED				
 						set-device					10			Fail									flag-true	t1a_C2A232F_FAILED				
 						logprint	The_reverse_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																					
-						Test	test1	test1						None	t1b_C2A232F_PASSED	t1b_C2A232F_FAILED												
-						Test	test3	test3						Fail									flag-true	t1b_C2A232F_FAILED				
+						Test	test1	test1	51610					None	t1b_C2A232F_PASSED	t1b_C2A232F_FAILED												
+						Test	test3	test3	51620					Fail									flag-true	t1b_C2A232F_FAILED				
 						set-device					10			Fail									flag-true	t1b_C2A232F_FAILED				
-						Test	test2	test2						Fail									flag-true	t1b_C2A232F_PASSED				
+						Test	test2	test2	51630					Fail									flag-true	t1b_C2A232F_PASSED				
+						logprint	Test_the_block_form_of_expressing_if_passed/failed_dependents																					
+						Test	test1	test1	51960					None	t114_C2A232F_PASSED	t114_C2A232F_FAILED												
+						Test	test3	test3	51980					Fail									flag-true	t114_C2A232F_FAILED				
+						set-device					10			Fail									flag-true	t114_C2A232F_FAILED				
+						Test	test2	test2	51970					Fail									flag-true	t114_C2A232F_PASSED				
+						logprint	Test_the_else_block_on_a_flag_condition																					
+		bitmap				Test	test2		51990					Fail														
+		bitmap				goto	LABEL_13_C2A232F																					
+						Test	test3		52000					Fail														
+	LABEL_13_C2A232F					nop																						
+						Test	test2		52010					Fail									flag-true	some_flag				
+						Test	test3		52020					Fail								not	flag-true	some_flag				
+						logprint	Test_of_a_real_life_case_which_was_found_to_have_problems																					
+		eword1				goto	LABEL_14_C2A232F																					
+		eword2				goto	LABEL_15_C2A232F																					
+		small_flow				Test	test1		53010					Fail														
+		small_flow				Test	test2		53020					Fail														
+						Test	test1		53030					Fail														
+						Test	test1		53040					Fail														
+						Test	test1		53050					Fail														
+						Test	test1		53060					Fail														
+						Test	test1		53070					Fail														
+						Test	test1		53080					Fail														
+						Test	test1		53090					Fail														
+		small_flow				Test	test1		53100					Fail														
+		small_flow				Test	test2		53110					Fail														
+	LABEL_15_C2A232F					nop																						
+		eword2				goto	LABEL_17_C2A232F																					
+						goto	LABEL_16_C2A232F																					
+	LABEL_17_C2A232F					nop																						
+		small_flow				Test	test1		54010					Fail														
+		small_flow				Test	test2		54020					Fail														
+						Test	test1		54030					Fail														
+						Test	test1		54040					Fail														
+						Test	test1		54050					Fail														
+						Test	test1		54060					Fail														
+						Test	test1		54070					Fail														
+						Test	test1		54080					Fail														
+						Test	test1		54090					Fail														
+		small_flow				Test	test1		54100					Fail														
+		small_flow				Test	test2		54110					Fail														
+	LABEL_16_C2A232F					nop																						
+	LABEL_14_C2A232F					nop																						

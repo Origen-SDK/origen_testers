@@ -15,6 +15,15 @@ tm_100:
 tm_101:
   "output" = "None";
   "testName" = "Functional";
+tm_102:
+  "output" = "None";
+  "testName" = "Functional";
+tm_103:
+  "output" = "None";
+  "testName" = "Functional";
+tm_104:
+  "output" = "None";
+  "testName" = "Functional";
 tm_11:
   "output" = "None";
   "testName" = "Functional";
@@ -319,6 +328,12 @@ tm_100:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_101:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_102:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_103:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_104:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_11:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_12:
@@ -525,6 +540,12 @@ tm_10:
 tm_100:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_101:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_102:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_103:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_104:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_11:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -736,28 +757,49 @@ bitcell_iv_0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_0";
-  override_testf = tm_95;
+  override_testf = tm_98;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_1";
-  override_testf = tm_96;
+  override_testf = tm_99;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_2";
-  override_testf = tm_97;
+  override_testf = tm_100;
   site_control = "parallel:";
   site_match = 2;
 bitmap_all0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitmap_all0";
+  override_testf = tm_97;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_0_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_0";
+  override_testf = tm_93;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_1_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_1";
   override_testf = tm_94;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_2_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "cc_test_2";
+  override_testf = tm_95;
   site_control = "parallel:";
   site_match = 2;
 erase_all_10_864CE8F:
@@ -1002,7 +1044,7 @@ erase_all_41_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "erase_all";
-  override_testf = tm_101;
+  override_testf = tm_104;
   site_control = "parallel:";
   site_match = 2;
 erase_all_4_864CE8F:
@@ -1058,7 +1100,7 @@ margin_read0_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read0_ckbd";
-  override_testf = tm_100;
+  override_testf = tm_103;
   site_control = "parallel:";
   site_match = 2;
 margin_read0_ckbd_864CE8F:
@@ -1220,7 +1262,7 @@ margin_read1_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
-  override_testf = tm_98;
+  override_testf = tm_101;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_ckbd_864CE8F:
@@ -1234,7 +1276,7 @@ normal_read_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "normal_read_ckbd";
-  override_testf = tm_99;
+  override_testf = tm_102;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
@@ -1325,7 +1367,7 @@ program_ckbd_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "program_ckbd";
-  override_testf = tm_93;
+  override_testf = tm_96;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_1_864CE8F:
@@ -1745,24 +1787,10 @@ test_flow
     {
     }
     print_dl("Test if_ran");
-    run_and_branch(erase_all_31_864CE8F)
-    then
-    {
-      @ERASE_RAN_1_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_1_864CE8F_RAN = 1;
-    }
-    run_and_branch(erase_all_32_864CE8F)
-    then
-    {
-      @ERASE_RAN_2_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_2_864CE8F_RAN = 1;
-    }
+    run(erase_all_31_864CE8F);
+    @ERASE_RAN_1_864CE8F_RAN = 1;
+    run(erase_all_32_864CE8F);
+    @ERASE_RAN_2_864CE8F_RAN = 1;
     if @ERASE_RAN_1_864CE8F_RAN == 1 then
     {
       run(margin_read1_all1_15_864CE8F);
@@ -1778,24 +1806,10 @@ test_flow
     {
     }
     print_dl("Test unless_ran");
-    run_and_branch(erase_all_33_864CE8F)
-    then
-    {
-      @ERASE_RAN_3_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_3_864CE8F_RAN = 1;
-    }
-    run_and_branch(erase_all_34_864CE8F)
-    then
-    {
-      @ERASE_RAN_4_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_4_864CE8F_RAN = 1;
-    }
+    run(erase_all_33_864CE8F);
+    @ERASE_RAN_3_864CE8F_RAN = 1;
+    run(erase_all_34_864CE8F);
+    @ERASE_RAN_4_864CE8F_RAN = 1;
     if @ERASE_RAN_3_864CE8F_RAN == 1 then
     {
     }
@@ -1811,8 +1825,8 @@ test_flow
       run(margin_read1_all1_18_864CE8F);
     }
     print_dl("Verify that job context wraps import");
+    if @JOB == "FR" then
     {
-      if @JOB == "FR" then
       {
         run(erase_all_35_864CE8F);
         run(erase_all_36_864CE8F);
@@ -1821,14 +1835,14 @@ test_flow
         {
           run(margin_read1_all1_19_864CE8F);
         }, open,"erase_vfy_2", ""
-      }
-      else
-      {
-      }
-    }, open,"erase_2", ""
-    print_dl("Verify that job context wraps enable block within an import");
+      }, open,"erase_2", ""
+    }
+    else
     {
-      if @JOB == "FR" then
+    }
+    print_dl("Verify that job context wraps enable block within an import");
+    if @JOB == "FR" then
+    {
       {
         if @ADDITIONAL_ERASE == 1 then
         {
@@ -1838,11 +1852,11 @@ test_flow
         {
         }
         run(erase_all_40_864CE8F);
-      }
-      else
-      {
-      }
-    }, open,"additional_erase", ""
+      }, open,"additional_erase", ""
+    }
+    else
+    {
+    }
     print_dl("Verify that flow.cz works...");
     run(margin_read1_all1_20_864CE8F);
     print_dl("Verify that flow.cz works with enable words");
@@ -1887,35 +1901,30 @@ test_flow
     if @G200_864CE8F_FAILED == 1 then
     {
       {
+        @G100_864CE8F_RAN = 1;
         run_and_branch(test100_1)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
         run_and_branch(test100_2)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
         run_and_branch(test100_3)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
       }, open,"100Mhz Tests", ""
     }
@@ -1953,6 +1962,9 @@ test_flow
         stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
       }
     }
+    run(cc_test_0_864CE8F);
+    run(cc_test_1_864CE8F);
+    run(cc_test_2_864CE8F);
     stop_bin "1", "", , good, noreprobe, green, 1, over_on;
   }, open,"prb1_main", ""
 

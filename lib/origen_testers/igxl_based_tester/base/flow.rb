@@ -8,11 +8,11 @@ module OrigenTesters
 
         attr_reader :branch
         attr_reader :stack
-        attr_reader :current_group
         attr_reader :context
-        attr_reader :set_run_flags
-        attr_accessor :run_flag
-        attr_accessor :flow_flag
+        # Keeps a note of the context under which flags where set
+        attr_reader :set_flags
+        attr_accessor :current_flag
+        attr_accessor :current_enable
 
         class FlowLineAPI
           def initialize(flow)
@@ -62,10 +62,11 @@ module OrigenTesters
         # of lines to be rendered to the IG-XL flow sheet
         def format
           @lines = []
-          @stack = { jobs: [], groups: [] }
-          @set_run_flags = {}
+          @stack = { jobs: [] }
           @context = []
-          process(model.ast)
+          @set_flags = {}
+          ast = atp.ast(unique_id: sig, optimization: :igxl)
+          process(ast)
           lines
         end
 
@@ -77,26 +78,10 @@ module OrigenTesters
         def on_test(node)
           line = new_line(:test) { |l| process_all(node) }
 
-          # In IG-XL you can't set the same flag in case of pass or fail, if that situation has
-          # occurred then rectify it now
+          # In IG-XL you can't set the same flag in case of pass or fail, that situation should
+          # never occur unless the user has manually set up that condition
           if line.flag_fail && line.flag_fail == line.flag_pass
-            # If the test will bin, don't need to resolve the situation, the flag only matters
-            # in the pass case
-            if line.result = 'Fail'
-              line.flag_fail = nil
-              completed_lines << line
-            else
-              flag = line.flag_fail
-              line.flag_fail = "#{flag}_FAILED"
-              line.flag_pass = "#{flag}_PASSED"
-              completed_lines << line
-              existing_flag = run_flag
-              self.run_flag = [line.flag_fail, true]
-              completed_lines << new_line(:flag_true, parameter: flag)
-              self.run_flag = [line.flag_pass, true]
-              completed_lines << new_line(:flag_true, parameter: flag)
-              self.run_flag = existing_flag
-            end
+            fail "You can't set the same flag on test pass and fail in IG-XL!"
           else
             completed_lines << line
           end
@@ -109,46 +94,8 @@ module OrigenTesters
           end
         end
 
-        def on_group(node)
-          stack[:groups] << []
-          post_group = node.children.select { |n| [:on_fail, :on_pass, :name].include?(n.try(:type)) }
-          process_all(node.children - post_group)
-          # Now process any on_fail and similar conditional logic attached to the group
-          @current_group = stack[:groups].last
-          process_all(post_group)
-          @current_group = nil
-          flags = { on_pass: [], on_fail: [] }
-          stack[:groups].pop.each do |test|
-            unless test.is_a?(String)
-              flags[:on_pass] << test.flag_pass
-              flags[:on_fail] << test.flag_fail
-            end
-            completed_lines << test
-          end
-          if @group_on_fail_flag
-            flags[:on_fail].each do |flag|
-              self.run_flag = [flag, true]
-              completed_lines << new_line(:flag_true, parameter: @group_on_fail_flag)
-            end
-            self.run_flag = nil
-          end
-          if @group_on_pass_flag && @group_on_pass_flag != @group_on_fail_flag
-            flags[:on_pass].each do |flag|
-              self.run_flag = [flag, true]
-              completed_lines << new_line(:flag_true, parameter: @group_on_pass_flag)
-            end
-            self.run_flag = nil
-          end
-          @group_on_fail_flag = nil
-          @group_on_pass_flag = nil
-        end
-
         def on_name(node)
-          if current_group
-            # No action, groups will not actually appear in the flow sheet
-          else
-            current_line.tname = node.to_a[0]
-          end
+          current_line.tname = node.to_a[0] if current_line
         end
 
         def on_number(node)
@@ -168,34 +115,24 @@ module OrigenTesters
         end
 
         def on_continue(node)
-          if current_group
-            current_group.each { |line| line.result = 'None' }
-          else
-            current_line.result = 'None'
-          end
+          current_line.result = 'None' if current_line
         end
 
-        def on_set_run_flag(node)
-          flag = remove_symbols_from_flag(node.to_a[0])
-          set_run_flags[flag] = context.dup
-          if current_group
-            if branch == :on_fail
-              @group_on_fail_flag = flag
-              current_group.each_with_index do |line, i|
-                line.flag_fail = "#{flag}_#{i}" unless line.flag_fail
-              end
-            else
-              @group_on_pass_flag = flag
-              current_group.each_with_index do |line, i|
-                line.flag_pass = "#{flag}_#{i}" unless line.flag_pass
-              end
-            end
-          else
+        def on_set_flag(node)
+          flag = clean_flag(node.to_a[0])
+          set_previously = !!set_flags[flag]
+          set_flags[flag] = context.dup
+          if current_line
             if branch == :on_fail
               current_line.flag_fail = flag
             else
               current_line.flag_pass = flag
             end
+          else
+            unless set_previously
+              completed_lines << platform::FlowLine.new(:defaults, flag_fail: flag)
+            end
+            completed_lines << new_line(:flag_true, parameter: flag)
           end
         end
 
@@ -243,9 +180,10 @@ module OrigenTesters
           @branch = nil
         end
 
-        def on_job(node)
-          jobs, state, *nodes = *node
+        def on_if_job(node)
+          jobs, *nodes = *node
           jobs = clean_job(jobs)
+          state = node.type == :if_job
           unless state
             jobs = jobs.map { |j| "!#{j}" }
           end
@@ -255,75 +193,75 @@ module OrigenTesters
           stack[:jobs].pop
           context.pop
         end
+        alias_method :on_unless_job, :on_if_job
 
-        def on_run_flag(node)
-          flag, state, *nodes = *node
-          orig = run_flag
+        def on_if_flag(node)
+          flag, *nodes = *node
+          orig = current_flag
+          state = node.type == :if_flag
           if flag.is_a?(Array)
             or_flag = flag.join('_OR_')
             or_flag = "NOT_#{flag}" unless state
             flag.each do |f|
-              if run_flag
+              if current_flag
                 fail 'Not implemented yet!'
               else
-                self.run_flag = [f, state]
+                set_previously = !!set_flags[or_flag]
+                set_flags[or_flag] = context
+                self.current_flag = [f, state]
+                unless set_previously
+                  completed_lines << platform::FlowLine.new(:defaults, flag_fail: or_flag)
+                end
                 completed_lines << new_line(:flag_true, parameter: or_flag)
-                self.run_flag = nil
+                self.current_flag = nil
               end
             end
-            # Don't need to create an AND flag if the flag on which this test is dependent was also
-            # set under the same context.
-            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
-              and_flag = flag_to_s(or_flag, state) + '_AND_' + flag_to_s(*run_flag)
+            flag = or_flag
+          end
+          flag = clean_flag(flag)
+
+          # If a flag condition is currently active
+          if current_flag
+            # If the current flag condition also gated the setting of this node's flag, then we
+            # don't need to create an AND flag
+            if !set_flags[flag] || (set_flags[flag] && set_flags[flag].hash != context.hash)
+              and_flag = clean_flag(flag_to_s(*current_flag) + '_AND_' + flag_to_s(flag, state))
               # If the AND flag has already been created and set in this context (for a previous test),
               # no need to re-create it
-              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
-                set_run_flags[and_flag] = context
-                existing_flag = run_flag
-                self.run_flag = nil
+              if !set_flags[and_flag] || (set_flags[and_flag].hash != context.hash)
+                set_previously = !!set_flags[and_flag]
+                set_flags[and_flag] = context
+                existing_flag = current_flag
+                self.current_flag = nil
+                unless set_previously
+                  completed_lines << platform::FlowLine.new(:defaults, flag_fail: and_flag)
+                end
                 completed_lines << new_line(:flag_true, parameter: and_flag)
-                self.run_flag = [existing_flag[0], !existing_flag[1]]
+                self.current_flag = [flag, !state]
                 completed_lines << new_line(:flag_false, parameter: and_flag)
-                self.run_flag = [flag, !state]
+                self.current_flag = [existing_flag[0], !existing_flag[1]]
                 completed_lines << new_line(:flag_false, parameter: and_flag)
               end
-              self.run_flag = [and_flag, true]
-            else
-              self.run_flag = [or_flag, true]
-            end
-          else
-            # Don't need to create an AND flag if the flag on which this test is dependent was also
-            # set under the same context.
-            if run_flag && set_run_flags[flag] && set_run_flags[flag].hash != context.hash
-              and_flag = flag_to_s(flag, state) + '_AND_' + flag_to_s(*run_flag)
-              # If the AND flag has already been created and set in this context (for a previous test),
-              # no need to re-create it
-              if !set_run_flags[and_flag] || (set_run_flags[and_flag].hash != context.hash)
-                set_run_flags[and_flag] = context
-                existing_flag = run_flag
-                self.run_flag = nil
-                completed_lines << new_line(:flag_true, parameter: and_flag)
-                self.run_flag = [existing_flag[0], !existing_flag[1]]
-                completed_lines << new_line(:flag_false, parameter: and_flag)
-                self.run_flag = [flag, !state]
-                completed_lines << new_line(:flag_false, parameter: and_flag)
-              end
-              self.run_flag = [and_flag, true]
-            else
-              self.run_flag = [flag, state]
+              flag = and_flag
             end
           end
-          context << run_flag
+
+          # Update the currently active flag condition, this will be added as a condition to all
+          # lines created from children of this node
+          self.current_flag = [flag, state]
+          context << current_flag
           process_all(node)
           context.pop
-          self.run_flag = orig
+          self.current_flag = orig
         end
+        alias_method :on_unless_flag, :on_if_flag
 
-        def on_flow_flag(node)
-          flag, value = *node.to_a.take(2)
-          orig = flow_flag
+        def on_if_enabled(node)
+          flag, *nodes = *node
+          orig = current_enable
+          value = node.type == :if_enabled
           if flag.is_a?(Array)
-            flag.map! { |a_flag| remove_symbols_from_flag(a_flag) }
+            flag.map! { |a_flag| clean_enable(a_flag) }
             if flag.size > 1
               or_flag = flag.join('_OR_')
               flag.each do |f|
@@ -334,7 +272,7 @@ module OrigenTesters
               flag = flag.first
             end
           else
-            flag = remove_symbols_from_flag(flag)
+            flag = clean_enable(flag)
           end
           if value
             # IG-XL docs say that enable words are not optimized for test time, so branch around
@@ -349,25 +287,25 @@ module OrigenTesters
               context.pop
               completed_lines << new_line(:nop, label: label, enable: nil)
             else
-              if flow_flag
-                and_flag = "#{flow_flag}_AND_#{flag}"
+              if current_enable
+                and_flag = "#{current_enable}_AND_#{flag}"
                 label = generate_unique_label
-                branch_if_enable(flow_flag) do
+                branch_if_enable(current_enable) do
                   completed_lines << new_line(:goto, parameter: label, enable: nil)
                 end
                 completed_lines << new_line(:enable_flow_word, parameter: and_flag, enable: flag)
                 completed_lines << new_line(:nop, label: label, enable: nil)
-                self.flow_flag = and_flag
+                self.current_enable = and_flag
                 context << and_flag
                 process_all(node)
                 context.pop
-                self.flow_flag = orig
+                self.current_enable = orig
               else
-                self.flow_flag = flag
+                self.current_enable = flag
                 context << flag
                 process_all(node)
                 context.pop
-                self.flow_flag = orig
+                self.current_enable = orig
               end
             end
           else
@@ -380,6 +318,7 @@ module OrigenTesters
             context.pop
           end
         end
+        alias_method :on_unless_enabled, :on_if_enabled
 
         def branch_if_enable(word)
           label = generate_unique_label
@@ -388,11 +327,11 @@ module OrigenTesters
           completed_lines << new_line(:nop, label: label, enable: nil)
         end
 
-        def on_enable_flow_flag(node)
+        def on_enable(node)
           completed_lines << new_line(:enable_flow_word, parameter: node.value)
         end
 
-        def on_disable_flow_flag(node)
+        def on_disable(node)
           completed_lines << new_line(:disable_flow_word, parameter: node.value)
         end
 
@@ -407,12 +346,12 @@ module OrigenTesters
         def new_line(type, attrs = {})
           attrs = {
             job:    stack[:jobs].last,
-            enable: flow_flag
+            enable: current_enable
           }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
-          if run_flag
-            line.device_sense = 'not' unless run_flag[1]
-            line.device_name = remove_symbols_from_flag(run_flag[0])
+          if current_flag
+            line.device_sense = 'not' unless current_flag[1]
+            line.device_name = clean_flag(current_flag[0])
             line.device_condition = 'flag-true'
           end
           open_lines << line
@@ -423,7 +362,7 @@ module OrigenTesters
 
         # Any completed lines should be pushed to the array that this returns
         def completed_lines
-          stack[:groups].last || lines
+          lines
         end
 
         def open_lines
@@ -448,7 +387,18 @@ module OrigenTesters
 
         private
 
-        def remove_symbols_from_flag(flag)
+        def clean_enable(flag)
+          flag = flag.to_s
+          if flag[0] == '$'
+            flag[0] = ''
+            flag
+          else
+            flag.downcase
+          end
+        end
+
+        def clean_flag(flag)
+          flag = flag.to_s
           if flag[0] == '$'
             flag[0] = ''
           end

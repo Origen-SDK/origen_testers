@@ -7,21 +7,21 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
 
   self.resources_filename = 'prb2'
 
-  func :erase_all, :duration => :dynamic
+  func :erase_all, duration: :dynamic, number: 10000
 
-  func :margin_read1_all1
+  func :margin_read1_all1, number: 10010
 
-  func :erase_all, :duration => :dynamic
-  func :margin_read1_all1
+  func :erase_all, duration: :dynamic, number: 10020
+  func :margin_read1_all1, number: 10030
 
-  import 'components/prb2_main'
+  import 'components/prb2_main', number: 11000
 
-  func :erase_all, :duration => :dynamic
-  func :margin_read1_all1, :id => 'erased_successfully'
+  func :erase_all, duration: :dynamic, number: 12000
+  func :margin_read1_all1, id: 'erased_successfully', number: 12010
 
   if_enable 'extra_tests' do
-    import 'components/prb2_main'
+    import 'components/prb2_main', number: 13000
   end
 
-  func :margin_read1_all1
+  func :margin_read1_all1, number: 14000
 end

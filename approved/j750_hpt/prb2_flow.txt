@@ -2,14 +2,14 @@ DFF 1.1	Flow Table
 																												
 			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
-						Test	erase_all	erase_all						Fail														
-						Test	margin_read1_all1	margin_read1_all1						Fail														
-						Test	erase_all	erase_all						Fail														
-						Test	margin_read1_all1	margin_read1_all1						Fail														
-						Test	pgm_ckbd	pgm_ckbd						Fail														
-						Test	mrd_ckbd	mrd_ckbd						Fail														
-						Test	erase_all	erase_all						Fail														
-						Test	margin_read1_all1	margin_read1_all1						Fail														
-		extra_tests				Test	pgm_ckbd	pgm_ckbd						Fail														
-		extra_tests				Test	mrd_ckbd	mrd_ckbd						Fail														
-						Test	margin_read1_all1	margin_read1_all1						Fail														
+						Test	erase_all	erase_all	10000					Fail														
+						Test	margin_read1_all1	margin_read1_all1	10010					Fail														
+						Test	erase_all	erase_all	10020					Fail														
+						Test	margin_read1_all1	margin_read1_all1	10030					Fail														
+						Test	pgm_ckbd	pgm_ckbd	11010					Fail														
+						Test	mrd_ckbd	mrd_ckbd	11020					Fail														
+						Test	erase_all	erase_all	12000					Fail														
+						Test	margin_read1_all1	margin_read1_all1	12010					Fail														
+		extra_tests				Test	pgm_ckbd	pgm_ckbd	13010					Fail														
+		extra_tests				Test	mrd_ckbd	mrd_ckbd	13020					Fail														
+						Test	margin_read1_all1	margin_read1_all1	14000					Fail														
