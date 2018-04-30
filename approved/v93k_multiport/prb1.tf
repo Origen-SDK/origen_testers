@@ -279,6 +279,15 @@ tm_91:
 tm_92:
   "output" = "None";
   "testName" = "Functional";
+tm_93:
+  "output" = "None";
+  "testName" = "Functional";
+tm_94:
+  "output" = "None";
+  "testName" = "Functional";
+tm_95:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
@@ -467,6 +476,12 @@ tm_90:
 tm_91:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_92:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_93:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_94:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_95:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -657,6 +672,12 @@ tm_91:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_92:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_93:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_94:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_95:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
 -----------------------------------------------------------------
@@ -667,6 +688,27 @@ another_not_p1_or_p2_test_864CE8F:
   override = 1;
   override_seqlbl = "mPort_another_not_p1_or_p2_test";
   override_testf = tm_31;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_0_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mPort_cc_test_0";
+  override_testf = tm_93;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_1_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mPort_cc_test_1";
+  override_testf = tm_94;
+  site_control = "parallel:";
+  site_match = 2;
+cc_test_2_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mPort_cc_test_2";
+  override_testf = tm_95;
   site_control = "parallel:";
   site_match = 2;
 erase_all_10_864CE8F:
@@ -1619,24 +1661,10 @@ test_flow
     {
     }
     print_dl("Test if_ran");
-    run_and_branch(erase_all_31_864CE8F)
-    then
-    {
-      @ERASE_RAN_1_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_1_864CE8F_RAN = 1;
-    }
-    run_and_branch(erase_all_32_864CE8F)
-    then
-    {
-      @ERASE_RAN_2_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_2_864CE8F_RAN = 1;
-    }
+    run(erase_all_31_864CE8F);
+    @ERASE_RAN_1_864CE8F_RAN = 1;
+    run(erase_all_32_864CE8F);
+    @ERASE_RAN_2_864CE8F_RAN = 1;
     if @ERASE_RAN_1_864CE8F_RAN == 1 then
     {
       run(margin_read1_all1_15_864CE8F);
@@ -1652,24 +1680,10 @@ test_flow
     {
     }
     print_dl("Test unless_ran");
-    run_and_branch(erase_all_33_864CE8F)
-    then
-    {
-      @ERASE_RAN_3_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_3_864CE8F_RAN = 1;
-    }
-    run_and_branch(erase_all_34_864CE8F)
-    then
-    {
-      @ERASE_RAN_4_864CE8F_RAN = 1;
-    }
-    else
-    {
-      @ERASE_RAN_4_864CE8F_RAN = 1;
-    }
+    run(erase_all_33_864CE8F);
+    @ERASE_RAN_3_864CE8F_RAN = 1;
+    run(erase_all_34_864CE8F);
+    @ERASE_RAN_4_864CE8F_RAN = 1;
     if @ERASE_RAN_3_864CE8F_RAN == 1 then
     {
     }
@@ -1685,8 +1699,8 @@ test_flow
       run(margin_read1_all1_18_864CE8F);
     }
     print_dl("Verify that job context wraps import");
+    if @JOB == "FR" then
     {
-      if @JOB == "FR" then
       {
         run(erase_all_35_864CE8F);
         run(erase_all_36_864CE8F);
@@ -1695,14 +1709,14 @@ test_flow
         {
           run(margin_read1_all1_19_864CE8F);
         }, open,"erase_vfy_2", ""
-      }
-      else
-      {
-      }
-    }, open,"erase_2", ""
-    print_dl("Verify that job context wraps enable block within an import");
+      }, open,"erase_2", ""
+    }
+    else
     {
-      if @JOB == "FR" then
+    }
+    print_dl("Verify that job context wraps enable block within an import");
+    if @JOB == "FR" then
+    {
       {
         if @ADDITIONAL_ERASE == 1 then
         {
@@ -1712,11 +1726,11 @@ test_flow
         {
         }
         run(erase_all_40_864CE8F);
-      }
-      else
-      {
-      }
-    }, open,"additional_erase", ""
+      }, open,"additional_erase", ""
+    }
+    else
+    {
+    }
     print_dl("Verify that flow.cz works...");
     run(margin_read1_all1_20_864CE8F);
     print_dl("Verify that flow.cz works with enable words");
@@ -1761,35 +1775,30 @@ test_flow
     if @G200_864CE8F_FAILED == 1 then
     {
       {
+        @G100_864CE8F_RAN = 1;
         run_and_branch(test100_1)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
         run_and_branch(test100_2)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
         run_and_branch(test100_3)
         then
         {
-          @G100_864CE8F_RAN = 1;
         }
         else
         {
           stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-          @G100_864CE8F_RAN = 1;
         }
       }, open,"100Mhz Tests", ""
     }
@@ -1827,6 +1836,9 @@ test_flow
         stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
       }
     }
+    run(cc_test_0_864CE8F);
+    run(cc_test_1_864CE8F);
+    run(cc_test_2_864CE8F);
     stop_bin "1", "", , good, noreprobe, green, 1, over_on;
   }, open,"prb1_main", ""
 

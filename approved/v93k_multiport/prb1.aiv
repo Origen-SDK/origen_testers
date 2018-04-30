@@ -10,6 +10,9 @@ AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
 
 PATTERNS name tmf_file port v2b_options
 another_not_p1_or_p2_test .tmf mPort
+cc_test_0 .tmf mPort
+cc_test_1 .tmf mPort
+cc_test_2 .tmf mPort
 erase_all .tmf mPort
 margin_read0_ckbd .tmf mPort
 margin_read1_all1 .tmf mPort
@@ -30,6 +33,21 @@ MULTI_PORT_BURST "mPort_another_not_p1_or_p2_test"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           another_not_p1_or_p2_test
+
+MULTI_PORT_BURST "mPort_cc_test_0" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_0
+
+MULTI_PORT_BURST "mPort_cc_test_1" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_1
+
+MULTI_PORT_BURST "mPort_cc_test_2" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_2
 
 MULTI_PORT_BURST "mPort_erase_all" 
 PORTS     mPort                                  
