@@ -29,6 +29,12 @@ module OrigenTesters
       attr_accessor :multiport_postfix     # multiport burst name postfix
 
       def initialize(options = {})
+        options = {
+          # whether to use multiport bursts or not, if so this indicates the name of the port to use
+          multiport:         false,
+          multiport_prefix:  false,
+          multiport_postfix: false
+        }.merge(options)
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
         @pat_extension = 'avc'
@@ -39,10 +45,9 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
-        @multiport = false              # whether to use multiport bursts or not, if so this
-        # indicates the name of the port to use
-        @multiport_prefix = false      # default multiport name prefix
-        @multiport_postfix = false      # default multiport name postfix
+        @multiport = options[:multiport]
+        @multiport_prefix = options[:multiport_prefix]
+        @multiport_postfix = options[:multiport_postfix]
         @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil

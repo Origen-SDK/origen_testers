@@ -17,12 +17,10 @@ module OrigenTesters
 
       def initialize(options = {})
         options = {
-          test_multiport_v93k:          false,
           test_generic_overlay_capture: false
         }.merge(options)
 
         @test_options = {
-          test_multiport_v93k:          options[:test_multiport_v93k],
           test_generic_overlay_capture: options[:test_generic_overlay_capture]
         }
 
@@ -71,10 +69,6 @@ module OrigenTesters
             tester.assign_digcap_pins(digcap_pins)
             tester.apply_digcap_settings(digcap_settings)
             tester.memory_test_en = true
-          end
-          if @test_options[:test_multiport_v93k]
-            tester.multiport = 'mPort' if tester && tester.v93k?
-            tester.multiport_postfix = 'pset' if tester && tester.v93k?
           end
         end
       end
