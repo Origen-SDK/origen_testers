@@ -665,378 +665,378 @@ test_suites
 another_not_p1_or_p2_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "another_not_p1_or_p2_test_pset";
+  override_seqlbl = "mPort_another_not_p1_or_p2_test";
   override_testf = tm_31;
   site_control = "parallel:";
   site_match = 2;
 erase_all_10_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_37;
   site_control = "parallel:";
   site_match = 2;
 erase_all_11_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_39;
   site_control = "parallel:";
   site_match = 2;
 erase_all_12_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_41;
   site_control = "parallel:";
   site_match = 2;
 erase_all_13_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_43;
   site_control = "parallel:";
   site_match = 2;
 erase_all_14_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_45;
   site_control = "parallel:";
   site_match = 2;
 erase_all_15_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_47;
   site_control = "parallel:";
   site_match = 2;
 erase_all_16_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_49;
   site_control = "parallel:";
   site_match = 2;
 erase_all_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_50;
   site_control = "parallel:";
   site_match = 2;
 erase_all_18_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_51;
   site_control = "parallel:";
   site_match = 2;
 erase_all_19_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_52;
   site_control = "parallel:";
   site_match = 2;
 erase_all_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_5;
   site_control = "parallel:";
   site_match = 2;
 erase_all_20_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_53;
   site_control = "parallel:";
   site_match = 2;
 erase_all_21_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_54;
   site_control = "parallel:";
   site_match = 2;
 erase_all_22_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_55;
   site_control = "parallel:";
   site_match = 2;
 erase_all_23_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_56;
   site_control = "parallel:";
   site_match = 2;
 erase_all_24_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_57;
   site_control = "parallel:";
   site_match = 2;
 erase_all_25_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_60;
   site_control = "parallel:";
   site_match = 2;
 erase_all_26_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_61;
   site_control = "parallel:";
   site_match = 2;
 erase_all_27_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_64;
   site_control = "parallel:";
   site_match = 2;
 erase_all_28_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_65;
   site_control = "parallel:";
   site_match = 2;
 erase_all_29_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_68;
   site_control = "parallel:";
   site_match = 2;
 erase_all_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_6;
   site_control = "parallel:";
   site_match = 2;
 erase_all_30_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_69;
   site_control = "parallel:";
   site_match = 2;
 erase_all_31_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_72;
   site_control = "parallel:";
   site_match = 2;
 erase_all_32_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_73;
   site_control = "parallel:";
   site_match = 2;
 erase_all_33_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_76;
   site_control = "parallel:";
   site_match = 2;
 erase_all_34_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_77;
   site_control = "parallel:";
   site_match = 2;
 erase_all_35_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_80;
   site_control = "parallel:";
   site_match = 2;
 erase_all_36_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_81;
   site_control = "parallel:";
   site_match = 2;
 erase_all_37_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_82;
   site_control = "parallel:";
   site_match = 2;
 erase_all_38_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_83;
   site_control = "parallel:";
   site_match = 2;
 erase_all_39_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_85;
   site_control = "parallel:";
   site_match = 2;
 erase_all_3_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_7;
   site_control = "parallel:";
   site_match = 2;
 erase_all_40_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_86;
   site_control = "parallel:";
   site_match = 2;
 erase_all_4_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_8;
   site_control = "parallel:";
   site_match = 2;
 erase_all_5_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_9;
   site_control = "parallel:";
   site_match = 2;
 erase_all_6_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_33;
   site_control = "parallel:";
   site_match = 2;
 erase_all_7_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_34;
   site_control = "parallel:";
   site_match = 2;
 erase_all_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_4;
   site_control = "parallel:";
   site_match = 2;
 erase_all_8_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_35;
   site_control = "parallel:";
   site_match = 2;
 erase_all_9_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "erase_all_pset";
+  override_seqlbl = "mPort_erase_all";
   override_testf = tm_36;
   site_control = "parallel:";
   site_match = 2;
 margin_read0_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read0_ckbd_pset";
+  override_seqlbl = "mPort_margin_read0_ckbd";
   override_testf = tm_3;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_10_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_63;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_11_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_66;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_12_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_67;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_13_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_70;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_14_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_71;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_15_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_74;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_16_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_75;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_78;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_18_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_79;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_19_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_84;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_38;
   site_control = "parallel:";
   site_match = 2;
@@ -1044,266 +1044,266 @@ margin_read1_all1_20_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_levset = cz;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_87;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_40;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_3_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_42;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_4_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_44;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_5_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_46;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_6_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_48;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_7_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_58;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_10;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_8_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_59;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_all1_9_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_all1_pset";
+  override_seqlbl = "mPort_margin_read1_all1";
   override_testf = tm_62;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "margin_read1_ckbd_pset";
+  override_seqlbl = "mPort_margin_read1_ckbd";
   override_testf = tm_2;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "not_p1_or_p2_test_pset";
+  override_seqlbl = "mPort_not_p1_or_p2_test";
   override_testf = tm_30;
   site_control = "parallel:";
   site_match = 2;
 not_p1_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "not_p1_test_pset";
+  override_seqlbl = "mPort_not_p1_test";
   override_testf = tm_29;
   site_control = "parallel:";
   site_match = 2;
 p1_only_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "p1_only_test_pset";
+  override_seqlbl = "mPort_p1_only_test";
   override_testf = tm_27;
   site_control = "parallel:";
   site_match = 2;
 p1_or_p2_only_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "p1_or_p2_only_test_pset";
+  override_seqlbl = "mPort_p1_or_p2_only_test";
   override_testf = tm_28;
   site_control = "parallel:";
   site_match = 2;
 por_ins_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "por_ins_pset";
+  override_seqlbl = "mPort_por_ins";
   override_testf = tm_32;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_10_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b2_pset";
+  override_seqlbl = "mPort_program_ckbd_b2";
   override_testf = tm_20;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_11_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b0_pset";
+  override_seqlbl = "mPort_program_ckbd_b0";
   override_testf = tm_21;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_12_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b1_pset";
+  override_seqlbl = "mPort_program_ckbd_b1";
   override_testf = tm_22;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_13_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b2_pset";
+  override_seqlbl = "mPort_program_ckbd_b2";
   override_testf = tm_23;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_14_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b0_pset";
+  override_seqlbl = "mPort_program_ckbd_b0";
   override_testf = tm_24;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_15_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b1_pset";
+  override_seqlbl = "mPort_program_ckbd_b1";
   override_testf = tm_25;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_16_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b2_pset";
+  override_seqlbl = "mPort_program_ckbd_b2";
   override_testf = tm_26;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_pset";
+  override_seqlbl = "mPort_program_ckbd";
   override_testf = tm_11;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_pset";
+  override_seqlbl = "mPort_program_ckbd";
   override_testf = tm_12;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_3_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_pset";
+  override_seqlbl = "mPort_program_ckbd";
   override_testf = tm_13;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_4_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_pset";
+  override_seqlbl = "mPort_program_ckbd";
   override_testf = tm_14;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_5_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b0_pset";
+  override_seqlbl = "mPort_program_ckbd_b0";
   override_testf = tm_15;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_6_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b1_pset";
+  override_seqlbl = "mPort_program_ckbd_b1";
   override_testf = tm_16;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_7_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b2_pset";
+  override_seqlbl = "mPort_program_ckbd_b2";
   override_testf = tm_17;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_pset";
+  override_seqlbl = "mPort_program_ckbd";
   override_testf = tm_1;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_8_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b0_pset";
+  override_seqlbl = "mPort_program_ckbd_b0";
   override_testf = tm_18;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_9_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "program_ckbd_b1_pset";
+  override_seqlbl = "mPort_program_ckbd_b1";
   override_testf = tm_19;
   site_control = "parallel:";
   site_match = 2;
 some_func_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "some_func_test_pset";
+  override_seqlbl = "mPort_some_func_test";
   override_testf = tm_92;
   site_control = "parallel:";
   site_match = 2;
 xcvr_fs_vilvih_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "xcvr_fs_vilvih_pset";
+  override_seqlbl = "mPort_xcvr_fs_vilvih";
   override_testf = tm_89;
   site_control = "parallel:";
   site_match = 2;
 xcvr_fs_vilvih_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "xcvr_fs_vilvih_pset";
+  override_seqlbl = "mPort_xcvr_fs_vilvih";
   override_testf = tm_90;
   site_control = "parallel:";
   site_match = 2;
 xcvr_fs_vilvih_3_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "xcvr_fs_vilvih_pset";
+  override_seqlbl = "mPort_xcvr_fs_vilvih";
   override_testf = tm_91;
   site_control = "parallel:";
   site_match = 2;
 xcvr_fs_vilvih_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
-  override_seqlbl = "xcvr_fs_vilvih_pset";
+  override_seqlbl = "mPort_xcvr_fs_vilvih";
   override_testf = tm_88;
   site_control = "parallel:";
   site_match = 2;

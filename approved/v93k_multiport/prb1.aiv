@@ -26,82 +26,82 @@ program_ckbd_b2 .tmf mPort
 some_func_test .tmf mPort
 xcvr_fs_vilvih .tmf mPort
 
-MULTI_PORT_BURST "another_not_p1_or_p2_test_pset" 
+MULTI_PORT_BURST "mPort_another_not_p1_or_p2_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           another_not_p1_or_p2_test
 
-MULTI_PORT_BURST "erase_all_pset" 
+MULTI_PORT_BURST "mPort_erase_all" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           erase_all
 
-MULTI_PORT_BURST "margin_read0_ckbd_pset" 
+MULTI_PORT_BURST "mPort_margin_read0_ckbd" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           margin_read0_ckbd
 
-MULTI_PORT_BURST "margin_read1_all1_pset" 
+MULTI_PORT_BURST "mPort_margin_read1_all1" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           margin_read1_all1
 
-MULTI_PORT_BURST "margin_read1_ckbd_pset" 
+MULTI_PORT_BURST "mPort_margin_read1_ckbd" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           margin_read1_ckbd
 
-MULTI_PORT_BURST "not_p1_or_p2_test_pset" 
+MULTI_PORT_BURST "mPort_not_p1_or_p2_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           not_p1_or_p2_test
 
-MULTI_PORT_BURST "not_p1_test_pset" 
+MULTI_PORT_BURST "mPort_not_p1_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           not_p1_test
 
-MULTI_PORT_BURST "p1_only_test_pset" 
+MULTI_PORT_BURST "mPort_p1_only_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           p1_only_test
 
-MULTI_PORT_BURST "p1_or_p2_only_test_pset" 
+MULTI_PORT_BURST "mPort_p1_or_p2_only_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           p1_or_p2_only_test
 
-MULTI_PORT_BURST "por_ins_pset" 
+MULTI_PORT_BURST "mPort_por_ins" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           por_ins
 
-MULTI_PORT_BURST "program_ckbd_pset" 
+MULTI_PORT_BURST "mPort_program_ckbd" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           program_ckbd
 
-MULTI_PORT_BURST "program_ckbd_b0_pset" 
+MULTI_PORT_BURST "mPort_program_ckbd_b0" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           program_ckbd_b0
 
-MULTI_PORT_BURST "program_ckbd_b1_pset" 
+MULTI_PORT_BURST "mPort_program_ckbd_b1" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           program_ckbd_b1
 
-MULTI_PORT_BURST "program_ckbd_b2_pset" 
+MULTI_PORT_BURST "mPort_program_ckbd_b2" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           program_ckbd_b2
 
-MULTI_PORT_BURST "some_func_test_pset" 
+MULTI_PORT_BURST "mPort_some_func_test" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           some_func_test
 
-MULTI_PORT_BURST "xcvr_fs_vilvih_pset" 
+MULTI_PORT_BURST "mPort_xcvr_fs_vilvih" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           xcvr_fs_vilvih
