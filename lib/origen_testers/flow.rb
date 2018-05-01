@@ -48,6 +48,11 @@ module OrigenTesters
       @lines
     end
 
+    def test(obj, options = {})
+      obj.extract_atp_attributes(options) if obj.respond_to?(:extract_atp_attributes)
+      super(obj, options)
+    end
+
     # @api private
     def self.ht_comments
       unless @ht_comments.is_a? Hash

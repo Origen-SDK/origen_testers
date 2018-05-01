@@ -174,6 +174,10 @@ module OrigenTesters
           meta || {}
         end
 
+        def extract_atp_attributes(options)
+          options[:limits] ||= limits.to_atp_attributes
+        end
+
         private
 
         def flags

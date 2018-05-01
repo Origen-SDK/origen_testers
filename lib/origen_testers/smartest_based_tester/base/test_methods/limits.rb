@@ -52,6 +52,17 @@ module OrigenTesters
             self.hi_limit = val
           end
 
+          def to_atp_attributes
+            r = []
+            if lo_limit
+              r << { value: lo_limit, rule: 'LE', units: unit }
+            end
+            if hi_limit
+              r << { value: hi_limit, rule: 'GE', units: unit }
+            end
+            r
+          end
+
           private
 
           def test_name
