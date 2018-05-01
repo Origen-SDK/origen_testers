@@ -66,8 +66,12 @@ module OrigenTesters
           private
 
           def test_name
-            name = test_method.test_name if test_method.respond_to?(:test_name)
-            name || 'Functional'
+            if test_method.limits_id.nil?
+              name = test_method.try(:test_name) || test_method.try(:_test_name) || test_method.try('TestName')
+              name || 'Functional'
+            else
+              test_method.limits_id
+            end
           end
         end
       end

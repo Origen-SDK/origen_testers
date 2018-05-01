@@ -3,149 +3,151 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
 						Test	program_ckbd_v1	PGM_CKBD	1000							100		1100	Fail														
-						Test	margin_read1_ckbd	margin_read1_ckbd											Fail														
-						Test	margin_read0_ckbd	margin_read0_ckbd											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail														
+						Test	margin_read1_ckbd	margin_read1_ckbd	1010										Fail														
+						Test	margin_read0_ckbd	margin_read0_ckbd	1030										Fail														
+						Test	erase_all_v1	erase_all	2000										Fail														
+						Test	erase_all_v1	erase_all	2000										Fail														
+						Test	erase_all_v1	erase_all	2010										Fail														
+						Test	erase_all_v1	erase_all	2030										Fail														
+						Test	erase_all_v1	erase_all	2060										Fail														
+						Test	erase_all_v1	erase_all	2100										Fail														
+						Test	margin_read1_all1_v1	margin_read1_all1	2150										Fail														
 						logprint	Should_be_v1																										
-						Test	program_ckbd_v1	program_ckbd											Fail														
+						Test	program_ckbd_v1	program_ckbd	3000										Fail														
 						logprint	Should_be_v2																										
-						Test	program_ckbd_v2	program_ckbd											Fail														
+						Test	program_ckbd_v2	program_ckbd	3010										Fail														
 						logprint	Should_be_v1																										
-						Test	program_ckbd_v1	program_ckbd											Fail														
+						Test	program_ckbd_v1	program_ckbd	3020										Fail														
 						logprint	Should_be_v2																										
-						Test	program_ckbd_v2	program_ckbd											Fail														
+						Test	program_ckbd_v2	program_ckbd	3030										Fail														
 						logprint	Should_be_a_v1_test_instance_group																										
-						Test	program_ckbd_grp_v1	program_ckbd_grp											Fail														
+						Test	program_ckbd_grp_v1	program_ckbd_grp	3040										Fail														
 						logprint	Should_be_a_v2_test_instance_group																										
-						Test	program_ckbd_grp_v2	program_ckbd_grp											Fail														
+						Test	program_ckbd_grp_v2	program_ckbd_grp	3050										Fail														
 						logprint	Should_be_a_v1_test_instance_group																										
-						Test	program_ckbd_grp_v1	program_ckbd_grp											Fail														
+						Test	program_ckbd_grp_v1	program_ckbd_grp	3060										Fail														
 						logprint	Should_be_a_v2_test_instance_group																										
-						Test	program_ckbd_grp_v2	program_ckbd_grp											Fail														
-			P1			Test	p1_only_test	p1_only_test											Fail														
-			P1,P2			Test	p1_or_p2_only_test	p1_or_p2_only_test											Fail														
-			!P1			Test	not_p1_test	not_p1_test											Fail														
-			!P1,!P2			Test	not_p1_or_p2_test	not_p1_or_p2_test											Fail														
-			!P1,!P2			Test	another_not_p1_or_p2_test	another_not_p1_or_p2_test											Fail														
+						Test	program_ckbd_grp_v2	program_ckbd_grp	3070										Fail														
+			P1			Test	p1_only_test	p1_only_test	3080										Fail														
+			P1,P2			Test	p1_or_p2_only_test	p1_or_p2_only_test	3090										Fail														
+			!P1			Test	not_p1_test	not_p1_test	3100										Fail														
+			!P1,!P2			Test	not_p1_or_p2_test	not_p1_or_p2_test	3110										Fail														
+			!P1,!P2			Test	another_not_p1_or_p2_test	another_not_p1_or_p2_test	3120										Fail														
 						logprint	Verify_that_a_test_with_an_external_instance_works																										
-						Test	por_ins												Fail														
+						Test	por_ins		3130										Fail														
 						logprint	Verify_that_a_request_to_use_the_current_context_works																										
-			P1			Test	erase_all_v1	erase_all											Fail														
-			P1			Test	erase_all_v1	erase_all											Fail														
-			P1			Test	erase_all_v1	erase_all											Fail														
-			!P2			Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	margin_read1_all1_v1	margin_read1_all1											None		erase_vfy_0_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											Fail									flag-true	erase_vfy_0_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											None		erase_vfy_1_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											Fail									flag-true	erase_vfy_1_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											None		erase_vfy_2_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											Fail									flag-true	erase_vfy_2_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											None		erase_vfy_3_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											Fail									flag-true	erase_vfy_3_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											None		erase_vfy_4_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											Fail									flag-true	erase_vfy_4_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail														
+			P1			Test	erase_all_v1	erase_all	3140										Fail														
+			P1			Test	erase_all_v1	erase_all	3150										Fail														
+			P1			Test	erase_all_v1	erase_all	3160										Fail														
+			!P2			Test	erase_all_v1	erase_all	3170										Fail														
+						Test	erase_all_v1	erase_all	3180										Fail														
+						Test	margin_read1_all1_v1	margin_read1_all1	3200										None		erase_vfy_0_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	3210										Fail									flag-true	erase_vfy_0_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	3220										None		erase_vfy_1_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	3230										Fail									flag-true	erase_vfy_1_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	3240										None		erase_vfy_2_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	3250										Fail									flag-true	erase_vfy_2_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	3260										None		erase_vfy_3_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	3270										Fail									flag-true	erase_vfy_3_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	3280										None		erase_vfy_4_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	3290										Fail									flag-true	erase_vfy_4_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	4000										Fail														
 						logprint	Test_if_enable																										
-		do_erase				Test	erase_all_v1	erase_all											Fail														
-		do_erase				Test	erase_all_v1	erase_all											Fail														
+		do_erase				Test	erase_all_v1	erase_all	4010										Fail														
+		do_erase				Test	erase_all_v1	erase_all	4020										Fail														
 						logprint	Test_unless_enable																										
 		no_extra_erase				goto	LABEL_1_7AF57D1																										
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4030										Fail														
+						Test	erase_all_v1	erase_all	4040										Fail														
+						Test	erase_all_v1	erase_all	4050										Fail														
 	LABEL_1_7AF57D1					nop																											
-						Test	erase_all_v1	erase_all											Fail														
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4060										Fail														
+						Test	erase_all_v1	erase_all	4070										Fail														
 						logprint	Test_if_passed																										
-						Test	erase_all_v1	erase_all											None	erase_passed_1_7AF57D1_PASSED													
-						Test	erase_all_v1	erase_all											None	erase_passed_2_7AF57D1_PASSED													
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_passed_1_7AF57D1_PASSED				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_passed_2_7AF57D1_PASSED				
+						Test	erase_all_v1	erase_all	4080										None	erase_passed_1_7AF57D1_PASSED													
+						Test	erase_all_v1	erase_all	4090										None	erase_passed_2_7AF57D1_PASSED													
+						Test	margin_read1_all1_v1	margin_read1_all1	4100										Fail									flag-true	erase_passed_1_7AF57D1_PASSED				
+						Test	margin_read1_all1_v1	margin_read1_all1	4110										Fail									flag-true	erase_passed_2_7AF57D1_PASSED				
 						logprint	Test_unless_passed																										
-						Test	erase_all_v1	erase_all											None		erase_passed_3_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											None		erase_passed_4_7AF57D1_FAILED												
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_passed_3_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_passed_4_7AF57D1_FAILED				
+						Test	erase_all_v1	erase_all	4120										None		erase_passed_3_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	4130										None		erase_passed_4_7AF57D1_FAILED												
+						Test	margin_read1_all1_v1	margin_read1_all1	4140										Fail									flag-true	erase_passed_3_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	4150										Fail									flag-true	erase_passed_4_7AF57D1_FAILED				
 						logprint	Test_if_failed																										
-						Test	erase_all_v1	erase_all											None		erase_failed_1_7AF57D1_FAILED												
-						Test	erase_all_v1	erase_all											None		erase_failed_2_7AF57D1_FAILED												
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_1_7AF57D1_FAILED				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_2_7AF57D1_FAILED				
+						Test	erase_all_v1	erase_all	4160										None		erase_failed_1_7AF57D1_FAILED												
+						Test	erase_all_v1	erase_all	4170										None		erase_failed_2_7AF57D1_FAILED												
+						Test	margin_read1_all1_v1	margin_read1_all1	4180										Fail									flag-true	erase_failed_1_7AF57D1_FAILED				
+						Test	margin_read1_all1_v1	margin_read1_all1	4190										Fail									flag-true	erase_failed_2_7AF57D1_FAILED				
 						logprint	Test_unless_failed																										
-						Test	erase_all_v1	erase_all											None	erase_failed_3_7AF57D1_PASSED													
-						Test	erase_all_v1	erase_all											None	erase_failed_4_7AF57D1_PASSED													
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_3_7AF57D1_PASSED				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_failed_4_7AF57D1_PASSED				
+						Test	erase_all_v1	erase_all	4200										None	erase_failed_3_7AF57D1_PASSED													
+						Test	erase_all_v1	erase_all	4210										None	erase_failed_4_7AF57D1_PASSED													
+						Test	margin_read1_all1_v1	margin_read1_all1	4220										Fail									flag-true	erase_failed_3_7AF57D1_PASSED				
+						Test	margin_read1_all1_v1	margin_read1_all1	4230										Fail									flag-true	erase_failed_4_7AF57D1_PASSED				
 						logprint	Test_if_ran																										
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4240										Fail														
 						defaults															erase_ran_1_7AF57D1_RAN												
 						flag-true	erase_ran_1_7AF57D1_RAN																										
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4250										Fail														
 						defaults															erase_ran_2_7AF57D1_RAN												
 						flag-true	erase_ran_2_7AF57D1_RAN																										
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_1_7AF57D1_RAN				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail									flag-true	erase_ran_2_7AF57D1_RAN				
+						Test	margin_read1_all1_v1	margin_read1_all1	4260										Fail									flag-true	erase_ran_1_7AF57D1_RAN				
+						Test	margin_read1_all1_v1	margin_read1_all1	4270										Fail									flag-true	erase_ran_2_7AF57D1_RAN				
 						logprint	Test_unless_ran																										
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4280										Fail														
 						defaults															erase_ran_3_7AF57D1_RAN												
 						flag-true	erase_ran_3_7AF57D1_RAN																										
-						Test	erase_all_v1	erase_all											Fail														
+						Test	erase_all_v1	erase_all	4290										Fail														
 						defaults															erase_ran_4_7AF57D1_RAN												
 						flag-true	erase_ran_4_7AF57D1_RAN																										
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_3_7AF57D1_RAN				
-						Test	margin_read1_all1_v1	margin_read1_all1											Fail								not	flag-true	erase_ran_4_7AF57D1_RAN				
+						Test	margin_read1_all1_v1	margin_read1_all1	4300										Fail								not	flag-true	erase_ran_3_7AF57D1_RAN				
+						Test	margin_read1_all1_v1	margin_read1_all1	4310										Fail								not	flag-true	erase_ran_4_7AF57D1_RAN				
 						logprint	Verify_that_job_context_wraps_import																										
-			FR			Test	erase_all_v1	erase_all											Fail														
-			FR			Test	erase_all_v1	erase_all											Fail														
-			FR			Test	erase_all_v1	erase_all											Fail														
-			FR			Test	erase_all_v1	erase_all											Fail														
-			FR			Test	margin_read1_all1_v1	margin_read1_all1											Fail														
+			FR			Test	erase_all_v1	erase_all	5000										Fail														
+			FR			Test	erase_all_v1	erase_all	5000										Fail														
+			FR			Test	erase_all_v1	erase_all	5010										Fail														
+			FR			Test	erase_all_v1	erase_all	5030										Fail														
+			FR			Test	margin_read1_all1_v1	margin_read1_all1	5060										Fail														
 						logprint	Verify_that_job_context_wraps_enable_block_within_an_import																										
-		additional_erase	FR			Test	erase_all_v1	erase_all											Fail														
-			FR			Test	erase_all_v1	erase_all											Fail														
+		additional_erase	FR			Test	erase_all_v1	erase_all	5500										Fail														
+			FR			Test	erase_all_v1	erase_all	5600										Fail														
 						logprint	Verify_that_flow.cz_works...																										
-						characterize	margin_read1_all1_v2 vbplus_sweep	margin_read1_all1											None														
+						characterize	margin_read1_all1_v2 vbplus_sweep	margin_read1_all1	5700										None														
 						logprint	Verify_that_flow.cz_works_with_enable_words																										
-		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz	xcvr_fs_vilvih											None														
-		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz	xcvr_fs_vilvih											None														
-		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz	xcvr_fs_vilvih											None														
-		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz	xcvr_fs_vilvih											None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz	xcvr_fs_vilvih	5710										None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz	xcvr_fs_vilvih	5720										None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vil_cz	xcvr_fs_vilvih	5730										None														
+		usb_xcvr_cz				characterize	xcvr_fs_vilvih usb_fs_vih_cz	xcvr_fs_vilvih	5740										None														
 						logprint	Verify_that_MTO_template_works...																										
 						logprint	import_statement																										
-						Test	bgap_voltage_meas	bgap_voltage_meas	1050							119		2	Fail														
-						Use-Limit		bgap_voltage_meas	1050		45					119		2	Fail														
-						Test	bgap_voltage_meas1	bgap_voltage_meas1											Fail														
+						Test	bgap_voltage_meas	bgap_voltage_meas	5810							119		2	Fail														
+						Use-Limit		bgap_voltage_meas	5810		45					119		2	Fail														
+						Test	bgap_voltage_meas1	bgap_voltage_meas1	5820										Fail														
 						logprint	direct_call																										
-						Test	bgap_voltage_meas	bgap_voltage_meas	1050							119		2	Fail														
-						Use-Limit		bgap_voltage_meas	1050		45					119		2	Fail														
-						Test	bgap_voltage_meas1	bgap_voltage_meas1											Fail														
+						Test	bgap_voltage_meas	bgap_voltage_meas	5910							119		2	Fail														
+						Use-Limit		bgap_voltage_meas	5910		45					119		2	Fail														
+						Test	bgap_voltage_meas1	bgap_voltage_meas1	5920										Fail														
 						logprint	Speed_binning_example_bug_from_video_5																										
-						Test	test200_1												None		g200_7AF57D1_FAILED_0												
+						Test	test200_1		5950										None		g200_7AF57D1_FAILED_0												
 						defaults															g200_7AF57D1_FAILED												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_0				
-						Test	test200_2												None		g200_7AF57D1_FAILED_1												
+						Test	test200_2		5960										None		g200_7AF57D1_FAILED_1												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_1				
-						Test	test200_3												None		g200_7AF57D1_FAILED_2												
+						Test	test200_3		5970										None		g200_7AF57D1_FAILED_2												
 						flag-true	g200_7AF57D1_FAILED																					flag-true	g200_7AF57D1_FAILED_2				
 						defaults															g100_7AF57D1_RAN												
 						flag-true	g100_7AF57D1_RAN																					flag-true	g200_7AF57D1_FAILED				
-						Test	test100_1									5			Fail									flag-true	g200_7AF57D1_FAILED				
-						Test	test100_2									5			Fail									flag-true	g200_7AF57D1_FAILED				
-						Test	test100_3									5			Fail									flag-true	g200_7AF57D1_FAILED				
+						Test	test100_1		5980							5			Fail									flag-true	g200_7AF57D1_FAILED				
+						Test	test100_2		5990							5			Fail									flag-true	g200_7AF57D1_FAILED				
+						Test	test100_3		6000							5			Fail									flag-true	g200_7AF57D1_FAILED				
 						set-device									2				Pass									flag-true	g100_7AF57D1_RAN				
 						logprint	Test_node_optimization_within_an_if_failed_branch																										
-						Test	some_func_test	some_func_test											None		sft1_7AF57D1_FAILED												
+						Test	some_func_test	some_func_test	6010										None		sft1_7AF57D1_FAILED												
+						defaults															sft1_7AF57D1_FAILED_AND_Alarm												
 						flag-true	sft1_7AF57D1_FAILED_AND_Alarm																										
 						flag-false	sft1_7AF57D1_FAILED_AND_Alarm																				not	flag-true	Alarm				
 						flag-false	sft1_7AF57D1_FAILED_AND_Alarm																				not	flag-true	sft1_7AF57D1_FAILED				
 						set-device										10			Fail									flag-true	sft1_7AF57D1_FAILED_AND_Alarm				
+						defaults															sft1_7AF57D1_FAILED_AND_NOT_Alarm												
 						flag-true	sft1_7AF57D1_FAILED_AND_NOT_Alarm																										
 						flag-false	sft1_7AF57D1_FAILED_AND_NOT_Alarm																					flag-true	Alarm				
 						flag-false	sft1_7AF57D1_FAILED_AND_NOT_Alarm																				not	flag-true	sft1_7AF57D1_FAILED				
@@ -154,4 +156,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 		alarmenabled				goto	LABEL_2_7AF57D1																					flag-true	sft1_7AF57D1_FAILED				
 						set-device										13			Fail									flag-true	sft1_7AF57D1_FAILED				
 	LABEL_2_7AF57D1					nop																						flag-true	sft1_7AF57D1_FAILED				
+						Test	cc_test_0	cc_test_0											Fail														
+						Test	cc_test_1	cc_test_1											Fail														
+						Test	cc_test_2	cc_test_2											Fail														
 						set-device									1		1		Pass													Good die!	

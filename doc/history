@@ -1,3 +1,168 @@
+<a class="anchor release_tag" name="v0_18_0"></a>
+<h1><a href="#v0_18_0">Tag: v0.18.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 03-Apr-2018 11:38AM
+
+
+* `cc` style comments are now supported in test flow files to enable dynamic comments
+  to be created for documentation (Code Briscoe)
+  
+  ~~~ruby
+  # Regular Ruby comments can still be used to provide static documentation of tests
+  # in a test program flow file
+  test :my\_test
+
+  cc "The cc method can be used to create comments that contain dynamic data: #{4 + 4}"
+  test :my\_test
+
+  # This is expected to be most useful when generating tests in a loop:
+
+  [:min, :nom, :max].each do |vdd|
+    cc "Test something at #{vdd} vdd"
+    test :my\_test
+  end
+  ~~~
+
+* The test name for the main limits in a V93K test method can be set by a `limits\_id`
+  attribute instead of `test\_name`. When `limits\_id` is used it will set the name
+  of the limits but will not appear in the test methods attribute list (unlike
+  `test\_name` which will).  (Brian Caquelin)
+
+<a class="anchor release_tag" name="v0_17_0"></a>
+<h1><a href="#v0_17_0">Tag: v0.17.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 28-Mar-2018 09:40AM
+
+
+* Added definition for ac\_tml.AcTest.SpecSearch test method (Ronnie Lajaunie)
+* Added source/capture count comment in PXIE tester patterns (Paul Derouen)
+* Fix for bug introduced in 0.16.1 whereby tester.set\_timeset did not update the
+  corresponding DUT timing attributes
+
+<a class="anchor release_tag" name="v0_16_1"></a>
+<h1><a href="#v0_16_1">Tag: v0.16.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 14-Feb-2018 11:18AM
+
+
+Now warns instead of crashing in the case where set\_timeset is called before instantiating
+the DUT. This was allowed in previous versions OrigenTesters and improves backwards
+compatibility.
+
+<a class="anchor release_tag" name="v0_16_0"></a>
+<h1><a href="#v0_16_0">Tag: v0.16.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 31-Jan-2018 17:01PM
+
+
+* PXI pattern generator improvements (Paul Derouen)
+* Added flag declaration (defaults line) for generated AND (and OR) flags in IG-XL
+* Supports latest ATP flow API (1.1)
+
+<a class="anchor release_tag" name="v0_15_0"></a>
+<h1><a href="#v0_15_0">Tag: v0.15.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Lajaunie Ronald-B01784 on 27-Nov-2017 10:20AM
+
+
+#### Extend existing PatternCompilers to include J750 and V93K Platforms (RP #69)
+
+##### Paths to compiler tools are now picked up as Origen site configs
+
+~~~ruby
+# origen\_site\_config.yml
+origen\_testers:
+  :v93k\_linux\_pattern\_compiler: '/path/to/v93k/tool/set'
+  :j750\_windows\_pattern\_compiler: '/path/to/j750/compiler'
+~~~
+
+
+##### UltraFLEX Compiler
+
+Moved some code around to be shared with J750 compiler enablement, but functionally works the same as before.
+
+~~~ruby
+# inside of dut class
+      @ultraflex\_compiler\_options = {
+        path: "#{Origen.root}/spec/patterns/atp/functional",
+        clean: true,
+        location: :local,
+        recursive: false,
+        output\_directory: "#{Origen.root}/spec/patterns/bin",
+        opcode\_mode: 'single',
+        comments: false,
+        verbose: true
+      }
+#
+
+dut.add\_pattern\_compiler(:id1, :ultraflex, dut.ultraflex\_compiler\_options)
+~~~
+
+
+##### J750 Pattern Compiler
+
+Works pretty much same as UltraFLEX, of course with J750-specific options and it's own, unique toolset path.
+
+~~~ruby
+# inside of dut class
+      @j750\_compiler\_options = {
+        path: "#{Origen.root}/spec/patterns/atp/j750",
+        clean: true,
+        location: :local,
+        recursive: false,
+        output\_directory: "#{Origen.root}/spec/patterns/bin/j750",
+        pinmap\_workbook: "#{Origen.root}/spec/patterns/atp/bist/bist\_pins.txt",
+        opcode\_mode: 'single',
+        comments: false
+      }
+#
+
+dut.add\_pattern\_compiler(:id2, :j750, dut.j750\_compiler\_options)
+~~~
+
+
+##### V93K Supports:
+
+* On-the-fly generation of aiv configuration file based on pattern compiler options (can specify compiler instance, or use default).
+* Multiport burst enablement with pattern compiler options; both single port and multiple port cases are handled
+* Digital Capture Settings auto-inserted into aiv (pre-compile) based on 'digcap' pattern compiler options
+* Given exisiting aiv and workspace setup, can run stand-alone outside of pattern generation (e.g. during program generation/module builds)
+
+~~~ruby
+# inside of dut class
+      @v93k\_compiler\_options = {
+        config\_dir: "#{Origen.root}/spec/patterns",
+        pinconfig: "compiler\_pins.cfg",
+        tmf: "timing\_map\_file.tmf",
+        multiport: {
+          port\_bursts: {
+            p\_1: 'pattern\_burst\_1',
+            p\_2: 'pat\_burst\_two'
+          },
+          port\_in\_focus: 'p\_FOCUS',
+          prefix: 'mpb'
+        },
+        digcap: {
+          pins: :porta,
+          vps: 1,
+          nrf: 1,
+        },
+      }
+#
+
+dut.add\_pattern\_compiler(:id3, :v93k, dut.v93k\_compiler\_options)
+~~~
+
 <a class="anchor release_tag" name="v0_14_0"></a>
 <h1><a href="#v0_14_0">Tag: v0.14.0</a></h1>
 
