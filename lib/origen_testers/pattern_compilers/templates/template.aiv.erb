@@ -1,0 +1,31 @@
+AI_DIR_FILE
+tmp_dir                         <%= tmp_dir %>
+tmf_dir                         ./
+vbc_dir                         ./
+avc_dir                         <%= avc_dir %>
+pinconfig_file                  <%= pinconfig_file.to_s %>
+single_binary_pattern_dir       <%= binl_dir %>
+ 
+<%= render_aiv2b_options_line %>
+
+<%= render_aiv_patterns_header %>
+%   @avc_files.each do |f|
+<%= render_aiv_patterns_entry(f) %>
+%   end
+%
+% # MULTIPORT ENTRIES (if necessary)
+% if multiport?
+%   @avc_files.each do |f|
+%     multiport.render_aiv_lines(f).each do |line|
+<%= line %>
+%     end
+%   end
+% end
+%
+% # DIGCAP SETTINGS (if necessary)
+% if digcap? && !digcap.empty?
+%   digcap.render_aiv_lines.each do |line|
+<%= line %>
+%   end
+% end
+

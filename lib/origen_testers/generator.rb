@@ -151,7 +151,6 @@ module OrigenTesters
     end
 
     def write_to_file(options = {})
-      c = caller[0]
       unless output_inhibited?
         if defined? self.class::TEMPLATE || Origen.tester.is_a?(OrigenTesters::Doc)
           write_from_template(options)
@@ -274,6 +273,7 @@ module OrigenTesters
       def new(*args, &block) # :nodoc:
         options = (args.last && args.last.is_a?(Hash)) ? args.last : {}
         x = allocate
+        x.filename = options[:filename] if options[:filename]
         x.send(:initialize, *args, &block)
         Origen.interface.sheet_generators << x unless options[:manually_register]
         x

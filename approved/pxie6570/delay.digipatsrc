@@ -1,0 +1,43 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    28-Nov-2017 10:48AM
+//   By:      FSL\b04525
+//   Command: origen g delay -t dut3.rb -e pxie6570.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.13.2
+//     Branch:    UpdatePXI(46de16b4b0b) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.25.1
+//   Plugins
+//     atp:                      0.8.0
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.5.0
+//     origen_jtag:              0.16.0
+//     origen_swd:               1.1.0
+// ***************************************************************************
+file_format_version 1.0;
+export delay_st;
+timeset tp0;
+pattern delay (tclk,tdi,tdo,tms,pa)
+{
+delay_st:
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (65535)                                                    tp0                           X X X X XXX ;
+repeat (11316)                                                    tp0                           X X X X XXX ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+halt                                                              tp0                           X X X X XXX ;
+}

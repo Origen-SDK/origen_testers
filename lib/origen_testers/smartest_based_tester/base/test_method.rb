@@ -15,16 +15,15 @@ module OrigenTesters
         attr_reader :parameters
         attr_accessor :class_name
         attr_accessor :abs_class_name
+        attr_reader :limits
+        attr_accessor :limits_id
 
         def initialize(options)
           @type = options[:type]
           @library = options[:library]
           @class_name = options[:methods].delete(:class_name)
           @parameters = {}
-          # Add limits by default
-          define_singleton_method('limits') do
-            @limits
-          end
+          @limits_id = options[:methods].delete(:limits_id)
           @limits = TestMethods::Limits.new(self)
           # Add any methods
           if options[:methods][:methods]
@@ -138,6 +137,20 @@ module OrigenTesters
           (limits && limits.respond_to?(method)) || super
         end
 
+        def sorted_parameters
+          @parameters.sort_by do |name|
+            if name.is_a?(String)
+              name
+            else
+              if name.to_s[0] == '_'
+                name.to_s.camelize(:upper)
+              else
+                name.to_s.camelize(:lower)
+              end
+            end
+          end
+        end
+
         private
 
         def inverse_of(type)
@@ -152,7 +165,7 @@ module OrigenTesters
         end
 
         def clean_attr_name(name)
-          name.to_s.gsub(/\.|-/, '_')
+          name.to_s.gsub(/\.|-|\s+/, '_')
         end
 
         def id=(val)

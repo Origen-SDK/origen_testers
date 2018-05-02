@@ -5,6 +5,7 @@ require "origen_testers"
 require "origen_testers/test/dut.rb"
 require "origen_testers/test/block.rb"
 require "origen_testers/test/dut2.rb"
+require "origen_testers/test/dut3.rb"
 require "origen_testers/test/nvm.rb"
 
 require "origen_testers/test/interface"

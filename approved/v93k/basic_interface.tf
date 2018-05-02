@@ -1,48 +1,46 @@
 hp93000,testflow,0.1
 language_revision = 1;
- 
-information
- 
- 
-end
---------------------------------------------------
-implicit_declarations
+
+testmethodparameters
+
+tm_1:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
-testmethodparameters
-tm_1:
-  "testName" = "Functional";
-  "output" = "None";
-end
---------------------------------------------------
 testmethodlimits
+
 tm_1:
   "Functional" = "":"NA":"":"NA":"":"":"";
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 testmethods
+
 tm_1:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 test_suites
-test1:
+
+test1_9D2D940:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
- override_timset = "Tim";
- override_levset = "Lvl";
- override_seqlbl = "test1";
- override_testf = tm_1;
-local_flags  = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
- site_match = 2;
- site_control = "parallel:";
+  override_levset = "Lvl";
+  override_seqlbl = "test1";
+  override_testf = tm_1;
+  override_timset = "Tim";
+  site_control = "parallel:";
+  site_match = 2;
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 test_flow
-{
+
   {
-  }, open,"Init Flow Control Vars", ""
-  run_and_branch(test1)
+  run_and_branch(test1_9D2D940)
   then
   {
   }
@@ -50,16 +48,26 @@ test_flow
   {
     stop_bin "100", "fail", , bad, noreprobe, red, 3, over_on;
   }
-}, open,"BASIC_INTERFACE", ""
+
+  }, open,"BASIC_INTERFACE",""
+
 end
--------------------------------------------------
+-----------------------------------------------------------------
 binning
-otherwise bin = "db", "", , bad, noreprobe, red, , not_over_on;
 end
--------------------------------------------------
+-----------------------------------------------------------------
+oocrule
+
+
+end
+-----------------------------------------------------------------
 context
- 
+
+
 end
---------------------------------------------------
+-----------------------------------------------------------------
 hardware_bin_descriptions
+
+
 end
+-----------------------------------------------------------------

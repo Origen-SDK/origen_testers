@@ -1,0 +1,99 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    12-Oct-2017 09:23AM
+#   By:      FSL\b04525
+#   Command: origen g .\pattern\tester_overlay.rb -t dut3.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.13.1
+#     Branch:    repair_overlay(5b780428500) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.25.1
+#   Plugins
+#     atp:                      0.7.0
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.5.0
+#     origen_jtag:              0.16.0
+#     origen_swd:               1.1.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS pa;
+#                                                   t t t t p  
+#                                                   c d d m a  
+#                                                   l i o s    
+#                                                   k          
+# should get a repeat count added to this vector for digsrc start minimum distance
+R1                       tp0                        X X X X XXX # should get a repeat count added to this vector for digsrc start minimum distance;
+# should get a repeat 5 vector
+R1                       tp0                        1 1 H 1 XXX # R4 should get a repeat 5 vector;
+R1                       tp0                        1 1 H 1 XXX # R3 ;
+R1                       tp0                        1 1 H 1 XXX # R2 ;
+R1                       tp0                        1 1 H 1 XXX # R1 ;
+# should get a send microcode and 1 cycle with D
+R1                       tp0                        1 1 H 1 XXX # should get a send microcode and 1 cycle with D;
+SQPG JSUB dummy_str;
+# should get a cycle with D and no send
+# regular cycle with no D or send
+R1                       tp0                        1 1 H 1 XXX # should get a cycle with D and no sendregular cycle with no D or send;
+# cycle with 001 on pa
+R1                       tp0                        1 1 H 1 001 # cycle with 001 on pa;
+# send microcode followed by DDD on pa
+SQPG JSUB dummy_str;
+# cycle with 001 on pa
+R1                       tp0                        1 1 H 1 001 # send microcode followed by DDD on pacycle with 001 on pa;
+# send microcode, DDD on pa with repeat 5 (will send 5 sets of data)
+SQPG JSUB dummy_str;
+# cycle with 001 on pa
+R1                       tp0                        1 1 H 1 001 # send microcode, DDD on pa with repeat 5 (will send 5 sets of data)cycle with 001 on pa;
+R1                       tp0                        1 1 H 1 111 # (overlay keeps);
+SQPG JSUB subr_test;
+R1                       tp0                        1 1 H 1 111 # R19 ;
+R1                       tp0                        1 1 H 1 111 # R18 ;
+R1                       tp0                        1 1 H 1 111 # R17 ;
+R1                       tp0                        1 1 H 1 111 # R16 ;
+R1                       tp0                        1 1 H 1 111 # R15 ;
+R1                       tp0                        1 1 H 1 111 # R14 ;
+R1                       tp0                        1 1 H 1 111 # R13 ;
+R1                       tp0                        1 1 H 1 111 # R12 ;
+R1                       tp0                        1 1 H 1 111 # R11 ;
+R1                       tp0                        1 1 H 1 111 # R10 ;
+R1                       tp0                        1 1 H 1 111 # R9 ;
+R1                       tp0                        1 1 H 1 111 # R8 ;
+R1                       tp0                        1 1 H 1 111 # R7 ;
+R1                       tp0                        1 1 H 1 111 # R6 ;
+R1                       tp0                        1 1 H 1 111 # R5 ;
+R1                       tp0                        1 1 H 1 111 # R4 ;
+R1                       tp0                        1 1 H 1 111 # R3 ;
+R1                       tp0                        1 1 H 1 111 # R2 ;
+R1                       tp0                        1 1 H 1 111 # R1 ;
+R1                       tp0                        1 1 H 1 111 # ;
+SQPG JSUB label_test;
+R39                      tp0                        1 1 H 1 101 # ;
+R1                       tp0                        1 1 H 1 101 # ;
+SQPG JSUB global_label_test;
+R1                       tp0                        1 1 H 1 101 # R20 ;
+R1                       tp0                        1 1 H 1 101 # R19 ;
+R1                       tp0                        1 1 H 1 101 # R18 ;
+R1                       tp0                        1 1 H 1 101 # R17 ;
+R1                       tp0                        1 1 H 1 101 # R16 ;
+R1                       tp0                        1 1 H 1 101 # R15 ;
+R1                       tp0                        1 1 H 1 101 # R14 ;
+R1                       tp0                        1 1 H 1 101 # R13 ;
+R1                       tp0                        1 1 H 1 101 # R12 ;
+R1                       tp0                        1 1 H 1 101 # R11 ;
+R1                       tp0                        1 1 H 1 101 # R10 ;
+R1                       tp0                        1 1 H 1 101 # R9 ;
+R1                       tp0                        1 1 H 1 101 # R8 ;
+R1                       tp0                        1 1 H 1 101 # R7 ;
+R1                       tp0                        1 1 H 1 101 # R6 ;
+R1                       tp0                        1 1 H 1 101 # R5 ;
+R1                       tp0                        1 1 H 1 101 # R4 ;
+R1                       tp0                        1 1 H 1 101 # R3 ;
+R1                       tp0                        1 1 H 1 101 # R2 ;
+R1                       tp0                        1 1 H 1 101 # R1 ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;

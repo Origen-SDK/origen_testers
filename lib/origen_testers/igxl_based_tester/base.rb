@@ -12,6 +12,10 @@ module OrigenTesters
       attr_accessor :default_channelmap
       attr_accessor :default_testerconfig
       attr_accessor :max_site
+      # permit modification of minimum repeat count
+      attr_accessor :min_repeat_loop
+      alias_method :min_repeat_count, :min_repeat_loop
+      alias_method :min_repeat_count=, :min_repeat_loop=
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
 
@@ -47,6 +51,12 @@ module OrigenTesters
 
         @testerconfig ||= {}
         @channelmap ||= {}
+        @pushed_instrument_configs = {}
+        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @capture_style = :hram			# default to use hram for capture
+        @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
+        @overlay_subr = nil
+        @capture_history = {}
       end
 
       def igxl_based?
@@ -286,6 +296,7 @@ module OrigenTesters
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
         }.merge(options)
+
         preset_next_vector microcode: 'stv' do |vector|
           vector.contains_capture = true
         end
@@ -331,7 +342,11 @@ module OrigenTesters
       #     $tester.end_subroutine
       def start_subroutine(name, options = {})
         local_subroutines << name.to_s.chomp unless local_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
-        microcode "global subr #{name}:"
+        if $tester.ultraflex? && (name =~ /keep_?alive/ || options[:keep_alive])
+          microcode "keepalive subr #{name}:"
+        else
+          microcode "global subr #{name}:"
+        end
       end
 
       # End a subroutine.
@@ -682,6 +697,7 @@ module OrigenTesters
         end
 
         # Take care of any instruments
+        options[:instruments] = options[:instruments].merge(@pushed_instrument_configs)
         if options[:instruments].length > 0
           microcode 'instruments = {'
           options[:instruments].each do |pins, instrument|
@@ -727,7 +743,7 @@ module OrigenTesters
         $tester.align_to_last
         # cycle(:microcode => "#{$dut.end_of_pattern_label}:") if $dut.end_of_pattern_label
         if options[:end_in_ka]
-          $tester.cycle microcode: "#{@microcode[:keepalive]}"
+          keep_alive(options)
         else
           if options[:end_with_halt]
             $tester.cycle microcode: 'halt'
@@ -825,12 +841,62 @@ module OrigenTesters
       end
 
       def cycle(options = {})
-        if @mask_vector
-          # tack on masking opcodes
-          super(options.merge(microcode: "#{options[:microcode]} #{@microcode[:mask_vector]}"))
+        # handle overlay if requested
+        ovly_style = nil
+        if options.key?(:overlay)
+          ovly_style = options[:overlay][:overlay_style].nil? ? @overlay_style : options[:overlay][:overlay_style]
+          overlay_str = options[:overlay][:overlay_str]
+
+          # route the overlay request to the appropriate method
+          case ovly_style
+            when :subroutine, :default
+              subroutine_overlay(overlay_str, options)
+              ovly_style = :subroutine
+            when :label, :global_label
+              options[:dont_compress] = true
+              unless @overlay_history.key?(overlay_str)
+                # J750 behavior is local label not global
+                label "#{overlay_str}", (ovly_style == :global_label)
+                @overlay_history[overlay_str] = { is_label: true }
+              end
+            when :digsrc
+              if ultraflex?
+                cur_pin_state = options[:overlay][:pins].state.to_sym
+                options[:overlay][:pins].drive_mem
+                options = digsrc_overlay(options)
+              else
+                ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+              end
+            else
+              ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+          end # case ovly_style
         else
-          super(options)
+          @overlay_subr = nil
+        end # of handle overlay
+
+        options_overlay = options.delete(:overlay) if options.key?(:overlay)
+        unless ovly_style == :subroutine
+          if @mask_vector
+            # tack on masking opcodes
+            super(options.merge(microcode: "#{options[:microcode]} #{@microcode[:mask_vector]}"))
+          else
+            super(options)
+          end
+        end # unless ovly_style
+
+        unless options_overlay.nil?
+          options_overlay[:pins].state = cur_pin_state if ovly_style == :digsrc
+          # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
         end
+      end
+
+      # Warn user of unsupported overlay style
+      def overlay_style_warn(overlay_str, options)
+        Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+        Origen.log.warn('Available overlay styles :label, :global_label, :subroutine') if j750? || j750_hpt?
+        Origen.log.warn('Available overlay styles :digsrc, :digsrc_subroutine, :label, :global_label, :subroutine') if ultraflex?
+        subroutine_overlay(overlay_str, options)
+        @overlay_style = :subroutine		# Just give 1 warning
       end
 
       # Call this method at the start of any digsrc overlay operations, this method
@@ -920,6 +986,115 @@ module OrigenTesters
       def mask_fails(setclr)
         @mask_vector = setclr
       end
+
+      # Similar to push_microcode, but for the instrument statement in the pattern header
+      #
+      # @example
+      #   tester.push_instrument 'SAR_IN_1', 'UltraSource'
+      #   # results in the below line added
+      #   # instruments = {
+      #   #      SAR_IN_1:UltraSource;
+      #   # }
+      def push_instrument(pin_spec, instrument_def)
+        @pushed_instrument_configs[pin_spec] = instrument_def
+      end
+
+      # Implement subroutine overlay, called by tester.cycle
+      def subroutine_overlay(sub_name, options = {})
+        if @overlay_subr != sub_name
+          # unless last staged vector already has the subr call do the following
+          i = -1
+          i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+          if stage.bank[i].microcode !~ /call #{sub_name}/
+
+            # check for repeat on new last vector, unroll 1 if needed
+            if stage.bank[i].repeat > 1
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              stage.bank[i].repeat -= 1
+              stage.store(v)
+              i = -1
+            end
+
+            # mark last vector as dont_compress
+            stage.bank[i].dont_compress = true
+            # insert subroutine call
+            call_subroutine sub_name
+          end # if microcode not placed
+          @overlay_subr = sub_name
+        end
+
+        # stage = sub_name
+      end # subroutine_overlay
+
+      # Perform digsrc overlay (called by tester.cycle)
+      def digsrc_overlay(options = {})
+        options[:overlay] = { change_data: true }.merge(options[:overlay])
+        pin_name = dut.pin(options[:overlay][:pins]).name
+        repeat_count = options[:repeat].nil? ? 1 : options[:repeat]
+
+        if options[:overlay][:change_data]
+          # add the send microcode
+          microcode "((#{pin_name}):DigSrc = SEND)"
+
+          # keep track of amount of digsrc used for header comment
+          if @overlay_history[pin_name].nil?
+            @overlay_history[pin_name] = { count: repeat_count, is_digsrc: true }
+          else
+            @overlay_history[pin_name][:count] += repeat_count
+          end
+
+          # ensure no unwanted repeats on the send vector
+          options[:dont_compress] = true
+
+          # ensure start microcode is placed at the beginning of the pattern
+          if @overlay_history[pin_name][:start_applied].nil?
+            # insert start microcode at the beginning of the pattern
+            stage.insert_from_start "((#{pin_name}):DigSrc = Start)", 0
+            @overlay_history[pin_name][:start_applied] = true
+
+            # get the first vector of the pattern
+            i = 0
+            i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+            first_vector = stage.bank[i]
+
+            # insert a copy of the first vector with no repeats
+            unless first_vector.inline_comment == 'added for digsrc start opcode'
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              v.inline_comment = 'added for digsrc start opcode'
+              v.dont_compress = true
+              stage.insert_from_start v, i
+
+              # decrement repeat count of previous first vector if > 1
+              first_vector.repeat -= 1 if first_vector.repeat > 1
+            end
+
+            # get cycle count up to this point, add repeat to beginning if needed
+            cycle_count = -1
+            stage.bank.each { |v| cycle_count += v.repeat if v.is_a?(OrigenTesters::Vector) }
+            if cycle_count < @dssc_send_delay
+              d = OrigenTesters::Vector.new
+              d.pin_vals = first_vector.pin_vals
+              d.timeset = first_vector.timeset
+              d.inline_comment = 'added for dssc start to send delay'
+              d.repeat = @dssc_send_delay - cycle_count
+
+              # get the first vector of the pattern
+              i = 0
+              i += 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+
+              # insert new vector after the first vector
+              stage.insert_from_start d, i + 1
+            end
+
+          end # of place start microcode
+
+        end # if options[:change_data]
+        options
+      end # digsrc overlay
     end
   end
 end

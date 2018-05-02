@@ -14,6 +14,9 @@ bitcell_iv_0 .tmf
 bitcell_iv_1 .tmf
 bitcell_iv_2 .tmf
 bitmap_all0 .tmf
+cc_test_0 .tmf
+cc_test_1 .tmf
+cc_test_2 .tmf
 erase_all .tmf
 margin_read0_ckbd .tmf
 margin_read1_all1 .tmf
@@ -28,4 +31,5 @@ program_ckbd .tmf
 program_ckbd_b0 .tmf
 program_ckbd_b1 .tmf
 program_ckbd_b2 .tmf
+some_func_test .tmf
 xcvr_fs_vilvih .tmf

@@ -139,6 +139,27 @@ module OrigenTesters
                          force_fail_on_timeout: true,
                          clr_fail_post_match:   true,
                          manual_stop:           true)
+          elsif options[:type] == :match_2pins_custom_jump
+            # Match on TDO pin state
+            $tester.wait(match:                 true,
+                         pin:                   pin(:tdo),
+                         state:                 :high,
+                         pin2:                  pin(:tms),
+                         state2:                :high,
+                         time_in_us:            options[:delay_in_us],
+                         on_pin_match_goto:     { 0 => 'no_fails_found' },
+                         on_timeout_goto:       'no_fails_found',
+                         global_loops:          true,
+                         check_for_fails:       true,
+                         force_fail_on_timeout: true,
+                         clr_fail_post_match:   true,
+                         manual_stop:           true)
+            $tester.cycle
+            $tester.set_code(200)
+            $tester.branch('match_done')
+            $tester.label('no_fails_found')
+            $tester.set_code(201)
+            $tester.label('match_done')
           elsif options[:type] == :multiple_entries
             # Match on TDO pin state, with multiple subr entry points
             $tester.wait(match:                 true,
@@ -180,6 +201,24 @@ module OrigenTesters
           $tester.call_subroutine('handshake')
         end
       end
+
+      def keepalive(options = {})
+        options = {
+          define:           false,          # whether to define subr or call it
+          allow_subroutine: false,
+          subroutine_pat:   true
+        }.merge(options)
+
+        if options[:define]
+          $tester.start_subroutine('keep_alive')
+          $tester.keep_alive(options)
+          $tester.end_subroutine
+        else
+          $tester.cycle
+          $tester.call_subroutine('keep_alive')
+        end
+      end
+      alias_method :keep_alive, :keepalive
 
       def digsrc_overlay(options = {})
         options = { define:            false,       # whether to define subr or call it

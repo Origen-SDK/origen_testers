@@ -1,7 +1,7 @@
 module OrigenTesters
   MAJOR = 0
-  MINOR = 9
-  BUGFIX = 6
+  MINOR = 18
+  BUGFIX = 0
   DEV = nil
 
   VERSION = [MAJOR, MINOR, BUGFIX].join(".") + (DEV ? ".pre#{DEV}" : '')

@@ -4,15 +4,10 @@ module OrigenTesters
   # Include this module in any class you define as a test interface
   module Interface
     extend ActiveSupport::Concern
+    include ATP::FlowAPI
 
     included do
       Origen.add_interface(self)
-    end
-
-    (ATP::AST::Builder::CONDITION_KEYS + [:group, :bin, :pass, :fail, :test, :log]).each do |method|
-      define_method method do |*args, &block|
-        flow.send(method, *args, &block)
-      end
     end
 
     class PatternArray < ::Array
@@ -47,8 +42,62 @@ module OrigenTesters
       !!@write
     end
 
+    def test(name, options = {})
+      flow.test(name, options)
+    end
+
+    # Returns the abstract test program model for the current flow
+    def atp
+      flow.model
+    end
+
     def write?
       OrigenTesters::Interface.write?
+    end
+
+    # Returns the value defined on if/how to make test names unique within a flow
+    def unique_test_names
+      @unique_test_names
+    end
+
+    # Set the value of unique_test_names
+    def unique_test_names=(val)
+      @unique_test_names = val
+    end
+
+    # Returns whether the tester has been configured to wrap top-level flow modules with an
+    # enable or not.
+    #
+    # Returns nil if not.
+    #
+    # Returns :enabled if the enable is configured to be on by default, or :disabled if it is
+    # configured to be off by default.
+    def add_flow_enable
+      @add_flow_enable
+    end
+
+    # Set to :enabled to have the current flow wrapped by an enable flow variable
+    # that is enabled by default (top-level flow has to disable modules it doesn't want).
+    #
+    # Set to :disabled to have the opposite, where the top-level flow has to enable all
+    # modules.
+    #
+    # Set to nil to have no wrapping. While this is the default, setting this to nil will
+    # override any setting of the attribute of the same name that has been set at
+    # tester-level by the target.
+    def add_flow_enable=(value)
+      return unless flow.respond_to?(:add_flow_enable=)
+      if value
+        if value == :enable || value == :enabled
+          flow.add_flow_enable = :enabled
+        elsif value == :disable || value == :disabled
+          flow.add_flow_enable = :disabled
+        else
+          fail "Unknown add_flow_enable value, #{value}, must be :enabled or :disabled"
+        end
+      else
+        flow.add_flow_enable = nil
+      end
     end
 
     # This identifier will be used to make labels and other references unique to the
@@ -93,11 +142,15 @@ module OrigenTesters
     end
 
     def render(file, options = {})
-      if sheet_generators.size > 1
-        fail "You must specify which generator to render content to! e.g.  i.test_instances.render '#{file}'"
-      else
-        sheet_generators.first.render(file, options)
-      end
+      flow.render(file, options)
+    end
+
+    def add_meta!(options)
+      flow.send(:add_meta!, options)
+    end
+
+    def add_description!(options)
+      flow.send(:add_description!, options)
     end
 
     def write_files(options = {})

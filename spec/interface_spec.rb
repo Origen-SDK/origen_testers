@@ -34,7 +34,7 @@ describe "An interface" do
 
   it "resources_filename can be set from an interface initialize" do
     Origen.environment.temporary = "uflex"
-    Origen.load_target("dut")
+    Origen.load_target("dut.rb")
     Flow.create interface: "MyInterface" do
       Origen.interface.test_instances_filename.should == "abc"
     end

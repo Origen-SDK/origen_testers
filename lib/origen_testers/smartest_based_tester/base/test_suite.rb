@@ -87,8 +87,23 @@ module OrigenTesters
 
         def initialize(name, attrs = {})
           @name = name
-          if interface.flow.sig
-            @name = "#{name}_#{interface.flow.sig}"
+          if interface.unique_test_names == :signature
+            if interface.flow.sig
+              @name = "#{name}_#{interface.flow.sig}"
+            end
+          elsif interface.unique_test_names == :flowname || interface.unique_test_names == :flow_name
+            @name = "#{name}_#{interface.flow.name.to_s.symbolize}"
+          elsif interface.unique_test_names == :preflowname || interface.unique_test_names == :pre_flow_name
+            @name = "#{interface.flow.name.to_s.symbolize}_#{name}"
+          elsif interface.unique_test_names
+            utn_string = interface.unique_test_names.to_s
+            if utn_string =~ /^prepend_/
+              utn_string = utn_string.gsub(/^prepend_/, '')
+              @name = "#{utn_string}_#{name}"
+            else
+              utn_string = utn_string.gsub(/^append_/, '')
+              @name = "#{name}_#{utn_string}"
+            end
           end
           # Set the defaults
           DEFAULTS.each do |k, v|
@@ -116,23 +131,23 @@ module OrigenTesters
 
         def lines
           l = []
-          l << '  override = 1;'
-          l << " override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
-          l << " override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
-          l << " override_tim_spec_set = #{wrap_if_string(timing_spec)};" if timing_spec
-          l << " override_lev_spec_set = #{wrap_if_string(level_spec)};" if level_spec
-          l << " override_anaset = #{wrap_if_string(analog_set)};" if analog_set
-          l << " override_timset = #{wrap_if_string(timing_set)};" if timing_set
-          l << " override_levset = #{wrap_if_string(level_set)};" if level_set
-          l << " override_seqlbl = #{wrap_if_string(pattern)};" if pattern
-          l << " override_test_number = #{test_number};" if test_number
-          l << " override_testf = #{test_method.id};" if test_method
-          l << "  test_level = #{test_level};" if test_level
+          l << "  comment = \"#{comment}\";" if comment
           l << "  ffc_on_fail = #{wrap_if_string(log_first)};" if log_first
-          l << " comment = \"#{comment}\";" if comment
-          l << "local_flags  = #{flags};"
-          l << ' site_match = 2;'
-          l << ' site_control = "parallel:";'
+          l << "  local_flags = #{flags};"
+          l << '  override = 1;'
+          l << "  override_anaset = #{wrap_if_string(analog_set)};" if analog_set
+          l << "  override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
+          l << "  override_lev_spec_set = #{wrap_if_string(level_spec)};" if level_spec
+          l << "  override_levset = #{wrap_if_string(level_set)};" if level_set
+          l << "  override_seqlbl = #{wrap_if_string(pattern)};" if pattern
+          l << "  override_test_number = #{test_number};" if test_number
+          l << "  override_testf = #{test_method.id};" if test_method
+          l << "  override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
+          l << "  override_tim_spec_set = #{wrap_if_string(timing_spec)};" if timing_spec
+          l << "  override_timset = #{wrap_if_string(timing_set)};" if timing_set
+          l << '  site_control = "parallel:";'
+          l << '  site_match = 2;'
+          l << "  test_level = #{test_level};" if test_level
           l
         end
 
@@ -154,6 +169,10 @@ module OrigenTesters
 
         def to_meta
           meta || {}
+        end
+
+        def extract_atp_attributes(options)
+          options[:limits] ||= limits.to_atp_attributes
         end
 
         private

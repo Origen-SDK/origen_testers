@@ -11,6 +11,12 @@ DFF 1.1	Pattern Sets
 	bitcell_iv_2_pset	nvm_global_subs.PAT	subr			
 	bitmap_all0_pset	bitmap_all0.PAT				
 	bitmap_all0_pset	nvm_global_subs.PAT	subr			
+	cc_test_0_pset	cc_test_0.PAT				
+	cc_test_0_pset	nvm_global_subs.PAT	subr			
+	cc_test_1_pset	cc_test_1.PAT				
+	cc_test_1_pset	nvm_global_subs.PAT	subr			
+	cc_test_2_pset	cc_test_2.PAT				
+	cc_test_2_pset	nvm_global_subs.PAT	subr			
 	charge_pump_pset	charge_pump.PAT				
 	erase_all_pset	erase_all.PAT				
 	erase_all_pset	nvm_global_subs.PAT	subr			
@@ -46,5 +52,7 @@ DFF 1.1	Pattern Sets
 	program_ckbd_b2_pset	nvm_global_subs.PAT	subr			
 	program_ckbd_pset	program_ckbd.PAT				
 	program_ckbd_pset	nvm_global_subs.PAT	subr			
+	some_func_test_pset	some_func_test.PAT				
+	some_func_test_pset	nvm_global_subs.PAT	subr			
 	xcvr_fs_vilvih_pset	xcvr_fs_vilvih.PAT				
 	xcvr_fs_vilvih_pset	nvm_global_subs.PAT	subr			

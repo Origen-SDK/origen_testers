@@ -25,6 +25,7 @@ gt_grp1_test1.binl.gz
 gt_grp1_test2.binl.gz
 gt_grp2_test1.binl.gz
 gt_grp2_test2.binl.gz
+inner_test1.binl.gz
 lev1_test1.binl.gz
 lev1_test2.binl.gz
 lev1_test3.binl.gz
@@ -42,6 +43,7 @@ nt1.binl.gz
 nt2.binl.gz
 nt3.binl.gz
 nt4.binl.gz
+outer_test.binl.gz
 pgm.binl.gz
 pgm1.binl.gz
 probe_only_test1.binl.gz
@@ -50,6 +52,7 @@ read0.binl.gz
 read1.binl.gz
 read2.binl.gz
 test1.binl.gz
+test10.binl.gz
 test2.binl.gz
 test22.binl.gz
 test22a.binl.gz

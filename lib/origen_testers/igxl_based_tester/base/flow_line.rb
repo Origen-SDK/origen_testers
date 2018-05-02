@@ -101,6 +101,9 @@ module OrigenTesters
           },
           flag_true_all:     {
             opcode: 'flag-true-all'
+          },
+          defaults:          {
+            opcode: 'defaults'
           }
         }
 

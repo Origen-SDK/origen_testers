@@ -52,11 +52,26 @@ module OrigenTesters
             self.hi_limit = val
           end
 
+          def to_atp_attributes
+            r = []
+            if lo_limit
+              r << { value: lo_limit, rule: 'LE', units: unit }
+            end
+            if hi_limit
+              r << { value: hi_limit, rule: 'GE', units: unit }
+            end
+            r
+          end
+
           private
 
           def test_name
-            name = test_method.test_name if test_method.respond_to?(:test_name)
-            name || 'Functional'
+            if test_method.limits_id.nil?
+              name = test_method.try(:test_name) || test_method.try(:_test_name) || test_method.try('TestName')
+              name || 'Functional'
+            else
+              test_method.limits_id
+            end
           end
         end
       end

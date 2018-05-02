@@ -4,6 +4,9 @@ bitcell_iv_0
 bitcell_iv_1
 bitcell_iv_2
 bitmap_all0
+cc_test_0
+cc_test_1
+cc_test_2
 cold_test
 cz_test1
 cz_test2
@@ -26,6 +29,7 @@ gt_grp1_test1
 gt_grp1_test2
 gt_grp2_test1
 gt_grp2_test2
+inner_test1
 lev1_test1
 lev1_test2
 lev1_test3
@@ -51,6 +55,7 @@ nt1
 nt2
 nt3
 nt4
+outer_test
 p1_only_test
 p1_or_p2_only_test
 pgm
@@ -66,7 +71,9 @@ program_ckbd_b2
 read0
 read1
 read2
+some_func_test
 test1
+test10
 test2
 test22
 test22a

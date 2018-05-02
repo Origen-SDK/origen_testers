@@ -30,6 +30,9 @@ unless $tester.v93k?
       # Define match loop with multiple entries
       $dut.match(:subr_name => 'match_done6', :define => true, :type => :multiple_entries, :delay_in_us => 15_000_000)
 
+      # Define match loop with custom jump
+      $dut.match(:define => true, :type => :match_2pins_custom_jump)
+
       # Define handshake subr
       $dut.handshake(:define => true)
 
@@ -40,13 +43,15 @@ unless $tester.v93k?
         # Define digsrc_overlay subr
         $dut.digsrc_overlay(:subr_name => 'digsrc_overlay', :define => true, overlay_cycle_num: 64)
 
+        # test out UF keep_alive subroutine capability
+        $dut.keepalive(define: true)
+
         # test out single module subroutine capability, integrated with other normal subroutines
         # only for UltraFLEX
         $dut.execute(define: true, name: 'overlaysub1', onemodsub: true )
         $dut.execute(define: true, name: 'overlaysub2', onemodsub: true )
         $dut.execute(define: true, name: 'overlaysub3', onemodsub: true )
         $dut.execute(define: true, name: 'overlaysub4', onemodsub: true )
-
       end 
     end
 

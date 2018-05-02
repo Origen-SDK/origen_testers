@@ -1,0 +1,42 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    05-Oct-2017 08:59AM
+#   By:      Lajaunie Ronald-B01784
+#   Command: origen g delay -t dut.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.13.1
+#     Branch:    pat_compilers(546171ac2fe) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.25.1
+#   Plugins
+#     atp:                      0.7.0
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.5.0
+#     origen_jtag:              0.16.0
+#     origen_swd:               1.1.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# Wait for 40.0ms
+R65535                   tp0                        X X X X # Wait for 40.0ms;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R11316                   tp0                        X X X X # ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;

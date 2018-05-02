@@ -1,17 +1,19 @@
 module OrigenTesters
   module PatternCompilers
-    class UltraFlexPatternCompiler
+    class BasePatternCompiler
       private
 
-      # Check the file extension of a file, return status can be 'atp', 'list', or nil
+      # Check the file extension of a file, return status can be 'atp', 'avc', 'list', or nil
       def check_file_ext(file)
         status = nil
         ext = file.extname
         name = file.basename
         if ext == '.atp'
           status = 'atp'
+        elsif ext == '.avc'
+          status = 'avc'
         elsif ext == '.gz'
-          # Ensure we have a .atp.gz
+          # Ensure we have a .atp.gz or .avc.gz
           sub_ext = name.to_s.split('.')[-2]
           if sub_ext == 'atp'
             status = 'atp'
@@ -51,6 +53,8 @@ module OrigenTesters
         # puts "processing file #{file.to_s}"
         case check_file_ext(file)
           when 'atp'
+            files << file unless files.include?(file)
+          when 'avc'
             files << file unless files.include?(file)
           when 'list'
             parse_list(file, files)

@@ -67,6 +67,10 @@ module OrigenTesters
             method.finalize.call(method) if method.finalize
           end
         end
+
+        def sorted_collection
+          @collection.sort_by { |tm| tm.name.to_s }
+        end
       end
     end
   end

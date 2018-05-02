@@ -11,6 +11,22 @@ module OrigenTesters
     attr_accessor :includes
     attr_accessor :comment_level
     attr_accessor :generating
+    # Get/Set the overlay style
+    #
+    # This method changes the way overlay is handled.
+    # The default value and possible settings is dependent on the individual tester.
+    #
+    # @example
+    #   tester.overlay_style = :label
+    attr_accessor :overlay_style
+    # Get/Set the capture style
+    #
+    # This method changes the way tester.store() implements the store
+    # The default value and possible settings is dependent on the individual tester.
+    #
+    # @example
+    #   tester.capture_style = :hram
+    attr_accessor :capture_style
 
     def name
       @name || self.class
@@ -60,6 +76,11 @@ module OrigenTesters
       !is_vector_based?
     end
 
+    def stil?
+      defined?(OrigenTesters::StilBasedTester::Base) &&
+        is_a?(OrigenTesters::StilBasedTester::Base)
+    end
+
     def j750?
       is_a?(OrigenTesters::IGXLBasedTester::J750)
     end
@@ -87,6 +108,10 @@ module OrigenTesters
 
     def link?
       !!(self.class.to_s =~ /^OrigenLink::/)
+    end
+
+    def pxie6570?
+      is_a?(OrigenTesters::LabVIEWBasedTester::Pxie6570)
     end
 
     def doc?
@@ -125,7 +150,17 @@ module OrigenTesters
     def c1(msg, options = {})
       prefix = comment_char + ' '
       prefix += step_comment_prefix + ' ' if @step_comment_on
-      push_comment(prefix + msg.to_s)
+      if Origen.tester.generating == :program
+        cc_coms = OrigenTesters::Flow.cc_comments
+        # cc call must be on line directly before test method
+        line_number = caller_locations(2, 1)[0].lineno + 1
+        unless cc_coms[line_number]
+          cc_coms[line_number] = []
+        end
+        cc_coms[line_number] << msg
+      else
+        push_comment(prefix + msg.to_s)
+      end
     end
 
     def c2(msg, options = {})
@@ -289,6 +324,79 @@ module OrigenTesters
     def update_running_clocks
       clocks_running.each do |name, clock_pin|
         clock_pin.update_clock
+      end
+    end
+
+    def transaction
+      yield
+      true
+    end
+
+    def source_memory_config
+      @source_memory_config ||= {}
+    end
+
+    def capture_memory_config
+      @capture_memory_config ||= {}
+    end
+
+    # Configure source memory to a non-default setting
+    #
+    # This method changes the way the instruments statement gets rendered
+    # if the tester's source memory is used.
+    #
+    # @example
+    #   tester.source_memory :default do |mem|
+    #     mem.pin :tdi, size: 32, format: :long
+    #   end
+    #
+    # If called without a block, this method will return
+    # the instance of type OrigenTesters::MemoryStyle for
+    # the corresponding memory type
+    #
+    # @example
+    #   mem_style = tester.source_memory(:default)
+    #   mem_style.contained_pins.each do |pin|
+    #     attributes_hash = mem_style.accumulate_attributes(pin)
+    #
+    #   end
+    def source_memory(type = :default)
+      type = :subroutine if type == :default
+      source_memory_config[type] = OrigenTesters::MemoryStyle.new unless source_memory_config.key?(type)
+      if block_given?
+        yield source_memory_config[type]
+      else
+        source_memory_config[type]
+      end
+    end
+
+    # Configure capture memory to a non-default setting
+    #
+    # This method changes the way the instruments statement gets rendered
+    # if the tester's capture memory is used.
+    #
+    # @example
+    #   tester.capture_memory :default do |mem|
+    #     mem.pin :tdo, size: 32, format: :long
+    #   end
+    #
+    # If called without a block, this method will return
+    # the instance of type OrigenTesters::MemoryStyle for
+    # the corresponding memory type
+    #
+    # @example
+    #   mem_style = tester.capture_memory(:default)
+    #   if mem_style.contains_pin?(:tdo)
+    #     attributes_hash = mem_style.accumulate_attributes(:tdo)
+    #
+    #   end
+    def capture_memory(type = :default)
+      type = :hram if type == :default
+      capture_memory_config[type] = OrigenTesters::MemoryStyle.new unless capture_memory_config.key?(type)
+      if block_given?
+        yield capture_memory_config[type]
+      else
+        capture_memory_config[type]
       end
     end
   end

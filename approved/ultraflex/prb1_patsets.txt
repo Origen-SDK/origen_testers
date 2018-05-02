@@ -15,6 +15,12 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	bitcell_iv_2_pset			nvm_global_subs.PAT	Yes	subr			
 	bitmap_all0_pset			bitmap_all0.PAT	Yes				
 	bitmap_all0_pset			nvm_global_subs.PAT	Yes	subr			
+	cc_test_0_pset			cc_test_0.PAT	Yes				
+	cc_test_0_pset			nvm_global_subs.PAT	Yes	subr			
+	cc_test_1_pset			cc_test_1.PAT	Yes				
+	cc_test_1_pset			nvm_global_subs.PAT	Yes	subr			
+	cc_test_2_pset			cc_test_2.PAT	Yes				
+	cc_test_2_pset			nvm_global_subs.PAT	Yes	subr			
 	erase_all_pset			erase_all.PAT	Yes				
 	erase_all_pset			nvm_global_subs.PAT	Yes	subr			
 	margin_read0_ckbd_pset			margin_read0_ckbd.PAT	Yes				
@@ -41,5 +47,7 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	program_ckbd_b2_pset			nvm_global_subs.PAT	Yes	subr			
 	program_ckbd_pset			program_ckbd.PAT	Yes				
 	program_ckbd_pset			nvm_global_subs.PAT	Yes	subr			
+	some_func_test_pset			some_func_test.PAT	Yes				
+	some_func_test_pset			nvm_global_subs.PAT	Yes	subr			
 	xcvr_fs_vilvih_pset			xcvr_fs_vilvih.PAT	Yes				
 	xcvr_fs_vilvih_pset			nvm_global_subs.PAT	Yes	subr			

@@ -6,10 +6,48 @@ module OrigenTesters
       # Disable inline (end of vector) comments, enabled by default
       attr_accessor :inline_comments
 
-      # Returns a new J750 instance, normally there would only ever be one of these
-      # assigned to the global variable such as $tester by your target:
-      #   $tester = J750.new
-      def initialize
+      # Returns whether the tester has been configured to wrap top-level flow modules with an
+      # enable or not.
+      #
+      # Returns nil if not.
+      #
+      # Returns :enabled if the enable is configured to be on by default, or :disabled if it is
+      # configured to be off by default.
+      attr_reader :add_flow_enable
+
+      # Returns the value defined at target-level on if/how to make test names unique within a
+      # flow, the default value is :signature
+      attr_reader :unique_test_names
+
+      # permit modification of minimum repeat count
+      attr_accessor :min_repeat_loop
+      alias_method :min_repeat_count, :min_repeat_loop
+      alias_method :min_repeat_count=, :min_repeat_loop=
+
+      # When set to true, all test flows will be generated with a corresponding testtable limits
+      # file, rather than having the limits attached inline to the test suites
+      attr_accessor :create_limits_file
+
+      # Returns an array of strings that indicate which test modes will be included in limits files,
+      # by default returns an empty array.
+      # If no test modes have been specified then the limits file will simply be generated with no
+      # test modes.
+      attr_reader :limitfile_test_modes
+      alias_method :limitsfile_test_modes, :limitfile_test_modes
+
+      # When set to true, tests which are marked with continue: true will be forced to pass in
+      # generated test program flows. Flow branching based on the test result will be handled via
+      # some other means to give the same flow if the test 'fails', however the test will always
+      # appear as if it passed for data logging purposes.
+      #
+      # Testers which do not implement this option will ignore it.
+      attr_accessor :force_pass_on_continue
+
+      # When set to true, tests will be set to delayed binning by default (overon = on) unless
+      # delayed: false is supplied when defining the test
+      attr_accessor :delayed_binning
+
+      def initialize(options = {})
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
         @pat_extension = 'avc'
@@ -20,7 +58,116 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
+        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @capture_style = :hram			# default to use hram for capture
+        @overlay_subr = nil
+
+        if options[:add_flow_enable]
+          self.add_flow_enable = options[:add_flow_enable]
+        end
+        if options.key?(:unique_test_names)
+          @unique_test_names = options[:unique_test_names]
+        else
+          @unique_test_names = :signature
+        end
+        if options.key?(:create_limits_file)
+          @create_limits_file = options[:create_limits_file]
+        else
+          @create_limits_file = false
+        end
+        self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
+        self.force_pass_on_continue = options[:force_pass_on_continue]
+        self.delayed_binning = options[:delayed_binning]
       end
+
+      # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
+      # to set multiple.
+      def limitfile_test_modes=(val)
+        @limitfile_test_modes = Array(val).map(&:to_s)
+      end
+      alias_method :limitsfile_test_modes, :limitfile_test_modes=
+
+      # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable
+      # that is enabled by default (top-level flow has to disable modules it doesn't want).
+      #
+      # Set to :disabled to have the opposite, where the top-level flow has to enable all
+      # modules.
+      #
+      # Note that the interface can override this setting for each flow during program generation.
+      def add_flow_enable=(value)
+        if value == :enable || value == :enabled
+          @add_flow_enable = :enabled
+        elsif value == :disable || value == :disabled
+          @add_flow_enable = :disabled
+        else
+          fail "Unknown add_flow_enable value, #{value}, must be :enabled or :disabled"
+        end
+      end
+
+      def cycle(options = {})
+        # handle overlay if requested
+        ovly_style = nil
+        if options.key?(:overlay)
+          ovly_style = options[:overlay][:overlay_style].nil? ? @overlay_style : options[:overlay][:overlay_style]
+          overlay_str = options[:overlay][:overlay_str]
+
+          # route the overlay request to the appropriate method
+          case ovly_style
+            when :subroutine, :default
+              subroutine_overlay(overlay_str, options)
+              ovly_style = :subroutine
+            else
+              ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
+          end # case ovly_style
+        else
+          @overlay_subr = nil
+        end # of handle overlay
+
+        options_overlay = options.delete(:overlay) if options.key?(:overlay)
+
+        super(options) unless ovly_style == :subroutine
+
+        unless options_overlay.nil?
+          # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
+        end
+      end
+
+      # Warn user of unsupported overlay style
+      def overlay_style_warn(overlay_str, options)
+        Origen.log.warn("Unrecognized overlay style :#{@overlay_style}, defaulting to subroutine")
+        Origen.log.warn('Available overlay styles :subroutine')
+        subroutine_overlay(overlay_str, options)
+        @overlay_style = :subroutine		# Just give 1 warning
+      end
+
+      # Implement subroutine overlay, called by tester.cycle
+      def subroutine_overlay(sub_name, options = {})
+        if @overlay_subr != sub_name
+          # unless last staged vector already has the subr call do the following
+          i = -1
+          i -= 1 until stage.bank[i].is_a?(OrigenTesters::Vector)
+          if stage.bank[i].microcode !~ /#{sub_name}/
+
+            # check for repeat on new last vector, unroll 1 if needed
+            if stage.bank[i].repeat > 1
+              v = OrigenTesters::Vector.new
+              v.pin_vals = stage.bank[i].pin_vals
+              v.timeset = stage.bank[i].timeset
+              stage.bank[i].repeat -= 1
+              stage.store(v)
+              i = -1
+            end
+
+            # mark last vector as dont_compress
+            stage.bank[i].dont_compress = true
+            # insert subroutine call
+            call_subroutine sub_name
+          end # if microcode not placed
+          @overlay_subr = sub_name
+        end
+
+        # stage = sub_name
+      end # subroutine_overlay
 
       # Capture the pin data from a vector to the tester.
       #
@@ -101,6 +248,7 @@ module OrigenTesters
           pins.each(&:restore)
         end
       end
+      alias_method :store!, :store_next_cycle
 
       # Start a subroutine.
       #
@@ -366,6 +514,13 @@ module OrigenTesters
 
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
+        options = {
+          end_in_ka:      false
+        }.merge(options)
+        if options[:end_in_ka]
+          Origen.log.warning '93K keep alive not yet implemented!'
+          ss 'WARNING: 93K keep alive not yet implemented!'
+        end
         microcode 'SQPG STOP;' unless options[:subroutine]
       end
 

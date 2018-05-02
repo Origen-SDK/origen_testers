@@ -1,0 +1,110 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    13-Jun-2017 09:12AM
+//   By:      pderouen
+//   Command: origen g pattern/tester_store.rb -t dut3.rb -e uflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.9.6
+//     Branch:    rfc2(22ce7eba536) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.7.46
+//   Plugins
+//     atp:                      0.5.4
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.4.4
+//     origen_jtag:              0.13.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+//   DigCap Store count for tdo: 2                                                              
+//   DigCap Store count for pa: 1                                                               
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               (tdo):DigCap 8:serial:lsb:auto_trig_enable;                                      
+               (pa):DigCap 3:auto_trig_enable;                                                  
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+test_store ($tset, tclk, tdi, tdo, tms, pa)                                                     
+{                                                                                               
+start_label test_store_st:                                                                      
+//                                                                                              t t t t p  
+//                                                                                              c d d m a  
+//                                                                                              l i o s    
+//                                                                                              k          
+                                                                 > tp0                          X X X X XXX ;
+// should get a repeat 5 vector
+repeat 5                                                         > tp0                          1 1 H 1 XXX ;
+((tdo):DigCap = Store),stv                                       > tp0                          1 1 V 1 XXX ;
+repeat 2                                                         > tp0                          1 1 H 1 XXX ;
+((tdo):DigCap = Store),stv                                       > tp0                          0 1 V 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+((pa):DigCap = Store),stv                                        > tp0                          0 1 H 1 VVV ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+// PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+                                                                 > tp0                          0 1 H 1 XXX ;
+}                                                                                               
