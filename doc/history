@@ -6,8 +6,7 @@
 ##### by Daniel Hadad on 02-May-2018 09:04AM
 
 
-Merged PR 61 (v93k multiport) and PR 73 (v93k limits) file to add additional v93k
-capability including:
+Added additional v93k capability including:
 
 - Implement the create limits file feature outlined in RFC:
 [https://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md](https://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md)
