@@ -10,11 +10,9 @@ Merged PR 61 (v93k multiport) and PR 73 (v93k limits) file to add additional v93
 capability including:
 
 - Implement the create limits file feature outlined in RFC:
-[https://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md](htt
-ps://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md)
+[https://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md](https://github.com/Origen-SDK/rfcs/blob/master/text/0004-v93k-limits-file-support.md)
 - Add multiport burst capability as detailed in PR 61:
-[https://github.com/Origen-SDK/origen\_testers/pull/61](https://github.com/Origen-SDK/orige
-n\_testers/pull/61)
+[https://github.com/Origen-SDK/origen_testers/pull/61](https://github.com/Origen-SDK/origen_testers/pull/61)
 
 
 <a class="anchor release_tag" name="v0_18_0"></a>
