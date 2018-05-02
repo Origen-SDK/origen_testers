@@ -22,13 +22,13 @@ module OrigenTesters
       # Pinmap file (IGXL-Based)
       attr_accessor :pinmap_workbook
 
-      # Pinmap file (Smartest-Based)
+      # Pin Config file (Smartest-Based)
       attr_accessor :pinconfig
 
-      # Pinmap file (Smartest-Based)
+      # Pattern input dir (Smartest-Based)
       attr_accessor :avc_dir
 
-      # Pinmap file (Smartest-Based)
+      # Pattern output dir (Smartest-Based)
       attr_accessor :binl_dir
 
       # Pattern count - should be 1 for IGXL; number of AVC files listed in AIV file for Smartest

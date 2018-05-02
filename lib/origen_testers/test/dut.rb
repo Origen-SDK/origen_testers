@@ -16,10 +16,26 @@ module OrigenTesters
       include OrigenJTAG
 
       def initialize(options = {})
+        options = {
+          test_generic_overlay_capture: false
+        }.merge(options)
+
+        @test_options = {
+          test_generic_overlay_capture: options[:test_generic_overlay_capture]
+        }
+
         add_pin :tclk
         add_pin :tdi
         add_pin :tdo
         add_pin :tms
+        if @test_options[:test_generic_overlay_capture]
+          # approved patts for this test type do not use these
+          add_pin :pa0
+          add_pin :pa1
+          add_pin :pa2
+          add_pin_group :pa, :pa2, :pa1, :pa0
+          add_pin_alias :tdi_a, :tdi
+        end
         # add_pin_group :jtag, :tdi, :tdo, :tms
         add_power_pin_group :vdd1
         add_power_pin_group :vdd2
@@ -32,23 +48,28 @@ module OrigenTesters
           reg.bits 1,      :done
           reg.bits 0,      :enable
         end
-        @hv_supply_pin = 'VDDHV'
-        @lv_supply_pin = 'VDDLV'
-        @digsrc_pins = [:tdi, :tms]
-        @digsrc_settings = { digsrc_mode: :parallel, digsrc_bit_order: :msb }
-        @digcap_pins = :tdo
-        @digcap_settings = { digcap_format: :twos_complement }
+        unless @test_options[:test_generic_overlay_capture]
+          # approved patts for this test type do not use these
+          @hv_supply_pin = 'VDDHV'
+          @lv_supply_pin = 'VDDLV'
+          @digsrc_pins = [:tdi, :tms]
+          @digsrc_settings = { digsrc_mode: :parallel, digsrc_bit_order: :msb }
+          @digcap_pins = :tdo
+          @digcap_settings = { digcap_format: :twos_complement }
+        end
         @blocks = [Block.new(0, self), Block.new(1, self), Block.new(2, self)]
       end
 
       def on_create
-        if tester && tester.uflex?
-          tester.assign_dc_instr_pins([hv_supply_pin, lv_supply_pin])
-          tester.assign_digsrc_pins(digsrc_pins)
-          tester.apply_digsrc_settings(digsrc_settings)
-          tester.assign_digcap_pins(digcap_pins)
-          tester.apply_digcap_settings(digcap_settings)
-          tester.memory_test_en = true
+        unless @test_options[:test_generic_overlay_capture]
+          if tester && tester.uflex?
+            tester.assign_dc_instr_pins([hv_supply_pin, lv_supply_pin])
+            tester.assign_digsrc_pins(digsrc_pins)
+            tester.apply_digsrc_settings(digsrc_settings)
+            tester.assign_digcap_pins(digcap_pins)
+            tester.apply_digcap_settings(digcap_settings)
+            tester.memory_test_en = true
+          end
         end
       end
 

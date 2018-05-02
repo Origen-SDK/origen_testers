@@ -24,7 +24,44 @@ module OrigenTesters
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
 
+      # permit option to generate multiport type patterns
+      # and use multiport type code
+      attr_accessor :multiport
+      alias_method :multi_port, :multiport
+      alias_method :multi_port=, :multiport=
+      attr_accessor :multiport_prefix     # multiport burst name prefix
+      attr_accessor :multiport_postfix     # multiport burst name postfix
+
+      # When set to true, all test flows will be generated with a corresponding testtable limits
+      # file, rather than having the limits attached inline to the test suites
+      attr_accessor :create_limits_file
+
+      # Returns an array of strings that indicate which test modes will be included in limits files,
+      # by default returns an empty array.
+      # If no test modes have been specified then the limits file will simply be generated with no
+      # test modes.
+      attr_reader :limitfile_test_modes
+      alias_method :limitsfile_test_modes, :limitfile_test_modes
+
+      # When set to true, tests which are marked with continue: true will be forced to pass in
+      # generated test program flows. Flow branching based on the test result will be handled via
+      # some other means to give the same flow if the test 'fails', however the test will always
+      # appear as if it passed for data logging purposes.
+      #
+      # Testers which do not implement this option will ignore it.
+      attr_accessor :force_pass_on_continue
+
+      # When set to true, tests will be set to delayed binning by default (overon = on) unless
+      # delayed: false is supplied when defining the test
+      attr_accessor :delayed_binning
+
       def initialize(options = {})
+        options = {
+          # whether to use multiport bursts or not, if so this indicates the name of the port to use
+          multiport:         false,
+          multiport_prefix:  false,
+          multiport_postfix: false
+        }.merge(options)
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
         @pat_extension = 'avc'
@@ -35,7 +72,10 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
-        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @multiport = options[:multiport]
+        @multiport_prefix = options[:multiport_prefix]
+        @multiport_postfix = options[:multiport_postfix]
+        @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
 
@@ -47,6 +87,35 @@ module OrigenTesters
         else
           @unique_test_names = :signature
         end
+        if options.key?(:create_limits_file)
+          @create_limits_file = options[:create_limits_file]
+        else
+          @create_limits_file = false
+        end
+        self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
+        self.force_pass_on_continue = options[:force_pass_on_continue]
+        self.delayed_binning = options[:delayed_binning]
+      end
+
+      # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
+      # to set multiple.
+      def limitfile_test_modes=(val)
+        @limitfile_test_modes = Array(val).map(&:to_s)
+      end
+      alias_method :limitsfile_test_modes, :limitfile_test_modes=
+
+      # return the multiport burst name
+      # provide the name you want to obtain multiport for
+      def multiport_name(patt_name)
+        name = "#{patt_name}"
+        if @multiport
+          name = "#{@multiport_prefix}_#{name}" if @multiport_prefix
+          name = "#{name}_#{@multiport_postfix}" if @multiport_postfix
+          unless @multiport_prefix || @multiport_postfix
+            name = "#{@multiport}_#{name}"
+          end
+        end
+        name
       end
 
       # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable

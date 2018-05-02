@@ -124,6 +124,7 @@ end
 -----------------------------------------------------------------
 testmethodlimits
 
+% unless tester.create_limits_file
 % if program
 %   program.testmethodlimits.each do |id, parameters|
 <%= id %>:
@@ -138,6 +139,7 @@ testmethodlimits
   <%= method.limits %>;
 %     end
 %   end
+% end
 % end
 
 end
