@@ -11,9 +11,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
 #  para 'charge_pump', :high_voltage => true, :lo_limit => 5, :hi_limit => 6
 
   if tester.v93k? && tester.create_limits_file
-    func :program_ckbd, :number => 1000, :bin => 100, :soft_bin => 1100
+    func :program_ckbd, bin: 100, soft_bin: 1100, number: 40000
   end
-  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: 35, number: 40000
+  meas :read_pump, tnum: 1050, bin: 119, soft_bin: 2, lo_limit: 35, number: 40005
   meas :read_pump, tnum: 1060, bin: 119, soft_bin: 2, hi_limit: 45, number: 40010
   meas :read_pump, tnum: 1070, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35, number: 40020
   meas :read_pump, tnum: 1080, bin: 119, soft_bin: 2, hi_limit: 45, lo_limit: 35, number: 40030
