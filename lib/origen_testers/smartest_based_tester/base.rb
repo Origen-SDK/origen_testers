@@ -29,6 +29,14 @@ module OrigenTesters
 
       attr_reader :disable_pattern_diffs
 
+      # permit option to generate multiport type patterns
+      # and use multiport type code
+      attr_accessor :multiport
+      alias_method :multi_port, :multiport
+      alias_method :multi_port=, :multiport=
+      attr_accessor :multiport_prefix     # multiport burst name prefix
+      attr_accessor :multiport_postfix     # multiport burst name postfix
+
       # When set to true, all test flows will be generated with a corresponding testtable limits
       # file, rather than having the limits attached inline to the test suites
       attr_accessor :create_limits_file
@@ -57,6 +65,13 @@ module OrigenTesters
       attr_writer :package_namespace
 
       def initialize(options = {})
+        options = {
+          # whether to use multiport bursts or not, if so this indicates the name of the port to use
+          multiport:         false,
+          multiport_prefix:  false,
+          multiport_postfix: false
+        }.merge(options)
+
         @smt_version = options[:smt_version] || 7
 
         if smt8?
@@ -82,7 +97,10 @@ module OrigenTesters
         @comment_char = '#'
         @level_period = true
         @inline_comments = true
-        @overlay_style = :subroutine		# default to use subroutine for overlay
+        @multiport = options[:multiport]
+        @multiport_prefix = options[:multiport_prefix]
+        @multiport_postfix = options[:multiport_postfix]
+        @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
 
@@ -129,6 +147,20 @@ module OrigenTesters
         @limitfile_test_modes = Array(val).map(&:to_s)
       end
       alias_method :limitsfile_test_modes, :limitfile_test_modes=
+
+      # return the multiport burst name
+      # provide the name you want to obtain multiport for
+      def multiport_name(patt_name)
+        name = "#{patt_name}"
+        if @multiport
+          name = "#{@multiport_prefix}_#{name}" if @multiport_prefix
+          name = "#{name}_#{@multiport_postfix}" if @multiport_postfix
+          unless @multiport_prefix || @multiport_postfix
+            name = "#{@multiport}_#{name}"
+          end
+        end
+        name
+      end
 
       # Set to :enabled to have all top-level flow modules wrapped by an enable flow variable
       # that is enabled by default (top-level flow has to disable modules it doesn't want).

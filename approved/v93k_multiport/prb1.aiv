@@ -1,0 +1,125 @@
+AI_DIR_FILE
+tmp_dir                         ./tmp
+tmf_dir                         ./
+vbc_dir                         ./
+avc_dir                         ./AVC/
+pinconfig_file                  ./.cfg
+single_binary_pattern_dir       ./BINL/
+ 
+AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
+
+PATTERNS name tmf_file port v2b_options
+another_not_p1_or_p2_test .tmf mPort
+cc_test_0 .tmf mPort
+cc_test_1 .tmf mPort
+cc_test_2 .tmf mPort
+erase_all .tmf mPort
+margin_read0_ckbd .tmf mPort
+margin_read1_all1 .tmf mPort
+margin_read1_ckbd .tmf mPort
+not_p1_or_p2_test .tmf mPort
+not_p1_test .tmf mPort
+p1_only_test .tmf mPort
+p1_or_p2_only_test .tmf mPort
+por_ins .tmf mPort
+program_ckbd .tmf mPort
+program_ckbd_b0 .tmf mPort
+program_ckbd_b1 .tmf mPort
+program_ckbd_b2 .tmf mPort
+some_func_test .tmf mPort
+xcvr_fs_vilvih .tmf mPort
+
+MULTI_PORT_BURST "mPort_another_not_p1_or_p2_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          another_not_p1_or_p2_test
+
+MULTI_PORT_BURST "mPort_cc_test_0" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_0
+
+MULTI_PORT_BURST "mPort_cc_test_1" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_1
+
+MULTI_PORT_BURST "mPort_cc_test_2" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          cc_test_2
+
+MULTI_PORT_BURST "mPort_erase_all" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          erase_all
+
+MULTI_PORT_BURST "mPort_margin_read0_ckbd" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          margin_read0_ckbd
+
+MULTI_PORT_BURST "mPort_margin_read1_all1" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          margin_read1_all1
+
+MULTI_PORT_BURST "mPort_margin_read1_ckbd" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          margin_read1_ckbd
+
+MULTI_PORT_BURST "mPort_not_p1_or_p2_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          not_p1_or_p2_test
+
+MULTI_PORT_BURST "mPort_not_p1_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          not_p1_test
+
+MULTI_PORT_BURST "mPort_p1_only_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          p1_only_test
+
+MULTI_PORT_BURST "mPort_p1_or_p2_only_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          p1_or_p2_only_test
+
+MULTI_PORT_BURST "mPort_por_ins" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          por_ins
+
+MULTI_PORT_BURST "mPort_program_ckbd" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          program_ckbd
+
+MULTI_PORT_BURST "mPort_program_ckbd_b0" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          program_ckbd_b0
+
+MULTI_PORT_BURST "mPort_program_ckbd_b1" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          program_ckbd_b1
+
+MULTI_PORT_BURST "mPort_program_ckbd_b2" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          program_ckbd_b2
+
+MULTI_PORT_BURST "mPort_some_func_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          some_func_test
+
+MULTI_PORT_BURST "mPort_xcvr_fs_vilvih" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          xcvr_fs_vilvih

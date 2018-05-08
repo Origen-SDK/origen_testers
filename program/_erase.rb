@@ -19,7 +19,7 @@ Flow.create do |options|
 
   options[:pulses].times do |i|
     func :erase_all, number: number
-    number += i * 10
+    number += (i + 1) * 10
   end
 
   if options[:post_verify]

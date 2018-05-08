@@ -8,10 +8,25 @@ single_binary_pattern_dir       ./BINL/
  
 AI_V2B_OPTIONS  -ALT -c <%= $dut.name.to_s.upcase %>.vbc -k -z PS800
 
+% if $tester.multiport
+PATTERNS name tmf_file port v2b_options
+%   port = !!$tester.multiport ? " #{$tester.multiport}" : ''
+% else
 PATTERNS name tmf_file v2b_options
+% end
 %   subroutines.each do |pattern|
-<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf -s
+<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf<%= port %> -s
 %   end
 %   patterns.each do |pattern|
-<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf
+<%= pattern %> <%= $dut.name.to_s.upcase %>.tmf<%= port %>
 %   end
+%#-
+% if $tester.multiport
+%   patterns.each do |pattern|
+
+MULTI_PORT_BURST "<%= "#{$tester.multiport_name(pattern)}" %>" 
+PORTS     <%= $tester.multiport %>                                  
+SEQ_GRPS  grp1                                  
+          <%= pattern %>
+%   end
+% end

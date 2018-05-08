@@ -41,11 +41,19 @@ module OrigenTesters
         # end
 
         def patterns
-          (references[:subroutine][:all] + references[:subroutine][:ate] +
+          return_arr = (references[:subroutine][:all] + references[:subroutine][:ate] +
             references[:main][:all] + references[:main][:ate]).map do |p|
             p = p.strip
             p += '.binl.gz' unless p =~ /binl.gz$/
           end.uniq
+          if $tester.multiport
+            return_arr += (references[:main][:all] + references[:main][:ate]).map do |p|
+              p = p.strip
+              p = $tester.multiport_name(p)
+              p += '.binl.gz' unless p =~ /.binl.gz$/
+            end.uniq
+          end
+          return_arr
         end
 
         def references
