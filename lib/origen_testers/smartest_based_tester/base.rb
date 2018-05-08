@@ -116,10 +116,14 @@ module OrigenTesters
             @unique_test_names = :signature
           end
         end
-        if options.key?(:create_limits_file)
-          @create_limits_file = options[:create_limits_file]
+        if smt8?
+          @create_limits_file = true
         else
-          @create_limits_file = false
+          if options.key?(:create_limits_file)
+            @create_limits_file = options[:create_limits_file]
+          else
+            @create_limits_file = false
+          end
         end
         @package_namespace = options.delete(:package_namespace)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]

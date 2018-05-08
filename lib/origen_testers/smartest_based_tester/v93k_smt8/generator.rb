@@ -13,6 +13,14 @@ module OrigenTesters
           include Base::Generator
           PLATFORM = V93K_SMT8
         end
+
+        def limits_workbook
+          @@limits_workbook ||= begin
+            m = LimitsWorkbook.new(manually_register: true)
+            m.filename = 'limits.ods'
+            m
+          end
+        end
       end
     end
   end

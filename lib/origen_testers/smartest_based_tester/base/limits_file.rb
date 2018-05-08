@@ -5,14 +5,12 @@ module OrigenTesters
       class LimitsFile < ATP::Formatter
         include OrigenTesters::Generator
 
-        attr_reader :ast, :flow, :test_modes, :flowname, :bin_names
+        attr_reader :flow, :test_modes, :flowname, :bin_names
 
-        def initialize(flow, ast, options = {})
+        def initialize(flow, options = {})
           @flow = flow
-          @ast = ast
           @flowname = flow.filename.sub(/\..*/, '') # Base off the filename since it will include any prefix
           @used_test_numbers = {}
-          @bin_names = Processors::ExtractBinNames.new.run(ast)
           @test_modes = Array(options[:test_modes])
           @empty = true
           l = '"Suite name","Pins","Test name","Test number"'
@@ -29,6 +27,10 @@ module OrigenTesters
             l += ',,,,,,,,'
             lines << l
           end
+        end
+
+        def generate(ast)
+          @bin_names = Processors::ExtractBinNames.new.run(ast)
           process(ast)
         end
 
@@ -37,7 +39,11 @@ module OrigenTesters
         end
 
         def subdirectory
-          'testtable/limits'
+          if tester.smt7?
+            'testtable/limits'
+          else
+            "#{tester.package_namespace}/limits"
+          end
         end
 
         def on_test(node)
@@ -57,10 +63,6 @@ module OrigenTesters
         # contain any tests, i.e. the resultant limits file is empty
         def empty?
           @empty
-        end
-
-        def to_be_written?
-          tester.smt7?
         end
 
         private

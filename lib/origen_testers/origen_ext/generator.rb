@@ -29,7 +29,8 @@ module Origen
         Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
         Origen.interface.reset_globals # Get rid of all already generated content, the parent process will handle those
         Origen.interface.clear_pattern_references
-        Origen.generator.generate_program(file, action: :program, skip_referenced_pattern_write: true, skip_on_program_completion: true) do
+        OrigenTesters::Interface.class_variable_set('@@generating_sub_program', true)
+        generate_program(file, action: :program, skip_referenced_pattern_write: true, skip_on_program_completion: true) do
           Origen.interface.flow.output_directory = @output_dir
           # When the same sub flow is called/generated twice give it a unique name since different options
           # could have been passed into the import statement in the flow
@@ -72,7 +73,6 @@ module Origen
     end
 
     # @api private
-    # Makes more sense for this plugin to own this method now
     def generate_program(file, options)
       Origen.file_handler.resolve_files(file, ignore_with_prefix: '_', default_dir: "#{Origen.root}/program") do |path|
         Origen.file_handler.current_file = path

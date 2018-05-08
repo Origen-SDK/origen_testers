@@ -64,6 +64,18 @@ module OrigenTesters
           model # Call to ensure the signature gets populated
         end
 
+        def on_top_level_set
+          if top_level?
+            @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
+          else
+            @limits_file = top_level.limits_file
+          end
+        end
+
+        def limits_file
+          @limits_file
+        end
+
         def at_flow_end
           # Take whatever the test modes are set to at the end of the flow as what we go with
           @test_modes = tester.limitfile_test_modes
@@ -92,9 +104,9 @@ module OrigenTesters
         end
 
         def render_limits_file(ast)
-          m = platform::LimitsFile.new(self, ast, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
-          unless m.empty?
-            m.write_to_file if m.to_be_written?
+          limits_file.generate(ast)
+          unless limits_file.empty?
+            limits_file.write_to_file if limits_file.to_be_written? && !Origen.interface.generating_sub_program?
           end
         end
 

@@ -46,6 +46,10 @@ module OrigenTesters
       flow.test(name, options)
     end
 
+    def generating_sub_program?
+      (defined? @@generating_sub_program) ? @@generating_sub_program : false
+    end
+
     # Returns the abstract test program model for the current flow
     def atp
       flow.model

@@ -36,10 +36,13 @@ module Origen
             # where it is used in the _create method to stop the top_level: true option being passed into
             # on_flow_start listeners
             orig_sub_program = @sub_program
+            orig_top_level_flow = @top_level_flow
             @sub_program = true
+            @top_level_flow = Origen.interface.flow.top_level
             Origen.generator.generate_sub_program(file, options)
             # However, we don't want it to be set for the remainder of the master thread
             @sub_program = orig_sub_program
+            @top_level_flow = orig_top_level_flow
           else
             Origen.interface.flow.group(name, description: flow_comments) do
               _create(options, &block)
@@ -96,7 +99,14 @@ module Origen
           end
           Origen.interface.set_top_level_flow
           Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
-          options[:top_level] = @sub_program ? false : true
+          if @sub_program
+            options[:top_level] = false
+            Origen.interface.flow.instance_variable_set('@top_level', @top_level_flow)
+          else
+            options[:top_level] = true
+            Origen.interface.flow.instance_variable_set('@top_level', Origen.interface.flow)
+          end
+          Origen.interface.flow.on_top_level_set if Origen.interface.flow.respond_to?(:on_top_level_set)
           Origen.app.listeners_for(:on_flow_start).each do |listener|
             listener.on_flow_start(options)
           end

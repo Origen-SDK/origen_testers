@@ -44,6 +44,16 @@ module OrigenTesters
       @unique_ids = val
     end
 
+    # Returns true if this is a top-level Origen test program flow
+    def top_level?
+      top_level == self
+    end
+
+    # Returns the flow's parent top-level flow object, or self if this is a top-level flow
+    def top_level
+      @top_level
+    end
+
     def lines
       @lines
     end
