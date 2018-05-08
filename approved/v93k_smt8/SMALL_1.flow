@@ -1,0 +1,27 @@
+flow SMALL_1 {
+    in SMALL_FLOW = false;
+
+    setup {
+    }
+
+    execute {
+
+        if (SMALL_FLOW == true) {
+            test1.execute();
+            test2.execute();
+        } else {
+        }
+        test1.execute();
+        test1.execute();
+        test1.execute();
+        test1.execute();
+        test1.execute();
+        test1.execute();
+        test1.execute();
+        if (SMALL_FLOW == true) {
+            test1.execute();
+            test2.execute();
+        } else {
+        }
+    }
+}

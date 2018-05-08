@@ -2,8 +2,8 @@ flow TEST {
 
     setup {
         suite meas_read_pump calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -22,8 +22,8 @@ flow TEST {
         }
 
         suite meas_read_pump_1 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -42,8 +42,8 @@ flow TEST {
         }
 
         suite meas_read_pump_2 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -62,8 +62,8 @@ flow TEST {
         }
 
         suite meas_read_pump_3 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -82,8 +82,8 @@ flow TEST {
         }
 
         suite meas_read_pump_4 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -102,8 +102,8 @@ flow TEST {
         }
 
         suite meas_read_pump_5 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -122,8 +122,8 @@ flow TEST {
         }
 
         suite meas_read_pump_6 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
+            measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             forceMode = "VOLT";
             forceValue = "3.8[V]";
             measureMode = "PPMUpar";
@@ -141,70 +141,22 @@ flow TEST {
             testerState = "CONNECTED";
         }
 
-        suite meas_read_pump_7 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
-            forceMode = "VOLT";
-            forceValue = "3.8[V]";
-            measureMode = "PPMUpar";
+        suite program_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
-            pinlist = "@";
-            ppmuClampHigh = "0[V]";
-            ppmuClampLow = "0[V]";
-            precharge = "OFF";
-            prechargeVoltage = "0[V]";
-            relaySwitchMode = "DEFAULT(BBM)";
-            settlingTime = "0[s]";
-            spmuClamp = "0[A]";
-            termination = "OFF";
-            testName = "passLimit_uA_mV";
-            testerState = "CONNECTED";
-        }
-
-        suite meas_read_pump_8 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
-            forceMode = "VOLT";
-            forceValue = "3.8[V]";
-            measureMode = "PPMUpar";
-            output = "None";
-            pinlist = "@";
-            ppmuClampHigh = "0[V]";
-            ppmuClampLow = "0[V]";
-            precharge = "OFF";
-            prechargeVoltage = "0[V]";
-            relaySwitchMode = "DEFAULT(BBM)";
-            settlingTime = "0[s]";
-            spmuClamp = "0[A]";
-            termination = "OFF";
-            testName = "passLimit_uA_mV";
-            testerState = "CONNECTED";
-        }
-
-        suite meas_read_pump_9 calls dc_tml.DcTest.GeneralPMU {
-            measurement.pattern = setupRef(patterns.meas_read_pump);
-            measurement.specification = setupRef(specs.Nominal);
-            forceMode = "VOLT";
-            forceValue = "3.8[V]";
-            measureMode = "PPMUpar";
-            output = "None";
-            pinlist = "@";
-            ppmuClampHigh = "0[V]";
-            ppmuClampLow = "0[V]";
-            precharge = "OFF";
-            prechargeVoltage = "0[V]";
-            relaySwitchMode = "DEFAULT(BBM)";
-            settlingTime = "0[s]";
-            spmuClamp = "0[A]";
-            termination = "OFF";
-            testName = "passLimit_uA_mV";
-            testerState = "CONNECTED";
+            testName = "Functional";
         }
 
     }
 
     execute {
 
+        program_ckbd.execute();
+        if (program_ckbd.pass) {
+        } else {
+            addBin(1100);
+        }
         meas_read_pump.execute();
         if (meas_read_pump.pass) {
         } else {
@@ -232,16 +184,5 @@ flow TEST {
         }
         meas_read_pump_5.execute();
         meas_read_pump_6.execute();
-        meas_read_pump_7.execute();
-        meas_read_pump_8.execute();
-        if (meas_read_pump_8.pass) {
-        } else {
-            addBin(2);
-        }
-        meas_read_pump_9.execute();
-        if (meas_read_pump_9.pass) {
-        } else {
-            addBin(2);
-        }
     }
 }

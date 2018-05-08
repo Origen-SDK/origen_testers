@@ -100,14 +100,14 @@ module OrigenTesters
           process(ast)
           test_suites.finalize
           test_methods.finalize
-          render_limits_file(ast) if tester.create_limits_file
+          if tester.create_limits_file && !Origen.interface.generating_sub_program?
+            render_limits_file(ast)
+          end
         end
 
         def render_limits_file(ast)
           limits_file.generate(ast)
-          unless limits_file.empty?
-            limits_file.write_to_file if limits_file.to_be_written? && !Origen.interface.generating_sub_program?
-          end
+          limits_file.write_to_file
         end
 
         def line(str)

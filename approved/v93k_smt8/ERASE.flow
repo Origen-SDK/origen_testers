@@ -1,5 +1,4 @@
-flow PRB2 {
-    in EXTRA_TESTS = false;
+flow ERASE {
 
     setup {
         suite erase_all calls ac_tml.AcTest.FunctionalTest {
@@ -23,51 +22,38 @@ flow PRB2 {
             testName = "Functional";
         }
 
-        suite margin_read1_all1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+        suite erase_all_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
         }
 
-        suite margin_read1_all1_1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+        suite erase_all_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
         }
 
-        suite margin_read1_all1_2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+        suite erase_all_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
         }
 
-        suite margin_read1_all1_3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        flow PRB2_MAIN calls ...v93k_smt8.OrigenTesters.flows.prb2.PRB2_MAIN { }
-        flow PRB2_MAIN_1 calls ...v93k_smt8.OrigenTesters.flows.prb2.PRB2_MAIN_1 { }
+        flow ERASE_VFY calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.erase.ERASE_VFY { }
     }
 
     execute {
 
         erase_all.execute();
-        margin_read1_all1.execute();
         erase_all_1.execute();
-        margin_read1_all1_1.execute();
-        PRB2_MAIN.execute();
         erase_all_2.execute();
-        margin_read1_all1_2.execute();
-        if (EXTRA_TESTS == true) {
-            PRB2_MAIN_1.execute();
-        } else {
-        }
-        margin_read1_all1_3.execute();
+        erase_all_3.execute();
+        erase_all_4.execute();
+        erase_all_5.execute();
+        ERASE_VFY.execute();
     }
 }

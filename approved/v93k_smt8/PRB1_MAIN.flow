@@ -1,0 +1,921 @@
+flow PRB1_MAIN {
+    in ALARMENABLED = false;
+    in DO_ERASE = false;
+    in JOB = "";
+    in NO_EXTRA_ERASE = false;
+    in USB_XCVR_CZ = false;
+
+    setup {
+        suite another_not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.another_not_p1_or_p2_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite cc_test_0 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.cc_test_0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite cc_test_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.cc_test_1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite cc_test_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.cc_test_2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_10 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_11 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_12 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_13 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_14 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_15 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_16 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_17 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_18 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_19 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_20 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_21 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_22 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_23 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_24 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_25 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_26 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_27 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_28 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_8 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all_9 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read0_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read0_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_10 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_11 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_12 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_13 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_14 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_15 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_16 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_17 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_18 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.cz);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_8 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_all1_9 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.not_p1_or_p2_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite not_p1_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.not_p1_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite p1_only_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.p1_only_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite p1_or_p2_only_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.p1_or_p2_only_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite por_ins calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.por_ins);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_10 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_11 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_12 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_13 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_14 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_15 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_16 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_8 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_9 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite some_func_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.some_func_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite xcvr_fs_vilvih calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite xcvr_fs_vilvih_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite xcvr_fs_vilvih_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite xcvr_fs_vilvih_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        flow ERASE calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.ERASE { }
+        flow ERASE_1 calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.ERASE_1 { }
+        flow ADDITIONAL_ERASE calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE { }
+        flow ADDITIONAL_ERASE_1 calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE_1 { }
+    }
+
+    execute {
+        var ERASE_PASSED_1_PASSED = false;
+        var ERASE_PASSED_2_PASSED = false;
+        var ERASE_PASSED_3_FAILED = false;
+        var ERASE_PASSED_4_FAILED = false;
+        var ERASE_FAILED_1_FAILED = false;
+        var ERASE_FAILED_2_FAILED = false;
+        var ERASE_FAILED_3_PASSED = false;
+        var ERASE_FAILED_4_PASSED = false;
+        var ERASE_RAN_1_RAN = false;
+        var ERASE_RAN_2_RAN = false;
+        var ERASE_RAN_3_RAN = false;
+        var ERASE_RAN_4_RAN = false;
+        var G200_FAILED = false;
+        var G100_RAN = false;
+
+        program_ckbd.execute();
+        if (program_ckbd.pass) {
+        } else {
+            addBin(1100);
+        }
+        margin_read1_ckbd.execute();
+        margin_read0_ckbd.execute();
+        ERASE.execute();
+        println("Should be v1");
+        program_ckbd_1.execute();
+        println("Should be v2");
+        program_ckbd_2.execute();
+        println("Should be v1");
+        program_ckbd_3.execute();
+        println("Should be v2");
+        program_ckbd_4.execute();
+        println("Should be a v1 test instance group");
+        // *******************************************************
+        // GROUP - program_ckbd
+        // *******************************************************
+            program_ckbd_5.execute();
+            program_ckbd_6.execute();
+            program_ckbd_7.execute();
+        // *******************************************************
+        // /GROUP - program_ckbd
+        // *******************************************************
+        println("Should be a v2 test instance group");
+        // *******************************************************
+        // GROUP - program_ckbd_2
+        // *******************************************************
+            program_ckbd_8.execute();
+            program_ckbd_9.execute();
+            program_ckbd_10.execute();
+        // *******************************************************
+        // /GROUP - program_ckbd_2
+        // *******************************************************
+        println("Should be a v1 test instance group");
+        // *******************************************************
+        // GROUP - program_ckbd_3
+        // *******************************************************
+            program_ckbd_11.execute();
+            program_ckbd_12.execute();
+            program_ckbd_13.execute();
+        // *******************************************************
+        // /GROUP - program_ckbd_3
+        // *******************************************************
+        println("Should be a v2 test instance group");
+        // *******************************************************
+        // GROUP - program_ckbd_4
+        // *******************************************************
+            program_ckbd_14.execute();
+            program_ckbd_15.execute();
+            program_ckbd_16.execute();
+        // *******************************************************
+        // /GROUP - program_ckbd_4
+        // *******************************************************
+        if (JOB == "P1") {
+            p1_only_test.execute();
+        } else {
+        }
+        if ((JOB == "P1") || (JOB == "P2")) {
+            p1_or_p2_only_test.execute();
+        } else {
+        }
+        if (JOB == "P1") {
+        } else {
+            not_p1_test.execute();
+        }
+        if ((JOB == "P1") || (JOB == "P2")) {
+        } else {
+            not_p1_or_p2_test.execute();
+            another_not_p1_or_p2_test.execute();
+        }
+        println("Verify that a test with an external instance works");
+        por_ins.execute();
+        println("Verify that a request to use the current context works");
+        if (JOB == "P1") {
+            erase_all.execute();
+            erase_all_1.execute();
+            erase_all_2.execute();
+        } else {
+        }
+        if (JOB == "P2") {
+        } else {
+            erase_all_3.execute();
+        }
+        erase_all_4.execute();
+        margin_read1_all1.execute();
+        if (margin_read1_all1.pass) {
+        } else {
+            erase_all_5.execute();
+        }
+        margin_read1_all1_1.execute();
+        if (margin_read1_all1_1.pass) {
+        } else {
+            erase_all_6.execute();
+        }
+        margin_read1_all1_2.execute();
+        if (margin_read1_all1_2.pass) {
+        } else {
+            erase_all_7.execute();
+        }
+        margin_read1_all1_3.execute();
+        if (margin_read1_all1_3.pass) {
+        } else {
+            erase_all_8.execute();
+        }
+        margin_read1_all1_4.execute();
+        if (margin_read1_all1_4.pass) {
+        } else {
+            erase_all_9.execute();
+        }
+        margin_read1_all1_5.execute();
+        println("Test if enable");
+        if (DO_ERASE == true) {
+            erase_all_10.execute();
+            erase_all_11.execute();
+        } else {
+        }
+        println("Test unless enable");
+        if (NO_EXTRA_ERASE == true) {
+        } else {
+            erase_all_12.execute();
+            erase_all_13.execute();
+            erase_all_14.execute();
+        }
+        erase_all_15.execute();
+        erase_all_16.execute();
+        println("Test if_passed");
+        erase_all_17.execute();
+        if (erase_all_17.pass) {
+            ERASE_PASSED_1_PASSED = true;
+        } else {
+        }
+        erase_all_18.execute();
+        if (erase_all_18.pass) {
+            ERASE_PASSED_2_PASSED = true;
+        } else {
+        }
+        if (ERASE_PASSED_1_PASSED == true) {
+            margin_read1_all1_6.execute();
+        } else {
+        }
+        if (ERASE_PASSED_2_PASSED == true) {
+            margin_read1_all1_7.execute();
+        } else {
+        }
+        println("Test unless_passed");
+        erase_all_19.execute();
+        if (erase_all_19.pass) {
+        } else {
+            ERASE_PASSED_3_FAILED = true;
+        }
+        erase_all_20.execute();
+        if (erase_all_20.pass) {
+        } else {
+            ERASE_PASSED_4_FAILED = true;
+        }
+        if (ERASE_PASSED_3_FAILED == true) {
+            margin_read1_all1_8.execute();
+        } else {
+        }
+        if (ERASE_PASSED_4_FAILED == true) {
+            margin_read1_all1_9.execute();
+        } else {
+        }
+        println("Test if_failed");
+        erase_all_21.execute();
+        if (erase_all_21.pass) {
+        } else {
+            ERASE_FAILED_1_FAILED = true;
+        }
+        erase_all_22.execute();
+        if (erase_all_22.pass) {
+        } else {
+            ERASE_FAILED_2_FAILED = true;
+        }
+        if (ERASE_FAILED_1_FAILED == true) {
+            margin_read1_all1_10.execute();
+        } else {
+        }
+        if (ERASE_FAILED_2_FAILED == true) {
+            margin_read1_all1_11.execute();
+        } else {
+        }
+        println("Test unless_failed");
+        erase_all_23.execute();
+        if (erase_all_23.pass) {
+            ERASE_FAILED_3_PASSED = true;
+        } else {
+        }
+        erase_all_24.execute();
+        if (erase_all_24.pass) {
+            ERASE_FAILED_4_PASSED = true;
+        } else {
+        }
+        if (ERASE_FAILED_3_PASSED == true) {
+            margin_read1_all1_12.execute();
+        } else {
+        }
+        if (ERASE_FAILED_4_PASSED == true) {
+            margin_read1_all1_13.execute();
+        } else {
+        }
+        println("Test if_ran");
+        erase_all_25.execute();
+        ERASE_RAN_1_RAN = true;
+        erase_all_26.execute();
+        ERASE_RAN_2_RAN = true;
+        if (ERASE_RAN_1_RAN == true) {
+            margin_read1_all1_14.execute();
+        } else {
+        }
+        if (ERASE_RAN_2_RAN == true) {
+            margin_read1_all1_15.execute();
+        } else {
+        }
+        println("Test unless_ran");
+        erase_all_27.execute();
+        ERASE_RAN_3_RAN = true;
+        erase_all_28.execute();
+        ERASE_RAN_4_RAN = true;
+        if (ERASE_RAN_3_RAN == true) {
+        } else {
+            margin_read1_all1_16.execute();
+        }
+        if (ERASE_RAN_4_RAN == true) {
+        } else {
+            margin_read1_all1_17.execute();
+        }
+        println("Verify that job context wraps import");
+        if (JOB == "FR") {
+            ERASE_1.execute();
+        } else {
+        }
+        println("Verify that job context wraps enable block within an import");
+        if (JOB == "FR") {
+            ADDITIONAL_ERASE.execute();
+            ADDITIONAL_ERASE_1.execute();
+        } else {
+        }
+        println("Verify that flow.cz works...");
+        margin_read1_all1_18.execute();
+        println("Verify that flow.cz works with enable words");
+        if (USB_XCVR_CZ == true) {
+            xcvr_fs_vilvih.execute();
+            xcvr_fs_vilvih_1.execute();
+            xcvr_fs_vilvih_2.execute();
+            xcvr_fs_vilvih_3.execute();
+        } else {
+        }
+        println("Verify that MTO template works...");
+        println("Speed binning example bug from video 5");
+        // *******************************************************
+        // GROUP - 200Mhz Tests
+        // *******************************************************
+            test200_1.execute();
+            if (test200_1.pass) {
+            } else {
+                G200_FAILED = true;
+            }
+            test200_2.execute();
+            if (test200_2.pass) {
+            } else {
+                G200_FAILED = true;
+            }
+            test200_3.execute();
+            if (test200_3.pass) {
+            } else {
+                G200_FAILED = true;
+            }
+        // *******************************************************
+        // /GROUP - 200Mhz Tests
+        // *******************************************************
+        if (G200_FAILED == true) {
+            // *******************************************************
+            // GROUP - 100Mhz Tests
+            // *******************************************************
+                G100_RAN = true;
+                test100_1.execute();
+                if (test100_1.pass) {
+                } else {
+                    addBin(5);
+                }
+                test100_2.execute();
+                if (test100_2.pass) {
+                } else {
+                    addBin(5);
+                }
+                test100_3.execute();
+                if (test100_3.pass) {
+                } else {
+                    addBin(5);
+                }
+            // *******************************************************
+            // /GROUP - 100Mhz Tests
+            // *******************************************************
+        } else {
+        }
+        if (G100_RAN == true) {
+            addBin(2);
+        } else {
+        }
+        println("Test node optimization within an if_failed branch");
+        some_func_test.execute();
+        if (some_func_test.pass) {
+        } else {
+            if (ALARM == true) {
+                addBin(10);
+            } else {
+                addBin(11);
+            }
+            if (ALARMENABLED == true) {
+                addBin(12);
+            } else {
+                addBin(13);
+            }
+        }
+        cc_test_0.execute();
+        cc_test_1.execute();
+        cc_test_2.execute();
+        addBin(1);
+    }
+}

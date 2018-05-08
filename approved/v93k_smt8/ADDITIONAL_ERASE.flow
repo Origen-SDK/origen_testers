@@ -1,0 +1,21 @@
+flow ADDITIONAL_ERASE {
+    in ADDITIONAL_ERASE = false;
+
+    setup {
+        suite erase_all calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+
+        if (ADDITIONAL_ERASE == true) {
+            erase_all.execute();
+        } else {
+        }
+    }
+}

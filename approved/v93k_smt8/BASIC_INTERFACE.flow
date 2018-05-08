@@ -2,8 +2,7 @@ flow BASIC_INTERFACE {
 
     setup {
         suite test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(patterns.test1);
-            measurement.specification = setupRef();
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
             output = "None";
             testName = "Functional";
         }
