@@ -29,9 +29,11 @@ module OrigenTesters
         options = {
           duration: :static
         }.merge(options)
+        number = options[:number]
 
         if tester.j750? || tester.uflex?
           block_loop(name, options) do |block, i, group|
+            options[:number] = number + i if number && i
             ins = test_instances.functional(name)
             ins.set_wait_flags(:a) if options[:duration] == :dynamic
             ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
@@ -56,6 +58,7 @@ module OrigenTesters
 
         elsif tester.v93k?
           block_loop(name, options) do |block, i|
+            options[:number] = number + i if number && i
             tm = test_methods.ac_tml.ac_test.functional_test
             ts = test_suites.run(name, options)
             ts.test_method = tm

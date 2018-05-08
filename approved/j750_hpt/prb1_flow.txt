@@ -6,12 +6,12 @@ DFF 1.1	Flow Table
 						Test	margin_read1_ckbd	margin_read1_ckbd	1010					Fail														
 						Test	margin_read0_ckbd	margin_read0_ckbd	1030					Fail														
 						Test	erase_all_v1	erase_all	2000					Fail														
-						Test	erase_all_v1	erase_all	2000					Fail														
 						Test	erase_all_v1	erase_all	2010					Fail														
 						Test	erase_all_v1	erase_all	2030					Fail														
 						Test	erase_all_v1	erase_all	2060					Fail														
 						Test	erase_all_v1	erase_all	2100					Fail														
-						Test	margin_read1_all1_v1	margin_read1_all1	2150					Fail														
+						Test	erase_all_v1	erase_all	2150					Fail														
+						Test	margin_read1_all1_v1	margin_read1_all1	2210					Fail														
 		data_collection				Test	nvm_allflash_vsgdist	ErsSatVsg						None														
 		data_collection				Test	nvm_allflash_vsgdist_tifr	ErsSatVsgTIFR						None														
 		data_collection				Test	nvm_allflash_vsgdist_uifr	ErsSatVsgUIFR						None														
@@ -106,10 +106,10 @@ DFF 1.1	Flow Table
 						Test	margin_read1_all1_v1	margin_read1_all1	4310					Fail								not	flag-true	erase_ran_4_7AF57D1_RAN				
 						logprint	Verify_that_job_context_wraps_import																					
 			FR			Test	erase_all_v1	erase_all	5000					Fail														
-			FR			Test	erase_all_v1	erase_all	5000					Fail														
 			FR			Test	erase_all_v1	erase_all	5010					Fail														
 			FR			Test	erase_all_v1	erase_all	5030					Fail														
-			FR			Test	margin_read1_all1_v1	margin_read1_all1	5060					Fail														
+			FR			Test	erase_all_v1	erase_all	5060					Fail														
+			FR			Test	margin_read1_all1_v1	margin_read1_all1	5100					Fail														
 						logprint	Verify_that_job_context_wraps_enable_block_within_an_import																					
 		additional_erase	FR			Test	erase_all_v1	erase_all	5500					Fail														
 			FR			Test	erase_all_v1	erase_all	5600					Fail														
@@ -155,7 +155,7 @@ DFF 1.1	Flow Table
 		alarmenabled				goto	LABEL_2_7AF57D1																flag-true	sft1_7AF57D1_FAILED				
 						set-device					13			Fail									flag-true	sft1_7AF57D1_FAILED				
 	LABEL_2_7AF57D1					nop																	flag-true	sft1_7AF57D1_FAILED				
-						Test	cc_test_0	cc_test_0						Fail														
-						Test	cc_test_1	cc_test_1						Fail														
-						Test	cc_test_2	cc_test_2						Fail														
+						Test	cc_test_0	cc_test_0	7000					Fail														
+						Test	cc_test_1	cc_test_1	7001					Fail														
+						Test	cc_test_2	cc_test_2	7002					Fail														
 						set-device				1		1		Pass													Good die!	
