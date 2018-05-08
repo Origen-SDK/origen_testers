@@ -15,6 +15,7 @@ module OrigenTesters
           @empty = true
           @smt8 = tester.smt8?
           if smt8?
+            @test_path = []
             l = ',,,'
             if test_modes.empty?
               l += ',Low Limit,High Limit'
@@ -81,6 +82,12 @@ module OrigenTesters
           end
 
           process_all(node.children)
+        end
+
+        def on_sub_flow(node)
+          @test_path << Pathname.new(node.find(:path).value).basename('.*').to_s
+          process_all(node.children)
+          @test_path.pop
         end
 
         # Returns true if the AST provided when initializing this limits table generator did not
@@ -181,9 +188,18 @@ module OrigenTesters
         def extract_test_suite_name(node)
           test_obj = node.find(:object).to_a[0]
           if test_obj.is_a?(Hash)
-            test_obj['Test']
+            name = test_obj['Test']
           else
-            test_obj.respond_to?(:name) ? test_obj.name : test_obj if test_obj
+            name = test_obj.respond_to?(:name) ? test_obj.name : test_obj if test_obj
+          end
+          if smt8?
+            if @test_path.empty?
+              name
+            else
+              "#{@test_path.join('.')}.#{name}"
+            end
+          else
+            name
           end
         end
 

@@ -66,7 +66,11 @@ module OrigenTesters
 
         def on_top_level_set
           if top_level?
-            @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
+            if smt8?
+              @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: filename.sub(/\..*/, ''), test_modes: @test_modes)
+            else
+              @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
+            end
           else
             @limits_file = top_level.limits_file
           end
