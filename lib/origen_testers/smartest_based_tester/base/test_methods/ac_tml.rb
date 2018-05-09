@@ -18,16 +18,16 @@ module OrigenTesters
               output:    [:string, 'None', %w(None ReportUI ShowFailOnly)]
             },
             spec_search:                  {
-              max:             [:string, nil],
-              method:          [:string, nil],
-              min:             [:string, nil],
-              output:          [:string, 'None', %w(None ReportUI ShowFailOnly)],
-              resolution:      [:string, ''],
-              result_pin_list: [:string, ''],
-              setup_pin_list:  [:string, ''],
-              spec:            [:string, nil],
-              step:            [:string, nil],
-              test_name:       [:string, 'SpecSearch_Test']
+              max:            [:string, nil],
+              method:         [:string, nil],
+              min:            [:string, nil],
+              output:         [:string, 'None', %w(None ReportUI ShowFailOnly)],
+              resolution:     [:string, ''],
+              result_pinlist: [:string, ''],
+              setup_pinlist:  [:string, ''],
+              spec:           [:string, nil],
+              step:           [:string, nil],
+              test_name:      [:string, 'SpecSearch_Test']
             }
           }
 
