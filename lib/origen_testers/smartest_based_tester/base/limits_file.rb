@@ -14,6 +14,9 @@ module OrigenTesters
           @test_modes = Array(options[:test_modes])
           @empty = true
           @smt8 = tester.smt8?
+        end
+
+        def header
           if smt8?
             @test_path = []
             l = ',,,'
@@ -54,8 +57,13 @@ module OrigenTesters
           end
         end
 
+        def test_modes=(modes)
+          @test_modes = Array(modes)
+        end
+
         def generate(ast)
           @bin_names = Processors::ExtractBinNames.new.run(ast)
+          header
           process(ast)
         end
 
@@ -192,15 +200,7 @@ module OrigenTesters
           else
             name = test_obj.respond_to?(:name) ? test_obj.name : test_obj if test_obj
           end
-          if smt8?
-            if @test_path.empty?
-              name
-            else
-              "#{@test_path.join('.')}.#{name}"
-            end
-          else
-            name
-          end
+          name
         end
 
         def extract_test_name(node, o)
@@ -212,7 +212,11 @@ module OrigenTesters
 
           if smt8?
             # "Test Suite"
-            l = "#{options[:suite_name]}"
+            if @test_path.empty?
+              l = "#{options[:suite_name]}"
+            else
+              l = "#{@test_path.join('.')}.#{options[:suite_name]}"
+            end
             # "Test"
             l << f(options[:test_name])
             # "Test Number"

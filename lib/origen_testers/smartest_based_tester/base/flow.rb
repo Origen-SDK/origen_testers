@@ -110,8 +110,11 @@ module OrigenTesters
         end
 
         def render_limits_file(ast)
-          limits_file.generate(ast)
-          limits_file.write_to_file
+          if limits_file
+            limits_file.test_modes = @test_modes
+            limits_file.generate(ast)
+            limits_file.write_to_file
+          end
         end
 
         def line(str)
