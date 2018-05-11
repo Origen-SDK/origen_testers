@@ -204,7 +204,24 @@ module OrigenTesters
         end
 
         def extract_test_name(node, o)
-          (node.find(:name) || []).to_a[0] || extract_test_suite_name(node) || o[:suite_name]
+          test_obj = node.find(:object).to_a[0]
+          if smt8?
+            if test_obj.is_a?(Hash) && test_obj['Sub Test Name']
+              name = test_obj['Sub Test Name']
+            else
+              name = test_obj.try(:sub_test_name)
+            end
+          end
+          unless name
+            if test_obj.is_a?(Hash) && test_obj['Test Name']
+              name = test_obj['Test Name']
+            elsif test_obj.is_a?(String)
+              name = test_obj
+            else
+              name = (node.find(:name) || []).to_a[0] || extract_test_suite_name(node, o) || o[:suite_name]
+            end
+          end
+          name
         end
 
         def line(options)

@@ -69,7 +69,10 @@ module OrigenTesters
         end
 
         def to_meta
-          meta || {}
+          m = meta || {}
+          m['Test'] = name
+          m['Test Name'] ||= test_name
+          m
         end
 
         def extract_atp_attributes(options)

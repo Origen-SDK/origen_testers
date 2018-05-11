@@ -17,13 +17,17 @@ module OrigenTesters
         attr_accessor :abs_class_name
         attr_reader :limits
         attr_accessor :limits_id
+        alias_method :limit_id, :limits_id
+        alias_method :limit_id=, :limits_id=
+        # Used to store the name of the primary test logged in SMT8
+        attr_accessor :sub_test_name
 
         def initialize(options)
           @type = options[:type]
           @library = options[:library]
           @class_name = options[:methods].delete(:class_name)
           @parameters = {}
-          @limits_id = options[:methods].delete(:limits_id)
+          @limits_id = options[:methods].delete(:limits_id) || options[:methods].delete(:limit_id)
           @limits = TestMethods::Limits.new(self)
           # Add any methods
           if options[:methods][:methods]
