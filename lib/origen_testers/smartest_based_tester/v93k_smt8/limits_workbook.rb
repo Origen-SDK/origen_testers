@@ -1,3 +1,4 @@
+require 'rodf'
 module OrigenTesters
   module SmartestBasedTester
     class V93K_SMT8
@@ -9,12 +10,32 @@ module OrigenTesters
         def initialize(options = {})
         end
 
+        def fully_formatted_filename
+          'limits.ods'
+        end
+
         def subdirectory
-          'common'
+          "#{tester.package_namespace}/common"
         end
 
         def write_to_file(options = {})
-          puts "WRITING LIMITSSSSSSSSSSSSSSSSSSSSSSSSSS - #{object_id}"
+          Origen.log.info "Writing... #{output_file}"
+          RODF::Spreadsheet.file(output_file) do
+            Origen.interface.flow_sheets.each do |name, flow|
+              if flow.limits_file
+                limits_name = flow.limits_file.filename.sub('.csv', '')
+                table limits_name do
+                  flow.limits_file.output_file.readlines.each do |line|
+                    row do
+                      line.chomp.split(',').each do |word|
+                        cell word
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
         end
       end
     end

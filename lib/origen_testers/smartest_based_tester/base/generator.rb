@@ -59,8 +59,8 @@ module OrigenTesters
           @@pattern_masters = nil
           @@pattern_compilers = nil
           @@variables_files = nil
-          # @@limits_workbook = nil
-          # limits_workbook if tester.smt8?
+          @@limits_workbook = nil
+          limits_workbook if tester.smt8? && !generating_sub_program?
         end
         alias_method :reset_globals, :at_run_start
 
@@ -185,7 +185,7 @@ module OrigenTesters
           variables_files.each do |name, sheet|
             g << sheet
           end
-          # g << limits_workbook if tester.smt8?
+          g << limits_workbook if tester.smt8? && !generating_sub_program?
           g
         end
 

@@ -15,7 +15,7 @@ PATH
       atp (~> 1.1, >= 1.1.2)
       origen (>= 0.32.0)
       require_all (~> 1)
-      rodf
+      rodf (~> 1)
 
 GEM
   remote: http://rubygems.org/

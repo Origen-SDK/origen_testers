@@ -15,11 +15,7 @@ module OrigenTesters
         end
 
         def limits_workbook
-          @@limits_workbook ||= begin
-            m = LimitsWorkbook.new(manually_register: true)
-            m.filename = 'limits.ods'
-            m
-          end
+          @@limits_workbook ||= LimitsWorkbook.new(manually_register: true)
         end
       end
     end
