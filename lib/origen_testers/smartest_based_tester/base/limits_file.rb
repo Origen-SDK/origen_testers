@@ -19,26 +19,27 @@ module OrigenTesters
         def header
           if smt8?
             @test_path = []
-            l = ',,,'
+            l = 'Test Suite,Test,Test Number,Test Text'
             if test_modes.empty?
               l += ',Low Limit,High Limit'
             else
-              test_modes.size.times do
-                l += ',Low Limit,High Limit'
-              end
-            end
-            lines << l
-
-            l = 'Test Suite,Test,Test Number,Test Text'
-            if test_modes.empty?
-              l += ',default,default'
-            else
-              test_modes.each do |mode|
-                l += ",#{mode},#{mode}"
-              end
+              l += ',Low Limit'
+              (test_modes.size - 1).times { l += ',' }
+              l += ',High Limit'
+              (test_modes.size - 1).times { l += ',' }
             end
             l += ',Unit,Soft Bin'
             lines << l
+
+            l = ',,,'
+            if test_modes.empty?
+              l += ',default,default'
+            else
+              test_modes.each { |mode| l += ",#{mode}" }
+              test_modes.each { |mode| l += ",#{mode}" }
+            end
+            lines << l
+
           else
             l = '"Suite name","Pins","Test name","Test number"'
             if test_modes.empty?

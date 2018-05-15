@@ -96,6 +96,8 @@ module OrigenTesters
       options = {
         include_extension: true
       }.merge(options)
+      # Allow generators to override this and fully define the filename if they want
+      return fully_formatted_filename if try(:fully_formatted_filename)
       name = (@filename || Origen.file_handler.current_file.basename('.rb')).to_s
       name[0] = '' if name[0] == '_'
       if Origen.config.program_prefix
@@ -108,7 +110,7 @@ module OrigenTesters
       body = f.basename(".#{ext}").to_s
       body.gsub!('_resources', '')
       if defined? self.class::OUTPUT_PREFIX
-        # Unless the fixfix is already in the name
+        # Unless the prefix is already in the name
         unless body =~ /#{self.class::OUTPUT_PREFIX}$/i
           body = "#{self.class::OUTPUT_PREFIX}_#{body}"
         end

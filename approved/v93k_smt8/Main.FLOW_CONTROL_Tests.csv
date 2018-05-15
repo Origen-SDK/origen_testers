@@ -1,5 +1,5 @@
-,,,,Low Limit,High Limit
-Test Suite,Test,Test Number,Test Text,default,default,Unit,Soft Bin
+Test Suite,Test,Test Number,Test Text,Low Limit,High Limit,Unit,Soft Bin
+,,,,default,default
 read1,read1,50000,,0,0,,
 erase1,erase1,50010,erase1_erase1,0,0,,
 read2,read2,50020,,0,0,,
