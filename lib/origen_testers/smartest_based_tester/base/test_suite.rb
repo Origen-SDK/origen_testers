@@ -71,7 +71,7 @@ module OrigenTesters
         def to_meta
           m = meta || {}
           m['Test'] = name
-          m['Test Name'] ||= test_name
+          m['Test Name'] ||= try(:test_name)
           m
         end
 
