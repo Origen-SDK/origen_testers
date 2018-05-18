@@ -250,6 +250,8 @@ module OrigenTesters
               test_modes.each do |mode|
                 # "Low Limit"
                 l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl])
+              end
+              test_modes.each do |mode|
                 # "High Limit"
                 l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl])
               end

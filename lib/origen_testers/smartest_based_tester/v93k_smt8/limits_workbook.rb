@@ -25,10 +25,33 @@ module OrigenTesters
               if flow.limits_file
                 limits_name = flow.limits_file.filename.sub('.csv', '')
                 table limits_name do
-                  flow.limits_file.output_file.readlines.each do |line|
-                    row do
-                      line.chomp.split(',').each do |word|
-                        cell word
+                  flow.limits_file.output_file.readlines.each_with_index do |line, i|
+                    # Need to fix the first row, SMT8 won't allow the Low/High limits cells not to be merged
+                    if i == 0
+                      row do
+                        x = nil
+                        line.chomp.split(',').each do |word|
+                          if word == 'Low Limit'
+                            x = 0
+                          elsif word == 'High Limit'
+                            cell 'Low Limit', span: x + 1
+                            x = 0
+                          elsif word == 'Unit'
+                            cell 'High Limit', span: x + 1
+                            cell word
+                            x = nil
+                          elsif x
+                            x += 1
+                          else
+                            cell word
+                          end
+                        end
+                      end
+                    else
+                      row do
+                        line.chomp.split(',').each do |word|
+                          cell word
+                        end
                       end
                     end
                   end
