@@ -222,7 +222,21 @@ module OrigenTesters
     end
 
     def reference_file
-      Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+      # If an explicit output directory has been set, use it
+      if output_directory
+        sub = Pathname.new(output_directory).relative_path_from(Origen.file_handler.output_directory)
+        dir = File.join(Origen.file_handler.reference_directory, sub)
+        FileUtils.mkdir_p(dir)
+        Pathname.new(File.join(dir, filename))
+      else
+        if respond_to? :subdirectory
+          dir = File.join(Origen.file_handler.reference_directory, subdirectory)
+          FileUtils.mkdir_p(dir)
+          Pathname.new(File.join(dir, filename))
+        else
+          Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+        end
+      end
     end
 
     def import(file, options = {})
