@@ -50,6 +50,9 @@ module Origen
         return_data[:completed_files] = Origen.app.stats.completed_files
         return_data[:changed_files] = Origen.app.stats.changed_files
         return_data[:new_files] = Origen.app.stats.new_files
+        if defined?(TestIds) && TestIds.configured?
+          return_data[:test_ids] = TestIds.current_configuration.allocator.store
+        end
         data = Marshal.dump(return_data)
         writer.puts(data.bytesize)
         writer.write(data)
@@ -64,6 +67,7 @@ module Origen
       return_data = Marshal.load(data)
       @generated_sub_programs[return_data[:file]] = true
       Origen.interface.merge_pattern_references(return_data[:pattern_references])
+      TestIds.current_configuration.allocator.merge_store(return_data[:test_ids]) if return_data[:test_ids]
       basedir = Pathname.new(Origen.app.config.test_program_output_directory || Origen.app.config.output_directory)
       path = Pathname.new(return_data[:file]).relative_path_from(basedir)
       Origen.interface.flow.atp.sub_flow(return_data[:nodes], path: path.to_s)
