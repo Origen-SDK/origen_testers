@@ -68,8 +68,7 @@ module Origen
       @generated_sub_programs[return_data[:file]] = true
       Origen.interface.merge_pattern_references(return_data[:pattern_references])
       TestIds.current_configuration.allocator.merge_store(return_data[:test_ids]) if return_data[:test_ids]
-      basedir = Pathname.new(Origen.app.config.test_program_output_directory || Origen.app.config.output_directory)
-      path = Pathname.new(return_data[:file]).relative_path_from(basedir)
+      path = Pathname.new(return_data[:file]).relative_path_from(Origen.file_handler.output_directory)
       Origen.interface.flow.atp.sub_flow(return_data[:nodes], path: path.to_s)
       Origen.app.stats.changed_files += return_data[:changed_files]
       Origen.app.stats.new_files += return_data[:new_files]
