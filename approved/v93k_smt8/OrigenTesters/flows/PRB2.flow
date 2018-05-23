@@ -51,8 +51,8 @@ flow PRB2 {
             testName = "Functional";
         }
 
-        flow PRB2_MAIN calls ...v93k_smt8.OrigenTesters.flows.prb2.PRB2_MAIN { }
-        flow PRB2_MAIN_1 calls ...v93k_smt8.OrigenTesters.flows.prb2.PRB2_MAIN_1 { }
+        flow PRB2_MAIN calls OrigenTesters.flows.prb2.PRB2_MAIN { }
+        flow PRB2_MAIN_1 calls OrigenTesters.flows.prb2.PRB2_MAIN_1 { }
     }
 
     execute {

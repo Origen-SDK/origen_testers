@@ -64,7 +64,7 @@ flow PRB1 {
             testName = "Functional";
         }
 
-        flow PRB1_MAIN calls ...v93k_smt8.OrigenTesters.flows.prb1.PRB1_MAIN { }
+        flow PRB1_MAIN calls OrigenTesters.flows.prb1.PRB1_MAIN { }
     }
 
     execute {

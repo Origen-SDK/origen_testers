@@ -1189,8 +1189,8 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
-        flow SMALL calls ...v93k_smt8.OrigenTesters.flows.flow_control.SMALL { }
-        flow SMALL_1 calls ...v93k_smt8.OrigenTesters.flows.flow_control.SMALL_1 { }
+        flow SMALL calls OrigenTesters.flows.flow_control.SMALL { }
+        flow SMALL_1 calls OrigenTesters.flows.flow_control.SMALL_1 { }
     }
 
     execute {

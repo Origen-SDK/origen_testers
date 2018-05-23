@@ -43,7 +43,7 @@ flow ERASE {
             testName = "Functional";
         }
 
-        flow ERASE_VFY calls ...v93k_smt8.OrigenTesters.flows.prb1.prb1_main.erase.ERASE_VFY { }
+        flow ERASE_VFY calls OrigenTesters.flows.prb1.prb1_main.erase.ERASE_VFY { }
     }
 
     execute {
