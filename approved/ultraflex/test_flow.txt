@@ -2,8 +2,8 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Flow Domain:																											
 			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
-						Test	meas_read_pump	meas_read_pump	40000							119		2	Fail														
-						Use-Limit		meas_read_pump	40000	35						119		2	Fail														
+						Test	meas_read_pump	meas_read_pump	40005							119		2	Fail														
+						Use-Limit		meas_read_pump	40005	35						119		2	Fail														
 						Test	meas_read_pump	meas_read_pump	40010							119		2	Fail														
 						Use-Limit		meas_read_pump	40010		45					119		2	Fail														
 						Test	meas_read_pump	meas_read_pump	40020							119		2	Fail														

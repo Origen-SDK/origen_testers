@@ -130,6 +130,9 @@ module OrigenTesters
         end
 
         def lines
+          if pattern
+            burst = $tester.multiport ? "#{$tester.multiport_name(pattern)}" : "#{pattern}"
+          end
           l = []
           l << "  comment = \"#{comment}\";" if comment
           l << "  ffc_on_fail = #{wrap_if_string(log_first)};" if log_first
@@ -139,7 +142,7 @@ module OrigenTesters
           l << "  override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
           l << "  override_lev_spec_set = #{wrap_if_string(level_spec)};" if level_spec
           l << "  override_levset = #{wrap_if_string(level_set)};" if level_set
-          l << "  override_seqlbl = #{wrap_if_string(pattern)};" if pattern
+          l << "  override_seqlbl = #{wrap_if_string(burst)};" if pattern
           l << "  override_test_number = #{test_number};" if test_number
           l << "  override_testf = #{test_method.id};" if test_method
           l << "  override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation

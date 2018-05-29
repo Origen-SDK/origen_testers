@@ -1,6 +1,6 @@
 module OrigenTesters
   MAJOR = 0
-  MINOR = 18
+  MINOR = 19
   BUGFIX = 0
   DEV = nil
 
