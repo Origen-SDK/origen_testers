@@ -3,6 +3,8 @@ module OrigenTesters
     class Interface
       include OrigenTesters::ProgramGenerators
 
+      attr_accessor :include_additional_prb2_test
+
       # Options passed to Flow.create and Library.create will be passed in here, use as
       # desired to configure your interface
       def initialize(options = {})

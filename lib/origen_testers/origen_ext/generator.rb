@@ -50,6 +50,10 @@ module Origen
         return_data[:completed_files] = Origen.app.stats.completed_files
         return_data[:changed_files] = Origen.app.stats.changed_files
         return_data[:new_files] = Origen.app.stats.new_files
+        return_data[:instance_variables] = {}
+        Origen.interface.instance_variables.each do |var|
+          return_data[:instance_variables][var] = Origen.interface.instance_variable_get(var)
+        end
         if defined?(TestIds) && TestIds.configured?
           return_data[:test_ids] = TestIds.current_configuration.allocator.store
         end
@@ -73,6 +77,9 @@ module Origen
       Origen.app.stats.changed_files += return_data[:changed_files]
       Origen.app.stats.new_files += return_data[:new_files]
       Origen.app.stats.completed_files += return_data[:completed_files]
+      return_data[:instance_variables].each do |var, value|
+        Origen.interface.instance_variable_set(var, value)
+      end
     end
 
     # @api private

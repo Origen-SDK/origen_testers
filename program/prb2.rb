@@ -19,8 +19,12 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   func :erase_all, duration: :dynamic, number: 12000
   func :margin_read1_all1, id: 'erased_successfully', number: 12010
 
-  if_enable 'extra_tests' do
-    import 'components/prb2_main', number: 13000
+  # Check that an instance variable change in a sub-flow (prb2_main in this case)
+  # is preserved back here in the main flow
+  if include_additional_prb2_test
+    if_enable 'extra_tests' do
+      import 'components/prb2_main', number: 13000
+    end
   end
 
   func :margin_read1_all1, number: 14000
