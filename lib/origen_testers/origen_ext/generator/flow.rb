@@ -93,7 +93,7 @@ module Origen
         else
           Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
           if @sub_program
-            interface = Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
+            interface = Origen.interface
           else
             interface = Origen.reset_interface(options)
           end

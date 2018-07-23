@@ -26,7 +26,6 @@ module Origen
         else
           @output_dir = File.join(Origen.interface.flow.output_file.dirname, File.basename(Origen.interface.flow.filename, '.*').to_s.downcase)
         end
-        Origen.reset_interface({ interface: Origen.interface.class.to_s }.merge(options))
         Origen.interface.reset_globals # Get rid of all already generated content, the parent process will handle those
         Origen.interface.clear_pattern_references
         OrigenTesters::Interface.class_variable_set('@@generating_sub_program', true)
@@ -52,7 +51,12 @@ module Origen
         return_data[:new_files] = Origen.app.stats.new_files
         return_data[:instance_variables] = {}
         Origen.interface.instance_variables.each do |var|
-          return_data[:instance_variables][var] = Origen.interface.instance_variable_get(var)
+          val = Origen.interface.instance_variable_get(var)
+          exclude_vars = Array(Origen.interface.sub_flow_no_return_vars)
+          exclude_vars << :@custom_tmls
+          unless var == val.is_a?(Proc) || exclude_vars.include?(var)
+            return_data[:instance_variables][var] = val
+          end
         end
         if defined?(TestIds) && TestIds.configured?
           return_data[:test_ids] = TestIds.current_configuration.allocator.store

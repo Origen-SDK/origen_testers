@@ -4,10 +4,12 @@ module OrigenTesters
       include OrigenTesters::ProgramGenerators
 
       attr_accessor :include_additional_prb2_test
+      attr_reader :environment
 
       # Options passed to Flow.create and Library.create will be passed in here, use as
       # desired to configure your interface
       def initialize(options = {})
+        @environment = options[:environment]
       end
 
       # Test that the block form of flow control methods like this can
