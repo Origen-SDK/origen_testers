@@ -249,11 +249,11 @@ module OrigenTesters
             else
               test_modes.each do |mode|
                 # "Low Limit"
-                l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl])
+                l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl] || 'na')
               end
               test_modes.each do |mode|
                 # "High Limit"
-                l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl])
+                l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl] || 'na')
               end
             end
             # "Unit"
