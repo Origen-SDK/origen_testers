@@ -91,7 +91,7 @@ i.e. a match loop.
 Here for example to wait for up to 2 seconds for the done pin to go high:
 
 ~~~ruby
-$tester.wait match: true, time_in_s: 2, pin: pin(:done), state: high
+$tester.wait match: true, time_in_s: 2, pin: pin(:done), state: :high
 ~~~
 
 The above API is somewhat verbose, a cleaner one is available by supplying a block to generate
