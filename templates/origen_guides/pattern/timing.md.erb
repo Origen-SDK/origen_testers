@@ -86,6 +86,13 @@ $tester.wait(time_in_us: 500)
 $tester.wait(time_in_ms: 10)
 ~~~
 
+A shorthand for the above cases is available:
+
+~~~ruby
+500.us!  # Wait for 500us
+10.ms!   # Wait for 10ms
+~~~
+
 Multiple times specified in different units will be added together, this can be useful
 if the delay is based on a complex calculation:
 
