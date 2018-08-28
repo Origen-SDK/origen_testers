@@ -21,6 +21,15 @@ aliases = {
 # Now branch to the specific task code
 case @command
 
+when "decompile_test"
+	Origen.load_target
+	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
+	pat = OrigenTesters::Decompiler.decompile(test_file, format: :atp)
+	puts pat.pinlist
+	puts pat.vectors { |v| v.class }
+	pat.execute
+	exit 0
+
 when "tags"
   Dir.chdir Origen.root do
     system "ripper-tags --recursive lib"

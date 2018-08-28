@@ -5,6 +5,7 @@ PATH
       atp (~> 1.1, >= 1.1.2)
       origen (>= 0.26.0)
       require_all (~> 1)
+      treetop
 
 GEM
   remote: http://rubygems.org/
@@ -106,6 +107,7 @@ GEM
       origen (>= 0.7.36)
     parser (2.4.0.0)
       ast (~> 2.2)
+    polyglot (0.3.5)
     powerpack (0.1.1)
     pry (0.11.2)
       coderay (~> 1.1.0)
@@ -157,6 +159,8 @@ GEM
     thread_safe (0.3.6)
     tilt (1.4.1)
     tins (1.15.1)
+    treetop (1.6.10)
+      polyglot (~> 0.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     yard (0.9.9)
