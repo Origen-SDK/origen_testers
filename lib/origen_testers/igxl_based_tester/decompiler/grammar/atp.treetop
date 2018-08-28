@@ -1,0 +1,135 @@
+module OrigenTesters
+module IGXLBasedTester
+module Decompiler
+
+grammar Atp
+  rule atp
+    (comment / import / variable_set / whitespace / pattern_body)+ <Atp>
+  end
+
+  rule comment
+    '//' single_line_string newline <Comment>
+  end
+
+  rule pattern_body
+    vector_header newline vector_start newline vector_body? vector_end <PatternBody>
+  end
+
+  rule line_comment
+    '//'
+  end
+
+  rule vector_header
+    'vector' " " '(' '$tset' vector_pinlist ')' spacing? newline <VectorHeader>
+  end
+
+  rule vector_pinlist
+    # Todo: Rewrite this to require , in between items
+    (',' spacing? vector_pin spacing?)* <VectorPinlist>
+  end
+
+  rule vector_pin
+    [A-Za-z_0-9]+ <VectorPin>
+  end
+
+  rule vector_body
+    start_label (comment / vector / label)* newline <VectorBody>
+  end
+
+  rule start_label
+    'start_label' spacing label_name ':' spacing? newline <StartLabel>
+  end
+
+  rule label
+    label_name ':' spacing? newline
+  end
+
+  rule label_name
+    word
+  end
+
+  rule vector
+    opcode? spacing opcode_arguments? spacing? '>' spacing vector_timeset spacing pin_states ';' spacing? comment? newline <Vector>
+  end
+
+  rule pin_states
+    (pin_state spacing)* <PinStates>
+  end
+
+  rule opcode
+    [A-Za-z_0-9]+ <Opcode>
+  end
+
+  rule opcode_arguments
+    [A-Za-z_0-9]+ <OpcodeArguments>
+  end
+
+  rule vector_timeset
+    [A-Za-z_0-9]+ <VectorTimeset>
+  end
+
+  rule pin_state
+    [A-Za-z_0-9]+ <PinState>
+  end
+
+  rule vector_start
+    '{' spacing? newline <VectorBodyStartToken>
+  end
+
+  rule vector_end
+   '}' spacing? newline <VectorBodyEndToken>
+  end
+
+  # Aside: I'm not familar enough with these to know how all these can be used. Only provided starting rules based on what OrigenTesters produces.
+  # These may need som updates to be fully compatible with all 3rd party sources.
+
+  rule import
+    'import' spacing word spacing word ';'
+  end
+
+  rule variable_set
+    word spacing? '=' spacing? word ';'
+  end
+
+  # General character classes
+
+  rule digits
+    [0-9]
+  end
+
+  rule word
+    [A-Za-z_0-9]+ # <Word>
+  end
+
+  # string characters are used in comments and (as far as I know) can be anything except newlines (denoting end-of-comment)
+  rule single_line_string
+   [^\n\r]*
+  end
+
+  rule underscore
+    '_'
+  end
+
+  rule tab
+    "\t"
+  end
+
+  rule spacing
+    [' '\t]+ <SpacingToken>
+  end
+
+  rule newline
+    "\r"? "\n"? <NewlineToken>
+  end
+
+  rule whitespace
+    [' '\t\n\r]
+  end
+
+  # some Origen-specific rules.
+
+end
+
+end
+end
+end

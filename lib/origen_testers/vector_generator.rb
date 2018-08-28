@@ -4,6 +4,7 @@ module OrigenTesters
     extend ActiveSupport::Concern
 
     require 'erb'
+    require 'origen_testers/decompiler'
 
     included do
       # When set to true vector and cycle number comments will be appended to pattern vectors.
