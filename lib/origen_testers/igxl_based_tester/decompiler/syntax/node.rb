@@ -112,7 +112,9 @@ module OrigenTesters
 			      # We'll leave some empty nodes in here to facilitate symbolizing. That is, we'll leave the Opcode, Opcode Arguments, and Comments, even if they are empty.
 			      #   Symoblizing will know that empty nodes in those locations are empty values.
 			      index = 0
-			      puts text_value
+			      
+			      # note: printing this out here so cause OrigenSim to fail when run from BSUB
+			      #puts text_value
 
 			      # Opcode (Conditional)
 			      unless elements[index].is_a?(OrigenTesters::IGXLBasedTester::Decompiler::Atp::Opcode) || elements[index].is_a?(Treetop::Runtime::SyntaxNode)
