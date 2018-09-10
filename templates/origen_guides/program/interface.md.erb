@@ -163,4 +163,86 @@ for future use in another application.
 See the [Origen Plugins](<%= path "guides/plugins/introduction" %>)
 section for details on how to do this.
 
+#### Detecting Changes in the Execution Context
+
+The execution context of a test is the name given to the rules that decide whether it will
+be executed or not, and these are generally the attributes exposed by the
+[Flow Control API](<%= path "guides/program/flowapi" %>). i.e. enable flag, job, failed flag,
+etc.
+
+If the context applied to two adjacent tests is different, then it means that the second test
+cannot be guaranteed that the first test will always run before it. This could be a concern if the
+second test is expecting to inherit some state from the previous test, such as the vdd/levels
+selection for example.
+
+Therefore, an interface helper exists to help you identify when such context switches occur.
+
+The next pages will cover the creation of an interface in more detail, but generally it is
+recommended to have a single method responsible for actually adding the generated tests into
+the flow, like this:
+
+~~~ruby
+# my_interface.rb
+
+# Add the given test into the flow
+def add_to_flow(test_object, options = {})
+  flow.test test_object, options
+end
+~~~
+
+By funneling all tests through a single point like this, it naturally gives you a place to look
+for context changes and take corrective action.
+Use the `context_changed?` helper as shown in this example:
+
+~~~ruby
+def add_to_flow(test_object, options = {})
+  # Give this all options that you are about to send to the flow.test method
+  if context_changed?(options)
+    # Can't rely on inheriting from the previous test, configure this test to re-apply the levels
+    # (where add_levels_configuration is a fictional method within your interface)
+    add_levels_configuration(test_object)  
+  end
+  flow.test test_object, options
+end
+~~~
+
+A similar helper method called `parameter_changed?` exists to detect changes in your application-specific test attributes. For
+example, let's say that your test flow always defines the vdd settings via two parameters called
+`:vdde` and `:vddc`:
+
+~~~ruby
+# my_flow.rb
+
+func :march_a, vdde: :nom, :vddc: :nom
+
+func :march_b, vdde: :nom, :vddc: :nom
+
+func :march_b, vdde: :nom, :vddc: :max
+~~~
+
+Then if your level switching had to be implemented by the injection of a dedicated test instance,
+it could be easily handled like this:
+
+~~~ruby
+def add_to_flow(test_object, options = {})
+  # Give this all options that you are about to send to the flow.test method, supply as many parameter
+  # names as you want up front
+  if parameter_changed?(:vdde, :vddc, options)
+    # The upcoming test requires a vdd change, inject this into the flow before inserting it, again
+    # using a fictional switch_levels method
+    switch_levels(options)
+  end
+  flow.test test_object, options
+end
+~~~
+
+Finally, a convenience method exists that will trigger if either the context or one of your
+specified parameters changes:
+
+~~~ruby
+if context_or_parameter_changed?(:vdde, :vddc, options)
+  # ...
+~~~
+
+
 % end

@@ -55,6 +55,34 @@ module OrigenTesters
       OrigenTesters::Interface.write?
     end
 
+    # Returns true if the test flow context (as supplied in the given options)
+    # has changed vs. that applied to the previous test.
+    # Flow context means enabled words, job, if_failed/passed, etc.
+    def context_changed?(options = {})
+      flow.context_changed?(options)
+    end
+
+    # Returns true if the value of the given parameter within the given options is
+    # different vs. the last test
+    #   if parameter_changed?(:vdd, :vddc, options)
+    #     # execute code if the vdd level has changed
+    #   end
+    def parameter_changed?(*params)
+      options = params.last.is_a?(Hash) ? params.pop : {}
+      last = flow.instance_variable_get(:@_last_parameters_)
+      if last
+        params.any? { |p| options[p] != last[p] }
+      else
+        false
+      end
+    end
+
+    # Convenience method, equivalent of calling (context_changed? || parameter_changed?)
+    def context_or_parameter_changed?(*params)
+      options = params.last.is_a?(Hash) ? params.pop : {}
+      context_changed?(options) || parameter_changed?(*params, options)
+    end
+
     # Returns the value defined on if/how to make test names unique within a flow
     def unique_test_names
       @unique_test_names
