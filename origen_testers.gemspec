@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'origen', '>= 0.26.0'
   spec.add_runtime_dependency 'require_all', '~> 1'
   spec.add_runtime_dependency 'atp', '~> 1.1', '>= 1.1.2'
+  spec.add_runtime_dependency 'origen_stil', '>= 0.2.1'
 end

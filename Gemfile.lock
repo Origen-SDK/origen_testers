@@ -4,6 +4,7 @@ PATH
     origen_testers (0.19.0)
       atp (~> 1.1, >= 1.1.2)
       origen (>= 0.26.0)
+      origen_stil (>= 0.2.1)
       require_all (~> 1)
 
 GEM
@@ -55,7 +56,6 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.1.0)
     kramdown (1.17.0)
-    log4r (1.1.10)
     method_source (0.9.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -67,7 +67,7 @@ GEM
     net-ldap (0.16.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
-    origen (0.34.2)
+    origen (0.35.0)
       activesupport (~> 4.1)
       bundler (~> 1.7)
       coderay (~> 1.1)
@@ -80,7 +80,6 @@ GEM
       highline (~> 1.7)
       httparty (~> 0.13)
       kramdown (~> 1.5)
-      log4r (~> 1.1.10, ~> 1.1)
       nanoc (~> 3.7.0)
       net-ldap (~> 0.13)
       nokogiri (>= 1.7.2)
@@ -103,10 +102,15 @@ GEM
     origen_jtag (0.19.1)
       origen (~> 0.7, >= 0.7.35)
       origen_testers (>= 0.13.2)
+    origen_stil (0.2.1)
+      ast (~> 2)
+      origen (>= 0.33.3)
+      treetop
     origen_swd (1.1.0)
       origen (>= 0.7.36)
     parser (2.5.1.2)
       ast (~> 2.4.0)
+    polyglot (0.3.5)
     powerpack (0.1.2)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -118,7 +122,7 @@ GEM
       rake
     rake (10.5.0)
     require_all (1.5.0)
-    ripper-tags (0.6.0)
+    ripper-tags (0.6.1)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -158,6 +162,8 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     tins (1.16.3)
+    treetop (1.6.10)
+      polyglot (~> 0.3)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     yard (0.9.16)
@@ -178,4 +184,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   1.16.3
+   1.16.4
