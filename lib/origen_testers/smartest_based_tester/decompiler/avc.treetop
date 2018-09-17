@@ -1,0 +1,72 @@
+# Disclaimer: this is only starting point/subset of the AVC format. Additions can be made here and in 
+# the nodes to accommodate other featurs. 
+# For licensed Advantest users, topic #37557 of the TDR defines the AVC file format.
+
+module OrigenTesters
+  module SmartestBasedTester
+    module Decompiler
+      grammar Avc
+        include OrigenTesters::Decompiler::BaseGrammar
+      
+        rule avc
+          (comment_block / whitespace / pattern_body)+ <Avc>
+        end
+        
+        rule comment_start
+          '#' <CommentStartToken>
+        end
+
+        rule vector_body
+          (comment_block / vector / sequencer_instruction)+ <VectorBody>
+        end
+
+        rule pattern_body
+          vector_header vector_body <PatternBody>
+        end
+        
+        # According to the TDR, comments inside of the FORMAT statement are not defined.
+        rule vector_header
+          'FORMAT' spacing pin_names spacing? ';' spacing? newline <VectorHeader>
+        end
+        
+        rule vector
+          repeat spacing timeset spacing pin_states spacing? comment? newline <Vector>
+        end
+        
+        rule repeat
+          'R' decimal_integer <Repeat>
+        end
+                
+        rule test
+          [A-Za-z_0-9]+
+        end
+        
+        # Sequencer Instruction
+        # According to the TDR, sequencer instructions do not support trailing comments
+        # However, the TDR also only shows 2 parameters, but we'll support a full list structure.
+        rule sequencer_instruction
+          sequencer_instr spacing? sequencer_args ';' spacing? newline <SequencerInstruction>
+        end
+ 
+        rule sequencer_instr
+          word ''
+        end
+        
+        rule sequencer_args
+          word? (' ' word)* <SequencerArgs>
+        end
+        
+        rule pin_state_separator
+          ' ' <PinStateSeparator>
+        end
+
+        rule pin_name_separator
+          ' ' <PinNameSeparator>
+        end
+
+
+      end
+    end
+  end
+end
+

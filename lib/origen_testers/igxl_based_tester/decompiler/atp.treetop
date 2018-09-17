@@ -1,0 +1,80 @@
+module OrigenTesters
+  module IGXLBasedTester
+    module Decompiler
+      grammar Atp
+        include OrigenTesters::Decompiler::BaseGrammar
+
+        rule atp
+          (comment_block / import / variable_assignment / whitespace / pattern_body)+ <Atp>
+        end
+
+        rule comment_start
+          '//' <CommentStartToken>
+        end
+
+        rule pattern_body
+          vector_header newline vector_body_start newline vector_body? vector_body_end <PatternBody>
+        end
+
+        rule vector_header
+          'vector' " " '(' '$tset' ', ' pin_names ')' spacing? newline <VectorHeader>
+        end
+
+        rule vector_body
+          start_label (comment_block / vector / label)* newline <VectorBody>
+        end
+
+        rule start_label
+          'start_label' spacing label_name ':' spacing? newline <StartLabel>
+        end
+
+        rule label
+          label_name ':' spacing? newline
+        end
+
+        rule label_name
+          word
+        end
+
+        rule vector
+          opcode? spacing opcode_arguments? spacing? '>' spacing timeset spacing pin_states spacing? ';' spacing? comment? newline <Vector>
+        end
+
+        rule opcode
+          [A-Za-z_0-9]+ <Opcode>
+        end
+
+        rule opcode_arguments
+          [A-Za-z_0-9]+ <OpcodeArguments>
+        end
+
+        rule vector_body_start
+          '{' spacing? newline <VectorBodyStartToken>
+        end
+
+        rule vector_body_end
+         '}' spacing? newline <VectorBodyEndToken>
+        end
+
+        # Aside: I'm not familar enough with these to know how all these can be used. Only provided starting rules based on what OrigenTesters produces.
+        # These may need som updates to be fully compatible with all 3rd party sources. - coreyeng
+
+        rule import
+          'import' spacing word spacing word ';' <Import>
+        end
+
+        rule variable_assignment
+          word spacing? '=' spacing? word ';' <VariableAssignment>
+        end
+        
+        rule pin_state_separator
+          ' ' <PinStateSeparator>
+        end
+
+        rule pin_name_separator
+          ', ' <PinNameSeparator>
+        end
+      end
+    end
+  end
+end

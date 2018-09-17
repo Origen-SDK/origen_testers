@@ -21,13 +21,30 @@ aliases = {
 # Now branch to the specific task code
 case @command
 
+# Test command to decompile the approved delay.atp and delay.avc and dump a pretty-printed pattern model
 when "decompile_test"
 	Origen.load_target
-	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
-	pat = OrigenTesters::Decompiler.decompile(test_file, format: :atp)
-	puts pat.pinlist
-	puts pat.vectors { |v| v.class }
-	pat.execute
+
+  if true
+  	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
+  	pat = OrigenTesters::Decompiler.decompile(test_file)
+  	puts pat
+  	puts pat.pinlist
+  	puts pat.vectors { |v| v.class }
+  end
+  
+  puts
+  puts
+  puts
+
+  if true
+  	test_file = "#{Origen.app.root}/approved/v93k/delay.avc"
+  	pat = OrigenTesters::Decompiler.decompile(test_file)
+  	puts pat
+  	puts pat.pinlist
+  	puts pat.vectors { |v| v.class }
+  end
+  
 	exit 0
 
 when "tags"
@@ -54,9 +71,9 @@ when "examples", "test"
 #    ARGV = %w(templates/example.txt.erb -t debug -r approved)
 #    load "origen/commands/compile.rb"
   if Origen.app.stats.changed_files == 0 &&
-     Origen.app.stats.new_files == 0 &&
-     Origen.app.stats.changed_patterns == 0 &&
-     Origen.app.stats.new_patterns == 0
+    Origen.app.stats.new_files == 0 &&
+    Origen.app.stats.changed_patterns == 0 &&
+    Origen.app.stats.new_patterns == 0
 
     Origen.app.stats.report_pass
   else

@@ -1,0 +1,11 @@
+# Base rules that may be relevant for any vector-based platform.
+
+module OrigenTesters
+  module Decompiler
+    module BaseGrammar
+      grammar VectorBased
+        include OrigenTesters::Decompiler::BaseGrammar
+      end
+    end
+  end
+end
