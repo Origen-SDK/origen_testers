@@ -12,14 +12,6 @@ module OrigenTesters
         Treetop.load("#{Origen.app!.root}/lib/origen_testers/decompiler/base_grammar.treetop")
         Treetop.load("#{Origen.app!.root}/lib/origen_testers/smartest_based_tester/decompiler/avc.treetop")
         @@parser = AvcParser.new
-
-        def self.extract_pinlist
-          @@tree.pattern_body.vector_header.pinlist
-        end
-
-        def self.extract_vectors
-          @@tree.pattern_body.vector_body.vectors
-        end
       end
     end
   end

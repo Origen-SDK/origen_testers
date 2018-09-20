@@ -9,7 +9,7 @@ module OrigenTesters
       attr_reader :pattern_file
       attr_reader :pattern_model
 
-      def initialize(pattern_file, options = {})
+      def initialize(pattern_file, parser_class: nil, input_as_string: false)
         # Check that the filename exists, is readable, and is in a known format.
         # fail "Could not find pattern file '#{filename}'"
         # fail "Found filename '#{filename}', but it is not readable!"
@@ -33,29 +33,24 @@ module OrigenTesters
         @decompiled
       end
 
-      def decompile
-        # We'll be expecting a hash with at least the following: the pinlist, in order that they appear, and an array of vectors, again, in the order that they appear.
-        # It is the tester-specific decompiler's job to hand this information back to the base decompiler.
-        # @pattern_model = select_decompiler.decompile
+      # def decompile
+      # We'll be expecting a hash with at least the following: the pinlist, in order that they appear, and an array of vectors, again, in the order that they appear.
+      # It is the tester-specific decompiler's job to hand this information back to the base decompiler.
+      # @pattern_model = select_decompiler.decompile
 
-        # @decompiled = true
-      end
+      # @decompiled = true
+      # end
 
       def pinlist
-        @pinlist
+        pattern_model.pinlist
       end
 
-      def timesets
+      def first_timeset
+        # pattern_model.
       end
 
       def vectors
-        @vectors
-      end
-
-      def each_vector
-      end
-
-      def each
+        pattern_model.pattern_body.vector_body.vectors
       end
 
       # Execute will execute/generate a pattern from the current pattern model.

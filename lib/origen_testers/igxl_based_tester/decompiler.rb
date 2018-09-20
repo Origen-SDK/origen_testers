@@ -15,8 +15,6 @@ module OrigenTesters
         f = File.open(pattern_file, 'r')
         parser.parse(f.read)
         @pattern_model = parser.tree
-        @pinlist = parser.extract_pinlist
-        @vectors = parser.extract_vectors
 
         @decompiled = true
         self

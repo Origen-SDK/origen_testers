@@ -4,34 +4,6 @@ module OrigenTesters
     # Base node
     # @note Can't call this just <code>SyntaxNode</code> since Treetop isn't namespaced to call its own node.
     #   Will result in all nodes being Origen nodes, which isn't what we want.
-    class OrigenTestersNodeOld < Treetop::Runtime::SyntaxNode
-      def initialize(*args)
-        super
-
-        @symbols = begin
-        end
-
-        if respond_to?(:symbols)
-          symbols.each do |s|
-            define_singleton_method(s) do
-              instance_variable_get("@#{s}".to_sym)
-            end
-          end
-        end
-
-        clean!
-        symbolize
-      end
-
-      def execute
-        fail "Node #{self.class} cannot be executed!"
-      end
-      alias_method :generate, :execute
-    end
-
-    # Base node
-    # @note Can't call this just <code>SyntaxNode</code> since Treetop isn't namespaced to call its own node.
-    #   Will result in all nodes being Origen nodes, which isn't what we want.
     class OrigenTestersNode < Treetop::Runtime::SyntaxNode
       CHECK = true
       CLEAN = true
