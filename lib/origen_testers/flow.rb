@@ -59,6 +59,7 @@ module OrigenTesters
     end
 
     def test(obj, options = {})
+      @_last_parameters_ = options.dup # Save for the interface's if_parameter_changed method
       obj.extract_atp_attributes(options) if obj.respond_to?(:extract_atp_attributes)
       super(obj, options)
     end
