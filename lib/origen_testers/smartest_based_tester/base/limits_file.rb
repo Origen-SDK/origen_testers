@@ -105,6 +105,10 @@ module OrigenTesters
           @empty
         end
 
+        def limits_workbook
+          Origen.interface.limits_workbook
+        end
+
         private
 
         def smt8?
@@ -133,6 +137,14 @@ module OrigenTesters
               o[:bin_overon] = 'on'
             else
               o[:bin_overon] = 'no'
+            end
+            if smt8?
+              if o[:bin_s_num]
+                limits_workbook.add_softbin o[:bin_s_num], name: o[:bin_s_name], bin: o[:bin_h_num]
+              end
+              if o[:bin_h_num]
+                limits_workbook.add_bin o[:bin_h_num], name: o[:bin_h_name]
+              end
             end
           end
           o
