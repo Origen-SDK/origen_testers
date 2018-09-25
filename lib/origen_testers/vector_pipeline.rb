@@ -124,7 +124,7 @@ module OrigenTesters
       else
         yield vector
         @vector_count += 1
-        @cycle_count += r
+        @cycle_count += r * @group_size
       end
     end
 
