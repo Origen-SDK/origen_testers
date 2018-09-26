@@ -67,6 +67,7 @@ module OrigenTesters
             yield comment
           end
           yield_vector(vector, &block)
+          @cycle_count += pipeline[@group_size - 1].repeat
         end
         pipeline.shift(group_size)
       end
@@ -83,14 +84,24 @@ module OrigenTesters
               comment_written = true
             end
             yield_vector(@last_vector, &block)
+            @cycle_count += @last_vector.repeat
           end
         end
+
         duplicate_last_vector until aligned?
+        ugly_i = 0
+        ugly_c = @group_size - 1
         pipeline.each do |vector|
           vector.comments.each do |comment|
             yield comment
           end
           yield_vector(vector, &block)
+          @cycle_count += pipeline[ugly_c].repeat
+          ugly_i += 1
+          if ugly_i == @group_size
+            ugly_i = 0
+            ugly_c += @group_size
+          end
         end
 
         comments.each do |comment|
@@ -120,11 +131,11 @@ module OrigenTesters
           yield vector
         end
         @vector_count += r
-        @cycle_count += r
+        # @cycle_count += r unless @group_size > 1 && lead_group.last.repeat > 1
       else
         yield vector
         @vector_count += 1
-        @cycle_count += r * @group_size
+        # @cycle_count += r * @group_size
       end
     end
 
