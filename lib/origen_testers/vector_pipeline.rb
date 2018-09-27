@@ -1,3 +1,5 @@
+# vector_pipeline concept explained [here](https://github.com/Origen-SDK/origen_testers/pull/101#issuecomment-424768720)
+
 module OrigenTesters
   class VectorPipeline
     attr_reader :group_size, :pipeline
@@ -130,11 +132,11 @@ module OrigenTesters
           yield vector
         end
         @vector_count += r
-        # @cycle_count += r unless @group_size > 1 && lead_group.last.repeat > 1
+        # @cycle_count now tracked in the calling methods (flush and empty)
       else
         yield vector
         @vector_count += 1
-        # @cycle_count += r * @group_size
+        # @cycle_count now tracked in the calling methods (flush and empty)
       end
     end
 
