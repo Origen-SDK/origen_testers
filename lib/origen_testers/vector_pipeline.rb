@@ -89,19 +89,18 @@ module OrigenTesters
         end
 
         duplicate_last_vector until aligned?
-        ugly_i = 0
-        ugly_c = @group_size - 1
-        pipeline.each do |vector|
+
+        group_repeat_index = @group_size - 1
+        pipeline.each_index do |index|
+          vector = pipeline[index]
           vector.comments.each do |comment|
             yield comment
           end
           yield_vector(vector, &block)
-          @cycle_count += pipeline[ugly_c].repeat
-          ugly_i += 1
-          if ugly_i == @group_size
-            ugly_i = 0
-            ugly_c += @group_size
+          if index % @group_size == 0 && index > 0
+            group_repeat_index += @group_size
           end
+          @cycle_count += pipeline[group_repeat_index].repeat
         end
 
         comments.each do |comment|
