@@ -313,7 +313,7 @@ module OrigenTesters
       def avc_digcap_vpf(contents)
         capture_vectors = 0
         contents.each_line do |line|
-	        if line[0] != "\#"     # skip any comment lines
+          if line[0] != "\#"     # skip any comment lines
             capture_vectors += 1 if /#{digcap.capture_string}/.match(line)
           end
         end
