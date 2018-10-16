@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_19_3"></a>
+<h1><a href="#v0_19_3">Tag: v0.19.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 16-Oct-2018 09:15AM
+
+
+* Create output\_directory for pattern\_compiler if necessary PR 103
+
 <a class="anchor release_tag" name="v0_19_2"></a>
 <h1><a href="#v0_19_2">Tag: v0.19.2</a></h1>
 
