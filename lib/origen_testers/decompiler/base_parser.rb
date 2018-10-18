@@ -2,6 +2,14 @@ module OrigenTesters
   module Decompiler
     module BaseGrammar
       module BaseParser
+        def self.metadata
+          @metadata ||= {}
+        end
+
+        def self.clear_metadata
+          @metadata = nil
+        end
+
         def parser
           send(:class_variable_get, :@@parser) || begin
             Origen.log.error "Parent class #{self.class} needs to define the pattern-specific @@parser"

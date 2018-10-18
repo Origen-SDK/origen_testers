@@ -171,34 +171,6 @@ module OrigenTesters
             @pin_states = elements[8]
             @comment = elements[12].text_value || false
           end
-
-          # If the DUT exists, will attempt to retrieve the timeset object given in the decompiled pattern.
-          # If not, just returns the timeset name.
-          def dut_timeset
-            @dut_timeset ||= begin
-              if dut
-                tset = dut.timesets[timeset]
-                if tset.nil?
-                  fail "DUT object is defined as #{dut.name}, but could not locate a timeset #{timeset}"
-                end
-                tester.set_timeset(:intram, 40)
-                tester.timeset
-              else
-                timeset
-              end
-            end
-          end
-
-          def execute
-            vector_pinlist = parent.parent.parent.vector_header.pinlist
-
-            # Match the pin states to the pinlist
-            # Assume this is coming from Origen (for now) and that the pinlist order == pin states order
-            vector_pinlist.pins.each_with_index do |pin, i|
-              dut.pins(pin).vector_formatted_value = pin_states.states[i]
-            end
-            repeat.cycles
-          end
         end
 
         class Opcode < OrigenTesters::Decompiler::OrigenTestersNode

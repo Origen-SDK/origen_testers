@@ -83,10 +83,9 @@ module OrigenTesters
         [A-Za-z_0-9]+ <PinState>
       end
       
-        rule timeset
-          [A-Za-z_0-9]+ '' <Timeset>
-        end
-
+      rule timeset
+        [A-Za-z_0-9]+ '' <Timeset>
+      end
       
     end
   end

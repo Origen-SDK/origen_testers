@@ -45,7 +45,7 @@ module OrigenTesters
           check_element(elements[index], CommentStartToken, index: index)
           index += 1
 
-          check_element(elements[index], NewlineDelimitedTextToken, index: index)
+          check_element(elements[index], [NewlineDelimitedTextToken, SemicolonDelimitedTextToken], index: index)
           index += 1
 
           check_element(elements[index], NewlineToken, index: index)
@@ -100,9 +100,7 @@ module OrigenTesters
 
       # A base VectorHeader class. Inherit and expand, or override this class in the ATE-specific nodes.
       class VectorHeader < OrigenTestersNode
-        def check
-          Origen.log.error 'TODO'
-        end
+        CHECK = false
 
         def symbols
           [:pinlist]
@@ -167,6 +165,23 @@ module OrigenTesters
           [:repeat, :timeset, :pin_states, :comment]
         end
 
+        # If the DUT exists, will attempt to retrieve the timeset object given in the decompiled pattern.
+        # If not, just returns the timeset name.
+        def dut_timeset
+          @dut_timeset ||= begin
+            if dut
+              tset = dut.timesets[timeset]
+              if tset.nil?
+                fail "DUT object is defined as #{dut.name}, but could not locate a timeset #{timeset}"
+              end
+              tester.set_timeset(:intram, 40)
+              tester.timeset
+            else
+              timeset
+            end
+          end
+        end
+
         # The base for executing a vector only accounts for repeat, timeset, pin_states, and comments.
         # The vector will be executed by:
         #   1. Changing/setting the timeset, unless it is the same timeset.
@@ -175,9 +190,16 @@ module OrigenTesters
         #   4. Cycling the vector <repeat> number of times.
         # Any micro-code or firmware commands can also be handled by the ATE-specific implementation, but none are
         # handled here.
-        # def execute
-        #  Origen.log.error "TODO"
-        # end
+        def execute
+          vector_pinlist = parent.parent.parent.vector_header.pinlist
+
+          # Match the pin states to the pinlist
+          # Assume this is coming from Origen (for now) and that the pinlist order == pin states order
+          vector_pinlist.pins.each_with_index do |pin, i|
+            dut.pins(pin).vector_formatted_value = pin_states.states[i]
+          end
+          repeat.cycles
+        end
       end
 
       # These are 'tokens' instead of 'literals' because they may also include various whitespace characters.
@@ -297,6 +319,25 @@ module OrigenTesters
         end
       end
 
+      class SemicolonDelimitedTextToken < OrigenTestersNode
+        def symbols
+          [:text]
+        end
+
+        # Everything in this should just be a syntax node
+        def check
+          elements.each_with_index { |e, i| check_element(elements[i], Treetop::Runtime::SyntaxNode, index: i) }
+        end
+
+        def symbolize
+          @text = text_value
+        end
+
+        def clean
+          elements.clear
+        end
+      end
+
       class PinNameSeparator < Treetop::Runtime::SyntaxNode
       end
 
@@ -356,6 +397,9 @@ module OrigenTesters
           @pin_names = []
           @pin_names << elements[0].text_value
           @pin_names += elements[1].elements.collect { |e| e.elements[1].text_value } unless elements[1].empty?
+
+          # Save off the number of the pins
+          OrigenTesters::Decompiler::BaseGrammar::BaseParser.metadata[:pin_names] = self
         end
       end
 

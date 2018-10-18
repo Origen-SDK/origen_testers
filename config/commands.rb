@@ -28,6 +28,7 @@ when "decompile_test"
   if true
   	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
   	pat = OrigenTesters::Decompiler.decompile(test_file)
+  	puts pat.inspect
   	puts pat
   	puts pat.pinlist
   	puts pat.vectors { |v| v.class }
@@ -39,7 +40,9 @@ when "decompile_test"
 
   if true
   	test_file = "#{Origen.app.root}/approved/v93k/delay.avc"
+    #test_file = "#{Origen.app.root}/approved/v93k/v93k_workout.avc"
   	pat = OrigenTesters::Decompiler.decompile(test_file)
+  	puts pat.inspect
   	puts pat
   	puts pat.pinlist
   	puts pat.vectors { |v| v.class }

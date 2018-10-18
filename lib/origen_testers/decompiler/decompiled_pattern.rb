@@ -6,26 +6,47 @@ module OrigenTesters
     # Caution: do not simply reopen this class to account for a single decompiler as that could have adverse effects
     # on other decompiler
     class DecompiledPattern
-      attr_reader :pattern_file
+      attr_reader :input
       attr_reader :pattern_model
+      attr_reader :options
 
-      def initialize(pattern_file, parser_class: nil, input_as_string: false)
-        # Check that the filename exists, is readable, and is in a known format.
-        # fail "Could not find pattern file '#{filename}'"
-        # fail "Found filename '#{filename}', but it is not readable!"
-        # fail "OrigenTesters' reverse compile does not recognize file type '#{ext}'"
-        @pattern_file = pattern_file
+      class << self
+        attr_reader :parser
+      end
+
+      def initialize(input, decompiler: nil, raw_input: false, **options)
+        @input = input
         @options = options.clone
         @decompiled = false
-        @parser_class = options[:parser_class]
+        @raw_input = raw_input
 
-        @pattern_fields = [
-          :pinlist, :vectors, :timesets
-        ]
+        if input.is_a?(Pathname)
+          Origen.app.fail!(message: "Decompiler: Could not locate pattern source at #{input}") unless input.exist?
+        elsif !raw_input
+          Origen.app.fail!(message: "Decompiler: Could not locate pattern source at #{input}") unless File.file?(input)
+        end
+      end
+
+      def decompile
+        self.class.parser.parse begin
+          if raw_input?
+            input
+          elsif input.is_a?(File)
+            input.read
+          elsif input.is_a?(Pathname)
+            File.open(_input.to_s, 'r').read
+          else
+            File.open(input, 'r').read
+          end
+        end
+        @pattern_model = self.class.parser.tree
+
+        @decompiled = true
+        self
       end
 
       def inspect
-        tree.inspect
+        pattern_model.inspect
       end
       alias_method :pretty_print, :inspect
 
@@ -33,24 +54,17 @@ module OrigenTesters
         @decompiled
       end
 
-      # def decompile
-      # We'll be expecting a hash with at least the following: the pinlist, in order that they appear, and an array of vectors, again, in the order that they appear.
-      # It is the tester-specific decompiler's job to hand this information back to the base decompiler.
-      # @pattern_model = select_decompiler.decompile
-
-      # @decompiled = true
-      # end
-
       def pinlist
-        pattern_model.pinlist
+        pattern_model.pinlist.pins
       end
-
-      def first_timeset
-        # pattern_model.
-      end
+      alias_method :pins, :pinlist
 
       def vectors
         pattern_model.pattern_body.vector_body.vectors
+      end
+
+      def raw_input?
+        !!@raw_input
       end
 
       # Execute will execute/generate a pattern from the current pattern model.

@@ -18,8 +18,8 @@ module OrigenTesters
           CLEAN = false
 
           def symbolize
-            @body = elements
-            @first_vector = elements.find { |v| v.is_a?(Vector) }
+            @body = elements[1].elements
+            @first_vector = @body.find { |v| v.is_a?(Vector) }
             @first_timeset = @first_vector.timeset
           end
         end
@@ -74,8 +74,12 @@ module OrigenTesters
           end
         end
 
+        CommentStruct = Struct.new(:comment) do
+        end
+
         class Vector < OrigenTesters::Decompiler::BaseGrammar::Vector
           CHECK = false
+          Struct.new('CommentStruct', :comment)
           # A vector should have the following format:
           #  Vector+Vector0 offset=1304, "...        X X X X # ;\n" (newline,repeat,timeset,pin_states,spacing1,spacing2):
           #    Repeat+Repeat0 offset=1304, "R65535" (decimal_integer):
@@ -98,21 +102,25 @@ module OrigenTesters
           end
 
           def symbolize
-            @repeat = elements[0]
+            @repeat = elements[0].count.to_i
             @timeset = elements[2]
+
+            # AVCs are a bit strange, since anything after the last pni name from the header is a comment.
+            # e.g., if the header is: TCLK TDI TDO TMS
+            # and the pin states are: X    X   X   X    X
+            # the pin states will show 'X X X X X', but the AVC will be compiled as 'X X X X' and the last 'X' as a comment.
+            # The issue here is that the grammar itself is static, so we can't have the grammar give us a straight comment node,
+            # but rather we'll just get many, many pin states, where the pin state grammar has been edited to allow tokens except
+            # the semicolon.
+            # We'll split the pin states into the actual states and the comment here.
+
             @pin_states = elements[4]
             @comment = elements[6]
-          end
 
-          # AVCs are a bit strange, since anything after the last pni name from the header is a comment.
-          # e.g., if the header is: TCLK TDI TDO
-          # and the pin states are: X    X   X   X
-          # the pin states will show 'X X X X', but the AVC will be compiled as 'X X X' and the last 'X' as a comment.
-          # So, need to account for that here.
-          # Since these both reside in the VectorModel, we can trace upwards to this guy's parent and query the number
-          # of pins given, however, we need to do this after the tree has already been created.
-          # def comment
-          # end
+            Struct.new('CommentStruct', :comment)
+            comment = elements[4].values.slice!(OrigenTesters::Decompiler::BaseGrammar::BaseParser.metadata[:pin_names].pins.size..-1)
+            @comment = Struct::CommentStruct.new(comment.collect(&:text_value).join(' '))
+          end
         end
 
         # Encompasses a single firmware command and its arguments.

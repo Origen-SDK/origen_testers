@@ -11,13 +11,21 @@ module OrigenTesters
         rule avc
           (comment_block / whitespace / pattern_body)+ <Avc>
         end
+      
+        rule newline
+          "\n"? "\n"? <NewlineToken>
+        end
         
         rule comment_start
           '#' <CommentStartToken>
         end
 
+        # Some patterns will contain start characters in the vector body (such as ATPs), however AVCs do not have these.
+        # However, in order to make the vector body node resemble the ATP (with its start symbols), we'll throw an empty
+        # node at the start. This has no effect on the values of the result, it just forces the vector body node
+        # into the same node structure.
         rule vector_body
-          (comment_block / vector / sequencer_instruction)+ <VectorBody>
+          '' (comment_block / vector / sequencer_instruction)* <VectorBody>
         end
 
         rule pattern_body
@@ -30,7 +38,7 @@ module OrigenTesters
         end
         
         rule vector
-          repeat spacing timeset spacing pin_states spacing? comment? newline <Vector>
+          repeat spacing timeset spacing pin_states ';' newline <Vector>
         end
         
         rule repeat
@@ -64,7 +72,10 @@ module OrigenTesters
           ' ' <PinNameSeparator>
         end
 
-
+        # Override the pin state rule to catch anything except a space and semicolon to account for any comments in the pattern
+        rule pin_state
+          [^; ]* <PinState>
+        end
       end
     end
   end

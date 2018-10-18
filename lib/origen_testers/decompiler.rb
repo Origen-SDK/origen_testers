@@ -10,7 +10,17 @@ module OrigenTesters
     }
 
     def self.decompile(filename, options = {})
-      select_decompiler(filename, options).decompile(filename, options)
+      decompiler(filename, options).decompile
+    end
+
+    def self.decompiler(filename, options = {})
+      if options[:decompiler]
+        options[:decompiler].decompiler(filename, options)
+      elsif options[:raw_input] && !options[:decompiler]
+        Origen.app.fail!(message: 'Decompiler: Option :raw_input requires that the :decompiler option be specified.')
+      else
+        select_decompiler(filename, options).decompiler(filename, options)
+      end
     end
 
     def self.decompiler_mapping
