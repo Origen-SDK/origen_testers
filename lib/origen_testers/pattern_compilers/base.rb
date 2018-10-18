@@ -204,14 +204,22 @@ module OrigenTesters
 
       def set_reference_directory
         if @user_options[:reference_directory].nil?
-          # Nothing passed for reference directory so set it to Origen.app.config.pattern_output_directory if valid
-          if File.directory? Origen.app.config.pattern_output_directory
-            @user_options[:reference_directory] = Pathname.new(Origen.app.config.pattern_output_directory)
-          elsif @path
+          # Nothing passed for reference directory so set it to @path or Origen.app.config.pattern_output_directory
+          if @path
             if @path.directory?
               @user_options[:reference_directory] = @path
             else
               @user_options[:reference_directory] = @path.dirname
+            end
+          else
+            # @path has not been specified, so set to Origen.app.config.pattern_output_directory (create if necessary)
+            if Origen.app.config.pattern_output_directory.nil?
+              fail "Something went wrong, can't create pattern compiler without output_directory"
+            else
+              @user_options[:reference_directory] = Pathname.new(Origen.app.config.pattern_output_directory)
+              unless @user_options[:reference_directory].directory?
+                FileUtils.mkdir_p(@user_options[:reference_directory])
+              end
             end
           end
         elsif File.directory?(@user_options[:reference_directory])

@@ -3,7 +3,40 @@ class OrigenTestersApplication < Origen::Application
   # for a full list of the configuration options available
 
   config.shared = {
-    :command_launcher => "config/shared_commands.rb"
+    command_launcher: "config/shared_commands.rb",
+    origen_guides: "templates/origen_guides",
+    origen_guides_index: -> (index) do
+      index.section :pattern, heading: "Pattern Generator", after: :controllers do |section|
+        section.page :introduction, heading: "Introduction"
+        section.page :creating, heading: "Creating Patterns"
+        section.page :pins, heading: "Pins"
+        section.page :timing, heading: "Timing and Waiting"
+        section.page :registers, heading: "Registers"
+        section.page :documenting, heading: "Documenting Patterns"
+        section.page :name, heading: "Generating by Name"
+        section.page :common, heading: "Common API"
+        section.page :j750, heading: "J750 API"
+        section.page :v93k, heading: "V93K API"
+        section.page :ultraflex, heading: "UltraFlex API"
+        section.page :custom, heading: "Custom Testers"
+        section.page :running, heading: "Running The PatGen"
+      end
+      index.section :program, heading: "Test Program Generator", after: :pattern do |section|
+        section.page :introduction, heading: "Introduction"
+        section.page :philosophy, heading: "Philosophy"
+        section.page :flows, heading: "Creating Flows"
+        section.page :flowapi, heading: "Managing Flow Control"
+        section.page :interface, heading: "Creating an Interface"
+        section.page :resources, heading: "Additional Resources"
+        section.page :code, heading: "Dynamic Custom Code"
+        section.page :j750, heading: "J750 API"
+        section.page :v93k, heading: "V93K API"
+        section.page :ultraflex, heading: "UltraFLEX API"
+        section.page :doc, heading: "Documenting the Program"
+        section.page :custom, heading: "Creating Custom Testers"
+        section.page :generating, heading: "Running the ProgGen"
+      end
+    end
   }
 
   # This information is used in headers and email templates, set it specific

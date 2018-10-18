@@ -1,22 +1,22 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    12-Oct-2017 09:23AM
-#   By:      FSL\b04525
-#   Command: origen g .\pattern\tester_overlay.rb -t dut3.rb -e v93k.rb
+#   Time:    04-Jun-2018 14:01PM
+#   By:      Stephen McGinty
+#   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.13.1
-#     Branch:    repair_overlay(5b780428500) (+local edits)
+#     Version:   0.19.0
+#     Branch:    handshake_overlay(160a8192d3b) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.25.1
+#     Version:   0.27.0
 #   Plugins
-#     atp:                      0.7.0
+#     atp:                      1.1.2
 #     origen_arm_debug:         0.4.3
-#     origen_doc_helpers:       0.5.0
-#     origen_jtag:              0.16.0
+#     origen_doc_helpers:       0.5.1
+#     origen_jtag:              0.17.1
 #     origen_swd:               1.1.0
 # ***************************************************************************
 FORMAT TCLK TDI TDO TMS pa;
@@ -74,6 +74,29 @@ R39                      tp0                        1 1 H 1 101 # ;
 R1                       tp0                        1 1 H 1 101 # ;
 SQPG JSUB global_label_test;
 R1                       tp0                        1 1 H 1 101 # R20 ;
+R1                       tp0                        1 1 H 1 101 # R19 ;
+R1                       tp0                        1 1 H 1 101 # R18 ;
+R1                       tp0                        1 1 H 1 101 # R17 ;
+R1                       tp0                        1 1 H 1 101 # R16 ;
+R1                       tp0                        1 1 H 1 101 # R15 ;
+R1                       tp0                        1 1 H 1 101 # R14 ;
+R1                       tp0                        1 1 H 1 101 # R13 ;
+R1                       tp0                        1 1 H 1 101 # R12 ;
+R1                       tp0                        1 1 H 1 101 # R11 ;
+R1                       tp0                        1 1 H 1 101 # R10 ;
+R1                       tp0                        1 1 H 1 101 # R9 ;
+R1                       tp0                        1 1 H 1 101 # R8 ;
+R1                       tp0                        1 1 H 1 101 # R7 ;
+R1                       tp0                        1 1 H 1 101 # R6 ;
+R1                       tp0                        1 1 H 1 101 # R5 ;
+R1                       tp0                        1 1 H 1 101 # R4 ;
+R1                       tp0                        1 1 H 1 101 # R3 ;
+R1                       tp0                        1 1 H 1 101 # R2 ;
+R1                       tp0                        1 1 H 1 101 # R1 ;
+# ######################################################################
+# ## Now kick the tires of handshake overlay
+# ######################################################################
+R1                       tp0                        1 1 H 1 101 # R20 Now kick the tires of handshake overlay;
 R1                       tp0                        1 1 H 1 101 # R19 ;
 R1                       tp0                        1 1 H 1 101 # R18 ;
 R1                       tp0                        1 1 H 1 101 # R17 ;
