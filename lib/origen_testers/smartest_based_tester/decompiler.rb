@@ -15,14 +15,6 @@ module OrigenTesters
 
     class DecompiledPattern < OrigenTesters::Decompiler::DecompiledPattern
       @parser = OrigenTesters::SmartestBasedTester::Decompiler::Parser
-      # def decompile
-      #  parser = OrigenTesters::SmartestBasedTester::Decompiler::Parser
-      #  parser.parse(input)
-      #  @pattern_model = parser.tree
-      #
-      #  @decompiled = true
-      #  self
-      # end
     end
   end
 end
