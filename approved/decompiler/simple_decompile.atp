@@ -1,0 +1,55 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    29-Oct-2018 08:24AM
+//   By:      Corey Engelken
+//   Mode:    debug
+//   Command: origen g /proj/k4l1_users1/b50956/origen_blocks/origen_testers/pattern/decompile.rb -t dut.rb -e default.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.19.3
+//     Branch:    pattern_reader(1b9b2052f05) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.35.0
+//   Plugins
+//     atp:                      1.1.2
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.7.1
+//     origen_jtag:              0.19.1
+//     origen_swd:               1.1.0
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+//                                                                                               t t t t
+//                                                                                               c d d m
+//                                                                                               l i o s
+//                                                                                               k      
+//  Wait for 40.0ms
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 11317                                                     > tp0                          X X X X ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

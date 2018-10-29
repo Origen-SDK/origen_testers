@@ -80,7 +80,7 @@ module OrigenTesters
       end
       
       rule pin_state
-        [A-Za-z_0-9]+ <PinState>
+        [A-Za-z_0-9-]+ <PinState>
       end
       
       rule timeset

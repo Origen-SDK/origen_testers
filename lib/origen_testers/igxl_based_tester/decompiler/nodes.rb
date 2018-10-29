@@ -107,6 +107,12 @@ module OrigenTesters
           SYMBOLIZE = false
         end
 
+        class GlobalLabel < OrigenTesters::Decompiler::OrigenTestersNode
+          CLEAN = false
+          CHECK = false
+          SYMBOLIZE = false
+        end
+
         class Vector < OrigenTesters::Decompiler::BaseGrammar::Vector
           CHECK = false
 

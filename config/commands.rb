@@ -27,11 +27,15 @@ when "decompile_test"
 
   if true
   	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
+    #test_file = "#{Origen.app.root}/approved/j750/j750_workout.atp"
   	pat = OrigenTesters::Decompiler.decompile(test_file)
   	puts pat.inspect
   	puts pat
   	puts pat.pinlist
   	puts pat.vectors { |v| v.class }
+  	
+  	puts
+  	puts pat.pattern_model.pin_sizes
   end
   
   puts

@@ -34,7 +34,7 @@ module OrigenTesters
           elsif input.is_a?(File)
             input.read
           elsif input.is_a?(Pathname)
-            File.open(_input.to_s, 'r').read
+            File.open(input.to_s, 'r').read
           else
             File.open(input, 'r').read
           end

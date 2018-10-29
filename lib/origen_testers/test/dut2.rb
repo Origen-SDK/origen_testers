@@ -19,17 +19,30 @@ module OrigenTesters
         add_pin :tclk, reset: :drive_lo
         add_pin :trst, reset: :drive_hi
 
-        add_pin_alias :extal,     :clk
-        add_pin_alias :extal_mux, :clk_mux
-        add_pin_alias :tms,       :done
-        add_pin_alias :tdo,       :fail
-        add_pin_alias :tdi,       :invoke
-        add_pin_alias :resetb,    :ahvtst
+        add_pin_alias :extal,       :clk
+        add_pin_alias :extal_mux,   :clk_mux
+        add_pin_alias :tms,         :done
+        add_pin_alias :tdo,         :fail
+        add_pin_alias :tdi,         :invoke
+        add_pin_alias :resetb,      :ahvtst
+        add_pin_alias :nvm_reset,   :reset
+        add_pin_alias :nvm_clk,     :clk
+        add_pin_alias :nvm_clk_mux, :clk_mux
+        add_pin_alias :nvm_invoke,  :invoke
+        add_pin_alias :nvm_done,    :done
+        add_pin_alias :nvm_fail,    :fail
+        add_pin_alias :nvm_alvtst,  :alvtst
+        add_pin_alias :nvm_ahvtst,  :ahvtst
+        add_pin_alias :nvm_dtst,    :dtst
 
         add_pin_alias :pa5, :porta, pin: 5
         add_pin_alias :pa_lower, :porta, pins: [3..0]
         add_pin_alias :pa_upper, :porta, pins: [7, 6, 5, 4]
         add_pin_alias :porta_alias, :porta
+
+        pins.each do |name, pin|
+          add_pin_alias(name.upcase, name) unless has_pin?(name.upcase)
+        end
       end
 
       def startup(options)

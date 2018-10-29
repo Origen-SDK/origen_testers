@@ -91,6 +91,11 @@ module OrigenTesters
           @pinlist = @pattern_body.vector_header.pinlist
         end
 
+        # Assuming here that nothing has changed the pin pattern order.
+        def pin_sizes
+          @pin_sizes = first_vector.pin_states.elements.collect { |state| state.pin_state.size }
+        end
+
         # Default execute is just to execute the pattern body.
         # The inheriting class can override/extend this as needed.
         def execute
@@ -398,7 +403,7 @@ module OrigenTesters
           @pin_names << elements[0].text_value
           @pin_names += elements[1].elements.collect { |e| e.elements[1].text_value } unless elements[1].empty?
 
-          # Save off the number of the pins
+          # Save off the number of the pins and the size of each pin.
           OrigenTesters::Decompiler::BaseGrammar::BaseParser.metadata[:pin_names] = self
         end
       end

@@ -21,7 +21,7 @@ module OrigenTesters
         end
 
         rule vector_body
-          start_label (comment_block / vector / label)* newline <VectorBody>
+          start_label (comment_block / vector / label / global_label)* newline <VectorBody>
         end
 
         rule start_label
@@ -29,11 +29,15 @@ module OrigenTesters
         end
 
         rule label
-          label_name ':' spacing? newline
+          label_name ':' spacing? label_name? spacing? newline <Label>
         end
 
         rule label_name
           word
+        end
+
+        rule global_label
+          'global' spacing word spacing label_name ':' spacing? newline <GlobalLabel>
         end
 
         rule vector
@@ -41,11 +45,11 @@ module OrigenTesters
         end
 
         rule opcode
-          [A-Za-z_0-9]+ <Opcode>
+          [A-Za-z_0-9:]+ <Opcode>
         end
 
         rule opcode_arguments
-          [A-Za-z_0-9]+ <OpcodeArguments>
+          ([A-Za-z_0-9()]+ spacing)+ <OpcodeArguments>
         end
 
         rule vector_body_start
