@@ -59,6 +59,8 @@ RSpec.shared_examples :decompiler_driver do |mod, simple_pattern, complex_patter
       @decmpile_pattern = "#{Origen.app!.root}/pattern/decompile.rb"
       @simple_reference_pattern = "#{Origen.app!.root}/approved/decompiler/simple_decompile.#{ext}"
       @complex_reference_pattern = "#{Origen.app!.root}/approved/decompiler/complex_decompile.#{ext}"
+      
+      $MOD = mod
     end
     
     describe "Module spec: #{mod}" do

@@ -1,5 +1,4 @@
 Pattern.create do |options|
-  pat = OrigenTesters::Decompiler.decompile($DECOMPILE_PATTERN)
-  pat.execute
+  $MOD.execute($DECOMPILE_PATTERN)
 end
 
