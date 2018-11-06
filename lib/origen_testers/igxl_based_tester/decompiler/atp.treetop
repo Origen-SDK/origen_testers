@@ -21,7 +21,7 @@ module OrigenTesters
         end
 
         rule vector_body
-          start_label (comment_block / vector / label / global_label)* newline <VectorBody>
+          start_label (comment_block / vector / label / start_label / global_label)* newline <VectorBody>
         end
 
         rule start_label
