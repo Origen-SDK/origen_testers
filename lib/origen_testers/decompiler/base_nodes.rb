@@ -179,7 +179,7 @@ module OrigenTesters
               if tset.nil?
                 fail "DUT object is defined as #{dut.name}, but could not locate a timeset #{timeset}"
               end
-              tester.set_timeset(:intram, $dut.send("#{first_timeset}_period_in_ns".to_sym)
+              tester.set_timeset(:intram, $dut.send("#{first_timeset}_period_in_ns".to_sym))
               tester.timeset
             else
               timeset
