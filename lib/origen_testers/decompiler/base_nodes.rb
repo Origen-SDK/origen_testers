@@ -144,7 +144,7 @@ module OrigenTesters
         def execute
           # Begin execution by making sure we have some timeset set.
           if tester.timeset.nil?
-            tester.set_timeset(first_timeset)
+            tester.set_timeset(first_timeset, $dut.send("#{first_timeset}_period_in_ns".to_sym))
           end
 
           body.each do |b|
@@ -179,7 +179,7 @@ module OrigenTesters
               if tset.nil?
                 fail "DUT object is defined as #{dut.name}, but could not locate a timeset #{timeset}"
               end
-              tester.set_timeset(:intram, 40)
+              tester.set_timeset(:intram, $dut.send("#{first_timeset}_period_in_ns".to_sym)
               tester.timeset
             else
               timeset
