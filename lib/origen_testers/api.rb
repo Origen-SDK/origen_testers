@@ -223,29 +223,33 @@ module OrigenTesters
         repeat:    nil
       }.merge(options)
 
-      if any_clocks_running?
-        update_running_clocks
-        if options[:repeat]
-          slice_repeats(options).each do |slice|
-            options[:repeat] = slice[0]
+      if PatSeq.thread
+        PatSeq.thread.cycle(options)
+      else
+        if any_clocks_running?
+          update_running_clocks
+          if options[:repeat]
+            slice_repeats(options).each do |slice|
+              options[:repeat] = slice[0]
+              delay(options.delete(:repeat), options) do |options|
+                push_vector(options)
+              end
+              slice[1].each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+              options[:pin_vals] = current_pin_vals
+            end
+            pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+          else
+            push_vector(options)
+            pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+          end
+        else
+          if options[:repeat]
             delay(options.delete(:repeat), options) do |options|
               push_vector(options)
             end
-            slice[1].each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-            options[:pin_vals] = current_pin_vals
-          end
-          pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-        else
-          push_vector(options)
-          pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-        end
-      else
-        if options[:repeat]
-          delay(options.delete(:repeat), options) do |options|
+          else
             push_vector(options)
           end
-        else
-          push_vector(options)
         end
       end
     end
