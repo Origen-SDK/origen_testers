@@ -8,7 +8,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name
+        attr_accessor :add_flow_enable, :flow_name, :flow_description
 
         def var_filename
           @var_filename || 'global'
@@ -24,6 +24,10 @@ module OrigenTesters
 
         def flow_name
           @flow_name || filename.sub(/\..*/, '').upcase
+        end
+
+        def flow_description
+          @flow_description || ''
         end
 
         def hardware_bin_descriptions
@@ -82,7 +86,7 @@ module OrigenTesters
             f << '  }'
           end
           f << ''
-          f << "  }, open,\"#{flow_name}\",\"\""
+          f << "  }, open,\"#{flow_name}\",\"#{flow_description}\""
           f
         end
 
