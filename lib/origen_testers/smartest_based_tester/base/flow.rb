@@ -1,4 +1,5 @@
 require 'origen_testers/smartest_based_tester/base/processors/extract_flow_control_vars'
+require 'origen_testers/smartest_based_tester/base/processors/extract_runtime_control_vars'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -81,7 +82,7 @@ module OrigenTesters
         alias_method :clean_flow_control_variables, :flow_control_variables
 
         def runtime_control_variables
-          Origen.interface.variables_file(self).runtime_control_variables
+          @runtime_control_variables ||= Processors::ExtractRuntimeControlVars.new.run(ast)
         end
 
         def at_flow_start
@@ -136,6 +137,9 @@ module OrigenTesters
           unless smt8?
             unless flow_control_variables.empty?
               Origen.interface.variables_file(self).add_flow_control_variables(*flow_control_variables)
+            end
+            unless runtime_control_variables.empty?
+              Origen.interface.variables_file(self).add_runtime_control_variables(*runtime_control_variables)
             end
           end
           test_suites.finalize
@@ -253,9 +257,6 @@ module OrigenTesters
           jobs, *nodes = *node
           jobs = clean_job(jobs)
           state = node.type == :if_job
-          unless smt8?
-            runtime_control_variables << ['JOB', '']
-          end
           if smt8?
             if jobs.size == 1
               condition = jobs.first
@@ -338,9 +339,6 @@ module OrigenTesters
         def on_if_flag(node)
           flag, *nodes = *node
           state = node.type == :if_flag
-          [flag].flatten.each do |f|
-            runtime_control_variables << generate_flag_name(f)
-          end
           on_condition_flag(node, state)
         end
         alias_method :on_unless_flag, :on_if_flag
@@ -365,7 +363,6 @@ module OrigenTesters
 
         def on_set_flag(node)
           flag = generate_flag_name(node.value)
-          runtime_control_variables << flag
           if @open_test_methods.last
             if pass_branch?
               if @open_test_methods.last.respond_to?(:on_pass_flag)

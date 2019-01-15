@@ -21,6 +21,10 @@ module OrigenTesters
           @flow_control_variables += vars
         end
 
+        def add_runtime_control_variables(*vars)
+          @runtime_control_variables += vars
+        end
+
         def clean_flow_control_variables
           flow_control_variables.uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
