@@ -15,6 +15,7 @@ flow FLOW_CONTROL {
     in NVM_MINIMUM_HOT = false;
     in NVM_MINIMUM_ROOM = false;
     in QUICK = false;
+    in SMALL_FLOW = false;
     in WORD1 = false;
     in WORD2 = false;
     in WORD3 = false;

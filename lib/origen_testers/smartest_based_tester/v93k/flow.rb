@@ -8,14 +8,7 @@ module OrigenTesters
         def flow_header
           h = ['  {']
           if add_flow_enable
-            var = filename.sub(/\..*/, '').upcase
-            var = generate_flag_name("#{var}_ENABLE")
-            if add_flow_enable == :enabled
-              flow_control_variables << [var, 1]
-            else
-              flow_control_variables << [var, 0]
-            end
-            h << "  if @#{var} == 1 then"
+            h << "  if @#{flow_enable_var_name} == 1 then"
             h << '  {'
             i = '  '
           else

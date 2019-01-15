@@ -1,4 +1,10 @@
 flow PRB1 {
+    in ADDITIONAL_ERASE = false;
+    in ALARMENABLED = false;
+    in DO_ERASE = false;
+    in JOB = "";
+    in NO_EXTRA_ERASE = false;
+    in USB_XCVR_CZ = false;
 
     setup {
         suite bitcell_iv_0 calls ac_tml.AcTest.FunctionalTest {

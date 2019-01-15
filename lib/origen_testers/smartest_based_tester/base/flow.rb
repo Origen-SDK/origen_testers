@@ -1,3 +1,4 @@
+require 'origen_testers/smartest_based_tester/base/processors/extract_flow_control_vars'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -9,6 +10,15 @@ module OrigenTesters
         attr_reader :set_runtime_variables
 
         attr_accessor :add_flow_enable, :flow_name
+
+        def self.generate_flag_name(flag)
+          case flag[0]
+          when '$'
+            flag[1..-1]
+          else
+            flag.upcase
+          end
+        end
 
         def smt8?
           tester.smt8?
@@ -35,6 +45,11 @@ module OrigenTesters
           end
         end
 
+        def flow_enable_var_name
+          var = filename.sub(/\..*/, '').upcase
+          generate_flag_name("#{var}_ENABLE")
+        end
+
         def flow_name(filename = nil)
           flow_name ||= (filename || self.filename).sub(/\..*/, '').upcase
           if smt8?
@@ -49,12 +64,21 @@ module OrigenTesters
         end
 
         def flow_control_variables
-          Origen.interface.variables_file(self).flow_control_variables
+          @flow_control_variables ||= begin
+            vars = Processors::ExtractFlowControlVars.new.run(ast)
+            unless smt8?
+              if add_flow_enable
+                if add_flow_enable == :enabled
+                  vars << [flow_enable_var_name, 1]
+                else
+                  vars << [flow_enable_var_name, 0]
+                end
+              end
+            end
+            vars
+          end
         end
-
-        def clean_flow_control_variables
-          Origen.interface.variables_file(self).clean_flow_control_variables
-        end
+        alias_method :clean_flow_control_variables, :flow_control_variables
 
         def runtime_control_variables
           Origen.interface.variables_file(self).runtime_control_variables
@@ -85,8 +109,20 @@ module OrigenTesters
           @test_modes = tester.limitfile_test_modes
         end
 
+        def ast
+          @ast = nil unless @finalized
+          @ast ||= begin
+            unique_id = smt8? ? nil : sig
+            atp.ast(unique_id: unique_id, optimization: :smt,
+                  implement_continue: !tester.force_pass_on_continue,
+                  optimize_flags_when_continue: !tester.force_pass_on_continue
+                   )
+          end
+        end
+
         def finalize(options = {})
           super
+          @finalized = true
           if smt8?
             @indent = 2
           else
@@ -95,21 +131,21 @@ module OrigenTesters
           @lines = []
           @open_test_methods = []
           @stack = { on_fail: [], on_pass: [] }
-          unique_id = smt8? ? nil : sig
-          ast = atp.ast(unique_id: unique_id, optimization: :smt,
-                        implement_continue: !tester.force_pass_on_continue,
-                        optimize_flags_when_continue: !tester.force_pass_on_continue
-                       )
           @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
+          unless smt8?
+            unless flow_control_variables.empty?
+              Origen.interface.variables_file(self).add_flow_control_variables(*flow_control_variables)
+            end
+          end
           test_suites.finalize
           test_methods.finalize
           if tester.create_limits_file && !Origen.interface.generating_sub_program?
-            render_limits_file(ast)
+            render_limits_file
           end
         end
 
-        def render_limits_file(ast)
+        def render_limits_file
           if limits_file
             limits_file.test_modes = @test_modes
             limits_file.generate(ast)
@@ -217,9 +253,7 @@ module OrigenTesters
           jobs, *nodes = *node
           jobs = clean_job(jobs)
           state = node.type == :if_job
-          if smt8?
-            flow_control_variables << ['JOB', '']
-          else
+          unless smt8?
             runtime_control_variables << ['JOB', '']
           end
           if smt8?
@@ -297,9 +331,6 @@ module OrigenTesters
         def on_if_enabled(node)
           flag, *nodes = *node
           state = node.type == :if_enabled
-          [flag].flatten.each do |f|
-            flow_control_variables << generate_flag_name(f)
-          end
           on_condition_flag(node, state)
         end
         alias_method :on_unless_enabled, :on_if_enabled
@@ -316,7 +347,6 @@ module OrigenTesters
 
         def on_enable(node)
           flag = node.value.upcase
-          flow_control_variables << flag
           if smt8?
             line "#{flag} = true;"
           else
@@ -326,7 +356,6 @@ module OrigenTesters
 
         def on_disable(node)
           flag = node.value.upcase
-          flow_control_variables << flag
           if smt8?
             line "#{flag} = false;"
           else
@@ -478,12 +507,7 @@ module OrigenTesters
         end
 
         def generate_flag_name(flag)
-          case flag[0]
-          when '$'
-            flag[1..-1]
-          else
-            flag.upcase
-          end
+          self.class.generate_flag_name(flag)
         end
       end
     end

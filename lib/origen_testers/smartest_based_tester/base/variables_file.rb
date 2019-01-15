@@ -17,6 +17,10 @@ module OrigenTesters
           'testflow/mfh.testflow.setup'
         end
 
+        def add_flow_control_variables(*vars)
+          @flow_control_variables += vars
+        end
+
         def clean_flow_control_variables
           flow_control_variables.uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)

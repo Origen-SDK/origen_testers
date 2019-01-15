@@ -1,4 +1,5 @@
 flow PRB1_MAIN {
+    in ADDITIONAL_ERASE = false;
     in ALARMENABLED = false;
     in DO_ERASE = false;
     in JOB = "";
