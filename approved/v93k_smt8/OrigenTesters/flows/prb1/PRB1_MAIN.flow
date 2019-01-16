@@ -1,10 +1,26 @@
 flow PRB1_MAIN {
-    in ADDITIONAL_ERASE = false;
-    in ALARMENABLED = false;
-    in DO_ERASE = false;
+    in ADDITIONAL_ERASE = -1;
+    in ALARMENABLED = -1;
+    in DO_ERASE = -1;
     in JOB = "";
-    in NO_EXTRA_ERASE = false;
-    in USB_XCVR_CZ = false;
+    in NO_EXTRA_ERASE = -1;
+    in USB_XCVR_CZ = -1;
+
+    out ALARM = -1;
+    out ERASE_FAILED_1_FAILED = -1;
+    out ERASE_FAILED_2_FAILED = -1;
+    out ERASE_FAILED_3_PASSED = -1;
+    out ERASE_FAILED_4_PASSED = -1;
+    out ERASE_PASSED_1_PASSED = -1;
+    out ERASE_PASSED_2_PASSED = -1;
+    out ERASE_PASSED_3_FAILED = -1;
+    out ERASE_PASSED_4_FAILED = -1;
+    out ERASE_RAN_1_RAN = -1;
+    out ERASE_RAN_2_RAN = -1;
+    out ERASE_RAN_3_RAN = -1;
+    out ERASE_RAN_4_RAN = -1;
+    out G100_RAN = -1;
+    out G200_FAILED = -1;
 
     setup {
         suite another_not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
@@ -581,20 +597,20 @@ flow PRB1_MAIN {
     }
 
     execute {
-        var ERASE_PASSED_1_PASSED = false;
-        var ERASE_PASSED_2_PASSED = false;
-        var ERASE_PASSED_3_FAILED = false;
-        var ERASE_PASSED_4_FAILED = false;
-        var ERASE_FAILED_1_FAILED = false;
-        var ERASE_FAILED_2_FAILED = false;
-        var ERASE_FAILED_3_PASSED = false;
-        var ERASE_FAILED_4_PASSED = false;
-        var ERASE_RAN_1_RAN = false;
-        var ERASE_RAN_2_RAN = false;
-        var ERASE_RAN_3_RAN = false;
-        var ERASE_RAN_4_RAN = false;
-        var G200_FAILED = false;
-        var G100_RAN = false;
+        ERASE_FAILED_1_FAILED = -1;
+        ERASE_FAILED_2_FAILED = -1;
+        ERASE_FAILED_3_PASSED = -1;
+        ERASE_FAILED_4_PASSED = -1;
+        ERASE_PASSED_1_PASSED = -1;
+        ERASE_PASSED_2_PASSED = -1;
+        ERASE_PASSED_3_FAILED = -1;
+        ERASE_PASSED_4_FAILED = -1;
+        ERASE_RAN_1_RAN = -1;
+        ERASE_RAN_2_RAN = -1;
+        ERASE_RAN_3_RAN = -1;
+        ERASE_RAN_4_RAN = -1;
+        G100_RAN = -1;
+        G200_FAILED = -1;
 
         program_ckbd.execute();
         if (program_ckbd.pass) {
@@ -710,13 +726,13 @@ flow PRB1_MAIN {
         }
         margin_read1_all1_5.execute();
         println("Test if enable");
-        if (DO_ERASE == true) {
+        if (DO_ERASE == 1) {
             erase_all_10.execute();
             erase_all_11.execute();
         } else {
         }
         println("Test unless enable");
-        if (NO_EXTRA_ERASE == true) {
+        if (NO_EXTRA_ERASE == 1) {
         } else {
             erase_all_12.execute();
             erase_all_13.execute();
@@ -735,11 +751,11 @@ flow PRB1_MAIN {
             ERASE_PASSED_2_PASSED = true;
         } else {
         }
-        if (ERASE_PASSED_1_PASSED == true) {
+        if (ERASE_PASSED_1_PASSED == 1) {
             margin_read1_all1_6.execute();
         } else {
         }
-        if (ERASE_PASSED_2_PASSED == true) {
+        if (ERASE_PASSED_2_PASSED == 1) {
             margin_read1_all1_7.execute();
         } else {
         }
@@ -754,11 +770,11 @@ flow PRB1_MAIN {
         } else {
             ERASE_PASSED_4_FAILED = true;
         }
-        if (ERASE_PASSED_3_FAILED == true) {
+        if (ERASE_PASSED_3_FAILED == 1) {
             margin_read1_all1_8.execute();
         } else {
         }
-        if (ERASE_PASSED_4_FAILED == true) {
+        if (ERASE_PASSED_4_FAILED == 1) {
             margin_read1_all1_9.execute();
         } else {
         }
@@ -773,11 +789,11 @@ flow PRB1_MAIN {
         } else {
             ERASE_FAILED_2_FAILED = true;
         }
-        if (ERASE_FAILED_1_FAILED == true) {
+        if (ERASE_FAILED_1_FAILED == 1) {
             margin_read1_all1_10.execute();
         } else {
         }
-        if (ERASE_FAILED_2_FAILED == true) {
+        if (ERASE_FAILED_2_FAILED == 1) {
             margin_read1_all1_11.execute();
         } else {
         }
@@ -792,11 +808,11 @@ flow PRB1_MAIN {
             ERASE_FAILED_4_PASSED = true;
         } else {
         }
-        if (ERASE_FAILED_3_PASSED == true) {
+        if (ERASE_FAILED_3_PASSED == 1) {
             margin_read1_all1_12.execute();
         } else {
         }
-        if (ERASE_FAILED_4_PASSED == true) {
+        if (ERASE_FAILED_4_PASSED == 1) {
             margin_read1_all1_13.execute();
         } else {
         }
@@ -805,11 +821,11 @@ flow PRB1_MAIN {
         ERASE_RAN_1_RAN = true;
         erase_all_26.execute();
         ERASE_RAN_2_RAN = true;
-        if (ERASE_RAN_1_RAN == true) {
+        if (ERASE_RAN_1_RAN == 1) {
             margin_read1_all1_14.execute();
         } else {
         }
-        if (ERASE_RAN_2_RAN == true) {
+        if (ERASE_RAN_2_RAN == 1) {
             margin_read1_all1_15.execute();
         } else {
         }
@@ -818,11 +834,11 @@ flow PRB1_MAIN {
         ERASE_RAN_3_RAN = true;
         erase_all_28.execute();
         ERASE_RAN_4_RAN = true;
-        if (ERASE_RAN_3_RAN == true) {
+        if (ERASE_RAN_3_RAN == 1) {
         } else {
             margin_read1_all1_16.execute();
         }
-        if (ERASE_RAN_4_RAN == true) {
+        if (ERASE_RAN_4_RAN == 1) {
         } else {
             margin_read1_all1_17.execute();
         }
@@ -833,6 +849,7 @@ flow PRB1_MAIN {
         }
         println("Verify that job context wraps enable block within an import");
         if (JOB == "FR") {
+            ADDITIONAL_ERASE.ADDITIONAL_ERASE = ADDITIONAL_ERASE;
             ADDITIONAL_ERASE.execute();
             ADDITIONAL_ERASE_1.execute();
         } else {
@@ -840,7 +857,7 @@ flow PRB1_MAIN {
         println("Verify that flow.cz works...");
         margin_read1_all1_18.execute();
         println("Verify that flow.cz works with enable words");
-        if (USB_XCVR_CZ == true) {
+        if (USB_XCVR_CZ == 1) {
             xcvr_fs_vilvih.execute();
             xcvr_fs_vilvih_1.execute();
             xcvr_fs_vilvih_2.execute();
@@ -870,7 +887,7 @@ flow PRB1_MAIN {
         // *******************************************************
         // /GROUP - 200Mhz Tests
         // *******************************************************
-        if (G200_FAILED == true) {
+        if (G200_FAILED == 1) {
             // *******************************************************
             // GROUP - 100Mhz Tests
             // *******************************************************
@@ -895,7 +912,7 @@ flow PRB1_MAIN {
             // *******************************************************
         } else {
         }
-        if (G100_RAN == true) {
+        if (G100_RAN == 1) {
             addBin(2);
         } else {
         }
@@ -903,12 +920,12 @@ flow PRB1_MAIN {
         some_func_test.execute();
         if (some_func_test.pass) {
         } else {
-            if (ALARM == true) {
+            if (ALARM == 1) {
                 addBin(10);
             } else {
                 addBin(11);
             }
-            if (ALARMENABLED == true) {
+            if (ALARMENABLED == 1) {
                 addBin(12);
             } else {
                 addBin(13);

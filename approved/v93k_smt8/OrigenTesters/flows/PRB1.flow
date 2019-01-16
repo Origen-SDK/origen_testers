@@ -1,10 +1,11 @@
 flow PRB1 {
-    in ADDITIONAL_ERASE = false;
-    in ALARMENABLED = false;
-    in DO_ERASE = false;
+    in ADDITIONAL_ERASE = -1;
+    in ALARMENABLED = -1;
+    in DO_ERASE = -1;
     in JOB = "";
-    in NO_EXTRA_ERASE = false;
-    in USB_XCVR_CZ = false;
+    in NO_EXTRA_ERASE = -1;
+    in USB_XCVR_CZ = -1;
+
 
     setup {
         suite bitcell_iv_0 calls ac_tml.AcTest.FunctionalTest {
@@ -75,6 +76,12 @@ flow PRB1 {
 
     execute {
 
+        PRB1_MAIN.ADDITIONAL_ERASE = ADDITIONAL_ERASE;
+        PRB1_MAIN.ALARMENABLED = ALARMENABLED;
+        PRB1_MAIN.DO_ERASE = DO_ERASE;
+        PRB1_MAIN.JOB = JOB;
+        PRB1_MAIN.NO_EXTRA_ERASE = NO_EXTRA_ERASE;
+        PRB1_MAIN.USB_XCVR_CZ = USB_XCVR_CZ;
         PRB1_MAIN.execute();
     }
 }

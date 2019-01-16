@@ -1,12 +1,13 @@
 flow SMALL_1 {
-    in SMALL_FLOW = false;
+    in SMALL_FLOW = -1;
+
 
     setup {
     }
 
     execute {
 
-        if (SMALL_FLOW == true) {
+        if (SMALL_FLOW == 1) {
             test1.execute();
             test2.execute();
         } else {
@@ -18,7 +19,7 @@ flow SMALL_1 {
         test1.execute();
         test1.execute();
         test1.execute();
-        if (SMALL_FLOW == true) {
+        if (SMALL_FLOW == 1) {
             test1.execute();
             test2.execute();
         } else {

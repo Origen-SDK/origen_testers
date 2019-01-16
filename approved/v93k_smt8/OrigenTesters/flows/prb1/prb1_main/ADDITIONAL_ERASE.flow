@@ -1,5 +1,6 @@
 flow ADDITIONAL_ERASE {
-    in ADDITIONAL_ERASE = false;
+    in ADDITIONAL_ERASE = -1;
+
 
     setup {
         suite erase_all calls ac_tml.AcTest.FunctionalTest {
@@ -13,7 +14,7 @@ flow ADDITIONAL_ERASE {
 
     execute {
 
-        if (ADDITIONAL_ERASE == true) {
+        if (ADDITIONAL_ERASE == 1) {
             erase_all.execute();
         } else {
         }

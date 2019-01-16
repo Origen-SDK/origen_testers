@@ -1,24 +1,60 @@
 flow FLOW_CONTROL {
-    in BITMAP = false;
-    in CZ = false;
-    in EN1 = false;
-    in EN2 = false;
-    in EWORD1 = false;
-    in EWORD2 = false;
-    in EXTRAS = false;
+    in BITMAP = -1;
+    in CZ = -1;
+    in EN1 = -1;
+    in EN2 = -1;
+    in EWORD1 = -1;
+    in EWORD2 = -1;
+    in EXTRAS = -1;
     in JOB = "";
-    in MCEn_extras = false;
-    in MCEn_test = false;
-    in MY_ENABLE_WORD = false;
-    in NVM_MINIMUM_COLD = false;
-    in NVM_MINIMUM_FT = false;
-    in NVM_MINIMUM_HOT = false;
-    in NVM_MINIMUM_ROOM = false;
-    in QUICK = false;
-    in SMALL_FLOW = false;
-    in WORD1 = false;
-    in WORD2 = false;
-    in WORD3 = false;
+    in MCEn_extras = -1;
+    in MCEn_test = -1;
+    in MY_ENABLE_WORD = -1;
+    in NVM_MINIMUM_COLD = -1;
+    in NVM_MINIMUM_FT = -1;
+    in NVM_MINIMUM_HOT = -1;
+    in NVM_MINIMUM_ROOM = -1;
+    in QUICK = -1;
+    in SMALL_FLOW = -1;
+    in WORD1 = -1;
+    in WORD2 = -1;
+    in WORD3 = -1;
+
+    out AF11_FAILED = -1;
+    out AF1_FAILED = -1;
+    out AF2_FAILED = -1;
+    out AT22_FAILED = -1;
+    out Alarm = -1;
+    out ECT2_1_FAILED = -1;
+    out ECT2_2_FAILED = -1;
+    out FLAG1 = -1;
+    out GRP1_FAILED = -1;
+    out GT_GRP1_FAILED = -1;
+    out GT_GRP2_FAILED = -1;
+    out IFA1_FAILED = -1;
+    out IFA2_FAILED = -1;
+    out IFALL1_FAILED = -1;
+    out IFALLB1_FAILED = -1;
+    out IFALLP1_PASSED = -1;
+    out IFALLPB1_PASSED = -1;
+    out IFAP1_PASSED = -1;
+    out IFAP2_PASSED = -1;
+    out IFAPB1_PASSED = -1;
+    out IFAPB2_PASSED = -1;
+    out L1T5_FAILED = -1;
+    out MY_FLAG = -1;
+    out My_Mixed_Flag = -1;
+    out OF11_FAILED = -1;
+    out OF12_FAILED = -1;
+    out OF1_FAILED = -1;
+    out OF2_FAILED = -1;
+    out OOF_PASSCODE1_FAILED = -1;
+    out OOF_PASSCODE2_FAILED = -1;
+    out SOME_FLAG = -1;
+    out T5_RAN = -1;
+    out T6_RAN = -1;
+    out T7_RAN = -1;
+    out T8_RAN = -1;
 
     setup {
         suite cold_test calls ac_tml.AcTest.FunctionalTest {
@@ -1195,38 +1231,38 @@ flow FLOW_CONTROL {
     }
 
     execute {
-        var T5_RAN = false;
-        var T6_RAN = false;
-        var T7_RAN = false;
-        var T8_RAN = false;
-        var IFA1_FAILED = false;
-        var IFA2_FAILED = false;
-        var OOF_PASSCODE1_FAILED = false;
-        var OOF_PASSCODE2_FAILED = false;
-        var IFALL1_FAILED = false;
-        var IFALLB1_FAILED = false;
-        var IFAP1_PASSED = false;
-        var IFAP2_PASSED = false;
-        var IFAPB1_PASSED = false;
-        var IFAPB2_PASSED = false;
-        var IFALLP1_PASSED = false;
-        var IFALLPB1_PASSED = false;
-        var GRP1_FAILED = false;
-        var GT_GRP1_FAILED = false;
-        var GT_GRP2_FAILED = false;
-        var L1T5_FAILED = false;
-        var ECT2_1_FAILED = false;
-        var ECT2_2_FAILED = false;
-        var MY_FLAG = false;
-        var My_Mixed_Flag = false;
-        var AT22_FAILED = false;
-        var OF1_FAILED = false;
-        var OF2_FAILED = false;
-        var AF1_FAILED = false;
-        var AF2_FAILED = false;
-        var OF11_FAILED = false;
-        var OF12_FAILED = false;
-        var AF11_FAILED = false;
+        AF11_FAILED = -1;
+        AF1_FAILED = -1;
+        AF2_FAILED = -1;
+        AT22_FAILED = -1;
+        ECT2_1_FAILED = -1;
+        ECT2_2_FAILED = -1;
+        GRP1_FAILED = -1;
+        GT_GRP1_FAILED = -1;
+        GT_GRP2_FAILED = -1;
+        IFA1_FAILED = -1;
+        IFA2_FAILED = -1;
+        IFALL1_FAILED = -1;
+        IFALLB1_FAILED = -1;
+        IFALLP1_PASSED = -1;
+        IFALLPB1_PASSED = -1;
+        IFAP1_PASSED = -1;
+        IFAP2_PASSED = -1;
+        IFAPB1_PASSED = -1;
+        IFAPB2_PASSED = -1;
+        L1T5_FAILED = -1;
+        MY_FLAG = -1;
+        My_Mixed_Flag = -1;
+        OF11_FAILED = -1;
+        OF12_FAILED = -1;
+        OF1_FAILED = -1;
+        OF2_FAILED = -1;
+        OOF_PASSCODE1_FAILED = -1;
+        OOF_PASSCODE2_FAILED = -1;
+        T5_RAN = -1;
+        T6_RAN = -1;
+        T7_RAN = -1;
+        T8_RAN = -1;
 
         println("Test that if_failed works");
         read1.execute();
@@ -1265,7 +1301,7 @@ flow FLOW_CONTROL {
             addBin(10);
         }
         T5_RAN = true;
-        if (T5_RAN == true) {
+        if (T5_RAN == 1) {
             read0.execute();
         } else {
         }
@@ -1276,7 +1312,7 @@ flow FLOW_CONTROL {
             addBin(10);
         }
         T6_RAN = true;
-        if (T6_RAN == true) {
+        if (T6_RAN == 1) {
             read0_1.execute();
             read0_2.execute();
         } else {
@@ -1288,7 +1324,7 @@ flow FLOW_CONTROL {
             addBin(10);
         }
         T7_RAN = true;
-        if (T7_RAN == true) {
+        if (T7_RAN == 1) {
         } else {
             read0_3.execute();
         }
@@ -1299,7 +1335,7 @@ flow FLOW_CONTROL {
             addBin(10);
         }
         T8_RAN = true;
-        if (T8_RAN == true) {
+        if (T8_RAN == 1) {
         } else {
             read0_4.execute();
             read0_5.execute();
@@ -1332,23 +1368,23 @@ flow FLOW_CONTROL {
             ft_only_test2.execute();
         }
         println("Test that if_enable works");
-        if (EXTRAS == true) {
+        if (EXTRAS == 1) {
             extra_test.execute();
         } else {
         }
         println("Test the block form of if_enable");
-        if (CZ == true) {
+        if (CZ == 1) {
             cz_test1.execute();
             cz_test2.execute();
         } else {
         }
         println("Test that unless_enable works");
-        if (QUICK == true) {
+        if (QUICK == 1) {
         } else {
             long_test.execute();
         }
         println("Test the block form of unless_enable");
-        if (QUICK == true) {
+        if (QUICK == 1) {
         } else {
             long_test1.execute();
             long_test2.execute();
@@ -1364,7 +1400,7 @@ flow FLOW_CONTROL {
         } else {
             IFA2_FAILED = true;
         }
-        if ((IFA1_FAILED == true) || (IFA2_FAILED == true)) {
+        if ((IFA1_FAILED == 1) || (IFA2_FAILED == 1)) {
             test3.execute();
         } else {
         }
@@ -1379,7 +1415,7 @@ flow FLOW_CONTROL {
         } else {
             OOF_PASSCODE2_FAILED = true;
         }
-        if ((OOF_PASSCODE1_FAILED == true) || (OOF_PASSCODE2_FAILED == true)) {
+        if ((OOF_PASSCODE1_FAILED == 1) || (OOF_PASSCODE2_FAILED == 1)) {
             test3_1.execute();
             test4.execute();
         } else {
@@ -1393,7 +1429,7 @@ flow FLOW_CONTROL {
         test2_2.execute();
         if (test2_2.pass) {
         } else {
-            if (IFALL1_FAILED == true) {
+            if (IFALL1_FAILED == 1) {
                 test3_2.execute();
             } else {
             }
@@ -1407,7 +1443,7 @@ flow FLOW_CONTROL {
         test2_3.execute();
         if (test2_3.pass) {
         } else {
-            if (IFALLB1_FAILED == true) {
+            if (IFALLB1_FAILED == 1) {
                 test3_3.execute();
                 test4_1.execute();
             } else {
@@ -1424,7 +1460,7 @@ flow FLOW_CONTROL {
             IFAP2_PASSED = true;
         } else {
         }
-        if ((IFAP1_PASSED == true) || (IFAP2_PASSED == true)) {
+        if ((IFAP1_PASSED == 1) || (IFAP2_PASSED == 1)) {
             test3_4.execute();
         } else {
         }
@@ -1439,7 +1475,7 @@ flow FLOW_CONTROL {
             IFAPB2_PASSED = true;
         } else {
         }
-        if ((IFAPB1_PASSED == true) || (IFAPB2_PASSED == true)) {
+        if ((IFAPB1_PASSED == 1) || (IFAPB2_PASSED == 1)) {
             test3_5.execute();
             test4_2.execute();
         } else {
@@ -1452,7 +1488,7 @@ flow FLOW_CONTROL {
         }
         test2_6.execute();
         if (test2_6.pass) {
-            if (IFALLP1_PASSED == true) {
+            if (IFALLP1_PASSED == 1) {
                 test3_6.execute();
             } else {
             }
@@ -1466,7 +1502,7 @@ flow FLOW_CONTROL {
         }
         test2_7.execute();
         if (test2_7.pass) {
-            if (IFALLPB1_PASSED == true) {
+            if (IFALLPB1_PASSED == 1) {
                 test3_7.execute();
                 test4_3.execute();
             } else {
@@ -1495,7 +1531,7 @@ flow FLOW_CONTROL {
         // *******************************************************
         // /GROUP - grp1
         // *******************************************************
-        if (GRP1_FAILED == true) {
+        if (GRP1_FAILED == 1) {
             // *******************************************************
             // GROUP - grp2
             // *******************************************************
@@ -1541,7 +1577,7 @@ flow FLOW_CONTROL {
         // *******************************************************
         // /GROUP - gt_grp1
         // *******************************************************
-        if (GT_GRP1_FAILED == true) {
+        if (GT_GRP1_FAILED == 1) {
             gt2.execute();
             if (gt2.pass) {
             } else {
@@ -1565,7 +1601,7 @@ flow FLOW_CONTROL {
             // *******************************************************
         } else {
         }
-        if (GT_GRP2_FAILED == true) {
+        if (GT_GRP2_FAILED == 1) {
             gt3.execute();
             if (gt3.pass) {
             } else {
@@ -1623,7 +1659,7 @@ flow FLOW_CONTROL {
                         addBin(12);
                     }
                 }
-                if (L1T5_FAILED == true) {
+                if (L1T5_FAILED == 1) {
                     lev2_test5.execute();
                     if (lev2_test5.pass) {
                     } else {
@@ -1690,16 +1726,16 @@ flow FLOW_CONTROL {
         } else {
             ECT2_2_FAILED = true;
         }
-        if (ECT2_1_FAILED == true) {
-            if (ECT2_2_FAILED == true) {
+        if (ECT2_1_FAILED == 1) {
+            if (ECT2_2_FAILED == 1) {
                 test3_9.execute();
             } else {
             }
-            if (EN1 == true) {
+            if (EN1 == 1) {
                 test4_5.execute();
             } else {
             }
-            if (EN2 == true) {
+            if (EN2 == 1) {
                 test5.execute();
                 test6.execute();
             } else {
@@ -1709,27 +1745,27 @@ flow FLOW_CONTROL {
         }
         test8.execute();
         println("Nested enable word test 1");
-        if (WORD1 == true) {
+        if (WORD1 == 1) {
             test1_10.execute();
-            if (WORD2 == true) {
+            if (WORD2 == 1) {
                 test2_10.execute();
             } else {
             }
         } else {
         }
         println("Nested enable word test 2");
-        if (WORD1 == true) {
+        if (WORD1 == 1) {
             test1_11.execute();
-            if (WORD2 == true) {
+            if (WORD2 == 1) {
             } else {
                 test2_11.execute();
             }
         } else {
         }
         println("Nested enable word test 3");
-        if ((WORD1 == true) || (WORD2 == true)) {
+        if ((WORD1 == 1) || (WORD2 == 1)) {
             test1_12.execute();
-            if (WORD3 == true) {
+            if (WORD3 == 1) {
                 test2_12.execute();
             } else {
             }
@@ -1737,39 +1773,39 @@ flow FLOW_CONTROL {
         }
         println("Conditional enable test");
         if (JOB == "FR") {
-            if (NVM_MINIMUM_ROOM == true) {
+            if (NVM_MINIMUM_ROOM == 1) {
                 NVM_MINIMUM_FT = true;
             } else {
             }
         } else {
         }
         if (JOB == "FC") {
-            if (NVM_MINIMUM_COLD == true) {
+            if (NVM_MINIMUM_COLD == 1) {
                 NVM_MINIMUM_FT = true;
             } else {
             }
         } else {
         }
         if (JOB == "FH") {
-            if (NVM_MINIMUM_HOT == true) {
+            if (NVM_MINIMUM_HOT == 1) {
                 NVM_MINIMUM_FT = false;
             } else {
             }
         } else {
         }
         println("Test enable words that wrap a lot of tests");
-        if (WORD1 == true) {
+        if (WORD1 == 1) {
             test1_13.execute();
             test1_14.execute();
             test1_15.execute();
             test1_16.execute();
             test1_17.execute();
-            if (WORD2 == true) {
+            if (WORD2 == 1) {
                 test1_18.execute();
                 test1_19.execute();
                 test1_20.execute();
                 test1_21.execute();
-                if (WORD3 == true) {
+                if (WORD3 == 1) {
                     test1_22.execute();
                 } else {
                 }
@@ -1783,7 +1819,7 @@ flow FLOW_CONTROL {
         } else {
             MY_FLAG = true;
         }
-        if (MY_FLAG == true) {
+        if (MY_FLAG == 1) {
             test2.execute();
         } else {
             test3.execute();
@@ -1794,17 +1830,17 @@ flow FLOW_CONTROL {
         } else {
             My_Mixed_Flag = true;
         }
-        if (My_Mixed_Flag == true) {
+        if (My_Mixed_Flag == 1) {
             test2.execute();
         } else {
             test3.execute();
         }
         println("Mixed-case enables");
-        if (MCEn_extras == true) {
+        if (MCEn_extras == 1) {
             extra_test.execute();
         } else {
         }
-        if (MCEn_test == true) {
+        if (MCEn_test == 1) {
         } else {
             test1.execute();
             test2.execute();
@@ -1819,7 +1855,7 @@ flow FLOW_CONTROL {
         }
         test22c.execute();
         test22d.execute();
-        if (AT22_FAILED == true) {
+        if (AT22_FAILED == 1) {
             test22e.execute();
             test22f.execute();
         } else {
@@ -1828,7 +1864,7 @@ flow FLOW_CONTROL {
         test36.execute();
         test36b.execute();
         println("Tests of render");
-        if (MY_FLAG == true) {
+        if (MY_FLAG == 1) {
             multi_bin;
             test36_1.execute();
             if (test36_1.pass) {
@@ -1857,7 +1893,7 @@ flow FLOW_CONTROL {
         outer_test.execute();
         if (outer_test.pass) {
         } else {
-            if (FLAG1 == true) {
+            if (FLAG1 == 1) {
             } else {
                 inner_test1.execute();
                 if (inner_test1.pass) {
@@ -1867,7 +1903,7 @@ flow FLOW_CONTROL {
             }
         }
         println("Nested flag optimization test case");
-        if (FLAG1 == true) {
+        if (FLAG1 == 1) {
             test4_6.execute();
             if (test4_6.pass) {
             } else {
@@ -1876,11 +1912,11 @@ flow FLOW_CONTROL {
         } else {
         }
         println("Same test case with volatile flag");
-        if (Alarm == true) {
+        if (Alarm == 1) {
             test10.execute();
             if (test10.pass) {
             } else {
-                if (Alarm == true) {
+                if (Alarm == 1) {
                     multi_bin;
                 } else {
                 }
@@ -1901,7 +1937,7 @@ flow FLOW_CONTROL {
             test3_13.execute();
         }
         test4_7.execute();
-        if ((OF1_FAILED == true) || (OF2_FAILED == true)) {
+        if ((OF1_FAILED == 1) || (OF2_FAILED == 1)) {
             test4_8.execute();
         } else {
         }
@@ -1919,8 +1955,8 @@ flow FLOW_CONTROL {
             test3_15.execute();
         }
         test4_9.execute();
-        if (AF1_FAILED == true) {
-            if (AF2_FAILED == true) {
+        if (AF1_FAILED == 1) {
+            if (AF2_FAILED == 1) {
                 test4_10.execute();
             } else {
             }
@@ -1937,7 +1973,7 @@ flow FLOW_CONTROL {
         } else {
             OF12_FAILED = true;
         }
-        if ((OF11_FAILED == true) || (OF12_FAILED == true)) {
+        if ((OF11_FAILED == 1) || (OF12_FAILED == 1)) {
             test4_11.execute();
         } else {
         }
@@ -1950,39 +1986,39 @@ flow FLOW_CONTROL {
         test2_22.execute();
         if (test2_22.pass) {
         } else {
-            if (AF11_FAILED == true) {
+            if (AF11_FAILED == 1) {
                 test4_12.execute();
             } else {
             }
         }
         println("Adjacent if combiner test case 1");
-        if (MY_ENABLE_WORD == true) {
+        if (MY_ENABLE_WORD == 1) {
             test1_25.execute();
         } else {
             test2_23.execute();
         }
-        if (MY_FLAG == true) {
+        if (MY_FLAG == 1) {
             test1_26.execute();
         } else {
             test2_24.execute();
         }
         println("Adjacent if combiner test case 2");
-        if (MY_ENABLE_WORD == true) {
+        if (MY_ENABLE_WORD == 1) {
             test1_27.execute();
         } else {
             test2_25.execute();
         }
-        if (MY_FLAG == true) {
+        if (MY_FLAG == 1) {
             test1_28.execute();
         } else {
             test2_26.execute();
         }
         println("Volatile if combiner test case");
-        if (Alarm == true) {
+        if (Alarm == 1) {
             test1_29.execute();
         } else {
         }
-        if (Alarm == true) {
+        if (Alarm == 1) {
         } else {
             test2_27.execute();
         }
@@ -1995,24 +2031,26 @@ flow FLOW_CONTROL {
             addBin(10);
         }
         println("Test the else block on a flag condition");
-        if (BITMAP == true) {
+        if (BITMAP == 1) {
             test2.execute();
         } else {
             test3.execute();
         }
-        if (SOME_FLAG == true) {
+        if (SOME_FLAG == 1) {
             test2.execute();
         } else {
             test3.execute();
         }
         println("Test of a real life case which was found to have problems");
-        if (EWORD1 == true) {
+        if (EWORD1 == 1) {
         } else {
-            if (EWORD2 == true) {
+            if (EWORD2 == 1) {
             } else {
+                SMALL.SMALL_FLOW = SMALL_FLOW;
                 SMALL.execute();
             }
-            if (EWORD2 == true) {
+            if (EWORD2 == 1) {
+                SMALL_1.SMALL_FLOW = SMALL_FLOW;
                 SMALL_1.execute();
             } else {
             }
