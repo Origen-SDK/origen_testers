@@ -1,5 +1,4 @@
-require 'origen_testers/smartest_based_tester/base/processors/extract_flow_control_vars'
-require 'origen_testers/smartest_based_tester/base/processors/extract_runtime_control_vars'
+require 'origen_testers/smartest_based_tester/base/processors/extract_flow_vars'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -64,25 +63,22 @@ module OrigenTesters
           @hardware_bin_descriptions ||= {}
         end
 
-        def flow_control_variables
-          @flow_control_variables ||= begin
-            vars = Processors::ExtractFlowControlVars.new.run(ast)
+        def flow_variables
+          @flow_variables ||= begin
+            vars = Processors::ExtractFlowVars.new.run(ast)
             unless smt8?
               if add_flow_enable
                 if add_flow_enable == :enabled
-                  vars << [flow_enable_var_name, 1]
+                  vars[:all][:referenced_enables] << [flow_enable_var_name, 1]
+                  vars[:this_flow][:referenced_enables] << [flow_enable_var_name, 1]
                 else
-                  vars << [flow_enable_var_name, 0]
+                  vars[:all][:referenced_enables] << [flow_enable_var_name, 0]
+                  vars[:this_flow][:referenced_enables] << [flow_enable_var_name, 0]
                 end
               end
             end
             vars
           end
-        end
-        alias_method :clean_flow_control_variables, :flow_control_variables
-
-        def runtime_control_variables
-          @runtime_control_variables ||= Processors::ExtractRuntimeControlVars.new.run(ast)
         end
 
         def at_flow_start
@@ -121,6 +117,24 @@ module OrigenTesters
           end
         end
 
+        # SMT8 only
+        def input_variables(vars = flow_variables)
+          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables]).uniq.sort do |x, y|
+            x = x[0] if x.is_a?(Array)
+            y = y[0] if y.is_a?(Array)
+            x <=> y
+          end
+        end
+
+        # SMT8 only
+        def output_variables(vars = flow_variables)
+          (vars[:this_flow][:referenced_flags] + vars[:this_flow][:set_flags]).uniq.sort do |x, y|
+            x = x[0] if x.is_a?(Array)
+            y = y[0] if y.is_a?(Array)
+            x <=> y
+          end
+        end
+
         def finalize(options = {})
           super
           @finalized = true
@@ -135,11 +149,8 @@ module OrigenTesters
           @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
           unless smt8?
-            unless flow_control_variables.empty?
-              Origen.interface.variables_file(self).add_flow_control_variables(*flow_control_variables)
-            end
-            unless runtime_control_variables.empty?
-              Origen.interface.variables_file(self).add_runtime_control_variables(*runtime_control_variables)
+            unless flow_variables[:empty?]
+              Origen.interface.variables_file(self).add_variables(flow_variables)
             end
           end
           test_suites.finalize
@@ -291,9 +302,9 @@ module OrigenTesters
           else_node = node.find(:else)
           if smt8?
             if flag.is_a?(Array)
-              condition = flag.map { |f| "(#{generate_flag_name(f)} == true)" }.join(' || ')
+              condition = flag.map { |f| "(#{generate_flag_name(f)} == 1)" }.join(' || ')
             else
-              condition = "#{generate_flag_name(flag)} == true"
+              condition = "#{generate_flag_name(flag)} == 1"
             end
             line "if (#{condition}) {"
           else

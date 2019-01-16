@@ -3,7 +3,7 @@ language_revision = 1;
 
 declarations
 
-% clean_runtime_control_variables.each do |var|
+% declarations.each do |var|
 %   if var.is_a?(Array)
 @<%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
 %   else
@@ -15,7 +15,7 @@ end
 -----------------------------------------------------------------
 flags
 
-% clean_flow_control_variables.each do |var|
+% flags.each do |var|
 %   if var.is_a?(Array)
 user <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
 %   else

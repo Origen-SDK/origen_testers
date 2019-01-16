@@ -1,9 +1,17 @@
 flow <%= flow_name %> {
-% clean_flow_control_variables.each do |var|
+% input_variables.each do |var|
 %   if var.is_a?(Array)
     in <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
 %   else
-    in <%= var.to_s %> = false;
+    in <%= var.to_s %> = -1;
+%   end
+% end
+
+% output_variables.each do |var|
+%   if var.is_a?(Array)
+    out <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+    out <%= var.to_s %> = -1;
 %   end
 % end
 
@@ -20,8 +28,12 @@ flow <%= flow_name %> {
     }
 
     execute {
-% set_runtime_variables.each do |var|
-        var <%= generate_flag_name(var.to_s) %> = false;
+% flow_variables[:this_flow][:set_flags].each do |var|
+%   if var.is_a?(Array)
+        var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+        <%= var.to_s %> = -1;
+%   end
 % end
 
 % lines.each do |line|
