@@ -18,10 +18,30 @@ module OrigenTesters
             line "#{name}.#{var} = #{var};"
           end
           line "#{name}.execute();"
+          vars[:all][:set_flags_extern].each do |var|
+            var = var[0] if var.is_a?(Array)
+            line "#{var} = #{name}.#{var};"
+          end
         end
 
         def sub_flows
           @sub_flows || {}
+        end
+
+        def input_variables(vars = flow_variables)
+          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables]).uniq.sort do |x, y|
+            x = x[0] if x.is_a?(Array)
+            y = y[0] if y.is_a?(Array)
+            x <=> y
+          end
+        end
+
+        def output_variables(vars = flow_variables)
+          (vars[:this_flow][:referenced_flags] + vars[:this_flow][:set_flags] + vars[:all][:set_flags_extern]).uniq.sort do |x, y|
+            x = x[0] if x.is_a?(Array)
+            y = y[0] if y.is_a?(Array)
+            x <=> y
+          end
         end
       end
     end

@@ -6,6 +6,7 @@ flow PRB1 {
     in NO_EXTRA_ERASE = -1;
     in USB_XCVR_CZ = -1;
 
+    out ERS_VFY_FAILED = -1;
 
     setup {
         suite bitcell_iv_0 calls ac_tml.AcTest.FunctionalTest {
@@ -83,5 +84,6 @@ flow PRB1 {
         PRB1_MAIN.NO_EXTRA_ERASE = NO_EXTRA_ERASE;
         PRB1_MAIN.USB_XCVR_CZ = USB_XCVR_CZ;
         PRB1_MAIN.execute();
+        ERS_VFY_FAILED = PRB1_MAIN.ERS_VFY_FAILED;
     }
 }

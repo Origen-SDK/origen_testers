@@ -1,5 +1,7 @@
 flow ERASE {
 
+    out ERS_VFY_FAILED = -1;
+
     setup {
         suite erase_all calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
@@ -55,5 +57,6 @@ flow ERASE {
         erase_all_4.execute();
         erase_all_5.execute();
         ERASE_VFY.execute();
+        ERS_VFY_FAILED = ERASE_VFY.ERS_VFY_FAILED;
     }
 }

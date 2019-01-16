@@ -117,24 +117,6 @@ module OrigenTesters
           end
         end
 
-        # SMT8 only
-        def input_variables(vars = flow_variables)
-          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables]).uniq.sort do |x, y|
-            x = x[0] if x.is_a?(Array)
-            y = y[0] if y.is_a?(Array)
-            x <=> y
-          end
-        end
-
-        # SMT8 only
-        def output_variables(vars = flow_variables)
-          (vars[:this_flow][:referenced_flags] + vars[:this_flow][:set_flags]).uniq.sort do |x, y|
-            x = x[0] if x.is_a?(Array)
-            y = y[0] if y.is_a?(Array)
-            x <=> y
-          end
-        end
-
         def finalize(options = {})
           super
           @finalized = true
@@ -357,7 +339,7 @@ module OrigenTesters
         def on_enable(node)
           flag = node.value.upcase
           if smt8?
-            line "#{flag} = true;"
+            line "#{flag} = 1;"
           else
             line "@#{flag} = 1;"
           end
@@ -366,7 +348,7 @@ module OrigenTesters
         def on_disable(node)
           flag = node.value.upcase
           if smt8?
-            line "#{flag} = false;"
+            line "#{flag} = 0;"
           else
             line "@#{flag} = 0;"
           end
@@ -406,7 +388,7 @@ module OrigenTesters
             end
           else
             if smt8?
-              line "#{flag} = true;"
+              line "#{flag} = 1;"
             else
               line "@#{flag} = 1;"
             end

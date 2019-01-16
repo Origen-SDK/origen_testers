@@ -1300,7 +1300,7 @@ flow FLOW_CONTROL {
         } else {
             addBin(10);
         }
-        T5_RAN = true;
+        T5_RAN = 1;
         if (T5_RAN == 1) {
             read0.execute();
         } else {
@@ -1311,7 +1311,7 @@ flow FLOW_CONTROL {
         } else {
             addBin(10);
         }
-        T6_RAN = true;
+        T6_RAN = 1;
         if (T6_RAN == 1) {
             read0_1.execute();
             read0_2.execute();
@@ -1323,7 +1323,7 @@ flow FLOW_CONTROL {
         } else {
             addBin(10);
         }
-        T7_RAN = true;
+        T7_RAN = 1;
         if (T7_RAN == 1) {
         } else {
             read0_3.execute();
@@ -1334,7 +1334,7 @@ flow FLOW_CONTROL {
         } else {
             addBin(10);
         }
-        T8_RAN = true;
+        T8_RAN = 1;
         if (T8_RAN == 1) {
         } else {
             read0_4.execute();
@@ -1393,12 +1393,12 @@ flow FLOW_CONTROL {
         test1.execute();
         if (test1.pass) {
         } else {
-            IFA1_FAILED = true;
+            IFA1_FAILED = 1;
         }
         test2.execute();
         if (test2.pass) {
         } else {
-            IFA2_FAILED = true;
+            IFA2_FAILED = 1;
         }
         if ((IFA1_FAILED == 1) || (IFA2_FAILED == 1)) {
             test3.execute();
@@ -1408,12 +1408,12 @@ flow FLOW_CONTROL {
         test1_1.execute();
         if (test1_1.pass) {
         } else {
-            OOF_PASSCODE1_FAILED = true;
+            OOF_PASSCODE1_FAILED = 1;
         }
         test2_1.execute();
         if (test2_1.pass) {
         } else {
-            OOF_PASSCODE2_FAILED = true;
+            OOF_PASSCODE2_FAILED = 1;
         }
         if ((OOF_PASSCODE1_FAILED == 1) || (OOF_PASSCODE2_FAILED == 1)) {
             test3_1.execute();
@@ -1424,7 +1424,7 @@ flow FLOW_CONTROL {
         test1_2.execute();
         if (test1_2.pass) {
         } else {
-            IFALL1_FAILED = true;
+            IFALL1_FAILED = 1;
         }
         test2_2.execute();
         if (test2_2.pass) {
@@ -1438,7 +1438,7 @@ flow FLOW_CONTROL {
         test1_3.execute();
         if (test1_3.pass) {
         } else {
-            IFALLB1_FAILED = true;
+            IFALLB1_FAILED = 1;
         }
         test2_3.execute();
         if (test2_3.pass) {
@@ -1452,12 +1452,12 @@ flow FLOW_CONTROL {
         println("Test that if_any_passed works");
         test1_4.execute();
         if (test1_4.pass) {
-            IFAP1_PASSED = true;
+            IFAP1_PASSED = 1;
         } else {
         }
         test2_4.execute();
         if (test2_4.pass) {
-            IFAP2_PASSED = true;
+            IFAP2_PASSED = 1;
         } else {
         }
         if ((IFAP1_PASSED == 1) || (IFAP2_PASSED == 1)) {
@@ -1467,12 +1467,12 @@ flow FLOW_CONTROL {
         println("Test the block form of if_any_passed");
         test1_5.execute();
         if (test1_5.pass) {
-            IFAPB1_PASSED = true;
+            IFAPB1_PASSED = 1;
         } else {
         }
         test2_5.execute();
         if (test2_5.pass) {
-            IFAPB2_PASSED = true;
+            IFAPB2_PASSED = 1;
         } else {
         }
         if ((IFAPB1_PASSED == 1) || (IFAPB2_PASSED == 1)) {
@@ -1483,7 +1483,7 @@ flow FLOW_CONTROL {
         println("Test that if_all_passed works");
         test1_6.execute();
         if (test1_6.pass) {
-            IFALLP1_PASSED = true;
+            IFALLP1_PASSED = 1;
         } else {
         }
         test2_6.execute();
@@ -1497,7 +1497,7 @@ flow FLOW_CONTROL {
         println("Test the block form of if_all_passed");
         test1_7.execute();
         if (test1_7.pass) {
-            IFALLPB1_PASSED = true;
+            IFALLPB1_PASSED = 1;
         } else {
         }
         test2_7.execute();
@@ -1516,17 +1516,17 @@ flow FLOW_CONTROL {
             grp1_test1.execute();
             if (grp1_test1.pass) {
             } else {
-                GRP1_FAILED = true;
+                GRP1_FAILED = 1;
             }
             grp1_test2.execute();
             if (grp1_test2.pass) {
             } else {
-                GRP1_FAILED = true;
+                GRP1_FAILED = 1;
             }
             grp1_test3.execute();
             if (grp1_test3.pass) {
             } else {
-                GRP1_FAILED = true;
+                GRP1_FAILED = 1;
             }
         // *******************************************************
         // /GROUP - grp1
@@ -1567,12 +1567,12 @@ flow FLOW_CONTROL {
             gt_grp1_test1.execute();
             if (gt_grp1_test1.pass) {
             } else {
-                GT_GRP1_FAILED = true;
+                GT_GRP1_FAILED = 1;
             }
             gt_grp1_test2.execute();
             if (gt_grp1_test2.pass) {
             } else {
-                GT_GRP1_FAILED = true;
+                GT_GRP1_FAILED = 1;
             }
         // *******************************************************
         // /GROUP - gt_grp1
@@ -1589,12 +1589,12 @@ flow FLOW_CONTROL {
                 gt_grp2_test1.execute();
                 if (gt_grp2_test1.pass) {
                 } else {
-                    GT_GRP2_FAILED = true;
+                    GT_GRP2_FAILED = 1;
                 }
                 gt_grp2_test2.execute();
                 if (gt_grp2_test2.pass) {
                 } else {
-                    GT_GRP2_FAILED = true;
+                    GT_GRP2_FAILED = 1;
                 }
             // *******************************************************
             // /GROUP - gt_grp2
@@ -1635,7 +1635,7 @@ flow FLOW_CONTROL {
             lev1_test5.execute();
             if (lev1_test5.pass) {
             } else {
-                L1T5_FAILED = true;
+                L1T5_FAILED = 1;
             }
             // *******************************************************
             // GROUP - level2
@@ -1719,12 +1719,12 @@ flow FLOW_CONTROL {
         test1_9.execute();
         if (test1_9.pass) {
         } else {
-            ECT2_1_FAILED = true;
+            ECT2_1_FAILED = 1;
         }
         test2_9.execute();
         if (test2_9.pass) {
         } else {
-            ECT2_2_FAILED = true;
+            ECT2_2_FAILED = 1;
         }
         if (ECT2_1_FAILED == 1) {
             if (ECT2_2_FAILED == 1) {
@@ -1774,21 +1774,21 @@ flow FLOW_CONTROL {
         println("Conditional enable test");
         if (JOB == "FR") {
             if (NVM_MINIMUM_ROOM == 1) {
-                NVM_MINIMUM_FT = true;
+                NVM_MINIMUM_FT = 1;
             } else {
             }
         } else {
         }
         if (JOB == "FC") {
             if (NVM_MINIMUM_COLD == 1) {
-                NVM_MINIMUM_FT = true;
+                NVM_MINIMUM_FT = 1;
             } else {
             }
         } else {
         }
         if (JOB == "FH") {
             if (NVM_MINIMUM_HOT == 1) {
-                NVM_MINIMUM_FT = false;
+                NVM_MINIMUM_FT = 0;
             } else {
             }
         } else {
@@ -1817,7 +1817,7 @@ flow FLOW_CONTROL {
         test1.execute();
         if (test1.pass) {
         } else {
-            MY_FLAG = true;
+            MY_FLAG = 1;
         }
         if (MY_FLAG == 1) {
             test2.execute();
@@ -1828,7 +1828,7 @@ flow FLOW_CONTROL {
         test1.execute();
         if (test1.pass) {
         } else {
-            My_Mixed_Flag = true;
+            My_Mixed_Flag = 1;
         }
         if (My_Mixed_Flag == 1) {
             test2.execute();
@@ -1849,7 +1849,7 @@ flow FLOW_CONTROL {
         test22.execute();
         if (test22.pass) {
         } else {
-            AT22_FAILED = true;
+            AT22_FAILED = 1;
             test22a.execute();
             test22b.execute();
         }
@@ -1927,13 +1927,13 @@ flow FLOW_CONTROL {
         test2_15.execute();
         if (test2_15.pass) {
         } else {
-            OF1_FAILED = true;
+            OF1_FAILED = 1;
             test3_12.execute();
         }
         test2_16.execute();
         if (test2_16.pass) {
         } else {
-            OF2_FAILED = true;
+            OF2_FAILED = 1;
             test3_13.execute();
         }
         test4_7.execute();
@@ -1945,13 +1945,13 @@ flow FLOW_CONTROL {
         test2_17.execute();
         if (test2_17.pass) {
         } else {
-            AF1_FAILED = true;
+            AF1_FAILED = 1;
             test3_14.execute();
         }
         test2_18.execute();
         if (test2_18.pass) {
         } else {
-            AF2_FAILED = true;
+            AF2_FAILED = 1;
             test3_15.execute();
         }
         test4_9.execute();
@@ -1966,12 +1966,12 @@ flow FLOW_CONTROL {
         test2_19.execute();
         if (test2_19.pass) {
         } else {
-            OF11_FAILED = true;
+            OF11_FAILED = 1;
         }
         test2_20.execute();
         if (test2_20.pass) {
         } else {
-            OF12_FAILED = true;
+            OF12_FAILED = 1;
         }
         if ((OF11_FAILED == 1) || (OF12_FAILED == 1)) {
             test4_11.execute();
@@ -1981,7 +1981,7 @@ flow FLOW_CONTROL {
         test2_21.execute();
         if (test2_21.pass) {
         } else {
-            AF11_FAILED = true;
+            AF11_FAILED = 1;
         }
         test2_22.execute();
         if (test2_22.pass) {

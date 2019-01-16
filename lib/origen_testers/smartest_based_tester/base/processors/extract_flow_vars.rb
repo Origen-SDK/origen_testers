@@ -7,7 +7,8 @@ module OrigenTesters
         # and their default values
         class ExtractFlowVars < ATP::Processor
           OWNERS = [:all, :this_flow, :sub_flows]
-          CATEGORIES = [:jobs, :referenced_flags, :set_flags, :referenced_enables, :set_enables]
+          CATEGORIES = [:jobs, :referenced_flags, :set_flags, :set_flags_extern,
+                        :referenced_enables, :set_enables]
 
           def run(node, options = {})
             @variables = {}
@@ -53,6 +54,10 @@ module OrigenTesters
 
           def on_set_flag(node)
             add generate_flag_name(node.value), :set_flags
+            # Also separate flags which have been set and which should be externally visible
+            if !node.to_a.include?('auto_generated') || node.to_a.include?('extern')
+              add generate_flag_name(node.value), :set_flags_extern
+            end
           end
 
           def on_if_enabled(node)

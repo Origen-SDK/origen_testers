@@ -19,6 +19,7 @@ flow PRB1_MAIN {
     out ERASE_RAN_2_RAN = -1;
     out ERASE_RAN_3_RAN = -1;
     out ERASE_RAN_4_RAN = -1;
+    out ERS_VFY_FAILED = -1;
     out G100_RAN = -1;
     out G200_FAILED = -1;
 
@@ -620,6 +621,7 @@ flow PRB1_MAIN {
         margin_read1_ckbd.execute();
         margin_read0_ckbd.execute();
         ERASE.execute();
+        ERS_VFY_FAILED = ERASE.ERS_VFY_FAILED;
         println("Should be v1");
         program_ckbd_1.execute();
         println("Should be v2");
@@ -743,12 +745,12 @@ flow PRB1_MAIN {
         println("Test if_passed");
         erase_all_17.execute();
         if (erase_all_17.pass) {
-            ERASE_PASSED_1_PASSED = true;
+            ERASE_PASSED_1_PASSED = 1;
         } else {
         }
         erase_all_18.execute();
         if (erase_all_18.pass) {
-            ERASE_PASSED_2_PASSED = true;
+            ERASE_PASSED_2_PASSED = 1;
         } else {
         }
         if (ERASE_PASSED_1_PASSED == 1) {
@@ -763,12 +765,12 @@ flow PRB1_MAIN {
         erase_all_19.execute();
         if (erase_all_19.pass) {
         } else {
-            ERASE_PASSED_3_FAILED = true;
+            ERASE_PASSED_3_FAILED = 1;
         }
         erase_all_20.execute();
         if (erase_all_20.pass) {
         } else {
-            ERASE_PASSED_4_FAILED = true;
+            ERASE_PASSED_4_FAILED = 1;
         }
         if (ERASE_PASSED_3_FAILED == 1) {
             margin_read1_all1_8.execute();
@@ -782,12 +784,12 @@ flow PRB1_MAIN {
         erase_all_21.execute();
         if (erase_all_21.pass) {
         } else {
-            ERASE_FAILED_1_FAILED = true;
+            ERASE_FAILED_1_FAILED = 1;
         }
         erase_all_22.execute();
         if (erase_all_22.pass) {
         } else {
-            ERASE_FAILED_2_FAILED = true;
+            ERASE_FAILED_2_FAILED = 1;
         }
         if (ERASE_FAILED_1_FAILED == 1) {
             margin_read1_all1_10.execute();
@@ -800,12 +802,12 @@ flow PRB1_MAIN {
         println("Test unless_failed");
         erase_all_23.execute();
         if (erase_all_23.pass) {
-            ERASE_FAILED_3_PASSED = true;
+            ERASE_FAILED_3_PASSED = 1;
         } else {
         }
         erase_all_24.execute();
         if (erase_all_24.pass) {
-            ERASE_FAILED_4_PASSED = true;
+            ERASE_FAILED_4_PASSED = 1;
         } else {
         }
         if (ERASE_FAILED_3_PASSED == 1) {
@@ -818,9 +820,9 @@ flow PRB1_MAIN {
         }
         println("Test if_ran");
         erase_all_25.execute();
-        ERASE_RAN_1_RAN = true;
+        ERASE_RAN_1_RAN = 1;
         erase_all_26.execute();
-        ERASE_RAN_2_RAN = true;
+        ERASE_RAN_2_RAN = 1;
         if (ERASE_RAN_1_RAN == 1) {
             margin_read1_all1_14.execute();
         } else {
@@ -831,9 +833,9 @@ flow PRB1_MAIN {
         }
         println("Test unless_ran");
         erase_all_27.execute();
-        ERASE_RAN_3_RAN = true;
+        ERASE_RAN_3_RAN = 1;
         erase_all_28.execute();
-        ERASE_RAN_4_RAN = true;
+        ERASE_RAN_4_RAN = 1;
         if (ERASE_RAN_3_RAN == 1) {
         } else {
             margin_read1_all1_16.execute();
@@ -845,6 +847,7 @@ flow PRB1_MAIN {
         println("Verify that job context wraps import");
         if (JOB == "FR") {
             ERASE_1.execute();
+            ERS_VFY_FAILED = ERASE_1.ERS_VFY_FAILED;
         } else {
         }
         println("Verify that job context wraps enable block within an import");
@@ -872,17 +875,17 @@ flow PRB1_MAIN {
             test200_1.execute();
             if (test200_1.pass) {
             } else {
-                G200_FAILED = true;
+                G200_FAILED = 1;
             }
             test200_2.execute();
             if (test200_2.pass) {
             } else {
-                G200_FAILED = true;
+                G200_FAILED = 1;
             }
             test200_3.execute();
             if (test200_3.pass) {
             } else {
-                G200_FAILED = true;
+                G200_FAILED = 1;
             }
         // *******************************************************
         // /GROUP - 200Mhz Tests
@@ -891,7 +894,7 @@ flow PRB1_MAIN {
             // *******************************************************
             // GROUP - 100Mhz Tests
             // *******************************************************
-                G100_RAN = true;
+                G100_RAN = 1;
                 test100_1.execute();
                 if (test100_1.pass) {
                 } else {

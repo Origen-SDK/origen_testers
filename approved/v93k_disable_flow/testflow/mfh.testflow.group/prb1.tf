@@ -1358,6 +1358,7 @@ test_flow
   if @PRB1_ENABLE == 1 then
   {
     {
+      @ERS_VFY_FAILED = -1;
       @ERASE_PASSED_1_864CE8F_PASSED = -1;
       @ERASE_PASSED_2_864CE8F_PASSED = -1;
       @ERASE_PASSED_3_864CE8F_FAILED = -1;
@@ -1392,7 +1393,14 @@ test_flow
         run(erase_all_4_864CE8F);
         run(erase_all_5_864CE8F);
         {
-          run(margin_read1_all1_864CE8F);
+          run_and_branch(margin_read1_all1_864CE8F)
+          then
+          {
+          }
+          else
+          {
+            @ERS_VFY_FAILED = 1;
+          }
         }, open,"erase_vfy", ""
       }, open,"erase", ""
       print_dl("Should be v1");
@@ -1709,7 +1717,14 @@ test_flow
           run(erase_all_37_864CE8F);
           run(erase_all_38_864CE8F);
           {
-            run(margin_read1_all1_19_864CE8F);
+            run_and_branch(margin_read1_all1_19_864CE8F)
+            then
+            {
+            }
+            else
+            {
+              @ERS_VFY_FAILED = 1;
+            }
           }, open,"erase_vfy_2", ""
         }, open,"erase_2", ""
       }
