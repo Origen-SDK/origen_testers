@@ -1,4 +1,5 @@
 flow PRB2 {
+    in ENABLE = 1;
     in EXTRA_TESTS = -1;
 
 
@@ -57,18 +58,19 @@ flow PRB2 {
     }
 
     execute {
-
-        erase_all.execute();
-        margin_read1_all1.execute();
-        erase_all_1.execute();
-        margin_read1_all1_1.execute();
-        PRB2_MAIN.execute();
-        erase_all_2.execute();
-        margin_read1_all1_2.execute();
-        if (EXTRA_TESTS == 1) {
-            PRB2_MAIN_1.execute();
-        } else {
+        if (ENABLE == 1) {
+            erase_all.execute();
+            margin_read1_all1.execute();
+            erase_all_1.execute();
+            margin_read1_all1_1.execute();
+            PRB2_MAIN.execute();
+            erase_all_2.execute();
+            margin_read1_all1_2.execute();
+            if (EXTRA_TESTS == 1) {
+                PRB2_MAIN_1.execute();
+            } else {
+            }
+            margin_read1_all1_3.execute();
         }
-        margin_read1_all1_3.execute();
     }
 }

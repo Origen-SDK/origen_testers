@@ -47,7 +47,11 @@ module OrigenTesters
 
         def flow_enable_var_name
           var = filename.sub(/\..*/, '').upcase
-          generate_flag_name("#{var}_ENABLE")
+          if smt8?
+            'ENABLE'
+          else
+            generate_flag_name("#{var}_ENABLE")
+          end
         end
 
         def flow_name(filename = nil)
@@ -66,7 +70,7 @@ module OrigenTesters
         def flow_variables
           @flow_variables ||= begin
             vars = Processors::ExtractFlowVars.new.run(ast)
-            unless smt8?
+            if !smt8? || (smt8? && top_level?)
               if add_flow_enable
                 if add_flow_enable == :enabled
                   vars[:all][:referenced_enables] << [flow_enable_var_name, 1]
@@ -121,7 +125,7 @@ module OrigenTesters
           super
           @finalized = true
           if smt8?
-            @indent = 2
+            @indent = add_flow_enable ? 3 : 2
           else
             @indent = add_flow_enable ? 2 : 1
           end

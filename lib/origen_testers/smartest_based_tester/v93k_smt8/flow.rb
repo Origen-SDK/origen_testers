@@ -43,6 +43,32 @@ module OrigenTesters
             x <=> y
           end
         end
+
+        def flow_header
+          h = []
+          if add_flow_enable
+            h << "        if (#{flow_enable_var_name} == 1) {"
+            i = '        '
+          else
+            i = '    '
+          end
+          flow_variables[:this_flow][:set_flags].each do |var|
+            if var.is_a?(Array)
+              h << i + "#{var[0]} = #{var[1].is_a?(String) || var[1].is_a?(Symbol) ? '"' + var[1].to_s + '"' : var[1]};"
+            else
+              h << i + "#{var} = -1;"
+            end
+          end
+          h
+        end
+
+        def flow_footer
+          f = []
+          if add_flow_enable
+            f << '        }'
+          end
+          f
+        end
       end
     end
   end
