@@ -63,83 +63,83 @@ module OrigenTesters
 
         def write_to_file(options = {})
           Origen.log.info "Writing... #{output_file}"
-          softbins = @softbins
-          bins = @bins
-          RODF::Spreadsheet.file(output_file) do
-            Origen.interface.flow_sheets.each do |name, flow|
-              if flow.limits_file
-                limits_name = flow.limits_file.filename.sub('.csv', '')
-                table limits_name do
-                  flow.limits_file.output_file.readlines.each_with_index do |line, i|
-                    # Need to fix the first row, SMT8 won't allow the Low/High limits cells not to be merged
-                    if i == 0
-                      row do
-                        x = nil
-                        line.chomp.split(',').each do |word|
-                          if word == 'Low Limit'
-                            x = 0
-                          elsif word == 'High Limit'
-                            cell 'Low Limit', span: x + 1
-                            x = 0
-                          elsif word == 'Unit'
-                            cell 'High Limit', span: x + 1
-                            cell word
-                            x = nil
-                          elsif x
-                            x += 1
-                          else
-                            cell word
-                          end
-                        end
-                      end
+          spreadsheet = RODF::Spreadsheet.new
+          Origen.interface.flow_sheets.each do |name, flow|
+            if flow.limits_file
+              limits_name = flow.limits_file.filename.sub('.csv', '')
+              table = spreadsheet.table limits_name
+              flow.limits_file.output_file.readlines.each_with_index do |line, i|
+                # Need to fix the first row, SMT8 won't allow the Low/High limits cells not to be merged
+                if i == 0
+                  row = table.row
+                  x = nil
+                  line.chomp.split(',').each do |word|
+                    if word == 'Low Limit'
+                      x = 0
+                    elsif word == 'High Limit'
+                      row.cell 'Low Limit', span: x + 1
+                      x = 0
+                    elsif word == 'Unit'
+                      row.cell 'High Limit', span: x + 1
+                      row.cell word
+                      x = nil
+                    elsif x
+                      x += 1
                     else
-                      row do
-                        line.chomp.split(',').each do |word|
-                          cell word
-                        end
-                      end
+                      row.cell word
                     end
+                  end
+                else
+                  row = table.row
+                  line.chomp.split(',').each do |word|
+                    row.cell word
                   end
                 end
               end
             end
-            # Write out the softbin table
-            table 'Software_Bins' do
-              row do
-                cell 'Software Bin'
-                cell 'Software Bin Name'
-                cell 'Hardware Bin'
-                cell 'Result'
-                cell 'Color'
-                cell 'Priority'
-              end
-              softbins.each do |sbin, attrs|
-                row do
-                  cell sbin
-                  cell attrs[:name]
-                  cell attrs[:bin]
-                  cell attrs[:result]
-                  cell attrs[:color]
-                  cell attrs[:priority]
-                end
-              end
-            end
+          end
+          if tester.separate_bins_file
+            bins_file = output_file.sub('.ods', '_bins.ods')
+            Origen.log.info "Writing... #{bins_file}"
+            bins_ss = RODF::Spreadsheet.new
+            add_bin_sheets(bins_ss)
+            bins_ss.write_to(bins_file)
+          else
+            add_bin_sheets(spreadsheet)
+          end
+          spreadsheet.write_to(output_file)
+        end
 
-            # Write out the bin table
-            table 'Hardware_Bins' do
-              row do
-                cell 'Hardware Bin'
-                cell 'Hardware Bin Name'
-                cell 'Result'
-              end
-              bins.each do |bin, attrs|
-                row do
-                  cell bin
-                  cell attrs[:name]
-                  cell attrs[:result]
-                end
-              end
-            end
+        def add_bin_sheets(spreadsheet)
+          table = spreadsheet.table 'Software_Bins'
+          row = table.row
+          row.cell 'Software Bin'
+          row.cell 'Software Bin Name'
+          row.cell 'Hardware Bin'
+          row.cell 'Result'
+          row.cell 'Color'
+          row.cell 'Priority'
+          @softbins.each do |sbin, attrs|
+            row = table.row
+            row.cell sbin
+            row.cell attrs[:name]
+            row.cell attrs[:bin]
+            row.cell attrs[:result]
+            row.cell attrs[:color]
+            row.cell attrs[:priority]
+          end
+
+          # Write out the bin table
+          table = spreadsheet.table 'Hardware_Bins'
+          row = table.row
+          row.cell 'Hardware Bin'
+          row.cell 'Hardware Bin Name'
+          row.cell 'Result'
+          @bins.each do |bin, attrs|
+            row = table.row
+            row.cell bin
+            row.cell attrs[:name]
+            row.cell attrs[:result]
           end
         end
       end

@@ -61,8 +61,12 @@ module OrigenTesters
       attr_accessor :delayed_binning
 
       # Sets the package namespace that all generated test collateral should be placed under,
-      # defaults to the application's namespace if not defined
+      # defaults to the application's namespace if not defined (SMT8 only)
       attr_writer :package_namespace
+
+      # When set to true, the bins and softbins sheets from the limits spreadsheet will
+      # be written out to a standalone (spreadsheet) file instead (SMT8 only)
+      attr_accessor :separate_bins_file
 
       def initialize(options = {})
         options = {
@@ -73,6 +77,8 @@ module OrigenTesters
         }.merge(options)
 
         @smt_version = options[:smt_version] || 7
+
+        @separate_bins_file = options[:separate_bins_file] || false
 
         if smt8?
           require_relative 'smt8'
