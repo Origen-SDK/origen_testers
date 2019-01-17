@@ -206,7 +206,7 @@ test_flow
   {
   }
 
-  }, open,"PRB2",""
+  }, open,"PRB2","An example of creating an entire test program from a single source file"
 
 end
 -----------------------------------------------------------------

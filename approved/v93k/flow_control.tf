@@ -3629,7 +3629,7 @@ test_flow
     }, open,"small", ""
   }
 
-  }, open,"Flow Control Testing",""
+  }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
 
 end
 -----------------------------------------------------------------
