@@ -8,4 +8,8 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
 
   import 'components/prb1_main'
 
+  # Test that a reference to a deeply nested test works (mainly for SMT8)
+  test :on_deep_1, if_failed: :deep_test
+
+  pass 1, description: "Good die!", softbin: 1
 end

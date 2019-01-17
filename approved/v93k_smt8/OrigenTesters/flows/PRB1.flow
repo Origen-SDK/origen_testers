@@ -6,6 +6,7 @@ flow PRB1 {
     in NO_EXTRA_ERASE = -1;
     in USB_XCVR_CZ = -1;
 
+    out DEEP_TEST_FAILED = -1;
     out ERS_VFY_FAILED = -1;
 
     setup {
@@ -76,7 +77,6 @@ flow PRB1 {
     }
 
     execute {
-
         PRB1_MAIN.ADDITIONAL_ERASE = ADDITIONAL_ERASE;
         PRB1_MAIN.ALARMENABLED = ALARMENABLED;
         PRB1_MAIN.DO_ERASE = DO_ERASE;
@@ -85,5 +85,10 @@ flow PRB1 {
         PRB1_MAIN.USB_XCVR_CZ = USB_XCVR_CZ;
         PRB1_MAIN.execute();
         ERS_VFY_FAILED = PRB1_MAIN.ERS_VFY_FAILED;
+        if (DEEP_TEST_FAILED == 1) {
+            on_deep_1.execute();
+        } else {
+        }
+        addBin(1);
     }
 }

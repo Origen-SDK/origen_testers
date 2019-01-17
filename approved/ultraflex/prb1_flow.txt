@@ -162,4 +162,6 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	cc_test_0	cc_test_0	7000										Fail														
 						Test	cc_test_1	cc_test_1	7001										Fail														
 						Test	cc_test_2	cc_test_2	7002										Fail														
+						Test	deep_test												None		deep_test_7AF57D1_FAILED												
+						Test	on_deep_1												Fail									flag-true	deep_test_7AF57D1_FAILED				
 						set-device									1		1		Pass													Good die!	

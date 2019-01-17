@@ -1373,6 +1373,7 @@ test_flow
       @ERASE_RAN_4_864CE8F_RAN = -1;
       @G200_864CE8F_FAILED = -1;
       @G100_864CE8F_RAN = -1;
+      @DEEP_TEST_864CE8F_FAILED = -1;
     }, open,"Init Flow Control Vars", ""
     {
       run_and_branch(program_ckbd_864CE8F)
@@ -1856,8 +1857,25 @@ test_flow
       run(cc_test_0_864CE8F);
       run(cc_test_1_864CE8F);
       run(cc_test_2_864CE8F);
-      stop_bin "1", "", , good, noreprobe, green, 1, over_on;
+      {
+        run_and_branch(deep_test)
+        then
+        {
+        }
+        else
+        {
+          @DEEP_TEST_864CE8F_FAILED = 1;
+        }
+      }, open,"deep_nested", ""
     }, open,"prb1_main", ""
+    if @DEEP_TEST_864CE8F_FAILED == 1 then
+    {
+      run(on_deep_1);
+    }
+    else
+    {
+    }
+    stop_bin "1", "", , good, noreprobe, green, 1, over_on;
   }
   else
   {

@@ -595,6 +595,7 @@ flow PRB1_MAIN {
         flow ERASE_1 calls OrigenTesters.flows.prb1.prb1_main.ERASE_1 { }
         flow ADDITIONAL_ERASE calls OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE { }
         flow ADDITIONAL_ERASE_1 calls OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE_1 { }
+        flow DEEP_NESTED calls OrigenTesters.flows.prb1.prb1_main.DEEP_NESTED { }
     }
 
     execute {
@@ -937,6 +938,6 @@ flow PRB1_MAIN {
         cc_test_0.execute();
         cc_test_1.execute();
         cc_test_2.execute();
-        addBin(1);
+        DEEP_NESTED.execute();
     }
 }

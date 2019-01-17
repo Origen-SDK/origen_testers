@@ -23,6 +23,7 @@ module OrigenTesters
   autoload :Flow,               'origen_testers/flow'
   autoload :NoInterface,        'origen_testers/no_interface'
   autoload :MemoryStyle,        'origen_testers/memory_style'
+  autoload :SubProgram,         'origen_testers/sub_program'
 
   # not yet autoload :Time,     'origen_testers/time'
 

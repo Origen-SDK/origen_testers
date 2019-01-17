@@ -38,10 +38,10 @@ module Origen
             orig_sub_program = @sub_program
             orig_top_level_flow = @top_level_flow
             orig_parent_flow = @parent_flow
-            @sub_program = true
             @top_level_flow = Origen.interface.flow.top_level
             @parent_flow = Origen.interface.flow
-            Origen.generator.generate_sub_program(file, options)
+            @sub_program = OrigenTesters::SubProgram.new(file, orig_sub_program, options)
+            @sub_program.generate
             # However, we don't want it to be set for the remainder of the master thread
             @sub_program = orig_sub_program
             @top_level_flow = orig_top_level_flow
