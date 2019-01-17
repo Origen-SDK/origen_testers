@@ -37,12 +37,15 @@ module Origen
             # on_flow_start listeners
             orig_sub_program = @sub_program
             orig_top_level_flow = @top_level_flow
+            orig_parent_flow = @parent_flow
             @sub_program = true
             @top_level_flow = Origen.interface.flow.top_level
+            @parent_flow = Origen.interface.flow
             Origen.generator.generate_sub_program(file, options)
             # However, we don't want it to be set for the remainder of the master thread
             @sub_program = orig_sub_program
             @top_level_flow = orig_top_level_flow
+            @parent_flow = orig_parent_flow
           else
             Origen.interface.flow.group(name, description: flow_comments) do
               _create(options, &block)
@@ -102,6 +105,7 @@ module Origen
           if @sub_program
             options[:top_level] = false
             Origen.interface.flow.instance_variable_set('@top_level', @top_level_flow)
+            Origen.interface.flow.instance_variable_set('@parent', @parent_flow)
           else
             options[:top_level] = true
             Origen.interface.flow.instance_variable_set('@top_level', Origen.interface.flow)

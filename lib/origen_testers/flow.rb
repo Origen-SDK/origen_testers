@@ -54,6 +54,11 @@ module OrigenTesters
       @top_level
     end
 
+    # Returns the flow's immediate parent flow object, or nil if this is a top-level flow
+    def parent
+      @parent
+    end
+
     def lines
       @lines
     end
