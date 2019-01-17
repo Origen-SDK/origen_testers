@@ -32,26 +32,33 @@ module Origen
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
           # Generate imports as separate sub-flow files on this platform
           if tester.v93k? && tester.smt8?
-            # The generate_sub_program method will fork, so this @sub_program will live on in in that thread,
-            # where it is used in the _create method to stop the top_level: true option being passed into
-            # on_flow_start listeners
-            orig_sub_program = @sub_program
-            orig_top_level_flow = @top_level_flow
-            orig_parent_flow = @parent_flow
-            @top_level_flow = Origen.interface.flow.top_level
-            @parent_flow = Origen.interface.flow
-            @sub_program = OrigenTesters::SubProgram.new(file, orig_sub_program, options)
-            @sub_program.generate
-            # However, we don't want it to be set for the remainder of the master thread
-            @sub_program = orig_sub_program
-            @top_level_flow = orig_top_level_flow
-            @parent_flow = orig_parent_flow
+            @top_level_flow ||= Origen.interface.flow
+            @generated_sub_programs ||= {}
+            if @generated_sub_programs[name]
+              i = 0
+              tempname = name
+              while @generated_sub_programs[tempname]
+                i += 1
+                tempname = "#{name}_#{i}"
+              end
+              name = tempname
+            end
+            @generated_sub_programs[name] = true
+            parent = Origen.interface.flow
+            sub_flow = Origen.interface.with_flow(name) do
+              Origen.interface.flow.instance_variable_set(:@top_level, @top_level_flow)
+              Origen.interface.flow.instance_variable_set(:@parent, parent)
+              _create(options, &block)
+            end
+            path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
+            parent.atp.sub_flow(sub_flow.atp.raw, path: path.to_s)
           else
             Origen.interface.flow.group(name, description: flow_comments) do
               _create(options, &block)
             end
           end
         else
+          @top_level_flow = nil
           OrigenTesters::Flow.flow_comments = flow_comments
           if options.key?(:unique_ids)
             OrigenTesters::Flow.unique_ids = options.delete(:unique_ids)
@@ -95,31 +102,17 @@ module Origen
           interface.close(flow: true, sub_flow: true)
         else
           Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
-          if @sub_program
-            interface = Origen.interface
-          else
-            interface = Origen.reset_interface(options)
-          end
+          interface = Origen.reset_interface(options)
           Origen.interface.set_top_level_flow
           Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
-          if @sub_program
-            options[:top_level] = false
-            Origen.interface.flow.instance_variable_set('@top_level', @top_level_flow)
-            Origen.interface.flow.instance_variable_set('@parent', @parent_flow)
-          else
-            options[:top_level] = true
-            Origen.interface.flow.instance_variable_set('@top_level', Origen.interface.flow)
-          end
+          options[:top_level] = true
+          Origen.interface.flow.instance_variable_set('@top_level', Origen.interface.flow)
           Origen.interface.flow.on_top_level_set if Origen.interface.flow.respond_to?(:on_top_level_set)
           Origen.app.listeners_for(:on_flow_start).each do |listener|
             listener.on_flow_start(options)
           end
           Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
-          if @sub_program
-            interface.instance_exec(Origen.generator.option_pipeline.pop || {}, &block)
-          else
-            interface.instance_eval(&block)
-          end
+          interface.instance_eval(&block)
           Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
           interface.at_flow_end if interface.respond_to?(:at_flow_end)
           Origen.app.listeners_for(:on_flow_end).each do |listener|

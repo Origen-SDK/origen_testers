@@ -7,6 +7,11 @@ module OrigenTesters
       @@generated_sub_programs ||= {}
       # Reference the output_dir to force it to resolve and cache before we switch files
       output_dir
+
+      # These are for communication between the main process
+      @reader, @writer = IO.pipe
+      @reader.binmode
+      @writer.binmode
     end
 
     def output_dir
@@ -23,9 +28,6 @@ module OrigenTesters
     def generate
       # Generate the sub flow in a forked process, allowing us to replace the current top-level
       # flow with a new one in the fork
-      reader, writer = IO.pipe
-      reader.binmode
-      writer.binmode
       pid = fork do
         Origen.app.stats.reset_global_stats
         OrigenTesters::Flow.flow_comments = nil # Stop it going down the sub-flow branch in Flow.create

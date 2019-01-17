@@ -29,10 +29,18 @@ module OrigenTesters
         end
 
         def subdirectory
-          if smt8?
-            "#{tester.package_namespace}/flows"
-          else
-            'testflow/mfh.testflow.group'
+          @subdirectory ||= begin
+            if smt8?
+              parents = []
+              f = parent
+              while f
+                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                f = f.parent
+              end
+              File.join tester.package_namespace, 'flows', *parents
+            else
+              'testflow/mfh.testflow.group'
+            end
           end
         end
 

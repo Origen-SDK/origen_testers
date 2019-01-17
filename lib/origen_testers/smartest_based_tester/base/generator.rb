@@ -78,7 +78,9 @@ module OrigenTesters
           @pattern_master_filename || 'global'
         end
 
+        # Returns the current flow object (Origen.interface.flow)
         def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
+          return @current_flow if @current_flow
           f = filename.to_sym
           f = f.to_s.sub(/_resources?/, '').to_sym
           return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
@@ -88,6 +90,19 @@ module OrigenTesters
           p.test_suites ||= platform::TestSuites.new(p)
           p.test_methods ||= platform::TestMethods.new(p)
           flow_sheets[f] = p
+        end
+
+        # @api private
+        def with_flow(name)
+          @flow_stack ||= []
+          @current_flow = nil
+          f = flow(name)
+          @flow_stack << f
+          @current_flow = @flow_stack.last
+          yield
+          @flow_stack.pop
+          @current_flow = @flow_stack.last
+          f
         end
 
         # Returns the pattern master file (.pmfl) for the current flow, by default a common pattern
