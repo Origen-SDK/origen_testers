@@ -1,0 +1,24 @@
+flow ERASE_VFY {
+
+    out ERS_VFY_FAILED = -1;
+
+    setup {
+        suite margin_read1_all1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_all1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        ERS_VFY_FAILED = -1;
+
+        margin_read1_all1.execute();
+        if (margin_read1_all1.pass) {
+        } else {
+            ERS_VFY_FAILED = 1;
+        }
+    }
+}

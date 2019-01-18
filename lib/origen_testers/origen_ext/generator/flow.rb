@@ -33,23 +33,29 @@ module Origen
           # Generate imports as separate sub-flow files on this platform
           if tester.v93k? && tester.smt8?
             @top_level_flow ||= Origen.interface.flow
-            @generated_sub_programs ||= {}
-            if @generated_sub_programs[name]
+            parent = Origen.interface.flow
+            # If the parent flow already has a child flow of this name then we need to generate a
+            # new unique name/id
+            if parent.children[name]
               i = 0
               tempname = name
-              while @generated_sub_programs[tempname]
+              while parent.children[tempname]
                 i += 1
                 tempname = "#{name}_#{i}"
               end
               name = tempname
             end
-            @generated_sub_programs[name] = true
-            parent = Origen.interface.flow
-            sub_flow = Origen.interface.with_flow(name) do
+            if parent
+              id = parent.path + ".#{name}"
+            else
+              id = name
+            end
+            sub_flow = Origen.interface.with_flow(id) do
               Origen.interface.flow.instance_variable_set(:@top_level, @top_level_flow)
               Origen.interface.flow.instance_variable_set(:@parent, parent)
               _create(options, &block)
             end
+            parent.children[name] = sub_flow
             path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
             parent.atp.sub_flow(sub_flow.atp.raw, path: path.to_s)
           else

@@ -59,6 +59,26 @@ module OrigenTesters
       @parent
     end
 
+    # Returns a hash containing all child flows stored by their ID
+    def children
+      @children ||= {}.with_indifferent_access
+    end
+    alias_method :sub_flows, :children
+
+    # Returns the flow's ID prefixed with the IDs of its parent flows, joined by '.'
+    def path
+      @path ||= begin
+        ids = []
+        p = parent
+        while p
+          ids.unshift(p.id)
+          p = p.parent
+        end
+        ids << id
+        ids.map(&:to_s).join('.')
+      end
+    end
+
     def lines
       @lines
     end
@@ -117,8 +137,8 @@ module OrigenTesters
         @throwaway ||= ATP::Flow.new(self)
       else
         @model ||= begin
-          f = program.flow(id, description: OrigenTesters::Flow.flow_comments)
-          @sig = flow_sig(id)
+          f = program.flow(try(:path) || id, description: OrigenTesters::Flow.flow_comments)
+          @sig = flow_sig(try(:path) || id)
           # f.id = @sig if OrigenTesters::Flow.unique_ids
           f
         end

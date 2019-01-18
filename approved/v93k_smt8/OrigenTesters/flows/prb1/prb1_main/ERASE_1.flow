@@ -31,11 +31,10 @@ flow ERASE_1 {
             testName = "Functional";
         }
 
-        flow ERASE_VFY calls OrigenTesters.flows.prb1.prb1_main.erase.ERASE_VFY { }
+        flow ERASE_VFY calls OrigenTesters.flows.prb1.prb1_main.erase_1.ERASE_VFY { }
     }
 
     execute {
-
         erase_all.execute();
         erase_all_1.execute();
         erase_all_2.execute();

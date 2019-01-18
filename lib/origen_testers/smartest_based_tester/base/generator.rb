@@ -79,17 +79,17 @@ module OrigenTesters
         end
 
         # Returns the current flow object (Origen.interface.flow)
-        def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
+        def flow(id = Origen.file_handler.current_file.basename('.rb').to_s)
           return @current_flow if @current_flow
-          f = filename.to_sym
-          f = f.to_s.sub(/_resources?/, '').to_sym
-          return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
+          id = id.to_s.sub(/_resources?/, '')
+          filename = id.split('.').last
+          return flow_sheets[id] if flow_sheets[id] # will return flow if already existing
           p = platform::Flow.new
           p.inhibit_output if Origen.interface.resources_mode?
-          p.filename = f
+          p.filename = filename
           p.test_suites ||= platform::TestSuites.new(p)
           p.test_methods ||= platform::TestMethods.new(p)
-          flow_sheets[f] = p
+          flow_sheets[id] = p
         end
 
         # @api private
@@ -181,7 +181,7 @@ module OrigenTesters
         end
 
         def flow_sheets
-          @@flow_sheets ||= {}
+          @@flow_sheets ||= {}.with_indifferent_access
         end
 
         # Returns an array containing all sheet generators.
