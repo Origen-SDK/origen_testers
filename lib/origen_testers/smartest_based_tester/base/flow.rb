@@ -57,18 +57,18 @@ module OrigenTesters
             else
               flow_control_variables << [var, 0]
             end
-            h << "  if @#{var} == 1 then"
-            h << '  {'
-            i = '  '
+            h << "    if @#{var} == 1 then"
+            h << '    {'
+            i = '   '
           else
             i = ''
           end
           if set_runtime_variables.size > 0
-            h << i + '  {'
+            h << i + '    {'
             set_runtime_variables.each do |var|
-              h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
+              h << i + "       @#{generate_flag_name(var.to_s)} = -1;"
             end
-            h << i + '  }, open,"Init Flow Control Vars", ""'
+            h << i + '    }, open,"Init Flow Control Vars", ""'
           end
           h
         end
@@ -109,7 +109,7 @@ module OrigenTesters
         end
 
         def line(str)
-          @lines << ('  ' * @indent) + str
+          @lines << '    ' + ('   ' * (@indent - 1)) + str
         end
 
         # def on_flow(node)
