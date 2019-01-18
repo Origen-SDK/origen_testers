@@ -201,10 +201,10 @@ test_flow
        {
        }
        run(margin_read1_all1_3_814CEB0);
-  }
-  else
-  {
-  }
+    }
+    else
+    {
+    }
 
   }, open,"PRB2",""
 

@@ -76,10 +76,10 @@ module OrigenTesters
         def flow_footer
           f = []
           if add_flow_enable
-            f << '  }'
-            f << '  else'
-            f << '  {'
-            f << '  }'
+            f << '    }'
+            f << '    else'
+            f << '    {'
+            f << '    }'
           end
           f << ''
           f << "  }, open,\"#{flow_name}\",\"\""

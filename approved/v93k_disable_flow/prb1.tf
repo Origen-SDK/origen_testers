@@ -1843,10 +1843,10 @@ test_flow
           run(cc_test_2_864CE8F);
           stop_bin "1", "", , good, noreprobe, green, 1, over_on;
        }, open,"prb1_main", ""
-  }
-  else
-  {
-  }
+    }
+    else
+    {
+    }
 
   }, open,"PRB1",""
 
