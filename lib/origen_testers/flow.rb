@@ -63,7 +63,6 @@ module OrigenTesters
     def children
       @children ||= {}.with_indifferent_access
     end
-    alias_method :sub_flows, :children
 
     # Returns the flow's ID prefixed with the IDs of its parent flows, joined by '.'
     def path

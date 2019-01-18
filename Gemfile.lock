@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Origen-SDK/atp.git
-  revision: 097f14ad59519097d21da8f8a2d989ef68f4137a
+  revision: 1b9e39dca92fa8dcdd5817c4a3ee555a578ca130
   branch: sub_flows
   specs:
     atp (1.1.2)
@@ -189,4 +189,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   1.16.4
+   1.17.1

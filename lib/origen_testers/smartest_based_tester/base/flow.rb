@@ -129,9 +129,61 @@ module OrigenTesters
           end
         end
 
+        # Returns an array containing all sub-flow objects, not just the immediate children
+        def all_sub_flows
+          @all_sub_flows ||= begin
+            sub_flows = []
+            extract_sub_flows(self, sub_flows)
+            sub_flows
+          end
+        end
+
+        # @api private
+        def extract_sub_flows(flow, sub_flows)
+          flow.children.each do |id, sub_flow|
+            sub_flows << sub_flow
+            extract_sub_flows(sub_flow, sub_flows)
+          end
+          sub_flows
+        end
+
+        # Returns the sub_flow object corresponding to the given sub_flow AST
+        def sub_flow_from(sub_flow_ast)
+          path = sub_flow_ast.find(:path).value
+          sub_flow = all_sub_flows.find { |f| File.join(f.subdirectory, f.filename) == path }
+        end
+
+        # This is called by Origen on each flow after they have all been executed but before they
+        # are finally written/rendered
         def finalize(options = {})
-          super
-          @finalized = true
+          if smt8?
+            return unless top_level? || options[:called_by_top_level]
+            super
+            @finalized = true
+            # All flows have now been executed and the top-level contains the final AST.
+            # The AST contained in each child flow may not be complete since it has not been subject to the
+            # full-flow processing, e.g. to set flags in the event of a reference to a test being made from
+            # outside of a sub-flow.
+            # So here we substitute the AST in all sub-flows with the corresponding sub-flow node from the
+            # top-level AST, then we finalize the sub-flows with the final AST in place and then later final
+            # writing/rendering will be called as normal.
+            if top_level?
+              ast.find_all(:sub_flow, recursive: true).each do |sub_flow_ast|
+                sub_flow = sub_flow_from(sub_flow_ast)
+                unless sub_flow
+                  fail "Something went wrong, couldn't find the sub-flow object for path #{path}"
+                end
+                sub_flow.instance_variable_set(:@ast, sub_flow_ast.updated(:flow))
+                sub_flow.instance_variable_set(:@finalized, true)  # To stop the AST being regenerated
+              end
+              options[:called_by_top_level] = true
+              all_sub_flows.each { |f| f.finalize(options) }
+              options.delete(:called_by_top_level)
+            end
+          else
+            super
+            @finalized = true
+          end
           if smt8?
             @indent = add_flow_enable ? 3 : 2
           else
@@ -149,7 +201,7 @@ module OrigenTesters
           end
           test_suites.finalize
           test_methods.finalize
-          if tester.create_limits_file && !Origen.interface.generating_sub_program?
+          if tester.create_limits_file && top_level?
             render_limits_file
           end
         end

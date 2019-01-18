@@ -20,7 +20,8 @@ module OrigenTesters
             line "#{name}.#{var} = #{var};"
           end
           line "#{name}.execute();"
-          (vars[:all][:set_flags_extern] + intermediate_variables).each do |var|
+          sub_flow = sub_flow_from(node)
+          (vars[:all][:set_flags_extern] + intermediate_variables(sub_flow.flow_variables[:all][:set_flags])).each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
           end
@@ -50,9 +51,22 @@ module OrigenTesters
         end
 
         # Output variables which are not directly referenced by this flow, but which are referenced by a parent
-        # flow and set by a child flow and therefore must pass through the current flow
-        def intermediate_variables
-          []
+        # flow and set by a child flow and therefore must pass through the current flow.
+        # By calling this method with no argument it will consider variables set by any child flow, alternatively
+        # pass in the variables for the child flow in question and only that will be considered.
+        def intermediate_variables(set_vars = flow_variables[:all][:set_flags])
+          if set_vars.empty?
+            []
+          else
+            upstream_referenced_flags = []
+            p = parent
+            while p
+              upstream_referenced_flags += p.flow_variables[:this_flow][:referenced_flags]
+              p = p.parent
+            end
+            upstream_referenced_flags.uniq!
+            set_vars & upstream_referenced_flags
+          end
         end
 
         def flow_header
