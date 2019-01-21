@@ -252,7 +252,9 @@ module OrigenTesters
             # "Test Number"
             l << f(options[:test_number])
             # "Test Text"
-            l << f(options[:bin_s_name] || options[:bin_h_name])
+            # l << f(options[:bin_s_name] || options[:bin_h_name])
+            names = ["#{options[:suite_name]}", "#{options[:test_name]}"]
+            l << f(names.uniq.join('.'))
             if test_modes.empty?
               # "Low Limit"
               l << f((options[:limits][nil] || {})[:lsl])
