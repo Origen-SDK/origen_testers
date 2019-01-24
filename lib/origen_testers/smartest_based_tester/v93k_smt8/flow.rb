@@ -71,7 +71,7 @@ module OrigenTesters
 
         def flow_header
           h = []
-          if add_flow_enable
+          if add_flow_enable && top_level?
             h << "        if (#{flow_enable_var_name} == 1) {"
             i = '            '
           else
@@ -90,7 +90,7 @@ module OrigenTesters
 
         def flow_footer
           f = []
-          if add_flow_enable
+          if add_flow_enable && top_level?
             f << '        }'
           end
           f

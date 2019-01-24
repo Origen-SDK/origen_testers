@@ -185,7 +185,7 @@ module OrigenTesters
             @finalized = true
           end
           if smt8?
-            @indent = add_flow_enable ? 3 : 2
+            @indent = (add_flow_enable && top_level?) ? 3 : 2
           else
             @indent = add_flow_enable ? 2 : 1
           end
