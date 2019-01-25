@@ -10,6 +10,11 @@ module OrigenTesters
         def initialize(flow)
           @flow = flow
           @collection = []
+          # Test names also have to be unique vs. the current flow name
+          if tester.smt8?
+            @existing_names = {}
+            @existing_names[flow.filename.sub('.flow', '').to_sym] = 0
+          end
         end
 
         def filename

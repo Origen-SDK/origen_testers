@@ -36,10 +36,12 @@ module Origen
             parent = Origen.interface.flow
             # If the parent flow already has a child flow of this name then we need to generate a
             # new unique name/id
-            if parent.children[name]
+            # Also generate a new name when the child flow name matches the parent flow name, SMT8.2
+            # onwards does not allow this
+            if parent.children[name] || parent.name.to_s == name.to_s
               i = 0
               tempname = name
-              while parent.children[tempname]
+              while parent.children[tempname] || parent.name.to_s == tempname.to_s
                 i += 1
                 tempname = "#{name}_#{i}"
               end
