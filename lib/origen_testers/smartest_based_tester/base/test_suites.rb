@@ -10,10 +10,10 @@ module OrigenTesters
         def initialize(flow)
           @flow = flow
           @collection = []
+          @existing_names = {}
           # Test names also have to be unique vs. the current flow name
           if tester.smt8?
-            @existing_names = {}
-            @existing_names[flow.filename.sub('.flow', '').to_sym] = 0
+            @existing_names[flow.filename.sub('.flow', '').to_s] = true
           end
         end
 
@@ -48,14 +48,15 @@ module OrigenTesters
         private
 
         def make_unique(name)
-          @existing_names ||= {}
-          if @existing_names[name.to_sym]
-            @existing_names[name.to_sym] += 1
-            "#{name}_#{@existing_names[name.to_sym]}"
-          else
-            @existing_names[name.to_sym] = 0
-            name
+          name = name.to_s
+          tempname = name
+          i = 0
+          while @existing_names[tempname]
+            i += 1
+            tempname = "#{name}_#{i}"
           end
+          @existing_names[tempname] = true
+          tempname
         end
       end
     end
