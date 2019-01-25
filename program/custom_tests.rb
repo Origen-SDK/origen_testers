@@ -1,5 +1,5 @@
 # This flow is used to test custom test method API
-Flow.create interface: 'OrigenTesters::Test::CustomTestInterface' do
+Flow.create interface: 'OrigenTesters::Test::CustomTestInterface', flow_description: '' do
 
   custom :test1, number: 30000
 
