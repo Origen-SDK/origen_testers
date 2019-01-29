@@ -432,7 +432,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :test1, if_flag: :$Alarm, number: 51940
     func :test2, unless_flag: :$Alarm, number: 51950
 
-    # The is auto-generated comment from hasttag
+    # The is auto-generated comment from hashtag
     func_with_comment :test1
 
     cc 'The is auto-generated comment from cc'

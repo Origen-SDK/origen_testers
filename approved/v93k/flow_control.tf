@@ -1790,7 +1790,7 @@ test1_2_BEA7F3B:
   site_control = "parallel:";
   site_match = 2;
 test1_30_BEA7F3B:
-  comment = "The is auto-generated comment from hasttag";
+  comment = "The is auto-generated comment from hashtag";
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test1";
