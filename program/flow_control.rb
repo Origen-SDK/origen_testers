@@ -431,6 +431,12 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     log 'Volatile if combiner test case'
     func :test1, if_flag: :$Alarm, number: 51940
     func :test2, unless_flag: :$Alarm, number: 51950
+
+    # The is auto-generated comment from hasttag
+    func_with_comment :test1
+
+    cc 'The is auto-generated comment from cc'
+    func_with_comment :test1
   end
 
   log 'Test the block form of expressing if passed/failed dependents'
@@ -462,4 +468,5 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
       import 'components/small', number: 54000
     end
   end
+
 end
