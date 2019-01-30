@@ -203,8 +203,6 @@ module OrigenTesters
           f << 'ffv_enable' if ffv_enable
           f << 'frg_enable' if frg_enable
           f << 'hw_dsp_disable' if hardware_dsp_disable
-          f << 'site_control' if site_control
-          f << 'site_match' if site_match
           f.join(', ')
         end
 
