@@ -70,7 +70,7 @@ module OrigenTesters
           fail_value:      true,
           per_pin_on_pass: true,
           per_pin_on_fail: true,
-          site_control:    "parallel:",
+          site_control:    'parallel:',
           site_match:      2
         }
 
