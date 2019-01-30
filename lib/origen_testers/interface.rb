@@ -162,6 +162,9 @@ module OrigenTesters
     end
 
     def import(file, options = {})
+      options = {
+        reload_target: true
+      }.merge(options)
       # Attach the import request to the first generator, when it imports
       # it any generated resources will automatically find their way to the
       # correct generator/collection
