@@ -123,10 +123,14 @@ testmethodparameters
 end
 -----------------------------------------------------------------
 testmethodlimits
-
+% at_least_one = false
 % unless tester.create_limits_file
 % if program
 %   program.testmethodlimits.each do |id, parameters|
+%     unless at_least_one
+
+%       at_least_one = true
+%     end
 <%= id %>:
 %     parameters.each do |key, val|
   <%= key %> = <%= val %>
@@ -135,19 +139,29 @@ testmethodlimits
 % else
 %   test_methods.sorted_collection.each do |method|
 %     if method.respond_to?(:limits) && method.limits
+%     unless at_least_one
+
+%       at_least_one = true
+%     end
 <%= method.id %>:
   <%= method.limits %>;
 %     end
 %   end
 % end
 % end
+% if at_least_one
 
+% end
 end
 -----------------------------------------------------------------
-testmethods
-
+% at_least_one = false
 % if program
 %   program.testmethods.each do |id, parameters|
+%     unless at_least_one
+testmethods
+
+%       at_least_one = true
+%     end
 <%= id %>:
 %     parameters.each do |key, val|
   <%= key %> = <%= val %>
@@ -155,17 +169,28 @@ testmethods
 %   end
 % else
 %   test_methods.sorted_collection.each do |method|
+%     unless at_least_one
+testmethods
+
+%       at_least_one = true
+%     end
 <%= method.id %>:
   testmethod_class = "<%= method.klass %>";
 %   end
 % end
+% if at_least_one
 
 end
 -----------------------------------------------------------------
-test_suites
-
+% end
+% at_least_one = false
 % if program
 %   program.test_suites.each do |id, parameters|
+%     unless at_least_one
+test_suites
+
+%       at_least_one = true
+%     end
 <%= id %>:
 %     parameters.each do |key, val|
   <%= key %> = <%= val %>
@@ -173,15 +198,22 @@ test_suites
 %   end
 % else
 %   test_suites.sorted_collection.each do |suite|
+%     unless at_least_one
+test_suites
+
+%       at_least_one = true
+%     end
 <%= suite.name %>:
 %     suite.lines.each do |line|
 <%= line %>
 %     end
 %   end
 % end
+% if at_least_one
 
 end
 -----------------------------------------------------------------
+% end
 test_flow
 
 % if program

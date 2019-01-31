@@ -40,14 +40,14 @@ end
 test_flow
 
   {
-  run_and_branch(test1_9D2D940)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "100", "fail", , bad, noreprobe, red, 3, over_on;
-  }
+    run_and_branch(test1_9D2D940)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "100", "fail", , bad, noreprobe, red, 3, over_on;
+    }
 
   }, open,"BASIC_INTERFACE",""
 

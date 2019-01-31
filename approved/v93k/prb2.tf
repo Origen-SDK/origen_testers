@@ -178,35 +178,35 @@ end
 test_flow
 
   {
-  if @PRB2_ENABLE == 1 then
-  {
-    run(erase_all_814CEB0);
-    run(margin_read1_all1_814CEB0);
-    run(erase_all_1_814CEB0);
-    run(margin_read1_all1_1_814CEB0);
+    if @PRB2_ENABLE == 1 then
     {
-      run(pgm_ckbd_814CEB0);
-      run(mrd_ckbd_814CEB0);
-    }, open,"prb2_main", ""
-    run(erase_all_2_814CEB0);
-    run(margin_read1_all1_2_814CEB0);
-    if @EXTRA_TESTS == 1 then
-    {
-      {
-        run(pgm_ckbd_1_814CEB0);
-        run(mrd_ckbd_1_814CEB0);
-      }, open,"prb2_main_2", ""
+       run(erase_all_814CEB0);
+       run(margin_read1_all1_814CEB0);
+       run(erase_all_1_814CEB0);
+       run(margin_read1_all1_1_814CEB0);
+       {
+          run(pgm_ckbd_814CEB0);
+          run(mrd_ckbd_814CEB0);
+       }, open,"prb2_main", ""
+       run(erase_all_2_814CEB0);
+       run(margin_read1_all1_2_814CEB0);
+       if @EXTRA_TESTS == 1 then
+       {
+          {
+             run(pgm_ckbd_1_814CEB0);
+             run(mrd_ckbd_1_814CEB0);
+          }, open,"prb2_main_2", ""
+       }
+       else
+       {
+       }
+       run(margin_read1_all1_3_814CEB0);
     }
     else
     {
     }
-    run(margin_read1_all1_3_814CEB0);
-  }
-  else
-  {
-  }
 
-  }, open,"PRB2",""
+  }, open,"PRB2","An example of creating an entire test program from a single source file"
 
 end
 -----------------------------------------------------------------
