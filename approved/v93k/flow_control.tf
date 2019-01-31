@@ -2476,7 +2476,6 @@ test_flow
     run_and_branch(pgm_1_BEA7F3B)
     then
     {
-       run(read0_BEA7F3B);
     }
     else
     {
@@ -2630,7 +2629,6 @@ test_flow
     run_and_branch(test1_1_BEA7F3B)
     then
     {
-       run(cold_test_BEA7F3B);
     }
     else
     {
@@ -2656,7 +2654,6 @@ test_flow
     run_and_branch(test1_2_BEA7F3B)
     then
     {
-       run(probe_only_test1_1_BEA7F3B);
     }
     else
     {
@@ -2748,7 +2745,6 @@ test_flow
     }
     else
     {
-       @OOF_PASSCODE2_BEA7F3B_FAILED = 1;
     }
     print_dl("Test that if_all_passed works");
     run_and_branch(test1_6_BEA7F3B)
@@ -2772,7 +2768,6 @@ test_flow
     }
     else
     {
-       @IFALL1_BEA7F3B_FAILED = 1;
     }
     print_dl("Test the block form of if_all_passed");
     run_and_branch(test1_7_BEA7F3B)
@@ -2782,13 +2777,6 @@ test_flow
     }
     else
     {
-       if @IFALL1_BEA7F3B_FAILED == 1 then
-       {
-          run(test3_2_BEA7F3B);
-       }
-       else
-       {
-       }
     }
     run_and_branch(test2_7_BEA7F3B)
     then
@@ -3090,7 +3078,6 @@ test_flow
     run_and_branch(test2_9_BEA7F3B)
     then
     {
-       @IFAPB2_BEA7F3B_PASSED = 1;
     }
     else
     {
@@ -3414,7 +3401,6 @@ test_flow
     run_and_branch(test2_15_BEA7F3B)
     then
     {
-       @IFALLP1_BEA7F3B_PASSED = 1;
     }
     else
     {
@@ -3424,13 +3410,6 @@ test_flow
     run_and_branch(test2_16_BEA7F3B)
     then
     {
-       if @IFALLP1_BEA7F3B_PASSED == 1 then
-       {
-          run(test3_6_BEA7F3B);
-       }
-       else
-       {
-       }
     }
     else
     {
