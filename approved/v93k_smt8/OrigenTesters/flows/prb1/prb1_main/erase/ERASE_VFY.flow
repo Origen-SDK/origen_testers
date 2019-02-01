@@ -16,8 +16,7 @@ flow ERASE_VFY {
         ERS_VFY_FAILED = -1;
 
         margin_read1_all1.execute();
-        if (margin_read1_all1.pass) {
-        } else {
+        if (margin_read1_all1.fail) {
             ERS_VFY_FAILED = 1;
         }
     }

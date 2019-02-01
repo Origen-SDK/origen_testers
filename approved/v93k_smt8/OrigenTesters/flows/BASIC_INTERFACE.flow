@@ -1,5 +1,6 @@
 flow BASIC_INTERFACE {
 
+
     setup {
         suite test1 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.test1);
@@ -10,11 +11,6 @@ flow BASIC_INTERFACE {
     }
 
     execute {
-
         test1.execute();
-        if (test1.pass) {
-        } else {
-            addBin(100);
-        }
     }
 }

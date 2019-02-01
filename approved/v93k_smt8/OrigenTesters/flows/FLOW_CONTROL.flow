@@ -1266,18 +1266,12 @@ flow FLOW_CONTROL {
 
         println("Test that if_failed works");
         read1.execute();
-        if (read1.pass) {
-        } else {
+        if (read1.fail) {
             erase1.execute();
-            if (erase1.pass) {
-            } else {
-                addBin(12);
-            }
         }
         println("Test the block form of if_failed");
         read2.execute();
-        if (read2.pass) {
-        } else {
+        if (read2.fail) {
             erase2.execute();
             erase2_1.execute();
         }
@@ -1285,21 +1279,15 @@ flow FLOW_CONTROL {
         read1_1.execute();
         if (read1_1.pass) {
             pgm1.execute();
-        } else {
         }
         println("Test the block form of if_passed");
         read2_1.execute();
         if (read2_1.pass) {
             pgm1_1.execute();
             pgm1_2.execute();
-        } else {
         }
         println("Test that if_ran works");
         pgm.execute();
-        if (pgm.pass) {
-        } else {
-            addBin(10);
-        }
         T5_RAN = 1;
         if (T5_RAN == 1) {
             read0.execute();
@@ -1307,10 +1295,6 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of if_ran");
         pgm_1.execute();
-        if (pgm_1.pass) {
-        } else {
-            addBin(10);
-        }
         T6_RAN = 1;
         if (T6_RAN == 1) {
             read0_1.execute();
@@ -1319,10 +1303,6 @@ flow FLOW_CONTROL {
         }
         println("Test that unless_ran works");
         pgm_2.execute();
-        if (pgm_2.pass) {
-        } else {
-            addBin(10);
-        }
         T7_RAN = 1;
         if (T7_RAN == 1) {
         } else {
@@ -1330,10 +1310,6 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of unless_ran");
         pgm_3.execute();
-        if (pgm_3.pass) {
-        } else {
-            addBin(10);
-        }
         T8_RAN = 1;
         if (T8_RAN == 1) {
         } else {
@@ -1391,13 +1367,11 @@ flow FLOW_CONTROL {
         }
         println("Test that if_any_failed works");
         test1.execute();
-        if (test1.pass) {
-        } else {
+        if (test1.fail) {
             IFA1_FAILED = 1;
         }
         test2.execute();
-        if (test2.pass) {
-        } else {
+        if (test2.fail) {
             IFA2_FAILED = 1;
         }
         if ((IFA1_FAILED == 1) || (IFA2_FAILED == 1)) {
@@ -1406,13 +1380,11 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of if_any_failed");
         test1_1.execute();
-        if (test1_1.pass) {
-        } else {
+        if (test1_1.fail) {
             OOF_PASSCODE1_FAILED = 1;
         }
         test2_1.execute();
-        if (test2_1.pass) {
-        } else {
+        if (test2_1.fail) {
             OOF_PASSCODE2_FAILED = 1;
         }
         if ((OOF_PASSCODE1_FAILED == 1) || (OOF_PASSCODE2_FAILED == 1)) {
@@ -1422,13 +1394,11 @@ flow FLOW_CONTROL {
         }
         println("Test that if_all_failed works");
         test1_2.execute();
-        if (test1_2.pass) {
-        } else {
+        if (test1_2.fail) {
             IFALL1_FAILED = 1;
         }
         test2_2.execute();
-        if (test2_2.pass) {
-        } else {
+        if (test2_2.fail) {
             if (IFALL1_FAILED == 1) {
                 test3_2.execute();
             } else {
@@ -1436,13 +1406,11 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of if_all_failed");
         test1_3.execute();
-        if (test1_3.pass) {
-        } else {
+        if (test1_3.fail) {
             IFALLB1_FAILED = 1;
         }
         test2_3.execute();
-        if (test2_3.pass) {
-        } else {
+        if (test2_3.fail) {
             if (IFALLB1_FAILED == 1) {
                 test3_3.execute();
                 test4_1.execute();
@@ -1453,12 +1421,10 @@ flow FLOW_CONTROL {
         test1_4.execute();
         if (test1_4.pass) {
             IFAP1_PASSED = 1;
-        } else {
         }
         test2_4.execute();
         if (test2_4.pass) {
             IFAP2_PASSED = 1;
-        } else {
         }
         if ((IFAP1_PASSED == 1) || (IFAP2_PASSED == 1)) {
             test3_4.execute();
@@ -1468,12 +1434,10 @@ flow FLOW_CONTROL {
         test1_5.execute();
         if (test1_5.pass) {
             IFAPB1_PASSED = 1;
-        } else {
         }
         test2_5.execute();
         if (test2_5.pass) {
             IFAPB2_PASSED = 1;
-        } else {
         }
         if ((IFAPB1_PASSED == 1) || (IFAPB2_PASSED == 1)) {
             test3_5.execute();
@@ -1484,7 +1448,6 @@ flow FLOW_CONTROL {
         test1_6.execute();
         if (test1_6.pass) {
             IFALLP1_PASSED = 1;
-        } else {
         }
         test2_6.execute();
         if (test2_6.pass) {
@@ -1492,13 +1455,11 @@ flow FLOW_CONTROL {
                 test3_6.execute();
             } else {
             }
-        } else {
         }
         println("Test the block form of if_all_passed");
         test1_7.execute();
         if (test1_7.pass) {
             IFALLPB1_PASSED = 1;
-        } else {
         }
         test2_7.execute();
         if (test2_7.pass) {
@@ -1507,25 +1468,21 @@ flow FLOW_CONTROL {
                 test4_3.execute();
             } else {
             }
-        } else {
         }
         println("Test that group-level dependencies work");
         // *******************************************************
         // GROUP - grp1
         // *******************************************************
             grp1_test1.execute();
-            if (grp1_test1.pass) {
-            } else {
+            if (grp1_test1.fail) {
                 GRP1_FAILED = 1;
             }
             grp1_test2.execute();
-            if (grp1_test2.pass) {
-            } else {
+            if (grp1_test2.fail) {
                 GRP1_FAILED = 1;
             }
             grp1_test3.execute();
-            if (grp1_test3.pass) {
-            } else {
+            if (grp1_test3.fail) {
                 GRP1_FAILED = 1;
             }
         // *******************************************************
@@ -1536,20 +1493,8 @@ flow FLOW_CONTROL {
             // GROUP - grp2
             // *******************************************************
                 grp2_test1.execute();
-                if (grp2_test1.pass) {
-                } else {
-                    addBin(5);
-                }
                 grp2_test2.execute();
-                if (grp2_test2.pass) {
-                } else {
-                    addBin(5);
-                }
                 grp2_test3.execute();
-                if (grp2_test3.pass) {
-                } else {
-                    addBin(5);
-                }
             // *******************************************************
             // /GROUP - grp2
             // *******************************************************
@@ -1557,21 +1502,15 @@ flow FLOW_CONTROL {
         }
         println("Another group-level dependencies test based on a real life use case");
         gt1.execute();
-        if (gt1.pass) {
-        } else {
-            addBin(90);
-        }
         // *******************************************************
         // GROUP - gt_grp1
         // *******************************************************
             gt_grp1_test1.execute();
-            if (gt_grp1_test1.pass) {
-            } else {
+            if (gt_grp1_test1.fail) {
                 GT_GRP1_FAILED = 1;
             }
             gt_grp1_test2.execute();
-            if (gt_grp1_test2.pass) {
-            } else {
+            if (gt_grp1_test2.fail) {
                 GT_GRP1_FAILED = 1;
             }
         // *******************************************************
@@ -1579,21 +1518,15 @@ flow FLOW_CONTROL {
         // *******************************************************
         if (GT_GRP1_FAILED == 1) {
             gt2.execute();
-            if (gt2.pass) {
-            } else {
-                addBin(90);
-            }
             // *******************************************************
             // GROUP - gt_grp2
             // *******************************************************
                 gt_grp2_test1.execute();
-                if (gt_grp2_test1.pass) {
-                } else {
+                if (gt_grp2_test1.fail) {
                     GT_GRP2_FAILED = 1;
                 }
                 gt_grp2_test2.execute();
-                if (gt_grp2_test2.pass) {
-                } else {
+                if (gt_grp2_test2.fail) {
                     GT_GRP2_FAILED = 1;
                 }
             // *******************************************************
@@ -1603,10 +1536,6 @@ flow FLOW_CONTROL {
         }
         if (GT_GRP2_FAILED == 1) {
             gt3.execute();
-            if (gt3.pass) {
-            } else {
-                addBin(90);
-            }
         } else {
         }
         println("Test that nested groups work");
@@ -1614,57 +1543,26 @@ flow FLOW_CONTROL {
         // GROUP - level1
         // *******************************************************
             lev1_test1.execute();
-            if (lev1_test1.pass) {
-            } else {
-                addBin(5);
-            }
             lev1_test2.execute();
-            if (lev1_test2.pass) {
-            } else {
-                addBin(5);
-            }
             lev1_test3.execute();
-            if (lev1_test3.pass) {
-            } else {
+            if (lev1_test3.fail) {
                 lev1_test4.execute();
-                if (lev1_test4.pass) {
-                } else {
-                    addBin(12);
-                }
             }
             lev1_test5.execute();
-            if (lev1_test5.pass) {
-            } else {
+            if (lev1_test5.fail) {
                 L1T5_FAILED = 1;
             }
             // *******************************************************
             // GROUP - level2
             // *******************************************************
                 lev2_test1.execute();
-                if (lev2_test1.pass) {
-                } else {
-                    addBin(5);
-                }
                 lev2_test2.execute();
-                if (lev2_test2.pass) {
-                } else {
-                    addBin(5);
-                }
                 lev2_test3.execute();
-                if (lev2_test3.pass) {
-                } else {
+                if (lev2_test3.fail) {
                     lev2_test4.execute();
-                    if (lev2_test4.pass) {
-                    } else {
-                        addBin(12);
-                    }
                 }
                 if (L1T5_FAILED == 1) {
                     lev2_test5.execute();
-                    if (lev2_test5.pass) {
-                    } else {
-                        addBin(12);
-                    }
                 } else {
                 }
             // *******************************************************
@@ -1675,18 +1573,13 @@ flow FLOW_CONTROL {
         // *******************************************************
         println("Test nested conditions on a group");
         nt1.execute();
-        if (nt1.pass) {
-        } else {
+        if (nt1.fail) {
             nt2.execute();
             if (nt2.pass) {
                 // *******************************************************
                 // GROUP - ntg1
                 // *******************************************************
                     nt3.execute();
-                    if (nt3.pass) {
-                    } else {
-                        addBin(12);
-                    }
                 // *******************************************************
                 // /GROUP - ntg1
                 // *******************************************************
@@ -1695,10 +1588,6 @@ flow FLOW_CONTROL {
                 // GROUP - ntg2
                 // *******************************************************
                     nt4.execute();
-                    if (nt4.pass) {
-                    } else {
-                        addBin(13);
-                    }
                 // *******************************************************
                 // /GROUP - ntg2
                 // *******************************************************
@@ -1706,24 +1595,20 @@ flow FLOW_CONTROL {
         }
         println("Embedded conditional tests 1");
         test1_8.execute();
-        if (test1_8.pass) {
-        } else {
+        if (test1_8.fail) {
             test2_8.execute();
             test3_8.execute();
-            if (test3_8.pass) {
-            } else {
+            if (test3_8.fail) {
                 test4_4.execute();
             }
         }
         println("Embedded conditional tests 2");
         test1_9.execute();
-        if (test1_9.pass) {
-        } else {
+        if (test1_9.fail) {
             ECT2_1_FAILED = 1;
         }
         test2_9.execute();
-        if (test2_9.pass) {
-        } else {
+        if (test2_9.fail) {
             ECT2_2_FAILED = 1;
         }
         if (ECT2_1_FAILED == 1) {
@@ -1815,8 +1700,7 @@ flow FLOW_CONTROL {
         }
         println("Manual flag setting");
         test1.execute();
-        if (test1.pass) {
-        } else {
+        if (test1.fail) {
             MY_FLAG = 1;
         }
         if (MY_FLAG == 1) {
@@ -1826,8 +1710,7 @@ flow FLOW_CONTROL {
         }
         println("Mixed-case manual flags");
         test1.execute();
-        if (test1.pass) {
-        } else {
+        if (test1.fail) {
             My_Mixed_Flag = 1;
         }
         if (My_Mixed_Flag == 1) {
@@ -1847,8 +1730,7 @@ flow FLOW_CONTROL {
         }
         println("This should retain the set-run-flag in the else conditional");
         test22.execute();
-        if (test22.pass) {
-        } else {
+        if (test22.fail) {
             AT22_FAILED = 1;
             test22a.execute();
             test22b.execute();
@@ -1867,8 +1749,7 @@ flow FLOW_CONTROL {
         if (MY_FLAG == 1) {
             multi_bin;
             test36_1.execute();
-            if (test36_1.pass) {
-            } else {
+            if (test36_1.fail) {
                 multi_bin;
             }
         } else {
@@ -1879,7 +1760,6 @@ flow FLOW_CONTROL {
             test2_13.execute();
         } else {
             test3_10.execute();
-            addBin(10);
         }
         println("The reverse optimization test case, this should not generate a flag on V93K");
         test1_24.execute();
@@ -1887,17 +1767,14 @@ flow FLOW_CONTROL {
             test2_14.execute();
         } else {
             test3_11.execute();
-            addBin(10);
         }
         println("Nested optimization test case");
         outer_test.execute();
-        if (outer_test.pass) {
-        } else {
+        if (outer_test.fail) {
             if (FLAG1 == 1) {
             } else {
                 inner_test1.execute();
-                if (inner_test1.pass) {
-                } else {
+                if (inner_test1.fail) {
                     multi_bin;
                 }
             }
@@ -1905,8 +1782,7 @@ flow FLOW_CONTROL {
         println("Nested flag optimization test case");
         if (FLAG1 == 1) {
             test4_6.execute();
-            if (test4_6.pass) {
-            } else {
+            if (test4_6.fail) {
                 multi_bin;
             }
         } else {
@@ -1914,8 +1790,7 @@ flow FLOW_CONTROL {
         println("Same test case with volatile flag");
         if (Alarm == 1) {
             test10.execute();
-            if (test10.pass) {
-            } else {
+            if (test10.fail) {
                 if (Alarm == 1) {
                     multi_bin;
                 } else {
@@ -1925,14 +1800,12 @@ flow FLOW_CONTROL {
         }
         println("The setting of flags used in later OR conditions should be preserved");
         test2_15.execute();
-        if (test2_15.pass) {
-        } else {
+        if (test2_15.fail) {
             OF1_FAILED = 1;
             test3_12.execute();
         }
         test2_16.execute();
-        if (test2_16.pass) {
-        } else {
+        if (test2_16.fail) {
             OF2_FAILED = 1;
             test3_13.execute();
         }
@@ -1943,14 +1816,12 @@ flow FLOW_CONTROL {
         }
         println("The setting of flags used in later AND conditions should be preserved");
         test2_17.execute();
-        if (test2_17.pass) {
-        } else {
+        if (test2_17.fail) {
             AF1_FAILED = 1;
             test3_14.execute();
         }
         test2_18.execute();
-        if (test2_18.pass) {
-        } else {
+        if (test2_18.fail) {
             AF2_FAILED = 1;
             test3_15.execute();
         }
@@ -1964,13 +1835,11 @@ flow FLOW_CONTROL {
         }
         println("Adjacent tests that set a flag and then use it in an OR condition should be valid");
         test2_19.execute();
-        if (test2_19.pass) {
-        } else {
+        if (test2_19.fail) {
             OF11_FAILED = 1;
         }
         test2_20.execute();
-        if (test2_20.pass) {
-        } else {
+        if (test2_20.fail) {
             OF12_FAILED = 1;
         }
         if ((OF11_FAILED == 1) || (OF12_FAILED == 1)) {
@@ -1979,13 +1848,11 @@ flow FLOW_CONTROL {
         }
         println("Adjacent tests that set a flag and then use it in an AND condition should be valid");
         test2_21.execute();
-        if (test2_21.pass) {
-        } else {
+        if (test2_21.fail) {
             AF11_FAILED = 1;
         }
         test2_22.execute();
-        if (test2_22.pass) {
-        } else {
+        if (test2_22.fail) {
             if (AF11_FAILED == 1) {
                 test4_12.execute();
             } else {
@@ -2028,7 +1895,6 @@ flow FLOW_CONTROL {
             test2_28.execute();
         } else {
             test3_16.execute();
-            addBin(10);
         }
         println("Test the else block on a flag condition");
         if (BITMAP == 1) {

@@ -190,7 +190,10 @@ module OrigenTesters
             @indent = add_flow_enable ? 2 : 1
           end
           @lines = []
+          @lines_buffer = []
           @open_test_methods = []
+          @open_test_names = []
+          @post_test_lines = []
           @stack = { on_fail: [], on_pass: [] }
           @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
@@ -214,9 +217,26 @@ module OrigenTesters
           end
         end
 
-        def line(str)
-          @tab ||= smt8? ? '    ' : '  '
-          @lines << (@tab * @indent) + str
+        def line(str, options = {})
+          if options[:already_indented]
+            line = str
+          else
+            @tab ||= smt8? ? '    ' : '  '
+            line = (@tab * @indent) + str
+          end
+          if @lines_buffer.last
+            @lines_buffer.last << line
+          else
+            @lines << line
+          end
+        end
+
+        # Any calls to line made within the given block will be returned in an array, rather than
+        # immediately being put into the @lines array
+        def capture_lines
+          @lines_buffer << []
+          yield
+          @lines_buffer.pop
         end
 
         # def on_flow(node)
@@ -420,34 +440,43 @@ module OrigenTesters
 
         def on_set_flag(node)
           flag = generate_flag_name(node.value)
+          # This means if we are currently generating an on_test node and tester.force_pass_on_continue has been set
           if @open_test_methods.last
             if pass_branch?
-              if @open_test_methods.last.respond_to?(:on_pass_flag)
-                if @open_test_methods.last.on_pass_flag == ''
-                  @open_test_methods.last.on_pass_flag = flag
+              if smt8?
+                @post_test_lines.last << "#{flag} = #{@open_test_names.last}.setOnPassFlags;"
+              else
+                if @open_test_methods.last.respond_to?(:on_pass_flag)
+                  if @open_test_methods.last.on_pass_flag == ''
+                    @open_test_methods.last.on_pass_flag = flag
+                  else
+                    Origen.log.error "The test method cannot set #{flag} on passing, because it already sets: #{@open_test_methods.last.on_pass_flag}"
+                    Origen.log.error "  #{node.source}"
+                    exit 1
+                  end
                 else
-                  Origen.log.error "The test method cannot set #{flag} on passing, because it already sets: #{@open_test_methods.last.on_pass_flag}"
+                  Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_pass_flag attribute:'
                   Origen.log.error "  #{node.source}"
                   exit 1
                 end
-              else
-                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_pass_flag attribute:'
-                Origen.log.error "  #{node.source}"
-                exit 1
               end
             else
-              if @open_test_methods.last.respond_to?(:on_fail_flag)
-                if @open_test_methods.last.on_fail_flag == ''
-                  @open_test_methods.last.on_fail_flag = flag
+              if smt8?
+                @post_test_lines.last << "#{flag} = #{@open_test_names.last}.setOnFailFlags;"
+              else
+                if @open_test_methods.last.respond_to?(:on_fail_flag)
+                  if @open_test_methods.last.on_fail_flag == ''
+                    @open_test_methods.last.on_fail_flag = flag
+                  else
+                    Origen.log.error "The test method cannot set #{flag} on failing, because it already sets: #{@open_test_methods.last.on_fail_flag}"
+                    Origen.log.error "  #{node.source}"
+                    exit 1
+                  end
                 else
-                  Origen.log.error "The test method cannot set #{flag} on failing, because it already sets: #{@open_test_methods.last.on_fail_flag}"
+                  Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_fail_flag attribute:'
                   Origen.log.error "  #{node.source}"
                   exit 1
                 end
-              else
-                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_fail_flag attribute:'
-                Origen.log.error "  #{node.source}"
-                exit 1
               end
             end
           else
@@ -496,7 +525,11 @@ module OrigenTesters
           end
 
           if smt8?
-            line "addBin(#{sbin || bin});"
+            # Currently only rendering pass bins or those not associated with a test (should come from the bin
+            # table if its associated with a test)
+            if node.to_a[0] == 'pass' || @open_test_methods.empty?
+              line "addBin(#{sbin || bin});"
+            end
           else
             if node.to_a[0] == 'pass'
               line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"

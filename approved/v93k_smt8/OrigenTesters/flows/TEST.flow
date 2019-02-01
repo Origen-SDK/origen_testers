@@ -1,5 +1,6 @@
 flow TEST {
 
+
     setup {
         suite meas_read_pump calls dc_tml.DcTest.GeneralPMU {
             measurement.pattern = setupRef(OrigenTesters.patterns.meas_read_pump);
@@ -151,37 +152,12 @@ flow TEST {
     }
 
     execute {
-
         program_ckbd.execute();
-        if (program_ckbd.pass) {
-        } else {
-            addBin(1100);
-        }
         meas_read_pump.execute();
-        if (meas_read_pump.pass) {
-        } else {
-            addBin(2);
-        }
         meas_read_pump_1.execute();
-        if (meas_read_pump_1.pass) {
-        } else {
-            addBin(2);
-        }
         meas_read_pump_2.execute();
-        if (meas_read_pump_2.pass) {
-        } else {
-            addBin(2);
-        }
         meas_read_pump_3.execute();
-        if (meas_read_pump_3.pass) {
-        } else {
-            addBin(2);
-        }
         meas_read_pump_4.execute();
-        if (meas_read_pump_4.pass) {
-        } else {
-            addBin(2);
-        }
         meas_read_pump_5.execute();
         meas_read_pump_6.execute();
     }

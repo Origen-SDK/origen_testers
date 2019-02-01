@@ -5,6 +5,89 @@ module OrigenTesters
       class Flow < Base::Flow
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
 
+        def on_test(node)
+          test_suite = node.find(:object).to_a[0]
+          if test_suite.is_a?(String)
+            name = test_suite
+          else
+            name = test_suite.name
+            test_method = test_suite.test_method
+            if test_method.respond_to?(:test_name) && test_method.test_name == '' &&
+               n = node.find(:name)
+              test_method.test_name = n.value
+            end
+          end
+
+          if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
+             !stack[:on_pass].empty? || !stack[:on_fail].empty?
+            line "#{name}.execute();"
+            @open_test_names << name
+            @post_test_lines << []
+            process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
+            on_pass = node.find(:on_pass)
+            on_fail = node.find(:on_fail)
+
+            if on_fail && on_fail.find(:continue) && tester.force_pass_on_continue
+              if test_method.respond_to?(:force_pass)
+                test_method.force_pass = 1
+              else
+                Origen.log.error 'Force pass on continue has been enabled, but the test method does not have a force_pass attribute!'
+                Origen.log.error "  #{node.source}"
+                exit 1
+              end
+              @open_test_methods << test_method
+            else
+              if test_method.respond_to?(:force_pass)
+                test_method.force_pass = 0
+              end
+              @open_test_methods << nil
+            end
+
+            pass_lines = capture_lines do
+              @indent += 1
+              pass_branch do
+                process_all(on_pass) if on_pass
+                stack[:on_pass].each { |n| process_all(n) }
+              end
+              @indent -= 1
+            end
+
+            fail_lines = capture_lines do
+              @indent += 1
+              fail_branch do
+                process_all(on_fail) if on_fail
+                stack[:on_fail].each { |n| process_all(n) }
+              end
+              @indent -= 1
+            end
+
+            if !pass_lines.empty? && fail_lines.empty?
+              line "if (#{name}.pass) {"
+              pass_lines.each { |l| line l, already_indented: true }
+              line '}'
+
+            elsif pass_lines.empty? && !fail_lines.empty?
+              line "if (#{name}.fail) {"
+              fail_lines.each { |l| line l, already_indented: true }
+              line '}'
+
+            elsif !pass_lines.empty? && !fail_lines.empty?
+              line "if (#{name}.pass) {"
+              pass_lines.each { |l| line l, already_indented: true }
+              line '} else {'
+              fail_lines.each { |l| line l, already_indented: true }
+              line '}'
+
+            end
+
+            @open_test_methods.pop
+            @open_test_names.pop
+            @post_test_lines.pop.each { |l| line(l) }
+          else
+            line "#{name}.execute();"
+          end
+        end
+
         def on_sub_flow(node)
           # In the returned vars :this_flow means this sub_flow, :sub_flows refers to any further
           # sub_flows that are nested within it
