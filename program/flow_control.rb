@@ -432,6 +432,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     log 'Volatile if combiner test case'
     func :test1, if_flag: :$Alarm, number: 51940
     func :test2, unless_flag: :$Alarm, number: 51950
+
+    log 'Use bin_attrs to set not_over_on'
+    func :test1n, number: 51960, bin: 12, bin_attrs: { not_over_on: true }
   end
 
   log 'Test the block form of expressing if passed/failed dependents'
