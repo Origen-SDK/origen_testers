@@ -67,7 +67,7 @@ module OrigenTesters
               line '}'
 
             elsif pass_lines.empty? && !fail_lines.empty?
-              line "if (#{name}.fail) {"
+              line "if (!#{name}.pass) {"
               fail_lines.each { |l| line l, already_indented: true }
               line '}'
 

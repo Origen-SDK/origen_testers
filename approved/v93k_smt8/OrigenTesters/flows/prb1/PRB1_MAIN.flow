@@ -700,23 +700,23 @@ flow PRB1_MAIN {
         }
         erase_all_4.execute();
         margin_read1_all1.execute();
-        if (margin_read1_all1.fail) {
+        if (!margin_read1_all1.pass) {
             erase_all_5.execute();
         }
         margin_read1_all1_1.execute();
-        if (margin_read1_all1_1.fail) {
+        if (!margin_read1_all1_1.pass) {
             erase_all_6.execute();
         }
         margin_read1_all1_2.execute();
-        if (margin_read1_all1_2.fail) {
+        if (!margin_read1_all1_2.pass) {
             erase_all_7.execute();
         }
         margin_read1_all1_3.execute();
-        if (margin_read1_all1_3.fail) {
+        if (!margin_read1_all1_3.pass) {
             erase_all_8.execute();
         }
         margin_read1_all1_4.execute();
-        if (margin_read1_all1_4.fail) {
+        if (!margin_read1_all1_4.pass) {
             erase_all_9.execute();
         }
         margin_read1_all1_5.execute();
@@ -754,11 +754,11 @@ flow PRB1_MAIN {
         }
         println("Test unless_passed");
         erase_all_19.execute();
-        if (erase_all_19.fail) {
+        if (!erase_all_19.pass) {
             ERASE_PASSED_3_FAILED = 1;
         }
         erase_all_20.execute();
-        if (erase_all_20.fail) {
+        if (!erase_all_20.pass) {
             ERASE_PASSED_4_FAILED = 1;
         }
         if (ERASE_PASSED_3_FAILED == 1) {
@@ -771,11 +771,11 @@ flow PRB1_MAIN {
         }
         println("Test if_failed");
         erase_all_21.execute();
-        if (erase_all_21.fail) {
+        if (!erase_all_21.pass) {
             ERASE_FAILED_1_FAILED = 1;
         }
         erase_all_22.execute();
-        if (erase_all_22.fail) {
+        if (!erase_all_22.pass) {
             ERASE_FAILED_2_FAILED = 1;
         }
         if (ERASE_FAILED_1_FAILED == 1) {
@@ -858,15 +858,15 @@ flow PRB1_MAIN {
         // GROUP - 200Mhz Tests
         // *******************************************************
             test200_1.execute();
-            if (test200_1.fail) {
+            if (!test200_1.pass) {
                 G200_FAILED = 1;
             }
             test200_2.execute();
-            if (test200_2.fail) {
+            if (!test200_2.pass) {
                 G200_FAILED = 1;
             }
             test200_3.execute();
-            if (test200_3.fail) {
+            if (!test200_3.pass) {
                 G200_FAILED = 1;
             }
         // *******************************************************
@@ -891,7 +891,7 @@ flow PRB1_MAIN {
         }
         println("Test node optimization within an if_failed branch");
         some_func_test.execute();
-        if (some_func_test.fail) {
+        if (!some_func_test.pass) {
             if (ALARM == 1) {
             } else {
             }

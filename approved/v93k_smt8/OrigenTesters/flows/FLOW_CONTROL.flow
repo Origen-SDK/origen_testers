@@ -1266,12 +1266,12 @@ flow FLOW_CONTROL {
 
         println("Test that if_failed works");
         read1.execute();
-        if (read1.fail) {
+        if (!read1.pass) {
             erase1.execute();
         }
         println("Test the block form of if_failed");
         read2.execute();
-        if (read2.fail) {
+        if (!read2.pass) {
             erase2.execute();
             erase2_1.execute();
         }
@@ -1367,11 +1367,11 @@ flow FLOW_CONTROL {
         }
         println("Test that if_any_failed works");
         test1.execute();
-        if (test1.fail) {
+        if (!test1.pass) {
             IFA1_FAILED = 1;
         }
         test2.execute();
-        if (test2.fail) {
+        if (!test2.pass) {
             IFA2_FAILED = 1;
         }
         if ((IFA1_FAILED == 1) || (IFA2_FAILED == 1)) {
@@ -1380,11 +1380,11 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of if_any_failed");
         test1_1.execute();
-        if (test1_1.fail) {
+        if (!test1_1.pass) {
             OOF_PASSCODE1_FAILED = 1;
         }
         test2_1.execute();
-        if (test2_1.fail) {
+        if (!test2_1.pass) {
             OOF_PASSCODE2_FAILED = 1;
         }
         if ((OOF_PASSCODE1_FAILED == 1) || (OOF_PASSCODE2_FAILED == 1)) {
@@ -1394,11 +1394,11 @@ flow FLOW_CONTROL {
         }
         println("Test that if_all_failed works");
         test1_2.execute();
-        if (test1_2.fail) {
+        if (!test1_2.pass) {
             IFALL1_FAILED = 1;
         }
         test2_2.execute();
-        if (test2_2.fail) {
+        if (!test2_2.pass) {
             if (IFALL1_FAILED == 1) {
                 test3_2.execute();
             } else {
@@ -1406,11 +1406,11 @@ flow FLOW_CONTROL {
         }
         println("Test the block form of if_all_failed");
         test1_3.execute();
-        if (test1_3.fail) {
+        if (!test1_3.pass) {
             IFALLB1_FAILED = 1;
         }
         test2_3.execute();
-        if (test2_3.fail) {
+        if (!test2_3.pass) {
             if (IFALLB1_FAILED == 1) {
                 test3_3.execute();
                 test4_1.execute();
@@ -1474,15 +1474,15 @@ flow FLOW_CONTROL {
         // GROUP - grp1
         // *******************************************************
             grp1_test1.execute();
-            if (grp1_test1.fail) {
+            if (!grp1_test1.pass) {
                 GRP1_FAILED = 1;
             }
             grp1_test2.execute();
-            if (grp1_test2.fail) {
+            if (!grp1_test2.pass) {
                 GRP1_FAILED = 1;
             }
             grp1_test3.execute();
-            if (grp1_test3.fail) {
+            if (!grp1_test3.pass) {
                 GRP1_FAILED = 1;
             }
         // *******************************************************
@@ -1506,11 +1506,11 @@ flow FLOW_CONTROL {
         // GROUP - gt_grp1
         // *******************************************************
             gt_grp1_test1.execute();
-            if (gt_grp1_test1.fail) {
+            if (!gt_grp1_test1.pass) {
                 GT_GRP1_FAILED = 1;
             }
             gt_grp1_test2.execute();
-            if (gt_grp1_test2.fail) {
+            if (!gt_grp1_test2.pass) {
                 GT_GRP1_FAILED = 1;
             }
         // *******************************************************
@@ -1522,11 +1522,11 @@ flow FLOW_CONTROL {
             // GROUP - gt_grp2
             // *******************************************************
                 gt_grp2_test1.execute();
-                if (gt_grp2_test1.fail) {
+                if (!gt_grp2_test1.pass) {
                     GT_GRP2_FAILED = 1;
                 }
                 gt_grp2_test2.execute();
-                if (gt_grp2_test2.fail) {
+                if (!gt_grp2_test2.pass) {
                     GT_GRP2_FAILED = 1;
                 }
             // *******************************************************
@@ -1545,11 +1545,11 @@ flow FLOW_CONTROL {
             lev1_test1.execute();
             lev1_test2.execute();
             lev1_test3.execute();
-            if (lev1_test3.fail) {
+            if (!lev1_test3.pass) {
                 lev1_test4.execute();
             }
             lev1_test5.execute();
-            if (lev1_test5.fail) {
+            if (!lev1_test5.pass) {
                 L1T5_FAILED = 1;
             }
             // *******************************************************
@@ -1558,7 +1558,7 @@ flow FLOW_CONTROL {
                 lev2_test1.execute();
                 lev2_test2.execute();
                 lev2_test3.execute();
-                if (lev2_test3.fail) {
+                if (!lev2_test3.pass) {
                     lev2_test4.execute();
                 }
                 if (L1T5_FAILED == 1) {
@@ -1573,7 +1573,7 @@ flow FLOW_CONTROL {
         // *******************************************************
         println("Test nested conditions on a group");
         nt1.execute();
-        if (nt1.fail) {
+        if (!nt1.pass) {
             nt2.execute();
             if (nt2.pass) {
                 // *******************************************************
@@ -1595,20 +1595,20 @@ flow FLOW_CONTROL {
         }
         println("Embedded conditional tests 1");
         test1_8.execute();
-        if (test1_8.fail) {
+        if (!test1_8.pass) {
             test2_8.execute();
             test3_8.execute();
-            if (test3_8.fail) {
+            if (!test3_8.pass) {
                 test4_4.execute();
             }
         }
         println("Embedded conditional tests 2");
         test1_9.execute();
-        if (test1_9.fail) {
+        if (!test1_9.pass) {
             ECT2_1_FAILED = 1;
         }
         test2_9.execute();
-        if (test2_9.fail) {
+        if (!test2_9.pass) {
             ECT2_2_FAILED = 1;
         }
         if (ECT2_1_FAILED == 1) {
@@ -1700,7 +1700,7 @@ flow FLOW_CONTROL {
         }
         println("Manual flag setting");
         test1.execute();
-        if (test1.fail) {
+        if (!test1.pass) {
             MY_FLAG = 1;
         }
         if (MY_FLAG == 1) {
@@ -1710,7 +1710,7 @@ flow FLOW_CONTROL {
         }
         println("Mixed-case manual flags");
         test1.execute();
-        if (test1.fail) {
+        if (!test1.pass) {
             My_Mixed_Flag = 1;
         }
         if (My_Mixed_Flag == 1) {
@@ -1730,7 +1730,7 @@ flow FLOW_CONTROL {
         }
         println("This should retain the set-run-flag in the else conditional");
         test22.execute();
-        if (test22.fail) {
+        if (!test22.pass) {
             AT22_FAILED = 1;
             test22a.execute();
             test22b.execute();
@@ -1749,7 +1749,7 @@ flow FLOW_CONTROL {
         if (MY_FLAG == 1) {
             multi_bin;
             test36_1.execute();
-            if (test36_1.fail) {
+            if (!test36_1.pass) {
                 multi_bin;
             }
         } else {
@@ -1770,11 +1770,11 @@ flow FLOW_CONTROL {
         }
         println("Nested optimization test case");
         outer_test.execute();
-        if (outer_test.fail) {
+        if (!outer_test.pass) {
             if (FLAG1 == 1) {
             } else {
                 inner_test1.execute();
-                if (inner_test1.fail) {
+                if (!inner_test1.pass) {
                     multi_bin;
                 }
             }
@@ -1782,7 +1782,7 @@ flow FLOW_CONTROL {
         println("Nested flag optimization test case");
         if (FLAG1 == 1) {
             test4_6.execute();
-            if (test4_6.fail) {
+            if (!test4_6.pass) {
                 multi_bin;
             }
         } else {
@@ -1790,7 +1790,7 @@ flow FLOW_CONTROL {
         println("Same test case with volatile flag");
         if (Alarm == 1) {
             test10.execute();
-            if (test10.fail) {
+            if (!test10.pass) {
                 if (Alarm == 1) {
                     multi_bin;
                 } else {
@@ -1800,12 +1800,12 @@ flow FLOW_CONTROL {
         }
         println("The setting of flags used in later OR conditions should be preserved");
         test2_15.execute();
-        if (test2_15.fail) {
+        if (!test2_15.pass) {
             OF1_FAILED = 1;
             test3_12.execute();
         }
         test2_16.execute();
-        if (test2_16.fail) {
+        if (!test2_16.pass) {
             OF2_FAILED = 1;
             test3_13.execute();
         }
@@ -1816,12 +1816,12 @@ flow FLOW_CONTROL {
         }
         println("The setting of flags used in later AND conditions should be preserved");
         test2_17.execute();
-        if (test2_17.fail) {
+        if (!test2_17.pass) {
             AF1_FAILED = 1;
             test3_14.execute();
         }
         test2_18.execute();
-        if (test2_18.fail) {
+        if (!test2_18.pass) {
             AF2_FAILED = 1;
             test3_15.execute();
         }
@@ -1835,11 +1835,11 @@ flow FLOW_CONTROL {
         }
         println("Adjacent tests that set a flag and then use it in an OR condition should be valid");
         test2_19.execute();
-        if (test2_19.fail) {
+        if (!test2_19.pass) {
             OF11_FAILED = 1;
         }
         test2_20.execute();
-        if (test2_20.fail) {
+        if (!test2_20.pass) {
             OF12_FAILED = 1;
         }
         if ((OF11_FAILED == 1) || (OF12_FAILED == 1)) {
@@ -1848,11 +1848,11 @@ flow FLOW_CONTROL {
         }
         println("Adjacent tests that set a flag and then use it in an AND condition should be valid");
         test2_21.execute();
-        if (test2_21.fail) {
+        if (!test2_21.pass) {
             AF11_FAILED = 1;
         }
         test2_22.execute();
-        if (test2_22.fail) {
+        if (!test2_22.pass) {
             if (AF11_FAILED == 1) {
                 test4_12.execute();
             } else {

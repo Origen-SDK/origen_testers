@@ -9,7 +9,7 @@ flow DEEP_NESTED {
         DEEP_TEST_FAILED = -1;
 
         deep_test.execute();
-        if (deep_test.fail) {
+        if (!deep_test.pass) {
             DEEP_TEST_FAILED = 1;
         }
     }
