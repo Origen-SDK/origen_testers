@@ -6,9 +6,12 @@
 ##### by Ronnie Lajaunie on 06-Feb-2019 10:15AM
 
 
-* Add support for flow description for 93K PR #105
+#### --Add support for flow description for 93K (PR #105)
 
-Examples:
+##### Examples:
+
+##### Ex1.
+
 ~~~ruby
 Flow.create interface: 'MyInterface' do
   flow.flow\_name = 'SETUP'
@@ -33,15 +36,18 @@ end
 -----------------------------------------------------------------
 ~~~
 
+##### Ex2.
+
 ~~~ruby
-Flow.create interface: 'MyInterface', flow\_name: 'SETUP', flow\_description: 'Setup
-Variables and Guardbands' do
+Flow.create interface: 'MyInterface', flow\_name: 'SETUP', flow\_description: 'Setup Variables and Guardbands' do
 
   test :setup\_test, cont: true
 
 end
 ~~~
+
 renders:
+
 ~~~
 test\_flow
 
@@ -53,6 +59,8 @@ test\_flow
 end
 ~~~
 
+##### Ex3.
+
 ~~~ruby
 # Comments about this flow
 Flow.create interface: 'MyInterface', flow\_name: 'SETUP' do
@@ -61,7 +69,9 @@ Flow.create interface: 'MyInterface', flow\_name: 'SETUP' do
 
 end
 ~~~
+
 renders:
+
 ~~~
 test\_flow
 
@@ -73,19 +83,20 @@ test\_flow
 end
 ~~~
 
-* Testflow indention spacing to match formatted .tf files that are save from SmartTest
-GUI, PR #107
+#### --Testflow indention spacing to match formatted .tf files that are save from SmartTest GUI (PR #107)
 
-* Removal of testmethodlimits, testmethods, or test\_suites sections if they are empty
-(follows ST GUI-saved format), PR #107
+#### --Removal of testmethodlimits, testmethods, or test\_suites sections if they are empty (follows ST GUI-saved format) (PR #107)
 
-* Support not\_over\_on bin flag control. Use bin\_attrs (see [origen-sdk/atp pr
-#12](https://github.com/Origen-SDK/atp/pull/12)) to control 'not\_over\_on' flag, PR # 108
+#### --Support not\_over\_on bin flag control using bin\_attrs (PR # 108)
+
+##### Example:
 
 ~~~ruby
 func :test1n, number: 51960, bin: 12, bin\_attrs: { not\_over\_on: true }
 ~~~
-renders
+
+renders:
+
 ~~~
   run\_and\_branch(test1n)
   then
@@ -97,13 +108,12 @@ renders
   }
 ~~~
 
-* Add method to Flow class that allows interface access to the 'description' stack (aka cc
-and ht comments). Main use case is to use as 'comment' text assigned to test suite. PR
-#110
+#### --Add method to Flow class that allows interface access to the 'description' stack (aka cc and ht comments). Main use case is to use as 'comment' text assigned to test suite. (PR #110)
 
-Example:
+##### Example:
 
 flow file:
+
 ~~~ruby
 # The is auto-generated comment from hasttag
 func\_with\_comment :test1
@@ -113,6 +123,7 @@ func\_with\_comment :test2
 ~~~
 
 interface:
+
 ~~~ruby
 def func\_with\_comment(name, options = {})
   tm = test\_methods.ac\_tml.ac\_test.functional\_test
@@ -125,6 +136,7 @@ end
 ~~~
 
 renders tf:
+
 ~~~
 test1:
   comment = "The is auto-generated comment from hasttag";
