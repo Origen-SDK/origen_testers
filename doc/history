@@ -1,3 +1,152 @@
+<a class="anchor release_tag" name="v0_20_0"></a>
+<h1><a href="#v0_20_0">Tag: v0.20.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 06-Feb-2019 10:15AM
+
+
+* Add support for flow description for 93K PR #105
+
+Examples:
+~~~ruby
+Flow.create interface: 'MyInterface' do
+  flow.flow\_name = 'SETUP'
+  flow.flow\_description = 'Setup Variables and Guardbands'
+
+  test :setup\_test, cont: true
+end
+~~~
+
+renders:
+
+~~~
+-----------------------------------------------------------------
+test\_flow
+
+  {
+    run(setup\_test);
+
+  }, open,"SETUP","Set Variables and Guardbands"
+
+end
+-----------------------------------------------------------------
+~~~
+
+~~~ruby
+Flow.create interface: 'MyInterface', flow\_name: 'SETUP', flow\_description: 'Setup
+Variables and Guardbands' do
+
+  test :setup\_test, cont: true
+
+end
+~~~
+renders:
+~~~
+test\_flow
+
+  {
+    run(setup\_test);
+
+  }, open,"SETUP","Set Variables and Guardbands"
+
+end
+~~~
+
+~~~ruby
+# Comments about this flow
+Flow.create interface: 'MyInterface', flow\_name: 'SETUP' do
+
+  test :setup\_test, cont: true
+
+end
+~~~
+renders:
+~~~
+test\_flow
+
+  {
+    run(setup\_test);
+
+  }, open,"SETUP","Comments about this flow"
+
+end
+~~~
+
+* Testflow indention spacing to match formatted .tf files that are save from SmartTest
+GUI, PR #107
+
+* Removal of testmethodlimits, testmethods, or test\_suites sections if they are empty
+(follows ST GUI-saved format), PR #107
+
+* Support not\_over\_on bin flag control. Use bin\_attrs (see [origen-sdk/atp pr
+#12](https://github.com/Origen-SDK/atp/pull/12)) to control 'not\_over\_on' flag, PR # 108
+
+~~~ruby
+func :test1n, number: 51960, bin: 12, bin\_attrs: { not\_over\_on: true }
+~~~
+renders
+~~~
+  run\_and\_branch(test1n)
+  then
+  {
+  }
+  else
+  {
+    stop\_bin "", "fail", , bad, noreprobe, red, 12, not\_over\_on;
+  }
+~~~
+
+* Add method to Flow class that allows interface access to the 'description' stack (aka cc
+and ht comments). Main use case is to use as 'comment' text assigned to test suite. PR
+#110
+
+Example:
+
+flow file:
+~~~ruby
+# The is auto-generated comment from hasttag
+func\_with\_comment :test1
+
+cc 'The is auto-generated comment from cc'
+func\_with\_comment :test2
+~~~
+
+interface:
+~~~ruby
+def func\_with\_comment(name, options = {})
+  tm = test\_methods.ac\_tml.ac\_test.functional\_test
+  ts = test\_suites.run(name, options)
+  ts.test\_method = tm
+  ts.levels = options.delete(:pin\_levels) if options[:pin\_levels]
+  ts.comment = options.delete(:comment) || flow.active\_description
+  flow.test ts, options
+end
+~~~
+
+renders tf:
+~~~
+test1:
+  comment = "The is auto-generated comment from hasttag";
+  local\_flags = output\_on\_pass, output\_on\_fail, value\_on\_pass, value\_on\_fail,
+per\_pin\_on\_pass, per\_pin\_on\_fail;
+  override = 1;
+  override\_seqlbl = "test1";
+  override\_testf = tm\_1;
+  site\_control = "parallel:";
+  site\_match = 2;
+
+test2:
+  comment = "The is auto-generated comment from cc";
+  local\_flags = output\_on\_pass, output\_on\_fail, value\_on\_pass, value\_on\_fail,
+per\_pin\_on\_pass, per\_pin\_on\_fail;
+  override = 1;
+  override\_seqlbl = "test2";
+  override\_testf = tm\_2;
+  site\_control = "parallel:";
+  site\_match = 2;
+~~~
+
 <a class="anchor release_tag" name="v0_19_3"></a>
 <h1><a href="#v0_19_3">Tag: v0.19.3</a></h1>
 
