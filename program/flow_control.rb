@@ -433,8 +433,15 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :test1, if_flag: :$Alarm, number: 51940
     func :test2, unless_flag: :$Alarm, number: 51950
 
+    # The is auto-generated comment from hashtag
+    func_with_comment :test1
+
+    cc 'The is auto-generated comment from cc'
+    func_with_comment :test1
+
     log 'Use bin_attrs to set not_over_on'
     func :test1n, number: 51960, bin: 12, bin_attrs: { not_over_on: true }
+
   end
 
   log 'Test the block form of expressing if passed/failed dependents'
@@ -466,4 +473,5 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
       import 'components/small', number: 54000
     end
   end
+
 end

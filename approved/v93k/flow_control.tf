@@ -234,7 +234,13 @@ tm_167:
 tm_168:
   "output" = "None";
   "testName" = "Functional";
+tm_169:
+  "output" = "None";
+  "testName" = "Functional";
 tm_17:
+  "output" = "None";
+  "testName" = "Functional";
+tm_170:
   "output" = "None";
   "testName" = "Functional";
 tm_18:
@@ -666,7 +672,11 @@ tm_167:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_168:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_169:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_17:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_170:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_18:
   "Functional" = "":"NA":"":"NA":"":"":"";
@@ -1007,7 +1017,11 @@ tm_167:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_168:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_169:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_17:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_170:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_18:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -1783,10 +1797,26 @@ test1_2_BEA7F3B:
   site_control = "parallel:";
   site_match = 2;
 test1_30_BEA7F3B:
+  comment = "The is auto-generated comment from hashtag";
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1";
+  override_testf = tm_165;
+  site_control = "parallel:";
+  site_match = 2;
+test1_31_BEA7F3B:
+  comment = "The is auto-generated comment from cc";
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test1";
   override_testf = tm_166;
+  site_control = "parallel:";
+  site_match = 2;
+test1_32_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1";
+  override_testf = tm_168;
   site_control = "parallel:";
   site_match = 2;
 test1_3_BEA7F3B:
@@ -1849,7 +1879,7 @@ test1n_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test1n";
-  override_testf = tm_165;
+  override_testf = tm_167;
   site_control = "parallel:";
   site_match = 2;
 test22_BEA7F3B:
@@ -2038,7 +2068,7 @@ test2_28_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test2";
-  override_testf = tm_168;
+  override_testf = tm_170;
   site_control = "parallel:";
   site_match = 2;
 test2_2_BEA7F3B:
@@ -2171,7 +2201,7 @@ test3_16_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test3";
-  override_testf = tm_167;
+  override_testf = tm_169;
   site_control = "parallel:";
   site_match = 2;
 test3_1_BEA7F3B:
@@ -3553,6 +3583,8 @@ test_flow
     {
        run(test2_27_BEA7F3B);
     }
+    run(test1_30_BEA7F3B);
+    run(test1_31_BEA7F3B);
     print_dl("Use bin_attrs to set not_over_on");
     run_and_branch(test1n_BEA7F3B)
     then
@@ -3563,7 +3595,7 @@ test_flow
        stop_bin "", "fail", , bad, noreprobe, red, 12, not_over_on;
     }
     print_dl("Test the block form of expressing if passed/failed dependents");
-    run_and_branch(test1_30_BEA7F3B)
+    run_and_branch(test1_32_BEA7F3B)
     then
     {
        run(test2_28_BEA7F3B);
