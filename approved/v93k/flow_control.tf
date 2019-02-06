@@ -1794,7 +1794,7 @@ test1_30_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test1";
-  override_testf = tm_165;
+  override_testf = tm_166;
   site_control = "parallel:";
   site_match = 2;
 test1_31_BEA7F3B:
@@ -1866,6 +1866,13 @@ test1_BEA7F3B:
   override = 1;
   override_seqlbl = "test1";
   override_testf = tm_34;
+  site_control = "parallel:";
+  site_match = 2;
+test1n_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1n";
+  override_testf = tm_165;
   site_control = "parallel:";
   site_match = 2;
 test22_BEA7F3B:
@@ -3571,6 +3578,15 @@ test_flow
     }
     run(test1_30_BEA7F3B);
     run(test1_31_BEA7F3B);
+    print_dl("Use bin_attrs to set not_over_on");
+    run_and_branch(test1n_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 12, not_over_on;
+    }
     print_dl("Test the block form of expressing if passed/failed dependents");
     run_and_branch(test1_32_BEA7F3B)
     then
@@ -3661,7 +3677,7 @@ test_flow
        }, open,"small", ""
     }
 
-  }, open,"Flow Control Testing",""
+  }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
 
 end
 -----------------------------------------------------------------

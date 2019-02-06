@@ -1968,7 +1968,7 @@ test_flow
        stop_bin "1", "", , good, noreprobe, green, 1, over_on;
     }, open,"prb1_main", ""
 
-  }, open,"PRB1",""
+  }, open,"PRB1","Probe1 Main"
 
 end
 -----------------------------------------------------------------

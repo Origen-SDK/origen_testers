@@ -4,6 +4,7 @@
 # to guarantee that the test ID references work when sub-flows are involved.
 # This flow provides a full checkout of all flow control methods.
 Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Control Testing" do
+  flow.flow_description = 'Flow to exercise the Flow Control API' if tester.v93k?
 
   self.resources_filename = 'flow_control'
 
@@ -437,6 +438,10 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
 
     cc 'The is auto-generated comment from cc'
     func_with_comment :test1
+
+    log 'Use bin_attrs to set not_over_on'
+    func :test1n, number: 51960, bin: 12, bin_attrs: { not_over_on: true }
+
   end
 
   log 'Test the block form of expressing if passed/failed dependents'

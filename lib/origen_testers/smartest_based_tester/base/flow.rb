@@ -331,17 +331,18 @@ module OrigenTesters
           desc = node.find(:bin).to_a[1]
           sbin = node.find(:softbin).try(:value)
           sdesc = node.find(:softbin).to_a[1] || 'fail'
+          overon = (node.find(:not_over_on).try(:value) == true) ? 'not_over_on' : 'over_on'
           if bin && desc
             hardware_bin_descriptions[bin] ||= desc
           end
 
           if node.to_a[0] == 'pass'
-            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
+            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, #{overon};"
           else
             if tester.create_limits_file
               line 'multi_bin;'
             else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, #{overon};"
             end
           end
         end
