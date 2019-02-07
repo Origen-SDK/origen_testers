@@ -173,7 +173,8 @@ module OrigenTesters
                 unless sub_flow
                   fail "Something went wrong, couldn't find the sub-flow object for path #{path}"
                 end
-                sub_flow.instance_variable_set(:@ast, sub_flow_ast.updated(:flow))
+                # on_fail and on_pass nodes are removed because they will be rendered by the sub-flow's parent
+                sub_flow.instance_variable_set(:@ast, sub_flow_ast.remove(:on_fail, :on_pass).updated(:flow))
                 sub_flow.instance_variable_set(:@finalized, true)  # To stop the AST being regenerated
               end
               options[:called_by_top_level] = true
@@ -488,6 +489,7 @@ module OrigenTesters
           end
         end
 
+        # Note that for smt8?, this should never be hit anymore since groups are now generated as sub-flows
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
           on_pass = node.children.find { |n| n.try(:type) == :on_pass }

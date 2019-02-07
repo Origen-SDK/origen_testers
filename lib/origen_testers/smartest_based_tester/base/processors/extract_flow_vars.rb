@@ -33,8 +33,15 @@ module OrigenTesters
 
           def on_sub_flow(node)
             @sub_flow_depth += 1
-            process_all(node.children)
+            children = node.children
+            on_fail = node.find_all(:on_fail)
+            children -= on_fail
+            on_pass = node.find_all(:on_pass)
+            children -= on_pass
+            process_all(children)
             @sub_flow_depth -= 1
+            process_all(on_fail)
+            process_all(on_pass)
           end
 
           def on_if_job(node)

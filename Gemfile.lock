@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/Origen-SDK/atp.git
-  revision: 1b9e39dca92fa8dcdd5817c4a3ee555a578ca130
+  revision: d67f695800373a8612f03b0d5aee7740fd9b89b0
   branch: sub_flows
   specs:
-    atp (1.1.2)
+    atp (1.1.3)
       ast (~> 2)
       origen (>= 0.2.3)
       sexpistol (~> 0.0)

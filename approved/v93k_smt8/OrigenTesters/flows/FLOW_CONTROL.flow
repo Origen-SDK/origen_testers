@@ -1,4 +1,5 @@
 flow FLOW_CONTROL {
+    in Alarm = -1;
     in BITMAP = -1;
     in CZ = -1;
     in EN1 = -1;
@@ -6,6 +7,7 @@ flow FLOW_CONTROL {
     in EWORD1 = -1;
     in EWORD2 = -1;
     in EXTRAS = -1;
+    in FLAG1 = -1;
     in JOB = "";
     in MCEn_extras = -1;
     in MCEn_test = -1;
@@ -16,6 +18,7 @@ flow FLOW_CONTROL {
     in NVM_MINIMUM_ROOM = -1;
     in QUICK = -1;
     in SMALL_FLOW = -1;
+    in SOME_FLAG = -1;
     in WORD1 = -1;
     in WORD2 = -1;
     in WORD3 = -1;
@@ -24,12 +27,8 @@ flow FLOW_CONTROL {
     out AF1_FAILED = -1;
     out AF2_FAILED = -1;
     out AT22_FAILED = -1;
-    out Alarm = -1;
     out ECT2_1_FAILED = -1;
     out ECT2_2_FAILED = -1;
-    out FLAG1 = -1;
-    out GRP1_FAILED = -1;
-    out GT_GRP1_FAILED = -1;
     out GT_GRP2_FAILED = -1;
     out IFA1_FAILED = -1;
     out IFA2_FAILED = -1;
@@ -41,7 +40,6 @@ flow FLOW_CONTROL {
     out IFAP2_PASSED = -1;
     out IFAPB1_PASSED = -1;
     out IFAPB2_PASSED = -1;
-    out L1T5_FAILED = -1;
     out MY_FLAG = -1;
     out My_Mixed_Flag = -1;
     out OF11_FAILED = -1;
@@ -50,7 +48,6 @@ flow FLOW_CONTROL {
     out OF2_FAILED = -1;
     out OOF_PASSCODE1_FAILED = -1;
     out OOF_PASSCODE2_FAILED = -1;
-    out SOME_FLAG = -1;
     out T5_RAN = -1;
     out T6_RAN = -1;
     out T7_RAN = -1;
@@ -120,48 +117,6 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
-        suite grp1_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite grp1_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite grp1_test3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test3);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite grp2_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp2_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite grp2_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp2_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite grp2_test3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.grp2_test3);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
         suite gt1 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.gt1);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -183,106 +138,8 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
-        suite gt_grp1_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp1_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite gt_grp1_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp1_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite gt_grp2_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp2_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite gt_grp2_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp2_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
         suite inner_test1 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.inner_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev1_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev1_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev1_test3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test3);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev1_test4 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test4);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev1_test5 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test5);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev2_test1 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev2_test1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev2_test2 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev2_test2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev2_test3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev2_test3);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev2_test4 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev2_test4);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite lev2_test5 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.lev2_test5);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -318,20 +175,6 @@ flow FLOW_CONTROL {
 
         suite nt2 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.nt2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite nt3 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.nt3);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite nt4 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.nt4);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -1226,6 +1069,13 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
+        flow GRP1 calls OrigenTesters.flows.flow_control.GRP1 { }
+        flow GRP2 calls OrigenTesters.flows.flow_control.GRP2 { }
+        flow GT_GRP1 calls OrigenTesters.flows.flow_control.GT_GRP1 { }
+        flow GT_GRP2 calls OrigenTesters.flows.flow_control.GT_GRP2 { }
+        flow LEVEL1 calls OrigenTesters.flows.flow_control.LEVEL1 { }
+        flow NTG1 calls OrigenTesters.flows.flow_control.NTG1 { }
+        flow NTG2 calls OrigenTesters.flows.flow_control.NTG2 { }
         flow SMALL calls OrigenTesters.flows.flow_control.SMALL { }
         flow SMALL_1 calls OrigenTesters.flows.flow_control.SMALL_1 { }
     }
@@ -1237,8 +1087,6 @@ flow FLOW_CONTROL {
         AT22_FAILED = -1;
         ECT2_1_FAILED = -1;
         ECT2_2_FAILED = -1;
-        GRP1_FAILED = -1;
-        GT_GRP1_FAILED = -1;
         GT_GRP2_FAILED = -1;
         IFA1_FAILED = -1;
         IFA2_FAILED = -1;
@@ -1250,7 +1098,6 @@ flow FLOW_CONTROL {
         IFAP2_PASSED = -1;
         IFAPB1_PASSED = -1;
         IFAPB2_PASSED = -1;
-        L1T5_FAILED = -1;
         MY_FLAG = -1;
         My_Mixed_Flag = -1;
         OF11_FAILED = -1;
@@ -1470,127 +1317,34 @@ flow FLOW_CONTROL {
             }
         }
         println("Test that group-level dependencies work");
-        // *******************************************************
-        // GROUP - grp1
-        // *******************************************************
-            grp1_test1.execute();
-            if (!grp1_test1.pass) {
-                GRP1_FAILED = 1;
-            }
-            grp1_test2.execute();
-            if (!grp1_test2.pass) {
-                GRP1_FAILED = 1;
-            }
-            grp1_test3.execute();
-            if (!grp1_test3.pass) {
-                GRP1_FAILED = 1;
-            }
-        // *******************************************************
-        // /GROUP - grp1
-        // *******************************************************
-        if (GRP1_FAILED == 1) {
-            // *******************************************************
-            // GROUP - grp2
-            // *******************************************************
-                grp2_test1.execute();
-                grp2_test2.execute();
-                grp2_test3.execute();
-            // *******************************************************
-            // /GROUP - grp2
-            // *******************************************************
-        } else {
+        GRP1.execute();
+        if (!GRP1.pass) {
+            GRP2.execute();
         }
         println("Another group-level dependencies test based on a real life use case");
         gt1.execute();
-        // *******************************************************
-        // GROUP - gt_grp1
-        // *******************************************************
-            gt_grp1_test1.execute();
-            if (!gt_grp1_test1.pass) {
-                GT_GRP1_FAILED = 1;
-            }
-            gt_grp1_test2.execute();
-            if (!gt_grp1_test2.pass) {
-                GT_GRP1_FAILED = 1;
-            }
-        // *******************************************************
-        // /GROUP - gt_grp1
-        // *******************************************************
-        if (GT_GRP1_FAILED == 1) {
+        GT_GRP1.execute();
+        if (!GT_GRP1.pass) {
             gt2.execute();
-            // *******************************************************
-            // GROUP - gt_grp2
-            // *******************************************************
-                gt_grp2_test1.execute();
-                if (!gt_grp2_test1.pass) {
-                    GT_GRP2_FAILED = 1;
-                }
-                gt_grp2_test2.execute();
-                if (!gt_grp2_test2.pass) {
-                    GT_GRP2_FAILED = 1;
-                }
-            // *******************************************************
-            // /GROUP - gt_grp2
-            // *******************************************************
-        } else {
+            GT_GRP2.execute();
+            if (!GT_GRP2.pass) {
+                GT_GRP2_FAILED = 1;
+            }
         }
         if (GT_GRP2_FAILED == 1) {
             gt3.execute();
         } else {
         }
         println("Test that nested groups work");
-        // *******************************************************
-        // GROUP - level1
-        // *******************************************************
-            lev1_test1.execute();
-            lev1_test2.execute();
-            lev1_test3.execute();
-            if (!lev1_test3.pass) {
-                lev1_test4.execute();
-            }
-            lev1_test5.execute();
-            if (!lev1_test5.pass) {
-                L1T5_FAILED = 1;
-            }
-            // *******************************************************
-            // GROUP - level2
-            // *******************************************************
-                lev2_test1.execute();
-                lev2_test2.execute();
-                lev2_test3.execute();
-                if (!lev2_test3.pass) {
-                    lev2_test4.execute();
-                }
-                if (L1T5_FAILED == 1) {
-                    lev2_test5.execute();
-                } else {
-                }
-            // *******************************************************
-            // /GROUP - level2
-            // *******************************************************
-        // *******************************************************
-        // /GROUP - level1
-        // *******************************************************
+        LEVEL1.execute();
         println("Test nested conditions on a group");
         nt1.execute();
         if (!nt1.pass) {
             nt2.execute();
             if (nt2.pass) {
-                // *******************************************************
-                // GROUP - ntg1
-                // *******************************************************
-                    nt3.execute();
-                // *******************************************************
-                // /GROUP - ntg1
-                // *******************************************************
+                NTG1.execute();
             } else {
-                // *******************************************************
-                // GROUP - ntg2
-                // *******************************************************
-                    nt4.execute();
-                // *******************************************************
-                // /GROUP - ntg2
-                // *******************************************************
+                NTG2.execute();
             }
         }
         println("Embedded conditional tests 1");

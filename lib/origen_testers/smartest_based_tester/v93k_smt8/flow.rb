@@ -89,6 +89,10 @@ module OrigenTesters
         end
 
         def on_sub_flow(node)
+          sub_flow = sub_flow_from(node)
+          # If the sub_flow is not a child of this flow, it means it has been encountered here in within an
+          # on_fail node which will be handled by the parent flow
+          return unless sub_flow
           # In the returned vars :this_flow means this sub_flow, :sub_flows refers to any further
           # sub_flows that are nested within it
           vars = V93K_SMT8::Processors::ExtractFlowVars.new.run(node.updated(:flow))
@@ -103,10 +107,48 @@ module OrigenTesters
             line "#{name}.#{var} = #{var};"
           end
           line "#{name}.execute();"
-          sub_flow = sub_flow_from(node)
           (vars[:all][:set_flags_extern] + intermediate_variables(sub_flow.flow_variables[:all][:set_flags])).each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
+          end
+          if on_pass = node.find(:on_pass)
+            pass_lines = capture_lines do
+              @indent += 1
+              pass_branch do
+                process_all(on_pass) if on_pass
+              end
+              @indent -= 1
+            end
+            on_pass = nil if pass_lines.empty?
+          end
+
+          if on_fail = node.find(:on_fail)
+            fail_lines = capture_lines do
+              @indent += 1
+              fail_branch do
+                process_all(on_fail) if on_fail
+              end
+              @indent -= 1
+            end
+            on_fail = nil if fail_lines.empty?
+          end
+
+          if on_pass && !on_fail
+            line "if (#{name}.pass) {"
+            pass_lines.each { |l| line l, already_indented: true }
+            line '}'
+
+          elsif !on_pass && on_fail
+            line "if (!#{name}.pass) {"
+            fail_lines.each { |l| line l, already_indented: true }
+            line '}'
+
+          elsif on_pass && on_fail
+            line "if (#{name}.pass) {"
+            pass_lines.each { |l| line l, already_indented: true }
+            line '} else {'
+            fail_lines.each { |l| line l, already_indented: true }
+            line '}'
           end
         end
 
@@ -116,7 +158,10 @@ module OrigenTesters
 
         # Variables which should be defined as an input to the current flow
         def input_variables(vars = flow_variables)
-          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables]).uniq.sort do |x, y|
+          # Jobs and enables flow into a sub-flow
+          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
+            # As do any flags which are referenced by it but which are not set within it
+            (vars[:all][:referenced_flags] - vars[:all][:set_flags])).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
             x <=> y
@@ -125,7 +170,7 @@ module OrigenTesters
 
         # Variables which should be defined as an output of the current flow
         def output_variables(vars = flow_variables)
-          (vars[:this_flow][:referenced_flags] + vars[:this_flow][:set_flags] + vars[:all][:set_flags_extern] +
+          (vars[:this_flow][:set_flags] + vars[:all][:set_flags_extern] +
            intermediate_variables).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)

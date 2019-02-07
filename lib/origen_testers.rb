@@ -9,6 +9,7 @@ require 'origen_testers/origen_ext/generator/flow'
 require 'origen_testers/origen_ext/generator/resources'
 require 'origen_testers/origen_ext/application/runner'
 require 'origen_testers/origen_ext/generator'
+require 'origen_testers/atp_ext/flow'
 
 module OrigenTesters
   autoload :CommandBasedTester, 'origen_testers/command_based_tester'

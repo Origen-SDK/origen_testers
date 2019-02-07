@@ -1,12 +1,12 @@
 flow PRB1_MAIN {
     in ADDITIONAL_ERASE = -1;
+    in ALARM = -1;
     in ALARMENABLED = -1;
     in DO_ERASE = -1;
     in JOB = "";
     in NO_EXTRA_ERASE = -1;
     in USB_XCVR_CZ = -1;
 
-    out ALARM = -1;
     out DEEP_TEST_FAILED = -1;
     out ERASE_FAILED_1_FAILED = -1;
     out ERASE_FAILED_2_FAILED = -1;
@@ -21,8 +21,6 @@ flow PRB1_MAIN {
     out ERASE_RAN_3_RAN = -1;
     out ERASE_RAN_4_RAN = -1;
     out ERS_VFY_FAILED = -1;
-    out G100_RAN = -1;
-    out G200_FAILED = -1;
 
     setup {
         suite another_not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
@@ -452,55 +450,6 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
-        suite program_ckbd_10 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_11 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_12 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_13 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_14 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_15 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_16 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
         suite program_ckbd_2 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -517,41 +466,6 @@ flow PRB1_MAIN {
 
         suite program_ckbd_4 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_5 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_6 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_7 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_8 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
-            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
-            output = "None";
-            testName = "Functional";
-        }
-
-        suite program_ckbd_9 calls ac_tml.AcTest.FunctionalTest {
-            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -593,9 +507,15 @@ flow PRB1_MAIN {
         }
 
         flow ERASE calls OrigenTesters.flows.prb1.prb1_main.ERASE { }
+        flow PROGRAM_CKBD calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD { }
+        flow PROGRAM_CKBD_1 calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD_1 { }
+        flow PROGRAM_CKBD_2 calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD_2 { }
+        flow PROGRAM_CKBD_3 calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD_3 { }
         flow ERASE_1 calls OrigenTesters.flows.prb1.prb1_main.ERASE_1 { }
         flow ADDITIONAL_ERASE calls OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE { }
         flow ADDITIONAL_ERASE_1 calls OrigenTesters.flows.prb1.prb1_main.ADDITIONAL_ERASE_1 { }
+        flow 200MHZ_TESTS calls OrigenTesters.flows.prb1.prb1_main.200MHZ_TESTS { }
+        flow 100MHZ_TESTS calls OrigenTesters.flows.prb1.prb1_main.100MHZ_TESTS { }
         flow DEEP_NESTED calls OrigenTesters.flows.prb1.prb1_main.DEEP_NESTED { }
     }
 
@@ -612,8 +532,6 @@ flow PRB1_MAIN {
         ERASE_RAN_2_RAN = -1;
         ERASE_RAN_3_RAN = -1;
         ERASE_RAN_4_RAN = -1;
-        G100_RAN = -1;
-        G200_FAILED = -1;
 
         program_ckbd.execute();
         margin_read1_ckbd.execute();
@@ -629,45 +547,13 @@ flow PRB1_MAIN {
         println("Should be v2");
         program_ckbd_4.execute();
         println("Should be a v1 test instance group");
-        // *******************************************************
-        // GROUP - program_ckbd
-        // *******************************************************
-            program_ckbd_5.execute();
-            program_ckbd_6.execute();
-            program_ckbd_7.execute();
-        // *******************************************************
-        // /GROUP - program_ckbd
-        // *******************************************************
+        PROGRAM_CKBD.execute();
         println("Should be a v2 test instance group");
-        // *******************************************************
-        // GROUP - program_ckbd_2
-        // *******************************************************
-            program_ckbd_8.execute();
-            program_ckbd_9.execute();
-            program_ckbd_10.execute();
-        // *******************************************************
-        // /GROUP - program_ckbd_2
-        // *******************************************************
+        PROGRAM_CKBD_1.execute();
         println("Should be a v1 test instance group");
-        // *******************************************************
-        // GROUP - program_ckbd_3
-        // *******************************************************
-            program_ckbd_11.execute();
-            program_ckbd_12.execute();
-            program_ckbd_13.execute();
-        // *******************************************************
-        // /GROUP - program_ckbd_3
-        // *******************************************************
+        PROGRAM_CKBD_2.execute();
         println("Should be a v2 test instance group");
-        // *******************************************************
-        // GROUP - program_ckbd_4
-        // *******************************************************
-            program_ckbd_14.execute();
-            program_ckbd_15.execute();
-            program_ckbd_16.execute();
-        // *******************************************************
-        // /GROUP - program_ckbd_4
-        // *******************************************************
+        PROGRAM_CKBD_3.execute();
         if (JOB == "P1") {
             p1_only_test.execute();
         } else {
@@ -854,36 +740,9 @@ flow PRB1_MAIN {
         }
         println("Verify that MTO template works...");
         println("Speed binning example bug from video 5");
-        // *******************************************************
-        // GROUP - 200Mhz Tests
-        // *******************************************************
-            test200_1.execute();
-            if (!test200_1.pass) {
-                G200_FAILED = 1;
-            }
-            test200_2.execute();
-            if (!test200_2.pass) {
-                G200_FAILED = 1;
-            }
-            test200_3.execute();
-            if (!test200_3.pass) {
-                G200_FAILED = 1;
-            }
-        // *******************************************************
-        // /GROUP - 200Mhz Tests
-        // *******************************************************
-        if (G200_FAILED == 1) {
-            // *******************************************************
-            // GROUP - 100Mhz Tests
-            // *******************************************************
-                G100_RAN = 1;
-                test100_1.execute();
-                test100_2.execute();
-                test100_3.execute();
-            // *******************************************************
-            // /GROUP - 100Mhz Tests
-            // *******************************************************
-        } else {
+        200MHZ_TESTS.execute();
+        if (!200MHZ_TESTS.pass) {
+            100MHZ_TESTS.execute();
         }
         if (G100_RAN == 1) {
             addBin(2);
