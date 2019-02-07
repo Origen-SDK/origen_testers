@@ -32,32 +32,7 @@ module Origen
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
           # Generate imports as separate sub-flow files on this platform
           if tester.v93k? && tester.smt8?
-            @top_level_flow ||= Origen.interface.flow
-            parent = Origen.interface.flow
-            # If the parent flow already has a child flow of this name then we need to generate a
-            # new unique name/id
-            # Also generate a new name when the child flow name matches the parent flow name, SMT8.2
-            # onwards does not allow this
-            if parent.children[name] || parent.name.to_s == name.to_s
-              i = 0
-              tempname = name
-              while parent.children[tempname] || parent.name.to_s == tempname.to_s
-                i += 1
-                tempname = "#{name}_#{i}"
-              end
-              name = tempname
-            end
-            if parent
-              id = parent.path + ".#{name}"
-            else
-              id = name
-            end
-            sub_flow = Origen.interface.with_flow(id) do
-              Origen.interface.flow.instance_variable_set(:@top_level, @top_level_flow)
-              Origen.interface.flow.instance_variable_set(:@parent, parent)
-              _create(options, &block)
-            end
-            parent.children[name] = sub_flow
+            parent, sub_flow = *_sub_flow(name, options, &block)
             path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
             parent.atp.sub_flow(sub_flow.atp.raw, path: path.to_s)
           else
@@ -79,6 +54,37 @@ module Origen
         OrigenTesters::Flow.callstack.pop
         OrigenTesters::Flow.comment_stack.pop
         OrigenTesters::Flow.flow_comments = nil if top
+      end
+
+      # @api private
+      def _sub_flow(name, options, &block)
+        @top_level_flow ||= Origen.interface.flow
+        parent = Origen.interface.flow
+        # If the parent flow already has a child flow of this name then we need to generate a
+        # new unique name/id
+        # Also generate a new name when the child flow name matches the parent flow name, SMT8.2
+        # onwards does not allow this
+        if parent.children[name] || parent.name.to_s == name.to_s
+          i = 0
+          tempname = name
+          while parent.children[tempname] || parent.name.to_s == tempname.to_s
+            i += 1
+            tempname = "#{name}_#{i}"
+          end
+          name = tempname
+        end
+        if parent
+          id = parent.path + ".#{name}"
+        else
+          id = name
+        end
+        sub_flow = Origen.interface.with_flow(id) do
+          Origen.interface.flow.instance_variable_set(:@top_level, @top_level_flow)
+          Origen.interface.flow.instance_variable_set(:@parent, parent)
+          _create(options, &block)
+        end
+        parent.children[name] = sub_flow
+        [parent, sub_flow]
       end
 
       # @api private

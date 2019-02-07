@@ -8,32 +8,7 @@ module ATP
       if tester.try(:smt8?)
         extract_meta!(options) do
           apply_conditions(options) do
-            @top_level_flow ||= Origen.interface.flow
-            parent = Origen.interface.flow
-            # If the parent flow already has a child flow of this name then we need to generate a
-            # new unique name/id
-            # Also generate a new name when the child flow name matches the parent flow name, SMT8.2
-            # onwards does not allow this
-            if parent.children[name] || parent.name.to_s == name.to_s
-              i = 0
-              tempname = name
-              while parent.children[tempname] || parent.name.to_s == tempname.to_s
-                i += 1
-                tempname = "#{name}_#{i}"
-              end
-              name = tempname
-            end
-            if parent
-              id = parent.path + ".#{name}"
-            else
-              id = name
-            end
-            sub_flow = Origen.interface.with_flow(id) do
-              Origen.interface.flow.instance_variable_set(:@top_level, @top_level_flow)
-              Origen.interface.flow.instance_variable_set(:@parent, parent)
-              ::Flow._create(options, &block)
-            end
-            parent.children[name] = sub_flow
+            parent, sub_flow = *::Flow._sub_flow(name, options, &block)
             path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
             ast = sub_flow.atp.raw
             name, *children = *ast
