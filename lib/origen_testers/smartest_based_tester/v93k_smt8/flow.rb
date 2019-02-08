@@ -100,14 +100,14 @@ module OrigenTesters
           path = Pathname.new(node.find(:path).value)
           name = path.basename('.*').to_s
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
-          # Pass down all input variables (enables) that are referenced by this sub_flow or any
-          # of its children
-          input_variables(vars).each do |var|
+          # Pass down all input variables
+          sub_flow.input_variables.each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{name}.#{var} = #{var};"
           end
           line "#{name}.execute();"
-          (vars[:all][:set_flags_extern] + intermediate_variables(sub_flow.flow_variables[:all][:set_flags])).each do |var|
+          # And retrieve all common output variables
+          (output_variables & sub_flow.output_variables).sort.each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
           end
@@ -157,7 +157,8 @@ module OrigenTesters
         end
 
         # Variables which should be defined as an input to the current flow
-        def input_variables(vars = flow_variables)
+        def input_variables
+          vars = flow_variables
           # Jobs and enables flow into a sub-flow
           (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
             # As do any flags which are referenced by it but which are not set within it
@@ -169,8 +170,16 @@ module OrigenTesters
         end
 
         # Variables which should be defined as an output of the current flow
-        def output_variables(vars = flow_variables)
-          (vars[:this_flow][:set_flags] + vars[:all][:set_flags_extern] +
+        def output_variables
+          vars = flow_variables
+          # Flags that are set by this flow flow out of it
+          (vars[:this_flow][:set_flags] +
+           # As do any flags set by its children which are marked as external
+           vars[:all][:set_flags_extern] +
+           # And any flags which are set by a child and referenced in this flow
+           (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
+           # And also intermediate flags, those are flags which are set by a child and referenced
+           # by a parent of the current flow
            intermediate_variables).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
@@ -179,11 +188,13 @@ module OrigenTesters
         end
 
         # Output variables which are not directly referenced by this flow, but which are referenced by a parent
-        # flow and set by a child flow and therefore must pass through the current flow.
+        # flow and set by the given child flow and therefore must pass through the current flow.
         # By calling this method with no argument it will consider variables set by any child flow, alternatively
         # pass in the variables for the child flow in question and only that will be considered.
-        def intermediate_variables(set_vars = flow_variables[:all][:set_flags])
-          if set_vars.empty?
+        def intermediate_variables(*sub_flows)
+          set_flags = []
+          all_sub_flows.each { |f| set_flags += f.flow_variables[:all][:set_flags] }
+          if set_flags.empty?
             []
           else
             upstream_referenced_flags = []
@@ -192,8 +203,8 @@ module OrigenTesters
               upstream_referenced_flags += p.flow_variables[:this_flow][:referenced_flags]
               p = p.parent
             end
-            upstream_referenced_flags.uniq!
-            set_vars & upstream_referenced_flags
+            upstream_referenced_flags.uniq
+            set_flags & upstream_referenced_flags
           end
         end
 

@@ -21,6 +21,7 @@ flow PRB1_MAIN {
     out ERASE_RAN_3_RAN = -1;
     out ERASE_RAN_4_RAN = -1;
     out ERS_VFY_FAILED = -1;
+    out G100_RAN = -1;
 
     setup {
         suite another_not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
@@ -743,6 +744,7 @@ flow PRB1_MAIN {
         200MHZ_TESTS.execute();
         if (!200MHZ_TESTS.pass) {
             100MHZ_TESTS.execute();
+            G100_RAN = 100MHZ_TESTS.G100_RAN;
         }
         if (G100_RAN == 1) {
             addBin(2);
