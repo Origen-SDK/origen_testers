@@ -669,7 +669,9 @@ module OrigenTesters
         unless options[:group]    # Withhold imports for pattern groups, is this correct?
           called_subroutines.each do |sub_name|
             # Don't import any called subroutines that are declared in the current pattern
-            microcode "import svm_subr #{sub_name};" unless local_subroutines.include?(sub_name)
+            unless local_subroutines.include?(sub_name)
+              microcode "import svm_subr #{sub_name};" unless uflex?
+            end
           end
         end
 
