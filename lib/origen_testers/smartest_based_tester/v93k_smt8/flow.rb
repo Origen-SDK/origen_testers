@@ -90,23 +90,17 @@ module OrigenTesters
 
         def on_sub_flow(node)
           sub_flow = sub_flow_from(node)
-          # If the sub_flow is not a child of this flow, it means it has been encountered here in within an
-          # on_fail node which will be handled by the parent flow
-          return unless sub_flow
-          # In the returned vars :this_flow means this sub_flow, :sub_flows refers to any further
-          # sub_flows that are nested within it
-          vars = V93K_SMT8::Processors::ExtractFlowVars.new.run(node.updated(:flow))
           @sub_flows ||= {}
           path = Pathname.new(node.find(:path).value)
           name = path.basename('.*').to_s
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
-          # Pass down all input variables
+          # Pass down all input variables before executing
           sub_flow.input_variables.each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{name}.#{var} = #{var};"
           end
           line "#{name}.execute();"
-          # And retrieve all common output variables
+          # And then retrieve all common output variables
           (output_variables & sub_flow.output_variables).sort.each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
