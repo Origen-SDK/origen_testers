@@ -3,6 +3,7 @@
 # argument passing will be supported
 # similar to Pattern.create.
 Flow.create interface: 'OrigenTesters::Test::Interface' do
+  flow.flow_description = '' if tester.v93k?
 
   # Instantiate tests via the
   # interface

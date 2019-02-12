@@ -8,7 +8,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name
+        attr_accessor :add_flow_enable, :flow_name, :flow_description
 
         def var_filename
           @var_filename || 'global'
@@ -24,6 +24,10 @@ module OrigenTesters
 
         def flow_name
           @flow_name || filename.sub(/\..*/, '').upcase
+        end
+
+        def flow_description
+          @flow_description || ''
         end
 
         def hardware_bin_descriptions
@@ -57,18 +61,18 @@ module OrigenTesters
             else
               flow_control_variables << [var, 0]
             end
-            h << "  if @#{var} == 1 then"
-            h << '  {'
-            i = '  '
+            h << "    if @#{var} == 1 then"
+            h << '    {'
+            i = '   '
           else
             i = ''
           end
           if set_runtime_variables.size > 0
-            h << i + '  {'
+            h << i + '    {'
             set_runtime_variables.each do |var|
-              h << i + "    @#{generate_flag_name(var.to_s)} = -1;"
+              h << i + "       @#{generate_flag_name(var.to_s)} = -1;"
             end
-            h << i + '  }, open,"Init Flow Control Vars", ""'
+            h << i + '    }, open,"Init Flow Control Vars", ""'
           end
           h
         end
@@ -76,13 +80,13 @@ module OrigenTesters
         def flow_footer
           f = []
           if add_flow_enable
-            f << '  }'
-            f << '  else'
-            f << '  {'
-            f << '  }'
+            f << '    }'
+            f << '    else'
+            f << '    {'
+            f << '    }'
           end
           f << ''
-          f << "  }, open,\"#{flow_name}\",\"\""
+          f << "  }, open,\"#{flow_name}\",\"#{flow_description}\""
           f
         end
 
@@ -109,7 +113,7 @@ module OrigenTesters
         end
 
         def line(str)
-          @lines << ('  ' * @indent) + str
+          @lines << '    ' + ('   ' * (@indent - 1)) + str
         end
 
         # def on_flow(node)
@@ -327,17 +331,18 @@ module OrigenTesters
           desc = node.find(:bin).to_a[1]
           sbin = node.find(:softbin).try(:value)
           sdesc = node.find(:softbin).to_a[1] || 'fail'
+          overon = (node.find(:not_over_on).try(:value) == true) ? 'not_over_on' : 'over_on'
           if bin && desc
             hardware_bin_descriptions[bin] ||= desc
           end
 
           if node.to_a[0] == 'pass'
-            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
+            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, #{overon};"
           else
             if tester.create_limits_file
               line 'multi_bin;'
             else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, #{overon};"
             end
           end
         end
