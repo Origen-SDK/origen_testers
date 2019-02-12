@@ -1355,527 +1355,527 @@ end
 test_flow
 
   {
-  {
-    @ERS_VFY_FAILED = -1;
-    @ERASE_PASSED_1_864CE8F_PASSED = -1;
-    @ERASE_PASSED_2_864CE8F_PASSED = -1;
-    @ERASE_PASSED_3_864CE8F_FAILED = -1;
-    @ERASE_PASSED_4_864CE8F_FAILED = -1;
-    @ERASE_FAILED_1_864CE8F_FAILED = -1;
-    @ERASE_FAILED_2_864CE8F_FAILED = -1;
-    @ERASE_FAILED_3_864CE8F_PASSED = -1;
-    @ERASE_FAILED_4_864CE8F_PASSED = -1;
-    @ERASE_RAN_1_864CE8F_RAN = -1;
-    @ERASE_RAN_2_864CE8F_RAN = -1;
-    @ERASE_RAN_3_864CE8F_RAN = -1;
-    @ERASE_RAN_4_864CE8F_RAN = -1;
-    @G200_864CE8F_FAILED = -1;
-    @G100_864CE8F_RAN = -1;
-    @DEEP_TEST_864CE8F_FAILED = -1;
-  }, open,"Init Flow Control Vars", ""
-  {
-    run_and_branch(program_ckbd_864CE8F)
-    then
     {
-    }
-    else
-    {
-      stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
-    }
-    run(margin_read1_ckbd_864CE8F);
-    run(margin_read0_ckbd_864CE8F);
-    {
-      run(erase_all_864CE8F);
-      run(erase_all_1_864CE8F);
-      run(erase_all_2_864CE8F);
-      run(erase_all_3_864CE8F);
-      run(erase_all_4_864CE8F);
-      run(erase_all_5_864CE8F);
-      {
-        run_and_branch(margin_read1_all1_864CE8F)
-        then
-        {
-        }
-        else
-        {
-          @ERS_VFY_FAILED = 1;
-        }
-      }, open,"erase_vfy", ""
-    }, open,"erase", ""
-    print_dl("Should be v1");
-    run(program_ckbd_1_864CE8F);
-    print_dl("Should be v2");
-    run(program_ckbd_2_864CE8F);
-    print_dl("Should be v1");
-    run(program_ckbd_3_864CE8F);
-    print_dl("Should be v2");
-    run(program_ckbd_4_864CE8F);
-    print_dl("Should be a v1 test instance group");
-    {
-      run(program_ckbd_5_864CE8F);
-      run(program_ckbd_6_864CE8F);
-      run(program_ckbd_7_864CE8F);
-    }, open,"program_ckbd", ""
-    print_dl("Should be a v2 test instance group");
-    {
-      run(program_ckbd_8_864CE8F);
-      run(program_ckbd_9_864CE8F);
-      run(program_ckbd_10_864CE8F);
-    }, open,"program_ckbd_2", ""
-    print_dl("Should be a v1 test instance group");
-    {
-      run(program_ckbd_11_864CE8F);
-      run(program_ckbd_12_864CE8F);
-      run(program_ckbd_13_864CE8F);
-    }, open,"program_ckbd_3", ""
-    print_dl("Should be a v2 test instance group");
-    {
-      run(program_ckbd_14_864CE8F);
-      run(program_ckbd_15_864CE8F);
-      run(program_ckbd_16_864CE8F);
-    }, open,"program_ckbd_4", ""
-    if @JOB == "P1" then
-    {
-      run(p1_only_test_864CE8F);
-    }
-    else
-    {
-    }
-    if @JOB == "P1" or @JOB == "P2" then
-    {
-      run(p1_or_p2_only_test_864CE8F);
-    }
-    else
-    {
-    }
-    if @JOB == "P1" then
-    {
-    }
-    else
-    {
-      run(not_p1_test_864CE8F);
-    }
-    if @JOB == "P1" or @JOB == "P2" then
-    {
-    }
-    else
-    {
-      run(not_p1_or_p2_test_864CE8F);
-      run(another_not_p1_or_p2_test_864CE8F);
-    }
-    print_dl("Verify that a test with an external instance works");
-    run(por_ins_864CE8F);
-    print_dl("Verify that a request to use the current context works");
-    if @JOB == "P1" then
-    {
-      run(erase_all_6_864CE8F);
-      run(erase_all_7_864CE8F);
-      run(erase_all_8_864CE8F);
-    }
-    else
-    {
-    }
-    if @JOB == "P2" then
-    {
-    }
-    else
-    {
-      run(erase_all_9_864CE8F);
-    }
-    run(erase_all_10_864CE8F);
-    run_and_branch(margin_read1_all1_1_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      run(erase_all_11_864CE8F);
-    }
-    run_and_branch(margin_read1_all1_2_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      run(erase_all_12_864CE8F);
-    }
-    run_and_branch(margin_read1_all1_3_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      run(erase_all_13_864CE8F);
-    }
-    run_and_branch(margin_read1_all1_4_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      run(erase_all_14_864CE8F);
-    }
-    run_and_branch(margin_read1_all1_5_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      run(erase_all_15_864CE8F);
-    }
-    run(margin_read1_all1_6_864CE8F);
-    print_dl("Test if enable");
-    if @DO_ERASE == 1 then
-    {
-      run(erase_all_16_864CE8F);
-      run(erase_all_17_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test unless enable");
-    if @NO_EXTRA_ERASE == 1 then
-    {
-    }
-    else
-    {
-      run(erase_all_18_864CE8F);
-      run(erase_all_19_864CE8F);
-      run(erase_all_20_864CE8F);
-    }
-    run(erase_all_21_864CE8F);
-    run(erase_all_22_864CE8F);
-    print_dl("Test if_passed");
-    run_and_branch(erase_all_23_864CE8F)
-    then
-    {
-      @ERASE_PASSED_1_864CE8F_PASSED = 1;
-    }
-    else
-    {
-    }
-    run_and_branch(erase_all_24_864CE8F)
-    then
-    {
-      @ERASE_PASSED_2_864CE8F_PASSED = 1;
-    }
-    else
-    {
-    }
-    if @ERASE_PASSED_1_864CE8F_PASSED == 1 then
-    {
-      run(margin_read1_all1_7_864CE8F);
-    }
-    else
-    {
-    }
-    if @ERASE_PASSED_2_864CE8F_PASSED == 1 then
-    {
-      run(margin_read1_all1_8_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test unless_passed");
-    run_and_branch(erase_all_25_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      @ERASE_PASSED_3_864CE8F_FAILED = 1;
-    }
-    run_and_branch(erase_all_26_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      @ERASE_PASSED_4_864CE8F_FAILED = 1;
-    }
-    if @ERASE_PASSED_3_864CE8F_FAILED == 1 then
-    {
-      run(margin_read1_all1_9_864CE8F);
-    }
-    else
-    {
-    }
-    if @ERASE_PASSED_4_864CE8F_FAILED == 1 then
-    {
-      run(margin_read1_all1_10_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test if_failed");
-    run_and_branch(erase_all_27_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      @ERASE_FAILED_1_864CE8F_FAILED = 1;
-    }
-    run_and_branch(erase_all_28_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      @ERASE_FAILED_2_864CE8F_FAILED = 1;
-    }
-    if @ERASE_FAILED_1_864CE8F_FAILED == 1 then
-    {
-      run(margin_read1_all1_11_864CE8F);
-    }
-    else
-    {
-    }
-    if @ERASE_FAILED_2_864CE8F_FAILED == 1 then
-    {
-      run(margin_read1_all1_12_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test unless_failed");
-    run_and_branch(erase_all_29_864CE8F)
-    then
-    {
-      @ERASE_FAILED_3_864CE8F_PASSED = 1;
-    }
-    else
-    {
-    }
-    run_and_branch(erase_all_30_864CE8F)
-    then
-    {
-      @ERASE_FAILED_4_864CE8F_PASSED = 1;
-    }
-    else
-    {
-    }
-    if @ERASE_FAILED_3_864CE8F_PASSED == 1 then
-    {
-      run(margin_read1_all1_13_864CE8F);
-    }
-    else
-    {
-    }
-    if @ERASE_FAILED_4_864CE8F_PASSED == 1 then
-    {
-      run(margin_read1_all1_14_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test if_ran");
-    run(erase_all_31_864CE8F);
-    @ERASE_RAN_1_864CE8F_RAN = 1;
-    run(erase_all_32_864CE8F);
-    @ERASE_RAN_2_864CE8F_RAN = 1;
-    if @ERASE_RAN_1_864CE8F_RAN == 1 then
-    {
-      run(margin_read1_all1_15_864CE8F);
-    }
-    else
-    {
-    }
-    if @ERASE_RAN_2_864CE8F_RAN == 1 then
-    {
-      run(margin_read1_all1_16_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Test unless_ran");
-    run(erase_all_33_864CE8F);
-    @ERASE_RAN_3_864CE8F_RAN = 1;
-    run(erase_all_34_864CE8F);
-    @ERASE_RAN_4_864CE8F_RAN = 1;
-    if @ERASE_RAN_3_864CE8F_RAN == 1 then
-    {
-    }
-    else
-    {
-      run(margin_read1_all1_17_864CE8F);
-    }
-    if @ERASE_RAN_4_864CE8F_RAN == 1 then
-    {
-    }
-    else
-    {
-      run(margin_read1_all1_18_864CE8F);
-    }
-    print_dl("Verify that job context wraps import");
-    if @JOB == "FR" then
-    {
-      {
-        run(erase_all_35_864CE8F);
-        run(erase_all_36_864CE8F);
-        run(erase_all_37_864CE8F);
-        run(erase_all_38_864CE8F);
-        {
-          run_and_branch(margin_read1_all1_19_864CE8F)
+       @ERS_VFY_FAILED = -1;
+       @ERASE_PASSED_1_864CE8F_PASSED = -1;
+       @ERASE_PASSED_2_864CE8F_PASSED = -1;
+       @ERASE_PASSED_3_864CE8F_FAILED = -1;
+       @ERASE_PASSED_4_864CE8F_FAILED = -1;
+       @ERASE_FAILED_1_864CE8F_FAILED = -1;
+       @ERASE_FAILED_2_864CE8F_FAILED = -1;
+       @ERASE_FAILED_3_864CE8F_PASSED = -1;
+       @ERASE_FAILED_4_864CE8F_PASSED = -1;
+       @ERASE_RAN_1_864CE8F_RAN = -1;
+       @ERASE_RAN_2_864CE8F_RAN = -1;
+       @ERASE_RAN_3_864CE8F_RAN = -1;
+       @ERASE_RAN_4_864CE8F_RAN = -1;
+       @G200_864CE8F_FAILED = -1;
+       @G100_864CE8F_RAN = -1;
+       @DEEP_TEST_864CE8F_FAILED = -1;
+    }, open,"Init Flow Control Vars", ""
+    {
+       run_and_branch(program_ckbd_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "1100", "fail", , bad, noreprobe, red, 100, over_on;
+       }
+       run(margin_read1_ckbd_864CE8F);
+       run(margin_read0_ckbd_864CE8F);
+       {
+          run(erase_all_864CE8F);
+          run(erase_all_1_864CE8F);
+          run(erase_all_2_864CE8F);
+          run(erase_all_3_864CE8F);
+          run(erase_all_4_864CE8F);
+          run(erase_all_5_864CE8F);
+          {
+             run_and_branch(margin_read1_all1_864CE8F)
+             then
+             {
+             }
+             else
+             {
+                @ERS_VFY_FAILED = 1;
+             }
+          }, open,"erase_vfy", ""
+       }, open,"erase", ""
+       print_dl("Should be v1");
+       run(program_ckbd_1_864CE8F);
+       print_dl("Should be v2");
+       run(program_ckbd_2_864CE8F);
+       print_dl("Should be v1");
+       run(program_ckbd_3_864CE8F);
+       print_dl("Should be v2");
+       run(program_ckbd_4_864CE8F);
+       print_dl("Should be a v1 test instance group");
+       {
+          run(program_ckbd_5_864CE8F);
+          run(program_ckbd_6_864CE8F);
+          run(program_ckbd_7_864CE8F);
+       }, open,"program_ckbd", ""
+       print_dl("Should be a v2 test instance group");
+       {
+          run(program_ckbd_8_864CE8F);
+          run(program_ckbd_9_864CE8F);
+          run(program_ckbd_10_864CE8F);
+       }, open,"program_ckbd_2", ""
+       print_dl("Should be a v1 test instance group");
+       {
+          run(program_ckbd_11_864CE8F);
+          run(program_ckbd_12_864CE8F);
+          run(program_ckbd_13_864CE8F);
+       }, open,"program_ckbd_3", ""
+       print_dl("Should be a v2 test instance group");
+       {
+          run(program_ckbd_14_864CE8F);
+          run(program_ckbd_15_864CE8F);
+          run(program_ckbd_16_864CE8F);
+       }, open,"program_ckbd_4", ""
+       if @JOB == "P1" then
+       {
+          run(p1_only_test_864CE8F);
+       }
+       else
+       {
+       }
+       if @JOB == "P1" or @JOB == "P2" then
+       {
+          run(p1_or_p2_only_test_864CE8F);
+       }
+       else
+       {
+       }
+       if @JOB == "P1" then
+       {
+       }
+       else
+       {
+          run(not_p1_test_864CE8F);
+       }
+       if @JOB == "P1" or @JOB == "P2" then
+       {
+       }
+       else
+       {
+          run(not_p1_or_p2_test_864CE8F);
+          run(another_not_p1_or_p2_test_864CE8F);
+       }
+       print_dl("Verify that a test with an external instance works");
+       run(por_ins_864CE8F);
+       print_dl("Verify that a request to use the current context works");
+       if @JOB == "P1" then
+       {
+          run(erase_all_6_864CE8F);
+          run(erase_all_7_864CE8F);
+          run(erase_all_8_864CE8F);
+       }
+       else
+       {
+       }
+       if @JOB == "P2" then
+       {
+       }
+       else
+       {
+          run(erase_all_9_864CE8F);
+       }
+       run(erase_all_10_864CE8F);
+       run_and_branch(margin_read1_all1_1_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          run(erase_all_11_864CE8F);
+       }
+       run_and_branch(margin_read1_all1_2_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          run(erase_all_12_864CE8F);
+       }
+       run_and_branch(margin_read1_all1_3_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          run(erase_all_13_864CE8F);
+       }
+       run_and_branch(margin_read1_all1_4_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          run(erase_all_14_864CE8F);
+       }
+       run_and_branch(margin_read1_all1_5_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          run(erase_all_15_864CE8F);
+       }
+       run(margin_read1_all1_6_864CE8F);
+       print_dl("Test if enable");
+       if @DO_ERASE == 1 then
+       {
+          run(erase_all_16_864CE8F);
+          run(erase_all_17_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test unless enable");
+       if @NO_EXTRA_ERASE == 1 then
+       {
+       }
+       else
+       {
+          run(erase_all_18_864CE8F);
+          run(erase_all_19_864CE8F);
+          run(erase_all_20_864CE8F);
+       }
+       run(erase_all_21_864CE8F);
+       run(erase_all_22_864CE8F);
+       print_dl("Test if_passed");
+       run_and_branch(erase_all_23_864CE8F)
+       then
+       {
+          @ERASE_PASSED_1_864CE8F_PASSED = 1;
+       }
+       else
+       {
+       }
+       run_and_branch(erase_all_24_864CE8F)
+       then
+       {
+          @ERASE_PASSED_2_864CE8F_PASSED = 1;
+       }
+       else
+       {
+       }
+       if @ERASE_PASSED_1_864CE8F_PASSED == 1 then
+       {
+          run(margin_read1_all1_7_864CE8F);
+       }
+       else
+       {
+       }
+       if @ERASE_PASSED_2_864CE8F_PASSED == 1 then
+       {
+          run(margin_read1_all1_8_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test unless_passed");
+       run_and_branch(erase_all_25_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          @ERASE_PASSED_3_864CE8F_FAILED = 1;
+       }
+       run_and_branch(erase_all_26_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          @ERASE_PASSED_4_864CE8F_FAILED = 1;
+       }
+       if @ERASE_PASSED_3_864CE8F_FAILED == 1 then
+       {
+          run(margin_read1_all1_9_864CE8F);
+       }
+       else
+       {
+       }
+       if @ERASE_PASSED_4_864CE8F_FAILED == 1 then
+       {
+          run(margin_read1_all1_10_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test if_failed");
+       run_and_branch(erase_all_27_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          @ERASE_FAILED_1_864CE8F_FAILED = 1;
+       }
+       run_and_branch(erase_all_28_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          @ERASE_FAILED_2_864CE8F_FAILED = 1;
+       }
+       if @ERASE_FAILED_1_864CE8F_FAILED == 1 then
+       {
+          run(margin_read1_all1_11_864CE8F);
+       }
+       else
+       {
+       }
+       if @ERASE_FAILED_2_864CE8F_FAILED == 1 then
+       {
+          run(margin_read1_all1_12_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test unless_failed");
+       run_and_branch(erase_all_29_864CE8F)
+       then
+       {
+          @ERASE_FAILED_3_864CE8F_PASSED = 1;
+       }
+       else
+       {
+       }
+       run_and_branch(erase_all_30_864CE8F)
+       then
+       {
+          @ERASE_FAILED_4_864CE8F_PASSED = 1;
+       }
+       else
+       {
+       }
+       if @ERASE_FAILED_3_864CE8F_PASSED == 1 then
+       {
+          run(margin_read1_all1_13_864CE8F);
+       }
+       else
+       {
+       }
+       if @ERASE_FAILED_4_864CE8F_PASSED == 1 then
+       {
+          run(margin_read1_all1_14_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test if_ran");
+       run(erase_all_31_864CE8F);
+       @ERASE_RAN_1_864CE8F_RAN = 1;
+       run(erase_all_32_864CE8F);
+       @ERASE_RAN_2_864CE8F_RAN = 1;
+       if @ERASE_RAN_1_864CE8F_RAN == 1 then
+       {
+          run(margin_read1_all1_15_864CE8F);
+       }
+       else
+       {
+       }
+       if @ERASE_RAN_2_864CE8F_RAN == 1 then
+       {
+          run(margin_read1_all1_16_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Test unless_ran");
+       run(erase_all_33_864CE8F);
+       @ERASE_RAN_3_864CE8F_RAN = 1;
+       run(erase_all_34_864CE8F);
+       @ERASE_RAN_4_864CE8F_RAN = 1;
+       if @ERASE_RAN_3_864CE8F_RAN == 1 then
+       {
+       }
+       else
+       {
+          run(margin_read1_all1_17_864CE8F);
+       }
+       if @ERASE_RAN_4_864CE8F_RAN == 1 then
+       {
+       }
+       else
+       {
+          run(margin_read1_all1_18_864CE8F);
+       }
+       print_dl("Verify that job context wraps import");
+       if @JOB == "FR" then
+       {
+          {
+             run(erase_all_35_864CE8F);
+             run(erase_all_36_864CE8F);
+             run(erase_all_37_864CE8F);
+             run(erase_all_38_864CE8F);
+             {
+                run_and_branch(margin_read1_all1_19_864CE8F)
+                then
+                {
+                }
+                else
+                {
+                   @ERS_VFY_FAILED = 1;
+                }
+             }, open,"erase_vfy_2", ""
+          }, open,"erase_2", ""
+       }
+       else
+       {
+       }
+       print_dl("Verify that job context wraps enable block within an import");
+       if @JOB == "FR" then
+       {
+          {
+             if @ADDITIONAL_ERASE == 1 then
+             {
+                run(erase_all_39_864CE8F);
+             }
+             else
+             {
+             }
+             run(erase_all_40_864CE8F);
+          }, open,"additional_erase", ""
+       }
+       else
+       {
+       }
+       print_dl("Verify that flow.cz works...");
+       run(margin_read1_all1_20_864CE8F);
+       print_dl("Verify that flow.cz works with enable words");
+       if @USB_XCVR_CZ == 1 then
+       {
+          run(xcvr_fs_vilvih_864CE8F);
+          run(xcvr_fs_vilvih_1_864CE8F);
+          run(xcvr_fs_vilvih_2_864CE8F);
+          run(xcvr_fs_vilvih_3_864CE8F);
+       }
+       else
+       {
+       }
+       print_dl("Verify that MTO template works...");
+       print_dl("Speed binning example bug from video 5");
+       {
+          run_and_branch(test200_1)
           then
           {
           }
           else
           {
-            @ERS_VFY_FAILED = 1;
+             @G200_864CE8F_FAILED = 1;
           }
-        }, open,"erase_vfy_2", ""
-      }, open,"erase_2", ""
+          run_and_branch(test200_2)
+          then
+          {
+          }
+          else
+          {
+             @G200_864CE8F_FAILED = 1;
+          }
+          run_and_branch(test200_3)
+          then
+          {
+          }
+          else
+          {
+             @G200_864CE8F_FAILED = 1;
+          }
+       }, open,"200Mhz Tests", ""
+       if @G200_864CE8F_FAILED == 1 then
+       {
+          {
+             @G100_864CE8F_RAN = 1;
+             run_and_branch(test100_1)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+             }
+             run_and_branch(test100_2)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+             }
+             run_and_branch(test100_3)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+             }
+          }, open,"100Mhz Tests", ""
+       }
+       else
+       {
+       }
+       if @G100_864CE8F_RAN == 1 then
+       {
+          stop_bin "", "", , good, noreprobe, green, 2, over_on;
+       }
+       else
+       {
+       }
+       print_dl("Test node optimization within an if_failed branch");
+       run_and_branch(some_func_test_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          if @ALARM == 1 then
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 11, over_on;
+          }
+          if @ALARMENABLED == 1 then
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
+          }
+       }
+       run(cc_test_0_864CE8F);
+       run(cc_test_1_864CE8F);
+       run(cc_test_2_864CE8F);
+       {
+          run_and_branch(deep_test)
+          then
+          {
+          }
+          else
+          {
+             @DEEP_TEST_864CE8F_FAILED = 1;
+          }
+       }, open,"deep_nested", ""
+    }, open,"prb1_main", ""
+    if @DEEP_TEST_864CE8F_FAILED == 1 then
+    {
+       run(on_deep_1);
     }
     else
     {
     }
-    print_dl("Verify that job context wraps enable block within an import");
-    if @JOB == "FR" then
-    {
-      {
-        if @ADDITIONAL_ERASE == 1 then
-        {
-          run(erase_all_39_864CE8F);
-        }
-        else
-        {
-        }
-        run(erase_all_40_864CE8F);
-      }, open,"additional_erase", ""
-    }
-    else
-    {
-    }
-    print_dl("Verify that flow.cz works...");
-    run(margin_read1_all1_20_864CE8F);
-    print_dl("Verify that flow.cz works with enable words");
-    if @USB_XCVR_CZ == 1 then
-    {
-      run(xcvr_fs_vilvih_864CE8F);
-      run(xcvr_fs_vilvih_1_864CE8F);
-      run(xcvr_fs_vilvih_2_864CE8F);
-      run(xcvr_fs_vilvih_3_864CE8F);
-    }
-    else
-    {
-    }
-    print_dl("Verify that MTO template works...");
-    print_dl("Speed binning example bug from video 5");
-    {
-      run_and_branch(test200_1)
-      then
-      {
-      }
-      else
-      {
-        @G200_864CE8F_FAILED = 1;
-      }
-      run_and_branch(test200_2)
-      then
-      {
-      }
-      else
-      {
-        @G200_864CE8F_FAILED = 1;
-      }
-      run_and_branch(test200_3)
-      then
-      {
-      }
-      else
-      {
-        @G200_864CE8F_FAILED = 1;
-      }
-    }, open,"200Mhz Tests", ""
-    if @G200_864CE8F_FAILED == 1 then
-    {
-      {
-        @G100_864CE8F_RAN = 1;
-        run_and_branch(test100_1)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-        }
-        run_and_branch(test100_2)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-        }
-        run_and_branch(test100_3)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-        }
-      }, open,"100Mhz Tests", ""
-    }
-    else
-    {
-    }
-    if @G100_864CE8F_RAN == 1 then
-    {
-      stop_bin "", "", , good, noreprobe, green, 2, over_on;
-    }
-    else
-    {
-    }
-    print_dl("Test node optimization within an if_failed branch");
-    run_and_branch(some_func_test_864CE8F)
-    then
-    {
-    }
-    else
-    {
-      if @ALARM == 1 then
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 11, over_on;
-      }
-      if @ALARMENABLED == 1 then
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
-      }
-    }
-    run(cc_test_0_864CE8F);
-    run(cc_test_1_864CE8F);
-    run(cc_test_2_864CE8F);
-    {
-      run_and_branch(deep_test)
-      then
-      {
-      }
-      else
-      {
-        @DEEP_TEST_864CE8F_FAILED = 1;
-      }
-    }, open,"deep_nested", ""
-  }, open,"prb1_main", ""
-  if @DEEP_TEST_864CE8F_FAILED == 1 then
-  {
-    run(on_deep_1);
-  }
-  else
-  {
-  }
-  stop_bin "1", "", , good, noreprobe, green, 1, over_on;
+    stop_bin "1", "", , good, noreprobe, green, 1, over_on;
 
-  }, open,"PRB1",""
+  }, open,"PRB1","Probe1 Main"
 
 end
 -----------------------------------------------------------------

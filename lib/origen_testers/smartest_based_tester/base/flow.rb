@@ -9,7 +9,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name
+        attr_accessor :add_flow_enable, :flow_name, :flow_description
 
         def self.generate_flag_name(flag)
           case flag[0]
@@ -63,12 +63,19 @@ module OrigenTesters
         end
 
         def flow_name(filename = nil)
-          flow_name ||= (filename || self.filename).sub(/\..*/, '').upcase
-          if smt8?
-            flow_name.gsub(' ', '_')
-          else
-            flow_name
+          @flow_name_ = @flow_name unless smt8?
+          @flow_name_ ||= begin
+            flow_name = (filename || self.filename).sub(/\..*/, '').upcase
+            if smt8?
+              flow_name.gsub(' ', '_')
+            else
+              flow_name
+            end
           end
+        end
+
+        def flow_description
+          @flow_description || ''
         end
 
         def hardware_bin_descriptions
@@ -222,8 +229,11 @@ module OrigenTesters
           if options[:already_indented]
             line = str
           else
-            @tab ||= smt8? ? '    ' : '  '
-            line = (@tab * @indent) + str
+            if smt8?
+              line = ('    ' * @indent) + str
+            else
+              line = '    ' + ('   ' * (@indent - 1)) + str
+            end
           end
           if @lines_buffer.last
             @lines_buffer.last << line
@@ -239,14 +249,6 @@ module OrigenTesters
           yield
           @lines_buffer.pop
         end
-
-        # def on_flow(node)
-        #  line '{'
-        #  @indent += 1
-        #  process_all(node.children)
-        #  @indent -= 1
-        #  line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
-        # end
 
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
@@ -522,6 +524,7 @@ module OrigenTesters
           desc = node.find(:bin).to_a[1]
           sbin = node.find(:softbin).try(:value)
           sdesc = node.find(:softbin).to_a[1] || 'fail'
+          overon = (node.find(:not_over_on).try(:value) == true) ? 'not_over_on' : 'over_on'
           if bin && desc
             hardware_bin_descriptions[bin] ||= desc
           end
@@ -539,7 +542,7 @@ module OrigenTesters
               if tester.create_limits_file
                 line 'multi_bin;'
               else
-                line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, over_on;"
+                line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, #{overon};"
               end
             end
           end

@@ -122,8 +122,6 @@ tm_8:
 end
 -----------------------------------------------------------------
 testmethodlimits
-
-
 end
 -----------------------------------------------------------------
 testmethods
@@ -211,56 +209,56 @@ end
 test_flow
 
   {
-  run_and_branch(program_ckbd_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run_and_branch(meas_read_pump_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run_and_branch(meas_read_pump_1_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run_and_branch(meas_read_pump_2_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run_and_branch(meas_read_pump_3_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run_and_branch(meas_read_pump_4_2D155E0)
-  then
-  {
-  }
-  else
-  {
-    multi_bin;
-  }
-  run(meas_read_pump_5_2D155E0);
-  run(meas_read_pump_6_2D155E0);
+    run_and_branch(program_ckbd_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run_and_branch(meas_read_pump_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run_and_branch(meas_read_pump_1_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run_and_branch(meas_read_pump_2_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run_and_branch(meas_read_pump_3_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run_and_branch(meas_read_pump_4_2D155E0)
+    then
+    {
+    }
+    else
+    {
+       multi_bin;
+    }
+    run(meas_read_pump_5_2D155E0);
+    run(meas_read_pump_6_2D155E0);
 
   }, open,"TEST",""
 

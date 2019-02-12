@@ -27,6 +27,7 @@ module OrigenTesters
               self.unique_test_names = options[:unique_test_names]
             end
             flow.flow_name = options[:flow_name]
+            flow.flow_description = options[:flow_description] || OrigenTesters::Flow.flow_comments.join(' ')
           end
         end
 

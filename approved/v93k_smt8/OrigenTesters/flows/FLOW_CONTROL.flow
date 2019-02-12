@@ -504,6 +504,18 @@ flow FLOW_CONTROL {
 
         suite test1_30 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_31 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_32 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -546,6 +558,13 @@ flow FLOW_CONTROL {
 
         suite test1_9 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1n calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1n);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -1643,9 +1662,13 @@ flow FLOW_CONTROL {
         } else {
             test2_27.execute();
         }
-        println("Test the block form of expressing if passed/failed dependents");
         test1_30.execute();
-        if (test1_30.pass) {
+        test1_31.execute();
+        println("Use bin_attrs to set not_over_on");
+        test1n.execute();
+        println("Test the block form of expressing if passed/failed dependents");
+        test1_32.execute();
+        if (test1_32.pass) {
             test2_28.execute();
         } else {
             test3_16.execute();
