@@ -21,6 +21,16 @@ module OrigenTesters
       load file
     end
 
+    # @api private
+    def self.original_reference_file=(val)
+      @original_reference_file = val
+    end
+
+    # @api private
+    def self.original_reference_file
+      !!@original_reference_file
+    end
+
     # When called on a generator no output files will be created from it
     def inhibit_output
       @inhibit_output = true
@@ -222,19 +232,23 @@ module OrigenTesters
     end
 
     def reference_file
-      # If an explicit output directory has been set, use it
-      if output_directory
-        sub = Pathname.new(output_directory).relative_path_from(Origen.file_handler.output_directory)
-        dir = File.join(Origen.file_handler.reference_directory, sub)
-        FileUtils.mkdir_p(dir)
-        Pathname.new(File.join(dir, filename))
+      if OrigenTesters::Generator.original_reference_file
+        Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
       else
-        if respond_to? :subdirectory
-          dir = File.join(Origen.file_handler.reference_directory, subdirectory)
+        # If an explicit output directory has been set, use it
+        if output_directory
+          sub = Pathname.new(output_directory).relative_path_from(Origen.file_handler.output_directory)
+          dir = File.join(Origen.file_handler.reference_directory, sub)
           FileUtils.mkdir_p(dir)
           Pathname.new(File.join(dir, filename))
         else
-          Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+          if respond_to? :subdirectory
+            dir = File.join(Origen.file_handler.reference_directory, subdirectory)
+            FileUtils.mkdir_p(dir)
+            Pathname.new(File.join(dir, filename))
+          else
+            Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+          end
         end
       end
     end
