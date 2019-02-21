@@ -5,7 +5,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface', environment: :probe do
   # Test that this can be overridden from the target at flow-level
   self.add_flow_enable = :enabled
 
-  self.resources_filename = 'prb2'
+  unless Origen.app.environment.name == 'v93k_global'
+    self.resources_filename = 'prb2'
+  end
 
   func :erase_all, duration: :dynamic, number: 10000
 
