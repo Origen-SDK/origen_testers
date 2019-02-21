@@ -16,7 +16,21 @@ module OrigenTesters
         end
 
         def add_variables(vars)
-          @variables = vars
+          if @variables
+            vars.each do |k, v|
+              if k == :empty?
+                @variables[:empty?] ||= v
+              else
+                v.each do |k2, v2|
+                  unless v2.empty?
+                    @variables[k][k2] |= v2
+                  end
+                end
+              end
+            end
+          else
+            @variables = vars
+          end
         end
 
         # What SMT7 calls a flag

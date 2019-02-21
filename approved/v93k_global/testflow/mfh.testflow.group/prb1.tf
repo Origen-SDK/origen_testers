@@ -1356,6 +1356,7 @@ test_flow
 
   {
     {
+       @ERS_VFY_FAILED = -1;
        @ERASE_PASSED_1_864CE8F_PASSED = -1;
        @ERASE_PASSED_2_864CE8F_PASSED = -1;
        @ERASE_PASSED_3_864CE8F_FAILED = -1;
@@ -1370,6 +1371,7 @@ test_flow
        @ERASE_RAN_4_864CE8F_RAN = -1;
        @G200_864CE8F_FAILED = -1;
        @G100_864CE8F_RAN = -1;
+       @DEEP_TEST_864CE8F_FAILED = -1;
     }, open,"Init Flow Control Vars", ""
     {
        run_and_branch(program_ckbd_864CE8F)
@@ -1390,7 +1392,14 @@ test_flow
           run(erase_all_4_864CE8F);
           run(erase_all_5_864CE8F);
           {
-             run(margin_read1_all1_864CE8F);
+             run_and_branch(margin_read1_all1_864CE8F)
+             then
+             {
+             }
+             else
+             {
+                @ERS_VFY_FAILED = 1;
+             }
           }, open,"erase_vfy", ""
        }, open,"erase", ""
        print_dl("Should be v1");
@@ -1707,7 +1716,14 @@ test_flow
              run(erase_all_37_864CE8F);
              run(erase_all_38_864CE8F);
              {
-                run(margin_read1_all1_19_864CE8F);
+                run_and_branch(margin_read1_all1_19_864CE8F)
+                then
+                {
+                }
+                else
+                {
+                   @ERS_VFY_FAILED = 1;
+                }
              }, open,"erase_vfy_2", ""
           }, open,"erase_2", ""
        }
@@ -1839,8 +1855,25 @@ test_flow
        run(cc_test_0_864CE8F);
        run(cc_test_1_864CE8F);
        run(cc_test_2_864CE8F);
-       stop_bin "1", "", , good, noreprobe, green, 1, over_on;
+       {
+          run_and_branch(deep_test)
+          then
+          {
+          }
+          else
+          {
+             @DEEP_TEST_864CE8F_FAILED = 1;
+          }
+       }, open,"deep_nested", ""
     }, open,"prb1_main", ""
+    if @DEEP_TEST_864CE8F_FAILED == 1 then
+    {
+       run(on_deep_1);
+    }
+    else
+    {
+    }
+    stop_bin "1", "", , good, noreprobe, green, 1, over_on;
 
   }, open,"PRB1","Probe1 Main"
 
