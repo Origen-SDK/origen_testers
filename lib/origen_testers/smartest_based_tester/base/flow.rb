@@ -94,6 +94,7 @@ module OrigenTesters
                   vars[:all][:referenced_enables] << [flow_enable_var_name, 0]
                   vars[:this_flow][:referenced_enables] << [flow_enable_var_name, 0]
                 end
+                vars[:empty?] = false
               end
             end
             vars
