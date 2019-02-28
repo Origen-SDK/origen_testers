@@ -140,7 +140,7 @@ module OrigenTesters
           l = []
           l << "  comment = \"#{comment}\";" if comment
           l << "  ffc_on_fail = #{wrap_if_string(log_first)};" if log_first
-          l << "  local_flags = #{flags};"
+          l << "  local_flags = #{flags};" unless flags.empty?
           l << '  override = 1;'
           l << "  override_anaset = #{wrap_if_string(analog_set)};" if analog_set
           l << "  override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
@@ -203,7 +203,7 @@ module OrigenTesters
           f << 'ffv_enable' if ffv_enable
           f << 'frg_enable' if frg_enable
           f << 'hw_dsp_disable' if hardware_dsp_disable
-          f.join(', ')
+          f.empty? ? f : f.join(', ')
         end
 
         def wrap_if_string(value)
