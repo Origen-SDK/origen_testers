@@ -159,4 +159,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	cc_test_0	cc_test_0	7000										Fail														
 						Test	cc_test_1	cc_test_1	7001										Fail														
 						Test	cc_test_2	cc_test_2	7002										Fail														
+						logprint	Passing_test_flags_works_as_expected																										
+						Test	test_with_no_flags	test_with_no_flags											Fail														
+						Test	test_with_flags	test_with_flags											Fail														
 						set-device									1		1		Pass													Good die!	

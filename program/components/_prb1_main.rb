@@ -226,5 +226,9 @@ Flow.create do |options|
     func "cc_test_#{i}".to_sym, number: 7000 + i
   end
 
+  log 'Passing test flags works as expected'
+  func :test_with_no_flags, bypass: false, output_on_pass: false, output_on_fail: false, value_on_pass: false, value_on_fail: false, per_pin_on_pass: false, per_pin_on_fail: false
+  func :test_with_flags, bypass: true, output_on_pass: true, output_on_fail: true, value_on_pass: true, value_on_fail: true, per_pin_on_pass: true, per_pin_on_fail: true
+
   pass 1, description: "Good die!", softbin: 1
 end

@@ -27,5 +27,7 @@ program_ckbd_b0.binl.gz
 program_ckbd_b1.binl.gz
 program_ckbd_b2.binl.gz
 some_func_test.binl.gz
+test_with_flags.binl.gz
+test_with_no_flags.binl.gz
 xcvr_fs_vilvih.binl.gz
 
