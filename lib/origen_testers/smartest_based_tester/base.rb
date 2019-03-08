@@ -143,14 +143,6 @@ module OrigenTesters
         @package_namespace || Origen.app.namespace
       end
 
-      def smt8?
-        smt_version.to_s[0] == '8'
-      end
-
-      def smt7?
-        smt_version.to_s[0] == '7'
-      end
-
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
       # to set multiple.
       def limitfile_test_modes=(val)
