@@ -22,7 +22,11 @@ module OrigenTesters
         end
 
         def add(name, options = {})
+          symbol = name.is_a?(Symbol)
           name = make_unique(name)
+          # Ensure names given as a symbol stay as a symbol, this is more for
+          # alignment to existing test cases than anything else
+          name = name.to_sym if symbol
           suite = platform::TestSuite.new(name, options)
           @collection << suite
           # c = Origen.interface.consume_comments
