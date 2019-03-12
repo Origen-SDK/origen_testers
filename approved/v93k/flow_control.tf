@@ -231,7 +231,16 @@ tm_166:
 tm_167:
   "output" = "None";
   "testName" = "Functional";
+tm_168:
+  "output" = "None";
+  "testName" = "Functional";
+tm_169:
+  "output" = "None";
+  "testName" = "Functional";
 tm_17:
+  "output" = "None";
+  "testName" = "Functional";
+tm_170:
   "output" = "None";
   "testName" = "Functional";
 tm_18:
@@ -661,7 +670,13 @@ tm_166:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_167:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_168:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_169:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_17:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_170:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_18:
   "Functional" = "":"NA":"":"NA":"":"":"";
@@ -1000,7 +1015,13 @@ tm_166:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_167:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_168:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_169:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_17:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_170:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_18:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -1776,10 +1797,26 @@ test1_2_BEA7F3B:
   site_control = "parallel:";
   site_match = 2;
 test1_30_BEA7F3B:
+  comment = "The is auto-generated comment from hashtag";
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test1";
   override_testf = tm_165;
+  site_control = "parallel:";
+  site_match = 2;
+test1_31_BEA7F3B:
+  comment = "The is auto-generated comment from cc";
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1";
+  override_testf = tm_166;
+  site_control = "parallel:";
+  site_match = 2;
+test1_32_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1";
+  override_testf = tm_168;
   site_control = "parallel:";
   site_match = 2;
 test1_3_BEA7F3B:
@@ -1836,6 +1873,13 @@ test1_BEA7F3B:
   override = 1;
   override_seqlbl = "test1";
   override_testf = tm_34;
+  site_control = "parallel:";
+  site_match = 2;
+test1n_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test1n";
+  override_testf = tm_167;
   site_control = "parallel:";
   site_match = 2;
 test22_BEA7F3B:
@@ -2024,7 +2068,7 @@ test2_28_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test2";
-  override_testf = tm_167;
+  override_testf = tm_170;
   site_control = "parallel:";
   site_match = 2;
 test2_2_BEA7F3B:
@@ -2157,7 +2201,7 @@ test3_16_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test3";
-  override_testf = tm_166;
+  override_testf = tm_169;
   site_control = "parallel:";
   site_match = 2;
 test3_1_BEA7F3B:
@@ -2362,1274 +2406,1285 @@ end
 test_flow
 
   {
-  {
-    @T5_BEA7F3B_RAN = -1;
-    @T6_BEA7F3B_RAN = -1;
-    @T7_BEA7F3B_RAN = -1;
-    @T8_BEA7F3B_RAN = -1;
-    @IFA1_BEA7F3B_FAILED = -1;
-    @IFA2_BEA7F3B_FAILED = -1;
-    @OOF_PASSCODE1_BEA7F3B_FAILED = -1;
-    @OOF_PASSCODE2_BEA7F3B_FAILED = -1;
-    @IFALL1_BEA7F3B_FAILED = -1;
-    @IFALLB1_BEA7F3B_FAILED = -1;
-    @IFAP1_BEA7F3B_PASSED = -1;
-    @IFAP2_BEA7F3B_PASSED = -1;
-    @IFAPB1_BEA7F3B_PASSED = -1;
-    @IFAPB2_BEA7F3B_PASSED = -1;
-    @IFALLP1_BEA7F3B_PASSED = -1;
-    @IFALLPB1_BEA7F3B_PASSED = -1;
-    @GRP1_BEA7F3B_FAILED = -1;
-    @GT_GRP1_BEA7F3B_FAILED = -1;
-    @GT_GRP2_BEA7F3B_FAILED = -1;
-    @L1T5_BEA7F3B_FAILED = -1;
-    @ECT2_1_BEA7F3B_FAILED = -1;
-    @ECT2_2_BEA7F3B_FAILED = -1;
-    @MY_FLAG = -1;
-    @My_Mixed_Flag = -1;
-    @AT22_BEA7F3B_FAILED = -1;
-    @OF1_BEA7F3B_FAILED = -1;
-    @OF2_BEA7F3B_FAILED = -1;
-    @AF1_BEA7F3B_FAILED = -1;
-    @AF2_BEA7F3B_FAILED = -1;
-    @OF11_BEA7F3B_FAILED = -1;
-    @OF12_BEA7F3B_FAILED = -1;
-    @AF11_BEA7F3B_FAILED = -1;
-  }, open,"Init Flow Control Vars", ""
-  print_dl("Test that if_failed works");
-  run_and_branch(read1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    run_and_branch(erase1_BEA7F3B)
+    {
+       @T5_BEA7F3B_RAN = -1;
+       @T6_BEA7F3B_RAN = -1;
+       @T7_BEA7F3B_RAN = -1;
+       @T8_BEA7F3B_RAN = -1;
+       @IFA1_BEA7F3B_FAILED = -1;
+       @IFA2_BEA7F3B_FAILED = -1;
+       @OOF_PASSCODE1_BEA7F3B_FAILED = -1;
+       @OOF_PASSCODE2_BEA7F3B_FAILED = -1;
+       @IFALL1_BEA7F3B_FAILED = -1;
+       @IFALLB1_BEA7F3B_FAILED = -1;
+       @IFAP1_BEA7F3B_PASSED = -1;
+       @IFAP2_BEA7F3B_PASSED = -1;
+       @IFAPB1_BEA7F3B_PASSED = -1;
+       @IFAPB2_BEA7F3B_PASSED = -1;
+       @IFALLP1_BEA7F3B_PASSED = -1;
+       @IFALLPB1_BEA7F3B_PASSED = -1;
+       @GRP1_BEA7F3B_FAILED = -1;
+       @GT_GRP1_BEA7F3B_FAILED = -1;
+       @GT_GRP2_BEA7F3B_FAILED = -1;
+       @L1T5_BEA7F3B_FAILED = -1;
+       @ECT2_1_BEA7F3B_FAILED = -1;
+       @ECT2_2_BEA7F3B_FAILED = -1;
+       @MY_FLAG = -1;
+       @My_Mixed_Flag = -1;
+       @AT22_BEA7F3B_FAILED = -1;
+       @OF1_BEA7F3B_FAILED = -1;
+       @OF2_BEA7F3B_FAILED = -1;
+       @AF1_BEA7F3B_FAILED = -1;
+       @AF2_BEA7F3B_FAILED = -1;
+       @OF11_BEA7F3B_FAILED = -1;
+       @OF12_BEA7F3B_FAILED = -1;
+       @AF11_BEA7F3B_FAILED = -1;
+    }, open,"Init Flow Control Vars", ""
+    print_dl("Test that if_failed works");
+    run_and_branch(read1_BEA7F3B)
     then
     {
     }
     else
     {
-      stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-    }
-  }
-  print_dl("Test the block form of if_failed");
-  run_and_branch(read2_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    run(erase2_BEA7F3B);
-    run(erase2_1_BEA7F3B);
-  }
-  print_dl("Test that if_passed works");
-  run_and_branch(read1_1_BEA7F3B)
-  then
-  {
-    run(pgm1_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_passed");
-  run_and_branch(read2_1_BEA7F3B)
-  then
-  {
-    run(pgm1_1_BEA7F3B);
-    run(pgm1_2_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that if_ran works");
-  run_and_branch(pgm_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  @T5_BEA7F3B_RAN = 1;
-  if @T5_BEA7F3B_RAN == 1 then
-  {
-    run(read0_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_ran");
-  run_and_branch(pgm_1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  @T6_BEA7F3B_RAN = 1;
-  if @T6_BEA7F3B_RAN == 1 then
-  {
-    run(read0_1_BEA7F3B);
-    run(read0_2_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that unless_ran works");
-  run_and_branch(pgm_2_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  @T7_BEA7F3B_RAN = 1;
-  if @T7_BEA7F3B_RAN == 1 then
-  {
-  }
-  else
-  {
-    run(read0_3_BEA7F3B);
-  }
-  print_dl("Test the block form of unless_ran");
-  run_and_branch(pgm_3_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  @T8_BEA7F3B_RAN = 1;
-  if @T8_BEA7F3B_RAN == 1 then
-  {
-  }
-  else
-  {
-    run(read0_4_BEA7F3B);
-    run(read0_5_BEA7F3B);
-  }
-  print_dl("Test that if_job works");
-  if @JOB == "FC" then
-  {
-    run(cold_test_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_job");
-  if @JOB == "PRB1" or @JOB == "PRB2" then
-  {
-    run(probe_only_test1_BEA7F3B);
-    run(probe_only_test2_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that the block form of if_job can be overridden, prb9 should be removed");
-  if @JOB == "PRB1" or @JOB == "PRB2" then
-  {
-    run(probe_only_test1_1_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that unless_job works");
-  if @JOB == "FC" then
-  {
-  }
-  else
-  {
-    run(warmish_test_BEA7F3B);
-  }
-  print_dl("Test the block form of unless_job");
-  if @JOB == "PRB1" or @JOB == "PRB2" then
-  {
-  }
-  else
-  {
-    run(ft_only_test1_BEA7F3B);
-    run(ft_only_test2_BEA7F3B);
-  }
-  print_dl("Test that if_enable works");
-  if @EXTRAS == 1 then
-  {
-    run(extra_test_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_enable");
-  if @CZ == 1 then
-  {
-    run(cz_test1_BEA7F3B);
-    run(cz_test2_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that unless_enable works");
-  if @QUICK == 1 then
-  {
-  }
-  else
-  {
-    run(long_test_BEA7F3B);
-  }
-  print_dl("Test the block form of unless_enable");
-  if @QUICK == 1 then
-  {
-  }
-  else
-  {
-    run(long_test1_BEA7F3B);
-    run(long_test2_BEA7F3B);
-  }
-  print_dl("Test that if_any_failed works");
-  run_and_branch(test1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @IFA1_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @IFA2_BEA7F3B_FAILED = 1;
-  }
-  if @IFA1_BEA7F3B_FAILED == 1 or @IFA2_BEA7F3B_FAILED == 1 then
-  {
-    run(test3_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_any_failed");
-  run_and_branch(test1_1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OOF_PASSCODE1_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OOF_PASSCODE2_BEA7F3B_FAILED = 1;
-  }
-  if @OOF_PASSCODE1_BEA7F3B_FAILED == 1 or @OOF_PASSCODE2_BEA7F3B_FAILED == 1 then
-  {
-    run(test3_1_BEA7F3B);
-    run(test4_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that if_all_failed works");
-  run_and_branch(test1_2_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @IFALL1_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_2_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    if @IFALL1_BEA7F3B_FAILED == 1 then
-    {
-      run(test3_2_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  print_dl("Test the block form of if_all_failed");
-  run_and_branch(test1_3_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @IFALLB1_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_3_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    if @IFALLB1_BEA7F3B_FAILED == 1 then
-    {
-      run(test3_3_BEA7F3B);
-      run(test4_1_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  print_dl("Test that if_any_passed works");
-  run_and_branch(test1_4_BEA7F3B)
-  then
-  {
-    @IFAP1_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  run_and_branch(test2_4_BEA7F3B)
-  then
-  {
-    @IFAP2_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @IFAP1_BEA7F3B_PASSED == 1 or @IFAP2_BEA7F3B_PASSED == 1 then
-  {
-    run(test3_4_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_any_passed");
-  run_and_branch(test1_5_BEA7F3B)
-  then
-  {
-    @IFAPB1_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  run_and_branch(test2_5_BEA7F3B)
-  then
-  {
-    @IFAPB2_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  if @IFAPB1_BEA7F3B_PASSED == 1 or @IFAPB2_BEA7F3B_PASSED == 1 then
-  {
-    run(test3_5_BEA7F3B);
-    run(test4_2_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Test that if_all_passed works");
-  run_and_branch(test1_6_BEA7F3B)
-  then
-  {
-    @IFALLP1_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  run_and_branch(test2_6_BEA7F3B)
-  then
-  {
-    if @IFALLP1_BEA7F3B_PASSED == 1 then
-    {
-      run(test3_6_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Test the block form of if_all_passed");
-  run_and_branch(test1_7_BEA7F3B)
-  then
-  {
-    @IFALLPB1_BEA7F3B_PASSED = 1;
-  }
-  else
-  {
-  }
-  run_and_branch(test2_7_BEA7F3B)
-  then
-  {
-    if @IFALLPB1_BEA7F3B_PASSED == 1 then
-    {
-      run(test3_7_BEA7F3B);
-      run(test4_3_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Test that group-level dependencies work");
-  {
-    run_and_branch(grp1_test1_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @GRP1_BEA7F3B_FAILED = 1;
-    }
-    run_and_branch(grp1_test2_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @GRP1_BEA7F3B_FAILED = 1;
-    }
-    run_and_branch(grp1_test3_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @GRP1_BEA7F3B_FAILED = 1;
-    }
-  }, open,"grp1", ""
-  if @GRP1_BEA7F3B_FAILED == 1 then
-  {
-    {
-      run_and_branch(grp2_test1_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(grp2_test2_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(grp2_test3_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-    }, open,"grp2", ""
-  }
-  else
-  {
-  }
-  print_dl("Another group-level dependencies test based on a real life use case");
-  run_and_branch(gt1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
-  }
-  {
-    run_and_branch(gt_grp1_test1_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @GT_GRP1_BEA7F3B_FAILED = 1;
-    }
-    run_and_branch(gt_grp1_test2_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @GT_GRP1_BEA7F3B_FAILED = 1;
-    }
-  }, open,"gt_grp1", ""
-  if @GT_GRP1_BEA7F3B_FAILED == 1 then
-  {
-    run_and_branch(gt2_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
-    }
-    {
-      run_and_branch(gt_grp2_test1_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        @GT_GRP2_BEA7F3B_FAILED = 1;
-      }
-      run_and_branch(gt_grp2_test2_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        @GT_GRP2_BEA7F3B_FAILED = 1;
-      }
-    }, open,"gt_grp2", ""
-  }
-  else
-  {
-  }
-  if @GT_GRP2_BEA7F3B_FAILED == 1 then
-  {
-    run_and_branch(gt3_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
-    }
-  }
-  else
-  {
-  }
-  print_dl("Test that nested groups work");
-  {
-    run_and_branch(lev1_test1_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-    }
-    run_and_branch(lev1_test2_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-    }
-    run_and_branch(lev1_test3_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      run_and_branch(lev1_test4_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-      }
-    }
-    run_and_branch(lev1_test5_BEA7F3B)
-    then
-    {
-    }
-    else
-    {
-      @L1T5_BEA7F3B_FAILED = 1;
-    }
-    {
-      run_and_branch(lev2_test1_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(lev2_test2_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
-      }
-      run_and_branch(lev2_test3_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        run_and_branch(lev2_test4_BEA7F3B)
-        then
-        {
-        }
-        else
-        {
+       run_and_branch(erase1_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
           stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-        }
-      }
-      if @L1T5_BEA7F3B_FAILED == 1 then
-      {
-        run_and_branch(lev2_test5_BEA7F3B)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-        }
-      }
-      else
-      {
-      }
-    }, open,"level2", ""
-  }, open,"level1", ""
-  print_dl("Test nested conditions on a group");
-  run_and_branch(nt1_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    run_and_branch(nt2_BEA7F3B)
-    then
-    {
-      {
-        run_and_branch(nt3_BEA7F3B)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
-        }
-      }, open,"ntg1", ""
+       }
     }
-    else
-    {
-      {
-        run_and_branch(nt4_BEA7F3B)
-        then
-        {
-        }
-        else
-        {
-          stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
-        }
-      }, open,"ntg2", ""
-    }
-  }
-  print_dl("Embedded conditional tests 1");
-  run_and_branch(test1_8_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    run(test2_8_BEA7F3B);
-    run_and_branch(test3_8_BEA7F3B)
+    print_dl("Test the block form of if_failed");
+    run_and_branch(read2_BEA7F3B)
     then
     {
     }
     else
     {
-      run(test4_4_BEA7F3B);
+       run(erase2_BEA7F3B);
+       run(erase2_1_BEA7F3B);
     }
-  }
-  print_dl("Embedded conditional tests 2");
-  run_and_branch(test1_9_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @ECT2_1_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_9_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @ECT2_2_BEA7F3B_FAILED = 1;
-  }
-  if @ECT2_1_BEA7F3B_FAILED == 1 then
-  {
-    if @ECT2_2_BEA7F3B_FAILED == 1 then
+    print_dl("Test that if_passed works");
+    run_and_branch(read1_1_BEA7F3B)
+    then
     {
-      run(test3_9_BEA7F3B);
+       run(pgm1_BEA7F3B);
     }
     else
     {
     }
-    if @EN1 == 1 then
+    print_dl("Test the block form of if_passed");
+    run_and_branch(read2_1_BEA7F3B)
+    then
     {
-      run(test4_5_BEA7F3B);
+       run(pgm1_1_BEA7F3B);
+       run(pgm1_2_BEA7F3B);
     }
     else
     {
     }
-    if @EN2 == 1 then
-    {
-      run(test5_BEA7F3B);
-      run(test6_BEA7F3B);
-    }
-    else
-    {
-    }
-    run(test7_BEA7F3B);
-  }
-  else
-  {
-  }
-  run(test8_BEA7F3B);
-  print_dl("Nested enable word test 1");
-  if @WORD1 == 1 then
-  {
-    run(test1_10_BEA7F3B);
-    if @WORD2 == 1 then
-    {
-      run(test2_10_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Nested enable word test 2");
-  if @WORD1 == 1 then
-  {
-    run(test1_11_BEA7F3B);
-    if @WORD2 == 1 then
-    {
-    }
-    else
-    {
-      run(test2_11_BEA7F3B);
-    }
-  }
-  else
-  {
-  }
-  print_dl("Nested enable word test 3");
-  if @WORD1 == 1 or @WORD2 == 1 then
-  {
-    run(test1_12_BEA7F3B);
-    if @WORD3 == 1 then
-    {
-      run(test2_12_BEA7F3B);
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Conditional enable test");
-  if @JOB == "FR" then
-  {
-    if @NVM_MINIMUM_ROOM == 1 then
-    {
-      @NVM_MINIMUM_FT = 1;
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  if @JOB == "FC" then
-  {
-    if @NVM_MINIMUM_COLD == 1 then
-    {
-      @NVM_MINIMUM_FT = 1;
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  if @JOB == "FH" then
-  {
-    if @NVM_MINIMUM_HOT == 1 then
-    {
-      @NVM_MINIMUM_FT = 0;
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Test enable words that wrap a lot of tests");
-  if @WORD1 == 1 then
-  {
-    run(test1_13_BEA7F3B);
-    run(test1_14_BEA7F3B);
-    run(test1_15_BEA7F3B);
-    run(test1_16_BEA7F3B);
-    run(test1_17_BEA7F3B);
-    if @WORD2 == 1 then
-    {
-      run(test1_18_BEA7F3B);
-      run(test1_19_BEA7F3B);
-      run(test1_20_BEA7F3B);
-      run(test1_21_BEA7F3B);
-      if @WORD3 == 1 then
-      {
-        run(test1_22_BEA7F3B);
-      }
-      else
-      {
-      }
-    }
-    else
-    {
-    }
-  }
-  else
-  {
-  }
-  print_dl("Manual flag setting");
-  run_and_branch(test1)
-  then
-  {
-  }
-  else
-  {
-    @MY_FLAG = 1;
-  }
-  if @MY_FLAG == 1 then
-  {
-    run(test2);
-  }
-  else
-  {
-    run(test3);
-  }
-  print_dl("Mixed-case manual flags");
-  run_and_branch(test1)
-  then
-  {
-  }
-  else
-  {
-    @My_Mixed_Flag = 1;
-  }
-  if @My_Mixed_Flag == 1 then
-  {
-    run(test2);
-  }
-  else
-  {
-    run(test3);
-  }
-  print_dl("Mixed-case enables");
-  if @MCEn_extras == 1 then
-  {
-    run(extra_test);
-  }
-  else
-  {
-  }
-  if @MCEn_test == 1 then
-  {
-  }
-  else
-  {
-    run(test1);
-    run(test2);
-  }
-  print_dl("This should retain the set-run-flag in the else conditional");
-  run_and_branch(test22_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @AT22_BEA7F3B_FAILED = 1;
-    run(test22a_BEA7F3B);
-    run(test22b_BEA7F3B);
-  }
-  run(test22c_BEA7F3B);
-  run(test22d_BEA7F3B);
-  if @AT22_BEA7F3B_FAILED == 1 then
-  {
-    run(test22e_BEA7F3B);
-    run(test22f_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("This should optimize away then/else branches that are empty");
-  run(test36_BEA7F3B);
-  run(test36b_BEA7F3B);
-  print_dl("Tests of render");
-  if @MY_FLAG == 1 then
-  {
-    multi_bin;
-    run_and_branch(test36_1_BEA7F3B)
+    print_dl("Test that if_ran works");
+    run_and_branch(pgm_BEA7F3B)
     then
     {
     }
     else
     {
-      multi_bin;
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
     }
-  }
-  else
-  {
-  }
-  print_dl("An optimization test case, this should not generate a flag on V93K");
-  run_and_branch(test1_23_BEA7F3B)
-  then
-  {
-    run(test2_13_BEA7F3B);
-  }
-  else
-  {
-    run(test3_10_BEA7F3B);
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  print_dl("The reverse optimization test case, this should not generate a flag on V93K");
-  run_and_branch(test1_24_BEA7F3B)
-  then
-  {
-    run(test2_14_BEA7F3B);
-  }
-  else
-  {
-    run(test3_11_BEA7F3B);
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  print_dl("Nested optimization test case");
-  run_and_branch(outer_test_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
+    @T5_BEA7F3B_RAN = 1;
+    if @T5_BEA7F3B_RAN == 1 then
+    {
+       run(read0_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_ran");
+    run_and_branch(pgm_1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    @T6_BEA7F3B_RAN = 1;
+    if @T6_BEA7F3B_RAN == 1 then
+    {
+       run(read0_1_BEA7F3B);
+       run(read0_2_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that unless_ran works");
+    run_and_branch(pgm_2_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    @T7_BEA7F3B_RAN = 1;
+    if @T7_BEA7F3B_RAN == 1 then
+    {
+    }
+    else
+    {
+       run(read0_3_BEA7F3B);
+    }
+    print_dl("Test the block form of unless_ran");
+    run_and_branch(pgm_3_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    @T8_BEA7F3B_RAN = 1;
+    if @T8_BEA7F3B_RAN == 1 then
+    {
+    }
+    else
+    {
+       run(read0_4_BEA7F3B);
+       run(read0_5_BEA7F3B);
+    }
+    print_dl("Test that if_job works");
+    if @JOB == "FC" then
+    {
+       run(cold_test_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_job");
+    if @JOB == "PRB1" or @JOB == "PRB2" then
+    {
+       run(probe_only_test1_BEA7F3B);
+       run(probe_only_test2_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that the block form of if_job can be overridden, prb9 should be removed");
+    if @JOB == "PRB1" or @JOB == "PRB2" then
+    {
+       run(probe_only_test1_1_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that unless_job works");
+    if @JOB == "FC" then
+    {
+    }
+    else
+    {
+       run(warmish_test_BEA7F3B);
+    }
+    print_dl("Test the block form of unless_job");
+    if @JOB == "PRB1" or @JOB == "PRB2" then
+    {
+    }
+    else
+    {
+       run(ft_only_test1_BEA7F3B);
+       run(ft_only_test2_BEA7F3B);
+    }
+    print_dl("Test that if_enable works");
+    if @EXTRAS == 1 then
+    {
+       run(extra_test_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_enable");
+    if @CZ == 1 then
+    {
+       run(cz_test1_BEA7F3B);
+       run(cz_test2_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that unless_enable works");
+    if @QUICK == 1 then
+    {
+    }
+    else
+    {
+       run(long_test_BEA7F3B);
+    }
+    print_dl("Test the block form of unless_enable");
+    if @QUICK == 1 then
+    {
+    }
+    else
+    {
+       run(long_test1_BEA7F3B);
+       run(long_test2_BEA7F3B);
+    }
+    print_dl("Test that if_any_failed works");
+    run_and_branch(test1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @IFA1_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @IFA2_BEA7F3B_FAILED = 1;
+    }
+    if @IFA1_BEA7F3B_FAILED == 1 or @IFA2_BEA7F3B_FAILED == 1 then
+    {
+       run(test3_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_any_failed");
+    run_and_branch(test1_1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @OOF_PASSCODE1_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @OOF_PASSCODE2_BEA7F3B_FAILED = 1;
+    }
+    if @OOF_PASSCODE1_BEA7F3B_FAILED == 1 or @OOF_PASSCODE2_BEA7F3B_FAILED == 1 then
+    {
+       run(test3_1_BEA7F3B);
+       run(test4_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that if_all_failed works");
+    run_and_branch(test1_2_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @IFALL1_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_2_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       if @IFALL1_BEA7F3B_FAILED == 1 then
+       {
+          run(test3_2_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    print_dl("Test the block form of if_all_failed");
+    run_and_branch(test1_3_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @IFALLB1_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_3_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       if @IFALLB1_BEA7F3B_FAILED == 1 then
+       {
+          run(test3_3_BEA7F3B);
+          run(test4_1_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    print_dl("Test that if_any_passed works");
+    run_and_branch(test1_4_BEA7F3B)
+    then
+    {
+       @IFAP1_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    run_and_branch(test2_4_BEA7F3B)
+    then
+    {
+       @IFAP2_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    if @IFAP1_BEA7F3B_PASSED == 1 or @IFAP2_BEA7F3B_PASSED == 1 then
+    {
+       run(test3_4_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_any_passed");
+    run_and_branch(test1_5_BEA7F3B)
+    then
+    {
+       @IFAPB1_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    run_and_branch(test2_5_BEA7F3B)
+    then
+    {
+       @IFAPB2_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    if @IFAPB1_BEA7F3B_PASSED == 1 or @IFAPB2_BEA7F3B_PASSED == 1 then
+    {
+       run(test3_5_BEA7F3B);
+       run(test4_2_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Test that if_all_passed works");
+    run_and_branch(test1_6_BEA7F3B)
+    then
+    {
+       @IFALLP1_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    run_and_branch(test2_6_BEA7F3B)
+    then
+    {
+       if @IFALLP1_BEA7F3B_PASSED == 1 then
+       {
+          run(test3_6_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Test the block form of if_all_passed");
+    run_and_branch(test1_7_BEA7F3B)
+    then
+    {
+       @IFALLPB1_BEA7F3B_PASSED = 1;
+    }
+    else
+    {
+    }
+    run_and_branch(test2_7_BEA7F3B)
+    then
+    {
+       if @IFALLPB1_BEA7F3B_PASSED == 1 then
+       {
+          run(test3_7_BEA7F3B);
+          run(test4_3_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Test that group-level dependencies work");
+    {
+       run_and_branch(grp1_test1_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @GRP1_BEA7F3B_FAILED = 1;
+       }
+       run_and_branch(grp1_test2_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @GRP1_BEA7F3B_FAILED = 1;
+       }
+       run_and_branch(grp1_test3_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @GRP1_BEA7F3B_FAILED = 1;
+       }
+    }, open,"grp1", ""
+    if @GRP1_BEA7F3B_FAILED == 1 then
+    {
+       {
+          run_and_branch(grp2_test1_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+          }
+          run_and_branch(grp2_test2_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+          }
+          run_and_branch(grp2_test3_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+          }
+       }, open,"grp2", ""
+    }
+    else
+    {
+    }
+    print_dl("Another group-level dependencies test based on a real life use case");
+    run_and_branch(gt1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
+    }
+    {
+       run_and_branch(gt_grp1_test1_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @GT_GRP1_BEA7F3B_FAILED = 1;
+       }
+       run_and_branch(gt_grp1_test2_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @GT_GRP1_BEA7F3B_FAILED = 1;
+       }
+    }, open,"gt_grp1", ""
+    if @GT_GRP1_BEA7F3B_FAILED == 1 then
+    {
+       run_and_branch(gt2_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
+       }
+       {
+          run_and_branch(gt_grp2_test1_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             @GT_GRP2_BEA7F3B_FAILED = 1;
+          }
+          run_and_branch(gt_grp2_test2_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             @GT_GRP2_BEA7F3B_FAILED = 1;
+          }
+       }, open,"gt_grp2", ""
+    }
+    else
+    {
+    }
+    if @GT_GRP2_BEA7F3B_FAILED == 1 then
+    {
+       run_and_branch(gt3_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "", "fail", , bad, noreprobe, red, 90, over_on;
+       }
+    }
+    else
+    {
+    }
+    print_dl("Test that nested groups work");
+    {
+       run_and_branch(lev1_test1_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+       }
+       run_and_branch(lev1_test2_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+       }
+       run_and_branch(lev1_test3_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          run_and_branch(lev1_test4_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+          }
+       }
+       run_and_branch(lev1_test5_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @L1T5_BEA7F3B_FAILED = 1;
+       }
+       {
+          run_and_branch(lev2_test1_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+          }
+          run_and_branch(lev2_test2_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             stop_bin "", "fail", , bad, noreprobe, red, 5, over_on;
+          }
+          run_and_branch(lev2_test3_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             run_and_branch(lev2_test4_BEA7F3B)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+             }
+          }
+          if @L1T5_BEA7F3B_FAILED == 1 then
+          {
+             run_and_branch(lev2_test5_BEA7F3B)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+             }
+          }
+          else
+          {
+          }
+       }, open,"level2", ""
+    }, open,"level1", ""
+    print_dl("Test nested conditions on a group");
+    run_and_branch(nt1_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       run_and_branch(nt2_BEA7F3B)
+       then
+       {
+          {
+             run_and_branch(nt3_BEA7F3B)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+             }
+          }, open,"ntg1", ""
+       }
+       else
+       {
+          {
+             run_and_branch(nt4_BEA7F3B)
+             then
+             {
+             }
+             else
+             {
+                stop_bin "", "fail", , bad, noreprobe, red, 13, over_on;
+             }
+          }, open,"ntg2", ""
+       }
+    }
+    print_dl("Embedded conditional tests 1");
+    run_and_branch(test1_8_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       run(test2_8_BEA7F3B);
+       run_and_branch(test3_8_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          run(test4_4_BEA7F3B);
+       }
+    }
+    print_dl("Embedded conditional tests 2");
+    run_and_branch(test1_9_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @ECT2_1_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_9_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @ECT2_2_BEA7F3B_FAILED = 1;
+    }
+    if @ECT2_1_BEA7F3B_FAILED == 1 then
+    {
+       if @ECT2_2_BEA7F3B_FAILED == 1 then
+       {
+          run(test3_9_BEA7F3B);
+       }
+       else
+       {
+       }
+       if @EN1 == 1 then
+       {
+          run(test4_5_BEA7F3B);
+       }
+       else
+       {
+       }
+       if @EN2 == 1 then
+       {
+          run(test5_BEA7F3B);
+          run(test6_BEA7F3B);
+       }
+       else
+       {
+       }
+       run(test7_BEA7F3B);
+    }
+    else
+    {
+    }
+    run(test8_BEA7F3B);
+    print_dl("Nested enable word test 1");
+    if @WORD1 == 1 then
+    {
+       run(test1_10_BEA7F3B);
+       if @WORD2 == 1 then
+       {
+          run(test2_10_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Nested enable word test 2");
+    if @WORD1 == 1 then
+    {
+       run(test1_11_BEA7F3B);
+       if @WORD2 == 1 then
+       {
+       }
+       else
+       {
+          run(test2_11_BEA7F3B);
+       }
+    }
+    else
+    {
+    }
+    print_dl("Nested enable word test 3");
+    if @WORD1 == 1 or @WORD2 == 1 then
+    {
+       run(test1_12_BEA7F3B);
+       if @WORD3 == 1 then
+       {
+          run(test2_12_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Conditional enable test");
+    if @JOB == "FR" then
+    {
+       if @NVM_MINIMUM_ROOM == 1 then
+       {
+          @NVM_MINIMUM_FT = 1;
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    if @JOB == "FC" then
+    {
+       if @NVM_MINIMUM_COLD == 1 then
+       {
+          @NVM_MINIMUM_FT = 1;
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    if @JOB == "FH" then
+    {
+       if @NVM_MINIMUM_HOT == 1 then
+       {
+          @NVM_MINIMUM_FT = 0;
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Test enable words that wrap a lot of tests");
+    if @WORD1 == 1 then
+    {
+       run(test1_13_BEA7F3B);
+       run(test1_14_BEA7F3B);
+       run(test1_15_BEA7F3B);
+       run(test1_16_BEA7F3B);
+       run(test1_17_BEA7F3B);
+       if @WORD2 == 1 then
+       {
+          run(test1_18_BEA7F3B);
+          run(test1_19_BEA7F3B);
+          run(test1_20_BEA7F3B);
+          run(test1_21_BEA7F3B);
+          if @WORD3 == 1 then
+          {
+             run(test1_22_BEA7F3B);
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }
+    else
+    {
+    }
+    print_dl("Manual flag setting");
+    run_and_branch(test1)
+    then
+    {
+    }
+    else
+    {
+       @MY_FLAG = 1;
+    }
+    if @MY_FLAG == 1 then
+    {
+       run(test2);
+    }
+    else
+    {
+       run(test3);
+    }
+    print_dl("Mixed-case manual flags");
+    run_and_branch(test1)
+    then
+    {
+    }
+    else
+    {
+       @My_Mixed_Flag = 1;
+    }
+    if @My_Mixed_Flag == 1 then
+    {
+       run(test2);
+    }
+    else
+    {
+       run(test3);
+    }
+    print_dl("Mixed-case enables");
+    if @MCEn_extras == 1 then
+    {
+       run(extra_test);
+    }
+    else
+    {
+    }
+    if @MCEn_test == 1 then
+    {
+    }
+    else
+    {
+       run(test1);
+       run(test2);
+    }
+    print_dl("This should retain the set-run-flag in the else conditional");
+    run_and_branch(test22_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @AT22_BEA7F3B_FAILED = 1;
+       run(test22a_BEA7F3B);
+       run(test22b_BEA7F3B);
+    }
+    run(test22c_BEA7F3B);
+    run(test22d_BEA7F3B);
+    if @AT22_BEA7F3B_FAILED == 1 then
+    {
+       run(test22e_BEA7F3B);
+       run(test22f_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("This should optimize away then/else branches that are empty");
+    run(test36_BEA7F3B);
+    run(test36b_BEA7F3B);
+    print_dl("Tests of render");
+    if @MY_FLAG == 1 then
+    {
+       multi_bin;
+       run_and_branch(test36_1_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          multi_bin;
+       }
+    }
+    else
+    {
+    }
+    print_dl("An optimization test case, this should not generate a flag on V93K");
+    run_and_branch(test1_23_BEA7F3B)
+    then
+    {
+       run(test2_13_BEA7F3B);
+    }
+    else
+    {
+       run(test3_10_BEA7F3B);
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    print_dl("The reverse optimization test case, this should not generate a flag on V93K");
+    run_and_branch(test1_24_BEA7F3B)
+    then
+    {
+       run(test2_14_BEA7F3B);
+    }
+    else
+    {
+       run(test3_11_BEA7F3B);
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    print_dl("Nested optimization test case");
+    run_and_branch(outer_test_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       if @FLAG1 == 1 then
+       {
+       }
+       else
+       {
+          run_and_branch(inner_test1_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             multi_bin;
+          }
+       }
+    }
+    print_dl("Nested flag optimization test case");
     if @FLAG1 == 1 then
     {
+       run_and_branch(test4_6_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          multi_bin;
+       }
     }
     else
     {
-      run_and_branch(inner_test1_BEA7F3B)
-      then
-      {
-      }
-      else
-      {
-        multi_bin;
-      }
     }
-  }
-  print_dl("Nested flag optimization test case");
-  if @FLAG1 == 1 then
-  {
-    run_and_branch(test4_6_BEA7F3B)
+    print_dl("Same test case with volatile flag");
+    if @Alarm == 1 then
+    {
+       run_and_branch(test10_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          if @Alarm == 1 then
+          {
+             multi_bin;
+          }
+          else
+          {
+          }
+       }
+    }
+    else
+    {
+    }
+    print_dl("The setting of flags used in later OR conditions should be preserved");
+    run_and_branch(test2_15_BEA7F3B)
     then
     {
     }
     else
     {
-      multi_bin;
+       @OF1_BEA7F3B_FAILED = 1;
+       run(test3_12_BEA7F3B);
     }
-  }
-  else
-  {
-  }
-  print_dl("Same test case with volatile flag");
-  if @Alarm == 1 then
-  {
-    run_and_branch(test10_BEA7F3B)
+    run_and_branch(test2_16_BEA7F3B)
     then
     {
     }
     else
     {
-      if @Alarm == 1 then
-      {
-        multi_bin;
-      }
-      else
-      {
-      }
+       @OF2_BEA7F3B_FAILED = 1;
+       run(test3_13_BEA7F3B);
     }
-  }
-  else
-  {
-  }
-  print_dl("The setting of flags used in later OR conditions should be preserved");
-  run_and_branch(test2_15_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OF1_BEA7F3B_FAILED = 1;
-    run(test3_12_BEA7F3B);
-  }
-  run_and_branch(test2_16_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OF2_BEA7F3B_FAILED = 1;
-    run(test3_13_BEA7F3B);
-  }
-  run(test4_7_BEA7F3B);
-  if @OF1_BEA7F3B_FAILED == 1 or @OF2_BEA7F3B_FAILED == 1 then
-  {
-    run(test4_8_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("The setting of flags used in later AND conditions should be preserved");
-  run_and_branch(test2_17_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @AF1_BEA7F3B_FAILED = 1;
-    run(test3_14_BEA7F3B);
-  }
-  run_and_branch(test2_18_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @AF2_BEA7F3B_FAILED = 1;
-    run(test3_15_BEA7F3B);
-  }
-  run(test4_9_BEA7F3B);
-  if @AF1_BEA7F3B_FAILED == 1 then
-  {
-    if @AF2_BEA7F3B_FAILED == 1 then
+    run(test4_7_BEA7F3B);
+    if @OF1_BEA7F3B_FAILED == 1 or @OF2_BEA7F3B_FAILED == 1 then
     {
-      run(test4_10_BEA7F3B);
+       run(test4_8_BEA7F3B);
     }
     else
     {
     }
-  }
-  else
-  {
-  }
-  print_dl("Adjacent tests that set a flag and then use it in an OR condition should be valid");
-  run_and_branch(test2_19_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OF11_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_20_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @OF12_BEA7F3B_FAILED = 1;
-  }
-  if @OF11_BEA7F3B_FAILED == 1 or @OF12_BEA7F3B_FAILED == 1 then
-  {
-    run(test4_11_BEA7F3B);
-  }
-  else
-  {
-  }
-  print_dl("Adjacent tests that set a flag and then use it in an AND condition should be valid");
-  run_and_branch(test2_21_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    @AF11_BEA7F3B_FAILED = 1;
-  }
-  run_and_branch(test2_22_BEA7F3B)
-  then
-  {
-  }
-  else
-  {
-    if @AF11_BEA7F3B_FAILED == 1 then
+    print_dl("The setting of flags used in later AND conditions should be preserved");
+    run_and_branch(test2_17_BEA7F3B)
+    then
     {
-      run(test4_12_BEA7F3B);
+    }
+    else
+    {
+       @AF1_BEA7F3B_FAILED = 1;
+       run(test3_14_BEA7F3B);
+    }
+    run_and_branch(test2_18_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @AF2_BEA7F3B_FAILED = 1;
+       run(test3_15_BEA7F3B);
+    }
+    run(test4_9_BEA7F3B);
+    if @AF1_BEA7F3B_FAILED == 1 then
+    {
+       if @AF2_BEA7F3B_FAILED == 1 then
+       {
+          run(test4_10_BEA7F3B);
+       }
+       else
+       {
+       }
     }
     else
     {
     }
-  }
-  print_dl("Adjacent if combiner test case 1");
-  if @MY_ENABLE_WORD == 1 then
-  {
-    run(test1_25_BEA7F3B);
-  }
-  else
-  {
-    run(test2_23_BEA7F3B);
-  }
-  if @MY_FLAG == 1 then
-  {
-    run(test1_26_BEA7F3B);
-  }
-  else
-  {
-    run(test2_24_BEA7F3B);
-  }
-  print_dl("Adjacent if combiner test case 2");
-  if @MY_ENABLE_WORD == 1 then
-  {
-    run(test1_27_BEA7F3B);
-  }
-  else
-  {
-    run(test2_25_BEA7F3B);
-  }
-  if @MY_FLAG == 1 then
-  {
-    run(test1_28_BEA7F3B);
-  }
-  else
-  {
-    run(test2_26_BEA7F3B);
-  }
-  print_dl("Volatile if combiner test case");
-  if @Alarm == 1 then
-  {
-    run(test1_29_BEA7F3B);
-  }
-  else
-  {
-  }
-  if @Alarm == 1 then
-  {
-  }
-  else
-  {
-    run(test2_27_BEA7F3B);
-  }
-  print_dl("Test the block form of expressing if passed/failed dependents");
-  run_and_branch(test1_30_BEA7F3B)
-  then
-  {
-    run(test2_28_BEA7F3B);
-  }
-  else
-  {
-    run(test3_16_BEA7F3B);
-    stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
-  }
-  print_dl("Test the else block on a flag condition");
-  if @BITMAP == 1 then
-  {
-    run(test2);
-  }
-  else
-  {
-    run(test3);
-  }
-  if @SOME_FLAG == 1 then
-  {
-    run(test2);
-  }
-  else
-  {
-    run(test3);
-  }
-  print_dl("Test of a real life case which was found to have problems");
-  if @EWORD1 == 1 then
-  {
-  }
-  else
-  {
+    print_dl("Adjacent tests that set a flag and then use it in an OR condition should be valid");
+    run_and_branch(test2_19_BEA7F3B)
+    then
     {
-      if @EWORD2 == 1 then
-      {
-        if @SMALL_FLOW == 1 then
-        {
-          run(test1);
-          run(test2);
-        }
-        else
-        {
-        }
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        if @SMALL_FLOW == 1 then
-        {
-          run(test1);
-          run(test2);
-        }
-        else
-        {
-        }
-      }
-      else
-      {
-        if @SMALL_FLOW == 1 then
-        {
-          run(test1);
-          run(test2);
-        }
-        else
-        {
-        }
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        run(test1);
-        if @SMALL_FLOW == 1 then
-        {
-          run(test1);
-          run(test2);
-        }
-        else
-        {
-        }
-      }
-    }, open,"small", ""
-  }
+    }
+    else
+    {
+       @OF11_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_20_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @OF12_BEA7F3B_FAILED = 1;
+    }
+    if @OF11_BEA7F3B_FAILED == 1 or @OF12_BEA7F3B_FAILED == 1 then
+    {
+       run(test4_11_BEA7F3B);
+    }
+    else
+    {
+    }
+    print_dl("Adjacent tests that set a flag and then use it in an AND condition should be valid");
+    run_and_branch(test2_21_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       @AF11_BEA7F3B_FAILED = 1;
+    }
+    run_and_branch(test2_22_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       if @AF11_BEA7F3B_FAILED == 1 then
+       {
+          run(test4_12_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    print_dl("Adjacent if combiner test case 1");
+    if @MY_ENABLE_WORD == 1 then
+    {
+       run(test1_25_BEA7F3B);
+    }
+    else
+    {
+       run(test2_23_BEA7F3B);
+    }
+    if @MY_FLAG == 1 then
+    {
+       run(test1_26_BEA7F3B);
+    }
+    else
+    {
+       run(test2_24_BEA7F3B);
+    }
+    print_dl("Adjacent if combiner test case 2");
+    if @MY_ENABLE_WORD == 1 then
+    {
+       run(test1_27_BEA7F3B);
+    }
+    else
+    {
+       run(test2_25_BEA7F3B);
+    }
+    if @MY_FLAG == 1 then
+    {
+       run(test1_28_BEA7F3B);
+    }
+    else
+    {
+       run(test2_26_BEA7F3B);
+    }
+    print_dl("Volatile if combiner test case");
+    if @Alarm == 1 then
+    {
+       run(test1_29_BEA7F3B);
+    }
+    else
+    {
+    }
+    if @Alarm == 1 then
+    {
+    }
+    else
+    {
+       run(test2_27_BEA7F3B);
+    }
+    run(test1_30_BEA7F3B);
+    run(test1_31_BEA7F3B);
+    print_dl("Use bin_attrs to set not_over_on");
+    run_and_branch(test1n_BEA7F3B)
+    then
+    {
+    }
+    else
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 12, not_over_on;
+    }
+    print_dl("Test the block form of expressing if passed/failed dependents");
+    run_and_branch(test1_32_BEA7F3B)
+    then
+    {
+       run(test2_28_BEA7F3B);
+    }
+    else
+    {
+       run(test3_16_BEA7F3B);
+       stop_bin "", "fail", , bad, noreprobe, red, 10, over_on;
+    }
+    print_dl("Test the else block on a flag condition");
+    if @BITMAP == 1 then
+    {
+       run(test2);
+    }
+    else
+    {
+       run(test3);
+    }
+    if @SOME_FLAG == 1 then
+    {
+       run(test2);
+    }
+    else
+    {
+       run(test3);
+    }
+    print_dl("Test of a real life case which was found to have problems");
+    if @EWORD1 == 1 then
+    {
+    }
+    else
+    {
+       {
+          if @EWORD2 == 1 then
+          {
+             if @SMALL_FLOW == 1 then
+             {
+                run(test1);
+                run(test2);
+             }
+             else
+             {
+             }
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             if @SMALL_FLOW == 1 then
+             {
+                run(test1);
+                run(test2);
+             }
+             else
+             {
+             }
+          }
+          else
+          {
+             if @SMALL_FLOW == 1 then
+             {
+                run(test1);
+                run(test2);
+             }
+             else
+             {
+             }
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             run(test1);
+             if @SMALL_FLOW == 1 then
+             {
+                run(test1);
+                run(test2);
+             }
+             else
+             {
+             }
+          }
+       }, open,"small", ""
+    }
 
-  }, open,"Flow Control Testing",""
+  }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
 
 end
 -----------------------------------------------------------------

@@ -164,6 +164,27 @@ module OrigenTesters
     end
     alias_method :signature, :sig
 
+    def active_description
+      flow_file = OrigenTesters::Flow.callstack.last
+      called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
+      desc = nil
+      if called_from
+        called_from = called_from.split(':')
+        line_no = called_from[1].to_i
+        ht_coms = OrigenTesters::Flow.ht_comments
+        cc_coms = OrigenTesters::Flow.cc_comments
+        if line_no
+          if ht_coms[line_no]
+            desc = ht_coms[line_no].join(' ')
+          end
+          if cc_coms[line_no] && cc_coms[line_no].first
+            desc = [cc_coms[line_no].shift].join(' ')
+          end
+        end
+      end
+      desc
+    end
+
     private
 
     # Make a unique signature for the flow based on the flow name and the name of

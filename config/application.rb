@@ -4,6 +4,7 @@ class OrigenTestersApplication < Origen::Application
 
   config.shared = {
     command_launcher: "config/shared_commands.rb",
+    global_launcher: "config/global_commands.rb",
     origen_guides: "templates/origen_guides",
     origen_guides_index: -> (index) do
       index.section :pattern, heading: "Pattern Generator", after: :controllers do |section|
