@@ -27,8 +27,6 @@ module OrigenTesters
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
 
-      attr_reader :disable_pattern_diffs
-
       # permit option to generate multiport type patterns
       # and use multiport type code
       attr_accessor :multiport
@@ -68,6 +66,10 @@ module OrigenTesters
       # be written out to a standalone (spreadsheet) file instead (SMT8 only)
       attr_accessor :separate_bins_file
 
+      # When set to true (the default), patterns will be generated in ZIP format instead of ASCII
+      # format (SMT8 only)
+      attr_accessor :zip_patterns
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -79,6 +81,11 @@ module OrigenTesters
         @smt_version = options[:smt_version] || 7
 
         @separate_bins_file = options[:separate_bins_file] || false
+        if options.key?(:zip_patterns)
+          @zip_patterns = options.delete(:zip_patterns)
+        else
+          @zip_patterns = true
+        end
 
         if smt8?
           require_relative 'smt8'
@@ -92,7 +99,6 @@ module OrigenTesters
         @min_repeat_loop = 33
         if smt8?
           @pat_extension = 'pat'
-          @disable_pattern_diffs = true
         else
           @pat_extension = 'avc'
         end
@@ -135,6 +141,10 @@ module OrigenTesters
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
+      end
+
+      def disable_pattern_diffs
+        smt8? && zip_patterns
       end
 
       # Returns the package namespace that all generated test collateral should be placed under,

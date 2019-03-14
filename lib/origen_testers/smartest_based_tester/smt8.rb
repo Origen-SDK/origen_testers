@@ -13,8 +13,10 @@ module OrigenTesters
         }.merge(options)
         @program_lines = []
         @program_action_lines = []
-        @program_lines << '<?xml version="1.0" encoding="UTF-8"?>'
-        @program_lines << '<Program xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Program.xsd">'
+        if zip_patterns
+          @program_lines << '<?xml version="1.0" encoding="UTF-8"?>'
+          @program_lines << '<Program xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Program.xsd">'
+        end
         @program_lines << '  <Assignment id="memory" value="SM"/>'
         pin_list = ordered_pins.map do |p|
           if Origen.app.pin_pattern_order.include?(p.id)
@@ -45,17 +47,12 @@ module OrigenTesters
           ss 'WARNING: 93K keep alive not yet implemented!'
         end
         @program_footer_lines = []
-        @program_footer_lines << '</Program>'
+        @program_footer_lines << '</Program>' if zip_patterns
       end
 
       # @api private
       def open_and_write_pattern(filename)
         pat_name = Pathname.new(filename).basename.to_s
-        tmp_dir = filename.gsub('.', '_')
-        FileUtils.mkdir_p(tmp_dir)
-        program_file = File.join(tmp_dir, 'Program.sprg')
-        vector_file = File.join(tmp_dir, 'Vectors.vec')
-        comments_file = File.join(tmp_dir, 'Comments.cmt')
 
         @gen_vec = 0
         @vector_number = 0
@@ -66,24 +63,47 @@ module OrigenTesters
         yield
 
         write_gen_vec
-
         @program_lines << '  </Instrument>'
 
-        File.open(program_file, 'w') do |f|
-          (@program_lines + @program_action_lines + @program_footer_lines).each do |line|
-            f.puts line
+        if zip_patterns
+          tmp_dir = filename.gsub('.', '_')
+          FileUtils.mkdir_p(tmp_dir)
+          program_file = File.join(tmp_dir, 'Program.sprg')
+          vector_file = File.join(tmp_dir, 'Vectors.vec')
+          comments_file = File.join(tmp_dir, 'Comments.cmt')
+
+          File.open(program_file, 'w') do |f|
+            (@program_lines + @program_action_lines + @program_footer_lines).each do |line|
+              f.puts line
+            end
+          end
+
+          File.open(vector_file, 'w') { |f| @vector_lines.each { |l| f.puts l } }
+          File.open(comments_file, 'w') { |f| @comment_lines.each { |l| f.puts l } }
+
+          Dir.chdir tmp_dir do
+            `zip #{pat_name} Program.sprg Vectors.vec Comments.cmt`
+            FileUtils.mv pat_name, filename
+          end
+        else
+          File.open filename, 'w' do |f|
+            f.puts '<Pattern>'
+            f.puts '  <Program>'
+            (@program_lines + @program_action_lines + @program_footer_lines).each do |line|
+              f.puts '  ' + line
+            end
+            f.puts '  </Program>'
+            f.puts '  <Vector>'
+            @vector_lines.each { |l| f.puts '    ' + l }
+            f.puts '  </Vector>'
+            f.puts '  <Comment>'
+            @comment_lines.each { |l| f.puts '    ' + l }
+            f.puts '  </Comment>'
+            f.puts '</Pattern>'
           end
         end
-
-        File.open(vector_file, 'w') { |f| @vector_lines.each { |l| f.puts l } }
-        File.open(comments_file, 'w') { |f| @comment_lines.each { |l| f.puts l } }
-
-        Dir.chdir tmp_dir do
-          `zip #{pat_name} Program.sprg Vectors.vec Comments.cmt`
-          FileUtils.mv pat_name, filename
-        end
       ensure
-        FileUtils.rm_rf(tmp_dir) if File.exist?(tmp_dir)
+        FileUtils.rm_rf(tmp_dir) if zip_patterns && File.exist?(tmp_dir)
       end
 
       # @api private
