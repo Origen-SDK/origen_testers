@@ -114,26 +114,29 @@ module OrigenTesters
       # should always be a 1:1 feature mapping between the 2 systems.
       def track_and_format_comment(comment)
         if comment =~ /^SQPG/
-          write_gen_vec
-          if comment =~ /^SQPG JSUB ([^;]+);/
-            @program_lines << "    <Instruction id=\"patternCall\" value=\"#{tester.package_namespace}.patterns.#{Regexp.last_match(1)}\"/>"
-          elsif comment =~ /^SQPG MACT (\d+);/
-            @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\"/>"
-          elsif comment =~ /^SQPG MRPT (\d+);/
-            @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
-          elsif comment =~ /^SQPG LBGN (\d+);/
-            @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
-          elsif comment =~ /^SQPG LEND;/
-            @program_lines << "    <Instruction id=\"loopEnd\"/>"
-          elsif comment =~ /^SQPG RETC (\d) (\d);/
-            @program_lines << "    <Instruction id=\"returnConditional\">"
-            @program_lines << "      <Assignment id=\"onFail\" value=\"#{Regexp.last_match(1) == '0' ? 'false' : 'true'}\"/>"
-            @program_lines << "      <Assignment id=\"resetFail\" value=\"#{Regexp.last_match(2) == '0' ? 'false' : 'true'}\"/>"
-            @program_lines << '    </Instruction>'
-          elsif comment =~ /^SQPG PADDING/
-            # TODO: Is this required in SMT8?
+          if comment =~ /^SQPG PADDING/
+            # A gen vec should not be used for MRPT vectors, the padding instruction marks the end of them
+            @gen_vec = 0
           else
-            Origen.log.warning "This SMT7 microcode was not converted to SMT8: #{comment}"
+            write_gen_vec
+            if comment =~ /^SQPG JSUB ([^;]+);/
+              @program_lines << "    <Instruction id=\"patternCall\" value=\"#{tester.package_namespace}.patterns.#{Regexp.last_match(1)}\"/>"
+            elsif comment =~ /^SQPG MACT (\d+);/
+              @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\"/>"
+            elsif comment =~ /^SQPG MRPT (\d+);/
+              @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
+            elsif comment =~ /^SQPG LBGN (\d+);/
+              @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
+            elsif comment =~ /^SQPG LEND;/
+              @program_lines << "    <Instruction id=\"loopEnd\"/>"
+            elsif comment =~ /^SQPG RETC (\d) (\d);/
+              @program_lines << "    <Instruction id=\"returnConditional\">"
+              @program_lines << "      <Assignment id=\"onFail\" value=\"#{Regexp.last_match(1) == '0' ? 'false' : 'true'}\"/>"
+              @program_lines << "      <Assignment id=\"resetFail\" value=\"#{Regexp.last_match(2) == '0' ? 'false' : 'true'}\"/>"
+              @program_lines << '    </Instruction>'
+            else
+              Origen.log.warning "This SMT7 microcode was not converted to SMT8: #{comment}"
+            end
           end
         end
       end
