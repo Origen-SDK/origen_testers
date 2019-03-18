@@ -140,6 +140,7 @@ module OrigenTesters
     #       cc "step comment"
     #   end
     def c1(msg, options = {})
+      PatSeq.add_thread(msg) unless options[:no_thread_id]
       prefix = comment_char + ' '
       prefix += step_comment_prefix + ' ' if @step_comment_on
       if Origen.tester.generating == :program
@@ -171,7 +172,7 @@ module OrigenTesters
     def ss(msg = nil)
       div = step_comment_prefix.length
       div = 1 if div == 0
-      c1(step_comment_prefix * (70 / div))
+      c1(step_comment_prefix * (70 / div), no_thread_id: true)
       @step_comment_on = true
       if block_given?
         yield
@@ -182,9 +183,9 @@ module OrigenTesters
       if $_testers_enable_vector_comments
         timestamp = " #{execution_time_in_ns}ns #{step_comment_prefix}"
         str = step_comment_prefix * (70 / div)
-        c1 str.sub(/#{step_comment_prefix}{#{timestamp.length - 1}}$/, timestamp)
+        c1(str.sub(/#{step_comment_prefix}{#{timestamp.length - 1}}$/, timestamp), no_thread_id: true)
       else
-        c1(step_comment_prefix * (70 / div))
+        c1(step_comment_prefix * (70 / div), no_thread_id: true)
       end
     end
 
