@@ -147,16 +147,29 @@ module OrigenTesters
             when :subroutine, :default
               subroutine_overlay(overlay_str, options)
               ovly_style = :subroutine
+            when :handshake
+              if @delayed_handshake
+                if @delayed_handshake != overlay_str
+                  handshake
+                  @delayed_handshake = overlay_str
+                end
+              else
+                @delayed_handshake = overlay_str
+              end
             else
               ovly_style = overlay_style_warn(options[:overlay][:overlay_str], options)
           end # case ovly_style
         else
+          handshake if @delayed_handshake
+          @delayed_handshake = nil
           @overlay_subr = nil
         end # of handle overlay
 
         options_overlay = options.delete(:overlay) if options.key?(:overlay)
 
-        super(options) unless ovly_style == :subroutine
+        unless ovly_style == :subroutine || ovly_style == :handshake
+          super(options)
+        end
 
         unless options_overlay.nil?
           # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected

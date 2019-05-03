@@ -40,6 +40,39 @@ def to_ast(str)
   ATP::AST::Node.from_sexp(str)
 end
 
+class SpecInterface
+  include OrigenTesters::ProgramGenerators
+end
+
+class SpecDUT
+  include Origen::TopLevel
+end
+
+def with_open_flow(options={})
+  options = {
+    interface: 'SpecInterface',
+    dut: 'SpecDUT',
+    tester: 'V93K'
+  }.merge(options)
+
+  Origen.target.temporary = -> do
+    eval(options[:dut]).new
+    eval("OrigenTesters::#{options[:tester]}").new
+  end
+  # Create a dummy file for the V93K interface to use. Doesn't need to exists, it won't actually be used, just needs to be set.
+  Origen.file_handler.current_file = Pathname.new("#{Origen.root}/temp.rb")
+  Origen.load_target
+
+  Origen.interface.try(:reset_globals)
+  Origen.instance_variable_set("@interface", nil)
+  Flow.create interface: options[:interface] do
+    yield Origen.interface, Origen.interface.flow
+  end
+  Origen.instance_variable_set("@interface", nil)
+end
+
+
+
 RSpec.configure do |config|
   config.formatter = OrigenFormatter
   # rspec-expectations config goes here. You can use an alternate

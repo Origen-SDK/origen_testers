@@ -49,6 +49,7 @@ module OrigenTesters
     end
 
     def test(obj, options = {})
+      @_last_parameters_ = options.dup # Save for the interface's if_parameter_changed method
       obj.extract_atp_attributes(options) if obj.respond_to?(:extract_atp_attributes)
       super(obj, options)
     end
@@ -162,6 +163,27 @@ module OrigenTesters
       @sig
     end
     alias_method :signature, :sig
+
+    def active_description
+      flow_file = OrigenTesters::Flow.callstack.last
+      called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
+      desc = nil
+      if called_from
+        called_from = called_from.split(':')
+        line_no = called_from[1].to_i
+        ht_coms = OrigenTesters::Flow.ht_comments
+        cc_coms = OrigenTesters::Flow.cc_comments
+        if line_no
+          if ht_coms[line_no]
+            desc = ht_coms[line_no].join(' ')
+          end
+          if cc_coms[line_no] && cc_coms[line_no].first
+            desc = [cc_coms[line_no].shift].join(' ')
+          end
+        end
+      end
+      desc
+    end
 
     private
 

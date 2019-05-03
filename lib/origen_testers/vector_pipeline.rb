@@ -1,3 +1,5 @@
+# vector_pipeline concept explained [here](https://github.com/Origen-SDK/origen_testers/pull/101#issuecomment-424768720)
+
 module OrigenTesters
   class VectorPipeline
     attr_reader :group_size, :pipeline
@@ -67,6 +69,7 @@ module OrigenTesters
             yield comment
           end
           yield_vector(vector, &block)
+          @cycle_count += pipeline[@group_size - 1].repeat
         end
         pipeline.shift(group_size)
       end
@@ -83,14 +86,23 @@ module OrigenTesters
               comment_written = true
             end
             yield_vector(@last_vector, &block)
+            @cycle_count += @last_vector.repeat
           end
         end
+
         duplicate_last_vector until aligned?
-        pipeline.each do |vector|
+
+        group_repeat_index = @group_size - 1
+        pipeline.each_index do |index|
+          vector = pipeline[index]
           vector.comments.each do |comment|
             yield comment
           end
           yield_vector(vector, &block)
+          if index % @group_size == 0 && index > 0
+            group_repeat_index += @group_size
+          end
+          @cycle_count += pipeline[group_repeat_index].repeat
         end
 
         comments.each do |comment|
@@ -120,11 +132,11 @@ module OrigenTesters
           yield vector
         end
         @vector_count += r
-        @cycle_count += r
+        # @cycle_count now tracked in the calling methods (flush and empty)
       else
         yield vector
         @vector_count += 1
-        @cycle_count += r
+        # @cycle_count now tracked in the calling methods (flush and empty)
       end
     end
 

@@ -59,4 +59,15 @@ Pattern.create(name: "test_overlay") do
   tester.cycle inline_comment: '2nd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
   tester.cycle inline_comment: '3rd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
   tester.cycle repeat: 20
+
+  if tester.v93k?
+    ss "Now kick the tires of handshake overlay"
+    tester.cycle repeat: 20
+    tester.overlay_style = :handshake
+    dut.pin(:pa).drive(5)
+    tester.cycle inline_comment: '1st line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
+    tester.cycle inline_comment: '2nd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
+    tester.cycle inline_comment: '3rd line after global label for overlay', overlay: {overlay_str: 'global_label_test', pins: dut.pin(:pa)}
+    tester.cycle repeat: 20
+  end
 end

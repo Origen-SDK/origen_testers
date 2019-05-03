@@ -1,0 +1,10 @@
+<%= render "templates/web/partials/navbar.html", tab: :guides %>
+
+% i = OrigenDocHelpers::GuideIndex.new
+% Origen.app.config.shared[:origen_guides_index].call(i)
+
+% render "doc_helpers/searchable.html", options.merge(index: i, root: "", prompt: "Search the guides...") do
+
+<%= yield %>
+
+% end

@@ -77,6 +77,36 @@ module OrigenTesters
         end
       end
 
+      def func_with_comment(name, options = {})
+        if tester.v93k?
+          options = {
+            duration: :static
+          }.merge(options)
+          number = options[:number]
+
+          block_loop(name, options) do |block, i|
+            options[:number] = number + i if number && i
+            tm = test_methods.ac_tml.ac_test.functional_test
+            ts = test_suites.run(name, options)
+            ts.test_method = tm
+            ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+            ts.comment = options.delete(:comment) || flow.active_description
+            if block
+              ts.pattern = "#{name}_b#{i}"
+            else
+              ts.pattern = name.to_s
+              #    if options[:cz_setup]
+              #      flow.cz(ins, options[:cz_setup], options)
+              #    else
+              #    end
+            end
+            flow.test ts, options
+          end
+        else
+          func(name, options)
+        end
+      end
+
       def block_loop(name, options)
         if options[:by_block]
           if tester.j750? || tester.uflex?
