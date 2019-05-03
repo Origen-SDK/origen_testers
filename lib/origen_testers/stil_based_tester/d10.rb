@@ -3,6 +3,7 @@ module OrigenTesters
     class D10 < Base
       def initialize
         super
+        @name = 'd10'
         @render_pattern_section_only = true
       end
 

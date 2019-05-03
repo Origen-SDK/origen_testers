@@ -85,13 +85,13 @@ class OrigenTestersApplication < Origen::Application
     dir
   end
   
-  # Setting this to the spec area for testing of compiler
-  config.pattern_output_directory do
-   dir = "#{Origen.root}/spec/patterns/atp"
-  # Check if running on windows, if so, substitute :: with _
-   dir.gsub!("::","_") if Origen.os.windows?
-   dir
-  end
+#  config.pattern_output_directory do
+#  # Setting this to the spec area for testing of compiler
+#   dir = "#{Origen.root}/spec/patterns/atp"
+#  # Check if running on windows, if so, substitute :: with _
+#   dir.gsub!("::","_") if Origen.os.windows?
+#   dir
+#  end
 
   # Run the tests before deploying to generate test coverage numbers
   def before_deploy_site

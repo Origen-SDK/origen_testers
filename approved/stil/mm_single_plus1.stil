@@ -1,26 +1,80 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    21-Apr-2017 08:33AM
-//   By:      Lajaunie Ronald-B01784
-//   Command: origen g multi_vector -t dut.rb -e d10.rb
+//   Time:    03-May-2019 11:29AM
+//   By:      Stephen McGinty
+//   Mode:    debug
+//   Command: origen g multi_vector_plus1 -t dut.rb -e stil.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.9.5
-//     Branch:    stil_based_tester(e7a231e825a) (+local edits)
+//     Version:   0.20.0
+//     Branch:    stil_based_tester(3f6473c1e05) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.7.46
+//     Version:   0.43.0
 //   Plugins
-//     atp:                      0.5.4
+//     atp:                      1.1.3
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.4.4
-//     origen_jtag:              0.13.0
-//     origen_swd:               0.5.0
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.21.0
+//     origen_swd:               1.1.1
 // ***************************************************************************
-Pattern "mm_single" {                                                                           
-mm_single:                                                                                      
+STIL 1.0;                                                                                       
+                                                                                                
+Signals {                                                                                       
+  tclk InOut;                                                                                   
+  tdi InOut;                                                                                    
+  tdo InOut;                                                                                    
+  tms InOut;                                                                                    
+}                                                                                               
+                                                                                                
+SignalGroups {                                                                                  
+  "ALL" = 'tclk+tdi+tdo+tms';                                                                   
+}                                                                                               
+                                                                                                
+Timing t_mm_single_plus1 {                                                                      
+  WaveformTable Waveset1 {                                                                      
+    Period '40ns';                                                                              
+    Waveforms {                                                                                 
+      tclk { 01 { }}                                                                            
+      tclk { LHX { }}                                                                           
+      tdi { 01 { }}                                                                             
+      tdi { LHX { }}                                                                            
+      tdo { 01 { }}                                                                             
+      tdo { LHX { }}                                                                            
+      tms { 01 { }}                                                                             
+      tms { LHX { }}                                                                            
+    }                                                                                           
+  }                                                                                             
+                                                                                                
+  WaveformTable Waveset2 {                                                                      
+    Period '80ns';                                                                              
+    Waveforms {                                                                                 
+      tclk { 01 { }}                                                                            
+      tclk { LHX { }}                                                                           
+      tdi { 01 { }}                                                                             
+      tdi { LHX { }}                                                                            
+      tdo { 01 { }}                                                                             
+      tdo { LHX { }}                                                                            
+      tms { 01 { }}                                                                             
+      tms { LHX { }}                                                                            
+    }                                                                                           
+  }                                                                                             
+}                                                                                               
+                                                                                                
+PatternBurst b_mm_single_plus1 {                                                                
+  PatList { mm_single_plus1; }                                                                  
+}                                                                                               
+                                                                                                
+PatternExec e_mm_single_plus1 {                                                                 
+  Timing t_mm_single_plus1;                                                                     
+  PatternBurst b_mm_single_plus1;                                                               
+}                                                                                               
+                                                                                                
+Pattern "mm_single_plus1" {                                                                     
+mm_single_plus1:                                                                                
+W Waveset1;                                                                                     
 Ann {*// ######################################################################*}
 Ann {*// ## $tester.cycle(repeat: 128)*}
 Ann {*// ######################################################################*}
@@ -952,72 +1006,72 @@ Loop 4 {
 Ann {*// ######################################################################*}
 Ann {*// ## Test of period levelling*}
 Ann {*// ######################################################################*}
-Loop 8 {
-  V { "ALL" = 1XLX; }
-}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+W Waveset2;                                                                                     
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
 Loop 2 {
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
-Ann {*// ######################################################################*}
-Ann {*// ## Test that additional stores are not injected, only 4 TDO vectors should be captured*}
-Ann {*// ######################################################################*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 Loop 2 {
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-Loop 2 {
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
 }
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-Loop 2 {
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-Loop 2 {
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+W Waveset0;                                                                                     
 Ann {*// ######################################################################*}
 Ann {*// ## Test that these collapse to a single repeat in the single vector case*}
 Ann {*// ######################################################################*}
@@ -1052,6 +1106,7 @@ Loop 1200 {
   V { "ALL" = 10XX; }
 }
 Ann {*// This comment should appear after the delay 1200*}
+  V { "ALL" = 10XX; }
 Ann {*// ######################################################################*}
 Ann {*// ## Pattern complete*}
 Ann {*// ######################################################################*}

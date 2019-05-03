@@ -14,7 +14,7 @@ module OrigenTesters
 
         # @support_repeat_previous = true
         @match_entries = 10
-        @name = 'd10'
+        @name = 'stil'
         @comment_char = '//'
         @level_period = true
         @inline_comments = true
@@ -96,9 +96,9 @@ module OrigenTesters
           microcode "  Timing t_#{@pattern_name};"
           microcode "  PatternBurst b_#{@pattern_name};"
           microcode '}'
+          microcode ''
         end
 
-        microcode ''
         microcode "Pattern \"#{@pattern_name}\" {"
         microcode "#{@pattern_name}:"
         @header_done = true
@@ -126,7 +126,8 @@ module OrigenTesters
             ordered_pins.each do |pin|
               if pin.direction == :input || pin.direction == :io
                 line = "#{pin.name} { 01 { "
-                pin.drive_wave.evaluated_events.each do |t, v|
+                wave = pin.drive_wave
+                (wave ? wave.evaluated_events : []).each do |t, v|
                   line << "'#{t}ns' "
                   if v == 0
                     line << 'D'
@@ -142,7 +143,8 @@ module OrigenTesters
               end
               if pin.direction == :output || pin.direction == :io
                 line = "#{pin.name} { LHX { "
-                pin.compare_wave.evaluated_events.each_with_index do |tv, i|
+                wave = pin.compare_wave
+                (wave ? wave.evaluated_events : []).each_with_index do |tv, i|
                   t, v = *tv
                   if i == 0 && t != 0
                     line << "'0ns' X; "
