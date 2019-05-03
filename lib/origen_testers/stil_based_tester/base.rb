@@ -3,10 +3,14 @@ module OrigenTesters
     class Base
       include VectorBasedTester
 
+      # When set to true generated patterns will only contain Pattern blocks, i.e. only vectors
+      attr_accessor :pattern_only
+
       # Returns a new J750 instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target:
       #   $tester = J750.new
-      def initialize
+      def initialize(options = {})
+        self.pattern_only = options.delete(:pattern_only)
         @max_repeat_loop = 65_535
         @min_repeat_loop = 2
         @pat_extension = 'stil'
@@ -26,13 +30,6 @@ module OrigenTesters
         true
       end
 
-      def store(*pins)
-        options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
-        last_vector(options[:offset]).contains_capture = true
-      end
-
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -40,7 +37,7 @@ module OrigenTesters
 
         @pattern_name = options[:pattern]
 
-        unless @render_pattern_section_only
+        unless pattern_only
           microcode 'STIL 1.0;'
 
           microcode ''
@@ -103,14 +100,14 @@ module OrigenTesters
         microcode "#{@pattern_name}:"
         @header_done = true
 
-        if tester.ordered_pins_name.nil? && @render_pattern_section_only
+        if tester.ordered_pins_name.nil? && pattern_only
           Origen.log.warn "WARN: SigName must be defined for STIL format.  Use pin_pattern_order(*pins, name: <sigName>).  Defaulting to use 'ALL'"
         end
       end
 
       def set_timeset(timeset, period_in_ns = nil)
         super
-        if @render_pattern_section_only
+        if pattern_only
           # Why does D10 not include this?
           # microcode "W #{timeset};"
         else
@@ -170,6 +167,132 @@ module OrigenTesters
         end
       end
 
+      # Capture the pin data from a vector to the tester.
+      #
+      # This method uses the Digital Capture feature (Selective mode) of the V93000 to capture
+      # the data from the given pins on the previous vector.
+      # Note that is does not actually generate a new vector.
+      #
+      # Note also that any drive cycles on the target pins can also be captured, to avoid this
+      # the wavetable should be set up like this to infer a 'D' (Don't Capture) on vectors where
+      # the target pin is being used to drive data:
+      #
+      #   PINS nvm_fail
+      #   0  d1:0  r1:D  0
+      #   1  d1:1  r1:D  1
+      #   2  r1:C  Capt
+      #   3  r1:D  NoCapt
+      #
+      # Sometimes when generating vectors within a loop you may want to apply a capture
+      # retrospectively to a previous vector, passing in an offset option will allow you
+      # to do this.
+      #
+      # ==== Examples
+      #   $tester.cycle                     # This is the vector you want to capture
+      #   $tester.store :pin => pin(:fail)  # This applys the required opcode to the given pins
+      #
+      #   $tester.cycle                     # This one gets captured
+      #   $tester.cycle
+      #   $tester.cycle
+      #   $tester.store(:pin => pin(:fail), :offset => -2) # Just realized I need to capture that earlier vector
+      #
+      #   # Capturing multiple pins:
+      #   $tester.cycle
+      #   $tester.store :pins => [pin(:fail), pin(:done)]
+      #
+      # Since the STIL store operates on a pin level (rather than vector level as on the J750)
+      # equivalent functionality can also be achieved by setting the store attribute of the pin
+      # itself prior to calling $tester.cycle.
+      # However it is recommended to use the tester API to do the store if cross-compatibility with
+      # other platforms, such as the J750, is required.
+      def store(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = { offset: 0
+                  }.merge(options)
+        pins = pins.flatten.compact
+        if pins.empty?
+          fail 'For the STIL generation you must supply the pins to store/capture'
+        end
+        pins.each do |pin|
+          pin.restore_state do
+            pin.capture
+            update_vector_pin_val pin, offset: options[:offset]
+            last_vector(options[:offset]).dont_compress = true
+            last_vector(options[:offset]).contains_capture = true
+          end
+        end
+      end
+      alias_method :capture, :store
+
+      # Same as the store method, except that the capture will be applied to the next
+      # vector to be generated.
+      #
+      # @example
+      #   $tester.store_next_cycle
+      #   $tester.cycle                # This is the vector that will be captured
+      def store_next_cycle(*pins)
+        options = pins.last.is_a?(Hash) ? pins.pop : {}
+        options = {
+        }.merge(options)
+        pins = pins.flatten.compact
+        if pins.empty?
+          fail 'For STIL generation you must supply the pins to store/capture'
+        end
+        pins.each { |pin| pin.save; pin.capture }
+        # Register this clean up function to be run after the next vector
+        # is generated, cool or what!
+        preset_next_vector do |vector|
+          vector.contains_capture = true
+          pins.each(&:restore)
+        end
+      end
+      alias_method :store!, :store_next_cycle
+
+      def match(pin, state, timeout_in_cycles, options = {})
+        Origen.log.warning "Call to match loop on pin #{pin.id} is not supported by the STIL generator and has been ignored"
+      end
+
+      # Add a loop to the pattern.
+      #
+      # Pass in the number of times to execute it, all vectors
+      # generated by the given block will be captured in the loop.
+      #
+      # ==== Examples
+      #   $tester.loop_vectors 3 do   # Do this 3 times...
+      #       $tester.cycle
+      #       some_other_method_to_generate_vectors
+      #   end
+      #
+      # For compatibility with the J750 you can supply a name as the first argument
+      # and that will simply be ignored when generated for the V93K tester...
+      #
+      #   $tester.loop_vectors "my_loop", 3 do   # Do this 3 times...
+      #       $tester.cycle
+      #       some_other_method_to_generate_vectors
+      #   end
+      def loop_vectors(name = nil, number_of_loops = 1, _global = false)
+        # The name argument is present to maych J750 API, sort out the
+        unless name.is_a?(String) || name.is_a?(Symbol)
+          name, number_of_loops, global = 'loop', name, number_of_loops
+        end
+        if number_of_loops > 1
+          @loop_counters ||= {}
+          if @loop_counters[name]
+            @loop_counters[name] += 1
+          else
+            @loop_counters[name] = 0
+          end
+          loop_name = @loop_counters[name] == 0 ? name : "#{name}_#{@loop_counters[name]}"
+          loop_name = loop_name.symbolize
+          microcode "#{loop_name}: Loop #{number_of_loops} {"
+          yield
+          microcode '}'
+        else
+          yield
+        end
+      end
+      alias_method :loop_vector, :loop_vectors
+
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
         cycle dont_compress: true     # one extra single vector before stop microcode
@@ -178,11 +301,43 @@ module OrigenTesters
         @footer_done = true
       end
 
-      # Subroutines not supported yet, print out an error to the output
-      # file to alert the user that execution has hit code that is not
-      # compatible.
-      def call_subroutine(sub)
-        microcode "Call_subroutine called to #{sub}"
+      # Returns an array of subroutines called while generating the current pattern
+      def called_subroutines
+        @called_subroutines ||= []
+      end
+
+      # Call a subroutine.
+      #
+      # This calls a subroutine immediately following previous vector, it does not
+      # generate a new vector.
+      #
+      # Subroutines should always be called through this method as it ensures a running
+      # log of called subroutines is maintained and which then gets output in the pattern
+      # header to import the right dependencies.
+      #
+      # An offset option is available to make the call on earlier vectors.
+      #
+      # Repeated calls to the same subroutine will automatically be compressed unless
+      # option :suppress_repeated_calls is supplied and set to false. This means that for
+      # the common use case of calling a subroutine to implement an overlay the subroutine
+      # can be called for every bit that has the overlay and the pattern will automatically
+      # generate correctly.
+      #
+      # ==== Examples
+      #   $tester.call_subroutine("mysub")
+      #   $tester.call_subroutine("my_other_sub", :offset => -1)
+      def call_subroutine(name, options = {})
+        options = {
+          offset:                  0,
+          suppress_repeated_calls: true
+        }.merge(options)
+        called_subroutines << name.to_s.chomp unless called_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
+
+        code = "Call #{name};"
+        if !options[:suppress_repeated_calls] ||
+           last_object != code
+          microcode code, offset: (options[:offset] * -1)
+        end
       end
 
       def push_comment(msg)
@@ -217,12 +372,6 @@ module OrigenTesters
         microcode_post = vec.repeat > 1 ? "\n}" : ''
         "#{microcode}  V { \"#{sig_name}\" = #{pin_vals} }#{comment}#{microcode_post}"
       end
-
-      # Override this to force the formatting to match the v1 J750 model (easier diffs)
-      def push_microcode(code) # :nodoc:
-        stage.store(code.ljust(65) + ''.ljust(31))
-      end
-      alias_method :microcode, :push_microcode
     end
   end
 end

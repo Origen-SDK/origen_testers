@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    03-May-2019 11:29AM
+//   Time:    03-May-2019 13:39PM
 //   By:      Stephen McGinty
 //   Mode:    debug
 //   Command: origen g multi_vector -t dut.rb -e stil.rb
@@ -9,7 +9,7 @@
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.20.0
-//     Branch:    stil_based_tester(3f6473c1e05) (+local edits)
+//     Branch:    stil_based_tester(1c7a8463a9f) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.43.0
@@ -20,61 +20,61 @@
 //     origen_jtag:              0.21.0
 //     origen_swd:               1.1.1
 // ***************************************************************************
-STIL 1.0;                                                                                       
-                                                                                                
-Signals {                                                                                       
-  tclk InOut;                                                                                   
-  tdi InOut;                                                                                    
-  tdo InOut;                                                                                    
-  tms InOut;                                                                                    
-}                                                                                               
-                                                                                                
-SignalGroups {                                                                                  
-  "ALL" = 'tclk+tdi+tdo+tms';                                                                   
-}                                                                                               
-                                                                                                
-Timing t_mm_dual {                                                                              
-  WaveformTable Waveset1 {                                                                      
-    Period '40ns';                                                                              
-    Waveforms {                                                                                 
-      tclk { 01 { }}                                                                            
-      tclk { LHX { }}                                                                           
-      tdi { 01 { }}                                                                             
-      tdi { LHX { }}                                                                            
-      tdo { 01 { }}                                                                             
-      tdo { LHX { }}                                                                            
-      tms { 01 { }}                                                                             
-      tms { LHX { }}                                                                            
-    }                                                                                           
-  }                                                                                             
-                                                                                                
-  WaveformTable Waveset2 {                                                                      
-    Period '160ns';                                                                             
-    Waveforms {                                                                                 
-      tclk { 01 { }}                                                                            
-      tclk { LHX { }}                                                                           
-      tdi { 01 { }}                                                                             
-      tdi { LHX { }}                                                                            
-      tdo { 01 { }}                                                                             
-      tdo { LHX { }}                                                                            
-      tms { 01 { }}                                                                             
-      tms { LHX { }}                                                                            
-    }                                                                                           
-  }                                                                                             
-}                                                                                               
-                                                                                                
-PatternBurst b_mm_dual {                                                                        
-  PatList { mm_dual; }                                                                          
-}                                                                                               
-                                                                                                
-PatternExec e_mm_dual {                                                                         
-  Timing t_mm_dual;                                                                             
-  PatternBurst b_mm_dual;                                                                       
-}                                                                                               
-                                                                                                
-Pattern "mm_dual" {                                                                             
-mm_dual:                                                                                        
-W Waveset1;                                                                                     
+STIL 1.0;
+
+Signals {
+  tclk InOut;
+  tdi InOut;
+  tdo InOut;
+  tms InOut;
+}
+
+SignalGroups {
+  "ALL" = 'tclk+tdi+tdo+tms';
+}
+
+Timing t_mm_dual {
+  WaveformTable Waveset1 {
+    Period '40ns';
+    Waveforms {
+      tclk { 01 { }}
+      tclk { LHX { }}
+      tdi { 01 { }}
+      tdi { LHX { }}
+      tdo { 01 { }}
+      tdo { LHX { }}
+      tms { 01 { }}
+      tms { LHX { }}
+    }
+  }
+
+  WaveformTable Waveset2 {
+    Period '160ns';
+    Waveforms {
+      tclk { 01 { }}
+      tclk { LHX { }}
+      tdi { 01 { }}
+      tdi { LHX { }}
+      tdo { 01 { }}
+      tdo { LHX { }}
+      tms { 01 { }}
+      tms { LHX { }}
+    }
+  }
+}
+
+PatternBurst b_mm_dual {
+  PatList { mm_dual; }
+}
+
+PatternExec e_mm_dual {
+  Timing t_mm_dual;
+  PatternBurst b_mm_dual;
+}
+
+Pattern "mm_dual" {
+mm_dual:
+W Waveset1;
 Ann {*// ######################################################################*}
 Ann {*// ## $tester.cycle(repeat: 128)*}
 Ann {*// ######################################################################*}
@@ -887,7 +887,7 @@ Ann {*// ######################################################################*
 Loop 4 {
   V { "ALL" = 1XLX; }
 }
-W Waveset2;                                                                                     
+W Waveset2;
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
@@ -926,20 +926,20 @@ Ann {*// ######################################################################*
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
-W Waveset0;                                                                                     
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
+W Waveset0;
 Ann {*// ######################################################################*}
 Ann {*// ## Test that these collapse to correct multiple repeats*}
 Ann {*// ######################################################################*}
@@ -970,5 +970,5 @@ Ann {*// ## Pattern complete*}
 Ann {*// ######################################################################*}
   V { "ALL" = 10XX; }
   V { "ALL" = 10XX; }
-Stop;                                                                                           
-}                                                                                               
+Stop;
+}

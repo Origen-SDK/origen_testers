@@ -37,3 +37,5 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(regression.list -t dut.rb -e stil -r approved/stil)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
+ARGV = %w(v93k_workout -t legacy -e stil -r approved/stil)
+load "#{Origen.top}/lib/origen/commands/generate.rb"

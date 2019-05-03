@@ -1,1 +1,1 @@
-STIL::Tester.new
+OrigenTesters::STIL.new

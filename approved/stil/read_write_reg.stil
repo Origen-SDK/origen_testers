@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    03-May-2019 11:29AM
+//   Time:    03-May-2019 13:39PM
 //   By:      Stephen McGinty
 //   Mode:    debug
 //   Command: origen g read_write_reg -t dut.rb -e stil.rb
@@ -9,7 +9,7 @@
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.20.0
-//     Branch:    stil_based_tester(3f6473c1e05) (+local edits)
+//     Branch:    stil_based_tester(1c7a8463a9f) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.43.0
@@ -20,47 +20,47 @@
 //     origen_jtag:              0.21.0
 //     origen_swd:               1.1.1
 // ***************************************************************************
-STIL 1.0;                                                                                       
-                                                                                                
-Signals {                                                                                       
-  tclk InOut;                                                                                   
-  tdi InOut;                                                                                    
-  tdo InOut;                                                                                    
-  tms InOut;                                                                                    
-}                                                                                               
-                                                                                                
-SignalGroups {                                                                                  
-  "ALL" = 'tclk+tdi+tdo+tms';                                                                   
-}                                                                                               
-                                                                                                
-Timing t_read_write_reg {                                                                       
-  WaveformTable Waveset1 {                                                                      
-    Period '60ns';                                                                              
-    Waveforms {                                                                                 
-      tclk { 01 { '0ns' D/U; }}                                                                 
-      tclk { LHX { '0ns' X; '30ns' L/H/X; }}                                                    
-      tdi { 01 { '0ns' D/U; }}                                                                  
-      tdi { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
-      tdo { 01 { '0ns' D/U; }}                                                                  
-      tdo { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
-      tms { 01 { '0ns' D/U; }}                                                                  
-      tms { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
-    }                                                                                           
-  }                                                                                             
-}                                                                                               
-                                                                                                
-PatternBurst b_read_write_reg {                                                                 
-  PatList { read_write_reg; }                                                                   
-}                                                                                               
-                                                                                                
-PatternExec e_read_write_reg {                                                                  
-  Timing t_read_write_reg;                                                                      
-  PatternBurst b_read_write_reg;                                                                
-}                                                                                               
-                                                                                                
-Pattern "read_write_reg" {                                                                      
-read_write_reg:                                                                                 
-W Waveset1;                                                                                     
+STIL 1.0;
+
+Signals {
+  tclk InOut;
+  tdi InOut;
+  tdo InOut;
+  tms InOut;
+}
+
+SignalGroups {
+  "ALL" = 'tclk+tdi+tdo+tms';
+}
+
+Timing t_read_write_reg {
+  WaveformTable Waveset1 {
+    Period '60ns';
+    Waveforms {
+      tclk { 01 { '0ns' D/U; }}
+      tclk { LHX { '0ns' X; '30ns' L/H/X; }}
+      tdi { 01 { '0ns' D/U; }}
+      tdi { LHX { '0ns' X; '30ns' L/H/X; }}
+      tdo { 01 { '0ns' D/U; }}
+      tdo { LHX { '0ns' X; '30ns' L/H/X; }}
+      tms { 01 { '0ns' D/U; }}
+      tms { LHX { '0ns' X; '30ns' L/H/X; }}
+    }
+  }
+}
+
+PatternBurst b_read_write_reg {
+  PatList { read_write_reg; }
+}
+
+PatternExec e_read_write_reg {
+  Timing t_read_write_reg;
+  PatternBurst b_read_write_reg;
+}
+
+Pattern "read_write_reg" {
+read_write_reg:
+W Waveset1;
 Ann {*// ######################################################################*}
 Ann {*// ## Test write register with all 1s*}
 Ann {*// ######################################################################*}
@@ -487,40 +487,40 @@ Ann {*// ######################################################################*
 Ann {*// ## Call execute subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to executefunc1                                                          
+Call executefunc1;
   V { "ALL" = 00X0; }
 Ann {*// ######################################################################*}
 Ann {*// ## Call match_pin subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to match_pin                                                             
+Call match_pin;
   V { "ALL" = 00X0; }
 Ann {*// ######################################################################*}
 Ann {*// ## Call match_2pins subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to match_2pins                                                           
+Call match_2pins;
   V { "ALL" = 00X0; }
 Ann {*// ######################################################################*}
 Ann {*// ## Call match_2pins custom_jump subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to match_2pins_custom_jump                                               
+Call match_2pins_custom_jump;
   V { "ALL" = 00X0; }
 Ann {*// ######################################################################*}
 Ann {*// ## Call match_done subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to match_done                                                            
+Call match_done;
   V { "ALL" = 00X0; }
 Ann {*// ######################################################################*}
 Ann {*// ## Call handshake subroutine*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Call_subroutine called to handshake                                                             
+Call handshake;
 Ann {*// ######################################################################*}
 Ann {*// ## Pattern complete*}
 Ann {*// ######################################################################*}
   V { "ALL" = 00X0; }
-Stop;                                                                                           
-}                                                                                               
+Stop;
+}

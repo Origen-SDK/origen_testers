@@ -1,0 +1,194 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    03-May-2019 13:39PM
+//   By:      Stephen McGinty
+//   Mode:    debug
+//   Command: origen g v93k_workout -t legacy.rb -e stil.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.20.0
+//     Branch:    stil_based_tester(1c7a8463a9f) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.43.0
+//   Plugins
+//     atp:                      1.1.3
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.21.0
+//     origen_swd:               1.1.1
+// ***************************************************************************
+STIL 1.0;
+
+Signals {
+  nvm_reset InOut;
+  nvm_clk InOut;
+  nvm_clk_mux InOut;
+  porta InOut;
+  portb InOut;
+  nvm_invoke InOut;
+  nvm_done InOut;
+  nvm_fail InOut;
+  nvm_alvtst InOut;
+  nvm_ahvtst InOut;
+  nvm_dtst InOut;
+  tclk InOut;
+  trst InOut;
+}
+
+SignalGroups {
+  "ALL" = 'nvm_reset+nvm_clk+nvm_clk_mux+porta+portb+nvm_invoke+nvm_done+nvm_fail+nvm_alvtst+nvm_ahvtst+nvm_dtst+tclk+trst';
+}
+
+Timing t_v93k_workout {
+  WaveformTable Waveset1 {
+    Period '40ns';
+    Waveforms {
+      nvm_reset { 01 { }}
+      nvm_reset { LHX { }}
+      nvm_clk { 01 { }}
+      nvm_clk { LHX { }}
+      nvm_clk_mux { 01 { }}
+      nvm_clk_mux { LHX { }}
+      porta { 01 { }}
+      porta { LHX { }}
+      portb { 01 { }}
+      portb { LHX { }}
+      nvm_invoke { 01 { }}
+      nvm_invoke { LHX { }}
+      nvm_done { 01 { }}
+      nvm_done { LHX { }}
+      nvm_fail { 01 { }}
+      nvm_fail { LHX { }}
+      nvm_alvtst { 01 { }}
+      nvm_alvtst { LHX { }}
+      nvm_ahvtst { 01 { }}
+      nvm_ahvtst { LHX { }}
+      nvm_dtst { 01 { }}
+      nvm_dtst { LHX { }}
+      tclk { 01 { }}
+      tclk { LHX { }}
+      trst { 01 { }}
+      trst { LHX { }}
+    }
+  }
+}
+
+PatternBurst b_v93k_workout {
+  PatList { v93k_workout; }
+}
+
+PatternExec e_v93k_workout {
+  Timing t_v93k_workout;
+  PatternBurst b_v93k_workout;
+}
+
+Pattern "v93k_workout" {
+v93k_workout:
+W Waveset1;
+Ann {*// ######################################################################*}
+Ann {*// ## Test that basic cycling works*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 11100000000000000000HLXXX01; }
+Loop 10 {
+  V { "ALL" = 11100000000000000001HLXXX01; }
+}
+  V { "ALL" = 11100000000000000000HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+  V { "ALL" = 11100000000000000000HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+  V { "ALL" = 11100000000000000000HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+  V { "ALL" = 11100000000000000000HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+  V { "ALL" = 11100000000000000000HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test that the port API works*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 11101010101000000001HLXXX01; }
+  V { "ALL" = 111HLHLHLHL000000001HLXXX01; }
+  V { "ALL" = 11101010101000000001HLXXX01; }
+  V { "ALL" = 111XXXXXXXX000000001HLXXX01; }
+  V { "ALL" = 11111111111000000001HLXXX01; }
+  V { "ALL" = 11122222222000000001HLXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+  V { "ALL" = 111HHHHHHHH000000001HLXXX01; }
+  V { "ALL" = 111LLLLLLLL000000001HLXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test that the store method works*}
+Ann {*// ######################################################################*}
+Ann {*// This vector should capture the FAIL pin data*}
+  V { "ALL" = 11100000000000000001HCXXX01; }
+  V { "ALL" = 11100000000000000001HLXXX01; }
+Ann {*// This vector should capture the FAIL pin and the PORTA data*}
+  V { "ALL" = 111CCCCCCCC000000001HCXXX01; }
+Loop 3 {
+  V { "ALL" = 11100000000000000001HLXXX01; }
+}
+Ann {*// This vector should capture the FAIL pin data*}
+  V { "ALL" = 11100000000000000001HCXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test calling a subroutine*}
+Ann {*// ######################################################################*}
+Ann {*// This vector should call subroutine 'sub1'*}
+  V { "ALL" = 11100000000000000001HLXXX01; }
+Call sub1;
+Ann {*// This vector should call subroutine 'sub2'*}
+  V { "ALL" = 11100000000000000001HLXXX01; }
+Call sub2;
+  V { "ALL" = 11100000000000000001HLXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test a single pin match loop*}
+Ann {*// ######################################################################*}
+Ann {*// Wait for a maximum of 5.0ms*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test a two pin match loop*}
+Ann {*// ######################################################################*}
+Ann {*// Wait for a maximum of 5.0ms*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test looping, these vectors should be executed once*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 11110101010000000001HLXXX01; }
+  V { "ALL" = 11101010101000000001HLXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test looping, these vectors should be executed 3 times*}
+Ann {*// ######################################################################*}
+test_loop_2: Loop 3 {
+  V { "ALL" = 11110101010000000001HLXXX01; }
+  V { "ALL" = 11101010101000000001HLXXX01; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Test looping, these vectors should be executed 5 times*}
+Ann {*// ######################################################################*}
+loop: Loop 5 {
+  V { "ALL" = 11110101010000000001HLXXX01; }
+  V { "ALL" = 11101010101000000001HLXXX01; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Test suspend compares*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 11101010101000000001HHXXX01; }
+Ann {*// The fail pin should not be compared on these vectors*}
+Loop 10 {
+  V { "ALL" = 11101010101000000001HXXXX01; }
+}
+Ann {*// And now it should*}
+  V { "ALL" = 11101010101000000001HHXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Test inhibit vectors and comments*}
+Ann {*// ######################################################################*}
+Ann {*// The invoke pin should be driving high on this cycle*}
+  V { "ALL" = 11101010101000000001HHXXX01; }
+Ann {*// This should be the last thing you see until 'Inhibit complete!'*}
+Ann {*// Inhibit complete!*}
+Ann {*// The invoke pin should be driving low on this cycle*}
+  V { "ALL" = 11101010101000000000HHXXX01; }
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 11101010101000000000HHXXX01; }
+Stop;
+}

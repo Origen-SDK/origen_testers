@@ -1,10 +1,12 @@
 module OrigenTesters
   module StilBasedTester
     class D10 < Base
-      def initialize
-        super
+      def initialize(options = {})
+        options = {
+          pattern_only: true
+        }.merge(options)
+        super(options)
         @name = 'd10'
-        @render_pattern_section_only = true
       end
 
       def d10?

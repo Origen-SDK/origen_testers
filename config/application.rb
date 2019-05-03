@@ -19,6 +19,7 @@ class OrigenTestersApplication < Origen::Application
         section.page :j750, heading: "J750 API"
         section.page :v93k, heading: "V93K API"
         section.page :ultraflex, heading: "UltraFlex API"
+        section.page :stil, heading: "STIL & Other Formats"
         section.page :custom, heading: "Custom Testers"
         section.page :running, heading: "Running The PatGen"
       end
