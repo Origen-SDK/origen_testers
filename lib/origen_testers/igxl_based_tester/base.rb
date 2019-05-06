@@ -1,5 +1,12 @@
 module OrigenTesters
   module IGXLBasedTester
+    class << self
+      attr_reader :pat_extension
+      attr_reader :comment_char
+    end
+    @pat_extension = 'atp'
+    @comment_char = '//'
+
     # This is the base class of all IGXL-based testers
     class Base
       include VectorBasedTester
@@ -19,24 +26,6 @@ module OrigenTesters
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
 
-      def self.decompile(path)
-        OrigenTesters::IGXLBasedTester.decompile(path)
-      end
-
-      def self.execute(path)
-        decompile(path).execute
-      end
-
-      # Adds the pins and pin groups from the pattern at :path. :path can be either a string or a Pathname object.
-      def self.add_pins(path)
-        pat_model = decompile(path)
-        pin_sizes = pat_model.pattern_model.pin_sizes
-        pat_model.pinlist.each_with_index do |(name, pin), i|
-          dut.add_pin(name, size: pin_sizes[i]) unless dut.has_pin?(name)
-        end
-        pat_model.pinlist
-      end
-
       # Returns a new IGXLBasedTester instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target.
       def initialize
@@ -45,7 +34,7 @@ module OrigenTesters
         @counter_msb_bits = 0
         @max_repeat_loop = 65_535 # 16 bits
         @min_repeat_loop = 2
-        @pat_extension = 'atp'
+        @pat_extension = OrigenTesters::IGXLBasedTester.pat_extension
         @active_loads = true
         @pipeline_depth = 34
         @software_version = ''

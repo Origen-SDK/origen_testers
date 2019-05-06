@@ -1,4 +1,4 @@
 Pattern.create do |options|
-  $MOD.execute($DECOMPILE_PATTERN)
+  $DECOMPILER.execute($DECOMPILE_PATTERN)
 end
 

@@ -1,0 +1,21 @@
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+// Wait for 40.0ms
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 11316                                                     > tp0                          X X X X ;
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

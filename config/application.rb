@@ -36,6 +36,16 @@ class OrigenTestersApplication < Origen::Application
         section.page :custom, heading: "Creating Custom Testers"
         section.page :generating, heading: "Running the ProgGen"
       end
+      index.section :decompilation, heading: "Decompilation", before: :simulation do |section|
+        section.page :introduction, heading: "Introduction"
+        #section.page :philosophy, heading: "Philosophy"
+        #section.page :nomenclature, heading: "Nomenclature"
+        section.page :tasks, heading: "Adding Pins, Executing, and Converting"
+        section.page :api, heading: "API"
+        section.page :platformapi, heading: "Handling Platform Specifics"
+        section.page :supported, heading: "Supported Plaforms and Scopes"
+        section.page :adding, heading: "Adding A New Platform"
+      end
     end
   }
 

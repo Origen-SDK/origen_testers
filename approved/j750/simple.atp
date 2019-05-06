@@ -1,0 +1,39 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    25-Mar-2019 07:56AM
+//   By:      Corey Engelken
+//   Mode:    debug
+//   Command: origen g simple -t dut.rb -e j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.19.3
+//     Branch:    pattern_reader_ast(75438262d6e) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.35.0
+//   Plugins
+//     atp:                      1.1.2
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.7.1
+//     origen_jtag:              0.19.1
+//     origen_swd:               1.1.0
+// ***************************************************************************
+import tset tp0;                                                                                
+svm_only_file = no;                                                                             
+opcode_mode = extended;                                                                         
+compressed = yes;                                                                               
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

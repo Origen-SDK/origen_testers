@@ -1,0 +1,63 @@
+---
+:pattern: 
+:timestamp: '2019-05-05 19:53:53 -0700'
+:class: OrigenTesters::SmartestBasedTester::Pattern
+:frontmatter:
+  :class: OrigenTesters::Decompiler::Pattern::Frontmatter
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Frontmatter
+  :pattern_header:
+  - "# ***************************************************************************"
+  - "# GENERATED:"
+  - "#   Time:    30-Mar-2019 05:47AM"
+  - "#   By:      Corey Engelken"
+  - "#   Mode:    debug"
+  - "#   Command: origen g simple -t dut.rb -e v93k.rb"
+  - "# ***************************************************************************"
+  - "# ENVIRONMENT:"
+  - "#   Application"
+  - "#     Source:    git@github.com:Origen-SDK/origen_testers.git"
+  - "#     Version:   0.19.3"
+  - "#     Branch:    pattern_reader_ast(75438262d6e) (+local edits)"
+  - "#   Origen"
+  - "#     Source:    https://github.com/Origen-SDK/origen"
+  - "#     Version:   0.35.0"
+  - "#   Plugins"
+  - "#     atp:                      1.1.2"
+  - "#     origen_arm_debug:         0.4.3"
+  - "#     origen_doc_helpers:       0.7.1"
+  - "#     origen_jtag:              0.19.1"
+  - "#     origen_swd:               1.1.0"
+  - "# ***************************************************************************"
+  :comments: []
+  :platform_nodes: {}
+:pinlist:
+  :class: OrigenTesters::Decompiler::Pattern::Pinlist
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Pinlist
+  :pinlist:
+  - :TCLK
+  - :TDI
+  - :TDO
+  - :TMS
+  :platform_nodes: {}
+:vectors:
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 0
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "#                                                   c d d m"
+  - "#                                                   l i o s"
+  - "#                                                   k      "
+  - "# ######################################################################"
+  - "# ## Pattern complete"
+  - "# ######################################################################"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 1
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - STOP

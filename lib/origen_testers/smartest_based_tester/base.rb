@@ -55,24 +55,6 @@ module OrigenTesters
       # delayed: false is supplied when defining the test
       attr_accessor :delayed_binning
 
-      def self.decompile(path)
-        OrigenTesters::SmartestBasedTester.decompile(path)
-      end
-
-      def self.execute(path)
-        decompile(path).execute
-      end
-
-      # Adds the pins and pin groups from the pattern at :path. :path can be either a string or a Pathname object.
-      def self.add_pins(path)
-        pat_model = decompile(path)
-        pin_sizes = pat_model.pattern_model.pin_sizes
-        pat_model.pinlist.each_with_index do |(name, pin), i|
-          dut.add_pin(name, size: pin_sizes[i]) unless dut.has_pin?(name)
-        end
-        pat_model.pinlist
-      end
-
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use

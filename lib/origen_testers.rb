@@ -37,6 +37,9 @@ module OrigenTesters
       ATP::Program.load(f)
     end
   end
+
+  require 'origen_testers/decompiler'
+  extend Decompiler::API
 end
 
 require 'origen_testers/igxl_based_tester'

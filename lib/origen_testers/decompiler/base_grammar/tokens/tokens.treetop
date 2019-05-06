@@ -1,0 +1,48 @@
+module OrigenTesters
+  module Decompiler
+    module BaseGrammar
+
+      # The BaseTokens grammar is a collection of generic token rules, nodes,
+      # and processors.
+      grammar Tokens
+
+        rule underscore
+          '_' <UnderscoreToken>
+        end
+        
+        rule whitespace
+          [' '\t\n\r]+ <WhitespaceToken>
+        end
+        
+        rule tab
+          "\t" <TabToken>
+        end
+        
+        rule spacing
+          [' '\t]+ <SpacingToken>
+        end
+        
+        rule newline
+          "\r"? "\n"? <NewlineToken>
+        end
+        
+        rule base10_integer
+          [0-9]+ <Base10Integer>
+        end
+        
+        rule word
+          [A-Za-z_0-9]+ <WordToken>
+        end
+        
+        rule newline_delimited_text
+          [^\n\r]* <NewlineDelimitedTextToken>
+        end
+        
+        rule semicolon_delimited_text
+          [^;]* <SemicolonDelimitedTextToken>
+        end
+
+      end
+    end
+  end
+end

@@ -21,38 +21,18 @@ aliases = {
 # Now branch to the specific task code
 case @command
 
-# Test command to decompile the approved delay.atp and delay.avc and dump a pretty-printed pattern model
-when "decompile_test"
-	Origen.load_target
-
-  if true
-  	test_file = "#{Origen.app.root}/approved/j750/delay.atp"
-    #test_file = "#{Origen.app.root}/approved/j750/j750_workout.atp"
-  	pat = OrigenTesters::Decompiler.decompile(test_file)
-  	puts pat.inspect
-  	puts pat
-  	puts pat.pinlist
-  	puts pat.vectors { |v| v.class }
-  	
-  	puts
-  	puts pat.pattern_model.pin_sizes
+# Generates a pattern model given the input file(s).
+when "generate_pattern_model"
+  Origen.load_target
+  approved = ARGV.delete('--approve')
+  ARGV.each do |pat|
+    puts "Generating pattern model for #{pat}"
+    model = OrigenTesters::Decompiler.decompile(pat)
+    path = model.write_spec_yaml(approved: approved)
+    puts "Wrote model to: #{path}"
+    puts
   end
-  
-  puts
-  puts
-  puts
-
-  if true
-  	test_file = "#{Origen.app.root}/approved/v93k/delay.avc"
-    #test_file = "#{Origen.app.root}/approved/v93k/v93k_workout.avc"
-  	pat = OrigenTesters::Decompiler.decompile(test_file)
-  	puts pat.inspect
-  	puts pat
-  	puts pat.pinlist
-  	puts pat.vectors { |v| v.class }
-  end
-  
-	exit 0
+  exit 0
 
 when "tags"
   Dir.chdir Origen.root do

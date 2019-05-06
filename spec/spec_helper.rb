@@ -72,7 +72,6 @@ def with_open_flow(options={})
 end
 
 
-
 RSpec.configure do |config|
   config.formatter = OrigenFormatter
   # config.filter_run :focus => true

@@ -1,0 +1,42 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    31-Aug-2015 03:38AM
+//   By:      Stephen McGinty
+//   Command: origen g delay -t debug_j750.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.5.0
+//     Branch:    master(e3384c47ea4) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.2.4
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_jtag:              0.12.0
+//     origen_swd:               0.5.0
+// ***************************************************************************
+ERROR: This should fail to parse.
+                                                                                                
+vector ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label pattern_st:                                                                         
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+// Wait for 40.0ms
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 65535                                                     > tp0                          X X X X ;
+repeat 11316                                                     > tp0                          X X X X ;
+end_module                                                       > tp0                          X X X X ;
+}                                                                                               

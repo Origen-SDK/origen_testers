@@ -6,64 +6,18 @@ module OrigenTesters
   module SmartestBasedTester
     module Decompiler
       grammar Avc
-        include OrigenTesters::Decompiler::BaseGrammar
+        include OrigenTesters::Decompiler::BaseGrammar::VectorBased
+        include OrigenTesters::SmartestBasedTester::Decompiler::Avc::PlatformTokens
       
-        rule avc
-          (comment_block / whitespace / pattern_body)+ <Avc>
-        end
-      
-        rule newline
-          "\n"? "\n"? <NewlineToken>
-        end
-        
-        rule comment_start
-          '#' <CommentStartToken>
+        rule frontmatter
+          (comment_block / whitespace)* <Frontmatter>
         end
 
-        # Some patterns will contain start characters in the vector body (such as ATPs), however AVCs do not have these.
-        # However, in order to make the vector body node resemble the ATP (with its start symbols), we'll throw an empty
-        # node at the start. This has no effect on the values of the result, it just forces the vector body node
-        # into the same node structure.
-        rule vector_body
-          '' (comment_block / vector / sequencer_instruction)* <VectorBody>
-        end
-
-        rule pattern_body
-          vector_header vector_body <PatternBody>
-        end
-        
         # According to the TDR, comments inside of the FORMAT statement are not defined.
-        rule vector_header
-          'FORMAT' spacing pin_names spacing? ';' spacing? newline <VectorHeader>
+        rule pinlist
+          'FORMAT' spacing pin_names spacing? ';' spacing? newline <Pinlist>
         end
-        
-        rule vector
-          repeat spacing timeset spacing pin_states ';' newline <Vector>
-        end
-        
-        rule repeat
-          'R' decimal_integer <Repeat>
-        end
-                
-        rule test
-          [A-Za-z_0-9]+
-        end
-        
-        # Sequencer Instruction
-        # According to the TDR, sequencer instructions do not support trailing comments
-        # However, the TDR also only shows 2 parameters, but we'll support a full list structure.
-        rule sequencer_instruction
-          sequencer_instr spacing? sequencer_args ';' spacing? newline <SequencerInstruction>
-        end
- 
-        rule sequencer_instr
-          word ''
-        end
-        
-        rule sequencer_args
-          word? (' ' word)* <SequencerArgs>
-        end
-        
+
         rule pin_state_separator
           ' ' <PinStateSeparator>
         end
@@ -76,6 +30,46 @@ module OrigenTesters
         rule pin_state
           [^; ]* <PinState>
         end
+
+        rule vector_types
+          (comment_block / vector / sequencer_instruction / newline)
+        end
+
+        rule vector
+          repeat spacing timeset spacing pin_states ';' newline <Vector> {
+            def to_ast
+              n(:vector, *elements_to_ast)
+            end
+          }
+        end
+        
+        rule repeat
+          'R' repeat:base10_integer <Repeat> {
+            def to_ast
+              n(:repeat, repeat.text_value)
+            end
+          }
+        end
+
+        # Sequencer Instruction
+        # According to the TDR, sequencer instructions do not support trailing comments
+        # However, the TDR also only shows 2 parameters, but we'll support a full list structure.
+        rule sequencer_instruction
+          sequencer_instr:sequencer_instr spacing? sequencer_args:sequencer_args ';' spacing? newline <SequencerInstruction> {
+            def to_ast
+              n(:sequencer_instruction, sequencer_instr.text_value, sequencer_args.text_value)
+            end
+          }
+        end
+ 
+        rule sequencer_instr
+          word ''
+        end
+        
+        rule sequencer_args
+          word? (' ' word)*
+        end
+        
       end
     end
   end
