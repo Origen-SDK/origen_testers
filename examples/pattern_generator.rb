@@ -40,3 +40,11 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(pxie6570.list -t dut3.rb -e pxie6570.rb -r approved/pxie6570)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(read_write_reg -t dut.rb -e d10 -r approved/d10)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(regression.list -t dut.rb -e stil -r approved/stil)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+ARGV = %w(v93k_workout -t legacy -e stil -r approved/stil)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
