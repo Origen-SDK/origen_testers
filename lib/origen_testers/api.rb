@@ -76,11 +76,6 @@ module OrigenTesters
       !is_vector_based?
     end
 
-    def stil?
-      defined?(OrigenTesters::StilBasedTester::Base) &&
-        is_a?(OrigenTesters::StilBasedTester::Base)
-    end
-
     def j750?
       is_a?(OrigenTesters::IGXLBasedTester::J750)
     end
@@ -97,6 +92,14 @@ module OrigenTesters
       is_a?(OrigenTesters::IGXLBasedTester::UltraFLEX)
     end
     alias_method :uflex?, :ultraflex?
+
+    def stil?
+      is_a?(OrigenTesters::StilBasedTester::Base)
+    end
+
+    def d10?
+      is_a?(OrigenTesters::StilBasedTester::D10)
+    end
 
     def link?
       !!(self.class.to_s =~ /^OrigenLink::/)

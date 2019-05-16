@@ -58,6 +58,8 @@ module OrigenTesters
           @digcap_settings = { digcap_format: :twos_complement }
         end
         @blocks = [Block.new(0, self), Block.new(1, self), Block.new(2, self)]
+
+        add_timeset 'tp0'
       end
 
       def on_create

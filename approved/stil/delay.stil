@@ -1,0 +1,103 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    03-May-2019 11:29AM
+//   By:      Stephen McGinty
+//   Mode:    debug
+//   Command: origen g delay -t dut.rb -e stil.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.20.0
+//     Branch:    stil_based_tester(3f6473c1e05) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.43.0
+//   Plugins
+//     atp:                      1.1.3
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.21.0
+//     origen_swd:               1.1.1
+// ***************************************************************************
+STIL 1.0;                                                                                       
+                                                                                                
+Signals {                                                                                       
+  tclk InOut;                                                                                   
+  tdi InOut;                                                                                    
+  tdo InOut;                                                                                    
+  tms InOut;                                                                                    
+}                                                                                               
+                                                                                                
+SignalGroups {                                                                                  
+  "ALL" = 'tclk+tdi+tdo+tms';                                                                   
+}                                                                                               
+                                                                                                
+Timing t_delay {                                                                                
+  WaveformTable Waveset1 {                                                                      
+    Period '60ns';                                                                              
+    Waveforms {                                                                                 
+      tclk { 01 { '0ns' D/U; }}                                                                 
+      tclk { LHX { '0ns' X; '30ns' L/H/X; }}                                                    
+      tdi { 01 { '0ns' D/U; }}                                                                  
+      tdi { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+      tdo { 01 { '0ns' D/U; }}                                                                  
+      tdo { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+      tms { 01 { '0ns' D/U; }}                                                                  
+      tms { LHX { '0ns' X; '30ns' L/H/X; }}                                                     
+    }                                                                                           
+  }                                                                                             
+}                                                                                               
+                                                                                                
+PatternBurst b_delay {                                                                          
+  PatList { delay; }                                                                            
+}                                                                                               
+                                                                                                
+PatternExec e_delay {                                                                           
+  Timing t_delay;                                                                               
+  PatternBurst b_delay;                                                                         
+}                                                                                               
+                                                                                                
+Pattern "delay" {                                                                               
+delay:                                                                                          
+W Waveset1;                                                                                     
+Ann {*// Wait for 40.0ms*}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 65535 {
+  V { "ALL" = XXXX; }
+}
+Loop 11316 {
+  V { "ALL" = XXXX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = XXXX; }
+Stop;                                                                                           
+}                                                                                               

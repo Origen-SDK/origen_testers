@@ -10,6 +10,7 @@ gem 'origen_jtag', '>= 0.12.0'
 gem 'origen_doc_helpers'
 #gem 'origen_doc_helpers', path: '~/Code/github/origen_doc_helpers'
 #gem 'origen', path: '~/Code/github/origen'
+gem 'nokogiri', '1.8.5'  # Lock to the version to enable testing in Ruby 2.2
 
 # Specify all runtime dependencies in origen_testers.gemspec
 gemspec
