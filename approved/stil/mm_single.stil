@@ -1,0 +1,1116 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    03-May-2019 13:39PM
+//   By:      Stephen McGinty
+//   Mode:    debug
+//   Command: origen g multi_vector -t dut.rb -e stil.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.20.0
+//     Branch:    stil_based_tester(1c7a8463a9f) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.43.0
+//   Plugins
+//     atp:                      1.1.3
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.21.0
+//     origen_swd:               1.1.1
+// ***************************************************************************
+STIL 1.0;
+
+Signals {
+  tclk InOut;
+  tdi InOut;
+  tdo InOut;
+  tms InOut;
+}
+
+SignalGroups {
+  "ALL" = 'tclk+tdi+tdo+tms';
+}
+
+Timing t_mm_single {
+  WaveformTable Waveset1 {
+    Period '40ns';
+    Waveforms {
+      tclk { 01 { }}
+      tclk { LHX { }}
+      tdi { 01 { }}
+      tdi { LHX { }}
+      tdo { 01 { }}
+      tdo { LHX { }}
+      tms { 01 { }}
+      tms { LHX { }}
+    }
+  }
+
+  WaveformTable Waveset2 {
+    Period '160ns';
+    Waveforms {
+      tclk { 01 { }}
+      tclk { LHX { }}
+      tdi { 01 { }}
+      tdi { LHX { }}
+      tdo { 01 { }}
+      tdo { LHX { }}
+      tms { 01 { }}
+      tms { LHX { }}
+    }
+  }
+}
+
+PatternBurst b_mm_single {
+  PatList { mm_single; }
+}
+
+PatternExec e_mm_single {
+  Timing t_mm_single;
+  PatternBurst b_mm_single;
+}
+
+Pattern "mm_single" {
+mm_single:
+W Waveset1;
+Ann {*// ######################################################################*}
+Ann {*// ## $tester.cycle(repeat: 128)*}
+Ann {*// ######################################################################*}
+Loop 128 {
+  V { "ALL" = XXXX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## 64.times do*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ## end*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+  V { "ALL" = 0XXX; }
+  V { "ALL" = 1XXX; }
+Ann {*// ######################################################################*}
+Ann {*// ## 64.times do*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ## end*}
+Ann {*// ######################################################################*}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Loop 2 {
+  V { "ALL" = 0XXX; }
+}
+Loop 2 {
+  V { "ALL" = 1XXX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## 64.times do*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(0)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ##   $dut.pin(:tclk).drive!(1)*}
+Ann {*// ## end*}
+Ann {*// ######################################################################*}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Loop 4 {
+  V { "ALL" = 0XXX; }
+}
+Loop 4 {
+  V { "ALL" = 1XXX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Test of period levelling*}
+Ann {*// ######################################################################*}
+Loop 8 {
+  V { "ALL" = 1XLX; }
+}
+W Waveset2;
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+Ann {*// ######################################################################*}
+Ann {*// ## Test that additional stores are not injected, only 4 TDO vectors should be captured*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+Loop 2 {
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+}
+  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
+W Waveset0;
+Ann {*// ######################################################################*}
+Ann {*// ## Test that these collapse to a single repeat in the single vector case*}
+Ann {*// ######################################################################*}
+Ann {*// Wait for 2.4ms*}
+Loop 60001 {
+  V { "ALL" = 11XX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Test that these collapse to correct multiple repeats*}
+Ann {*// ######################################################################*}
+Ann {*// Wait for 12.0ms*}
+Loop 65535 {
+  V { "ALL" = 11XX; }
+}
+Loop 65535 {
+  V { "ALL" = 11XX; }
+}
+Loop 65535 {
+  V { "ALL" = 11XX; }
+}
+Loop 65535 {
+  V { "ALL" = 11XX; }
+}
+Loop 37860 {
+  V { "ALL" = 11XX; }
+}
+Ann {*// ######################################################################*}
+Ann {*// ## Verify that comments at the end of the pattern work OK*}
+Ann {*// ######################################################################*}
+Ann {*// Wait for 48.0us*}
+Loop 1200 {
+  V { "ALL" = 10XX; }
+}
+Ann {*// This comment should appear after the delay 1200*}
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 10XX; }
+Stop;
+}

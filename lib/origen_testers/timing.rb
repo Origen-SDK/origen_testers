@@ -196,6 +196,10 @@ module OrigenTesters
         end
         @_last_timeset_change = change
       end
+      if dut.timesets[timeset.name]
+        dut.timeset = timeset.name
+        dut.current_timeset_period = timeset.period_in_ns
+      end
     end
 
     def before_timeset_change(options = {})
