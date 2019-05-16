@@ -31,12 +31,23 @@ module OrigenTesters
               lo = ins.lo
               hi = ins.hi
             end
+
+            # add allowance for multiple use-limits lines or single line with different TName entry
+            if ins.respond_to?(:limit_tname)
+              lim_name = ins.limit_tname
+            else
+              lim_name = nil
+            end
+
             size = 1
             if lo.is_a?(Array)
               size = lo.size if lo.size > size
             end
             if hi.is_a?(Array)
               size = hi.size if hi.size > size
+            end
+            if lim_name.is_a?(Array)
+              size = lim_name.size  if lim_name.size > size
             end
 
             size.times do |i|
@@ -77,6 +88,16 @@ module OrigenTesters
                   line.units = ins.units
                 end
               end
+
+              # update tname if required
+              if lim_name
+                if lim_name.is_a?(Array)
+                  line.tname = lim_name[i]
+                else
+                  line.tname = lim_name
+                end
+              end
+
               completed_lines << line
             end
           end
