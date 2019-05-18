@@ -51,7 +51,7 @@ module OrigenTesters
             end
 
             size.times do |i|
-              limit.tnum += 1 if limit.tnum.is_a?(Numeric)
+              limit.tnum += 1 if limit.tnum.is_a?(Numeric) && size > 1
               line = limit.dup
 
               if lo.is_a?(Array)
