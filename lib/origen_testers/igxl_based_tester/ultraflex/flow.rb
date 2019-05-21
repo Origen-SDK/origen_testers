@@ -109,7 +109,7 @@ module OrigenTesters
               line.parameter = tl.parameter
               line.sbin = tl.sbin
               line.bin = tl.bin
-              line.tnum = tnum += 1
+              line.tnum = tnum += 1 if tnum.is_a?(Numeric)
               completed_lines << line
             end
             @limit_lines = nil
