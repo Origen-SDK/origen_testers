@@ -51,7 +51,6 @@ module OrigenTesters
             end
 
             size.times do |i|
-              limit.tnum += 1 if limit.tnum.is_a?(Numeric) && size > 1
               line = limit.dup
 
               if lo.is_a?(Array)
@@ -101,6 +100,44 @@ module OrigenTesters
 
               completed_lines << line
             end
+          end
+          # finish off any limit lines from sub tests
+          unless @limit_lines.nil?
+            tl = completed_lines.last
+            tnum = tl.tnum
+            @limit_lines.each do |line|
+              line.parameter = tl.parameter
+              line.sbin = tl.sbin
+              line.bin = tl.bin
+              line.tnum = tnum += 1
+              completed_lines << line
+            end
+            @limit_lines = nil
+          end
+        end
+
+        def on_sub_test(node)
+          # for now assuming sub tests will be limits
+          tname = node.find(:object).value
+          # for some reason new_line :use_limit does not provide hbin, sbin etc accessors, duplicating behavior in on_test above
+          line = open_lines.last.dup
+          line.type = :use_limit
+          line.opcode = 'Use-Limit'
+          line.tname = tname
+          line.tnum = nil
+          open_lines << line
+          process_all(node.children)
+          @limit_lines = [] if @limit_lines.nil?
+          @limit_lines << open_lines.pop
+        end
+
+        def on_limit(node)
+          value, rule, unit, selector = *node
+          case rule
+          when 'gte'
+            current_line.lolim = value
+          when 'lte'
+            current_line.hilim = value
           end
         end
 
