@@ -136,6 +136,59 @@ information):
 * other
 * empty
 
+#### Custom Test Instance Types
+
+The <code>add_til</code> method is available to describe a custom instance. An example is below.
+
+~~~ruby
+# app_interface
+
+def initialize(options = {})
+  add_til :my_lib,
+    test_a: {
+      # Basic arg
+      input1: :arg0,
+      # Arg with default value
+      input2: [:arg1, 'default'],
+      # Arg with default and list of predefined allowed values
+      input3: [:arg2, 'volt', %w(volt curr)],
+      # Attribute aliases can be defined like this:
+      aliases: {
+        some_alias_name: :input1,
+	another_alias:   :input2
+      },
+      # Define any methods you want for the instance like this
+      methods: {
+        # An optional finalize method can be supplied, this method will be called
+	# immediately before the test instance is rendered. The test object itself
+	# will be passed as an argument.
+	finalize: lambda do |ti|
+	  ti.proc_name = 'blah_blah'
+	  ti.proc_called_as = ''
+	end,
+	set_some_arg: lambda do |ti, val|
+	  ti.input1 = val
+	end
+      }
+    },
+    
+    test_b: {
+      # ...
+    }
+end
+
+# Here's how to use the custom library
+def do_test_a(name, options = {})
+  ti = test_instances.my_lib.test_a name
+  ti.input1 = 50.0
+  ti.input3 = 'curr'
+  
+  # ...
+end
+~~~
+
+#### Legacy Custom Test Instance Types (prefered method is above)
+
 If you need a different type you can still call the add method, the difference in the
 returned instance for an unrecognized type is:
 
