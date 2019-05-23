@@ -1,5 +1,38 @@
 % render "layouts/guides.html" do
 
-<%= render "partials/placeholder.md" %>
+Be sure to read and understand the guide to
+[Creating an Interface](<%= path "guides/program/interface" %>) 
+and 
+[J750 API](<%= path "guides/program/j750" %>)
+before reading this section.
+This guide will describe the API differences between UFlex/IG-XL and J750/IG-XL test program 
+generation.
+
+### Creating a flow entry with multiple Use-Limit lines
+
+~~~ruby
+  functional :test2, sbin: 101, number: 20020,
+    sub_tests: [
+      sub_test(:limit_name1, lo: -2, hi: 2),
+      sub_test(:limit_name2, lo: -1, hi: 1)
+    ]
+~~~
+
+~~~ruby  
+  # Another example using a custom instance
+  def sar_cal_test(name, options = {})
+    ti = test_instances.sar_tests.sar_cal name
+    # ...
+    
+    # Assign fixed limits
+    options[:sub_tests] = [
+      sub_test(:source_gain, lo: 0.99, hi: 1.01),
+      sub_test(:source_offset, lo: -0.001, hi: 0.001)
+    ]
+    
+    # add the test to the flow
+    flow.test ti, options
+  end
+~~~
 
 % end
