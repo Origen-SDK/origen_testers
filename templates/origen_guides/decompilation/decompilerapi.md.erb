@@ -1,0 +1,200 @@
+% render "layouts/guides.html" do
+
+`OrigenTesters` includes the [OrigenTesters::Decompiler](<%= path "api/.." %>)
+[mixin](https://ruby-doc.com/docs/ProgrammingRuby/html/tut_modules.html).
+In addition to [decompiling](#Decompiling), this mixin provides some shortcut for
+[adding pins](#Adding_Pins) and [executing](#Executing)
+
+A brief summary:
+
+~~~ruby
+OrigenTesters.decompile('path/to/src')
+
+OrigenTesters.add_pins('path/to_src')
+  #=> Queries the pattern's pins and adds any 
+
+OrigenTesters.execute('path/to/src')
+  #=> Executes the pattern source in its entirety.
+  #=> Depending on the environment, this may either convert the pattern to
+  #=>   a different platform, or run the source through the simulator.
+~~~
+
+<div class="alert alert-warning" role="alert">
+Neither <code>#add_pins</code> nor <code>#execute</code> support input as
+a direct source. Use <code>#decompile_text</code> to get decompiled pattern,
+then call <code>#add_pins</code> or <code>#execute</code> on that, 
+<a href='<%= path "guides/decompilation/overview#Example" %>'>as shown in the example.</a>
+</div>
+
+### Decompiling
+
+Decompiling the pattern source is the first step to working with it in Origen. The
+`#decompile` method, when called on the `Decompiler API`, will do two things: 
+
+1. Using the pattern's extension, attempt to match the pattern source to the applicable decompiler.
+2. Decompile the source, returning the decompiled pattern object.
+ 
+For example, any input ending with `.atp` routes to the `IGXLBasedTester`
+decompiler and input ending with `.avc` routes to the `SmartestBasedTester`
+decompiler.
+
+~~~ruby
+pat = OrigenTesters.decompile('path/to/src.atp')
+  #=> OrigenTesters::IGXLBasedTester::Pattern
+pat.decompiled?
+  #=> true
+
+pat = OrigenTesters.decompile('path/to/src.avc')
+  #=> OrigenTesters::SmartestBasedTester::Pattern
+pat.decompiled?
+  #=> true
+~~~
+
+You can also a get a pre-decompiled pattern object using `#decompiled_pattern`:
+
+~~~ruby
+pat = OrigenTesters.decompiled_pattern('path/to/src.atp')
+  #=> OrigenTesters::IGXLBasedTester::Pattern
+pat.decompiled?
+  #=> false
+
+pat = OrigenTesters.decompiled_pattern('path/to/src.avc')
+  #=> OrigenTesters::SmartestBasedTester::Pattern
+pat.decompiled?
+  #=> false
+~~~
+
+If either method cannot find an applicable decompiler given the extension,
+an exception will be raised:
+
+~~~ruby
+pat = OrigenTesters.decompiled_pattern('path/to/src.blah')
+  #=> OrigenTesters::Decompiler::NoSuitableDecompiler
+  #=> Fail in origen_testers: Cannot find a suitable decompiler for pattern source 'pat.blah' ('.blah')
+~~~
+
+If you want to decompile a source from a `String` object directly, use `#decompile_text`.
+Note that you'll need to provide the applicable decompiler, as the `Decompiler API` is
+not able to map a text source to the appropriate decompiler:
+
+~~~ruby
+pat = OrigenTesters.decompile_text("src as string", decompiler: OrigenTesters::IGXLBasedTester::Pattern)
+  #=> OrigenTesters::SmartestBasedTester::Pattern
+pat.decompiled?
+  #=> true
+~~~
+
+#### Discerning Platform Decompilers
+
+Platforms can register themselves as an available `decompiler` during bootup.
+Registering a new decompiler is out of scope here but see the
+[Enhancing/Adding Platforms](<%= path "guides/decompilation/adding" %>) if
+this is of interest.
+Here, we'll assume that all the appropriate decompilers have been registered.
+
+Discerning the appropriate decompiler boils down to asking each registered
+decompiler is if is available to compile the given source. Each decompiler
+will respond with either a _yes_ or _no_ response, and on the __first__ _yes_,
+that decompiler will be selected and run. If no decompilers respond with a _yes_,
+a `OrigenTesters::Decompiler::NoSuitableDecompiler` exception is raised.
+
+As a user of the decompiler, simply inputting an appropriately named source should
+trigger the correct decompiler, but the methods used underneath are available
+as well:
+
+~~~ruby
+### See the registered decompilers
+
+OrigenTesters.registered_decompilers
+  #=> [OrigenTesters::IGXLBasedTester, OrigenTesters::SmartestBasedTester]
+
+### See if an applicable decompiler exists for the pattern source
+
+OrigenTesters.decompiler_for?("pat.atp")
+  #=> true
+
+OrigenTesters.decompiler_for?("pat.blah")
+  #=> false
+
+### Given the pattern source, select the appropriate decompiler, or return nil
+
+OrigenTesters.select_decompiler("pat.atp")
+  #=> OrigenTesters::IGXLBasedTester::Pattern
+
+OrigenTesters.select_decompiler("pat.blah")
+  #=> nil
+
+### Given the pattern source, select the appropriate decompiler or raise and exception
+### (Notice the '!')
+
+OrigenTesters.select_decompiler!("pat.atp")
+  #=> OrigenTesters::IGXLBasedTester::Pattern
+
+OrigenTesters.select_decompiler!("pat.blah")
+  #=> OrigenTesters::Decompiler::NoSuitableDecompiler
+  #=> Fail in origen_testers: Cannot find a suitable decompiler for pattern source 'pat.blah' ('.blah')
+
+### See if the given module provides a decompiler
+
+OrigenTesters.registered_decompiler?(OrigenTesters::IGXLBasedTester)
+  #=> true
+
+OrigenTesters.registered_decompiler?(Origen)
+  #=> false
+~~~
+
+### Shorthand Methods
+
+The `Decompiler API` supports some short-hand calls to common methods. The calls
+here are equivalent to calling `#decompile`, then calling various methods on
+that decompiled pattern,, just in a slightly shorter notation.
+
+#### Adding Pins
+
+Recall that `#add_pins` compares the available pins between the pattern source and
+the `DUT` and adds any missing pins from the pattern source to the `DUT`, returning
+any pins that it added. The `Decompiler API` has a shorthand method to perform
+this operation: `OrigenTesters.add_pins('path/to/src')`. This will:
+
+1. Decompile the source, using the corresponding platform decompiler.
+2. Add any missing pins to the `DUT`.
+
+~~~ruby
+OrigenTesters.add_pins('pat.atp')
+  # Decompiles the pattern using the .atp decompiler
+  # Adds the pins to the DUT
+  # Returns any pins added to the DUT
+  #=> Array
+~~~
+/decompilation/overview#Adding_Missing_Pins" %>)
+
+#### Executing
+
+Recall that `#execute` will actually execute the decompiled pattern in the context
+of the current `DUT`.
+
+Assuming the current `DUT` has been instantiated and all timesets are defined,
+calling `OrigenTesters.execeute('path/to/src') will:
+
+1. Decompile the source, using the corresponding platform decompiler.
+2. Add any missing pins to the `DUT`.
+3. Execute the pattern.
+
+~~~ruby
+OrigenTesters.execute('pattern.atp')
+  # Decompiles the pattern using the .atp decompiler
+  # Adds the pins to the DUT
+  # Execute the pattern source
+  # Returns the decompiled pattern object
+  #=> OrigenTesters::IGXLBasedTesters::Pattern
+~~~
+
+[See the example for a demo of `#execute`](<%= path "guides/decompilation/overview#Executing_the_Pattern_Source" %>)
+
+### Registered Platforms
+
+As shown in the [Decompiling section](#Decompiling),
+the `OrigenTesters::Decompiler` module can lookup applicable `decompilers` based
+on the pattern source extension. This
+
+% end

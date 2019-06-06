@@ -35,6 +35,12 @@ RSpec.shared_examples(:platform_interface) do |platform|
         describe 'decompiling and validating the \'workout\' pattern...' do
           include_examples(:pattern_validator, :workout, platform)
         end
+        
+        (platform.patterns.keys - [:workout]).each do |name|
+          describe "decompiling and validating platform-specific pattern #{name}" do
+            include_examples(:pattern_validator, name, platform)
+          end
+        end
       end
       
       # These are some corner cases that should decompile and pass the
@@ -68,6 +74,13 @@ RSpec.shared_examples(:platform_interface) do |platform|
           expect(model.frontmatter.pattern_header).to be_empty
           expect(model.pinlist.pins).to match_pin_names(rspec.dut.pins.keys)
         end
+
+        if platform.respond_to?(:corner_cases)
+          describe "corner cases specific to #{platform.name}" do
+            platform.corner_cases(self)
+          end
+        end
+
       end
 
       # Error conditions. These patterns are expected to fail decompilation,
@@ -121,6 +134,12 @@ RSpec.shared_examples(:platform_interface) do |platform|
           expect {
             platform.decompile(platform.error_condition('empty_file'))
           }.to raise_error(OrigenTesters::Decompiler::ParseError, /Empty or non-readable pattern file/)
+        end
+        
+        if platform.respond_to?(:error_conditions)
+          describe "error conditions specific to #{platform.name}" do
+            platform.error_conditions(self)
+          end
         end
 
       end

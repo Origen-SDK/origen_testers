@@ -214,7 +214,44 @@ timeset :func do |t|
 end
 ~~~
 
+Complex waveforms also support an initial, or default, `period_in_ns`, allowing
+for `set_timeset` to be used without providing a `period_in_ns`:
+
+~~~ruby
+timeset :func do |t|
+  t.period_in_ns = 10
+end
+  
+tester.set_timeset(:func)
+tester.timeset.period_in_ns
+  #=> 10
+
+timesets[:func].period_in_ns = 11
+tester.timeset.period_in_ns
+  #=> 11
+~~~
+
+This `period_in_ns` can still changed prior to pattern execution, but the defining
+timeset can lock this value, disallowing other parts of the application or
+plugins to change the `period_in_ns`:
+
+~~~ruby
+timeset :func do |t|
+  t.period_in_ns = 10
+  t.lock!
+end
+  
+tester.set_timeset(:func)
+tester.timeset.period_in_ns
+  #=> 10
+
+timesets[:func].period_in_ns = 11
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+
 #### Consuming Timeset Data
+
+##### Waveform Details
 
 The currently selected timeset can be retrieved via the following methods which are aliases:
 
@@ -277,5 +314,143 @@ dut.pin(:clk).drive_wave(1).events    # => [[0, 1], [20, 0]]
 dut.pin(:clk).drive_wave('T').events  # => [[0, 1], [10, 0], [20, 1], [30, 0]]
 ~~~
 
+##### Timeset Details
+
+You can retrieve the same `current period` information from this scope as from
+the `tester.timeset` scope:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+
+dut.current_timeset_period
+  #=> 10
+  
+dut.current_period_in_ns
+  #=> 10
+
+dut.current_period_in_seconds
+  #=>
+  #=>
+~~~
+
+You can also retrieve the corresponding timeset on the `tester` side directly:
+
+~~~ruby
+dut.timeset._timeset_
+  #=> OrigenTesters::Timing::Timeset object
+~~~
+
+### Timing During Execution
+
+You can freely swap between timesets during pattern execution. For example,
+a sequence resembling below is perfectly valid:
+
+~~~ruby
+# Start with an initial timeset for pattern startup
+tester.set_timeset("timing_for_startup", period_for_startup)
+dut.pins(...).drive!(...)
+# ...
+
+# Switch to a timeset for ramloading
+tester.set_timeset("timing_for_ramload", period_for_ramload)
+dut.pins(...).drive!(...)
+# ...
+
+# Switch to a timeset for actual execution
+tester.set_timeset("timing_for_execution", period_for_execution)
+dut.pins(...).drive!(...)
+# ...
+~~~
+
+The period for that timeset will be remembered, allowing future timesets switches
+back to it to not require the period argument:
+
+~~~ruby
+# Execute using timing for SWD
+tester.set_timeset("timing_for_swd", period_for_swd)
+dut.reg(...).write!(...)
+dut.pins(...).drive!(...)
+# ...
+
+# Execute using timing for an APB protocol
+tester.set_timeset("timing_for_abp", period_for_apb)
+dut.reg(...).write!(...)
+dut.pins(...).drive!(...)
+# ...
+
+# Switch back to using SWD
+tester.set_timeset("timing_for_swd")
+dut.reg(...).write!(...)
+dut.pins(...).drive!(...)
+# ...
+
+# Switch back to using APB
+tester.set_timeset("timing_for_apb")
+dut.reg(...).write!(...)
+dut.pins(...).drive!(...)
+# ...
+
+# End the pattern using SWD
+tester.set_timeset("timing_for_swd")
+dut.reg(...).write!(...)
+dut.pins(...).drive!(...)
+# ...
+~~~
+
+Notice that the `period_in_ns` is only defined once per timeset. Swiching
+the `period_in_ns` of a timeset _during_ execution is explicitly blocked
+by `OrigenTesters`:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+
+tester.cycle
+tester.set_timeset(:func, 11)
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+
+In this context, _during execution_ is defined as after a vector has been
+generated with the timeset in question; in other words, after the tester
+has been cycled. Up to the point of cycling though, timeset periods can be
+freely modified:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+tester.timeset.period_in_ns
+  #=> 10
+
+tester.timeset.period_in_ns = 11
+tester.timeset.period_in_ns
+  #=> 11
+
+tester.set_timeset(:func, 12)
+tester.timeset.period_in_ns
+  #=> 12
+
+tester.cycle
+tester.timeset.period_in_ns = 13
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+
+Use the `#cycled?` method to determine if the timeset has been cycled or not:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+tester.timeset.name
+  #=> "func"
+tester.timeset.cycled?
+  #=> false
+
+tester.cycle
+tester.timeset.cycled?
+  #=> true
+
+tester.set_timeset(:func2, 11)
+tester.timeset.cycled?
+  #=> false
+
+tester.timesets[:func].cycled?
+  #=> true
+~~~
 
 % end

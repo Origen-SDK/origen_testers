@@ -2,6 +2,26 @@ module OrigenTesters
   module IGXLBasedTester
     module Decompiler
       module Processors
+
+        class Frontmatter < OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Frontmatter
+          PLATFORM_NODES = [:imports, :variable_assignments]
+
+          def initialize(*args)
+            super
+            @imports = {}
+            @variable_assignments = {}
+          end
+
+          # @note Swap the order (as it appears in the source) so we get 'value' => 'type'
+          def on_import(node)
+            @imports[node.children[1]] = node.children[0]
+          end
+
+          def on_variable_assignment(node)
+            @variable_assignments[node.children[0]] = node.children[1]
+          end
+        end
+
         class Label < Origen::AST::Processor::Base
           PLATFORM_NODES = [:label_name]
 
@@ -116,7 +136,7 @@ module OrigenTesters
 
           def execute!(context)
             # Apply a timeset switch, if needed.
-            unless tester.timeset == timeset
+            unless tester.timeset.name == timeset
               tester.set_timeset(timeset, 40)
             end
 

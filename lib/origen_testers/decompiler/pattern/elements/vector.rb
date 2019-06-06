@@ -24,10 +24,10 @@ module OrigenTesters
           processor.repeat
         end
 
-        def number_of_opcode_arguments
-          processor.opcode_arguments.size
-        end
-        alias_method :number_of_opcode_args, :number_of_opcode_arguments
+        #def number_of_opcode_arguments
+        #  processor.opcode_arguments.size
+        #end
+        #alias_method :number_of_opcode_args, :number_of_opcode_arguments
 
         def pin_states
           processor.pin_states
@@ -35,6 +35,10 @@ module OrigenTesters
 
         def comment
           processor.comment
+        end
+        
+        def vector_index
+          @parent.vector_index
         end
 
         def to_yaml_hash(options = {})

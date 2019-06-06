@@ -7,7 +7,6 @@
 # platforms. This will validate that the platform correctly decompiles a pattern
 # and implements the OrigenTesters::Decompiler::Pattern interface.
 RSpec.shared_examples(:pattern_validator) do |target_pattern, platform|
-  #model = OrigenTesters::Decompiler::SpecHelpers.to_pat_model(target_pattern)
   model = platform.pattern_model(target_pattern)
   unless File.exists?(model)
     fail "Pattern validator could not find pattern model for target pattern :#{target_pattern} (#{model})"

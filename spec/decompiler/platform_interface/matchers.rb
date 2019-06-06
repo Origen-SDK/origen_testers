@@ -39,7 +39,7 @@ RSpec::Matchers.define :match_vector do |expected, index|
 
   failure_message do |actual|
     message = ["vector at index #{index} failed:"]
-    message += @failures.collect { |f| "  #{f}" }
+    message += @failures.collect { |f| " #{f}" }
     message.join("\n")
   end
 end

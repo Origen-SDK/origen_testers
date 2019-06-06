@@ -11,30 +11,25 @@ module OrigenTesters
 
         def raw_lines(start, stop, &block)
           retn_lines = []
+          _run_line_ = lambda do |line, index, retn_lines, &block|
+            if index > stop
+              break
+            elsif index >= start
+              if block_given?
+                yield
+              else
+                retn_lines << line
+              end
+            end
+          end
 
           if direct_source?
-            source.split("\n").each_with_index do |line, index|
-              if index > stop
-                break
-              elsif index >= start
-                if block_given?
-                  yield
-                else
-                  retn_lines << line
-                end
-              end
+            source.split("\n").map { |l| "#{l}\n" }.each_with_index do |line, index|
+              _run_line_.call(line, index, retn_lines, &block)
             end
           else
             File.foreach(source).each_with_index do |line, index|
-              if index > stop
-                break
-              elsif index >= start
-                if block_given?
-                  yield
-                else
-                  retn_lines << line
-                end
-              end
+              _run_line_.call(line, index, retn_lines, &block)
             end
           end
           retn_lines
@@ -126,50 +121,38 @@ module OrigenTesters
             endmatter_end:     -1
           }
           if block_given?
-            fail 'Blocks not yet supported!'
+            fail 'Blocks are not yet supported!'
           else
             if vectors_end == -1
               indices[:vectors_end] = -1
               indices[:endmatter_start] = -1
             end
+            _split_ = lambda do |line, index, indices|
+              if !indices[:pinlist_start]
+                if check_match(pinlist_start, line, index, indices)
+                  indices[:frontmatter_end] = index - 1
+                  indices[:pinlist_start] = index
+                end
+              elsif !indices[:vectors_start]
+                if check_match(vectors_start, line, index, indices)
+                  indices[:pinlist_end] = index - 1
+                  vectors_include_start_line ? indices[:vectors_start] = index : indices[:vectors_start] = index + 1
+                end
+              elsif !indices[:vectors_end]
+                if check_match(vectors_end, line, index, indices)
+                  vectors_include_end_line ? indices[:vectors_end] = index : indices[:vectors_end] = index - 1
+                  indices[:endmatter_start] = index
+                end
+              end
+            end
 
             if direct_source?
               source.split("\n").each_with_index do |line, index|
-                if !indices[:pinlist_start]
-                  if check_match(pinlist_start, line, index, indices)
-                    indices[:frontmatter_end] = index - 1
-                    indices[:pinlist_start] = index
-                  end
-                elsif !indices[:vectors_start]
-                  if check_match(vectors_start, line, index, indices)
-                    indices[:pinlist_end] = index - 1
-                    vectors_include_start_line ? indices[:vectors_start] = index : indices[:vectors_start] = index + 1
-                  end
-                elsif !indices[:vectors_end]
-                  if check_match(vectors_end, line, index, indices)
-                    vectors_include_end_line ? indices[:vectors_end] = index : indices[:vectors_end] = index - 1
-                    indices[:endmatter_start] = index
-                  end
-                end
+                _split_.call(line, index, indices)
               end
             else
               File.foreach(source).each_with_index do |line, index|
-                if !indices[:pinlist_start]
-                  if check_match(pinlist_start, line, index, indices)
-                    indices[:frontmatter_end] = index - 1
-                    indices[:pinlist_start] = index
-                  end
-                elsif !indices[:vectors_start]
-                  if check_match(vectors_start, line, index, indices)
-                    indices[:pinlist_end] = index - 1
-                    vectors_include_start_line ? indices[:vectors_start] = index : indices[:vectors_start] = index + 1
-                  end
-                elsif !indices[:vectors_end]
-                  if check_match(vectors_end, line, index, indices)
-                    vectors_include_end_line ? indices[:vectors_end] = index : indices[:vectors_end] = index - 1
-                    indices[:endmatter_start] = index
-                  end
-                end
+                _split_.call(line, index, indices)
               end
             end
 

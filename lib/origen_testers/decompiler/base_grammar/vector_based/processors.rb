@@ -49,8 +49,6 @@ module OrigenTesters
 
             def run(node, options = {})
               @comments = []
-              @imports = {}
-              @variable_assignments = {}
 
               # Process the frontmatter
               process(node)
@@ -71,14 +69,6 @@ module OrigenTesters
 
             def on_comment_block(node)
               @comments << node.children.select { |c| c.type == :comment }.map { |c| c.children.first }
-            end
-
-            def on_import(node)
-              @imports[node.children[0]] = node.children[1]
-            end
-
-            def on_variable_assignment(node)
-              @variable_assignments[node.children[0]] = node.children[1]
             end
 
             def execute!(context)
@@ -117,7 +107,7 @@ module OrigenTesters
             end
 
             def execute!(context)
-              fail('Vector Base')
+              fail('Please override the #execute! method in the platform!')
             end
           end
 

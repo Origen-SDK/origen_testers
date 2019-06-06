@@ -12,6 +12,10 @@ module OrigenTesters
     require_relative './pattern/parsers'
     require_relative './pattern/splitter'
     require_relative './pattern/spec_helpers'
+    require_relative './base_grammar/tokens/nodes'
+    require_relative './base_grammar/tokens/processors'
+    require_relative './base_grammar/vector_based/nodes'
+    require_relative './base_grammar/vector_based/processors'
 
     class ParseError < Origen::OrigenError
     end
@@ -143,7 +147,7 @@ module OrigenTesters
       end
 
       def first_timeset
-        @first_vector.timeset
+        first_vector.timeset
       end
       alias_method :initial_timeset, :first_timeset
 

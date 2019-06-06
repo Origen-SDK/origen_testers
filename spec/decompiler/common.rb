@@ -53,7 +53,7 @@ module OrigenTesters
         end
 
         def context_str(vector_type:, platform: nil, index: nil, index_key: nil)
-          base = platform.nil? ? "validating standard node :#{vector_type} " : "Validating platform-specific (#{platform}) vector type #{vector_type} "
+          base = platform.nil? ? "validating standard node :#{vector_type} " : "validating platform-specific (#{platform}) vector type #{vector_type} "
           if index_key
             base + "for vector :#{index_key}"
           else

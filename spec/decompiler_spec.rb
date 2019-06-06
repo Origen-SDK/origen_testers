@@ -76,6 +76,7 @@ module OrigenTesters
           'end_module   > tp0 X X X X ;',
           '}',
         ].join("\n"),
+        direct_source_first_vector_repeat_count: 11316,
         
         execution_pattern: "#{Origen.app!.root}/pattern/decompile.rb",
       }

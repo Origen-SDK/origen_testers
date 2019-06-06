@@ -355,7 +355,7 @@ module OrigenTesters
       def handshake(options = {})
         options = {
         }.merge(options)
-        Pattern.split(options)
+        ::Pattern.split(options)
       end
 
       # Do a frequency measure.
@@ -365,7 +365,7 @@ module OrigenTesters
       def freq_count(_pin, options = {})
         options = {
         }.merge(options)
-        Pattern.split(options)
+        ::Pattern.split(options)
       end
 
       # Generates a match loop on up to two pins.

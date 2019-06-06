@@ -1,0 +1,525 @@
+% render "layouts/guides.html" do
+
+The `Universal API` attempts to tie all supported platforms together and provide
+a generic yet flexible interface with which decompiled patterns from any source
+or any platform can be treated the same.
+
+This obvisously has its limitations and various hooks are in place to still allow
+for platform-specifics to peek through the universal API but the API detailed
+in this section should be applicable across all supported platforms.
+
+The [OrigenTesters::Decompiler::Pattern]()
+base class provides this interface. All supported platforms should return
+a class which inherits from this. For example,
+
+~~~ruby
+OrigenTesters::IGXLBasedTester::Pattern.ancestors.include?(OrigenTesters::Decompiler::Pattern)
+  #=> true
+~~~
+
+### Decompiling
+
+The preferred method to decompile a pattern source is to use the [Decompiler API]()
+but if you instead choose to instantiate the decompiler yourself, that is also
+supported, provided you know the decompiler you want to use.
+
+To decompile a source from the `J750`, we'll use the `OrigenTesters::IGXLBasedTester::Pattern`
+class:
+
+~~~ruby
+pat = OrigenTesters::IGXLBasedTester::Pattern.new('path/to/src.atp')
+~~~
+
+Instantiating the decompiler __does not__ automatically decompile it. However,
+a call to `#decompile` will do just that.
+
+~~~ruby
+pat.decompiled?
+  #=> false
+
+pat.decompile
+pat.decompiled?
+  #=> true
+~~~
+
+<div ...>
+Recall that <code>#decompile</code> on the 
+[Decompiler API]() does this automatically.
+</div>
+
+Any decompiler will accept the pattern source as either:
+
+1. A `string` containing the filename of the pattern source.
+2. A `Pathname` containing the filename of the pattern source.
+3. A `File` object pointing to the pattern source.
+
+At times, [such as in the example](),
+you'll want to decompile a text source directly. This can be done by providing
+the `direct_source: true` option during instantiation:
+
+~~~ruby
+~~~
+
+The decompiled pattern will keep track of its source and whether it was direct
+or not:
+
+~~~ruby
+~~~
+
+<div ...>
+The entire direct source is stored in the decompiler as the <code>source</code>,
+so its not recommended to use direct sources for large patterns.
+</div>
+
+<div
+Although it is <i>possible</i> to instantiate a <code>OrigenTesters::Decompiler::Pattern</code>
+object yourself, this is just the base class and has no grammars. Any attempts
+to actually work with this class directly will not end well.
+
+<a href='<%= path "guides/decompilation/platformspecifics" %>See the supported platforms page</a>
+for the class names of the actual decompiler implementations.
+</div>
+
+### Adding Pins and Executing
+
+Both of these have been covered [in the example](<%= path "guides/decompilation/overview#Example_Decompilation" %>),
+but for a quick review:
+
+~~~ruby
+# Add any missing pins to the DUT, returning the pins that were added
+dut.pins
+  #=> {}
+pat.add_pins
+  #=> [:tclk, :tdi, :tdo, :tms]
+dut.pins
+  #=> #=> {:tclk=><Origen::Pins::Pin>, :tdi=><Origen::Pins::Pin>, :tdo=><Origen::Pins::Pin>, :tms=><Origen::Pins::Pin>}
+
+# Execute the vectors
+pat.execute
+~~~
+
+### Sections
+
+As also shown [in the example](<%= path "guides/decompilation/overview#Example_Decompilation" %>),
+the pattern is divided into sections: the `frontmatter`, the `pinlist`, and the `vector body elements`.
+
+The `frontmatter` and `pinlist` are parsed fully, stored in memory, and can be
+accessed directly.
+
+~~~ruby
+# Access the pattern's frontmatter
+pat.frontmatter
+  #=> OrigenTesters::Decompiler::Pattern::Frontmatter object
+
+# Retrieve the pattern header
+# (no pattern header for the example pattern)
+pat.frontmatter.pattern_header
+  #=> []
+
+...
+
+# Retrieve any variable assignments from the frontmatter
+
+# Retrieve any imports from the frontmatter
+~~~
+
+~~~ruby
+# Access the pattern's pinlist
+pat.pinlist
+  #=> OrigenTesters::Decompiler::Pattern::Pinlist object
+
+# pat.pinlist.pins
+  #=> [:tclk, :tdi, :tdo, :tms]
+~~~
+
+Methods to retrieve the pins are also available directly on the decompiled pattern:
+
+~~~ruby
+# Return an array of pins, in the order they appear in the pattern
+pat.pins
+  #=> [:tclk, :tdi, :tdo, :tms]
+
+# Return the pin names and their respective size
+pat.pin_sizes
+  #=> {:tclk=>1, :tdi=>1, :tdo=>1, :tms=>1}
+~~~
+
+See the [OrigenTesters API]()
+for full details on the [Frontmatter]()
+and the [Pinlist]().
+
+#### Initial State
+
+For many cases, the _initial state_ of the pattern must be known. This may include
+the [initial pin states](),
+the [initial timeset](),
+or the [first vector](), in its entirety.
+
+##### First Vector
+
+An exception to the _don't store vectors in memory_ rule is the `first vector`.
+The first vector contains the initial state of the pattern, the initial timeset,
+and, in many text representations, the sizes of the pins in the pinlist. This
+vector is always available:
+
+~~~ruby
+# Access the first vector
+pat.first_vector
+~~~
+
+An important observation is that this returns the _first vector_, __not__ the
+first _vector body element_. 
+
+<div class="alert alert-warning" role="alert">
+Some platforms, such as the <code>v93k</code>, do not actually require a vector
+in the pattern source. In these cases, retrieving the first vector or querying
+aspects of the decompiled pattern that relies on the first vector will raise
+an <code>OrigenTesters::Decompiler::ParseError</code> exception with a
+message containing <code>"Could not locate the first vector"</code>.
+
+<a href="">See the approved V93K sanity pattern</a>
+for an example of such a pattern.
+</div>
+
+##### First Pin States and First Timeset
+
+Assuming the first vector is available, you can retrieve the _first pin states_
+and the _first timeset_ directly. Again,
+[in the context of the example pattern]():
+
+~~~ruby
+# Retrieve the initial pin states
+pat.initial_pin_states
+  #=> ["X", "X", "X", "X"]
+
+# Retrieve the initial timeset
+pat.initial_timeset
+  #=> "tp0"
+~~~
+
+### Vector Body Elements
+
+The final section is the `vector body elements`. This is a collection of not
+just the vectors, but everything that may appear interweaved with them.
+
+The most common non-vector will most likey be `comment blocks` which may be
+scattered about among the actual vectors. Other non-vectors will be platform
+specific. Some examples include [labels](),
+on the `J750` or `Ultraflex`, or [sequencer instructions](),
+on the `V93K`.
+
+Anything in the `vector body` will have class [OrigenTesters::Decompiler::VectorBodyElement]().
+This serves as a placeholder for anything that may come along and gives the
+means to further decide how this particular element should be interacted with.
+
+##### Types
+
+Every `vector body element` will have a `type`, which is assigned during the
+decompilation. All you need to do is retrieve it. The `#type` method will return
+the assigned type. For a `comment` this will be `:comment_block`. For a bonafide
+vector, this will be `:vector`.
+
+Platforms can interject their own types as well. A `label` in a `.atp` pattern
+source will have type `:label`'. Retrieving and interacting with element
+types will be shown throughout the remainder of this section.
+
+##### Retrieving the Element
+
+Knowing what `type` the element is lets you know what kind of accessors this
+element should have. You would expect anything of type `:vector` to have `pin_states`,
+but you would not expect the `:comment` type to. However, the `vector body element`
+is just a placeholder, so the `#element` method must be used to retrieve the
+underlying element that _actually_ contains the content.
+
+#### Elements
+
+The `universal API` supports two built-in vector types: [comment blocks]()
+and [vectors]().
+
+##### Comments
+
+The simplest vector body element to start working with is a `comment_block`.
+The decompiler will mash sequential comment lines in the pattern together to
+form a [comment block]().
+
+A corresponding vector body element will have type `:comment_block`. A shorthand
+method is also provided to indicate a comment block:
+
+~~~ruby
+vector_body_element.is_a_comment?
+  #=> true/false
+~~~
+
+There's only so much which can be done with comments. The main operation will be retrieving it:
+
+~~~ruby
+comment_block.comments
+  #=> [
+  #=>   "Any comments in the block..."
+  #=>   "Separated by newlines (or whatever the platform separator is)"
+  #=>   "Will be its own array entry."
+  #=> ]
+~~~
+
+[You can view the API here](),
+but there's not much more to `comments` than that.
+
+##### Vectors
+
+`Vectors`, on the other hand`, have a bit going on. Any vector, from any platform,
+is expected to provide a `timeset`, `repeat`, `pin_states`, and `comment` accessor.
+The `comment` in this case is a end-of-line comment, sharing the same line with the vector.
+
+Each of these can be retrieved for any `vector`, but its best to see as an example.
+Returning [to the example pattern](),
+we can retrieve all this content from the [first vector]():
+
+~~~ruby
+pat.first_vector.timeset
+  #=> "tp0"
+
+pat.first_vector.pin_states
+  #=> ["X", "X", "X", "X"]
+
+pat.first_vector.repeat
+  #=> 2
+
+pat.first_vector.comment
+  #=> ""
+# No end of line comment on this vector
+~~~
+
+Any `vector` is expected to contain _at least_ this. The platform though, will
+most likey want to throw in some of its own content that it considers part of
+a standard `vector`. Such examples include `opcodes`, for the J750, or
+`sequencer instructions` for the V93K.
+
+The platform will register these as `platform nodes`, and any `platform node` will
+have a corresponding accessor. For example, the J750 registers
+`opcode` and `opcode_arguments` as platform nodes so, when we we've decompiled
+using the `J750` decompiler, we'll have access those as well:
+
+~~~ruby
+~~~
+
+Trying these platform nodes on other decompilers __is not__ guaranteed to
+give you anything. [Check the platform specifics]()
+for any additional platform nodes are placed on the `vector` type.
+
+You can also check if a platform has an available node
+programmatically using `#platform_nodes`:
+
+~~~ruby
+~~~
+
+##### Platform
+
+The question of _'what was the decompiler?'_ may come up for complex scripts
+geared towards handling different pattern sources or supporting various platforms.
+
+The decompiled pattern will track its decompiler, and the `vector body elements`
+will have access to this as well:
+
+~~~ruby
+~~~
+
+In cases where decisions are made depending on the decompiler, the `#tester?(<platform>)`
+method queries if the decompiled pattern was decompiled using the given platform:
+
+~~~ruby
+~~~
+
+Now that we have all the tools to deal with vector types and the underlying elements,
+we can begin to interface with the vector body itself.
+
+##### Iterating Through Vectors
+
+The simplest operation is just to iterate through all the available vector body
+elements. The given block will be run for each one sequentially:
+
+~~~ruby
+# Iterate through all vector body elements, running the given block for each one.
+# For example, to print the type of each vector body element:
+pat.each_vector { |v| puts v.type }
+#=> start_label
+#=> vector
+#=> vector
+#=> vector
+  #=> nil
+
+# Do the above, but with the index
+pat.each_vector_with_index { |v, i| puts "Type at index #{i}: #{v.type}" }
+#=> Type at index 0: start_label
+#=> Type at index 1: vector
+#=> Type at index 2: vector
+#=> Type at index 3: vector
+  #=> nil
+~~~
+
+This is the basis for working with the `vector body elements` section. From this,
+more complex operations are driven. For example, to cycle the tester for each
+`vector` in the vector body:
+
+~~~ruby
+pat.each_vector do |v|
+  if v.is_a_vector?
+    tester.cycle(repeat: v.element.repeat)
+  end
+end
+~~~
+
+#### EnumerableExt
+
+Because we use a non-standard `#each` method, we can't mixin [Enumerable]()
+directly. Instead, some select methods from `Enumerable` were implemented to
+match their counterpart:
+
+~~~ruby
+# Collect all the vectors, after having run the given block.
+# For example, to collect all the types that appear in the example pattern:
+pat.collect { |v| v.type }
+  #=> [:start_label, :vector, :vector, :vector]
+
+# Filting out duplicates...:
+pat.collect { |v| v.type }.uniq
+  #=> [:start_label, :vector]
+
+# Find the first vector for which the block returns true.
+# For example, to find the first vector body element that is of type vector:
+pat.find { |v| v.is_a_vector? }
+  #=> OrigenTesters::Decompiler::Pattern::VectorBodyElement object
+pat.find { |v| v.is_a_vector? }.type
+  #=> :vector
+
+# Find all the vectors for which the block returns true:
+# For example, to find the all vector body elements that are of type vector:
+pat.find_all { |v| v.is_a_vector? }
+  #=> [
+  #=>   OrigenTesters::Decompiler::Pattern::VectorBodyElement object,
+  #=>   OrigenTesters::Decompiler::Pattern::VectorBodyElement object,
+  #=>   OrigenTesters::Decompiler::Pattern::VectorBodyElement object,
+  #=> ]
+
+# Find all the vectors after filting out those for which the block returns true:
+# For example, to find the all vector body elements that are NOT of type vector:
+pat.reject { |v| v.is_a_vector? }
+  #=> [
+  #=>   OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  #=> ]
+~~~
+
+[See the API for a full listing.]()
+
+<div
+If <code>#collect</code> is used without any block provided, <b>all</b>
+<code>vector body elements</code> will be returned. This may not bode well
+for large patterns that contain thousands, or even hundreds of thousand, of vectors.
+</div>
+
+##### Vector At
+
+Contrary to `#each_vector`, at times you may want to grab a vector body element
+at a specific index. The method `#vector_at(i)` decompiles and returns
+the vector at the given index, `i`:
+
+~~~ruby
+pat.vector_at(1)
+  #=> OrigenTesters::Decompiler::Pattern::VectorBodyElement object
+
+pat.vector_at(1).type
+  #=> :vector
+
+pat.vector_at(1).element
+  #=> OrigenTesters::Decompiler::Pattern::Vector object
+
+pat.vector_at(1).element.repeat
+  #=> 2
+
+pat.vector_at(2).element.repeat
+  #=> 5
+~~~
+
+<div class="alert alert-danger" role="alert">
+Please see the contextual notes below if planning to use <code>#vector_at(i)</code>
+extensively.
+</div>
+
+###### Contextual Notes on `vector_at`
+
+Recall that the vector body __is not__ stored in memory, so direct access to a given
+vector index is not inheritently supported.
+Therefore, each time `#vector_at(i)` is called, the decompiler
+simply runs `#each_vector_with_index` and bails once the given index is hit,
+returning the vector body element at that index. This gives the desired behavior,
+but comes at a cost...
+
+The key cost here being __runtime__. In
+a normal array, you'd expect to retrieve a vector in constant time (`O(1)`),
+however, iteratig through the vector body behaves much closer to that of a
+[linked list](https://en.wikipedia.org/wiki/Linked_list#Linked_lists_vs._dynamic_arrays),
+where the retrieval time for an arbitrary vector body element is `O(n)`.
+
+Extending this a bit: if using
+`#each_vector`, to go from vector 0 to `n`, you'll get O(n) runtime. However, if
+using `#vector_at(i)` where `i` __is__ the range from 0 to `n`, you'll actually get a
+`O(n^2)` runtime, as it starts from the beginning each time it retrieves a vector.
+
+<div class="alert alert-success" role="alert">
+Recall that the goal of not decompiling and storing the entire vector body at once
+is to cap the memory and peak CPU usage without regards to the size of pattern source.
+So, although more complex operations that require working with single vectors may take a drastic
+<i>runtime</i> hit as compared to storing all vectors in memory, the <i>resource</i>
+requirements of such operations will not.
+</div>
+
+<b>tl;dr:</b> if jumping around the vector body, pre-processing, or otherwise working
+with the entire vector body simultaneously, please be prepared to take a runtime hit.
+
+#### Platform Specific Elements
+
+Its quite likely that you'll encounter platform-specific elements when iterating
+through the vector body. Recall the `type` attribute on each `vector body element`.
+This, in conjunction with the [platform's documentation](<%= path "guides/decompilation/platformspecifics" %>)
+will tell you what other elements may be encountered.
+
+From a programmatic perspective, the `vector body element` in question knows if
+it is platform-specific:
+
+~~~ruby
+pat.vector_at(0).type
+  #=> :start_label
+pat.vector_at(0).is_platform_specific?
+  #=> true
+
+pat.vector_at(1).type
+  #=> :vector
+pat.vector_at(0).is_platform_specific?
+  #=> false
+~~~
+
+For platform-specific nodes, same as `vectors`, the parsed nodes from the decompilation
+process will be retrievable:
+
+~~~ruby
+pat.vector_at(0).platform_nodes
+  #=> {:start_label=>"pattern_st"}
+~~~
+
+Any `platform nodes` can be retrieved using the accessor:
+
+~~~ruby
+pat.vector_at(0).start_label
+  #=> "pattern_st"
+~~~
+
+<div class="alert alert-info" role="alert">
+Although these programmatic methods are provided, they shouldn't be relied upon
+for working with the decompiler. Platform specifics should be documented and
+any supported platform in which such documentation is either missing or unclear
+should be addressed.
+
+<a href="https://github.com/Origen-SDK/origen_testers/issues">Please open an issue on the OrigenTesters Github repository</a>
+so corrections can be made.
+</div>
+
+% end

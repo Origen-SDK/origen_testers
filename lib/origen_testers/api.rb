@@ -223,6 +223,7 @@ module OrigenTesters
         repeat:    nil
       }.merge(options)
 
+      timeset.cycled = true
       if any_clocks_running?
         update_running_clocks
         if options[:repeat]

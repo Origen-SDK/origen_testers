@@ -42,7 +42,7 @@ RSpec::Matchers.define :match_approved_pattern do |expected|
     return false unless File.exist?(actual)
     
     # check for changes will return true if there's changes, and if there's changes we want to fail the matcher.
-    !Origen.generator.check_for_changes(expected, actual)
+    !Origen.generator.check_for_changes(actual, expected)
   end
   
   failure_message do |actual|

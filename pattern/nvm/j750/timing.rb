@@ -35,8 +35,8 @@ Pattern.create do
   gen_vectors
 
   ss 'Test ability to call with a single array argument'
-  cc 'These vectors should use timeset nvm_slow'
-  $tester.set_timeset(['nvm_slow', 40]) do
+  cc 'These vectors should use timeset nvm_slow_40ns'
+  $tester.set_timeset(['nvm_slow_40ns', 40]) do
     gen_vectors
   end
   cc 'These vectors should use timeset nvm_fast'
@@ -51,10 +51,10 @@ Pattern.create do
   ss 'Test that delay calculations are based on the current timeset period'
 
   cc 'This should wait for 5 cycles, 1000/200'
-  $tester.set_timeset('nvm_slow', 200)
+  $tester.set_timeset('nvm_slow_200ns', 200)
   $tester.wait(:time_in_ns => 1000)
   cc 'This should wait for 25 cycles, 1000/40'
-  $tester.set_timeset('nvm_fast', 40)
+  $tester.set_timeset('nvm_fast_40ns', 40)
   $tester.wait(:time_in_ns => 1000)
 
   ss 'Test the period counter'

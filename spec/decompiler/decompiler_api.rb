@@ -46,6 +46,9 @@ RSpec.shared_examples(:decompiler_api) do |options|
           pat = dummy_mod.decompile_text(rspec.direct_source)
           expect(pat).to be_a(OrigenTesters::IGXLBasedTester::Pattern)
           expect(pat.decompiled?).to be(true)
+
+          expect(pat.first_vector).to_not be(nil)
+          expect(pat.first_vector.repeat).to be(rspec.direct_source_first_vector_repeat_count)
         end
       end
 

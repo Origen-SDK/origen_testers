@@ -13,6 +13,9 @@ module OrigenTesters
           approved_dir: Pathname("#{Origen.app!.root}/approved/j750"),
           patterns: {
             workout: 'j750_workout',
+            
+            # Uncomment the line below to see that this is actually being called by the interface
+            # test: 'j750_test',
           },
           ext: '.atp',
         }
@@ -72,6 +75,22 @@ module OrigenTesters
               expect(vut.processor).to respond_to(:label_name)
               expect(vut.processor.label_name).to eql(expected[:platform_nodes][:label_name])
             end
+          end
+        end
+        
+        def self.error_conditions(context)
+          context.it 'can run additional error cases (if provided)' do
+            # Swap the lines below to see that these are actually being called
+            #expect(true).to be(false)
+            expect(true).to be(true)
+          end
+        end
+
+        def self.corner_cases(context)
+          context.it 'can run additional corner cases (if provided)' do
+            # Swap the lines below to see that these are actually being called
+            #expect(true).to be(false)
+            expect(true).to be(true)
           end
         end
 

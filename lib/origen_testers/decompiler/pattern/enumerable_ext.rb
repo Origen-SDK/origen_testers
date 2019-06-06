@@ -18,8 +18,14 @@ module OrigenTesters
           delimiter_klass = VectorDelimiterBase
           v = delimiter_klass.new(self)
           vector_index = 0
-
-          File.foreach(source).each_with_index do |line, index|
+          
+          if direct_source?
+            kickoff = 'source.split("\n")'
+          else
+            kickoff = 'File.foreach(source)'
+          end
+          
+          eval(kickoff).each_with_index do |line, index|
             # Get to the point in the file where the vectors begin
             if index > section_indices[:vectors_end] && section_indices[:vectors_end] != -1
               break

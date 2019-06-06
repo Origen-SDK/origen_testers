@@ -1,3 +1,75 @@
 % render "layouts/guides.html" do
 
+<table>
+  <!-- Headers -->
+  <tr>
+    <th>Platform</th>
+    <th>File Extension(s)</th>
+    <th>Decompiled Pattern Class</th>
+    <th>Module Name</th>
+    <th>Vector Body Elements</th>
+    <th>Vector Platform Nodes</th>
+    <th>Additional Information</th>
+  </tr>
+  <!-- J750 -->
+  <tr>
+    <td>J750</td>
+    <td><code>.atp</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester</code></td>
+    <td><code>:start_label</code>, <code>:global_label</code>, <code>:vector</code>, <code>:label</code></td>
+    <td><code>opcode</code>, <code>opcode_arguments</code></td>
+    <td><a href='#Teradyne_J750_and_Ultraflex'>J750 & Ultraflex</a></td>
+  </tr>
+  <!-- Uflex -->
+  <tr>
+    <td>Ultraflex</td>
+    <td><code>.atp</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester</code></td>
+    <td><code>:start_label</code>, <code>:global_label</code>, <code>:vector</code>, <code>:label</code></td>
+    <td><code>opcode</code>, <code>opcode_arguments</code></td>
+    <td><a href='#Teradyne_J750_and_Ultraflex'>J750 & Ultraflex</a></td>
+  </tr>
+  <!-- V93K -->
+  <tr>
+    <td>V93K</td>
+    <td><code>.avc</code></td>
+    <td><code>OrigenTesters::SmartestBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::SmartestBasedTester</code></td>
+    <td><code>:sequencer_instruction</code>, <code>:vector</code></td>
+    <td>N/A</code>
+    <td><a href='#Advantest_V93K'>V93K</a></td>
+  </tr>
+</table>
+
+### Teradyne J750 and Ultraflex
+
+Both supported Teradyne platforms share the same decompiler. It's assumed, at
+this early stage, that the differences in decompiling are negligible, but
+future enhancements will most likely split the two at some point.
+
+Although all opcodes and arguments, including match loops, should decompile
+correctly, they are not yet supported for execution and are simply ignored. In fact,
+all opcodes (except `repeat`) are ignored, __including__ `end_module`.
+
+### Advantest V93K
+
+Similarly to the Teradyne platforms, sequencer instructions, other than `repeat`,
+are not supported and are ignored.
+
+##### No First Vector
+
+The V93K supports patterns of just sequence instructions (see the approved
+`simple.avc` pattern), which __does not__ contain a `first_vector`. In such
+cases, calls to many of the methods will raise an exception. For example,
+calls to `#add_pins`, `#execute`, and anything on the `Pinlist` will fail. As
+only vector support is available at the moment anyway, there is not much that can
+be done with these types of pattern anyway.
+
+That said, these patterns can still be decompiled, with full
+[EnumerableExt]()
+functionality. Any custom execution or conversion implementations, or custom
+processing methods, can still be used.
+
 % end

@@ -4,6 +4,7 @@ class OrigenTestersApplication < Origen::Application
 
   config.shared = {
     command_launcher: "config/shared_commands.rb",
+    global_launcher: "config/global_commands.rb",
     origen_guides: "templates/origen_guides",
     origen_guides_index: -> (index) do
       index.section :pattern, heading: "Pattern Generator", after: :controllers do |section|
@@ -37,14 +38,13 @@ class OrigenTestersApplication < Origen::Application
         section.page :generating, heading: "Running the ProgGen"
       end
       index.section :decompilation, heading: "Decompilation", before: :simulation do |section|
-        section.page :introduction, heading: "Introduction"
-        #section.page :philosophy, heading: "Philosophy"
-        #section.page :nomenclature, heading: "Nomenclature"
-        section.page :tasks, heading: "Adding Pins, Executing, and Converting"
-        section.page :api, heading: "API"
-        section.page :platformapi, heading: "Handling Platform Specifics"
-        section.page :supported, heading: "Supported Plaforms and Scopes"
-        section.page :adding, heading: "Adding A New Platform"
+        section.page :overview, heading: "Overview & Example"
+        section.page :quickref, heading: "Quick Reference"
+        #section.page :tasks, heading: "Adding Pins, Executing, and Converting"
+        section.page :decompilerapi, heading: "Decompiling, Adding Pins, & Executing"
+        section.page :universalapi, heading: "Working with Decompiled Patterns"
+        section.page :platformspecifics, heading: "Platform Specifics"
+        section.page :adding, heading: "Enhancing/Adding Platforms"
       end
     end
   }

@@ -271,7 +271,7 @@ RSpec.shared_examples(:decompiled_pattern) do |options|
         end
       end
 
-      describe 'DecompiledVectorBodyElement' do
+      describe 'VectorBodyElement' do
         it 'knows if it is a vector (#is_a_vector?)' do
           expect(v1.is_a_vector?).to be(false)
           expect(v2.is_a_vector?).to be(true)

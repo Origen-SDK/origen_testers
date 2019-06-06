@@ -18,11 +18,11 @@ module OrigenTesters
         def to_spec_yaml(options = {})
           to_yaml_hash.to_yaml
         end
-        
+
         def spec_yaml_output
           "#{Origen.app!.root}/output/#{platform}/decompiler/models/#{source.basename}.yaml"
         end
-        
+
         def spec_yaml_approved
           "#{Origen.app!.root}/approved/#{platform}/decompiler/models/#{source.basename}.yaml"
         end

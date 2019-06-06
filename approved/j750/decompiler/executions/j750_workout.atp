@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    11-Apr-2019 09:03AM
+//   Time:    09-May-2019 05:57AM
 //   By:      Corey Engelken
 //   Mode:    debug
 //   Command: origen g /proj/k4l1_users1/b50956/origen_blocks/origen_testers/pattern/decompile.rb -t legacy.rb -e j750.rb
@@ -8,17 +8,17 @@
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.19.3
-//     Branch:    pattern_reader_ast(75438262d6e) (+local edits)
+//     Version:   0.20.0
+//     Branch:    pattern_reader_ast(24ba5ae5573) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.35.0
+//     Version:   0.43.0
 //   Plugins
-//     atp:                      1.1.2
+//     atp:                      1.1.3
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.7.1
-//     origen_jtag:              0.19.1
-//     origen_swd:               1.1.0
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.20.0
+//     origen_swd:               1.1.1
 // ***************************************************************************
 import tset nvmbist;                                                                            
 import tset nvm_slow;                                                                           
@@ -90,11 +90,7 @@ start_label pattern_st:
                                                                  > nvm_slow                     1 1 1 00001000 00000000 1 H L X X X 0 1 ;
                                                                  > nvm_slow                     1 1 1 00001000 00000000 0 H L X X X 0 1 ;
                                                                  > nvm_slow                     1 1 1 00100000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
+repeat 5                                                         > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
 // // ######################################################################
 // // ## Test that basic cycling works
 // // ######################################################################
@@ -127,11 +123,9 @@ repeat 10                                                        > nvmbist      
 // // ## Test that the store method works
 // // ######################################################################
 // // This vector should be stored
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // This vector should be stored
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-repeat 3                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 4                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // This vector should be stored
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // ######################################################################
@@ -140,8 +134,7 @@ repeat 3                                                         > nvmbist      
 // // This vector should call subroutine 'sub1'
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // This vector should call subroutine 'sub2'
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // This vector should call subroutine 'sub3', however because
 // // it is local it should not appear in the imports in the header
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
@@ -149,149 +142,110 @@ repeat 3                                                         > nvmbist      
 // // ## Test generating a handshake inside a subroutine
 // // ######################################################################
 // // The next line should have a global label 'sub3', but no vector
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // This vector should have a return statement
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // ######################################################################
 // // ## Test generating a handshake with a readcode
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 3                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // ######################################################################
 // // ## Test frequency counter
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 7                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 repeat 2000                                                      > nvmbist                      1 1 1 00000000 00000000 1 H L X X 0 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 4                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // ######################################################################
 // // ## Test a single pin match loop - short timeout
 // // ######################################################################
 // // Wait for a maximum of 5.0ms
 // // Start the match loop
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // //  Wait for the result to propagate through the pipeline
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Branch if block condition 0 met
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Match loop cycle count = 37
 // // Loop back around if time remaining
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // To get here something has gone wrong, check block again to force a pattern failure
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 3                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // ######################################################################
 // // ## Test a single pin match loop- long timeout
 // // ######################################################################
 // // Wait for a maximum of 7.00s
 // // Start the match loop
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // //  Wait for the result to propagate through the pipeline
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Branch if block condition 0 met
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Match loop cycle count = 37
 // // Loop back around if time remaining
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // To get here something has gone wrong, check block again to force a pattern failure
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 3                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // ######################################################################
 // // ## Test a single pin match loop - with clr_fail after match loop complete
 // // ######################################################################
 // // Wait for a maximum of 5.0ms
 // // Start the match loop
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // //  Wait for the result to propagate through the pipeline
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Branch if block condition 0 met
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Match loop cycle count = 37
 // // Loop back around if time remaining
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // To get here something has gone wrong, check block again to force a pattern failure
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 4                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // ######################################################################
 // // ## Test a two pin match loop
 // // ######################################################################
 // // Wait for a maximum of 5.0ms
 // // Start the match loop
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Check if nvm_done is high
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // //  Wait for the result to propagate through the pipeline
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Branch if block condition 0 met
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X L X X X 0 1 ;
 // // Check if nvm_fail is low
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 L L X X X 0 1 ;
 // //  Wait for the result to propagate through the pipeline
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // Branch if block condition 1 met
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // Match loop cycle count = 74
 // // Loop back around if time remaining
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // To get here something has gone wrong, check block again to force a pattern failure
 // // Check if nvm_done is high
 // // Check if nvm_fail is low
                                                                  > nvmbist                      1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
+repeat 6                                                         > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // ######################################################################
 // // ## Test adding an arbitrary label
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // ######################################################################
 // // ## Test calling a match loop
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 1 X X X X X 0 1 ;
 // // ######################################################################
 // // ## Test setting the readcode to 100
 // // ######################################################################
@@ -308,18 +262,15 @@ repeat 2000                                                      > nvmbist      
 // // ######################################################################
 // // ## Test looping, these vectors should be executed 3 times
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
                                                                  > nvmbist                      1 1 1 10101010 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
 // // ######################################################################
 // // ## Test looping with label first, these vectors should be executed 3 times
 // // ######################################################################
                                                                  > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
                                                                  > nvmbist                      1 1 1 10101010 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 01010101 00000000 1 X X X X X 0 1 ;
 // // ######################################################################
 // // ## Test repeat_previous
 // // ######################################################################
@@ -376,10 +327,8 @@ repeat 43395                                                     > nvmbist      
 // // ######################################################################
 // // ## Test real life case where dont compress was ignored
 // // ######################################################################
-                                                                 > nvmbist                      1 1 1 01010101 00000000 0 X H X X X 0 1 ;
-repeat 200                                                       > nvmbist                      1 1 1 01010101 00000000 0 X H X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
-                                                                 > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
+repeat 201                                                       > nvmbist                      1 1 1 01010101 00000000 0 X H X X X 0 1 ;
+repeat 2                                                         > nvmbist                      1 1 1 00000000 00000000 0 X H X X X 0 1 ;
 // ######################################################################
 // ## Pattern complete
 // ######################################################################

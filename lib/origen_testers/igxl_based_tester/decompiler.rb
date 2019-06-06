@@ -8,7 +8,7 @@ module OrigenTesters
     require_relative './decompiler/processors'
 
     def self.suitable_decompiler_for(pattern: nil, tester: nil, **options)
-      if pattern && (Pathname(pattern).extname == '.atp')
+      if pattern && (Pathname(pattern).extname == ".#{OrigenTesters::IGXLBasedTester.pat_extension}")
         OrigenTesters::IGXLBasedTester::Pattern
       elsif tester && (tester == 'j750' || tester == 'uflex' || tester == 'ultraflex')
         OrigenTesters::IGXLBasedTester::Pattern
@@ -32,7 +32,7 @@ module OrigenTesters
       # available both inside and outside the grammars, avoiding any pitfalls
       # with keeping this up-to-date in multiple places.
       @platform_tokens = {
-        comment_start: '//'
+        comment_start: OrigenTesters::IGXLBasedTester.comment_char
       }
 
       @parser_config = {
@@ -56,6 +56,8 @@ module OrigenTesters
 
       def select_processor(node:, source:, **options)
         case node.type
+          when :frontmatter
+            OrigenTesters::IGXLBasedTester::Decompiler::Processors::Frontmatter
           when :start_label
             OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel
           when :vector
@@ -66,6 +68,27 @@ module OrigenTesters
             OrigenTesters::IGXLBasedTester::Decompiler::Processors::Label
         end
       end
+    end
+    
+    def self.sample_direct_source
+      [
+        '// Sample pattern text for the J750',
+        '// Source located at: lib/origen_testers/igxl_based_tester/decompiler',
+        '',
+        'import tset tp0;',
+        'svm_only_file = no;',
+        'opcode_mode = extended;',
+        'compressed = yes;',
+        '',
+        'vector ($tset, tclk, tdi, tdo, tms)',
+        '{',
+        'start_label pattern_st:',
+        '// Start of vector body',
+        'repeat 2 > tp0 X X X X ; // First Vector',
+        'repeat 5 > tp0 1 0 X 1 ;',
+        'end_module   > tp0 X X X X ; // Last Vector',
+        '}',
+      ].join("\n")
     end
   end
 end

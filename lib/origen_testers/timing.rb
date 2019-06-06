@@ -2,6 +2,9 @@ module OrigenTesters
   module Timing
     extend ActiveSupport::Concern
 
+    class InvalidModification < Origen::OrigenError
+    end
+
     included do
       # When set to true all pattern vectors will be converted to use the same period (the
       # shortest period used in the pattern).
@@ -30,17 +33,124 @@ module OrigenTesters
     end
 
     class Timeset
-      attr_accessor :name, :period_in_ns
+      attr_accessor :name, :cycled, :called
+      attr_reader :period_in_ns, :_timeset_
 
       def initialize(attrs = {})
+        @cycled = false
+        @locked = false
+        @called = false
+        @_timeset_ = attrs.delete(:_timeset_)
+
         attrs.each do |name, value|
           send("#{name}=", value)
         end
+
+        self.period_in_ns = attrs[:period_in_ns]
       end
 
       # Returns true if the timeset has a shorter period than the supplied timeset
       def shorter_period_than?(timeset)
         period_in_ns < timeset.period_in_ns
+      end
+
+      # Returns true if <code>tester.cycle</code> has been called while this
+      # timeset was the current timeset.
+      # @return [true, false] <code>true</code> if this timeset has been cycled, <code>false</code> otherwise.
+      def cycled?
+        @cycled
+      end
+
+      # Returns true if this timeset does not allow changes to its period_in_ns
+      def locked?
+        @locked
+      end
+      alias_method :period_in_ns_locked?, :locked?
+      alias_method :period_locked?, :locked?
+      alias_method :locked, :locked?
+
+      # Locks the current value of the timeset's period_in_ns. Attempts to further
+      # adjust the period_in_ns will results in an exception.
+      # @return [true, false] <code>true</code> if the period_in_ns has been locked, <code>false</code> otherwise.
+      def lock!
+        @locked = true
+      end
+      alias_method :lock_period!, :lock!
+      alias_method :lock_period_in_ns!, :lock!
+
+      # Sets the period_in_ns of this timeset and issues a callback to the <code>tester's #set_timeset</code>
+      # method, if this timeset is the current timeset, keeping the tester in
+      # sync with the changes to this timeset.
+      # @raise [InvalidModification] If the timeset is locked.
+      # @raise [InvalidModification] If period_in_ns is changed after the tester has been cycled using this timeset.
+      # @return [Fixnum] The updated period in ns.
+      def period_in_ns=(p)
+        self._period_in_ns_ = p
+
+        # If this is the current timeset, reset the timeset from the tester
+        # side to verify that everything is in sync. Otherwise, the period_in_ns
+        # here may not match what the tester/DUT has.
+        if current_timeset?
+          tester.set_timeset(name, p)
+        end
+
+        # Return the period
+        p
+      end
+
+      # Indicates whether a period_in_ns has been defined for this timeset.
+      # @return [true, false] <code>true</code> if the period_in_ns has been set, <code>false</code> otherwise.
+      def period_in_ns?
+        !@period_in_ns.nil?
+      end
+      
+      # Returns the current timeset in seconds
+      # @return [Float] Current period in seconds
+      def period_in_secs
+        if period_in_ns
+          period_in_ns * (10**-9)
+        end
+      end
+      alias_method :period_in_seconds, :period_in_secs
+
+      # Indicates whether this timeset is the current timeset.
+      # @return [true, false] <code>true</code> if this timeset is the current timeset, <code>false</code> otherwise.
+      def current_timeset?
+        tester.timeset == self
+      end
+
+      # Indicates whether this timeset is or has been set as the current timeset.
+      # @return [true, false] <code>true</code> if this timeset is or has beent he current timeset, <code>false</code> otherwise.
+      def called?
+        @called
+      end
+
+      # Alias for the {#name} attr_reader.
+      def id
+        name
+      end
+
+      # @api private
+      def _period_in_ns_=(p)
+        if locked?
+          Origen.app.fail(
+            exception_class: InvalidModification,
+            message:         "Timeset :#{@name}'s period_in_ns is locked to #{@period_in_ns} ns!"
+          )
+        end
+
+        if cycled? && p != period_in_ns
+          Origen.app!.fail(
+            exception_class: InvalidModification,
+            message:         [
+              "Timeset :#{name}'s period_in_ns cannot be changed after a cycle has occurred using this timeset!",
+              "  period_in_ns change occurred at #{caller[0]}",
+              "  Attempted to change period from #{@period_in_ns} to #{p}"
+            ].join("\n")
+          )
+        end
+        @period_in_ns = p
+        @period_in_ns
       end
     end
 
@@ -128,42 +238,74 @@ module OrigenTesters
     #     $tester.cycle
     #   end
     def set_timeset(timeset, period_in_ns = nil)
+      def _set_timeset_(timeset, period_in_ns = nil)
+        # If the period_in_ns was given, use that.
+        # Alternatively, the period_in_ns may have been set on the Timeset object
+        # already.
+        # If not, then complain that we need a period_in_ns before proceeding.
+        if period_in_ns
+          timeset._period_in_ns_ = period_in_ns
+        elsif !timeset.period_in_ns?
+          fail 'You must supply a period_in_ns argument to set_timeset'
+        end
+
+        # if the DUT is defined, adjust the DUT's current timeset and its current_timeset_period
+        _if_dut do
+          dut.timeset = timeset.name if dut.timesets[timeset.name]
+        end
+        timeset_changed(timeset)
+        timeset.called = true
+        @timeset = timeset
+        timeset
+      end
+
       if timeset.is_a?(Array)
         timeset, period_in_ns = timeset[0], timeset[1]
       end
       timeset ||= @timeset
-      unless timeset.is_a?(Timeset)
-        fail 'You must supply a period_in_ns argument to set_timeset' unless period_in_ns
-        timeset = Timeset.new(name: timeset.to_s.chomp, period_in_ns: period_in_ns)
+      if timeset.is_a?(Origen::Pins::Timing::Timeset) || timeset.is_a?(OrigenTesters::Timing::Timeset)
+        timeset = timeset.id.to_sym
       end
-      called_timesets << timeset unless called_timesets.map(&:name).include?(timeset.name)
+      timeset = (timesets[timeset] || lookup_or_register_timeset(timeset.to_s.chomp, period_in_ns: period_in_ns))
+
+      if block_given?
+        original = @timeset
+        _set_timeset_(timeset, period_in_ns)
+        yield
+        timeset = original
+        period_in_ns = timeset.period_in_ns
+      end
+      _set_timeset_(timeset, period_in_ns)
+
       if @min_period_timeset
         @min_period_timeset = timeset if timeset.shorter_period_than?(@min_period_timeset)
       else
         @min_period_timeset = timeset
       end
-      if block_given?
-        original = @timeset
-        timeset_changed(timeset)
-        @timeset = timeset
-        _if_dut do
-          dut.timeset = timeset.name if dut.timesets[timeset.name]
-          dut.current_timeset_period = timeset.period_in_ns
-        end
-        yield
-        timeset_changed(original)
-        @timeset = original
-        _if_dut do
-          dut.timeset = original.name if dut.timesets[original.name]
-          dut.current_timeset_period = original.period_in_ns
-        end
+      timeset
+    end
+    alias_method :with_timeset, :set_timeset
+
+    def timesets
+      @timesets ||= {}.with_indifferent_access
+    end
+
+    # Given a timeset name or object, either returns it, if it exists, or creates it, and returns
+    # the newly created timeset.
+    def lookup_or_register_timeset(t, period_in_ns: nil)
+      if t.is_a?(Origen::Pins::Timing::Timeset)
+        timesets[t.id] ||= Timeset.new(name: t.id, period_in_ns: period_in_ns, _timeset_: t)
       else
-        timeset_changed(timeset)
-        @timeset = timeset
-        _if_dut do
-          dut.timeset = timeset.name if dut.timesets[timeset.name]
-          dut.current_timeset_period = timeset.period_in_ns
-        end
+        timesets[t] ||= Timeset.new(name: t, period_in_ns: period_in_ns)
+      end
+    end
+
+    # Returns true if the current timeset is defined. False otherwise.
+    def timeset?(t)
+      if t.respond_to?(:name)
+        timesets.key?(t.name)
+      else
+        timesets.key?(t)
       end
     end
 
@@ -200,6 +342,20 @@ module OrigenTesters
 
     def before_timeset_change(options = {})
     end
+
+    # Returns the current period in ns, or nil, if no timeset has been set.
+    def period_in_ns
+      if timeset
+        timeset.period_in_ns
+      end
+    end
+    
+    def period_in_secs
+      if timeset
+        timeset.period_in_secs
+      end
+    end
+    alias_method :period_in_seconds, :period_in_secs
 
     # Cause the pattern to wait.
     # The following options are available to help you specify the time to wait:
@@ -286,8 +442,17 @@ module OrigenTesters
       @min_repeat_loop
     end
 
+    # Returns any timesets that have been called during this execution.
+    # @return [Array] Array of OrigenTesters::Timing::Timeset objects that have been used so far.
     def called_timesets
-      @called_timesets ||= []
+      timesets.select { |n, t| t.called? }.values
+    end
+    alias_method :called_timesets_by_instance, :called_timesets
+
+    # Similar to {#called_timesets}, but returns the name of the timesets instead.
+    # @return [Array] Array of names corresponding to the timesets that have been used so far.
+    def called_timesets_by_name
+      timesets.select { |n, t| t.called? }.keys
     end
 
     def current_period_in_ns
