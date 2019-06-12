@@ -172,7 +172,7 @@ To handle comments though, the `vector delimiter` requires knowledge of the
 platform's `comment character`. This is set using the `platform_tokens` hash,
 containing a key `comment_start`.
 
-The `platform_tokens` has some other uses as well, covered in the [platform tokens](#Platform_Tokens)
+The `platform_tokens` has some other uses as well, covered in the _platform tokens_
 section further below. An example of setting this:
 
 ~~~ruby
@@ -324,6 +324,6 @@ end
 #### Setting Up The Specs
 
 The decompiler's specs are handfull on their own.
-[See the Decompier's specs README](https://github.com/Origen-SDK/origen_testers/blob/master/spec/decompiler/README.md)
+[See the Decompiler's specs README](https://github.com/Origen-SDK/origen_testers/blob/master/spec/decompiler/README.md)
 for more.
 
