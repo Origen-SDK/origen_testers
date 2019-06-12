@@ -159,7 +159,7 @@ setup for example setups.
 
 The platform interface requires several patterns, for three different cases:
 
-1. Working (Expected) Patterns - These patterns should decompile correctly and will be compared against an approved [Pattern Model](#Pattern_Models).
+1. Working (Expected) Patterns - These patterns should decompile correctly and will be compared against an approved _Pattern Model_.
     * `sanity`: Bare minimum pattern that can be generated from Origen. Literally, just an empty `Pattern.create` block. Generate with the `empty.rb` target to get the absolute minimum source (that is, no initial pin states, no startup).
     [See the pattern source](https://github.com/Origen-SDK/origen_testers/blob/master/pattern/sanity.rb)
     * `delay`: A bit more involved than `sanity`, but not by much. Just generates some delays.
@@ -182,7 +182,7 @@ The platform interface requires several patterns, for three different cases:
 
 For the patterns in `1.`, the minimum that needs to be supported is just toggling some pins and dealing with repeats. Everything else is a bonus as far as the generic API is concerned. So, if it appears that the patterns kind of go from 0-to-100 (a couple of delays to a full platform workout), that's because they do!
 
-The `Working/Expected Patterns` requires `Pattern Models` to verify that the decompilation was a complete success. `Pattern models` are [covered a bit further down](#Pattern_Models)
+The `Working/Expected Patterns` requires `Pattern Models` to verify that the decompilation was a complete success. `Pattern models` are covered a bit further down.
 
 The pattern source for each should be in the `approved/` directory, behind the platform name given in the setup, `decompiler`, and the use case. For example, this is `approved/j750/decompiler/error_conditions` for the J750's error pattern sources. The common API will expect this location.
 
@@ -325,7 +325,7 @@ the decompiler, and its interface, will be. But, again, the exact scope is left 
 to the implementer.
 
 The pattern models can be generated in the same way as with the already-supported
-platforms. See above [Regenerating Pattern Models](#Regenerating_Pattern_Models)
+platforms. See above _Regenerating Pattern Models_
 for the a description of the pattern models and how to generate them. The interface
 is the same, even if this may be a first-time generation.
 
