@@ -76,11 +76,6 @@ module OrigenTesters
       !is_vector_based?
     end
 
-    def stil?
-      defined?(OrigenTesters::StilBasedTester::Base) &&
-        is_a?(OrigenTesters::StilBasedTester::Base)
-    end
-
     def j750?
       is_a?(OrigenTesters::IGXLBasedTester::J750)
     end
@@ -97,6 +92,14 @@ module OrigenTesters
       is_a?(OrigenTesters::IGXLBasedTester::UltraFLEX)
     end
     alias_method :uflex?, :ultraflex?
+
+    def stil?
+      is_a?(OrigenTesters::StilBasedTester::Base)
+    end
+
+    def d10?
+      is_a?(OrigenTesters::StilBasedTester::D10)
+    end
 
     def link?
       !!(self.class.to_s =~ /^OrigenLink::/)
@@ -140,6 +143,7 @@ module OrigenTesters
     #       cc "step comment"
     #   end
     def c1(msg, options = {})
+      PatSeq.add_thread(msg) unless options[:no_thread_id]
       prefix = comment_char + ' '
       prefix += step_comment_prefix + ' ' if @step_comment_on
       if Origen.tester.generating == :program
@@ -171,7 +175,7 @@ module OrigenTesters
     def ss(msg = nil)
       div = step_comment_prefix.length
       div = 1 if div == 0
-      c1(step_comment_prefix * (70 / div))
+      c1(step_comment_prefix * (70 / div), no_thread_id: true)
       @step_comment_on = true
       if block_given?
         yield
@@ -182,9 +186,9 @@ module OrigenTesters
       if $_testers_enable_vector_comments
         timestamp = " #{execution_time_in_ns}ns #{step_comment_prefix}"
         str = step_comment_prefix * (70 / div)
-        c1 str.sub(/#{step_comment_prefix}{#{timestamp.length - 1}}$/, timestamp)
+        c1(str.sub(/#{step_comment_prefix}{#{timestamp.length - 1}}$/, timestamp), no_thread_id: true)
       else
-        c1(step_comment_prefix * (70 / div))
+        c1(step_comment_prefix * (70 / div), no_thread_id: true)
       end
     end
 
@@ -223,30 +227,37 @@ module OrigenTesters
         repeat:    nil
       }.merge(options)
 
+      unless timeset.period_in_ns?
+        fail "You must supply a period_in_ns to timeset '#{timeset.name}' before you can cycle the tester!"
+      end
       timeset.cycled = true
-      if any_clocks_running?
-        update_running_clocks
-        if options[:repeat]
-          slice_repeats(options).each do |slice|
-            options[:repeat] = slice[0]
+      if PatSeq.thread
+        PatSeq.thread.cycle(options)
+      else
+        if any_clocks_running?
+          update_running_clocks
+          if options[:repeat]
+            slice_repeats(options).each do |slice|
+              options[:repeat] = slice[0]
+              delay(options.delete(:repeat), options) do |options|
+                push_vector(options)
+              end
+              slice[1].each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+              options[:pin_vals] = current_pin_vals
+            end
+            pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+          else
+            push_vector(options)
+            pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
+          end
+        else
+          if options[:repeat]
             delay(options.delete(:repeat), options) do |options|
               push_vector(options)
             end
-            slice[1].each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-            options[:pin_vals] = current_pin_vals
-          end
-          pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-        else
-          push_vector(options)
-          pins_need_toggling.each { |clock_pin_name| clocks_running[clock_pin_name].toggle_clock }
-        end
-      else
-        if options[:repeat]
-          delay(options.delete(:repeat), options) do |options|
+          else
             push_vector(options)
           end
-        else
-          push_vector(options)
         end
       end
     end

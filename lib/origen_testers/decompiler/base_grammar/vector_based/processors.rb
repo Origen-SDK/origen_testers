@@ -21,10 +21,10 @@ module OrigenTesters
           class CommentBlock < Origen::AST::Processor::Base
             attr_reader :comments
 
-            def run(node, options = {})
+            def initialize(*args)
+              super
+
               @comments = []
-              process(node)
-              self
             end
 
             def on_comment(node)
@@ -102,22 +102,68 @@ module OrigenTesters
           end
 
           class Vector < Origen::AST::Processor::Base
+            attr_reader :timeset
+            attr_reader :pin_states
+            attr_reader :comment
+            attr_reader :repeat
+
+            def initialize(*args)
+              super
+
+              @repeat = 1
+              @timeset = nil
+              @pin_states = []
+              @comment = ''
+            end
+
             def execute?
               true
             end
 
+            def on_repeat(node)
+              @repeat = node.children.first.to_i
+            end
+
+            def on_timeset(node)
+              @timeset = node.children.first
+            end
+
+            def on_pin_state(node)
+              @pin_states << node.children.first
+            end
+
+            def on_comment(node)
+              @comment = node.children.first
+            end
+
             def execute!(context)
-              fail('Please override the #execute! method in the platform!')
+              # Apply a timeset switch, if needed.
+              unless Origen.tester.timeset.name == timeset
+                Origen.tester.set_timeset(timeset)
+              end
+
+              # Apply the comment
+              unless comment.empty?
+                cc(comment)
+              end
+
+              # Apply the pin states
+              context.pinlist.each_with_index do |pin, i|
+                dut.pins(pin).vector_formatted_value = pin_states[i]
+              end
+
+              # Cycle the tester
+              repeat.cycles
             end
           end
 
           class Pinlist < Origen::AST::Processor::Base
             attr_reader :pins
 
-            def run(node, options = {})
+            def initialize(*args)
+              super
+
               @pins = []
-              process(node)
-              self
             end
 
             # Process the pin names.

@@ -49,7 +49,8 @@ module OrigenTesters
         end
         
         def execution_output
-          "#{Origen.app.root}/spec/patterns/#{ext.gsub('.', '')}/decompile#{ext}"
+          #"#{Origen.app.root}/spec/patterns/#{ext.gsub('.', '')}/decompile#{ext}"
+          "#{Origen.app.root}/output/#{@defs[:approved_dir].to_s.split('/').last}/decompile#{ext}"
         end
 
         def context_str(vector_type:, platform: nil, index: nil, index_key: nil)

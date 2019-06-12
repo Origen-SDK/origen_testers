@@ -69,19 +69,23 @@ module OrigenTesters
         alias_method :is_vector?, :is_a_vector?
         alias_method :vector?, :is_a_vector?
 
-        def tester
+        def platform
           decompiled_pattern.platform
         end
-        alias_method :platform, :tester
+        alias_method :tester, :platform
 
-        def tester?(t = nil)
-          if t
-            decompiled_pattern.platform == t
-          else
-            decompiled_pattern.platform == tester.name.to_s
-          end
+        def platform?(p = nil)
+          decompiled_pattern.platform?(p)
         end
-        alias_method :platform?, :tester?
+        alias_method :tester?, :platform?
+
+        def decompiler
+          decompiled_pattern.platform
+        end
+
+        def decompiler?(d = nil)
+          decompiled_pattern.decompiler?(d)
+        end
 
         def is_a_comment?
           type == :comment || type == :comment_block
@@ -94,8 +98,11 @@ module OrigenTesters
         alias_method :is_tester_specific_element?, :is_tester_specific?
         alias_method :is_platform_specific?, :is_tester_specific?
         alias_method :is_platform_specific_element?, :is_tester_specific?
+        alias_method :is_decompiler_specific?, :is_tester_specific?
+        alias_method :is_decompiler_specific_element?, :is_tester_specific?
         alias_method :is_a_tester_specific_element?, :is_tester_specific?
         alias_method :is_a_platform_specific_element?, :is_tester_specific?
+        alias_method :is_a_decompiler_specific_element?, :is_tester_specific?
       end
     end
   end

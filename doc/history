@@ -1,3 +1,36 @@
+<a class="anchor release_tag" name="v0_21_0"></a>
+<h1><a href="#v0_21_0">Tag: v0.21.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Paul DeRouen on 23-May-2019 08:27AM
+
+
+- Pattern conversion support (global convert command added)
+
+~~~
+origen convert path/to/my\_pattern.stil -e v93k\_smt7
+~~~
+
+When run outside an app an annonymous DUT is created. The environment option defines
+ the output currently `j750`, `uflex` and `v93k\_smt7`. The only input format supported
+ is STIL. Other input formats will be supported in the future.
+
+- Add STIL tester <code>OrigenTesters::STIL.new<\code>
+
+- Add multi-limit with unique TName support for UFlex program generation
+
+~~~ruby
+  functional :test2, sbin: 101, number: 20020,
+    sub\_tests: [
+      sub\_test(:limit\_name1, lo: -2, hi: 2),
+      sub\_test(:limit\_name2, lo: -1, hi: 1)
+    ]
+~~~
+
+- Add hooks required for concurrent pattern generation documented
+[here](https://origen-sdk.org/origen/guides/pattern/concurrent/)
+
 <a class="anchor release_tag" name="v0_20_0"></a>
 <h1><a href="#v0_20_0">Tag: v0.20.0</a></h1>
 

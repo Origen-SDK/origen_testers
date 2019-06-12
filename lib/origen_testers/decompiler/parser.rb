@@ -21,14 +21,14 @@ module OrigenTesters
 
       def load_grammars
         if config[:include_base_tokens_grammar]
-          require "#{Origen.app.root}/lib/origen_testers/decompiler/base_grammar/tokens/nodes"
-          require "#{Origen.app.root}/lib/origen_testers/decompiler/base_grammar/tokens/processors"
+          require "#{Origen.app!.root}/lib/origen_testers/decompiler/base_grammar/tokens/nodes"
+          require "#{Origen.app!.root}/lib/origen_testers/decompiler/base_grammar/tokens/processors"
           load_grammar(base_tokens_grammar_file)
         end
 
         if config[:include_vector_based_grammar]
-          require "#{Origen.app.root}/lib/origen_testers/decompiler/base_grammar/vector_based/nodes"
-          require "#{Origen.app.root}/lib/origen_testers/decompiler/base_grammar/vector_based/processors"
+          require "#{Origen.app!.root}/lib/origen_testers/decompiler/base_grammar/vector_based/nodes"
+          require "#{Origen.app!.root}/lib/origen_testers/decompiler/base_grammar/vector_based/processors"
           load_grammar(base_vector_based_grammar_file)
         end
 

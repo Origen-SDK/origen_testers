@@ -19,6 +19,7 @@ class OrigenTestersApplication < Origen::Application
         section.page :j750, heading: "J750 API"
         section.page :v93k, heading: "V93K API"
         section.page :ultraflex, heading: "UltraFlex API"
+        section.page :stil, heading: "STIL & Other Formats"
         section.page :custom, heading: "Custom Testers"
         section.page :running, heading: "Running The PatGen"
       end
@@ -39,12 +40,9 @@ class OrigenTestersApplication < Origen::Application
       end
       index.section :decompilation, heading: "Decompilation", before: :simulation do |section|
         section.page :overview, heading: "Overview & Example"
-        section.page :quickref, heading: "Quick Reference"
-        #section.page :tasks, heading: "Adding Pins, Executing, and Converting"
         section.page :decompilerapi, heading: "Decompiling, Adding Pins, & Executing"
         section.page :universalapi, heading: "Working with Decompiled Patterns"
         section.page :platformspecifics, heading: "Platform Specifics"
-        section.page :adding, heading: "Enhancing/Adding Platforms"
       end
     end
   }
@@ -94,13 +92,13 @@ class OrigenTestersApplication < Origen::Application
     dir
   end
   
-  # Setting this to the spec area for testing of compiler
-  config.pattern_output_directory do
-   dir = "#{Origen.root}/spec/patterns/atp"
-  # Check if running on windows, if so, substitute :: with _
-   dir.gsub!("::","_") if Origen.os.windows?
-   dir
-  end
+#  config.pattern_output_directory do
+#  # Setting this to the spec area for testing of compiler
+#   dir = "#{Origen.root}/spec/patterns/atp"
+#  # Check if running on windows, if so, substitute :: with _
+#   dir.gsub!("::","_") if Origen.os.windows?
+#   dir
+#  end
 
   # Run the tests before deploying to generate test coverage numbers
   def before_deploy_site

@@ -5,6 +5,11 @@ RSpec.shared_examples(:decompiler_api) do |options|
     # Provided as a module so anything can include this without having to worry
     # about handling all cases.
     context 'without a #suitable_decompiler_for method' do
+      before(:context) do
+        Origen.app.target.temporary = 'default.rb'
+        Origen.app.environment.temporary = 'j750.rb'
+        Origen.target.load!
+      end
       
       describe '#decompile' do
         it 'decompiles a pattern from the given pattern source' do
@@ -89,7 +94,7 @@ RSpec.shared_examples(:decompiler_api) do |options|
         
         it 'complains if the current environment does not instantiate a tester for decompilation (e.g., tester #=> nil)' do
           env = Origen.environment.file.basename.to_s
-          Origen.environment.temporary = 'empty.rb'
+          Origen.environment.temporary = 'unsupported_decompiler.rb'
           Origen.load_target('default')
           expect(dummy_mod.select_decompiler).to be_nil
 
@@ -111,13 +116,13 @@ RSpec.shared_examples(:decompiler_api) do |options|
         it 'complains if the current environment does not support decompilation' do
           #Origen.environment.temporary = 'no_decompiler.rb'
           env = Origen.environment.file.basename.to_s
-          Origen.environment.temporary = 'empty.rb'
+          Origen.environment.temporary = 'unsupported_decompiler.rb'
           Origen.load_target('default')
           expect {
             dummy_mod.select_decompiler!
           }.to raise_error(
             OrigenTesters::Decompiler::NoSuitableDecompiler,
-            /Current environment 'empty.rb' does not contain a suitable decompiler! Cannot select this as the decompiler./
+            /Current environment 'unsupported_decompiler.rb' does not contain a suitable decompiler! Cannot select this as the decompiler./
           )          
 
           Origen.environment.temporary = env

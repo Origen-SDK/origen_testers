@@ -128,6 +128,16 @@ RSpec.shared_examples(:decompiled_pattern) do |options|
         expect(pat.source).to be_a(String)
         expect(pat.source.to_s).to eql(rspec.direct_source)
       end
+      
+      it 'complains if #each is used before the pattern has been decompiled' do
+        pat = OrigenTesters::Decompiler::RSpec.new_dummy_pattern(rspec.direct_source, direct_source: true)
+        expect(pat).to be_a(OrigenTesters::Decompiler::Pattern)
+        expect(pat.decompiled?).to be(false)
+        
+        expect {
+          pat.first_vector
+        }.to raise_exception(/Pattern has not yet been decompiled! Cannot iterate through vectors or query pattern aspects!/)
+      end
     end  
 
     # Note: iterating through vectors gets enough usage in the other tests.

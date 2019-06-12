@@ -6,6 +6,7 @@ module OrigenTesters
       attr_accessor :default_source_wave_name, :default_capture_wave_name
 
       def initialize
+        @name = 'pxie'
         @pat_extension = 'digipatsrc'
         @capture_history = {}
         @source_history = {}

@@ -41,6 +41,11 @@ module Origen
           return node unless node.respond_to?(:to_ast)
           super
         end
+
+        def run(node, options = {})
+          process(node)
+          self
+        end
       end
     end
   end

@@ -152,6 +152,7 @@ RSpec.shared_examples(:decompiler_top_methods) do |options|
           Origen.target.load!
           
           # Run the pattern generator to get a pattern executed from this pattern
+          puts @plat.approved_pat(:delay)
           r = @plat.generate_execution_result(@plat.approved_pat(:delay))
 
           # Invoke Origen's examples handler to compare to the approved
@@ -161,6 +162,14 @@ RSpec.shared_examples(:decompiler_top_methods) do |options|
         it 'can execute the workout pattern' do
           Origen.app.target.temporary = 'legacy.rb'
           Origen.target.load!
+          
+          # Add the timesets here to not conflict elsewhere.
+          # These will be reset after this test ends
+          dut.add_timeset('nvmbist')
+          dut.add_timeset('nvm_slow')
+          dut.timeset('nvm_slow') do |t|
+            t.period_in_ns = 200
+          end
           
           # Run the pattern generator to get a pattern executed from this pattern
           r = @plat.generate_execution_result(:workout)

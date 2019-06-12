@@ -11,7 +11,7 @@ module Origen
         @orig_init = instance_method(:initialize)
         define_method(:initialize) do |*args|
           self.class.instance_variable_get(:@orig_init).bind(self).call(*args)
-          instance_variable_set(:@_timeset_, tester.lookup_or_register_timeset(self))
+          instance_variable_set(:@_timeset_, OrigenTesters::Timing.lookup_or_register_timeset(self))
         end
 
         # Defer any missing methods to the corresponding timeset object on the tester side.

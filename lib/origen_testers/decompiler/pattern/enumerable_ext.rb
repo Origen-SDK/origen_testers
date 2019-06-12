@@ -14,17 +14,20 @@ module OrigenTesters
         # parser for conversion to an AST.
         # Lastly, the next vector will start where the previous one left off.
         def each(**options, &block)
+          unless decompiled?
+            Origen.app!.fail(message: 'Pattern has not yet been decompiled! Cannot iterate through vectors or query pattern aspects!')
+          end
           vectors_started = false
           delimiter_klass = VectorDelimiterBase
           v = delimiter_klass.new(self)
           vector_index = 0
-          
+
           if direct_source?
             kickoff = 'source.split("\n")'
           else
             kickoff = 'File.foreach(source)'
           end
-          
+
           eval(kickoff).each_with_index do |line, index|
             # Get to the point in the file where the vectors begin
             if index > section_indices[:vectors_end] && section_indices[:vectors_end] != -1

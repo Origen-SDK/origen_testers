@@ -84,6 +84,24 @@ module OrigenTesters
       def platform
         self.class.platform
       end
+      alias_method :tester, :platform
+
+      def platform?(p = nil)
+        if p
+          platform == p
+        else
+          platform == tester.name.to_s
+        end
+      end
+      alias_method :tester?, :platform?
+
+      def decompiler
+        self.class
+      end
+
+      def decompiler?(d)
+        decompiler == d
+      end
 
       def parser_config
         self.class.parser_config
@@ -92,6 +110,7 @@ module OrigenTesters
       def platform_tokens
         self.class.platform_tokens
       end
+      alias_method :decompiler_tokens, :platform_tokens
 
       def comment_start
         self.class.platform_tokens[:comment_start]
@@ -253,9 +272,9 @@ module OrigenTesters
       #  2. Executing anything that can be executed in the frontmatter
       #  3. Executing the vectors 1-by-1.
       def execute(options = {})
-        if tester.timeset.nil?
+        if Origen.tester.timeset.nil?
           if first_vector?
-            tester.set_timeset(first_timeset, 40)
+            Origen.tester.set_timeset(first_timeset, 40)
           else
             Origen.log.error 'No first vector available and the timeset has not already been set!'
             Origen.log.error 'Please set the timeset yourself prior to calling #execute! in a pattern that does not contain a first vector.'
