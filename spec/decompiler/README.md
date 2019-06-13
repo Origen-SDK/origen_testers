@@ -123,7 +123,7 @@ namespace `OrigenTester::Decompiler::RSpec::<platform>`,
 for example, `OrigenTester::Decompiler::RSpec::J750` for the J750.
 
 The platform's namespace should initialize a `@defs` Hash, containing setup parameters specific to this platform.
-The keys that are currently use are below:
+The keys that are currently used are below:
 
 ~~~
 @defs = {
@@ -164,25 +164,25 @@ The platform interface requires several patterns, for three different cases:
     [See the pattern source](https://github.com/Origen-SDK/origen_testers/blob/master/pattern/sanity.rb)
     * `delay`: A bit more involved than `sanity`, but not by much. Just generates some delays.
     [See the pattern source](https://github.com/Origen-SDK/origen_testers/blob/master/pattern/delay.rb)
-    * `<platform>_workout`: A platform-specific workout pattern. This should contain an example of everything the platform supports, and that the decompile may encounter.
-    Note that it may not be necessary for the decompiler to know how to _execute_ everything in this pattern, but it __must__ decompile and yield a valid pattern model to compare against the pattern model.
+    * `<platform>_workout`: A platform-specific workout pattern. This should contain an example of everything the platform supports and that the decompile may encounter.
+    Note that it may not be necessary for the decompiler to know how to _execute_ everything in this pattern, but it __must__ decompile and yield a valid decompiled pattern object to compare against the pattern model.
 2. Corner Cases - These patterns should decompile correctly, but may have missing information (e.g., no pattern header, no frontmatter)
-    * `no_pattern_header`: No pattern header, but may contain other frontmatter stuff, depending what the platform supports. this may just be whitespace or even the same as the `no_frontmatter` source.
+    * `no_pattern_header`: No pattern header, but may contain other frontmatter stuff, depending what the platform supports. This may just be whitespace or even the same as the `no_frontmatter` source.
     * `no_frontmatter`: Pattern containing no frontmatter at all, just straight into the `pinlist`. `Pattern.frontmatter` will be empty, but the source should still decompile and attempts to use `Pattern.frontmatter` should, correctly, return empty structures (no stack trace dumps, that is).
 3. Error Conditions - These patterns should not decompile, but should throw a meaningful error
 (none of the `unknown method for NilClass` stack trace dumps, for example)
-    * `empty_file`: Literally just an empty file. This should return a useful error message through rather than hitting some sort of `IOError` or yielding the unhelpful `NilClass` stack trace dumps, or just doing nothing.
-    * `empty_pinlist`: Pattern containing no pins in the pinlist. This will yield some `first_vector` problems later down the road, so its flagged as an error case for now. This can be revisited if support for empty-pinlist patterns is needed.
+    * `empty_file`: Literally just an empty file. This should return a useful error message though rather than hitting some sort of `IOError` or yielding the unhelpful `NilClass` stack trace dumps, or just doing nothing.
+    * `empty_pinlist`: Pattern containing no pins in the pinlist. This will yield some `first_vector` problems later down the road, so its flagged as an error case for now. This can be revisited if support for empty-pinlist patterns are needed.
     * `no_first_vector`: Pattern containing no first vector. Like `empty_pinlist`, this will cause some problems later on, so its currently in the `error_conditions`. This pattern should decompile initially, but throw an error complaining about no first vector if pretty much anything else is done with the model (e.g., `#execute`, or `#add_pins`).
     * `no_pinlist`: Pattern containing no pinlist start or stop symbols. Tests that the `splitter` can handle an ill-formatted or unexpected pattern source.
     * `no_vector_body`: Pattern containing no vector body. Like `no_pinlist`, Tests the `splitter` can handle an ill-formatted or unexpected pattern source.
-    * `parse_failure_frontmatter`: Pattern that's injected a syntax error in the `frontmatter`. Tests that the grammar and parser and able to catch and return syntax errors.
+    * `parse_failure_frontmatter`: Pattern that has injected a syntax error in the `frontmatter`. Tests that the grammar and parser and able to catch and return syntax errors.
     * `parse_failure_pinlist`: Same as `parse_failure_frontmatter`, except for the injected syntax error is in the pinlist. Tests that the grammar and parser and able to catch and return syntax errors.
     * `parse_failure_vector`: Same as the above two patterns, but for a vector. Tests that the grammar and parser and able to catch and return syntax errors.
 
 For the patterns in `1.`, the minimum that needs to be supported is just toggling some pins and dealing with repeats. Everything else is a bonus as far as the generic API is concerned. So, if it appears that the patterns kind of go from 0-to-100 (a couple of delays to a full platform workout), that's because they do!
 
-The `Working/Expected Patterns` requires `Pattern Models` to verify that the decompilation was a complete success. `Pattern models` are covered a bit further down.
+The `Working/Expected Patterns` requires `Pattern Models` to verify that the decompilation was a success. `Pattern models` are covered a bit further down.
 
 The pattern source for each should be in the `approved/` directory, behind the platform name given in the setup, `decompiler`, and the use case. For example, this is `approved/j750/decompiler/error_conditions` for the J750's error pattern sources. The common API will expect this location.
 
