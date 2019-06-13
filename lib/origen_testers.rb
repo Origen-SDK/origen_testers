@@ -39,6 +39,7 @@ module OrigenTesters
     end
   end
 end
+autoload :ATP, 'origen_testers/atp_deprecation'
 
 require 'origen_testers/igxl_based_tester'
 require 'origen_testers/smartest_based_tester'
