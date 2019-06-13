@@ -27,25 +27,25 @@ is the launching point for the decompiler's specification and contains the
 common setup that is used across the various test scopes.
 
 The driver will load up the `OrigenTesters::Decompiler::RSpec` namespace with
-the common API and definitions. Any static stuff that is reused mentioned above should
+the common API and definitions. Any static stuff that is reused should
 be placed in the `@defs` hash to make it easily available and maintainable across the scopes.
 
 _Aside_: the reason for the additional namespace is the limitation of `RSpec`.
-The decompiler's driver and platform interface together acts as a specification factory
+The decompiler's driver and platform interface together act as a specification factory
 for various platforms. However, RSpec requires that all of the test be 'unrolled'
 or 'loaded' before anything executes, which means that dynamic definitions
-Are lost during the course of the examples (like the current platform).
+are lost during the course of the examples (like the current platform).
 Additionally, much of the `#let`, or `context`  blocks don't allow
-helper static helper methods within its scope to be used.
+static helper methods within their scope.
 
-To combat this, a `OrigenTesters::Decompiler::RSpec` namespace is defined
+To counter this, a `OrigenTesters::Decompiler::RSpec` namespace is defined
 upfront to be an available locker for all shared methods and common definitions.
-This is the cleanest way of handing the volume of common defines and methods
+This is the cleanest way of handling the volume of common defines and methods
 while still keeping within RSpec's comfort zone.
 
 #### Matchers
 
-A few custom matchers are used to provide more detailed feedback without
+A few custom matchers provide more detailed feedback without
 blowing up the test count or having lots of long-winded, copy-and-pasted test
 cases.
 
@@ -55,7 +55,7 @@ of the pins whereas `match_pin_names` checks only that the names match. Pin orde
 and pin name cases are __NOT__ checked.
 
 The third matcher is a simple driver to wrap the `changed_patterns` that `examples`
-Uses, allowing for behavioral tests for `execute`.
+uses, allowing for behavioral tests for `execute`.
 
 ### Non-Platform Philosophy
 
@@ -64,7 +64,7 @@ to the existing spec, or prove that the spec is, in fact, flexible enough to sup
 arbitrary test platform that may come along.
 
 However, many non-platform dependent/platform-specific specs are added to make
-sure the decompiler maintains the same behavior, any flags any changes that occur during development.
+sure the decompiler maintains the same behavior and flags any changes that occur during development.
 
 In this context, non-platform means _'assuming the platform interface has already passed'_.
 The non-platform specs use both the `J750` and `V93K` platforms as some sample platforms to
@@ -80,7 +80,7 @@ Located in `pattern.rb`, these specs serve two purposes:
 1. Make sure the child-class interface is consistent.
 2. Tests the general behavior of non-platform dependent methods.
 
-For `1.`, the goal of these is to make sure the abstract interface inherited
+For `1.`, the goal of these are to make sure the abstract interface inherited
 when `Pattern` is sub-classed remains stable and does what it's supposed to.
 
 For `2.`, we're testing methods that, assuming the child class implements a valid
