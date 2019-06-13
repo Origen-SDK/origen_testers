@@ -193,7 +193,7 @@ or [the V93K patterns](https://github.com/Origen-SDK/origen_testers/tree/master/
 
 The platform interface relies on some custom validators and matchers. Each
 pattern in `1.` is run against the `pattern_validator` example group, located in
-`./platform_interface/validators`. This validator will deompile the given pattern
+`./platform_interface/validators`. This validator will decompile the given pattern
 source and compare it section-by-section and vector-by-vector against a previously
 approved model.
 
@@ -204,7 +204,7 @@ This matcher checks various aspects of the vector, using the vector from the
 pattern model as the comparison point.
 
 The validator compares the vectors at equivalent indices, so any issues that arise
-that either adds or removes vectors will see a significant error rate with
+that either adds or removes vectors will see a significant error rate increase with
 possibly every aspect of the matcher failing.
 
 The validator defers to the platform setup whenever a platform-specific `vector body element`
@@ -224,7 +224,7 @@ The patterns listed in `1.` need some kind of reference point to compare against
 The `OrigenTesters::Decompiler::Pattern` object has a `SpecHelper` module,
 containing a `write_spec_yaml` method. Given a decompiled pattern, this method
 will spit out a [YAML](https://yaml.org/)
-representation of the pattern, the `pattern model`. This is a very generic
+representation of the pattern: the `pattern model`. This is a very generic
 representation of the pattern, but provides enough to validate the decompilation process.
 
 This can be generated either from an interactive session, or a Ruby script:
@@ -248,7 +248,7 @@ origen generate_pattern_model path/to/pattern1 path/to/pattern2 --approve
 ~~~
 
 The `approved` option will automatically move the output into the appropriate
-`approved` directory so it can be found by the Decompiler's specs.
+`approved` directory so it can be found by the decompiler's specs.
 
 Some existing pattern models are already present for the `J750` and `V93K` platforms.
 See [those approved directories](https://github.com/Origen-SDK/origen_testers/tree/master/approved)
@@ -290,7 +290,7 @@ end
 ~~~
 
 Although there's no additional patterns, [the J750 setup](https://github.com/Origen-SDK/origen_testers/tree/master/spec/decompiler/platforms/j750.rb)
-contains some two example cases to ensure that this is working. See the
+contains some example cases to ensure that this is working. See the
 `error_conditions` and `corner_cases` methods.
 
 #### Adding New Platforms
@@ -325,7 +325,7 @@ the decompiler, and its interface, will be. But, again, the exact scope is left 
 to the implementer.
 
 The pattern models can be generated in the same way as with the already-supported
-platforms. See above _Regenerating Pattern Models_
+platforms. See the _Pattern Models_ section
 for the a description of the pattern models and how to generate them. The interface
 is the same, even if this may be a first-time generation.
 
@@ -334,5 +334,5 @@ desired case. The J750 and V93K patterns use hand-modified `delay` patterns, tho
 any source that triggers the case is sufficient.
 
 Non-standard patterns can be added to this platform in the same way as the
-existing platforms. See [Platform Specifics](Platform_Specifics) section.
+existing platforms.
 
