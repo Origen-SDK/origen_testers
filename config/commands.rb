@@ -44,7 +44,7 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
 
   opt_parser = OptionParser.new do |opts|
     opts.banner = 'Run a performance test for the available decompilers.'
-    opts.on('-c', '--count COUNT', Integer, 'Overrides the full-toggle count (vectors = 2 * count)') { |c| options[:count] = c }
+    opts.on('-c', '--count COUNT', Integer, 'Overrides the full-toggle count (number of vectors)') { |c| options[:count] = c }
     opts.on('-s', '--scale SCALE', Float, 'Overrides the default scale of 1.0 for all decompilers') do |s|
       envs.each { |e, o| o[:count_scale] *= s }
     end
@@ -79,6 +79,7 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
 
     ENV['ORIGEN_TESTERS_BIT_FLIP_COUNT'] = env_count
     Origen.environment.temporary = "#{e}.rb"
+    Origen.load_target
     Origen.app.runner.generate(patterns: 'pin_flip')
   end
   
