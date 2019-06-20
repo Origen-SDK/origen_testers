@@ -9,6 +9,10 @@ module OrigenTesters
             @instruction = node.children[0]
             @arguments = node.children[1..-1]
           end
+
+          def execute?
+            false
+          end
         end
 
         class Vector < OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Vector

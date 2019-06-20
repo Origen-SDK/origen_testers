@@ -67,19 +67,25 @@ else
 end
 
 def converter(file, options = {})
-  snippet = IO.read(file, 2000)  # Read first 2000 characters
-  case snippet
-  when /STIL \d+\.\d+/
+  if OrigenTesters.decompiler_for?(file)
     lambda do
-      STIL.add_pins(file)
-      # Use raw pin names in the output pattern and not the ALL pin group or similar, maybe
-      # make this an option in future though
-      dut.pin_pattern_order(*dut.pins.map { |id, pin| id })
-      STIL.execute(file, set_timesets: true)
+      OrigenTesters.execute(file)
     end
   else
-    Origen.log.error "Unknown input format for file: #{file}"
-    nil
+    snippet = IO.read(file, 2000)  # Read first 2000 characters
+    case snippet
+    when /STIL \d+\.\d+/
+      lambda do
+        STIL.add_pins(file)
+        # Use raw pin names in the output pattern and not the ALL pin group or similar, maybe
+        # make this an option in future though
+        dut.pin_pattern_order(*dut.pins.map { |id, pin| id })
+        STIL.execute(file, set_timesets: true)
+      end
+    else
+      Origen.log.error "Unknown input format for file: #{file}"
+      nil
+    end
   end
 end
 
