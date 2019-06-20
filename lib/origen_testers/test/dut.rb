@@ -37,6 +37,11 @@ module OrigenTesters
           add_pin_alias :tdi_a, :tdi
         end
 
+        if options[:extra_pins]
+          options[:extra_pins].times do |i|
+            add_pin "PIN_#{i}".to_sym
+          end
+        end
         # Add capitalized equivalent pins
         add_pin_alias :TCLK, :tclk
         add_pin_alias :TDI, :tdi

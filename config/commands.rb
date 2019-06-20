@@ -93,7 +93,8 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
   mins = fields.map { |k, v| [k, [Float::INFINITY, nil]] }.to_h
   envs.each do |env, opts|
     usage = {}
-    cmd = "/usr/bin/time -v origen convert #{opts[:output]} -e #{target_env} -o #{Origen.app!.root}/output/performance_test/#{env}"
+    cmd = "/usr/bin/time -v origen convert #{opts[:output]} -e #{target_env} -o #{Origen.app!.root}/output/performance_test/#{env} -t #{Origen.target.name}"
+    puts cmd
     out, err, stat = Open3.capture3(cmd)
     output = err.split("\n")
     fields.each do |f, i|
