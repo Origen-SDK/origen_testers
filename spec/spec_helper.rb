@@ -71,6 +71,22 @@ def with_open_flow(options={})
   Origen.instance_variable_set("@interface", nil)
 end
 
+def s(type, *children)
+  OrigenTesters::ATP::AST::Node.new(type, children)
+end
+
+def to_ast(str)
+  OrigenTesters::ATP::AST::Node.from_sexp(str)
+end
+
+def add_meta!(options)
+  called_from = caller.find { |l| l =~ /_spec.rb:.*/ }
+  if called_from
+    called_from = called_from.split(':')
+    options[:source_file] = called_from[0]
+    options[:source_line_number] = called_from[1].to_i
+  end
+end
 
 RSpec.configure do |config|
   config.formatter = OrigenFormatter
