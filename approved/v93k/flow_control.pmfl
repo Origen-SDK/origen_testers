@@ -70,5 +70,8 @@ test5.binl.gz
 test6.binl.gz
 test7.binl.gz
 test8.binl.gz
+test_3lt5.binl.gz
+test_5gt4_and_4gt3.binl.gz
+test_5gt4_or_4gt5.binl.gz
 warmish_test.binl.gz
 

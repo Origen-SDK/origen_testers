@@ -474,4 +474,27 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     end
   end
 
+  if tester.v93k?
+    log 'Test some expressions'
+    set '$LT_VARIABLE', "FALSE"
+
+    whenever lt(3, 5) do
+      set '$LT_VARIABLE', "TRUE"
+      func :test_3lt5, number: 55000
+    end
+
+    whenever eq('$LT_VARIABLE', "TRUE") do
+      bin 12
+    end
+
+    whenever_any gt('$FIVE', '$FOUR'), ne(5, 4) do
+      func :test_5gt4_or_4gt5, number: 55002
+    end
+
+    whenever_all ge('$FIVE_PNT_TWO', 5.1), lt(4, 3) do
+      func :test_5gt4_and_4gt3, number: 55004
+    end
+
+  end
+
 end
