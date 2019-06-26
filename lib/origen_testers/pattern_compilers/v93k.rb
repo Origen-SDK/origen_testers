@@ -260,7 +260,7 @@ module OrigenTesters
             contents = File.open(file, 'rb') { |f| f.read }
             new_contents = preprocess_avc(contents)
             new_avc_file = Pathname.new("#{job_avc_dir}/#{Pathname.new(file).basename}").cleanpath
-            File.open(new_avc_file, 'w') { |f| f.write(new_contents) }
+            File.open(new_avc_file, 'w') { |f| f.write(new_contents.force_encoding('UTF-8')) }
             avc_key = Pathname.new(file).basename.sub_ext('').to_s.to_sym
             @vec_per_frame[avc_key] = digcap? ? avc_digcap_vpf(new_contents) : 0
           end
