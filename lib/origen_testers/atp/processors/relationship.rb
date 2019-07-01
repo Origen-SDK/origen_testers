@@ -124,6 +124,7 @@ module OrigenTesters::ATP
         nid = id(node)
         # If this test has a dependent
         if test_results[nid]
+          node = node.add node.updated(:dependent_types, [test_results[nid]])
           node = add_pass_flag(nid, node) if test_results[nid][:passed]
           node = add_fail_flag(nid, node) if test_results[nid][:failed]
           node = add_ran_flags(nid, node) if test_results[nid][:ran]

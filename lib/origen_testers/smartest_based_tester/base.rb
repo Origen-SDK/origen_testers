@@ -70,6 +70,12 @@ module OrigenTesters
       # format (SMT8 only)
       attr_accessor :zip_patterns
 
+      # Set to true to enable async (background) processing when the test method supports it (has
+      # a parameter called 'async') and when the test does not have any dependents waiting on its
+      # pass/fail result
+      attr_accessor :async
+      alias_method :async?, :async
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -115,6 +121,7 @@ module OrigenTesters
         @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
+        @async = options[:async] || false
 
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]

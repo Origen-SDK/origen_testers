@@ -10,6 +10,7 @@ module OrigenTesters
         autoload :AcTml, 'origen_testers/smartest_based_tester/base/test_methods/ac_tml'
         autoload :DcTml, 'origen_testers/smartest_based_tester/base/test_methods/dc_tml'
         autoload :CustomTml, 'origen_testers/smartest_based_tester/base/test_methods/custom_tml'
+        autoload :SmartCalcTml, 'origen_testers/smartest_based_tester/base/test_methods/smart_calc_tml'
 
         attr_accessor :flow, :collection
 
@@ -42,6 +43,12 @@ module OrigenTesters
         def dc_tml
           @dc_tml ||= DcTml.new(self)
         end
+
+        # Returns the SMC test method library
+        def smc_tml
+          @smc_tml ||= SmartCalcTml.new(self)
+        end
+        alias_method :smart_calc_tml, :smc_tml
 
         # Creates an accessor for custom test method libraries the first time they are called
         def method_missing(method, *args, &block)

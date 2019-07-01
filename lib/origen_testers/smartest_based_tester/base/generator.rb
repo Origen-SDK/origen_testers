@@ -49,6 +49,8 @@ module OrigenTesters
         end
 
         # @api private
+        #
+        # This will be called at the end of top-level flows, not at the end of imported sub-flows
         def at_flow_end
           flow.at_flow_end
         end

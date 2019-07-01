@@ -121,7 +121,15 @@ module OrigenTesters
           @limits_file
         end
 
+        # This is called at the end of the top-level flow, not at the end of sub-flows
         def at_flow_end
+          # If an async test could be in this flow inject a syncup at the end
+          if tester.async? || ast.find_all(:async, recursive: true).any?(&:value)
+            t = test_suites.add(:syncup)
+            t.test_method = test_methods.smc_tml.synchronize
+            test(t)
+            @ast = nil # Ensure the AST is not cached without this update
+          end
           # Take whatever the test modes are set to at the end of the flow as what we go with
           @test_modes = tester.limitfile_test_modes
         end
@@ -261,6 +269,22 @@ module OrigenTesters
             if test_method.respond_to?(:test_name) && test_method.test_name == '' &&
                n = node.find(:name)
               test_method.test_name = n.value
+            end
+            # If the application has passed in an async option value, then always use that
+            if n = node.find(:async)
+              test_method.async = n.value if test_method.respond_to?(:async)
+            # By default, if async is true at tester-level, then set it to true unless the
+            # test has dependents that will trigger based on this test passing or not
+            else
+              if test_method.respond_to?(:async)
+                test_method.async = tester.async?
+                if n = node.find(:dependent_types)
+                  dependent_types = n.value
+                  if dependent_types['failed'] || dependent_types['passed']
+                    test_method.async = false
+                  end
+                end
+              end
             end
           end
 

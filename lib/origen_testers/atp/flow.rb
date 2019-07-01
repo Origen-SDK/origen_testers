@@ -388,6 +388,10 @@ module OrigenTesters::ATP
             children << n(:meta, attrs)
           end
 
+          if options.key?(:async)
+            children << n1(:async, options[:async])
+          end
+
           if subs = options[:sub_test] || options[:sub_tests]
             subs = [subs] unless subs.is_a?(Array)
             subs.each do |s|
