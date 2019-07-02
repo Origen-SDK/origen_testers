@@ -11,7 +11,7 @@ module OrigenTesters
     class TopLevelWatcher
       include Origen::PersistentCallbacks
 
-      def on_top_level_instantiated(dut)
+      def before_load_target
         OrigenTesters::Timing.reset!
       end
     end
