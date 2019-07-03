@@ -256,6 +256,30 @@ module OrigenTesters
         end
         alias_method :on_unless_flag, :on_if_flag
 
+        def on_if_any_sites_flag(node)
+          flag, *nodes = *node
+          state = [:if_any_sites_flag, :if_all_sites_flag].include?(node.type)
+          flag = clean_flag(flag)
+
+          # If a flag condition is currently active
+          if current_flag
+            fail 'Nesting of if_any_sites/if_all_sites conditions with other flag conditions is not supported yet, please create a ticket here if you need this functionality: https://github.com/Origen-SDK/origen_testers/issues'
+          end
+
+          # Update the currently active flag condition, this will be added as a condition to all
+          # lines created from children of this node
+          if node.type.to_s =~ /any/
+            self.current_flag = [flag, state, :any]
+          else
+            self.current_flag = [flag, state, :all]
+          end
+          context << current_flag
+          process_all(node)
+          context.pop
+          self.current_flag = nil
+        end
+        alias_method :on_if_all_sites_flag, :on_if_any_sites_flag
+
         def on_if_enabled(node)
           flag, *nodes = *node
           orig = current_enable
@@ -350,9 +374,17 @@ module OrigenTesters
           }.merge(attrs)
           line = platform::FlowLine.new(type, attrs)
           if current_flag
-            line.device_sense = 'not' unless current_flag[1]
-            line.device_name = clean_flag(current_flag[0])
-            line.device_condition = 'flag-true'
+            # If any/all sites condition
+            if current_flag[2]
+              line.group_sense = 'not' unless current_flag[1]
+              line.group_specifier = "#{current_flag[2]}-active"
+              line.group_name = clean_flag(current_flag[0])
+              line.group_condition = 'flag-true'
+            else
+              line.device_sense = 'not' unless current_flag[1]
+              line.device_name = clean_flag(current_flag[0])
+              line.device_condition = 'flag-true'
+            end
           end
           open_lines << line
           yield line if block_given?

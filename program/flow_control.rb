@@ -474,4 +474,28 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     end
   end
 
+  if tester.igxl?
+    log "Test that if_any_site_failed works"
+    func :read1, id: :ta1, bin: 10, number: 60000
+    func :erase1, if_any_site_failed: :ta1, bin: 12, number: 60010
+
+    log "Test the block form of if_any_site_failed"
+    func :read2, id: :ta2, bin: 10, number: 60020
+    if_any_site_failed :ta2 do
+      func :erase2, number: 60030
+      func :erase2, number: 60040
+    end
+
+    log "Test that if_all_sites_failed works"
+    func :read1, id: :ta3, bin: 10, number: 60000
+    func :erase1, if_all_sites_failed: :ta3, bin: 12, number: 60010
+
+    log "Test that if_any_sites_passed works"
+    func :read1, id: :ta4, bin: 10, number: 60000
+    func :erase1, if_any_sites_passed: :ta4, bin: 12, number: 60010
+
+    log "Test that if_all_sites_passed works"
+    func :read1, id: :ta5, bin: 10, number: 60000
+    func :erase1, if_all_sites_passed: :ta5, bin: 12, number: 60010
+  end
 end

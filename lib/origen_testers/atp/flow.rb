@@ -5,61 +5,77 @@ module OrigenTesters::ATP
     attr_reader :program, :name
 
     CONDITION_KEYS = {
-      if_enabled:        :if_enabled,
-      if_enable:         :if_enabled,
-      enabled:           :if_enabled,
-      enable_flag:       :if_enabled,
-      enable:            :if_enabled,
+      if_enabled:              :if_enabled,
+      if_enable:               :if_enabled,
+      enabled:                 :if_enabled,
+      enable_flag:             :if_enabled,
+      enable:                  :if_enabled,
 
-      unless_enabled:    :unless_enabled,
-      not_enabled:       :unless_enabled,
-      disabled:          :unless_enabled,
-      disable:           :unless_enabled,
-      unless_enable:     :unless_enabled,
+      unless_enabled:          :unless_enabled,
+      not_enabled:             :unless_enabled,
+      disabled:                :unless_enabled,
+      disable:                 :unless_enabled,
+      unless_enable:           :unless_enabled,
 
-      if_failed:         :if_failed,
-      unless_passed:     :if_failed,
-      failed:            :if_failed,
+      if_failed:               :if_failed,
+      unless_passed:           :if_failed,
+      failed:                  :if_failed,
 
-      if_passed:         :if_passed,
-      unless_failed:     :if_passed,
-      passed:            :if_passed,
+      if_passed:               :if_passed,
+      unless_failed:           :if_passed,
+      passed:                  :if_passed,
 
-      if_any_failed:     :if_any_failed,
-      unless_all_passed: :if_any_failed,
+      if_any_failed:           :if_any_failed,
+      unless_all_passed:       :if_any_failed,
 
-      if_all_failed:     :if_all_failed,
-      unless_any_passed: :if_all_failed,
+      if_all_failed:           :if_all_failed,
+      unless_any_passed:       :if_all_failed,
 
-      if_any_passed:     :if_any_passed,
-      unless_all_failed: :if_any_passed,
+      if_any_passed:           :if_any_passed,
+      unless_all_failed:       :if_any_passed,
 
-      if_all_passed:     :if_all_passed,
-      unless_any_failed: :if_all_passed,
+      if_all_passed:           :if_all_passed,
+      unless_any_failed:       :if_all_passed,
 
-      if_ran:            :if_ran,
-      if_executed:       :if_ran,
+      if_ran:                  :if_ran,
+      if_executed:             :if_ran,
 
-      unless_ran:        :unless_ran,
-      unless_executed:   :unless_ran,
+      unless_ran:              :unless_ran,
+      unless_executed:         :unless_ran,
 
-      job:               :if_job,
-      jobs:              :if_job,
-      if_job:            :if_job,
-      if_jobs:           :if_job,
+      job:                     :if_job,
+      jobs:                    :if_job,
+      if_job:                  :if_job,
+      if_jobs:                 :if_job,
 
-      unless_job:        :unless_job,
-      unless_jobs:       :unless_job,
+      unless_job:              :unless_job,
+      unless_jobs:             :unless_job,
 
-      if_flag:           :if_flag,
+      if_flag:                 :if_flag,
 
-      unless_flag:       :unless_flag,
+      unless_flag:             :unless_flag,
 
-      whenever:          :whenever,
-      whenever_all:      :whenever_all,
-      whenever_any:      :whenever_any,
+      whenever:                :whenever,
+      whenever_all:            :whenever_all,
+      whenever_any:            :whenever_any,
 
-      group:             :group
+      group:                   :group,
+
+      if_any_site_failed:      :if_any_sites_failed,
+      if_any_sites_failed:     :if_any_sites_failed,
+      unless_all_sites_passed: :if_any_sites_failed,
+
+      if_all_sites_failed:     :if_all_sites_failed,
+      unless_any_sites_passed: :if_all_sites_failed,
+      unless_any_site_passed:  :if_all_sites_failed,
+
+      if_any_site_passed:      :if_any_sites_passed,
+      if_any_sites_passed:     :if_any_sites_passed,
+      unless_all_sites_failed: :if_any_sites_passed,
+
+      if_all_sites_passed:     :if_all_sites_passed,
+      unless_any_sites_failed: :if_all_sites_passed,
+      unless_any_site_failed:  :if_all_sites_passed
     }
 
     CONDITION_NODE_TYPES = CONDITION_KEYS.values.uniq
@@ -612,6 +628,9 @@ module OrigenTesters::ATP
           end
           if name == :if_failed
             fail 'if_failed only accepts one ID, use if_any_failed or if_all_failed for multiple IDs'
+          end
+          if name == :if_any_sites_failed || name == :if_all_sites_failed || name == :if_any_sites_passed || name == :if_all_sites_passed
+            fail "#{name} currently only accepts one ID, please create a ticket here if you need this functionality: https://github.com/Origen-SDK/origen_testers/issues"
           end
         end
         apply_conditions(options) do
