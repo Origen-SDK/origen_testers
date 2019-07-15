@@ -3042,8 +3042,8 @@ test_flow
           else
           {
           }
-       }, open,"level2", ""
-    }, open,"level1", ""
+       },groupbypass,  open,"level2", ""
+    }, open,"level1", "Level 1 Group"
     print_dl("Test nested conditions on a group");
     run_and_branch(nt1_BEA7F3B)
     then

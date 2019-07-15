@@ -174,13 +174,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   func :gt3, bin: 90, if_failed: :gt_grp2, number: 50730
 
   log "Test that nested groups work"
-  group "level1" do
+  group "level1", comment: "Level 1 Group" do
     func :lev1_test1, bin: 5, number: 50740
     func :lev1_test2, bin: 5, number: 50750
     func :lev1_test3, id: :l1t3, bin: 10, number: 50760
     func :lev1_test4, if_failed: :l1t3, bin: 12, number: 50770
     func :lev1_test5, id: :l1t5, bin: 12, number: 50780
-    group "level2" do
+    group "level2", bypass: true do
       func :lev2_test1, bin: 5, number: 50790
       func :lev2_test2, bin: 5, number: 50800
       func :lev2_test3, id: :l2t3, bin: 10, number: 50810

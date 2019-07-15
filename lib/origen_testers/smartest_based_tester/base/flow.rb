@@ -8,7 +8,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name, :flow_description
+        attr_accessor :add_flow_enable, :flow_name, :flow_bypass, :flow_description
 
         def var_filename
           @var_filename || 'global'
@@ -24,6 +24,10 @@ module OrigenTesters
 
         def flow_name
           @flow_name || filename.sub(/\..*/, '').upcase
+        end
+
+        def flow_bypass
+          @flow_bypass || false
         end
 
         def flow_description
@@ -86,7 +90,11 @@ module OrigenTesters
             f << '    }'
           end
           f << ''
-          f << "  }, open,\"#{flow_name}\",\"#{flow_description}\""
+          if flow_bypass
+            f << "  },groupbypass,  open,\"#{flow_name}\",\"#{flow_description}\""
+          else
+            f << "  }, open,\"#{flow_name}\",\"#{flow_description}\""
+          end
           f
         end
 
@@ -323,7 +331,14 @@ module OrigenTesters
           stack[:on_fail].pop if on_fail
           stack[:on_pass].pop if on_pass
           @indent -= 1
-          line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
+
+          bypass = node.find(:bypass).try(:value) || false
+          comment = node.find(:comment).try(:value) || ''
+          if node.find(:bypass).try(:value)
+            line "},groupbypass,  open,\"#{unique_group_name(node.find(:name).value)}\", \"#{comment}\""
+          else
+            line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"#{comment}\""
+          end
         end
 
         def on_set_result(node)
