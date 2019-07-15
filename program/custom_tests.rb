@@ -7,4 +7,7 @@ Flow.create interface: 'OrigenTesters::Test::CustomTestInterface', flow_descript
 
   custom :test3, number: 30020
 
+  if tester.v93k?
+    custom_b :test4, number: 30040
+  end
 end

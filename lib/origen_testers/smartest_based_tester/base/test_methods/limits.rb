@@ -7,6 +7,7 @@ module OrigenTesters
           attr_accessor :lo_limit, :hi_limit
           attr_accessor :unit
           attr_accessor :tnum
+          attr_accessor :render
           alias_method :lo, :lo_limit
           alias_method :lo=, :lo_limit=
           alias_method :hi, :hi_limit
@@ -15,6 +16,7 @@ module OrigenTesters
           def initialize(test_method)
             @test_method = test_method
             @tnum = ''
+            @render = true
           end
 
           def unit=(val)
@@ -61,6 +63,10 @@ module OrigenTesters
               r << { value: hi_limit, rule: 'GE', units: unit }
             end
             r
+          end
+
+          def render?
+            @render
           end
 
           private

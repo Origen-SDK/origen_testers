@@ -25,6 +25,7 @@ module OrigenTesters
           @parameters = {}
           @limits_id = options[:methods].delete(:limits_id)
           @limits = TestMethods::Limits.new(self)
+          @limits.render = false if options[:methods].delete(:render_limits_in_tf) == false
           # Add any methods
           if options[:methods][:methods]
             methods = options[:methods][:methods]

@@ -138,11 +138,11 @@ testmethodlimits
 %   end
 % else
 %   test_methods.sorted_collection.each do |method|
-%     if method.respond_to?(:limits) && method.limits
-%     unless at_least_one
+%     if method.respond_to?(:limits) && method.limits && method.limits.render?
+%       unless at_least_one
 
-%       at_least_one = true
-%     end
+%         at_least_one = true
+%       end
 <%= method.id %>:
   <%= method.limits %>;
 %     end
