@@ -334,7 +334,7 @@ module OrigenTesters
 
           bypass = node.find(:bypass).try(:value) || false
           comment = node.find(:comment).try(:value) || ''
-          if node.find(:bypass).try(:value)
+          if bypass
             line "},groupbypass,  open,\"#{unique_group_name(node.find(:name).value)}\", \"#{comment}\""
           else
             line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"#{comment}\""
