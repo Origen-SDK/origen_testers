@@ -113,6 +113,14 @@ module OrigenTesters
       false
     end
 
+    def smt7?
+      v93k? && smt_version.to_s[0] == '7'
+    end
+
+    def smt8?
+      v93k? && smt_version.to_s[0] == '8'
+    end
+
     def annotate(msg, options = {})
     end
 

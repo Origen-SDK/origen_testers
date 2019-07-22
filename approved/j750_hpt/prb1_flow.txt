@@ -11,7 +11,9 @@ DFF 1.1	Flow Table
 						Test	erase_all_v1	erase_all	2060					Fail														
 						Test	erase_all_v1	erase_all	2100					Fail														
 						Test	erase_all_v1	erase_all	2150					Fail														
-						Test	margin_read1_all1_v1	margin_read1_all1	2210					Fail														
+						Test	margin_read1_all1_v1	margin_read1_all1	2210					Fail		ers_vfy_failed_0												
+						defaults										ers_vfy_failed												
+						flag-true	ers_vfy_failed																flag-true	ers_vfy_failed_0				
 		data_collection				Test	nvm_allflash_vsgdist	ErsSatVsg						None														
 		data_collection				Test	nvm_allflash_vsgdist_tifr	ErsSatVsgTIFR						None														
 		data_collection				Test	nvm_allflash_vsgdist_uifr	ErsSatVsgUIFR						None														
@@ -109,7 +111,8 @@ DFF 1.1	Flow Table
 			FR			Test	erase_all_v1	erase_all	5010					Fail														
 			FR			Test	erase_all_v1	erase_all	5030					Fail														
 			FR			Test	erase_all_v1	erase_all	5060					Fail														
-			FR			Test	margin_read1_all1_v1	margin_read1_all1	5100					Fail														
+			FR			Test	margin_read1_all1_v1	margin_read1_all1	5100					Fail		ers_vfy_failed_1												
+			FR			flag-true	ers_vfy_failed																flag-true	ers_vfy_failed_1				
 						logprint	Verify_that_job_context_wraps_enable_block_within_an_import																					
 		additional_erase	FR			Test	erase_all_v1	erase_all	5500					Fail														
 			FR			Test	erase_all_v1	erase_all	5600					Fail														
@@ -158,4 +161,6 @@ DFF 1.1	Flow Table
 						Test	cc_test_0	cc_test_0	7000					Fail														
 						Test	cc_test_1	cc_test_1	7001					Fail														
 						Test	cc_test_2	cc_test_2	7002					Fail														
+						Test	deep_test							None		deep_test_7AF57D1_FAILED												
+						Test	on_deep_1							Fail									flag-true	deep_test_7AF57D1_FAILED				
 						set-device				1		1		Pass													Good die!	
