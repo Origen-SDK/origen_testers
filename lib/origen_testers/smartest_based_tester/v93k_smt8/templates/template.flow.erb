@@ -1,0 +1,41 @@
+flow <%= flow_name %> {
+% input_variables.each do |var|
+%   if var.is_a?(Array)
+    in <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+    in <%= var.to_s %> = -1;
+%   end
+% end
+
+% output_variables.each do |var|
+%   if var.is_a?(Array)
+    out <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%   else
+    out <%= var.to_s %> = -1;
+%   end
+% end
+
+    setup {
+% test_suites.sorted_collection.each do |suite|
+%   suite.lines.each do |line|
+        <%= line %>
+%   end
+
+% end
+% sub_flows.each do |name, path|
+        flow <%= name %> calls <%= path %> { }
+% end
+    }
+
+    execute {
+% flow_header.each do |line|
+<%= line %>
+% end
+% lines.each do |line|
+<%= line %>
+% end
+% flow_footer.each do |line|
+<%= line %>
+% end
+    }
+}

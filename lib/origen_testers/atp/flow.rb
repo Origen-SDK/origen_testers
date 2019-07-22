@@ -238,15 +238,36 @@ module OrigenTesters::ATP
     #     flow.test ...
     #     flow.test ...
     #   end
-    def group(name, options = {})
-      extract_meta!(options) do
-        apply_conditions(options) do
-          children = [n1(:name, name)]
-          children << id(options[:id]) if options[:id]
-          children << on_fail(options[:on_fail]) if options[:on_fail]
-          children << on_pass(options[:on_pass]) if options[:on_pass]
-          g = n(:group, children)
-          append_to(g) { yield }
+    def group(name, options = {}, &block)
+      # The idiomatic way of creating a group in SMT8 is a sub-flow
+      if tester.try(:smt8?)
+        extract_meta!(options) do
+          apply_conditions(options) do
+            parent, sub_flow = *::Flow._sub_flow(name, options, &block)
+            path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
+            ast = sub_flow.atp.raw
+            name, *children = *ast
+            nodes = [name]
+            nodes << id(options[:id]) if options[:id]
+            nodes << n1(:path, path.to_s)
+            nodes += children
+            ast = ast.updated :sub_flow, nodes,
+                              file:        options.delete(:source_file) || source_file,
+                              line_number: options.delete(:source_line_number) || source_line_number,
+                              description: options.delete(:description) || description
+            ast
+          end
+        end
+      else
+        extract_meta!(options) do
+          apply_conditions(options) do
+            children = [n1(:name, name)]
+            children << id(options[:id]) if options[:id]
+            children << on_fail(options[:on_fail]) if options[:on_fail]
+            children << on_pass(options[:on_pass]) if options[:on_pass]
+            g = n(:group, children)
+            append_to(g) { yield }
+          end
         end
       end
     end

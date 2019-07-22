@@ -252,6 +252,10 @@ module OrigenTesters
         Origen.log.warning "Call to match loop on pin #{pin.id} is not supported by the STIL generator and has been ignored"
       end
 
+      def match_block(timeout_in_cycles, options = {}, &block)
+        Origen.log.warning 'Call to match loop block is not supported by the STIL generator and has been ignored'
+      end
+
       # Add a loop to the pattern.
       #
       # Pass in the number of times to execute it, all vectors

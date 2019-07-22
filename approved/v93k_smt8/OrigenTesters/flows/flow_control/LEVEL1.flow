@@ -1,0 +1,60 @@
+flow LEVEL1 {
+
+    out L1T5_FAILED = -1;
+
+    setup {
+        suite lev1_test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite lev1_test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite lev1_test3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite lev1_test4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite lev1_test5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.lev1_test5);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        flow LEVEL2 calls OrigenTesters.flows.flow_control.level1.LEVEL2 { }
+    }
+
+    execute {
+        L1T5_FAILED = -1;
+
+        lev1_test1.execute();
+        lev1_test2.execute();
+        lev1_test3.execute();
+        if (!lev1_test3.pass) {
+            lev1_test4.execute();
+        }
+        lev1_test5.execute();
+        if (!lev1_test5.pass) {
+            L1T5_FAILED = 1;
+        }
+        LEVEL2.L1T5_FAILED = L1T5_FAILED;
+        LEVEL2.execute();
+    }
+}

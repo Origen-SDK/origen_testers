@@ -280,6 +280,7 @@ module OrigenTesters
     # Vector objects (vector lines)
     #
     def format(vector_array, section)
+      tester_writing_pattern = respond_to?(:open_and_write_pattern)
       # Go through vector_array and print out both
       # vectors and non-vectors to pattern (via 'yield line')
       vector_array.each do |vec|
@@ -298,14 +299,14 @@ module OrigenTesters
         end
         pipeline.flush do |vector|
           expand_vector(vector) do |line|
-            yield line
+            yield line unless tester_writing_pattern
           end
         end
       end
       # now flush buffer if there is still a vector
       pipeline.empty(min_vectors: section == :footer ? @min_pattern_vectors : nil) do |vector|
         expand_vector(vector) do |line|
-          yield line
+          yield line unless tester_writing_pattern
         end
       end
     end
@@ -335,7 +336,7 @@ module OrigenTesters
       @dont_compress = val
     end
 
-    # expands (uncompresses to pattern) vector if desired or leaves it as is
+    # expands (un-compresses to pattern) vector if desired or leaves it as is
     # allows for tracking and formatting of vector
     # if comment then return without modification
     def expand_vector(vec)
@@ -349,8 +350,12 @@ module OrigenTesters
           yield track_and_format_vector(vec)
         end
       else
-        yield vec  # Return comments without modification
+        yield track_and_format_comment(vec)  # Return comments without modification
       end
+    end
+
+    def track_and_format_comment(comment)
+      comment
     end
 
     # Update tracking info (stats object) and allow for

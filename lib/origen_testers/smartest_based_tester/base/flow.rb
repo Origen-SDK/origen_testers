@@ -1,3 +1,4 @@
+require 'origen_testers/smartest_based_tester/base/processors/extract_flow_vars'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -10,20 +11,67 @@ module OrigenTesters
 
         attr_accessor :add_flow_enable, :flow_name, :flow_description
 
+        def self.generate_flag_name(flag)
+          case flag[0]
+          when '$'
+            flag[1..-1]
+          else
+            flag.upcase
+          end
+        end
+
+        def smt8?
+          tester.smt8?
+        end
+
         def var_filename
           @var_filename || 'global'
         end
 
         def subdirectory
-          'testflow/mfh.testflow.group'
+          @subdirectory ||= begin
+            if smt8?
+              parents = []
+              f = parent
+              while f
+                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                f = f.parent
+              end
+              File.join tester.package_namespace, 'flows', *parents
+            else
+              'testflow/mfh.testflow.group'
+            end
+          end
         end
 
         def filename
-          super.gsub('_flow', '')
+          base = super.gsub('_flow', '')
+          if smt8?
+            flow_name(base) + '.flow'
+          else
+            base
+          end
         end
 
-        def flow_name
-          @flow_name || filename.sub(/\..*/, '').upcase
+        def flow_enable_var_name
+          var = filename.sub(/\..*/, '').upcase
+          if smt8?
+            'ENABLE'
+          else
+            generate_flag_name("#{var}_ENABLE")
+          end
+        end
+
+        def flow_name(filename = nil)
+          @flow_name_ = @flow_name unless smt8?
+          @flow_name_ ||= begin
+            flow_name = (filename || self.filename).sub(/\..*/, '').upcase
+            if smt8?
+              flow_name.gsub(' ', '_')
+            else
+              flow_name
+            end
+          end
         end
 
         def flow_description
@@ -34,16 +82,43 @@ module OrigenTesters
           @hardware_bin_descriptions ||= {}
         end
 
-        def flow_control_variables
-          Origen.interface.variables_file(self).flow_control_variables
-        end
-
-        def runtime_control_variables
-          Origen.interface.variables_file(self).runtime_control_variables
+        def flow_variables
+          @flow_variables ||= begin
+            vars = Processors::ExtractFlowVars.new.run(ast)
+            if !smt8? || (smt8? && top_level?)
+              if add_flow_enable
+                if add_flow_enable == :enabled
+                  vars[:all][:referenced_enables] << [flow_enable_var_name, 1]
+                  vars[:this_flow][:referenced_enables] << [flow_enable_var_name, 1]
+                else
+                  vars[:all][:referenced_enables] << [flow_enable_var_name, 0]
+                  vars[:this_flow][:referenced_enables] << [flow_enable_var_name, 0]
+                end
+                vars[:empty?] = false
+              end
+            end
+            vars
+          end
         end
 
         def at_flow_start
           model # Call to ensure the signature gets populated
+        end
+
+        def on_top_level_set
+          if top_level?
+            if smt8?
+              @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: filename.sub(/\..*/, ''), test_modes: @test_modes)
+            else
+              @limits_file = platform::LimitsFile.new(self, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
+            end
+          else
+            @limits_file = top_level.limits_file
+          end
+        end
+
+        def limits_file
+          @limits_file
         end
 
         def at_flow_end
@@ -51,78 +126,130 @@ module OrigenTesters
           @test_modes = tester.limitfile_test_modes
         end
 
-        def flow_header
-          h = ['  {']
-          if add_flow_enable
-            var = filename.sub(/\..*/, '').upcase
-            var = generate_flag_name("#{var}_ENABLE")
-            if add_flow_enable == :enabled
-              flow_control_variables << [var, 1]
-            else
-              flow_control_variables << [var, 0]
-            end
-            h << "    if @#{var} == 1 then"
-            h << '    {'
-            i = '   '
-          else
-            i = ''
+        def ast
+          @ast = nil unless @finalized
+          @ast ||= begin
+            unique_id = smt8? ? nil : sig
+            atp.ast(unique_id: unique_id, optimization: :smt,
+                  implement_continue: !tester.force_pass_on_continue,
+                  optimize_flags_when_continue: !tester.force_pass_on_continue
+                   )
           end
-          if set_runtime_variables.size > 0
-            h << i + '    {'
-            set_runtime_variables.each do |var|
-              h << i + "       @#{generate_flag_name(var.to_s)} = -1;"
-            end
-            h << i + '    }, open,"Init Flow Control Vars", ""'
-          end
-          h
         end
 
-        def flow_footer
-          f = []
-          if add_flow_enable
-            f << '    }'
-            f << '    else'
-            f << '    {'
-            f << '    }'
+        # Returns an array containing all sub-flow objects, not just the immediate children
+        def all_sub_flows
+          @all_sub_flows ||= begin
+            sub_flows = []
+            extract_sub_flows(self, sub_flows)
+            sub_flows
           end
-          f << ''
-          f << "  }, open,\"#{flow_name}\",\"#{flow_description}\""
-          f
         end
 
+        # @api private
+        def extract_sub_flows(flow, sub_flows)
+          flow.children.each do |id, sub_flow|
+            sub_flows << sub_flow
+            extract_sub_flows(sub_flow, sub_flows)
+          end
+          sub_flows
+        end
+
+        # Returns the sub_flow object corresponding to the given sub_flow AST
+        def sub_flow_from(sub_flow_ast)
+          path = sub_flow_ast.find(:path).value
+          sub_flow = all_sub_flows.find { |f| File.join(f.subdirectory, f.filename) == path }
+        end
+
+        # This is called by Origen on each flow after they have all been executed but before they
+        # are finally written/rendered
         def finalize(options = {})
-          super
-          @indent = add_flow_enable ? 2 : 1
+          if smt8?
+            return unless top_level? || options[:called_by_top_level]
+            super
+            @finalized = true
+            # All flows have now been executed and the top-level contains the final AST.
+            # The AST contained in each child flow may not be complete since it has not been subject to the
+            # full-flow processing, e.g. to set flags in the event of a reference to a test being made from
+            # outside of a sub-flow.
+            # So here we substitute the AST in all sub-flows with the corresponding sub-flow node from the
+            # top-level AST, then we finalize the sub-flows with the final AST in place and then later final
+            # writing/rendering will be called as normal.
+            if top_level?
+              ast.find_all(:sub_flow, recursive: true).each do |sub_flow_ast|
+                sub_flow = sub_flow_from(sub_flow_ast)
+                unless sub_flow
+                  fail "Something went wrong, couldn't find the sub-flow object for path #{path}"
+                end
+                # on_fail and on_pass nodes are removed because they will be rendered by the sub-flow's parent
+                sub_flow.instance_variable_set(:@ast, sub_flow_ast.remove(:on_fail, :on_pass).updated(:flow))
+                sub_flow.instance_variable_set(:@finalized, true)  # To stop the AST being regenerated
+              end
+              options[:called_by_top_level] = true
+              all_sub_flows.each { |f| f.finalize(options) }
+              options.delete(:called_by_top_level)
+            end
+          else
+            super
+            @finalized = true
+          end
+          if smt8?
+            @indent = (add_flow_enable && top_level?) ? 3 : 2
+          else
+            @indent = add_flow_enable ? 2 : 1
+          end
           @lines = []
+          @lines_buffer = []
           @open_test_methods = []
+          @open_test_names = []
+          @post_test_lines = []
           @stack = { on_fail: [], on_pass: [] }
-          ast = atp.ast(unique_id: sig, optimization: :smt,
-                        implement_continue: !tester.force_pass_on_continue,
-                        optimize_flags_when_continue: !tester.force_pass_on_continue
-                       )
-          @set_runtime_variables = ast.set_flags
+          @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
+          unless smt8?
+            unless flow_variables[:empty?]
+              Origen.interface.variables_file(self).add_variables(flow_variables)
+            end
+          end
           test_suites.finalize
           test_methods.finalize
-          render_limits_file(ast) if tester.create_limits_file
+          if tester.create_limits_file && top_level?
+            render_limits_file
+          end
         end
 
-        def render_limits_file(ast)
-          m = platform::LimitsFile.new(self, ast, manually_register: true, filename: "#{name}_limits", test_modes: @test_modes)
-          m.write_to_file unless m.empty?
+        def render_limits_file
+          if limits_file
+            limits_file.test_modes = @test_modes
+            limits_file.generate(ast)
+            limits_file.write_to_file
+          end
         end
 
-        def line(str)
-          @lines << '    ' + ('   ' * (@indent - 1)) + str
+        def line(str, options = {})
+          if options[:already_indented]
+            line = str
+          else
+            if smt8?
+              line = ('    ' * @indent) + str
+            else
+              line = '    ' + ('   ' * (@indent - 1)) + str
+            end
+          end
+          if @lines_buffer.last
+            @lines_buffer.last << line
+          else
+            @lines << line
+          end
         end
 
-        # def on_flow(node)
-        #  line '{'
-        #  @indent += 1
-        #  process_all(node.children)
-        #  @indent -= 1
-        #  line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
-        # end
+        # Any calls to line made within the given block will be returned in an array, rather than
+        # immediately being put into the @lines array
+        def capture_lines
+          @lines_buffer << []
+          yield
+          @lines_buffer.pop
+        end
 
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
@@ -139,7 +266,11 @@ module OrigenTesters
 
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
-            line "run_and_branch(#{name})"
+            if smt8?
+              line "#{name}.execute();"
+            else
+              line "run_and_branch(#{name})"
+            end
             process_all(node.to_a.reject { |n| t = n.try(:type); t == :on_fail || t == :on_pass })
             on_pass = node.find(:on_pass)
             on_fail = node.find(:on_fail)
@@ -160,17 +291,25 @@ module OrigenTesters
               @open_test_methods << nil
             end
 
-            line 'then'
-            line '{'
+            if smt8?
+              line "if (#{name}.pass) {"
+            else
+              line 'then'
+              line '{'
+            end
             @indent += 1
             pass_branch do
               process_all(on_pass) if on_pass
               stack[:on_pass].each { |n| process_all(n) }
             end
             @indent -= 1
-            line '}'
-            line 'else'
-            line '{'
+            if smt8?
+              line '} else {'
+            else
+              line '}'
+              line 'else'
+              line '{'
+            end
             @indent += 1
             fail_branch do
               process_all(on_fail) if on_fail
@@ -181,7 +320,11 @@ module OrigenTesters
 
             @open_test_methods.pop
           else
-            line "run(#{name});"
+            if smt8?
+              line "#{name}.execute();"
+            else
+              line "run(#{name});"
+            end
           end
         end
 
@@ -195,16 +338,28 @@ module OrigenTesters
           jobs, *nodes = *node
           jobs = clean_job(jobs)
           state = node.type == :if_job
-          runtime_control_variables << ['JOB', '']
-          condition = jobs.join(' or ')
-          line "if #{condition} then"
-          line '{'
+          if smt8?
+            if jobs.size == 1
+              condition = jobs.first
+            else
+              condition = jobs.map { |j| "(#{j})" }.join(' || ')
+            end
+            line "if (#{condition}) {"
+          else
+            condition = jobs.join(' or ')
+            line "if #{condition} then"
+            line '{'
+          end
           @indent += 1
           process_all(node) if state
           @indent -= 1
-          line '}'
-          line 'else'
-          line '{'
+          if smt8?
+            line '} else {'
+          else
+            line '}'
+            line 'else'
+            line '{'
+          end
           @indent += 1
           process_all(node) unless state
           @indent -= 1
@@ -215,13 +370,22 @@ module OrigenTesters
         def on_condition_flag(node, state)
           flag, *nodes = *node
           else_node = node.find(:else)
-          if flag.is_a?(Array)
-            condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
+          if smt8?
+            if flag.is_a?(Array)
+              condition = flag.map { |f| "(#{generate_flag_name(f)} == 1)" }.join(' || ')
+            else
+              condition = "#{generate_flag_name(flag)} == 1"
+            end
+            line "if (#{condition}) {"
           else
-            condition = "@#{generate_flag_name(flag)} == 1"
+            if flag.is_a?(Array)
+              condition = flag.map { |f| "@#{generate_flag_name(f)} == 1" }.join(' or ')
+            else
+              condition = "@#{generate_flag_name(flag)} == 1"
+            end
+            line "if #{condition} then"
+            line '{'
           end
-          line "if #{condition} then"
-          line '{'
           @indent += 1
           if state
             process_all(node.children - [else_node])
@@ -229,9 +393,13 @@ module OrigenTesters
             process(else_node) if else_node
           end
           @indent -= 1
-          line '}'
-          line 'else'
-          line '{'
+          if smt8?
+            line '} else {'
+          else
+            line '}'
+            line 'else'
+            line '{'
+          end
           @indent += 1
           if state
             process(else_node) if else_node
@@ -245,9 +413,6 @@ module OrigenTesters
         def on_if_enabled(node)
           flag, *nodes = *node
           state = node.type == :if_enabled
-          [flag].flatten.each do |f|
-            flow_control_variables << generate_flag_name(f)
-          end
           on_condition_flag(node, state)
         end
         alias_method :on_unless_enabled, :on_if_enabled
@@ -255,67 +420,90 @@ module OrigenTesters
         def on_if_flag(node)
           flag, *nodes = *node
           state = node.type == :if_flag
-          [flag].flatten.each do |f|
-            runtime_control_variables << generate_flag_name(f)
-          end
           on_condition_flag(node, state)
         end
         alias_method :on_unless_flag, :on_if_flag
 
         def on_enable(node)
           flag = node.value.upcase
-          flow_control_variables << flag
-          line "@#{flag} = 1;"
-        end
-
-        def on_disable(node)
-          flag = node.value.upcase
-          flow_control_variables << flag
-          line "@#{flag} = 0;"
-        end
-
-        def on_set_flag(node)
-          flag = generate_flag_name(node.value)
-          runtime_control_variables << flag
-          if @open_test_methods.last
-            if pass_branch?
-              if @open_test_methods.last.respond_to?(:on_pass_flag)
-                if @open_test_methods.last.on_pass_flag == ''
-                  @open_test_methods.last.on_pass_flag = flag
-                else
-                  Origen.log.error "The test method cannot set #{flag} on passing, because it already sets: #{@open_test_methods.last.on_pass_flag}"
-                  Origen.log.error "  #{node.source}"
-                  exit 1
-                end
-              else
-                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_pass_flag attribute:'
-                Origen.log.error "  #{node.source}"
-                exit 1
-              end
-            else
-              if @open_test_methods.last.respond_to?(:on_fail_flag)
-                if @open_test_methods.last.on_fail_flag == ''
-                  @open_test_methods.last.on_fail_flag = flag
-                else
-                  Origen.log.error "The test method cannot set #{flag} on failing, because it already sets: #{@open_test_methods.last.on_fail_flag}"
-                  Origen.log.error "  #{node.source}"
-                  exit 1
-                end
-              else
-                Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_fail_flag attribute:'
-                Origen.log.error "  #{node.source}"
-                exit 1
-              end
-            end
+          if smt8?
+            line "#{flag} = 1;"
           else
             line "@#{flag} = 1;"
           end
         end
 
+        def on_disable(node)
+          flag = node.value.upcase
+          if smt8?
+            line "#{flag} = 0;"
+          else
+            line "@#{flag} = 0;"
+          end
+        end
+
+        def on_set_flag(node)
+          flag = generate_flag_name(node.value)
+          # This means if we are currently generating an on_test node and tester.force_pass_on_continue has been set
+          if @open_test_methods.last
+            if pass_branch?
+              if smt8?
+                @post_test_lines.last << "#{flag} = #{@open_test_names.last}.setOnPassFlags;"
+              else
+                if @open_test_methods.last.respond_to?(:on_pass_flag)
+                  if @open_test_methods.last.on_pass_flag == ''
+                    @open_test_methods.last.on_pass_flag = flag
+                  else
+                    Origen.log.error "The test method cannot set #{flag} on passing, because it already sets: #{@open_test_methods.last.on_pass_flag}"
+                    Origen.log.error "  #{node.source}"
+                    exit 1
+                  end
+                else
+                  Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_pass_flag attribute:'
+                  Origen.log.error "  #{node.source}"
+                  exit 1
+                end
+              end
+            else
+              if smt8?
+                @post_test_lines.last << "#{flag} = #{@open_test_names.last}.setOnFailFlags;"
+              else
+                if @open_test_methods.last.respond_to?(:on_fail_flag)
+                  if @open_test_methods.last.on_fail_flag == ''
+                    @open_test_methods.last.on_fail_flag = flag
+                  else
+                    Origen.log.error "The test method cannot set #{flag} on failing, because it already sets: #{@open_test_methods.last.on_fail_flag}"
+                    Origen.log.error "  #{node.source}"
+                    exit 1
+                  end
+                else
+                  Origen.log.error 'Force pass on continue has been requested, but the test method does not have an :on_fail_flag attribute:'
+                  Origen.log.error "  #{node.source}"
+                  exit 1
+                end
+              end
+            end
+          else
+            if smt8?
+              line "#{flag} = 1;"
+            else
+              line "@#{flag} = 1;"
+            end
+          end
+        end
+
+        # Note that for smt8?, this should never be hit anymore since groups are now generated as sub-flows
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
           on_pass = node.children.find { |n| n.try(:type) == :on_pass }
-          line '{'
+          group_name = unique_group_name(node.find(:name).value)
+          if smt8?
+            line '// *******************************************************'
+            line "// GROUP - #{group_name}"
+            line '// *******************************************************'
+          else
+            line '{'
+          end
           @indent += 1
           stack[:on_fail] << on_fail if on_fail
           stack[:on_pass] << on_pass if on_pass
@@ -323,7 +511,13 @@ module OrigenTesters
           stack[:on_fail].pop if on_fail
           stack[:on_pass].pop if on_pass
           @indent -= 1
-          line "}, open,\"#{unique_group_name(node.find(:name).value)}\", \"\""
+          if smt8?
+            line '// *******************************************************'
+            line "// /GROUP - #{group_name}"
+            line '// *******************************************************'
+          else
+            line "}, open,\"#{group_name}\", \"\""
+          end
         end
 
         def on_set_result(node)
@@ -336,19 +530,31 @@ module OrigenTesters
             hardware_bin_descriptions[bin] ||= desc
           end
 
-          if node.to_a[0] == 'pass'
-            line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, #{overon};"
+          if smt8?
+            # Currently only rendering pass bins or those not associated with a test (should come from the bin
+            # table if its associated with a test)
+            if node.to_a[0] == 'pass' || @open_test_methods.empty?
+              line "addBin(#{sbin || bin});"
+            end
           else
-            if tester.create_limits_file
-              line 'multi_bin;'
+            if node.to_a[0] == 'pass'
+              line "stop_bin \"#{sbin}\", \"\", , good, noreprobe, green, #{bin}, over_on;"
             else
-              line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, #{overon};"
+              if tester.create_limits_file
+                line 'multi_bin;'
+              else
+                line "stop_bin \"#{sbin}\", \"#{sdesc}\", , bad, noreprobe, red, #{bin}, #{overon};"
+              end
             end
           end
         end
 
         def on_log(node)
-          line "print_dl(\"#{node.to_a[0]}\");"
+          if smt8?
+            line "println(\"#{node.to_a[0]}\");"
+          else
+            line "print_dl(\"#{node.to_a[0]}\");"
+          end
         end
 
         def unique_group_name(name)
@@ -363,7 +569,8 @@ module OrigenTesters
         end
 
         def clean_job(job)
-          [job].flatten.map { |j| "@JOB == \"#{j.to_s.upcase}\"" }
+          var = smt8? ? 'JOB' : '@JOB'
+          [job].flatten.map { |j| "#{var} == \"#{j.to_s.upcase}\"" }
         end
 
         private
@@ -393,12 +600,7 @@ module OrigenTesters
         end
 
         def generate_flag_name(flag)
-          case flag[0]
-          when '$'
-            flag[1..-1]
-          else
-            flag.upcase
-          end
+          self.class.generate_flag_name(flag)
         end
       end
     end

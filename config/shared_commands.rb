@@ -31,6 +31,10 @@ case @command
     $_testers_enable_vector_comments = ARGV.delete("-v") || ARGV.delete("--vector_comments")
     $_testers_no_inline_comments = ARGV.delete("--no_inline_comments")
 
+  when "program"
+    @application_options << ['--original_reference_file', 'Should only be used for regression testing when the reference uses a legacy version of origen_testers',
+                             lambda { |options| OrigenTesters::Generator.original_reference_file = true }]
+
   when "testers:build"
     require "#{Origen.root!}/lib/commands/build"
     exit 0

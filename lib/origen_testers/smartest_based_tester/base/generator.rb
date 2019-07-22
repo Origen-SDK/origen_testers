@@ -60,6 +60,8 @@ module OrigenTesters
           @@pattern_masters = nil
           @@pattern_compilers = nil
           @@variables_files = nil
+          @@limits_workbook = nil
+          limits_workbook if tester.smt8? && !generating_sub_program?
         end
         alias_method :reset_globals, :at_run_start
 
@@ -77,16 +79,31 @@ module OrigenTesters
           @pattern_master_filename || 'global'
         end
 
-        def flow(filename = Origen.file_handler.current_file.basename('.rb').to_s)
-          f = filename.to_sym
-          f = f.to_s.sub(/_resources?/, '').to_sym
-          return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
+        # Returns the current flow object (Origen.interface.flow)
+        def flow(id = Origen.file_handler.current_file.basename('.rb').to_s)
+          return @current_flow if @current_flow
+          id = id.to_s.sub(/_resources?/, '')
+          filename = id.split('.').last
+          return flow_sheets[id] if flow_sheets[id] # will return flow if already existing
           p = platform::Flow.new
           p.inhibit_output if Origen.interface.resources_mode?
-          p.filename = f
+          p.filename = filename
           p.test_suites ||= platform::TestSuites.new(p)
           p.test_methods ||= platform::TestMethods.new(p)
-          flow_sheets[f] = p
+          flow_sheets[id] = p
+        end
+
+        # @api private
+        def with_flow(name)
+          @flow_stack ||= []
+          @current_flow = nil
+          f = flow(name)
+          @flow_stack << f
+          @current_flow = @flow_stack.last
+          yield
+          @flow_stack.pop
+          @current_flow = @flow_stack.last
+          f
         end
 
         # Returns the pattern master file (.pmfl) for the current flow, by default a common pattern
@@ -165,7 +182,7 @@ module OrigenTesters
         end
 
         def flow_sheets
-          @@flow_sheets ||= {}
+          @@flow_sheets ||= {}.with_indifferent_access
         end
 
         # Returns an array containing all sheet generators.
@@ -184,6 +201,7 @@ module OrigenTesters
           variables_files.each do |name, sheet|
             g << sheet
           end
+          g << limits_workbook if tester.smt8? && !generating_sub_program?
           g
         end
 

@@ -10,6 +10,11 @@ module OrigenTesters
         def initialize(flow)
           @flow = flow
           @collection = []
+          @existing_names = {}
+          # Test names also have to be unique vs. the current flow name
+          if tester.smt8?
+            @existing_names[flow.filename.sub('.flow', '').to_s] = true
+          end
         end
 
         def filename
@@ -17,7 +22,11 @@ module OrigenTesters
         end
 
         def add(name, options = {})
+          symbol = name.is_a?(Symbol)
           name = make_unique(name)
+          # Ensure names given as a symbol stay as a symbol, this is more for
+          # alignment to existing test cases than anything else
+          name = name.to_sym if symbol
           suite = platform::TestSuite.new(name, options)
           @collection << suite
           # c = Origen.interface.consume_comments
@@ -43,14 +52,15 @@ module OrigenTesters
         private
 
         def make_unique(name)
-          @existing_names ||= {}
-          if @existing_names[name.to_sym]
-            @existing_names[name.to_sym] += 1
-            "#{name}_#{@existing_names[name.to_sym]}"
-          else
-            @existing_names[name.to_sym] = 0
-            name
+          name = name.to_s
+          tempname = name
+          i = 0
+          while @existing_names[tempname]
+            i += 1
+            tempname = "#{name}_#{i}"
           end
+          @existing_names[tempname] = true
+          tempname
         end
       end
     end

@@ -1,0 +1,33 @@
+flow PROGRAM_CKBD_3 {
+
+
+    setup {
+        suite program_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd_b2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        program_ckbd.execute();
+        program_ckbd_1.execute();
+        program_ckbd_2.execute();
+    }
+}
