@@ -226,5 +226,5 @@ Flow.create do |options|
     func "cc_test_#{i}".to_sym, number: 7000 + i
   end
 
-  pass 1, description: "Good die!", softbin: 1
+  import 'deep_nested'
 end

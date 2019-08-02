@@ -315,3 +315,19 @@ DFF 1.1	Flow Table
 		small_flow				Test	test2		54110					Fail														
 	LABEL_16_C2A232F					nop																						
 	LABEL_14_C2A232F					nop																						
+						logprint	Test_that_if_any_site_failed_works																					
+						Test	read1	read1	60000		10			None		ta1_C2A232F_FAILED												
+						Test	erase1	erase1	60010		12			Fail				any-active		flag-true	ta1_C2A232F_FAILED							
+						logprint	Test_the_block_form_of_if_any_site_failed																					
+						Test	read2	read2	60020		10			None		ta2_C2A232F_FAILED												
+						Test	erase2	erase2	60030					Fail				any-active		flag-true	ta2_C2A232F_FAILED							
+						Test	erase2	erase2	60040					Fail				any-active		flag-true	ta2_C2A232F_FAILED							
+						logprint	Test_that_if_all_sites_failed_works																					
+						Test	read1	read1	60000		10			None		ta3_C2A232F_FAILED												
+						Test	erase1	erase1	60010		12			Fail				all-active		flag-true	ta3_C2A232F_FAILED							
+						logprint	Test_that_if_any_sites_passed_works																					
+						Test	read1	read1	60000		10			None	ta4_C2A232F_PASSED													
+						Test	erase1	erase1	60010		12			Fail				any-active		flag-true	ta4_C2A232F_PASSED							
+						logprint	Test_that_if_all_sites_passed_works																					
+						Test	read1	read1	60000		10			None	ta5_C2A232F_PASSED													
+						Test	erase1	erase1	60010		12			Fail				all-active		flag-true	ta5_C2A232F_PASSED							

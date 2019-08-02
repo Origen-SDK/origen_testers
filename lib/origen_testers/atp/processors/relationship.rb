@@ -24,6 +24,8 @@ module OrigenTesters::ATP
         end
         alias_method :on_if_any_failed, :on_if_failed
         alias_method :on_if_all_failed, :on_if_failed
+        alias_method :on_if_any_sites_failed, :on_if_failed
+        alias_method :on_if_all_sites_failed, :on_if_failed
 
         def on_if_passed(node)
           ids, *children = *node
@@ -38,6 +40,8 @@ module OrigenTesters::ATP
         end
         alias_method :on_if_any_passed, :on_if_passed
         alias_method :on_if_all_passed, :on_if_passed
+        alias_method :on_if_any_sites_passed, :on_if_passed
+        alias_method :on_if_all_sites_passed, :on_if_passed
 
         def on_if_ran(node)
           id, *children = *node
@@ -139,6 +143,16 @@ module OrigenTesters::ATP
       end
       alias_method :on_if_any_failed, :on_if_failed
 
+      def on_if_any_sites_failed(node)
+        id, *children = *node
+        node.updated(:if_any_sites_flag, [id_to_flag(id, 'FAILED')] + process_all(children))
+      end
+
+      def on_if_all_sites_failed(node)
+        id, *children = *node
+        node.updated(:if_all_sites_flag, [id_to_flag(id, 'FAILED')] + process_all(children))
+      end
+
       def on_if_all_failed(node)
         ids, *children = *node
         ids.reverse_each.with_index do |id, i|
@@ -156,6 +170,16 @@ module OrigenTesters::ATP
         node.updated(:if_flag, [id_to_flag(id, 'PASSED')] + process_all(children))
       end
       alias_method :on_if_any_passed, :on_if_passed
+
+      def on_if_any_sites_passed(node)
+        id, *children = *node
+        node.updated(:if_any_sites_flag, [id_to_flag(id, 'PASSED')] + process_all(children))
+      end
+
+      def on_if_all_sites_passed(node)
+        id, *children = *node
+        node.updated(:if_all_sites_flag, [id_to_flag(id, 'PASSED')] + process_all(children))
+      end
 
       def on_if_all_passed(node)
         ids, *children = *node

@@ -9,7 +9,7 @@ module Origen
   class Generator
     include Comparator
 
-    # Makes more sense for this plugin to own this method now
+    # @api private
     def generate_program(file, options)
       Origen.file_handler.resolve_files(file, ignore_with_prefix: '_', default_dir: "#{Origen.root}/program") do |path|
         Origen.file_handler.current_file = path
@@ -17,8 +17,9 @@ module Origen
         j.pattern = path
         j.run
       end
+      yield if block_given?
       Origen.interface.write_files(options)
-      unless options[:quiet] || !Origen.interface.write?
+      unless options[:quiet] || !Origen.interface.write? || options[:skip_referenced_pattern_write]
         if options[:referenced_pattern_list]
           file = "#{Origen.root}/list/#{options[:referenced_pattern_list]}"
         else
@@ -48,7 +49,7 @@ module Origen
         ref_file = File.join(Origen.file_handler.reference_directory, Pathname.new(file).basename)
         check_for_changes(file, ref_file)
       end
-      Origen.interface.on_program_completion(options)
+      Origen.interface.on_program_completion(options) unless options[:skip_on_program_completion]
     end
   end
 end

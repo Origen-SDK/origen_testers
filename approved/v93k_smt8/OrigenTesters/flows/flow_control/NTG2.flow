@@ -1,0 +1,17 @@
+flow NTG2 {
+
+
+    setup {
+        suite nt4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.nt4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        nt4.execute();
+    }
+}

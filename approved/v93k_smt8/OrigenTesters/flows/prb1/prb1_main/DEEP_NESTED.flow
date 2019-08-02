@@ -1,0 +1,16 @@
+flow DEEP_NESTED {
+
+    out DEEP_TEST_FAILED = -1;
+
+    setup {
+    }
+
+    execute {
+        DEEP_TEST_FAILED = -1;
+
+        deep_test.execute();
+        if (!deep_test.pass) {
+            DEEP_TEST_FAILED = 1;
+        }
+    }
+}

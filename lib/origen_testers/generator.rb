@@ -13,10 +13,22 @@ module OrigenTesters
 
     included do
       include Origen::Generator::Comparator
+
+      attr_accessor :output_directory
     end
 
     def self.execute_source(file)
       load file
+    end
+
+    # @api private
+    def self.original_reference_file=(val)
+      @original_reference_file = val
+    end
+
+    # @api private
+    def self.original_reference_file
+      !!@original_reference_file
     end
 
     # When called on a generator no output files will be created from it
@@ -94,7 +106,10 @@ module OrigenTesters
       options = {
         include_extension: true
       }.merge(options)
+      # Allow generators to override this and fully define the filename if they want
+      return fully_formatted_filename if try(:fully_formatted_filename)
       name = (@filename || Origen.file_handler.current_file.basename('.rb')).to_s
+      name[0] = '' if name[0] == '_'
       if Origen.config.program_prefix
         unless name =~ /^#{Origen.config.program_prefix}/i
           name = "#{Origen.config.program_prefix}_#{name}"
@@ -105,7 +120,7 @@ module OrigenTesters
       body = f.basename(".#{ext}").to_s
       body.gsub!('_resources', '')
       if defined? self.class::OUTPUT_PREFIX
-        # Unless the fixfix is already in the name
+        # Unless the prefix is already in the name
         unless body =~ /#{self.class::OUTPUT_PREFIX}$/i
           body = "#{self.class::OUTPUT_PREFIX}_#{body}"
         end
@@ -201,17 +216,41 @@ module OrigenTesters
     end
 
     def output_file
-      if respond_to? :subdirectory
-        p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
+      # If an explicit output directory has been set, use it
+      if output_directory
+        p = Pathname.new("#{output_directory}/#{filename}")
+      # Otherwise resolve one
       else
-        p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
+        if respond_to? :subdirectory
+          p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
+        else
+          p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
+        end
       end
       FileUtils.mkdir_p p.dirname.to_s unless p.dirname.exist?
       p
     end
 
     def reference_file
-      Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+      if OrigenTesters::Generator.original_reference_file
+        Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+      else
+        # If an explicit output directory has been set, use it
+        if output_directory
+          sub = Pathname.new(output_directory).relative_path_from(Origen.file_handler.output_directory)
+          dir = File.join(Origen.file_handler.reference_directory, sub)
+          FileUtils.mkdir_p(dir)
+          Pathname.new(File.join(dir, filename))
+        else
+          if respond_to? :subdirectory
+            dir = File.join(Origen.file_handler.reference_directory, subdirectory)
+            FileUtils.mkdir_p(dir)
+            Pathname.new(File.join(dir, filename))
+          else
+            Pathname.new("#{Origen.file_handler.reference_directory}/#{filename}")
+          end
+        end
+      end
     end
 
     def import(file, options = {})

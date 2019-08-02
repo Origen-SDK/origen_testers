@@ -23,7 +23,7 @@ module OrigenTesters
     end
 
     def push_microcode(code)
-      if $tester.v93k? && code =~ /JSUB/
+      if $tester.v93k? && $tester.smt_version == 7 && code =~ /JSUB/
         @vector_count += 1
       end
       comments << code

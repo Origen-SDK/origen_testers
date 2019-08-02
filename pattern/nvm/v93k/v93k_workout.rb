@@ -72,6 +72,13 @@ Pattern.create do
                :pin2 => $nvm.pin(:fail), :state2 => :low)
   $nvm.pin(:fail).assert(0)
 
+  ss "Test a block match loop"
+  tester.wait match: true, time_in_us: 5000 do
+    $nvm.pin(:done).assert(1)
+    $nvm.pin(:fail).assert(1)
+    1.cycle
+  end
+
   ss "Test looping, these vectors should be executed once"
   $tester.loop_vector("test_loop_1", 1) do
     $nvm.pins(:porta).drive(0xAA)

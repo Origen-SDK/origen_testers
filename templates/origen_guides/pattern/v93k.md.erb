@@ -36,6 +36,30 @@ clk _______|       |_______|       |_| |_| |_| |_| |_| |_| |_| |_| |_______|    
 
 ~~~
 
+#### SmarTest 8
 
+The Origen V93K driver supports generating patterns into both SMT7 and SMT8 pattern formats.
+
+To enable SMT8 format, set the `smt_version:` attribute to 8 when instantiating the tester in your
+[application environment](<%= path "guides/runtime/environment" %>) as shown here:
+
+~~~ruby
+# environment/v93k_smt7.rb
+OrigenTesters::V93K.new
+
+# environment/v93k_smt8.rb
+OrigenTesters::V93K.new smt_version: 8
+~~~
+
+SMT8 patterns can either be in a zipped/binary format, or an ASCII file format.
+Zipped is the default, but the ASCII format can sometimes be useful when visually inspecting patterns or
+when comparing them via a difftool.
+To enable ASCII format patterns, configure your environment like this:
+
+~~~ruby
+# environment/v93k_smt8.rb
+OrigenTesters::V93K.new smt_version: 8,
+                        zip_patterns: false
+~~~
 
 % end
