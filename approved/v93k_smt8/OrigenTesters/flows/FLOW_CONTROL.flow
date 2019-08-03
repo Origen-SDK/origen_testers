@@ -9,6 +9,7 @@ flow FLOW_CONTROL {
     in EXTRAS = -1;
     in FLAG1 = -1;
     in JOB = "";
+    in LT_VARIABLE = -1;
     in MCEn_extras = -1;
     in MCEn_test = -1;
     in MY_ENABLE_WORD = -1;
@@ -1081,6 +1082,27 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
+        suite test_3lt5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_3lt5);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_5gt4_and_4gt3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_5gt4_and_4gt3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_5gt4_or_4gt5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_5gt4_or_4gt5);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite warmish_test calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.warmish_test);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -1697,6 +1719,37 @@ flow FLOW_CONTROL {
                 SMALL_1.execute();
             } else {
             }
+        }
+        println("Test some expressions");
+        LT_VARIABLE = "FALSE";
+        if 3 < 5 then
+        {
+            LT_VARIABLE = "TRUE";
+            test_3lt5.execute();
+        }
+        else
+        {
+        }
+        if LT_VARIABLE == "TRUE" then
+        {
+            addBin(12);
+        }
+        else
+        {
+        }
+        if FIVE > FOUR or 5 != 4 then
+        {
+            test_5gt4_or_4gt5.execute();
+        }
+        else
+        {
+        }
+        if FIVE_PNT_TWO >= 5.1 and 4 < 3 then
+        {
+            test_5gt4_and_4gt3.execute();
+        }
+        else
+        {
         }
     }
 }

@@ -82,6 +82,11 @@ module OrigenTesters
           end
           alias_method :on_disable, :on_enable
 
+          def on_set(node)
+            flag = generate_flag_name(node.to_a[0])
+            add flag, :set_enables
+          end
+
           private
 
           def in_sub_flow?

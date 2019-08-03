@@ -51,6 +51,7 @@ user EN2 = 0;
 user EWORD1 = 0;
 user EWORD2 = 0;
 user EXTRAS = 0;
+user LT_VARIABLE = 0;
 user MCEn_extras = 0;
 user MCEn_test = 0;
 user MY_ENABLE_WORD = 0;

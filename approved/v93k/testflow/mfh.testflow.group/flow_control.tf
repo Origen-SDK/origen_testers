@@ -243,6 +243,15 @@ tm_17:
 tm_170:
   "output" = "None";
   "testName" = "Functional";
+tm_171:
+  "output" = "None";
+  "testName" = "Functional";
+tm_172:
+  "output" = "None";
+  "testName" = "Functional";
+tm_173:
+  "output" = "None";
+  "testName" = "Functional";
 tm_18:
   "output" = "None";
   "testName" = "Functional";
@@ -678,6 +687,12 @@ tm_17:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_170:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_171:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_172:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_173:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_18:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_19:
@@ -1022,6 +1037,12 @@ tm_169:
 tm_17:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_170:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_171:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_172:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_173:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_18:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -2393,6 +2414,27 @@ test8_BEA7F3B:
   override_testf = tm_100;
   site_control = "parallel:";
   site_match = 2;
+test_3lt5_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test_3lt5";
+  override_testf = tm_171;
+  site_control = "parallel:";
+  site_match = 2;
+test_5gt4_and_4gt3_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test_5gt4_and_4gt3";
+  override_testf = tm_173;
+  site_control = "parallel:";
+  site_match = 2;
+test_5gt4_or_4gt5_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test_5gt4_or_4gt5";
+  override_testf = tm_172;
+  site_control = "parallel:";
+  site_match = 2;
 warmish_test_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
@@ -3682,6 +3724,37 @@ test_flow
              }
           }
        }, open,"small", ""
+    }
+    print_dl("Test some expressions");
+    @LT_VARIABLE = "FALSE";
+    if 3 < 5 then
+    {
+       @LT_VARIABLE = "TRUE";
+       run(test_3lt5_BEA7F3B);
+    }
+    else
+    {
+    }
+    if @LT_VARIABLE == "TRUE" then
+    {
+       stop_bin "", "fail", , bad, noreprobe, red, 12, over_on;
+    }
+    else
+    {
+    }
+    if @FIVE > @FOUR or 5 != 4 then
+    {
+       run(test_5gt4_or_4gt5_BEA7F3B);
+    }
+    else
+    {
+    }
+    if @FIVE_PNT_TWO >= 5.1 and 4 < 3 then
+    {
+       run(test_5gt4_and_4gt3_BEA7F3B);
+    }
+    else
+    {
     }
 
   }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
