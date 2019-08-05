@@ -42,7 +42,11 @@ module OrigenTesters
 
           def default_name(node)
             test_obj = node.find(:object).to_a[0]
-            suite_name = test_obj.respond_to?(:name) ? test_obj.name : test_obj
+            if test_obj.is_a?(Hash)
+              suite_name = test_obj['Test']
+            else
+              suite_name = test_obj.respond_to?(:name) ? test_obj.name : test_obj
+            end
             test_name = (node.find(:name) || []).to_a[0] || suite_name
             if suite_name == test_name
               suite_name

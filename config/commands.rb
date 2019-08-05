@@ -35,6 +35,10 @@ when "generate_pattern_model"
   exit 0
 
 when "analyze_decompiler_performance", 'analyze_decomp_perf' 
+  options = {
+    output_csv: Origen.app.root.join('tmp/origen_testers/analyze_decompiler_performance.csv'),
+    ramp: [1]
+  }
 
   envs = {
     j750: {output: "#{Origen.app!.root}/output/j750/pin_flip.atp", count_scale: 1.0},
@@ -51,6 +55,14 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
     opts.on('-e', '--environment NAME', String, 'Override the default environment, NAME can be a full path or a fragment of an environment file name') { |e| options[:environment] = e }
     opts.on('-t', '--target NAME', String, 'Override the default target, NAME can be a full path or a fragment of a target file name') { |t| options[:target] = t }
     opts.on('-p', '--pin NAME', String, 'Override the default pin for toggling. Default is \'tclk\'') { |t| options[:pin] = t }
+    opts.on('--output_csv CSV_FILE', String, "Override the default output name & directory for the resulting CSV file. Default: #{options[:output_csv]}") { |o| options[:output_csv] = Pathname(o) }
+    opts.on('-r', '--ramp [RAMPS]', String, 'Run multiple tests, applying an additional count_scale of 0.1, 0.5, 1, 5, 10, 50, 100 each time. Note: with the default scale count of 10k, this becomes: 1k, 5k, 10k, 50k, 100k, 500k, 1mil. Or, supplying custom ramps formatted as count1,count2,...') do |r|
+      if r
+        options[:ramp] = r.split(',').map(&:to_f)
+      else
+        options[:ramp] = [0.1, 0.5, 1, 5, 10, 50, 100]
+      end
+    end
 
     envs.each do |env, o|
       opts.on("--#{env}_scale SCALE", Float, "Additinally scales the #{env} platform") { |s| envs[env][:count_scale] *= s }
@@ -60,6 +72,9 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
     opts.on('-h', '--help', 'Show this message') { puts opts; exit 0 }
   end
   opt_parser.parse! ARGV
+  unless options[:output_csv].dirname.exist?
+    FileUtils.mkdir_p(options[:output_csv].dirname)
+  end
   
   Origen.log.info "Testing Decompiler Performance..."
   Origen.log.info "Performing setup..."
@@ -71,73 +86,83 @@ when "analyze_decompiler_performance", 'analyze_decomp_perf'
   Origen.log.info
   Origen.log.info "Generating pattern 'pin_flip' toggling pin #{ENV['ORIGEN_TESTERS_BIT_FLIP_PIN']}..."
 
-  count = options[:count] || 10_000
-  envs.each do |e, opts|
-    env_count = (opts[:count_scale] * count).to_i.to_s
-    Origen.log.info "  Generating pattern for environment: #{e}.rb... "
-    Origen.log.info "    Target Count: #{env_count}"
+  File.open(options[:output_csv], 'w') do |c|
+    c.puts('Base Count (vectors),' + envs.keys.map { |e| "#{e} (User Time (Seconds))" }.join(','))
 
-    ENV['ORIGEN_TESTERS_BIT_FLIP_COUNT'] = env_count
-    Origen.environment.temporary = "#{e}.rb"
-    Origen.load_target
-    Origen.app.runner.generate(patterns: 'pin_flip')
-  end
-  
-  target_env = options[:environment] || 'v93k.rb'
-  Origen.log.info
-  Origen.log.info "Conversion Target Env: #{target_env}"
-  Origen.log.info "Converting Patterns..."
-  fields = {'User Time' => 0, 'System time' => 1, 'Elapsed Time' => 3, 'Peak Memory Usage' => 8}
-  resource_usages = {}
-  maxes = fields.map { |k, v| [k, [0.0, nil]] }.to_h
-  mins = fields.map { |k, v| [k, [Float::INFINITY, nil]] }.to_h
-  envs.each do |env, opts|
-    usage = {}
-    cmd = "/usr/bin/time -v origen convert #{opts[:output]} -e #{target_env} -o #{Origen.app!.root}/output/performance_test/#{env} -t #{Origen.target.name}"
-    puts cmd
-    out, err, stat = Open3.capture3(cmd)
-    output = err.split("\n")
-    fields.each do |f, i|
-      if f == 'Elapsed Time'
-        t = Time.parse("0:#{output[i+1].split(': ').last}")
-        usage[f] = ((t.min * 60) + t.sec).to_f
-      else
-        usage[f] = output[i+1].split(': ').last.to_f
+    options[:ramp].each do |r|
+      count = (options[:count] || 10_000) * r
+      envs.each do |e, opts|
+        env_count = (opts[:count_scale] * count).to_i.to_s
+        Origen.log.info "  Generating pattern for environment: #{e}.rb... "
+        Origen.log.info "    Target Count: #{env_count}"
+
+        ENV['ORIGEN_TESTERS_BIT_FLIP_COUNT'] = env_count
+        Origen.environment.temporary = "#{e}.rb"
+        Origen.load_target
+        Origen.app.runner.generate(patterns: 'pin_flip')
       end
-      if usage[f] > maxes[f][0]
-        maxes[f] = [usage[f], env]
+      
+      target_env = options[:environment] || 'v93k.rb'
+      Origen.log.info
+      Origen.log.info "Conversion Target Env: #{target_env}"
+      Origen.log.info "Converting Patterns..."
+      fields = {'User Time' => 0, 'System time' => 1, 'Elapsed Time' => 3, 'Peak Memory Usage' => 8}
+      resource_usages = {}
+      maxes = fields.map { |k, v| [k, [0.0, nil]] }.to_h
+      mins = fields.map { |k, v| [k, [Float::INFINITY, nil]] }.to_h
+      envs.each do |env, opts|
+        usage = {}
+        cmd = "/usr/bin/time -v origen convert #{opts[:output]} -e #{target_env} -o #{Origen.app!.root}/output/performance_test/#{env} -t #{Origen.target.name}"
+        puts cmd
+        out, err, stat = Open3.capture3(cmd)
+        output = err.split("\n")
+        fields.each do |f, i|
+          if f == 'Elapsed Time'
+            t = Time.parse("0:#{output[i+1].split(': ').last}")
+            usage[f] = ((t.min * 60) + t.sec).to_f
+          else
+            usage[f] = output[i+1].split(': ').last.to_f
+          end
+          if usage[f] > maxes[f][0]
+            maxes[f] = [usage[f], env]
+          end
+          if usage[f] < mins[f][0]
+            mins[f] = [usage[f], env]
+          end
+        end
+        
+        resource_usages[env] = usage
+        puts out
+        puts err
       end
-      if usage[f] < mins[f][0]
-        mins[f] = [usage[f], env]
+      
+      Origen.log.info
+      Origen.log.info "Usage Report:"
+      Origen.log.info "Count Scales:"
+      envs.each do |env, opts|
+        Origen.log.info "  #{env}: #{opts[:count_scale]} (#{opts[:count_scale] * count.to_i})"
       end
+      Origen.log.info "File sizes:"
+      envs.each do |env, opts|
+        Origen.log.info "  #{opts[:output]}: %.2f MiB" % (File.size(opts[:output]).to_f / 2**20)
+      end
+      fields.keys.each do |f|
+        Origen.log.info "  #{f}:"
+        Origen.log.info "    Max:  #{maxes[f][0]} (#{maxes[f][1]})"
+        Origen.log.info "    Min:  #{mins[f][0]} (#{mins[f][1]})"
+        s = '%.2f' % (maxes[f][0] - mins[f][0])
+        Origen.log.info "    Diff Max-to-Min: #{s}"
+        s = '%.2f' % ((mins[f][0] / maxes[f][0]) * 100)
+        Origen.log.info "    Scale Max-to-Min: #{s}%"
+        s = '%.2f' % ((maxes[f][0] / mins[f][0]) * 100)
+        Origen.log.info "    Scale Min-to-Max: #{s}%"
+      end
+      
+      c.puts("#{count}," + resource_usages.values.collect { |u| u['User Time'] }.join(','))
     end
-    
-    resource_usages[env] = usage
-    puts out
-    puts err
   end
-  
   Origen.log.info
-  Origen.log.info "Usage Report:"
-  Origen.log.info "Count Scales:"
-  envs.each do |env, opts|
-    Origen.log.info "  #{env}: #{opts[:count_scale]} (#{opts[:count_scale] * count.to_i})"
-  end
-  Origen.log.info "File sizes:"
-  envs.each do |env, opts|
-    Origen.log.info "  #{opts[:output]}: %.2f MiB" % (File.size(opts[:output]).to_f / 2**20)
-  end
-  fields.keys.each do |f|
-    Origen.log.info "  #{f}:"
-    Origen.log.info "    Max:  #{maxes[f][0]} (#{maxes[f][1]})"
-    Origen.log.info "    Min:  #{mins[f][0]} (#{mins[f][1]})"
-    s = '%.2f' % (maxes[f][0] - mins[f][0])
-    Origen.log.info "    Diff Max-to-Min: #{s}"
-    s = '%.2f' % ((mins[f][0] / maxes[f][0]) * 100)
-    Origen.log.info "    Scale Max-to-Min: #{s}%"
-    s = '%.2f' % ((maxes[f][0] / mins[f][0]) * 100)
-    Origen.log.info "    Scale Min-to-Max: #{s}%"
-  end
+  Origen.log.info "Output CSV available at: #{options[:output_csv]}"
 
   exit 0
 

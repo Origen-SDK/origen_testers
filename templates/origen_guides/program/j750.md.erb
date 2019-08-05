@@ -550,6 +550,42 @@ to prevent Origen from trying to match up the flow with an instance object.
 flow.test("POR_INSTANCE", instance_not_available: true)
 ~~~
 
+### Multi-site Flow Control
+
+The [common flow-control API](<%= path "guides/program/flowapi/#Execution_Based_on_a_Previous_Test" %>) will generate
+content into the IG-XL flow sheet's *device* columns, meaning that the flow execution branching will be specific to each site.
+
+However, IG-XL also provides the ability to control test execution based on the test results across multiple sites via
+the *group* columns and Origen provides some additional IG-XL-only APIs to work with that feature.
+
+The following flow-control options/methods are available which can be used in the same way as the common site-level
+options such as `if_failed`, `if_passed`, etc:
+
+* **if_any_sites_failed** - Run the test(s) on all sites if ANY site failed the referenced upstream test
+* **if_all_sites_failed** - Run the test(s) on all sites if ALL sites failed the referenced upstream test
+* **if_any_sites_passed** - Run the test(s) on all sites if ANY site passed the referenced upstream test
+* **if_all_sites_passed** - Run the test(s) on all sites if ALL sites passed the referenced upstream test
+
+These inverse forms are also available:
+
+* **unless_any_sites_failed**
+* **unless_all_sites_failed**
+* **unless_any_sites_passed**
+* **unless_all_sites_passed**
+
+Here is an example of how to use in both block and in-line forms:
+
+~~~ruby
+func :read1, id: :ta1, bin: 10, number: 60000
+func :erase1, if_any_site_failed: :ta1, bin: 12, number: 60010
+
+func :read2, id: :ta2, bin: 10, number: 60020
+if_any_site_failed :ta2 do
+  func :erase2, number: 60030
+  func :erase2, number: 60040
+end
+~~~
+
 ### What About My DC Specs?
 
 Other IG-XL sheets do not currently have generators available, although that is likely

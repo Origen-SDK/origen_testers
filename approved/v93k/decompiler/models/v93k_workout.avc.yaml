@@ -1,6 +1,6 @@
 ---
 :pattern: 
-:timestamp: '2019-05-05 19:54:41 -0700'
+:timestamp: '2019-08-03 16:39:10 -0700'
 :class: OrigenTesters::SmartestBasedTester::Pattern
 :frontmatter:
   :class: OrigenTesters::Decompiler::Pattern::Frontmatter
@@ -8,24 +8,25 @@
   :pattern_header:
   - "# ***************************************************************************"
   - "# GENERATED:"
-  - "#   Time:    08-Dec-2016 10:29AM"
-  - "#   By:      Stephen McGinty"
-  - "#   Command: origen g v93k_workout -t v93k_legacy.rb"
+  - "#   Time:    03-Aug-2019 16:34PM"
+  - "#   By:      Corey Engelken"
+  - "#   Mode:    debug"
+  - "#   Command: origen g v93k_workout -t legacy.rb -e v93k.rb"
   - "# ***************************************************************************"
   - "# ENVIRONMENT:"
   - "#   Application"
   - "#     Source:    git@github.com:Origen-SDK/origen_testers.git"
-  - "#     Version:   0.8.6"
-  - "#     Branch:    master(15e5ebee0f1) (+local edits)"
+  - "#     Version:   0.40.0"
+  - "#     Branch:    pattern_reader_regex(3cbc6d30ce8) (+local edits)"
   - "#   Origen"
   - "#     Source:    https://github.com/Origen-SDK/origen"
-  - "#     Version:   0.7.40"
+  - "#     Version:   0.52.3"
   - "#   Plugins"
-  - "#     atp:                      0.4.3"
   - "#     origen_arm_debug:         0.4.3"
-  - "#     origen_doc_helpers:       0.4.2"
-  - "#     origen_jtag:              0.12.0"
-  - "#     origen_swd:               0.5.0"
+  - "#     origen_doc_helpers:       0.8.2"
+  - "#     origen_jtag:              0.22.0"
+  - "#     origen_stil:              0.2.1"
+  - "#     origen_swd:               1.1.1"
   - "# ***************************************************************************"
   :comments: []
   :platform_nodes: {}
@@ -1056,7 +1057,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1079,7 +1080,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1101,7 +1102,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1123,7 +1124,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1145,7 +1146,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1167,7 +1168,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1189,7 +1190,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1211,7 +1212,7 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
@@ -1226,7 +1227,7 @@
   :platform_nodes:
     :instruction: SQPG
     :arguments:
-    - MACT 1737
+    - MACT 7813
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 59
   :type: :vector
@@ -1247,7 +1248,7 @@
   - X
   - '0'
   - '1'
-  :comment: "# R8 "
+  :comment: "# "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 60
@@ -1262,7 +1263,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1284,7 +1285,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1306,7 +1307,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1328,7 +1329,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1350,7 +1351,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1372,7 +1373,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1394,7 +1395,7 @@
   - '00000000'
   - '00000000'
   - '1'
-  - H
+  - X
   - L
   - X
   - X
@@ -1425,13 +1426,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R8 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 69
@@ -1447,13 +1448,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R7 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 70
@@ -1469,13 +1470,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R6 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 71
@@ -1491,13 +1492,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R5 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 72
@@ -1513,13 +1514,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R4 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 73
@@ -1535,13 +1536,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R3 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 74
@@ -1557,13 +1558,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R2 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 75
@@ -1579,13 +1580,13 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R1 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 76
@@ -1595,50 +1596,27 @@
     :instruction: SQPG
     :arguments:
     - PADDING
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 77
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R8 "
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# ######################################################################"
+  - "# ## Test a two pin match loop"
+  - "# ######################################################################"
+  - "# Wait for a maximum of 5.0ms"
+  - "# for the NVM_DONE pin to go HIGH"
+  - "# or the NVM_FAIL pin to go LOW"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 78
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R7 "
-  :platform_nodes: {}
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - LBGN 11
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 79
   :type: :vector
@@ -1652,43 +1630,30 @@
   - '00000000'
   - '00000000'
   - '1'
+  - H
   - X
-  - L
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# R6 "
+  :comment: "# Test a two pin match loop\rWait for a maximum of 5.0ms\rfor the NVM_DONE
+    pin to go HIGH\ror the NVM_FAIL pin to go LOW"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 80
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R5 "
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# Wait for failure to propagate"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 81
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
-  :repeat: 1
+  :repeat: 6015
   :pin_states:
   - '1'
   - '1'
@@ -1697,58 +1662,31 @@
   - '00000000'
   - '1'
   - X
-  - L
+  - X
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# R4 "
+  :comment: "# Wait for failure to propagate"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 82
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R3 "
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# Exit match loop if pin has matched (no error), otherwise clear error and remain
+    in loop"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 83
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R2 "
-  :platform_nodes: {}
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - RETC 0 0
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 84
   :type: :vector
@@ -1769,7 +1707,8 @@
   - X
   - '0'
   - '1'
-  :comment: "# R1 "
+  :comment: "# Exit match loop if pin has matched (no error), otherwise clear error
+    and remain in loop"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 85
@@ -1777,179 +1716,49 @@
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
   :comments:
-  - "# ######################################################################"
-  - "# ## Test a two pin match loop"
-  - "# ######################################################################"
-  - "# Wait for a maximum of 5.0ms"
-  - "# for the NVM_DONE pin to go HIGH"
-  - "# or the NVM_FAIL pin to go LOW"
+  - "# Wait for failure to propagate"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+- :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 86
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - LBGN 11
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 6015
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# Wait for failure to propagate"
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 87
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
   :comments:
-  - "# Check if NVM_DONE is HIGH yet"
+  - "# Exit match loop if pin has matched (no error), otherwise clear error and remain
+    in loop"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 88
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - H
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# Test a two pin match loop\rWait for a maximum of 5.0ms\rfor the NVM_DONE
-    pin to go HIGH\ror the NVM_FAIL pin to go LOW\rCheck if NVM_DONE is HIGH yet"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - RETC 0 0
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 89
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# Wait for failure to propagate"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 90
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 6015
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# Wait for failure to propagate"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 91
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# Exit match loop if pin has matched (no error), otherwise clear error and remain
-    in loop"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 92
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - RETC 0 0
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 93
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# Check if NVM_FAIL is LOW yet"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 94
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# Exit match loop if pin has matched (no error), otherwise clear error
-    and remain in loop\rCheck if NVM_FAIL is LOW yet"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 95
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# Wait for failure to propagate"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 96
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 6015
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '00000000'
-  - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# Wait for failure to propagate"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 97
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# Exit match loop if pin has matched (no error), otherwise clear error and remain
-    in loop"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 98
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - RETC 0 0
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 99
   :type: :sequencer_instruction
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
   :platform_nodes:
@@ -1957,7 +1766,7 @@
     :arguments:
     - LEND
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 100
+  :vector_index: 90
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
@@ -1965,7 +1774,7 @@
   - "# To get here something has gone wrong, strobe again to force a pattern failure"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 101
+  :vector_index: 91
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
@@ -1989,14 +1798,221 @@
     a pattern failure"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 102
+  :vector_index: 92
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
   :comments:
   - "# ######################################################################"
-  - "# ## Test looping, these vectors should be executed once"
+  - "# ## Test a block match loop"
   - "# ######################################################################"
+  - "# Wait for a maximum of 5.0ms"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 93
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R8 Test a block match loop\rWait for a maximum of 5.0ms"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 94
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R7 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 95
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R6 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 96
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R5 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 97
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R4 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 98
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R3 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 99
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R2 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 100
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R1 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 101
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - MACT 7813
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 102
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R8 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 103
@@ -2008,17 +2024,17 @@
   - '1'
   - '1'
   - '1'
-  - '10101010'
+  - '00000000'
   - '00000000'
   - '1'
-  - X
-  - L
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# Test looping, these vectors should be executed once"
+  :comment: "# R7 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 104
@@ -2030,36 +2046,62 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
+  - '00000000'
   - '00000000'
   - '1'
-  - X
-  - L
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# "
+  :comment: "# R6 "
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+- :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 105
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# ######################################################################"
-  - "# ## Test looping, these vectors should be executed 3 times"
-  - "# ######################################################################"
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R5 "
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+- :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 106
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - LBGN 3
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R4 "
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 107
   :type: :vector
@@ -2070,17 +2112,17 @@
   - '1'
   - '1'
   - '1'
-  - '10101010'
+  - '00000000'
   - '00000000'
   - '1'
-  - X
-  - L
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# Test looping, these vectors should be executed 3 times"
+  :comment: "# R3 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 108
@@ -2092,138 +2134,20 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
+  - '00000000'
   - '00000000'
   - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# "
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 109
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - LEND
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 110
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# ######################################################################"
-  - "# ## Test looping, these vectors should be executed 5 times"
-  - "# ######################################################################"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 111
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - LBGN 5
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 112
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '10101010'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# Test looping, these vectors should be executed 5 times"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 113
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
-  - L
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# "
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 114
-  :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
-  :platform_nodes:
-    :instruction: SQPG
-    :arguments:
-    - LEND
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 115
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# ######################################################################"
-  - "# ## Test suspend compares"
-  - "# ######################################################################"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 116
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
+  - H
   - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# Test suspend compares"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 117
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# The fail pin should not be compared on these vectors"
+  :comment: "# R2 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 118
+  :vector_index: 109
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
@@ -2232,20 +2156,28 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
+  - '00000000'
   - '00000000'
   - '1'
-  - X
-  - X
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# R10 The fail pin should not be compared on these vectors"
+  :comment: "# R1 "
   :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 110
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - MRPT 8
 - :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 119
+  :vector_index: 111
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
@@ -2254,29 +2186,7 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
   - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R9 "
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 120
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
   - '00000000'
   - '1'
   - X
@@ -2289,7 +2199,7 @@
   :comment: "# R8 "
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 121
+  :vector_index: 112
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
@@ -2298,7 +2208,7 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
+  - '00000000'
   - '00000000'
   - '1'
   - X
@@ -2309,6 +2219,178 @@
   - '0'
   - '1'
   :comment: "# R7 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 113
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R6 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 114
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R5 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 115
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R4 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 116
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R3 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 117
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R2 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 118
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '00000000'
+  - '00000000'
+  - '1'
+  - X
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R1 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 119
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - PADDING
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 120
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# ######################################################################"
+  - "# ## Test looping, these vectors should be executed once"
+  - "# ######################################################################"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 121
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '10101010'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# Test looping, these vectors should be executed once"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 122
@@ -2323,59 +2405,33 @@
   - '01010101'
   - '00000000'
   - '1'
-  - X
-  - X
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# R6 "
+  :comment: "# "
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 123
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R5 "
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# ######################################################################"
+  - "# ## Test looping, these vectors should be executed 3 times"
+  - "# ######################################################################"
   :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 124
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R4 "
-  :platform_nodes: {}
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - LBGN 3
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 125
   :type: :vector
@@ -2386,17 +2442,17 @@
   - '1'
   - '1'
   - '1'
-  - '01010101'
+  - '10101010'
   - '00000000'
   - '1'
-  - X
-  - X
+  - H
+  - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# R3 "
+  :comment: "# Test looping, these vectors should be executed 3 times"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 126
@@ -2411,77 +2467,62 @@
   - '01010101'
   - '00000000'
   - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R2 "
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 127
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
-  - X
-  - X
-  - X
-  - X
-  - '0'
-  - '1'
-  :comment: "# R1 "
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 128
-  :index: 
-  :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
-  :comments:
-  - "# And now it should"
-  :platform_nodes: {}
-- :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 129
-  :type: :vector
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
-  :timeset: nvmbist
-  :repeat: 1
-  :pin_states:
-  - '1'
-  - '1'
-  - '1'
-  - '01010101'
-  - '00000000'
-  - '1'
-  - X
+  - H
   - H
   - X
   - X
   - X
   - '0'
   - '1'
-  :comment: "# And now it should"
+  :comment: "# "
   :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 127
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - LEND
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 130
+  :vector_index: 128
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
   :comments:
   - "# ######################################################################"
-  - "# ## Test inhibit vectors and comments"
+  - "# ## Test looping, these vectors should be executed 5 times"
   - "# ######################################################################"
-  - "# The invoke pin should be driving high on this cycle"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 129
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - LBGN 5
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 130
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '10101010'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# Test looping, these vectors should be executed 5 times"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 131
@@ -2496,7 +2537,338 @@
   - '01010101'
   - '00000000'
   - '1'
+  - H
+  - H
   - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 132
+  :type: :sequencer_instruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :platform_nodes:
+    :instruction: SQPG
+    :arguments:
+    - LEND
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 133
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# ######################################################################"
+  - "# ## Test suspend compares"
+  - "# ######################################################################"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 134
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# Test suspend compares"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 135
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# The fail pin should not be compared on these vectors"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 136
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R10 The fail pin should not be compared on these vectors"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 137
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R9 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 138
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R8 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 139
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R7 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 140
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R6 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 141
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R5 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 142
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R4 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 143
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R3 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 144
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R2 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 145
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - X
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# R1 "
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 146
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# And now it should"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 147
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
+  - H
+  - X
+  - X
+  - X
+  - '0'
+  - '1'
+  :comment: "# And now it should"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 148
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :comments:
+  - "# ######################################################################"
+  - "# ## Test inhibit vectors and comments"
+  - "# ######################################################################"
+  - "# The invoke pin should be driving high on this cycle"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 149
+  :type: :vector
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
+  :timeset: nvmbist
+  :repeat: 1
+  :pin_states:
+  - '1'
+  - '1'
+  - '1'
+  - '01010101'
+  - '00000000'
+  - '1'
+  - H
   - H
   - X
   - X
@@ -2507,7 +2879,7 @@
     high on this cycle"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 132
+  :vector_index: 150
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
@@ -2517,7 +2889,7 @@
   - "# The invoke pin should be driving low on this cycle"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
-  :vector_index: 133
+  :vector_index: 151
   :type: :vector
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::Vector
   :timeset: nvmbist
@@ -2529,7 +2901,7 @@
   - '01010101'
   - '00000000'
   - '0'
-  - X
+  - H
   - H
   - X
   - X
@@ -2540,7 +2912,7 @@
     complete!\rThe invoke pin should be driving low on this cycle"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
-  :vector_index: 134
+  :vector_index: 152
   :index: 
   :type: :comment_block
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
@@ -2550,7 +2922,7 @@
   - "# ######################################################################"
   :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
-  :vector_index: 135
+  :vector_index: 153
   :type: :sequencer_instruction
   :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
   :platform_nodes:

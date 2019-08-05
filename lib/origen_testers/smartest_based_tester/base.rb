@@ -19,6 +19,9 @@ module OrigenTesters
       # flow, the default value is :signature
       attr_reader :unique_test_names
 
+      # Returns the SMT version, defaults to 7
+      attr_reader :smt_version
+
       # permit modification of minimum repeat count
       attr_accessor :min_repeat_loop
       alias_method :min_repeat_count, :min_repeat_loop
@@ -55,6 +58,18 @@ module OrigenTesters
       # delayed: false is supplied when defining the test
       attr_accessor :delayed_binning
 
+      # Sets the package namespace that all generated test collateral should be placed under,
+      # defaults to the application's namespace if not defined (SMT8 only)
+      attr_writer :package_namespace
+
+      # When set to true, the bins and softbins sheets from the limits spreadsheet will
+      # be written out to a standalone (spreadsheet) file instead (SMT8 only)
+      attr_accessor :separate_bins_file
+
+      # When set to true (the default), patterns will be generated in ZIP format instead of ASCII
+      # format (SMT8 only)
+      attr_accessor :zip_patterns
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -62,9 +77,31 @@ module OrigenTesters
           multiport_prefix:  false,
           multiport_postfix: false
         }.merge(options)
+
+        @smt_version = options[:smt_version] || 7
+
+        @separate_bins_file = options[:separate_bins_file] || false
+        if options.key?(:zip_patterns)
+          @zip_patterns = options.delete(:zip_patterns)
+        else
+          @zip_patterns = true
+        end
+
+        if smt8?
+          require_relative 'smt8'
+          extend SMT8
+        else
+          require_relative 'smt7'
+          extend SMT7
+        end
+
         @max_repeat_loop = 65_535
         @min_repeat_loop = 33
-        @pat_extension = 'avc'
+        if smt8?
+          @pat_extension = 'pat'
+        else
+          @pat_extension = 'avc'
+        end
         @compress = true
         # @support_repeat_previous = true
         @match_entries = 10
@@ -85,16 +122,35 @@ module OrigenTesters
         if options.key?(:unique_test_names)
           @unique_test_names = options[:unique_test_names]
         else
-          @unique_test_names = :signature
+          if smt8?
+            @unique_test_names = nil
+          else
+            @unique_test_names = :signature
+          end
         end
-        if options.key?(:create_limits_file)
-          @create_limits_file = options[:create_limits_file]
+        if smt8?
+          @create_limits_file = true
         else
-          @create_limits_file = false
+          if options.key?(:create_limits_file)
+            @create_limits_file = options[:create_limits_file]
+          else
+            @create_limits_file = false
+          end
         end
+        @package_namespace = options.delete(:package_namespace)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
+      end
+
+      def disable_pattern_diffs
+        smt8? && zip_patterns
+      end
+
+      # Returns the package namespace that all generated test collateral should be placed under,
+      # defaults to the application's namespace if not defined
+      def package_namespace
+        @package_namespace || Origen.app.namespace
       end
 
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
@@ -401,81 +457,142 @@ module OrigenTesters
         pin.dont_care
         options[:pin2].dont_care if options[:pin2]
 
-        # Single condition loops are simple
         if !options[:pin2]
-          # Use the counted match loop (rather than timed) which is recommended in the V93K docs for new applications
-          # No pre-match failure handling is required here because the system will cleanly record failure info
-          # for this kind of match loop
           cc "for the #{pin.name.upcase} pin to go #{state.to_s.upcase}"
-          # Need to ensure at least 8 cycles with no compares before entering
-          8.cycles
-          number_of_loops = (timeout_in_cycles.to_f / 72).ceil
-          # This seems to be a limit on the max MACT value, so account for longer times by expanding
-          # the wait loop
-          if number_of_loops > 262_144
-            mrpt = ((timeout_in_cycles.to_f / 262_144) - 8).ceil
-            mrpt = Math.sqrt(mrpt).ceil
-            mrpt += (8 - (mrpt % 8)) # Keep to a multiple of 8, but round up to be safe
-            number_of_loops = 262_144
-          else
-            mrpt = 8
+          match_block(timeout_in_cycles, options) do |match_or_conditions, fail_conditions|
+            match_or_conditions.add do
+              state == :low ? pin.expect_lo : pin.expect_hi
+              cycle
+              pin.dont_care
+            end
           end
-          microcode "SQPG MACT #{number_of_loops};"
-          # Strobe the pin for the required state
-          state == :low ? pin.expect_lo : pin.expect_hi
-          # Always do 8 vectors here as this allows reconstruction of test results if multiple loops
-          # are called in a pattern
-          8.cycles
-          pin.dont_care
-          # Now do the wait loop, mrpt should always be a multiple of 8
-          microcode "SQPG MRPT #{mrpt};"
-          mrpt.times do
-            cycle(dont_compress: true)
-          end
-          microcode 'SQPG PADDING;'
-          8.cycles
-
         else
-
-          # For two pins do something more like the J750 approach where branching based on miscompares is used
-          # to keep the loop going
           cc "for the #{pin.name.upcase} pin to go #{state.to_s.upcase}"
           cc "or the #{options[:pin2].name.upcase} pin to go #{options[:state2].to_s.upcase}"
+          match_block(timeout_in_cycles, options) do |match_or_conditions, fail_conditions|
+            match_or_conditions.add do
+              state == :low ? pin.expect_lo : pin.expect_hi
+              cycle
+              pin.dont_care
+            end
+            match_or_conditions.add do
+              options[:state2] == :low ? options[:pin2].expect_lo : options[:pin2].expect_hi
+              cycle
+              options[:pin2].dont_care
+            end
+            fail_conditions.add do
+              cc 'To get here something has gone wrong, strobe again to force a pattern failure'
+              state == :low ? pin.expect_lo : pin.expect_hi
+              options[:state2] == :low ? options[:pin2].expect_lo : options[:pin2].expect_hi
+              cycle
+              pin.dont_care
+              options[:pin2].dont_care
+            end
+          end
+        end
+      end
 
+      def match_block(timeout_in_cycles, options = {}, &block)
+        unless block_given?
+          fail 'ERROR: block not passed to match_block!'
+        end
+
+        # Create BlockArgs objects in order to receive multiple blocks
+        match_conditions = Origen::Utility::BlockArgs.new
+        fail_conditions = Origen::Utility::BlockArgs.new
+
+        if block.arity > 0
+          yield match_conditions, fail_conditions
+        else
+          match_conditions.add(&block)
+        end
+
+        # Generate a conventional match loop when there is only one match condition block
+        if match_conditions.instance_variable_get(:@block_args).size == 1
+          # Need to ensure at least 8 cycles with no compares before entering
+          dut.pins.each do |name, pin|
+            pin.save
+            pin.dont_care if pin.comparing?
+          end
+          8.cycles
+          dut.pins.each { |name, pin| pin.restore }
+
+          # Placeholder, real number of loops required to implement the required timeout will be
+          # concatenated onto the end later once the length of the match loop is known
+          microcode 'SQPG MACT'
+          match_microcode = stage.current_bank.last
+
+          prematch_cycle_count = cycle_count
+          match_conditions.each(&:call)
+
+          match_loop_cycle_count = cycle_count - prematch_cycle_count
+
+          # Pad the compare vectors out to a multiple of 8 per the ADV documentation
+          until match_loop_cycle_count % 8 == 0
+            cycle
+            match_loop_cycle_count += 1
+          end
+
+          # Use 8 wait vectors by default to keep the overall number of cycles as a multiple of 8
+          mrpt = 8
+
+          number_of_loops = (timeout_in_cycles.to_f / (match_loop_cycle_count + mrpt)).ceil
+
+          # There seems to be a limit on the max MACT value, so account for longer times by expanding
+          # the wait loop
+          while number_of_loops > 262_144
+            mrpt = mrpt * 2 # Keep this as a multiple of 8
+            number_of_loops = (timeout_in_cycles.to_f / (match_loop_cycle_count + mrpt)).ceil
+          end
+
+          match_microcode.concat(" #{number_of_loops};")
+
+          # Now do the wait loop, mrpt should always be a multiple of 8
+          microcode "SQPG MRPT #{mrpt};"
+
+          # Should be no compares in the wait cycles
+          dut.pins.each do |name, pin|
+            pin.save
+            pin.dont_care if pin.comparing?
+          end
+          mrpt.cycles
+          dut.pins.each { |name, pin| pin.restore }
+
+          # This is just used as a marker by the vector translator to indicate the end of the MRPT
+          # vectors, it does not end up in the final pattern binary.
+          # It is also used in a similar manner by Origen when generating SMT8 patterns.
+          microcode 'SQPG PADDING;'
+
+        # For multiple match conditions do something more like the J750 approach where branching based on
+        # miscompares is used to keep the loop going
+        else
           if options[:check_for_fails]
             cc 'Return preserving existing errors if the pattern has already failed before arriving here'
             cycle(repeat: propagation_delay)
             microcode 'SQPG RETC 1 1;'
           end
-          number_of_loops = (timeout_in_cycles.to_f / ((propagation_delay * 2) + 2)).ceil
 
-          loop_vectors number_of_loops do
-            # Check pin 1
-            cc "Check if #{pin.name.upcase} is #{state.to_s.upcase} yet"
-            state == :low ? pin.expect_lo! : pin.expect_hi!
-            pin.dont_care
-            cc 'Wait for failure to propagate'
-            cycle(repeat: propagation_delay)
-            cc 'Exit match loop if pin has matched (no error), otherwise clear error and remain in loop'
-            microcode 'SQPG RETC 0 0;'
-
-            # Check pin 2
-            cc "Check if #{options[:pin2].name.upcase} is #{options[:state2].to_s.upcase} yet"
-            options[:state2] == :low ? options[:pin2].expect_lo! : options[:pin2].expect_hi!
-            options[:pin2].dont_care
-            cc 'Wait for failure to propagate'
-            cycle(repeat: propagation_delay)
-            cc 'Exit match loop if pin has matched (no error), otherwise clear error and remain in loop'
-            microcode 'SQPG RETC 0 0;'
+          loop_microcode = ''
+          loop_cycles = 0
+          loop_vectors 2 do
+            loop_microcode = stage.current_bank.last
+            preloop_cycle_count = cycle_count
+            match_conditions.each do |condition|
+              condition.call
+              cc 'Wait for failure to propagate'
+              cycle(repeat: propagation_delay)
+              cc 'Exit match loop if pin has matched (no error), otherwise clear error and remain in loop'
+              microcode 'SQPG RETC 0 0;'
+            end
+            loop_cycles = cycle_count - preloop_cycle_count
           end
 
+          number_of_loops = (timeout_in_cycles.to_f / loop_cycles).ceil
+
+          loop_microcode.sub!('2', number_of_loops.to_s)
+
           if options[:force_fail_on_timeout]
-            cc 'To get here something has gone wrong, strobe again to force a pattern failure'
-            state == :low ? pin.expect_lo : pin.expect_hi
-            options[:state2] == :low ? options[:pin2].expect_lo : options[:pin2].expect_hi if options[:pin2]
-            cycle
-            pin.dont_care
-            options[:pin2].dont_care if options[:pin2]
+            fail_conditions.each(&:call)
           end
         end
       end
@@ -576,60 +693,6 @@ module OrigenTesters
       # Returns an array of subroutines created by the current pattern
       def local_subroutines # :nodoc:
         @local_subroutines ||= []
-      end
-
-      # This is an internal method use by Origen which returns a fully formatted vector
-      # You can override this if you wish to change the output formatting at vector level
-      def format_vector(vec)
-        timeset = vec.timeset ? "#{vec.timeset.name}" : ''
-        pin_vals = vec.pin_vals ? "#{vec.pin_vals} " : ''
-        if vec.repeat # > 1
-          microcode = "R#{vec.repeat}"
-        else
-          microcode = vec.microcode ? vec.microcode : ''
-        end
-
-        if Origen.mode.simulation? || !inline_comments || $_testers_no_inline_comments
-          comment = ''
-        else
-
-          header_comments = []
-          repeat_comment = ''
-          vec.comments.each_with_index do |comment, i|
-            if comment =~ /^#/
-              if comment =~ /^#(R\d+)$/
-                repeat_comment = Regexp.last_match(1) + ' '
-              # Throw away the ############# headers and footers
-              elsif comment !~ /^# ####################/
-                comment = comment.strip.sub(/^# (## )?/, '')
-                if comment == ''
-                  # Throw away empty lines at the start/end, but preserve them in the middle
-                  unless header_comments.empty? || i == vec.comments.size - 1
-                    header_comments << comment
-                  end
-                else
-                  header_comments << comment
-                end
-              end
-            end
-          end
-
-          if vec.pin_vals && ($_testers_enable_vector_comments || vector_comments)
-            comment = "#{vec.number}:#{vec.cycle}"
-            comment += ': ' if !header_comments.empty? || !vec.inline_comment.empty?
-          else
-            comment = ''
-          end
-          comment += header_comments.join("\cm") unless header_comments.empty?
-          unless vec.inline_comment.empty?
-            comment += "\cm" unless header_comments.empty?
-            comment += "(#{vec.inline_comment})"
-          end
-          comment = "#{repeat_comment}#{comment}"
-        end
-
-        # Max comment length 250 at the end
-        "#{microcode.ljust(25)}#{timeset.ljust(27)}#{pin_vals}# #{comment[0, 247]};"
       end
 
       # All vectors generated with the supplied block will have all pins set

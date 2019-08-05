@@ -16,13 +16,17 @@ module OrigenTesters
         def initialize(ast:, decompiled_pattern:, **options)
           @source = :vector_body_element
           super(ast: ast, decompiled_pattern: decompiled_pattern)
-          @type = ast.type
+          if ast.is_a?(Hash)
+            @type = ast[:type]
+          else
+            @type = ast.type
+          end
           @vector_index = options[:vector_index]
 
           # If the processor is a :vector or a comment_block, we can deal with
           # this automatically. We also know that neither of these elemnts are
           # platform specific.
-          @element = (BASE_ELEMENTS.include?(@ast.type)) ? to_element : false
+          @element = (BASE_ELEMENTS.include?(type)) ? to_element : false
         end
 
         # Returns an element class (e.g., Vector) that casts itself to a known vector-element type.
@@ -54,7 +58,7 @@ module OrigenTesters
                 # If this element couldn't be matched, provide a simple yaml hash
                 # including some basic elements.
                 {
-                  type:           ast.type,
+                  type:           type,
                   processor:      processor.class.to_s,
                   platform_nodes: _platform_nodes_
                 }

@@ -1,70 +1,5 @@
 % render "layouts/guides.html" do
 
-### Flow Considerations
-
-By default, a top-level `Flow.create` call in Origen will generate a standalone V93K testflow file which is
-internally wrapped by a flow group, like this:
-
-~~~text
-group <FLOW_NAME> {
-  // Flow content here
-}
-~~~
-
-When such flows are imported into a master flow file, SmarTest does not provide a standard enable mechanism
-to control which sub-flows are executed.
-
-However, Origen provides the ability to generate V93K flow modules with an enable-word wrapper, thereby allowing
-the top-level flow to easily enable/disable the execution of flow modules via flow variables.
-
-By enabling this feature in the target like this:
-
-~~~ruby
-OrigenTesters::V93K.new(add_flow_enable: :enabled)
-~~~
-
-the flow will now generate like this:
-
-~~~text
-group <FLOW_NAME> {
-  if @<FLOW_NAME>_ENABLE == 1 {
-    // Flow content here
-  }
-}
-~~~
-
-The `@<FLOW_NAME>_ENABLE` variable will be initialized to 1 in the generated variables file for the given flow,
-meaning that the module will run by default if the top-level flow does nothing with this variable.
-
-Alternatively, the variable can be initialized to off like this:
-
-~~~ruby
-OrigenTesters::V93K.new(add_flow_enable: :disabled)
-~~~
-
-Meaning that by default, the module will not run and the top-level flow must always enable it by including
-`@<FLOW_NAME>_ENABLE = 1` before hitting the module.
-
-Setting this attribute in the target means that it will apply to all flows. Alternatively, it can be set within
-the flow itself (or the interface) if it is necessary to use this feature for only a subset of flows, or to override
-the default setting for a particular flow.
-
-Here is an example:
-
-~~~ruby
-Flow.create interface: 'MyApp::Interface' do
-
-  # Ensure that this flow is always generated with an enable word wrapper that is enabled by default
-  self.add_flow_enable = :enabled
-
-  # Some functional test
-  func :blah
-end
-~~~
-
-This same API may be used to implement similar features on other platforms in future, but for now only the V93K is implemented.
-
-
 ### Interface Considerations
 
 Be sure to read and understand the guide to
@@ -133,6 +68,12 @@ t.lev_spec_set = 8
 t.levset = 1
 ~~~
 
+or to assign a spec in SMT8:
+
+~~~ruby
+t.spec = 'my_spec_min'
+~~~
+
 If the test method provides parameters, you can set them in the same way. As a convenience,
 Origen will automatically work out whether the reference is to a parameter of the test suite
 or of the test method, and will assign it accordingly.
@@ -163,38 +104,6 @@ The limits can be set for all test objects using the following API, see here for
 t.lo_limit = 100.uA
 t.hi_limit = 150.uA
 ~~~
-
-#### Built-in Test Methods
-
-SmarTest comes with a standard AC and DC test method library and Origen provides a built-in API to
-generate a test flow which uses those test methods, here are some examples:
-
-~~~ruby
-# Execute a functional test
-test_method = test_methods.ac_tml.ac_test.functional_test
-
-# A basic DC voltage measurement
-test_method = test_methods.dc_tml.dc_test.general_pmu force_mode: 'CURR', force_value: 100.uA
-~~~
-
-Generally the parameter naming is the lower-cased and underscored version of the name that appears
-in the SMT documentation.
-
-See the [DC library API](http://origen-sdk.org/testers/api/OrigenTesters/SmartestBasedTester/Base/TestMethods/DcTml.html)
-and the [AC library API](http://origen-sdk.org/testers/api/OrigenTesters/SmartestBasedTester/Base/TestMethods/AcTml.html)
-for up-to-date details of the implemented test methods and the parameter names.
-
-However, some of these test methods are not particularly good and the recommendation from Advantest these
-days is generally not to use them.
-
-Since that means there is now a void where a universally available test method library should be, work is
-underway to provide an Origen standard test method library.
-The aim of this is to provide a complete generation solution from Origen so that those who have
-a fairly conventional use case can rapidly build a complete test program from off-the-shelf
-components, but that is still a work in progress and not yet ready for prime time use.
-
-Many users of the V93K program generator however, are likely to want to use it in combination
-with their own custom test method library...
 
 #### Custom Test Methods
 
@@ -240,7 +149,7 @@ module Vreg
           # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
           # first example.
           # The attribute definition has two required parameters, the type and the default value.
-          # The type can be :string, :current, :voltage, :time, :frequency, or :integer 
+          # The type can be :string, :current, :voltage, :time, :frequency, integer, :double or :boolean
           pin_list: [:string, ''],
           samples: [:integer, 1],
           precharge_voltage: [:voltage, 0],
@@ -401,56 +310,5 @@ end
 For a more advanced integration which gets rid of the need to even call `add_my_library`, you
 can refer to how the `origen_std_lib` interface integration works 
 [here](https://github.com/Origen-SDK/origen_std_lib/blob/master/plugin/lib/origen_std_lib.rb).
-
-### Test Name Uniqueness
-
-Test (suite) naming collisions can occur when importing multiple independent test flow modules into a
-V93K master flow file.
-
-To prevent that from ever occurring, Origen will generate and append a unique signature to the end of
-all test names by default, for example:
-
-~~~ruby
-t = test_suites.add("my_test_name", options)
-
-t.name   # => "my_test_name_E32ABE8"
-~~~
-
-Applications can override this default behavior by setting the corresponding test interface attribute,
-`unique_test_names`, to one of the following values:
-
-* `:signature` - this is the default which will generate a unique signature as shown in the above example
-* `nil` - no value will be appended to the test names at all
-* `:flowname` - the name of the current top-level flow will be appended to all test names
-* Setting this attribute to any other value will append that value directly to all test names
-
-This attribute can be set in the [environment file](<%= path 'guides/runtime/environment' %>) when instantiating
-the tester:
-
-~~~ruby
-OrigenTesters::V93K.new unique_test_names: nil
-~~~
-
-This provides a single place to control the behavior within a [monolithic application architecture](<%= path 'guides/starting/architecture/#Monolithic_Application_Architecture' %>).
-
-However, under a [distributed application architecture](<%= path 'guides/starting/architecture/#Distributed_Application_Architecture' %>)
-a given test flow module may be generated under a target/environment that is controlled by a 3rd party.
-
-In that case, it is recommended to either set it at the flow-level, which will override any setting set at the
-environment-level:
-
-~~~ruby
-# program/wt1_start.rb
-Flow.create interface: 'MyApp::Interface', unique_test_names: 'wt1' do
-
-end
-~~~
-
-Or, it can be set directly within your interface logic which will take the highest precedence:
-
-~~~ruby
-# lib/my_app/interface.rb
-self.unique_test_names = :flowname
-~~~
 
 % end

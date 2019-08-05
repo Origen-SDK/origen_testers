@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'require_all', '~> 1'
   spec.add_runtime_dependency 'atp', '~> 1.1', '>= 1.1.3'
   spec.add_runtime_dependency 'treetop'
+  spec.add_runtime_dependency 'rodf', '~>1'
   spec.add_runtime_dependency 'origen_stil', '>= 0.2.1'
   spec.add_runtime_dependency "ast", "~> 2"
   spec.add_runtime_dependency "sexpistol", "~> 0.0"

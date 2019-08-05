@@ -26,6 +26,10 @@ module OrigenTesters::ATP
       alias_method :on_if_all_passed, :on_if_failed
       alias_method :on_if_ran, :on_if_failed
       alias_method :on_unless_ran, :on_if_failed
+      alias_method :on_if_any_sites_failed, :on_if_failed
+      alias_method :on_if_all_sites_failed, :on_if_failed
+      alias_method :on_if_any_sites_passed, :on_if_failed
+      alias_method :on_if_all_sites_passed, :on_if_failed
 
       def on_group(node)
         if id = node.children.find { |n| n.type == :id }

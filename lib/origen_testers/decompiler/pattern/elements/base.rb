@@ -14,6 +14,10 @@ module OrigenTesters
           #  node: ast, source: @source,
           #  decompiled_pattern: decompiled_pattern
           # ).new.run(ast, decompiled_pattern: decompiled_pattern)
+          if ast.is_a?(Struct)
+            @processor = ast
+            return
+          end
 
           if decompiled_pattern.respond_to?(:select_processor)
             @processor = decompiled_pattern.select_processor(
@@ -43,7 +47,11 @@ module OrigenTesters
         end
 
         def _platform_nodes_
-          processor.platform_nodes.each_with_object({}) { |n, h| h[n] = processor.send(n) }
+          if ast.is_a?(Struct)
+            {}
+          else
+            processor.platform_nodes.each_with_object({}) { |n, h| h[n] = processor.send(n) }
+          end
         end
 
         def platform_nodes
@@ -51,7 +59,7 @@ module OrigenTesters
         end
 
         def method_missing(m, *args, &block)
-          if _platform_nodes_.include?(m)
+          if _platform_nodes_.include?(m) || ast.respond_to?(m)
             processor.send(m)
           else
             super
