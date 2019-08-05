@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   # Add any gems that your plugin needs to run within a host application
   spec.add_runtime_dependency 'origen', '>= 0.44.0'
   spec.add_runtime_dependency 'require_all', '~> 1'
+  spec.add_runtime_dependency 'rodf', '~>1'
   spec.add_runtime_dependency 'origen_stil', '>= 0.2.1'
   spec.add_runtime_dependency "ast", "~> 2"
   spec.add_runtime_dependency "sexpistol", "~> 0.0"

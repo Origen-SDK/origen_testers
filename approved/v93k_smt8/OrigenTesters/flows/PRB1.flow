@@ -1,0 +1,97 @@
+flow PRB1 {
+    in ADDITIONAL_ERASE = -1;
+    in ALARM = -1;
+    in ALARMENABLED = -1;
+    in DO_ERASE = -1;
+    in JOB = "";
+    in NO_EXTRA_ERASE = -1;
+    in USB_XCVR_CZ = -1;
+
+    out DEEP_TEST_FAILED = -1;
+    out ERS_VFY_FAILED = -1;
+
+    setup {
+        suite bitcell_iv_0 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.bitcell_iv_0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite bitcell_iv_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.bitcell_iv_1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite bitcell_iv_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.bitcell_iv_2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite bitmap_all0 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.bitmap_all0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase_all calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read0_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read0_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite margin_read1_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.margin_read1_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite normal_read_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.normal_read_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite program_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.program_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        flow PRB1_MAIN calls OrigenTesters.flows.prb1.PRB1_MAIN { }
+    }
+
+    execute {
+        PRB1_MAIN.ADDITIONAL_ERASE = ADDITIONAL_ERASE;
+        PRB1_MAIN.ALARM = ALARM;
+        PRB1_MAIN.ALARMENABLED = ALARMENABLED;
+        PRB1_MAIN.DO_ERASE = DO_ERASE;
+        PRB1_MAIN.JOB = JOB;
+        PRB1_MAIN.NO_EXTRA_ERASE = NO_EXTRA_ERASE;
+        PRB1_MAIN.USB_XCVR_CZ = USB_XCVR_CZ;
+        PRB1_MAIN.execute();
+        DEEP_TEST_FAILED = PRB1_MAIN.DEEP_TEST_FAILED;
+        ERS_VFY_FAILED = PRB1_MAIN.ERS_VFY_FAILED;
+        if (DEEP_TEST_FAILED == 1) {
+            on_deep_1.execute();
+        } else {
+        }
+        addBin(1);
+    }
+}

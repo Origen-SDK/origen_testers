@@ -1,0 +1,33 @@
+flow GRP1 {
+
+
+    setup {
+        suite grp1_test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite grp1_test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite grp1_test3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.grp1_test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        grp1_test1.execute();
+        grp1_test2.execute();
+        grp1_test3.execute();
+    }
+}

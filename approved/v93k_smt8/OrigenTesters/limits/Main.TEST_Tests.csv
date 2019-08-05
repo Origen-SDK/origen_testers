@@ -1,0 +1,10 @@
+Test Suite,Test,Test Number,Test Text,Low Limit,High Limit,Unit,Soft Bin
+,,,,default,default
+program_ckbd,program_ckbd,40000,program_ckbd,0,0,,1100
+meas_read_pump,meas_read_pump,40005,meas_read_pump,,35,,2
+meas_read_pump_1,meas_read_pump_1,40010,meas_read_pump_1,45,,,2
+meas_read_pump_2,meas_read_pump_2,40020,meas_read_pump_2,45,35,,2
+meas_read_pump_3,meas_read_pump_3,40030,meas_read_pump_3,45,35,,2
+meas_read_pump_4,meas_read_pump_4,40040,meas_read_pump_4,0.045,0.035,,2
+meas_read_pump_5,meas_read_pump_5,40050,meas_read_pump_5,0.045,0.035,,
+meas_read_pump_6,meas_read_pump_6,40060,meas_read_pump_6,2000,0.01,,

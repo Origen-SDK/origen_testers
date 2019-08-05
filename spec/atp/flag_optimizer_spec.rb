@@ -120,5 +120,4 @@ describe 'The flag optimizer' do
           s(:test,
             s(:object, "test2"))))
   end
-
 end

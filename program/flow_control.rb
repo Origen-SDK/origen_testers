@@ -434,13 +434,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :test2, unless_flag: :$Alarm, number: 51950
 
     # The is auto-generated comment from hashtag
-    func_with_comment :test1
+    func_with_comment :test1, number: 51952
 
     cc 'The is auto-generated comment from cc'
-    func_with_comment :test1
+    func_with_comment :test1, number: 51954
 
     log 'Use bin_attrs to set not_over_on'
-    func :test1n, number: 51960, bin: 12, bin_attrs: { not_over_on: true }
+    func :test1n, number: 51956, bin: 12, bin_attrs: { not_over_on: true }
 
   end
 
@@ -474,4 +474,51 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     end
   end
 
+  if tester.v93k?
+    log 'Test some expressions'
+    set '$LT_VARIABLE', "FALSE"
+
+    whenever lt(3, 5) do
+      set '$LT_VARIABLE', "TRUE"
+      func :test_3lt5, number: 55000
+    end
+
+    whenever eq('$LT_VARIABLE', "TRUE") do
+      bin 12
+    end
+
+    whenever_any gt('$FIVE', '$FOUR'), ne(5, 4) do
+      func :test_5gt4_or_4gt5, number: 55002
+    end
+
+    whenever_all ge('$FIVE_PNT_TWO', 5.1), lt(4, 3) do
+      func :test_5gt4_and_4gt3, number: 55004
+    end
+
+  end
+
+  if tester.igxl?
+    log "Test that if_any_site_failed works"
+    func :read1, id: :ta1, bin: 10, number: 60000
+    func :erase1, if_any_site_failed: :ta1, bin: 12, number: 60010
+
+    log "Test the block form of if_any_site_failed"
+    func :read2, id: :ta2, bin: 10, number: 60020
+    if_any_site_failed :ta2 do
+      func :erase2, number: 60030
+      func :erase2, number: 60040
+    end
+
+    log "Test that if_all_sites_failed works"
+    func :read1, id: :ta3, bin: 10, number: 60000
+    func :erase1, if_all_sites_failed: :ta3, bin: 12, number: 60010
+
+    log "Test that if_any_sites_passed works"
+    func :read1, id: :ta4, bin: 10, number: 60000
+    func :erase1, if_any_sites_passed: :ta4, bin: 12, number: 60010
+
+    log "Test that if_all_sites_passed works"
+    func :read1, id: :ta5, bin: 10, number: 60000
+    func :erase1, if_all_sites_passed: :ta5, bin: 12, number: 60010
+  end
 end

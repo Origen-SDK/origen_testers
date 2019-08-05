@@ -1,0 +1,16 @@
+flow 100MHZ_TESTS {
+
+    out G100_RAN = -1;
+
+    setup {
+    }
+
+    execute {
+        G100_RAN = -1;
+
+        G100_RAN = 1;
+        test100_1.execute();
+        test100_2.execute();
+        test100_3.execute();
+    }
+}

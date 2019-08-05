@@ -1,0 +1,112 @@
+% render "layouts/guides.html" do
+
+This guide covers aspects of the V93K program generator API that are unique to SmarTest 8.
+
+Be sure to also consult the [V93K Common API guide](<%= path "guides/program/v93k" %>) which is also applicable
+to SMT8.
+
+The SMT8 API is enabled by adding `smt_version: 8` when instantiating a V93K test environment:
+
+~~~ruby
+# environment/v93k_smt8.rb
+OrigenTesters::V93K.new smt_version: 8
+~~~
+
+### Package Structure
+
+The V93K SMT8 test program generator will create a package with the following structure:
+
+~~~text
+MyAppNamespace/
+├── common/    
+│   └── limits.ods
+├── flows/        
+│   ├── my_flow_1/              
+│   │   └── MY_SUB_FLOW.flow
+│   ├── MY_FLOW_2.flow
+│   └── MY_FLOW_1.flow
+└── limits/
+    ├── Main.MY_FLOW_2_TESTS.csv
+    └── Main.MY_FLOW_1_TESTS.csv
+~~~
+
+Here is a description of each component:
+
+
+##### MyAppNamespace/
+
+This is the name of this test program package, it should be unique and the entire directory is intended to be
+dropped directly into your test program's `src/` directory.
+By default, your Origen application's namespace is used, though this can be overridden within your V93K environment
+file:
+
+~~~ruby
+# environment/v93k_smt8.rb
+OrigenTesters::V93K.new smt_version: 8,
+                        package_namespace: 'something_else'
+~~~
+
+##### common/limits.ods
+
+Contains the limits tables for all flows.
+
+##### flows/
+
+A top-level test program flow file in Origen will generate a correspondingly named file in the `flows/` directory,
+where the name of the generated file is the upper-cased version of the source file name.
+If the flow imports sub-flows or contains groups, then those will be contained in a directory named after the
+lower-cased version of the flow name.
+
+##### limits/
+
+Origen generates the limts into CSV files before combining them into `common/limits.ods`. These intermediate files
+will not be used by the test program but they are kept around in case they are useful.
+
+### Flow Integration
+
+The generated flow(s) should be integrated into a top-level (Main) flow like this:
+
+~~~java
+flow Main {
+    setup {
+        flow MY_FLOW_1 calls MyAppNamespace.flows.MY_FLOW_1 {}
+        flow MY_FLOW_2 calls MyAppNamespace.flows.MY_FLOW_2 {}
+    }
+
+    execute {
+        MY_FLOW_1.execute();
+        MY_FLOW_2.execute();
+    }
+}
+~~~
+
+The `add_flow_enable:` tester option [as described in the SMT7 guide](<%= path "guides/program/v93ksmt7/#Flow_Considerations" %>)
+is also supported by the SMT8 generator, though it may not make as much sense to use it in that case.
+It generates an `ENABLE` flow parameter which could be used something like this:
+
+
+~~~java
+flow Main {
+    setup {
+        flow MY_FLOW_1 calls MyAppNamespace.flows.MY_FLOW_1 {}
+        flow MY_FLOW_2 calls MyAppNamespace.flows.MY_FLOW_2 {}
+    }
+
+    execute {
+        // Skip FLOW_1 and run only FLOW_2
+        MY_FLOW_1.ENABLE = 0;
+        MY_FLOW_2.ENABLE = 1;
+
+        MY_FLOW_1.execute();
+        MY_FLOW_2.execute();
+    }
+}
+~~~
+
+
+
+
+
+
+
+% end

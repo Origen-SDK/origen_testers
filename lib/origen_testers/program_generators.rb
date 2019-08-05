@@ -45,7 +45,11 @@ module OrigenTesters
 
     def _load_generator
       if tester.v93k?
-        class << self; include OrigenTesters::V93K::Generator; end
+        if tester.smt8?
+          class << self; include OrigenTesters::V93K_SMT8::Generator; end
+        else
+          class << self; include OrigenTesters::V93K::Generator; end
+        end
       elsif tester.j750_hpt?
         class << self; include OrigenTesters::J750_HPT::Generator; end
       elsif tester.j750?

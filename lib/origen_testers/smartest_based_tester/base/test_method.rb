@@ -17,13 +17,17 @@ module OrigenTesters
         attr_accessor :abs_class_name
         attr_reader :limits
         attr_accessor :limits_id
+        alias_method :limit_id, :limits_id
+        alias_method :limit_id=, :limits_id=
+        # Used to store the name of the primary test logged in SMT8
+        attr_accessor :sub_test_name
 
         def initialize(options)
           @type = options[:type]
           @library = options[:library]
           @class_name = options[:methods].delete(:class_name)
           @parameters = {}
-          @limits_id = options[:methods].delete(:limits_id)
+          @limits_id = options[:methods].delete(:limits_id) || options[:methods].delete(:limit_id)
           @limits = TestMethods::Limits.new(self)
           @limits.render = false if options[:methods].delete(:render_limits_in_tf) == false
           # Add any methods
@@ -117,10 +121,11 @@ module OrigenTesters
           when :boolean
             # Check for valid values
             if [0, 1, true, false].include?(val)
+              # Use true/false for smt8 and 0/1 for smt7
               if [1, true].include?(val)
-                1
+                tester.smt8? ? true : 1
               else
-                0
+                tester.smt8? ? false : 0
               end
             else
               fail "Unknown boolean value for attribute #{attr}: #{val}"

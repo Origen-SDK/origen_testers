@@ -3,9 +3,13 @@ module OrigenTesters
     class Interface
       include OrigenTesters::ProgramGenerators
 
+      attr_accessor :include_additional_prb2_test
+      attr_reader :environment
+
       # Options passed to Flow.create and Library.create will be passed in here, use as
       # desired to configure your interface
       def initialize(options = {})
+        @environment = options[:environment]
       end
 
       # Test that the block form of flow control methods like this can
@@ -62,7 +66,12 @@ module OrigenTesters
             tm = test_methods.ac_tml.ac_test.functional_test
             ts = test_suites.run(name, options)
             ts.test_method = tm
-            ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+            if tester.smt8?
+              ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+              ts.spec ||= 'specs.Nominal'
+            else
+              ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+            end
             if block
               ts.pattern = "#{name}_b#{i}"
             else
@@ -241,7 +250,12 @@ module OrigenTesters
           tm = test_methods.dc_tml.dc_test.general_pmu
           ts = test_suites.run(name, options)
           ts.test_method = tm
-          ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+          if tester.smt8?
+            ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+            ts.spec ||= 'specs.Nominal'
+          else
+            ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+          end
           ts.lo_limit = options[:lo_limit] if options[:lo_limit]
           ts.hi_limit = options[:hi_limit] if options[:hi_limit]
           ts.pattern = name.to_s

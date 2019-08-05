@@ -1,0 +1,25 @@
+flow GT_GRP2 {
+
+
+    setup {
+        suite gt_grp2_test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp2_test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite gt_grp2_test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.gt_grp2_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        gt_grp2_test1.execute();
+        gt_grp2_test2.execute();
+    }
+}

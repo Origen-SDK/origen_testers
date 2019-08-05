@@ -1,0 +1,13 @@
+Test Suite,Test,Test Number,Test Text,Low Limit,High Limit,Unit,Soft Bin
+,,,,default,default
+erase_all,erase_all,10000,erase_all,0,0,,
+margin_read1_all1,margin_read1_all1,10010,margin_read1_all1,0,0,,
+erase_all_1,erase_all_1,10020,erase_all_1,0,0,,
+margin_read1_all1_1,margin_read1_all1_1,10030,margin_read1_all1_1,0,0,,
+PRB2_MAIN.pgm_ckbd,pgm_ckbd,11010,pgm_ckbd,0,0,,
+PRB2_MAIN.mrd_ckbd,mrd_ckbd,11020,mrd_ckbd,0,0,,
+erase_all_2,erase_all_2,12000,erase_all_2,0,0,,
+margin_read1_all1_2,margin_read1_all1_2,12010,margin_read1_all1_2,0,0,,
+PRB2_MAIN_1.pgm_ckbd,pgm_ckbd,13010,pgm_ckbd,0,0,,
+PRB2_MAIN_1.mrd_ckbd,mrd_ckbd,13020,mrd_ckbd,0,0,,
+margin_read1_all1_3,margin_read1_all1_3,14000,margin_read1_all1_3,0,0,,
