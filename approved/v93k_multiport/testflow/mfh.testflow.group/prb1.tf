@@ -1882,9 +1882,6 @@ test_flow
        run(cc_test_0_864CE8F);
        run(cc_test_1_864CE8F);
        run(cc_test_2_864CE8F);
-       print_dl("Passing test flags works as expected");
-       run(test_with_no_flags_864CE8F);
-       run(test_with_flags_864CE8F);
        {
           run_and_branch(deep_test)
           then
@@ -1895,6 +1892,9 @@ test_flow
              @DEEP_TEST_864CE8F_FAILED = 1;
           }
        }, open,"deep_nested", ""
+       print_dl("Passing test flags works as expected");
+       run(test_with_no_flags_864CE8F);
+       run(test_with_flags_864CE8F);
     }, open,"prb1_main", ""
     if @DEEP_TEST_864CE8F_FAILED == 1 then
     {

@@ -67,6 +67,66 @@ if_enable :word1 do
 end
 ~~~
 
+
+#### Execution Based on Relational Expressions
+
+The following methods are available to describe these cases:
+
+* **whenever** - Run the test(s) if the relational expression evaluates to TRUE
+* **whenever_all** - Run the test(s) if ALL of the relational expressions evaluate to TRUE
+* **whenever_any** - Run the test(s) if ANY of the relational expressions evaluate to TRUE
+
+The following relational operators are available for use with the above methods:
+
+* **eq** - equal to
+* **ne** - not equal to
+* **gt** - greater than
+* **ge** - greater than or equal to
+* **lt** - less than
+* **le** - less than or equal to
+
+Here are some examples of how to apply these methods:
+
+~~~ruby
+# Run these tests if VAR1 is greater than 2
+whenever gt(:var1, 2) do
+  func: :test1
+  func: :test2
+end
+
+# Run these tests if VAR1 is greater than 2 AND VAR2 is less than VAR3
+whenever_all gt(:var1, 2), lt(:var2, :var3) do
+  func: :test1
+  func: :test2
+end
+
+# Run these tests if VAR1 is greater than 2 OR VAR2 is less than VAR3
+whenever_any gt(:var1, 2), lt(:var2, :var3) do
+  func: :test1
+  func: :test2
+end
+~~~
+
+Additionally, these variables can be set in the flow using the **set** method as shown in here:
+
+~~~ruby
+# Set the VAR1 = 1
+set :var1, 1
+set :var2, 'OFF'
+set :var3, 3.14
+
+# Update VAR1 value based on some runtime condition
+if_enable :some_other_variable do
+  set :var1, 3
+end
+
+# Run these tests if VAR1 is greater than 2
+whenever gt(:var1, 2) do
+  func: :test1
+  func: :test2
+end
+~~~
+
 #### Execution Based on a Previous Test
 
 The following methods are available to describe these cases:

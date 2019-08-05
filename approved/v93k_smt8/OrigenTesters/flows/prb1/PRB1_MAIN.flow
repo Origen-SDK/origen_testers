@@ -777,10 +777,10 @@ flow PRB1_MAIN {
         cc_test_0.execute();
         cc_test_1.execute();
         cc_test_2.execute();
+        DEEP_NESTED.execute();
+        DEEP_TEST_FAILED = DEEP_NESTED.DEEP_TEST_FAILED;
         println("Passing test flags works as expected");
         test_with_no_flags.execute();
         test_with_flags.execute();
-        DEEP_NESTED.execute();
-        DEEP_TEST_FAILED = DEEP_NESTED.DEEP_TEST_FAILED;
     }
 }

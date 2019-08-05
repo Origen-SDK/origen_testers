@@ -93,6 +93,10 @@ module OrigenTesters
     end
     alias_method :uflex?, :ultraflex?
 
+    def igxl?
+      j750? || j750_hpt? || ultraflex?
+    end
+
     def stil?
       is_a?(OrigenTesters::StilBasedTester::Base)
     end
