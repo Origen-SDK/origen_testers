@@ -288,6 +288,12 @@ tm_94:
 tm_95:
   "output" = "None";
   "testName" = "Functional";
+tm_96:
+  "output" = "None";
+  "testName" = "Functional";
+tm_97:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
@@ -483,6 +489,10 @@ tm_94:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_95:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_96:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_97:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
 -----------------------------------------------------------------
@@ -677,6 +687,10 @@ tm_93:
 tm_94:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_95:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_96:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_97:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
@@ -1321,6 +1335,19 @@ some_func_test_864CE8F:
   override_testf = tm_92;
   site_control = "parallel:";
   site_match = 2;
+test_with_flags_864CE8F:
+  local_flags = bypass, output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "test_with_flags";
+  override_testf = tm_97;
+  site_control = "parallel:";
+  site_match = 2;
+test_with_no_flags_864CE8F:
+  override = 1;
+  override_seqlbl = "test_with_no_flags";
+  override_testf = tm_96;
+  site_control = "parallel:";
+  site_match = 2;
 xcvr_fs_vilvih_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
@@ -1855,6 +1882,9 @@ test_flow
        run(cc_test_0_864CE8F);
        run(cc_test_1_864CE8F);
        run(cc_test_2_864CE8F);
+       print_dl("Passing test flags works as expected");
+       run(test_with_no_flags_864CE8F);
+       run(test_with_flags_864CE8F);
        {
           run_and_branch(deep_test)
           then

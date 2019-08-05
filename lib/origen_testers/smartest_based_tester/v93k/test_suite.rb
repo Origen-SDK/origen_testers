@@ -36,6 +36,8 @@ module OrigenTesters
              ffv_enable
              frg_enable
              hardware_dsp_disable
+             site_control
+             site_match
           )
 
         ALIASES = {
@@ -66,7 +68,9 @@ module OrigenTesters
           pass_value:      true,
           fail_value:      true,
           per_pin_on_pass: true,
-          per_pin_on_fail: true
+          per_pin_on_fail: true,
+          site_control:    'parallel:',
+          site_match:      2
         }
 
         # Generate accessors for all attributes and their aliases
@@ -95,7 +99,7 @@ module OrigenTesters
           l = []
           l << "  comment = \"#{comment}\";" if comment
           l << "  ffc_on_fail = #{wrap_if_string(log_first)};" if log_first
-          l << "  local_flags = #{flags};"
+          l << "  local_flags = #{flags};" unless flags.empty?
           l << '  override = 1;'
           l << "  override_anaset = #{wrap_if_string(analog_set)};" if analog_set
           l << "  override_lev_equ_set = #{wrap_if_string(level_equation)};" if level_equation
@@ -107,8 +111,8 @@ module OrigenTesters
           l << "  override_tim_equ_set = #{wrap_if_string(timing_equation)};" if timing_equation
           l << "  override_tim_spec_set = #{wrap_if_string(timing_spec)};" if timing_spec
           l << "  override_timset = #{wrap_if_string(timing_set)};" if timing_set
-          l << '  site_control = "parallel:";'
-          l << '  site_match = 2;'
+          l << "  site_control = #{wrap_if_string(site_control)};" if site_control
+          l << "  site_match = #{wrap_if_string(site_match)};" if site_match
           l << "  test_level = #{test_level};" if test_level
           l
         end

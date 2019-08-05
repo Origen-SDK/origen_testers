@@ -479,6 +479,20 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite test_with_flags calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_with_flags);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_with_no_flags calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_with_no_flags);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite xcvr_fs_vilvih calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -763,6 +777,9 @@ flow PRB1_MAIN {
         cc_test_0.execute();
         cc_test_1.execute();
         cc_test_2.execute();
+        println("Passing test flags works as expected");
+        test_with_no_flags.execute();
+        test_with_flags.execute();
         DEEP_NESTED.execute();
         DEEP_TEST_FAILED = DEEP_NESTED.DEEP_TEST_FAILED;
     }

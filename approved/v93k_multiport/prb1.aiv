@@ -27,6 +27,8 @@ program_ckbd_b0 .tmf mPort
 program_ckbd_b1 .tmf mPort
 program_ckbd_b2 .tmf mPort
 some_func_test .tmf mPort
+test_with_flags .tmf mPort
+test_with_no_flags .tmf mPort
 xcvr_fs_vilvih .tmf mPort
 
 MULTI_PORT_BURST "mPort_another_not_p1_or_p2_test" 
@@ -118,6 +120,16 @@ MULTI_PORT_BURST "mPort_some_func_test"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           some_func_test
+
+MULTI_PORT_BURST "mPort_test_with_flags" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test_with_flags
+
+MULTI_PORT_BURST "mPort_test_with_no_flags" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test_with_no_flags
 
 MULTI_PORT_BURST "mPort_xcvr_fs_vilvih" 
 PORTS     mPort                                  
