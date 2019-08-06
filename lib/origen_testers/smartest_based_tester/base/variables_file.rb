@@ -38,7 +38,8 @@ module OrigenTesters
           (variables[:all][:referenced_enables] + variables[:all][:set_enables]).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
-            x <=> y
+            # Need to use strings for the comparison as some flags can be a string and some a symbol
+            x.to_s <=> y.to_s
           end
         end
 
@@ -47,7 +48,8 @@ module OrigenTesters
           (variables[:all][:jobs] + variables[:all][:referenced_flags] + variables[:all][:set_flags]).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
-            x <=> y
+            # Need to use strings for the comparison as some declarations can be a string and some a symbol
+            x.to_s <=> y.to_s
           end
         end
 
