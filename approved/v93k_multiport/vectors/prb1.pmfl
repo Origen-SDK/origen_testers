@@ -27,6 +27,8 @@ mPort_program_ckbd_b0.binl.gz
 mPort_program_ckbd_b1.binl.gz
 mPort_program_ckbd_b2.binl.gz
 mPort_some_func_test.binl.gz
+mPort_test_with_flags.binl.gz
+mPort_test_with_no_flags.binl.gz
 mPort_xcvr_fs_vilvih.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz
@@ -41,5 +43,7 @@ program_ckbd_b0.binl.gz
 program_ckbd_b1.binl.gz
 program_ckbd_b2.binl.gz
 some_func_test.binl.gz
+test_with_flags.binl.gz
+test_with_no_flags.binl.gz
 xcvr_fs_vilvih.binl.gz
 
