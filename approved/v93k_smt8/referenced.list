@@ -94,8 +94,6 @@ test8
 test_3lt5
 test_5gt4_and_4gt3
 test_5gt4_or_4gt5
-test_with_flags
-test_with_no_flags
 warmish_test
 xcvr_fs_vilvih
 

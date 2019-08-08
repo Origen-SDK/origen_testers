@@ -49,9 +49,5 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	program_ckbd_pset			nvm_global_subs.PAT	Yes	subr			
 	some_func_test_pset			some_func_test.PAT	Yes				
 	some_func_test_pset			nvm_global_subs.PAT	Yes	subr			
-	test_with_flags_pset			test_with_flags.PAT	Yes				
-	test_with_flags_pset			nvm_global_subs.PAT	Yes	subr			
-	test_with_no_flags_pset			test_with_no_flags.PAT	Yes				
-	test_with_no_flags_pset			nvm_global_subs.PAT	Yes	subr			
 	xcvr_fs_vilvih_pset			xcvr_fs_vilvih.PAT	Yes				
 	xcvr_fs_vilvih_pset			nvm_global_subs.PAT	Yes	subr			

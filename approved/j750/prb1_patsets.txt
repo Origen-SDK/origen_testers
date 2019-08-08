@@ -54,9 +54,5 @@ DFF 1.1	Pattern Sets
 	program_ckbd_pset	nvm_global_subs.PAT	subr			
 	some_func_test_pset	some_func_test.PAT				
 	some_func_test_pset	nvm_global_subs.PAT	subr			
-	test_with_flags_pset	test_with_flags.PAT				
-	test_with_flags_pset	nvm_global_subs.PAT	subr			
-	test_with_no_flags_pset	test_with_no_flags.PAT				
-	test_with_no_flags_pset	nvm_global_subs.PAT	subr			
 	xcvr_fs_vilvih_pset	xcvr_fs_vilvih.PAT				
 	xcvr_fs_vilvih_pset	nvm_global_subs.PAT	subr			
