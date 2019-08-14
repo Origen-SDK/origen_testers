@@ -33,4 +33,6 @@ program_ckbd_b0 .tmf
 program_ckbd_b1 .tmf
 program_ckbd_b2 .tmf
 some_func_test .tmf
+test_with_flags .tmf
+test_with_no_flags .tmf
 xcvr_fs_vilvih .tmf

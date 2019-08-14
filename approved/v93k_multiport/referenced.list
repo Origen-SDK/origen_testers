@@ -18,5 +18,7 @@ program_ckbd_b0
 program_ckbd_b1
 program_ckbd_b2
 some_func_test
+test_with_flags
+test_with_no_flags
 xcvr_fs_vilvih
 
