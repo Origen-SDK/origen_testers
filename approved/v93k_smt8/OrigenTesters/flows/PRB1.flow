@@ -5,8 +5,6 @@ flow PRB1 {
     in DO_ERASE = -1;
     in JOB = "";
     in NO_EXTRA_ERASE = -1;
-    in SYM_FLAG = -1;
-    in StringFLag = -1;
     in USB_XCVR_CZ = -1;
 
     out DEEP_TEST_FAILED = -1;
@@ -86,8 +84,6 @@ flow PRB1 {
         PRB1_MAIN.DO_ERASE = DO_ERASE;
         PRB1_MAIN.JOB = JOB;
         PRB1_MAIN.NO_EXTRA_ERASE = NO_EXTRA_ERASE;
-        PRB1_MAIN.SYM_FLAG = SYM_FLAG;
-        PRB1_MAIN.StringFLag = StringFLag;
         PRB1_MAIN.USB_XCVR_CZ = USB_XCVR_CZ;
         PRB1_MAIN.execute();
         DEEP_TEST_FAILED = PRB1_MAIN.DEEP_TEST_FAILED;

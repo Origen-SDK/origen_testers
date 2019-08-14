@@ -2022,6 +2022,7 @@ test_flow
        run(cc_test_0_864CE8F);
        run(cc_test_1_864CE8F);
        run(cc_test_2_864CE8F);
+       print_dl("Passing test flags of mixed types works as expected");
        if @SYM_FLAG == 1 or @StringFLag == 1 then
        {
           run(mixed_flag_check_864CE8F);
