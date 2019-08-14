@@ -24,6 +24,9 @@ tm_103:
 tm_104:
   "output" = "None";
   "testName" = "Functional";
+tm_105:
+  "output" = "None";
+  "testName" = "Functional";
 tm_11:
   "output" = "None";
   "testName" = "Functional";
@@ -334,6 +337,8 @@ tm_103:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_104:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_105:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_11:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_12:
@@ -547,6 +552,8 @@ tm_103:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_104:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_105:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_11:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_12:
@@ -757,28 +764,28 @@ bitcell_iv_0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_0";
-  override_testf = tm_98;
+  override_testf = tm_99;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_1";
-  override_testf = tm_99;
+  override_testf = tm_100;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_2";
-  override_testf = tm_100;
+  override_testf = tm_101;
   site_control = "parallel:";
   site_match = 2;
 bitmap_all0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitmap_all0";
-  override_testf = tm_97;
+  override_testf = tm_98;
   site_control = "parallel:";
   site_match = 2;
 cc_test_0_864CE8F:
@@ -1044,7 +1051,7 @@ erase_all_41_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "erase_all";
-  override_testf = tm_104;
+  override_testf = tm_105;
   site_control = "parallel:";
   site_match = 2;
 erase_all_4_864CE8F:
@@ -1100,7 +1107,7 @@ margin_read0_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read0_ckbd";
-  override_testf = tm_103;
+  override_testf = tm_104;
   site_control = "parallel:";
   site_match = 2;
 margin_read0_ckbd_864CE8F:
@@ -1262,7 +1269,7 @@ margin_read1_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
-  override_testf = tm_101;
+  override_testf = tm_102;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_ckbd_864CE8F:
@@ -1272,11 +1279,18 @@ margin_read1_ckbd_864CE8F:
   override_testf = tm_2;
   site_control = "parallel:";
   site_match = 2;
+mixed_flag_check_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mixed_flag_check";
+  override_testf = tm_96;
+  site_control = "parallel:";
+  site_match = 2;
 normal_read_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "normal_read_ckbd";
-  override_testf = tm_102;
+  override_testf = tm_103;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
@@ -1367,7 +1381,7 @@ program_ckbd_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "program_ckbd";
-  override_testf = tm_96;
+  override_testf = tm_97;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_1_864CE8F:
@@ -1981,6 +1995,13 @@ test_flow
        run(cc_test_0_864CE8F);
        run(cc_test_1_864CE8F);
        run(cc_test_2_864CE8F);
+       if @SYM_FLAG == 1 or @StringFLag == 1 then
+       {
+          run(mixed_flag_check_864CE8F);
+       }
+       else
+       {
+       }
        {
           run_and_branch(deep_test)
           then

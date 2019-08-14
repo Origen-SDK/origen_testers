@@ -5,6 +5,8 @@ flow PRB1_MAIN {
     in DO_ERASE = -1;
     in JOB = "";
     in NO_EXTRA_ERASE = -1;
+    in SYM_FLAG = -1;
+    in StringFLag = -1;
     in USB_XCVR_CZ = -1;
 
     out DEEP_TEST_FAILED = -1;
@@ -402,6 +404,13 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite mixed_flag_check calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.mixed_flag_check);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.not_p1_or_p2_test);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -763,6 +772,10 @@ flow PRB1_MAIN {
         cc_test_0.execute();
         cc_test_1.execute();
         cc_test_2.execute();
+        if ((SYM_FLAG == 1) || (StringFLag == 1)) {
+            mixed_flag_check.execute();
+        } else {
+        }
         DEEP_NESTED.execute();
         DEEP_TEST_FAILED = DEEP_NESTED.DEEP_TEST_FAILED;
     }

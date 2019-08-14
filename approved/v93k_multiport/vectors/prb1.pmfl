@@ -17,6 +17,7 @@ mPort_erase_all.binl.gz
 mPort_margin_read0_ckbd.binl.gz
 mPort_margin_read1_all1.binl.gz
 mPort_margin_read1_ckbd.binl.gz
+mPort_mixed_flag_check.binl.gz
 mPort_not_p1_or_p2_test.binl.gz
 mPort_not_p1_test.binl.gz
 mPort_p1_only_test.binl.gz
@@ -31,6 +32,7 @@ mPort_xcvr_fs_vilvih.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz
 margin_read1_ckbd.binl.gz
+mixed_flag_check.binl.gz
 not_p1_or_p2_test.binl.gz
 not_p1_test.binl.gz
 p1_only_test.binl.gz

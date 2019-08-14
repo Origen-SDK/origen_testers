@@ -17,6 +17,7 @@ erase_all .tmf mPort
 margin_read0_ckbd .tmf mPort
 margin_read1_all1 .tmf mPort
 margin_read1_ckbd .tmf mPort
+mixed_flag_check .tmf mPort
 not_p1_or_p2_test .tmf mPort
 not_p1_test .tmf mPort
 p1_only_test .tmf mPort
@@ -68,6 +69,11 @@ MULTI_PORT_BURST "mPort_margin_read1_ckbd"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           margin_read1_ckbd
+
+MULTI_PORT_BURST "mPort_mixed_flag_check" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          mixed_flag_check
 
 MULTI_PORT_BURST "mPort_not_p1_or_p2_test" 
 PORTS     mPort                                  

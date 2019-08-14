@@ -47,6 +47,7 @@ margin_read0_ckbd
 margin_read1_all1
 margin_read1_ckbd
 meas_read_pump
+mixed_flag_check
 mrd_ckbd
 normal_read_ckbd
 not_p1_or_p2_test

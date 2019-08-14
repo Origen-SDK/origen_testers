@@ -288,6 +288,9 @@ tm_94:
 tm_95:
   "output" = "None";
   "testName" = "Functional";
+tm_96:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
@@ -483,6 +486,8 @@ tm_94:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_95:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_96:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
 -----------------------------------------------------------------
@@ -677,6 +682,8 @@ tm_93:
 tm_94:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_95:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_96:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
@@ -1158,6 +1165,13 @@ margin_read1_ckbd_864CE8F:
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
   override_testf = tm_2;
+  site_control = "parallel:";
+  site_match = 2;
+mixed_flag_check_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mixed_flag_check";
+  override_testf = tm_96;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
@@ -1857,6 +1871,13 @@ test_flow
           run(cc_test_0_864CE8F);
           run(cc_test_1_864CE8F);
           run(cc_test_2_864CE8F);
+          if @SYM_FLAG == 1 or @StringFLag == 1 then
+          {
+             run(mixed_flag_check_864CE8F);
+          }
+          else
+          {
+          }
           {
              run_and_branch(deep_test)
              then
