@@ -227,9 +227,9 @@ Flow.create do |options|
   end
 
   # Ensure that mixed flag types work
-  #if_enable [:sym_flag, "$StringFLag"] do
-  #  func :mixed_flag_check
-  #end
+  if_enable [:sym_flag, "$StringFLag"] do
+    func :mixed_flag_check
+  end
 
   import 'deep_nested'
 end
