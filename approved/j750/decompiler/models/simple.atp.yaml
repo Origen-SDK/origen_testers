@@ -1,10 +1,10 @@
 ---
 :pattern: 
-:timestamp: '2019-05-05 19:45:08 -0700'
+:timestamp: '2019-08-10 05:29:27 -0700'
 :class: OrigenTesters::IGXLBasedTester::Pattern
 :frontmatter:
   :class: OrigenTesters::Decompiler::Pattern::Frontmatter
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Frontmatter
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Frontmatter
   :pattern_header:
   - "// ***************************************************************************"
   - "// GENERATED:"
@@ -29,7 +29,13 @@
   - "//     origen_swd:               1.1.0"
   - "// ***************************************************************************"
   :comments: []
-  :platform_nodes: {}
+  :platform_nodes:
+    :imports:
+      tp0: tset
+    :variable_assignments:
+      svm_only_file: 'no'
+      opcode_mode: extended
+      compressed: 'yes'
 :pinlist:
   :class: OrigenTesters::Decompiler::Pattern::Pinlist
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Pinlist
@@ -43,14 +49,14 @@
 - :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 0
   :type: :start_label
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::StartLabel
   :platform_nodes:
     :start_label: pattern_st
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 1
   :index: 
   :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::CommentBlock
   :comments:
   - "//                                                                                              t
     t t t"
@@ -67,7 +73,7 @@
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 2
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 1
   :pin_states:
@@ -76,6 +82,4 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: end_module
-    :opcode_arguments: []
+  :platform_nodes: {}

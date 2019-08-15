@@ -1,10 +1,10 @@
 ---
 :pattern: 
-:timestamp: '2019-05-05 19:53:53 -0700'
+:timestamp: '2019-08-11 14:38:04 -0700'
 :class: OrigenTesters::SmartestBasedTester::Pattern
 :frontmatter:
   :class: OrigenTesters::Decompiler::Pattern::Frontmatter
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Frontmatter
+  :processor: OrigenTesters::Decompiler::Nodes::Frontmatter
   :pattern_header:
   - "# ***************************************************************************"
   - "# GENERATED:"
@@ -32,7 +32,7 @@
   :platform_nodes: {}
 :pinlist:
   :class: OrigenTesters::Decompiler::Pattern::Pinlist
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Pinlist
+  :processor: OrigenTesters::Decompiler::Nodes::Pinlist
   :pinlist:
   - :TCLK
   - :TDI
@@ -44,7 +44,7 @@
   :vector_index: 0
   :index: 
   :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :processor: OrigenTesters::Decompiler::Nodes::CommentBlock
   :comments:
   - "#                                                   c d d m"
   - "#                                                   l i o s"
@@ -56,7 +56,7 @@
 - :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 1
   :type: :sequencer_instruction
-  :processor: OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction
+  :processor: OrigenTesters::SmartestBasedTester::Decompiler::AVC::SequencerInstruction
   :platform_nodes:
     :instruction: SQPG
     :arguments:

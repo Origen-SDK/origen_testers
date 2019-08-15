@@ -1,10 +1,10 @@
 ---
 :pattern: 
-:timestamp: '2019-05-05 19:49:08 -0700'
+:timestamp: '2019-08-10 05:40:19 -0700'
 :class: OrigenTesters::IGXLBasedTester::Pattern
 :frontmatter:
   :class: OrigenTesters::Decompiler::Pattern::Frontmatter
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Frontmatter
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Frontmatter
   :pattern_header:
   - "// ***************************************************************************"
   - "// GENERATED:"
@@ -26,7 +26,13 @@
   - "//     origen_swd:               0.5.0"
   - "// ***************************************************************************"
   :comments: []
-  :platform_nodes: {}
+  :platform_nodes:
+    :imports:
+      tp0: tset
+    :variable_assignments:
+      svm_only_file: 'no'
+      opcode_mode: extended
+      compressed: 'yes'
 :pinlist:
   :class: OrigenTesters::Decompiler::Pattern::Pinlist
   :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Pinlist
@@ -40,14 +46,14 @@
 - :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
   :vector_index: 0
   :type: :start_label
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::StartLabel
   :platform_nodes:
     :start_label: pattern_st
 - :class: OrigenTesters::Decompiler::Pattern::CommentBlock
   :vector_index: 1
   :index: 
   :type: :comment_block
-  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::CommentBlock
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::CommentBlock
   :comments:
   - "//                                                                                              t
     t t t"
@@ -62,7 +68,7 @@
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 2
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -71,14 +77,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 3
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -87,14 +90,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 4
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -103,14 +103,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 5
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -119,14 +116,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 6
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -135,14 +129,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 7
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -151,14 +142,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 8
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -167,14 +155,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 9
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -183,14 +168,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 10
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -199,14 +181,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 11
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 65535
   :pin_states:
@@ -215,14 +194,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '65535'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 12
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 11316
   :pin_states:
@@ -231,14 +207,11 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: repeat
-    :opcode_arguments:
-    - '11316'
+  :platform_nodes: {}
 - :class: OrigenTesters::Decompiler::Pattern::Vector
   :vector_index: 13
   :type: :vector
-  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
   :timeset: tp0
   :repeat: 1
   :pin_states:
@@ -247,6 +220,4 @@
   - X
   - X
   :comment: ''
-  :platform_nodes:
-    :opcode: end_module
-    :opcode_arguments: []
+  :platform_nodes: {}
