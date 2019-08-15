@@ -95,9 +95,6 @@ module Origen
         options = {
           reload_target: true
         }.merge(options)
-        # Refresh the target to start all settings from scratch each time
-        # This is an easy way to reset all registered values
-        Origen.tester.generating = :program
         # Make the top level flow globally available, this helps to assign test descriptions
         # to the correct flow whenever tests are instantiated from sub-flows
         if Origen.interface_loaded? && Origen.interface.top_level_flow
@@ -111,7 +108,10 @@ module Origen
         job.output_file_body = options.delete(:name).to_s if options[:name]
         if sub_flow
           interface = Origen.interface
-          Origen.app.reload_target! if reload_target?(interface, options)
+          if reload_target?(interface, options)
+            Origen.app.reload_target!
+            Origen.tester.generating = :program
+          end
           opts = Origen.generator.option_pipeline.pop || {}
           Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
           interface.instance_exec(opts, &block)
@@ -123,7 +123,10 @@ module Origen
         else
           Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
           interface = Origen.reset_interface(options)
-          Origen.app.reload_target! if reload_target?(interface, options)
+          if reload_target?(interface, options)
+            Origen.app.reload_target!
+            Origen.tester.generating = :program
+          end
           Origen.interface.set_top_level_flow
           Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
           options[:top_level] = true
