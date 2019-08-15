@@ -38,7 +38,6 @@ module OrigenTesters
             let(:vut) { platform.current.vector_at(index) }
             
             it "has a processor of type #{expected[:processor].constantize}" do
-              #expect(vut.processor).to be_a(OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel)
               expect(vut.processor).to be_a(expected[:processor].constantize)
             end
                         
