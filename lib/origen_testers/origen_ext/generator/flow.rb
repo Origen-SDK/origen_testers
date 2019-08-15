@@ -92,6 +92,9 @@ module Origen
 
       # @api private
       def _create(options = {}, &block)
+        options = {
+          reload_target: true
+        }.merge(options)
         # Refresh the target to start all settings from scratch each time
         # This is an easy way to reset all registered values
         Origen.tester.generating = :program
