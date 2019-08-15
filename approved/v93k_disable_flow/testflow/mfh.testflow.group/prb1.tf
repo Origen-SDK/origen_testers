@@ -9,6 +9,9 @@ tm_1:
 tm_10:
   "output" = "None";
   "testName" = "Functional";
+tm_100:
+  "output" = "None";
+  "testName" = "Functional";
 tm_11:
   "output" = "None";
   "testName" = "Functional";
@@ -295,6 +298,9 @@ tm_97:
   "output" = "None";
   "testName" = "Functional";
 tm_98:
+  "output" = "None";
+  "testName" = "Functional";
+tm_99:
   "output" = "None";
   "testName" = "Functional";
 
@@ -306,6 +312,8 @@ tm_1:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_10:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_100:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_11:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_12:
@@ -497,6 +505,8 @@ tm_96:
 tm_97:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_98:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_99:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -507,6 +517,8 @@ tm_1:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_10:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_100:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_11:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_12:
@@ -698,6 +710,8 @@ tm_96:
 tm_97:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_98:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_99:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
@@ -1019,6 +1033,21 @@ erase_all_9_864CE8F:
   override_testf = tm_36;
   site_control = "parallel:";
   site_match = 2;
+force_serial_false_test_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "force_serial_false_test";
+  override_testf = tm_100;
+  site_control = "parallel:";
+  site_match = 2;
+force_serial_true_test_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "force_serial_true_test";
+  override_testf = tm_99;
+  site_control = "parallel:";
+  site_match = 2;
+  force_serial = true;
 margin_read0_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
@@ -1919,6 +1948,9 @@ test_flow
           print_dl("Passing test flags works as expected");
           run(test_with_no_flags_864CE8F);
           run(test_with_flags_864CE8F);
+          print_dl("force_serial test method parameter can be programmed");
+          run(force_serial_true_test_864CE8F);
+          run(force_serial_false_test_864CE8F);
        }, open,"prb1_main", ""
        if @DEEP_TEST_864CE8F_FAILED == 1 then
        {

@@ -14,6 +14,8 @@ cc_test_0 .tmf mPort
 cc_test_1 .tmf mPort
 cc_test_2 .tmf mPort
 erase_all .tmf mPort
+force_serial_false_test .tmf mPort
+force_serial_true_test .tmf mPort
 margin_read0_ckbd .tmf mPort
 margin_read1_all1 .tmf mPort
 margin_read1_ckbd .tmf mPort
@@ -56,6 +58,16 @@ MULTI_PORT_BURST "mPort_erase_all"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           erase_all
+
+MULTI_PORT_BURST "mPort_force_serial_false_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          force_serial_false_test
+
+MULTI_PORT_BURST "mPort_force_serial_true_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          force_serial_true_test
 
 MULTI_PORT_BURST "mPort_margin_read0_ckbd" 
 PORTS     mPort                                  

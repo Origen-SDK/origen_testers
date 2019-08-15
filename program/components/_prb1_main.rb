@@ -242,4 +242,10 @@ Flow.create do |options|
     func :test_with_flags, bypass: true, output_on_pass: true, output_on_fail: true, value_on_pass: true, value_on_fail: true, per_pin_on_pass: true, per_pin_on_fail: true, number: 6030
   end
 
+  if tester.smt7?
+    log 'force_serial test method parameter can be programmed'
+    func :force_serial_true_test, force_serial: true
+    func :force_serial_false_test, force_serial: false
+  end
+
 end

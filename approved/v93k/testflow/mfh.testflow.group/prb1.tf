@@ -33,6 +33,12 @@ tm_106:
 tm_107:
   "output" = "None";
   "testName" = "Functional";
+tm_108:
+  "output" = "None";
+  "testName" = "Functional";
+tm_109:
+  "output" = "None";
+  "testName" = "Functional";
 tm_11:
   "output" = "None";
   "testName" = "Functional";
@@ -349,6 +355,10 @@ tm_106:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_107:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_108:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_109:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_11:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_12:
@@ -568,6 +578,10 @@ tm_106:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_107:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_108:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_109:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_11:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_12:
@@ -778,28 +792,28 @@ bitcell_iv_0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_0";
-  override_testf = tm_101;
+  override_testf = tm_103;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_1";
-  override_testf = tm_102;
+  override_testf = tm_104;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_2";
-  override_testf = tm_103;
+  override_testf = tm_105;
   site_control = "parallel:";
   site_match = 2;
 bitmap_all0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitmap_all0";
-  override_testf = tm_100;
+  override_testf = tm_102;
   site_control = "parallel:";
   site_match = 2;
 cc_test_0_864CE8F:
@@ -1065,7 +1079,7 @@ erase_all_41_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "erase_all";
-  override_testf = tm_107;
+  override_testf = tm_109;
   site_control = "parallel:";
   site_match = 2;
 erase_all_4_864CE8F:
@@ -1117,11 +1131,26 @@ erase_all_9_864CE8F:
   override_testf = tm_36;
   site_control = "parallel:";
   site_match = 2;
+force_serial_false_test_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "force_serial_false_test";
+  override_testf = tm_100;
+  site_control = "parallel:";
+  site_match = 2;
+force_serial_true_test_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "force_serial_true_test";
+  override_testf = tm_99;
+  site_control = "parallel:";
+  site_match = 2;
+  force_serial = true;
 margin_read0_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read0_ckbd";
-  override_testf = tm_106;
+  override_testf = tm_108;
   site_control = "parallel:";
   site_match = 2;
 margin_read0_ckbd_864CE8F:
@@ -1283,7 +1312,7 @@ margin_read1_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
-  override_testf = tm_104;
+  override_testf = tm_106;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_ckbd_864CE8F:
@@ -1304,7 +1333,7 @@ normal_read_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "normal_read_ckbd";
-  override_testf = tm_105;
+  override_testf = tm_107;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
@@ -1395,7 +1424,7 @@ program_ckbd_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "program_ckbd";
-  override_testf = tm_99;
+  override_testf = tm_101;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_1_864CE8F:
@@ -2043,6 +2072,9 @@ test_flow
        print_dl("Passing test flags works as expected");
        run(test_with_no_flags_864CE8F);
        run(test_with_flags_864CE8F);
+       print_dl("force_serial test method parameter can be programmed");
+       run(force_serial_true_test_864CE8F);
+       run(force_serial_false_test_864CE8F);
     }, open,"prb1_main", ""
     if @DEEP_TEST_864CE8F_FAILED == 1 then
     {

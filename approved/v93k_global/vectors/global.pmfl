@@ -9,6 +9,8 @@ cc_test_0.binl.gz
 cc_test_1.binl.gz
 cc_test_2.binl.gz
 erase_all.binl.gz
+force_serial_false_test.binl.gz
+force_serial_true_test.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz
 margin_read1_ckbd.binl.gz

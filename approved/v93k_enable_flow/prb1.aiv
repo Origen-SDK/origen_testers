@@ -14,6 +14,8 @@ cc_test_0 .tmf
 cc_test_1 .tmf
 cc_test_2 .tmf
 erase_all .tmf
+force_serial_false_test .tmf
+force_serial_true_test .tmf
 margin_read0_ckbd .tmf
 margin_read1_all1 .tmf
 margin_read1_ckbd .tmf
