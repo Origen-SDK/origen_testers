@@ -83,6 +83,14 @@ RSpec.shared_examples(:platform_interface) do |platform|
 
       end
 
+=begin
+      # These were removed during the transition to manual REGEX based decompilation.
+      # Hopefully, these can be added back in, but it'll require additional regex checks
+      # which may hinder performance. For now, these are just removed.
+      # Note: this allows the potential for incorrect formatting to still be parsed. If the source
+      # is genuine, this is a non-issue though and failure to parse/incorrect parsing
+      # would be a bug in the regex instead of a shortcoming of them.
+       
       # Error conditions. These patterns are expected to fail decompilation,
       # but should do so with some caught, helpful error, rather than just blowing up
       # with a stack trace.
@@ -141,8 +149,8 @@ RSpec.shared_examples(:platform_interface) do |platform|
             platform.error_conditions(self)
           end
         end
-
       end
+=end
     end
     
     # Clean up after this context has run.

@@ -30,7 +30,7 @@ RSpec::Matchers.define :match_vector do |expected, index|
       if !actual.processor.respond_to?(n.to_sym)
         @failures << "expected platform node '#{n}' with value '#{v}', but actual vector's processor does not contain a #{n} platform node"
       elsif actual.send(n) != v
-        @failures << "expected platform node '#{n}' with value '#{v}' -> received '#{v}'"
+        @failures << "expected platform node '#{n}' with value '#{v}' (#{v.class}) -> received '#{actual.send(n)}' (#{actual.send(n).class})"
       end
     end
         
