@@ -17,6 +17,7 @@ erase_all .tmf
 margin_read0_ckbd .tmf
 margin_read1_all1 .tmf
 margin_read1_ckbd .tmf
+mixed_flag_check .tmf
 mrd_ckbd .tmf
 not_p1_or_p2_test .tmf
 not_p1_test .tmf

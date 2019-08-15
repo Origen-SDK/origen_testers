@@ -226,6 +226,14 @@ Flow.create do |options|
     func "cc_test_#{i}".to_sym, number: 7000 + i
   end
 
+  # Ensure that mixed flag types work
+  if tester.smt7?
+    log 'Passing test flags of mixed types works as expected'
+    if_enable [:sym_flag, "$StringFLag"] do
+      func :mixed_flag_check
+    end
+  end
+
   import 'deep_nested'
 
   if tester.smt7?

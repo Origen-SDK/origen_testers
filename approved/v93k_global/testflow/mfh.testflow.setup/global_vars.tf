@@ -32,6 +32,8 @@ user DO_ERASE = 0;
 user EXTRA_TESTS = 0;
 user NO_EXTRA_ERASE = 0;
 user PRB2_ENABLE = 1;
+user SYM_FLAG = 0;
+user StringFLag = 0;
 user USB_XCVR_CZ = 0;
 
 end

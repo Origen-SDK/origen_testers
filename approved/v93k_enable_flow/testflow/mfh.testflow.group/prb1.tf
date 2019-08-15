@@ -294,6 +294,9 @@ tm_96:
 tm_97:
   "output" = "None";
   "testName" = "Functional";
+tm_98:
+  "output" = "None";
+  "testName" = "Functional";
 
 end
 -----------------------------------------------------------------
@@ -493,6 +496,8 @@ tm_96:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_97:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_98:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
 -----------------------------------------------------------------
@@ -691,6 +696,8 @@ tm_95:
 tm_96:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_97:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_98:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 
 end
@@ -1174,6 +1181,13 @@ margin_read1_ckbd_864CE8F:
   override_testf = tm_2;
   site_control = "parallel:";
   site_match = 2;
+mixed_flag_check_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "mixed_flag_check";
+  override_testf = tm_96;
+  site_control = "parallel:";
+  site_match = 2;
 not_p1_or_p2_test_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
@@ -1339,13 +1353,13 @@ test_with_flags_864CE8F:
   local_flags = bypass, output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "test_with_flags";
-  override_testf = tm_97;
+  override_testf = tm_98;
   site_control = "parallel:";
   site_match = 2;
 test_with_no_flags_864CE8F:
   override = 1;
   override_seqlbl = "test_with_no_flags";
-  override_testf = tm_96;
+  override_testf = tm_97;
   site_control = "parallel:";
   site_match = 2;
 xcvr_fs_vilvih_1_864CE8F:
@@ -1884,6 +1898,14 @@ test_flow
           run(cc_test_0_864CE8F);
           run(cc_test_1_864CE8F);
           run(cc_test_2_864CE8F);
+          print_dl("Passing test flags of mixed types works as expected");
+          if @SYM_FLAG == 1 or @StringFLag == 1 then
+          {
+             run(mixed_flag_check_864CE8F);
+          }
+          else
+          {
+          }
           {
              run_and_branch(deep_test)
              then
