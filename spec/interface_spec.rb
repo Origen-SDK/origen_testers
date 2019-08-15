@@ -75,3 +75,47 @@ describe "An interface" do
     end
   end
 end
+
+describe "An interface that does not want the target re-loaded" do
+
+  class InterfaceThatLikesSpeed
+    include OrigenTesters::ProgramGenerators
+
+    attr_accessor :reload_target
+
+    def initialize(options = {})
+      @reload_target = false
+    end
+  end
+
+  before :each do
+    # Ugly hack, should add a proper API for this, though it should only
+    # ever be needed in a test situation
+    Origen.instance_variable_set("@interface", nil)
+    Origen.file_handler.current_file = Pathname.new("#{Origen.root}/spec/interface_spec")
+  end
+
+  after :all do
+    # Ugly hack, should add a proper API for this, though it should only
+    # ever be needed in a test situation
+    Origen.instance_variable_set("@interface", nil)
+    Origen.target.temporary = nil
+    Origen.app.unload_target!
+  end
+
+  it "Target is only loaded once during flow generation" do
+    Origen.environment.temporary = "uflex"
+    Origen.load_target("dut.rb")
+    dut.target_load_count.should == 1
+    Flow.create interface: 'InterfaceThatLikesSpeed' do
+      dut.target_load_count.should == 1
+    end
+    dut.target_load_count.should == 1
+    # The interface wins the day over any flow file settings
+    Flow.create interface: 'InterfaceThatLikesSpeed', reload_target: true do
+      dut.target_load_count.should == 1
+    end
+    dut.target_load_count.should == 1
+  end
+end
+
