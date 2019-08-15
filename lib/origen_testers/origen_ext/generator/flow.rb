@@ -190,6 +190,8 @@ module Origen
           # it can veto the default behavior of reloading the target
           if interface.reload_target && options[:reload_target]
             true
+          else
+            false
           end
         elsif options[:reload_target]
           true
