@@ -11,6 +11,9 @@ module Origen
       # Create a call stack of flows so that we can work out where the nodes
       # of the ATP AST originated from
       def create(options = {}, &block)
+        options = {
+          reload_target: true
+        }.merge(options)
         # Patch for Windows operation since the path can start with something like "C:/"
         if caller[0] =~ /(:(\/|\\))/
           orig_separator = Regexp.last_match(1)
@@ -91,7 +94,6 @@ module Origen
       def _create(options = {}, &block)
         # Refresh the target to start all settings from scratch each time
         # This is an easy way to reset all registered values
-        Origen.app.reload_target!
         Origen.tester.generating = :program
         # Make the top level flow globally available, this helps to assign test descriptions
         # to the correct flow whenever tests are instantiated from sub-flows
@@ -106,6 +108,7 @@ module Origen
         job.output_file_body = options.delete(:name).to_s if options[:name]
         if sub_flow
           interface = Origen.interface
+          Origen.app.reload_target! if reload_target?(interface, options)
           opts = Origen.generator.option_pipeline.pop || {}
           Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
           interface.instance_exec(opts, &block)
@@ -117,6 +120,7 @@ module Origen
         else
           Origen.log.info "Generating... #{Origen.file_handler.current_file.basename}"
           interface = Origen.reset_interface(options)
+          Origen.app.reload_target! if reload_target?(interface, options)
           Origen.interface.set_top_level_flow
           Origen.interface.flow_generator.set_flow_description(Origen.interface.consume_comments)
           options[:top_level] = true
@@ -170,6 +174,22 @@ module Origen
           end
         end
         [flow_comments, comments]
+      end
+
+      private
+
+      def reload_target?(interface, options)
+        if interface.respond_to?(:reload_target)
+          # If the test interface cares about reloading the target,
+          # it can veto the default behavior of reloading the target
+          if interface.reload_target && options[:reload_target]
+            true
+          end
+        elsif options[:reload_target]
+          true
+        else
+          false
+        end
       end
     end
   end
