@@ -31,7 +31,7 @@ module OrigenTesters
             let(:vut) { platform.current.vector_at(index) }
             
             it 'has a processor of type OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction' do
-              expect(vut.processor).to be_a(OrigenTesters::SmartestBasedTester::Decompiler::Processors::SequencerInstruction)
+              expect(vut.processor).to be_a(expected[:processor].constantize)
             end
                         
             it 'matches an expected instruction, using the :instruction method' do

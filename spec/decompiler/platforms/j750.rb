@@ -37,8 +37,9 @@ module OrigenTesters
           context platform.context_str(platform: 'j750', vector_type: 'start_label', index: index, index_key: index_key) do
             let(:vut) { platform.current.vector_at(index) }
             
-            it 'has a processor of type OrigenTesters::IGXLBasedTester::Decompiler::Processor::StartLabel' do
-              expect(vut.processor).to be_a(OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel)
+            it "has a processor of type #{expected[:processor].constantize}" do
+              #expect(vut.processor).to be_a(OrigenTesters::IGXLBasedTester::Decompiler::Processors::StartLabel)
+              expect(vut.processor).to be_a(expected[:processor].constantize)
             end
                         
             it 'matches an expected start_label, using the :start_label method' do
@@ -52,8 +53,8 @@ module OrigenTesters
           context platform.context_str(platform: 'j750', vector_type: 'global_label', index: index, index_key: index_key) do
             let(:vut) { platform.current.vector_at(index) }
             
-            it 'has a processor of type OrigenTesters::IGXLBasedTester::Decompiler::Processor::GlobalLabel' do
-              expect(vut.processor).to be_a(OrigenTesters::IGXLBasedTester::Decompiler::Processors::GlobalLabel)
+            it "has a processor of type #{expected[:processor].constantize}" do
+              expect(vut.processor).to be_a(expected[:processor].constantize)
             end
                         
             it 'matches an expected label name, using the :label_name method' do
@@ -67,8 +68,8 @@ module OrigenTesters
           context platform.context_str(platform: 'j750', vector_type: 'label', index: index, index_key: index_key) do
             let(:vut) { platform.current.vector_at(index) }
             
-            it 'has a processor of type OrigenTesters::IGXLBasedTester::Decompiler::Processor::Label' do
-              expect(vut.processor).to be_a(OrigenTesters::IGXLBasedTester::Decompiler::Processors::Label)
+            it "has a processor of type #{expected[:processor].constantize}" do
+              expect(vut.processor).to be_a(expected[:processor].constantize)
             end
                         
             it 'matches an expected label name, using the :label_name method' do
