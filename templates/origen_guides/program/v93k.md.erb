@@ -144,6 +144,9 @@ module Vreg
         my_test: {
           # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
           class_name:   'MyTestClass',
+          # [OPTIONAL] If the test method does not require a definition in the testmethodlimits section
+          #    of the .tf file, you can suppress like this:
+          render_limits_in_file: false,
           # Parameters can be defined with an underscored symbol as the name, this can be used
           # if the C++ implementation follows the standard V93K convention of calling the attribute
           # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this

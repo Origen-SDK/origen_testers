@@ -25,6 +25,14 @@ module OrigenTesters
         end
       end
 
+      def custom_b(name, options = {})
+        name = "custom_b_#{name}".to_sym
+        if tester.v93k?
+          ti = test_methods.my_tml.test_b
+          ti.my_arg0 = 'arg0_set'
+        end
+      end
+
       private
 
       def add_custom_tml
@@ -70,6 +78,11 @@ module OrigenTesters
                       tm.my_arg4 = val
                     end
                   }
+                },
+                test_b: {
+                  render_limits_in_tf: false,
+                  my_arg0:             [:string, ''],
+                  my_arg1:             [:string, 'b_default_value']
                 }
       end
 
