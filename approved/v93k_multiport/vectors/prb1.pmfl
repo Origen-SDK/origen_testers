@@ -9,11 +9,15 @@ cc_test_0.binl.gz
 cc_test_1.binl.gz
 cc_test_2.binl.gz
 erase_all.binl.gz
+force_serial_false_test.binl.gz
+force_serial_true_test.binl.gz
 mPort_another_not_p1_or_p2_test.binl.gz
 mPort_cc_test_0.binl.gz
 mPort_cc_test_1.binl.gz
 mPort_cc_test_2.binl.gz
 mPort_erase_all.binl.gz
+mPort_force_serial_false_test.binl.gz
+mPort_force_serial_true_test.binl.gz
 mPort_margin_read0_ckbd.binl.gz
 mPort_margin_read1_all1.binl.gz
 mPort_margin_read1_ckbd.binl.gz

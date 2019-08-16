@@ -14,6 +14,8 @@ erase1
 erase2
 erase_all
 extra_test
+force_serial_false_test
+force_serial_true_test
 ft_only_test1
 ft_only_test2
 grp1_test1
