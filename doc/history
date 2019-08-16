@@ -1,3 +1,21 @@
+<a class="anchor release_tag" name="v0_41_0"></a>
+<h1><a href="#v0_41_0">Tag: v0.41.0</a></h1>
+
+##### Branch: 'master'
+
+##### by info-rchitect on 16-Aug-2019 11:27AM
+
+
+* PR#134: Make target reload optional during flow generation
+* PR#133: Add support for the V93K `force\_serial` test method parameter
+* PR#129: Make rendering limits in V93K flow file optional at the test method library
+level
+* PR#132: Ensure flow variable flags of mixed types are allowed
+* PR#131: Bug fix for V83K flow generation if no local flags present
+* PR#125: New feature, `when*` conditional statements for V93K flow generation
+* PR#130: New feature, `if\_any\_site` and `if\_all\_sites` control options for IG-XL flow
+generation
+
 <a class="anchor release_tag" name="v0_40_0"></a>
 <h1><a href="#v0_40_0">Tag: v0.40.0</a></h1>
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    origen_testers (0.40.0)
+    origen_testers (0.41.0)
       ast (~> 2)
       origen (>= 0.44.0)
       origen_stil (>= 0.2.1)
@@ -173,4 +173,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   1.16.3
+   1.17.3
