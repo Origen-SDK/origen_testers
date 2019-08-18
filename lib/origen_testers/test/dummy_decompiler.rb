@@ -8,7 +8,34 @@ module OrigenTesters
           include VectorBasedTester
         end
 
-        class Pattern < OrigenTesters::Decompiler::Pattern
+        class PatternParsersMissing < OrigenTesters::Decompiler::Pattern
+        end
+
+        class PatternParseFrontmatterOnly < OrigenTesters::Decompiler::Pattern
+          def self.parse_frontmatter(raw_frontmatter:, context:)
+            OrigenTesters::Decompiler::Nodes::Frontmatter.new(context: context, pattern_header: [], comments: [])
+          end
+        end
+
+        class PatternParseFrontmatterPinlist < PatternParseFrontmatterOnly
+          def self.parse_pinlist(raw_pinlist:, context:)
+            OrigenTesters::Decompiler::Nodes::Pinlist.new(context: context, pattern_header: [], comments: [])
+          end
+        end
+
+        class PatternParseFrontmatterPinlistVector < PatternParseFrontmatterPinlist
+          def self.parse_vector(raw_vector:, context:)
+            OrigenTesters::Decompiler::Nodes::Vector.new(
+              context:    context,
+              repeat:     0,
+              timeset:    'timeset',
+              pin_states: %w(p1 p2),
+              comment:    'Comment'
+            )
+          end
+        end
+
+        class Pattern < PatternParseFrontmatterPinlistVector
           @platform = 'dummy'
           @platform_tokens = {
             comment_start: '#',
@@ -28,23 +55,27 @@ module OrigenTesters
           }
         end
 
-        class PatternIncomplete < OrigenTesters::Decompiler::Pattern
+        class PatternIncomplete < PatternParseFrontmatterPinlistVector
           @platform = 'dummy_incomplete'
         end
 
-        class PatternNoParserConfig < OrigenTesters::Decompiler::Pattern
+        class PatternNoParserConfig < PatternParseFrontmatterPinlistVector
           @platform = 'pattern_no_parser_config'
           @parser_config = nil
-          @splitter_config = {}
+          @splitter_config = {
+            pinlist_start: 0,
+            vectors_start: 0,
+            vectors_end:   -1
+          }
         end
 
-        class PatternNoSplitterConfig < OrigenTesters::Decompiler::Pattern
+        class PatternNoSplitterConfig < PatternParseFrontmatterPinlistVector
           @platform = 'pattern_no_splitter_config'
           @parser_config = {}
           @splitter_config = nil
         end
 
-        class PatternIncompleteSplitterConfig < OrigenTesters::Decompiler::Pattern
+        class PatternIncompleteSplitterConfig < PatternParseFrontmatterPinlistVector
           @platform = 'pattern_incomplete_splitter_config'
           @parser_config = {}
           @splitter_config = {
@@ -52,7 +83,7 @@ module OrigenTesters
           }
         end
 
-        class PatternNoVerify < OrigenTesters::Decompiler::Pattern
+        class PatternNoVerify < PatternParseFrontmatterPinlistVector
           @platform = 'pattern_no_verify'
           @no_verify = true
         end
