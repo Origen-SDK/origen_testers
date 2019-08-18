@@ -5,15 +5,10 @@ module OrigenTesters
 
       # Represents a single Vector's AST.
       class Vector < Base
-        def initialize(parent_or_ast, options = {})
-          if parent_or_ast.is_a?(VectorBodyElement)
-            @ast = parent_or_ast.ast
-            @processor = parent_or_ast.processor
-            @parent = parent_or_ast
-          else
-            @ast = parent_or_ast
-            @processor = select_processor.call(node: ast, source: :vector, decompiler: options[:decompiler]).new.run(ast, decompiler: options[:decompiler])
-          end
+        alias_method :parent, :node
+
+        def initialize(parent, options = {})
+          super(node: parent, context: parent.context)
         end
 
         def timeset
@@ -24,11 +19,6 @@ module OrigenTesters
           processor.repeat
         end
 
-        # def number_of_opcode_arguments
-        #  processor.opcode_arguments.size
-        # end
-        # alias_method :number_of_opcode_args, :number_of_opcode_arguments
-
         def pin_states
           processor.pin_states
         end
@@ -38,15 +28,15 @@ module OrigenTesters
         end
 
         def vector_index
-          @parent.vector_index
+          parent.vector_index
         end
 
         def to_yaml_hash(options = {})
-          if @ast.type == :vector
+          if parent.type == :vector
             {
               class:          self.class.to_s,
-              vector_index:   (@parent.respond_to?(:vector_index) ? @parent.vector_index : nil),
-              type:           @ast.type,
+              vector_index:   (parent.respond_to?(:vector_index) ? parent.vector_index : nil),
+              type:           parent.type,
               processor:      processor.class.to_s,
               timeset:        timeset,
               repeat:         repeat,
@@ -57,8 +47,8 @@ module OrigenTesters
           else
             {
               class:        self.class.to_s,
-              vector_index: (@parent.respond_to?(:vector_index) ? @parent.vector_index : nil),
-              type:         @ast.type,
+              vector_index: (parent.respond_to?(:vector_index) ? parent.vector_index : nil),
+              type:         parent.type,
               processor:    processor.class.to_s
             }
           end

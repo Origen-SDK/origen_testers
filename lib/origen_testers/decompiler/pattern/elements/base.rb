@@ -2,56 +2,23 @@ module OrigenTesters
   module Decompiler
     class Pattern
       class Base
-        attr_reader :ast
-        attr_reader :decompiled_pattern
-        attr_reader :processor
+        attr_reader :context
+        alias_method :decompiled_pattern, :context
 
-        def initialize(ast:, decompiled_pattern:, **options)
-          @decompiled_pattern = decompiled_pattern
-          @ast = ast
+        attr_reader :node
+        alias_method :processor, :node
 
-          # @processor = decompiled_pattern.select_processor.call(
-          #  node: ast, source: @source,
-          #  decompiled_pattern: decompiled_pattern
-          # ).new.run(ast, decompiled_pattern: decompiled_pattern)
-          if ast.is_a?(Struct)
-            @processor = ast
-            return
-          end
-
-          if decompiled_pattern.respond_to?(:select_processor)
-            @processor = decompiled_pattern.select_processor(
-              node:               ast,
-              source:             @source,
-              decompiled_pattern: decompiled_pattern
-            )
-            if @processor
-              @processor = @processor.new.run(ast, decompiled_pattern: decompiled_pattern)
-            end
-          end
-
-          if @processor.nil? && decompiled_pattern.include_vector_based_grammar?
-            @processor = OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors.select_processor(ast, decompiled_pattern: decompiled_pattern)
-            if @processor
-              @processor = @processor.new.run(ast, decompiled_pattern: decompiled_pattern)
-            end
-          end
-
-          if @processor.nil?
-            Origen.app.fail(exception_class: NoAvailableProcessor, message: "Could not match processor for AST type :#{ast.type}")
-          end
+        def initialize(node:, context:, **options)
+          @context = context
+          @node = node
         end
 
         def [](node)
-          processor.find(node)
+          node.find(node)
         end
 
         def _platform_nodes_
-          if ast.is_a?(Struct)
-            {}
-          else
-            processor.platform_nodes.each_with_object({}) { |n, h| h[n] = processor.send(n) }
-          end
+          node.platform_nodes.each_with_object({}) { |n, h| h[n] = node.send(n) }
         end
 
         def platform_nodes
@@ -59,16 +26,16 @@ module OrigenTesters
         end
 
         def method_missing(m, *args, &block)
-          if _platform_nodes_.include?(m) || ast.respond_to?(m)
-            processor.send(m)
+          if _platform_nodes_.include?(m) || node.respond_to?(m)
+            node.send(m)
           else
             super
           end
         end
 
         def execute!
-          if processor.execute?
-            processor.execute!(self)
+          if node.execute?
+            node.execute!(self)
           end
         end
 

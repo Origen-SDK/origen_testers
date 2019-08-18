@@ -1,6 +1,5 @@
 module OrigenTesters
   module Decompiler
-    require_relative './parser'
     require_relative './pattern/elements/base'
     require_relative './pattern/elements/comment_block'
     require_relative './pattern/elements/frontmatter'
@@ -12,10 +11,6 @@ module OrigenTesters
     require_relative './pattern/parsers'
     require_relative './pattern/splitter'
     require_relative './pattern/spec_helpers'
-    require_relative './base_grammar/tokens/nodes'
-    require_relative './base_grammar/tokens/processors'
-    require_relative './base_grammar/vector_based/nodes'
-    require_relative './base_grammar/vector_based/processors'
 
     class ParseError < Origen::OrigenError
     end
@@ -44,7 +39,6 @@ module OrigenTesters
         attr_reader :parser_config
         attr_reader :platform_tokens
         attr_reader :platform
-        attr_reader :select_processor
         attr_reader :no_verify
       end
 
@@ -104,7 +98,7 @@ module OrigenTesters
       end
 
       def parser_config
-        self.class.parser_config
+        self.class.parser_config || {}
       end
 
       def platform_tokens
@@ -121,13 +115,31 @@ module OrigenTesters
         self.class.splitter_config
       end
 
-      def include_vector_based_grammar?
-        !!parser_config[:include_vector_based_grammar]
+      def method_parse_frontmatter
+        if self.class.respond_to?(:parse_frontmatter)
+          self.class.method(:parse_frontmatter)
+        end
+      end
+
+      def method_parse_pinlist
+        if self.class.respond_to?(:parse_pinlist)
+          self.class.method(:parse_pinlist)
+        end
+      end
+
+      def method_parse_vector
+        if self.class.respond_to?(:parse_vector)
+          self.class.method(:parse_vector)
+        end
       end
 
       def verify_subclass_configuration
-        if parser_config.nil?
-          subclass_error('Missing class variable :parser_config')
+        if method_parse_frontmatter.nil?
+          subclass_error('Missing class method #parse_frontmatter')
+        elsif method_parse_pinlist.nil?
+          subclass_error('Missing class method #parse_pinlist')
+        elsif method_parse_vector.nil?
+          subclass_error('Missing class method #parse_vector')
         elsif splitter_config.nil?
           subclass_error('Missing class variable :splitter_config')
         elsif !(Splitter::REQUIRED_KEYS - splitter_config.keys).empty?
@@ -190,10 +202,6 @@ module OrigenTesters
 
       def pins
         pinlist.pins
-      end
-
-      def parser
-        @parser ||= OrigenTesters::Decompiler::Parser.new(self)
       end
 
       def decompile(options = {})

@@ -7,20 +7,14 @@ module OrigenTesters
         # The known vector element types, supported regardless of the tester/platform.
         BASE_ELEMENTS = [:vector, :comment_block]
 
-        attr_reader :ast
         attr_reader :type
         attr_reader :element
         attr_reader :vector_index
-        # attr_reader :parent
 
-        def initialize(ast:, decompiled_pattern:, **options)
+        def initialize(node:, context:, **options)
           @source = :vector_body_element
-          super(ast: ast, decompiled_pattern: decompiled_pattern)
-          if ast.is_a?(Hash)
-            @type = ast[:type]
-          else
-            @type = ast.type
-          end
+          super(node: node, context: context)
+          @type = node.type
           @vector_index = options[:vector_index]
 
           # If the processor is a :vector or a comment_block, we can deal with
@@ -39,8 +33,6 @@ module OrigenTesters
             CommentBlock.new(self)
           elsif type == :vector
             Vector.new(self)
-          elsif platform.responds_to?(:to_platform_specific_element)
-            platform.to_platform_specific_element(self)
           else
             fail "Could not cast platform-specific vector body element type :#{type} to a standalone class!"
           end

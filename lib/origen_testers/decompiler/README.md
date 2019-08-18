@@ -80,9 +80,7 @@ origen_testers
           |
            -> nodes.rb
           |
-           -> processors.rb
-          |
-           -> < ext name >.treetop
+           -> < ext name >.rb
 ~~~
 
 Nothing will stop you from implementing the decompiler directory structure in
@@ -132,33 +130,22 @@ after the start token is encountered (`false`).
 whatever token denotes the end of the vector appears __on the same line__ as the last vector.
 If `false`, the token that denotes the end of the `vector body` does __not__ also contain a vector.
 
-After splitting, the `frontmatter` and `pinlist` are parsed. Another singleton-class instance variable,
-`parser_config` is defined to provide the grammar setup. Within this Hash are
-various keys, but the only one that's required is:
+After splitting, the `frontmatter` and `pinlist` are parsed. The platform
+should provide methods `parse_frontmatter` and `parse_pinlist` and return
+`nodes` will contain the parsed contents.
 
-* `:grammar` An `Array` of grammar files. These will be included by the parser.
-
-The others are all related to the `base grammars`, which are covered in the next section.
-
-So far, grammars have only been implemented using [Treetop](https://github.com/cjheath/treetop),
-and that's what the current parsers will be expecting. The decompiler
-can provide its own `nodes` for integration with `treetop`, though that's
-not required.
-
-When a node is parsed, it will be converted to an [AST](http://whitequark.github.io/ast/index.html).
-Origen extends the `AST` a bit to provide the `platform nodes` and some
-other boiler-plate setup. `AST` will be expecting various `processors` for
-each `node` that may be encountered. These can either by implemented by the
-decompiler, or borrowed from the base.
+The vector body will be parsed one vector at a time. The method `parse_vector` should
+also be provided by the platform and should also return a `node` containing the
+parsed contents.
 
 In summary, the decompilation goes:
 
 ~~~
-pattern source (singleton) -> splitter (singleton) -> section parsers (per section) -> Treetop nodes (per node/token) -> AST nodes (per node/token)
+pattern source (singleton) -> splitter (singleton) -> section parsers (per section) -> platform parsers -> node
 ~~~
 
-The AST nodes are what is finally provided to the decompiled pattern and what the
-`universal API` expects and operates on.
+The nodes are what is finally provided to the decompiled pattern and what the
+`universal API` expects and operates on. Nodes will be covered more a few sections down.
 
 #### Vector Delimiter
 
@@ -187,76 +174,64 @@ module OrigenTesters
 end
 ~~~
 
-#### Base Grammars, Nodes, & Processors
+#### Parsing
 
-It turns out that platforms aren't actually that different from each other.
-Most follow a similar structure and provide comparable functionality; its really
-just different formating of the same thing. 
-This opens the door from some `shared`, or `base` setups which can be applied
-as the platform allows.
-
-The generic decompiler provides base `grammars`, `nodes`, and `processors`. Some
-setup in the `parser_config` indicates which aspects, if any, you'll want to use.
-
-* `:include_base_tokens_grammar` Boolean indicating whether the _base tokens_ grammar should be included.
-* `:include_vector_based_grammar` Boolean indicating wither the _base vector-based_ grammar should be included.
-
-These still need to be included in your grammars, but the settings here indicate
-that the parsers should include them as well.
-
-Note that the `base nodes` and `base processsors` are always available, but
-won't actually do anything if not used. If the `base grammars` are not included,
-the `base nodes` will never be instantiated unless explicitly used elsewhere, and if the platform overrides
-all of the base processors, or never returns expected `types`, then the base
-processors will never be used. They are always available if needed though.
-
-Note too that not returning the common `types` (especially `:vector`) will break
-aspects of the `universal API`. Sub-classing the `base processors` is the
-route that should be taken. For example, both the `IGXLBasedTester::Pattern` and
-`SmartestBasedTester::Pattern` classes return a sub-classed base `vector processor`
-(`OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Vector`).
-`IGXLBasedTester::Pattern` actually returns a sub-classed `frontmatter` processor as well.
-
-#### Platform Tokens
-
-Using the `vector based grammar` requires that `comment_start` token. But,
-there's a bit of the circular dependency, as the `comment_start` is platform-specific,
-but the platform-specific grammar requires the `vector based` grammar. To
-overcome this, the decompiler can build a dynamic grammar from the `platform_tokens`
-Hash. This is the same Hash required by the
-`vector delimiter`, but can be expanded here to cover anything else needed.
-Any pairs defined will be built into treetop rules,
-where the `key` is the `rule name` and the `value` is the `rule value`. Indicate
-that this grammar should be built and included by setting `include_platform_generated_grammar: true`
-in the `parser_config`. 
-[See the `IGXLBasedTester::Pattern` for an example.](https://github.com/Origen-SDK/origen_testers/blob/master/lib/origen_testers/igxl_based_tester/decompiler.rb)
-
-#### Selecting Processors
-
-When a `vector body element` is encountered, it'll first try to call
-`select_processor` on the decompiler, allowing the decompiler to have the
-first say in what processor is used. Define a method `#select_processor`
-on the `decompiler class`:
+After the pattern is split into sections, its passed to the parsers. The parsers are
+provided by the platforms, which must provide three class methods which
+will parse the various sections:
 
 ~~~ruby
-def select_processor(node:, source:, **options)
-  case node.type
-    when :type1
-      OrigenTesters::MyPlatform::Decompiler::Processors::Type1
-    when :type2
-      OrigenTesters::MyPlatform::Decompiler::Processors::Type2
-    when :vector
-      # Use this vector class instead of the base vector.
-      OrigenTesters::MyPlatform::Decompiler::Processors::Vector
-  end
-end
+# Parse the frontmatter section
+parse_frontmatter(raw_frontmatter:, context:)
+
+# Parse the pinlist section
+parse_pinlist(raw_pinlist:, context:)
+
+# Parse each individual vector
+parse_vector(raw_vector:, context:, meta:)
 ~~~
 
-This returns either the class of the processor to use, or `nil`. If `nil` is
-returned, the [default selector](https://github.com/Origen-SDK/origen_testers/blob/master/lib/origen_testers/decompiler/base_grammar/vector_based/processors.rb)
-will be called. If the type still hasn't returned a `class`, then an exception
-is raised, implying that any platform that provides custom `vector body elements`
-__must__ implement this method and match the custom types.
+Since vectors are parsed independently, but serially, the Hash, `meta` is passed
+to each vector in turn for platforms whose decompilation of the current vector
+depends on some information from a previous vector. This Hash can be loaded with
+whatever is needed but its usage and maintainence is ultimately the platform's responsibility.
+
+Each method above should return a `node` which will hold the parsed values. The nodes should
+have the following fields:
+
+~~~
+Frontmatter:
+  context: the current decompiled pattern
+  pattern_header: any top-most comments, usually containing information such
+    as the pattern name, dependencies, requirements, etc.
+  comments: any other comments.
+  
+  Differentiating between the pattern header and comments is up to the platform to decide.
+
+Pinlist:
+  context: the current decompiled pattern.
+  pins: Array of pin names appearing in the pattern.
+
+The vector body is a bit different, and can return either a genuine vector,
+or another node, depending on what that particular vector body element is.
+
+Is general, all that needed is:
+  context: the current decompiled pattern.
+
+But for a Vector:
+  context: the current decompiled pattern.
+  repeat
+  timeset
+  pin_states
+  comment
+~~~
+
+The decompiler provides some [starter nodes](https://github.com/Origen-SDK/origen_testers/blob/master/lib/origen_testers/decompiler/nodes),
+which can either be used directly
+for simpler platforms, or inherited as a building block to enable more complex decompilation.
+
+For examples, see: [the J750 nodes](https://github.com/Origen-SDK/origen_testers/blob/master/lib/origen_testers/igxl_based_tester/decompiler/atp.rb)
+or the [the V93K nodes](https://github.com/Origen-SDK/origen_testers/blob/master/lib/origen_testers/smartest_based_tester/decompiler/avc.rb).
 
 #### Registering The Decompiler
 

@@ -4,13 +4,7 @@ module OrigenTesters
       require_relative './base'
 
       class Frontmatter < Base
-        attr_reader :ast
-
-        def processor
-          @processor
-        end
-
-        def initialize(ast:, decompiled_pattern:)
+        def initialize(node:, context:)
           @source = :frontmatter
           super
         end
