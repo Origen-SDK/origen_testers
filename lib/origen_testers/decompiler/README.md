@@ -89,19 +89,19 @@ other ways, but this is the structure for existing decompilers.
 #### Extending the Base
 
 Extending `OrigenTesters::Decompiler::Pattern` provides the entire `universal API`,
-but it also provides the shell to run the _grammars_, match them to _nodes_, 
-_process_ the elements, then finally return a `decompiled pattern` object.
+but also provides the shell for going from pattern _pattern source_ to _decompiled pattern_
+object.
 
-`Decompilation` is split into a few parts:
+`Decompilation` entails:
 
-1. Split the pattern source into `sections`, returning the start and stop lines for the
+1. Splitting the pattern source into `sections`, returning the start and stop lines for the
 `frontmatter`, `pinlist`, and the `vector body`.
-2. Parse the `frontmatter`, storing the `AST` in memory.
-3. Parse the `pinlist`, storing the `AST` in memory.
+2. Parsing the `frontmatter`, storing the parsed contents in memory.
+3. Parsing the `pinlist`, storing the parsed contents in memory.
 
-The `vector body` itself it not actually parsed until required, and then its
+The `vector body` itself it not actually parsed until required, and even then its
 parsed and run line-by-line, only storing a single vector in memory at a time
-(unless the given `block` by the user saves them off manually...).
+(unless the given `block` by the user stores them manually).
 
 For `1.`, the `Pattern` class must provide a singleton-class instance variable `splitter_config`.
 The sections are assumed to be sequential, where the end of one section denotes
@@ -117,9 +117,9 @@ lines of the pattern, starting from the top and continuing until either `EoF` (e
 or until the `String` or `Regex` is matched. That index becomes the start/stop index
 for that section.
 
-* This is assuming the `frontmatter` starts at line 0.
+* This assumes the `frontmatter` starts at line 0.
 * The `vector_end` is used to end the `vector body` in the event that there's extra stuff at the bottom.
-If there never will be, `-1` will indicate that the `vector body end` is at `EoF`.
+If the platform's syntax does not allow this, `-1` will indicate that the `vector body end` is at `EoF`.
 
 Two other optional keys are available:
 
@@ -132,16 +132,16 @@ If `false`, the token that denotes the end of the `vector body` does __not__ als
 
 After splitting, the `frontmatter` and `pinlist` are parsed. The platform
 should provide methods `parse_frontmatter` and `parse_pinlist` and return
-`nodes` will contain the parsed contents.
+`nodes` containing the parsed contents. `Nodes` will be covered in a later section.
 
 The vector body will be parsed one vector at a time. The method `parse_vector` should
 also be provided by the platform and should also return a `node` containing the
 parsed contents.
 
-In summary, the decompilation goes:
+In summary, the decompilation process goes:
 
 ~~~
-pattern source (singleton) -> splitter (singleton) -> section parsers (per section) -> platform parsers -> node
+pattern source (singleton) -> splitter (singleton) -> section parsers (per section) -> platform parsers (per section) -> node (per section/per vector)
 ~~~
 
 The nodes are what is finally provided to the decompiled pattern and what the
@@ -152,15 +152,14 @@ The nodes are what is finally provided to the decompiled pattern and what the
 Individual `vector body elements` may span more than one line, the prime example
 begin `comment blocks`, since sequential blocks are combined into a single element.
 The `vector delimiter` is what _actually_ chops up lines of the `vector body` into
-a single element.
+a _raw vectors_ to then be parsed.
 
 So far, this has really only been used for comments, but could be expanded further.
 To handle comments though, the `vector delimiter` requires knowledge of the
 platform's `comment character`. This is set using the `platform_tokens` hash,
 containing a key `comment_start`.
 
-The `platform_tokens` has some other uses as well, covered in the _platform tokens_
-section further below. An example of setting this:
+An example of setting this:
 
 ~~~ruby
 module OrigenTesters
@@ -174,11 +173,11 @@ module OrigenTesters
 end
 ~~~
 
-#### Parsing
+#### Parsing And Nodes
 
 After the pattern is split into sections, its passed to the parsers. The parsers are
-provided by the platforms, which must provide three class methods which
-will parse the various sections:
+provided by the individual platforms, which must provide three class methods to
+parse the sections:
 
 ~~~ruby
 # Parse the frontmatter section
@@ -191,6 +190,11 @@ parse_pinlist(raw_pinlist:, context:)
 parse_vector(raw_vector:, context:, meta:)
 ~~~
 
+The `context` is the decompiled pattern itself. Any information contained
+or anything parsed-and-stored is available for subsequent parsers to use. For example,
+this allows the `V93K` decompiler to use knowledge of the `pinlist` as it
+parses `vectors`.
+
 Since vectors are parsed independently, but serially, the Hash, `meta` is passed
 to each vector in turn for platforms whose decompilation of the current vector
 depends on some information from a previous vector. This Hash can be loaded with
@@ -201,25 +205,25 @@ have the following fields:
 
 ~~~
 Frontmatter:
-  context: the current decompiled pattern
+  context: the current decompiled pattern object.
   pattern_header: any top-most comments, usually containing information such
     as the pattern name, dependencies, requirements, etc.
   comments: any other comments.
   
-  Differentiating between the pattern header and comments is up to the platform to decide.
+  What constitutes the pattern header as opposed just comments is up to the platform.
 
 Pinlist:
-  context: the current decompiled pattern.
+  context: the current decompiled pattern object.
   pins: Array of pin names appearing in the pattern.
 
 The vector body is a bit different, and can return either a genuine vector,
 or another node, depending on what that particular vector body element is.
 
 Is general, all that needed is:
-  context: the current decompiled pattern.
+  context: the current decompiled pattern object.
 
 But for a Vector:
-  context: the current decompiled pattern.
+  context: the current decompiled pattern object.
   repeat
   timeset
   pin_states

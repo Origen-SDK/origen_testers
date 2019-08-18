@@ -3,6 +3,8 @@ module OrigenTesters
     module Decompiler
       module Atp
         class Vector < OrigenTesters::Decompiler::Nodes::Vector
+          PLATFORM_NODES = [:opcode, :opcode_arguments]
+
           def initialize(**options)
             @opcode = options[:opcode]
             @opcode_arguments = options[:opcode_arguments] || []

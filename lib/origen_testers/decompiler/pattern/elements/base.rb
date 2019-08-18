@@ -17,16 +17,12 @@ module OrigenTesters
           node.find(node)
         end
 
-        def _platform_nodes_
-          node.platform_nodes.each_with_object({}) { |n, h| h[n] = node.send(n) }
-        end
-
         def platform_nodes
-          _platform_nodes_
+          node.platform_nodes
         end
 
         def method_missing(m, *args, &block)
-          if _platform_nodes_.include?(m) || node.respond_to?(m)
+          if platform_nodes.include?(m) || node.respond_to?(m)
             node.send(m)
           else
             super
