@@ -2,13 +2,20 @@ module OrigenTesters
   module SmartestBasedTester
     module Decompiler
       module Avc
-        class SequencerInstruction < Treetop::Runtime::SyntaxNode
+        class SequencerInstruction < OrigenTesters::Decompiler::Nodes::Node
+          PLATFORM_NODES = [:instruction, :arguments]
+
+          def initialize(instruction:, arguments: [], context: context)
+            @execute = false
+
+            @instruction = instruction
+            @arguments = arguments
+
+            super(context: context, type: :sequencer_instruction)
+          end
         end
 
-        class Repeat < Treetop::Runtime::SyntaxNode
-        end
-
-        class Vector < Treetop::Runtime::SyntaxNode
+        class Vector < OrigenTesters::Decompiler::Nodes::Vector
         end
       end
     end

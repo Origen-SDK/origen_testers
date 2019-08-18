@@ -1,6 +1,6 @@
-require 'extensions/treetop/runtime/syntax_node'
-require 'extensions/origen/ast'
 require_relative 'decompiler/decompiler_api'
+require_relative 'decompiler/nodes'
+require_relative 'decompiler/pattern'
 
 module OrigenTesters
   module Decompiler
