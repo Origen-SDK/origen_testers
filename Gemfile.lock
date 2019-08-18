@@ -18,7 +18,6 @@ PATH
       require_all (~> 1)
       rodf (~> 1)
       sexpistol (~> 0.0)
-      treetop
 
 GEM
   remote: https://rubygems.org/
