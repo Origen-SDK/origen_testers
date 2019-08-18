@@ -23,7 +23,7 @@ opcode_mode = extended;
 compressed = yes;                                                                               
                                                                                                 
 // ERROR: Removed the commas from the pinlist. This hould fail to parse.
-vector ($tset tclk tdi tdo tms)                                                             
+vector $tset tclk tdi tdo tms                                                             
 {                                                                                               
 start_label pattern_st:                                                                         
 //                                                                                              t t t t

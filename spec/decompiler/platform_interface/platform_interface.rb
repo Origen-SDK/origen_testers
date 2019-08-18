@@ -83,14 +83,6 @@ RSpec.shared_examples(:platform_interface) do |platform|
 
       end
 
-=begin
-      # These were removed during the transition to manual REGEX based decompilation.
-      # Hopefully, these can be added back in, but it'll require additional regex checks
-      # which may hinder performance. For now, these are just removed.
-      # Note: this allows the potential for incorrect formatting to still be parsed. If the source
-      # is genuine, this is a non-issue though and failure to parse/incorrect parsing
-      # would be a bug in the regex instead of a shortcoming of them.
-       
       # Error conditions. These patterns are expected to fail decompilation,
       # but should do so with some caught, helpful error, rather than just blowing up
       # with a stack trace.
@@ -106,13 +98,13 @@ RSpec.shared_examples(:platform_interface) do |platform|
         it 'complains if the pattern frontmatter cannot be parsed' do
           expect {
             platform.decompile(platform.error_condition('parse_failure_frontmatter'))
-          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Could not parse the frontmatter of pattern/)
+          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Error encountered while parsing the frontmatter:/)
         end
 
         it 'complains if the pinlist cannot be parsed' do
           expect {
             platform.decompile(platform.error_condition('parse_failure_pinlist'))
-          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Could not parse the pinlist of pattern/)
+          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Error encountered while parsing the pinlist/)
         end
 
         it 'complains if the vector body cannot be found' do
@@ -128,7 +120,7 @@ RSpec.shared_examples(:platform_interface) do |platform|
             # The entire vector body won't actually be parsed at decompiled pattern's initialization,
             # so kick off the vectors here to trigger the error.
             model.collect_vectors
-          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Could not parse the vector body of pattern/)
+          }.to raise_error(OrigenTesters::Decompiler::ParseError, /Error encountered while parsing the vector at index/)
         end
 
         it 'complains if no first vector can be found' do
@@ -150,7 +142,6 @@ RSpec.shared_examples(:platform_interface) do |platform|
           end
         end
       end
-=end
     end
     
     # Clean up after this context has run.

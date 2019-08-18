@@ -35,7 +35,7 @@ repeat 65535                                                     > tp0          
 repeat 65535                                                     > tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;
-ERROR: This should fail to parse.
+repeat ERROR                                                       tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;
 repeat 65535                                                     > tp0                          X X X X ;

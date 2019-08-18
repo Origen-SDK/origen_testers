@@ -1,13 +1,38 @@
 RSpec.shared_examples(:decompiled_pattern) do |options|
   describe OrigenTesters::Decompiler::Pattern do
     describe 'class extensions' do
-      it 'complains if the parser configuration is missing from the child class' do
+      it 'has an empty parser config by default' do
         klass = dummy_mods::PatternNoParserConfig
+        expect(klass.new('', direct_source: true).parser_config).to eql({})
+      end
+      
+      it 'complains if a #parse_frontmatter is missing from the child class' do
+        klass = dummy_mods::PatternParsersMissing
         expect {
           klass.new('', direct_source: true)
         }.to raise_error(
           OrigenTesters::Decompiler::SubclassError,
-          /Missing class variable :parser_config/
+          /Missing class method #parse_frontmatter/
+        )
+      end
+
+      it 'complains if a #parse_pinlist is missing from the child class' do
+        klass = dummy_mods::PatternParseFrontmatterOnly
+        expect {
+          klass.new('', direct_source: true)
+        }.to raise_error(
+          OrigenTesters::Decompiler::SubclassError,
+          /Missing class method #parse_pinlist/
+        )
+      end
+
+      it 'complains if a #parse_vector is missing from the child class' do
+        klass = dummy_mods::PatternParseFrontmatterPinlist
+        expect {
+          klass.new('', direct_source: true)
+        }.to raise_error(
+          OrigenTesters::Decompiler::SubclassError,
+          /Missing class method #parse_vector/
         )
       end
 

@@ -20,7 +20,7 @@
 #     origen_swd:               0.5.0
 # ***************************************************************************
 # Throw some special characters in the pinlist to induce an error
-FORMAT TCLK TDI TDO TMS !!!;
+FORMAT TCLK TDI TDO TMS Error!!!
 #                                                   t t t t
 #                                                   c d d m
 #                                                   l i o s
