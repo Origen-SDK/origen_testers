@@ -14,9 +14,12 @@ cc_test_0 .tmf mPort
 cc_test_1 .tmf mPort
 cc_test_2 .tmf mPort
 erase_all .tmf mPort
+force_serial_false_test .tmf mPort
+force_serial_true_test .tmf mPort
 margin_read0_ckbd .tmf mPort
 margin_read1_all1 .tmf mPort
 margin_read1_ckbd .tmf mPort
+mixed_flag_check .tmf mPort
 not_p1_or_p2_test .tmf mPort
 not_p1_test .tmf mPort
 p1_only_test .tmf mPort
@@ -27,6 +30,8 @@ program_ckbd_b0 .tmf mPort
 program_ckbd_b1 .tmf mPort
 program_ckbd_b2 .tmf mPort
 some_func_test .tmf mPort
+test_with_flags .tmf mPort
+test_with_no_flags .tmf mPort
 xcvr_fs_vilvih .tmf mPort
 
 MULTI_PORT_BURST "mPort_another_not_p1_or_p2_test" 
@@ -54,6 +59,16 @@ PORTS     mPort
 SEQ_GRPS  grp1                                  
           erase_all
 
+MULTI_PORT_BURST "mPort_force_serial_false_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          force_serial_false_test
+
+MULTI_PORT_BURST "mPort_force_serial_true_test" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          force_serial_true_test
+
 MULTI_PORT_BURST "mPort_margin_read0_ckbd" 
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
@@ -68,6 +83,11 @@ MULTI_PORT_BURST "mPort_margin_read1_ckbd"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           margin_read1_ckbd
+
+MULTI_PORT_BURST "mPort_mixed_flag_check" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          mixed_flag_check
 
 MULTI_PORT_BURST "mPort_not_p1_or_p2_test" 
 PORTS     mPort                                  
@@ -118,6 +138,16 @@ MULTI_PORT_BURST "mPort_some_func_test"
 PORTS     mPort                                  
 SEQ_GRPS  grp1                                  
           some_func_test
+
+MULTI_PORT_BURST "mPort_test_with_flags" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test_with_flags
+
+MULTI_PORT_BURST "mPort_test_with_no_flags" 
+PORTS     mPort                                  
+SEQ_GRPS  grp1                                  
+          test_with_no_flags
 
 MULTI_PORT_BURST "mPort_xcvr_fs_vilvih" 
 PORTS     mPort                                  

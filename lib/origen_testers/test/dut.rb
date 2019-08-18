@@ -10,6 +10,7 @@ module OrigenTesters
       attr_accessor :digcap_pins
       attr_accessor :digsrc_settings
       attr_accessor :digcap_settings
+      attr_accessor :target_load_count
 
       include OrigenARMDebug
       include Origen::TopLevel
@@ -23,6 +24,8 @@ module OrigenTesters
         @test_options = {
           test_generic_overlay_capture: options[:test_generic_overlay_capture]
         }
+
+        @target_load_count = 0
 
         add_pin :tclk
         add_pin :tdi
@@ -85,6 +88,10 @@ module OrigenTesters
             tester.memory_test_en = true
           end
         end
+      end
+
+      def on_load_target
+        @target_load_count += 1
       end
 
       def startup(options)

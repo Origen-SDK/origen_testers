@@ -236,7 +236,7 @@ def add_to_flow(test_object, options = {})
 end
 ~~~
 
-Finally, a convenience method exists that will trigger if either the context or one of your
+Also, a convenience method exists that will trigger if either the context or one of your
 specified parameters changes:
 
 ~~~ruby
@@ -244,5 +244,38 @@ if context_or_parameter_changed?(:vdde, :vddc, options)
   # ...
 ~~~
 
+#### Reloading of the Target
+
+By default, Origen reloads the target whenever a new flow file (top level or sub-flow) is encountered.  This can lead to
+increased flow generation time if the flow is large and calls many sub-flows.  To turn off reloading of the target, configure
+the test interface to set the attribute `reload_target` to `false`.  Here is an example from the origen_testers spec tests:
+
+~~~ruby
+class MyInterface
+  include OrigenTesters::ProgramGenerators
+
+  attr_accessor :reload_target
+
+  def initialize(options = {})
+    @reload_target = false
+  end
+end
+
+This feature also exists at the flow file level, however the test interface will take precendence.  For example, the following flow file option
+will not have any effect if the test interface has the `reload_target` attribute set to `false`.
+
+~~~ruby
+Flow.create interface: 'MyInterface', reload_target: true do
+  # Tests inserted here
+end
+~~~
+
+If the test interface does not set the `reload_target` attribute to `false`, then a flow file may do so to prevent reloading of the target.
+
+~~~ruby
+Flow.create interface: 'MyInterface', reload_target: false do
+  # Tests inserted here
+end
+~~~
 
 % end

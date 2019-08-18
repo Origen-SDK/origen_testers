@@ -33,6 +33,9 @@ tm_3:
   "myArg4" = "arg4_set_from_method";
   "testName" = "Functional";
   "testerState" = "CONNECTED";
+tm_4:
+  "myArg0" = "arg0_set";
+  "myArg1" = "b_default_value";
 
 end
 -----------------------------------------------------------------
@@ -55,6 +58,8 @@ tm_2:
   testmethod_class = "MyTml.TestA";
 tm_3:
   testmethod_class = "MyTml.TestA";
+tm_4:
+  testmethod_class = "MyTml.TestB";
 
 end
 -----------------------------------------------------------------

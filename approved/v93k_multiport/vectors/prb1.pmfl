@@ -9,14 +9,19 @@ cc_test_0.binl.gz
 cc_test_1.binl.gz
 cc_test_2.binl.gz
 erase_all.binl.gz
+force_serial_false_test.binl.gz
+force_serial_true_test.binl.gz
 mPort_another_not_p1_or_p2_test.binl.gz
 mPort_cc_test_0.binl.gz
 mPort_cc_test_1.binl.gz
 mPort_cc_test_2.binl.gz
 mPort_erase_all.binl.gz
+mPort_force_serial_false_test.binl.gz
+mPort_force_serial_true_test.binl.gz
 mPort_margin_read0_ckbd.binl.gz
 mPort_margin_read1_all1.binl.gz
 mPort_margin_read1_ckbd.binl.gz
+mPort_mixed_flag_check.binl.gz
 mPort_not_p1_or_p2_test.binl.gz
 mPort_not_p1_test.binl.gz
 mPort_p1_only_test.binl.gz
@@ -27,10 +32,13 @@ mPort_program_ckbd_b0.binl.gz
 mPort_program_ckbd_b1.binl.gz
 mPort_program_ckbd_b2.binl.gz
 mPort_some_func_test.binl.gz
+mPort_test_with_flags.binl.gz
+mPort_test_with_no_flags.binl.gz
 mPort_xcvr_fs_vilvih.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz
 margin_read1_ckbd.binl.gz
+mixed_flag_check.binl.gz
 not_p1_or_p2_test.binl.gz
 not_p1_test.binl.gz
 p1_only_test.binl.gz
@@ -41,5 +49,7 @@ program_ckbd_b0.binl.gz
 program_ckbd_b1.binl.gz
 program_ckbd_b2.binl.gz
 some_func_test.binl.gz
+test_with_flags.binl.gz
+test_with_no_flags.binl.gz
 xcvr_fs_vilvih.binl.gz
 

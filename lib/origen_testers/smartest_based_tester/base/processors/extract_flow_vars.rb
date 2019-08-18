@@ -21,7 +21,12 @@ module OrigenTesters
             process(node)
             OWNERS.each do |t|
               CATEGORIES.each do |c|
-                @variables[t][c] = @variables[t][c].to_a.sort do |x, y|
+                curr_vars = @variables[t][c].to_a.dup
+                flag_classes = curr_vars.map(&:class)
+                if flag_classes.include?(String) && flag_classes.include?(Symbol)
+                  curr_vars.map!(&:to_s)
+                end
+                @variables[t][c] = curr_vars.sort do |x, y|
                   x = x[0] if x.is_a?(Array)
                   y = y[0] if y.is_a?(Array)
                   x <=> y

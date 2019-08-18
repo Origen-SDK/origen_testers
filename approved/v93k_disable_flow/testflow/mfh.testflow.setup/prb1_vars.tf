@@ -31,6 +31,8 @@ user ALARMENABLED = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
 user PRB1_ENABLE = 0;
+user SYM_FLAG = 0;
+user StringFLag = 0;
 user USB_XCVR_CZ = 0;
 
 end

@@ -14,9 +14,12 @@ cc_test_0 .tmf
 cc_test_1 .tmf
 cc_test_2 .tmf
 erase_all .tmf
+force_serial_false_test .tmf
+force_serial_true_test .tmf
 margin_read0_ckbd .tmf
 margin_read1_all1 .tmf
 margin_read1_ckbd .tmf
+mixed_flag_check .tmf
 mrd_ckbd .tmf
 not_p1_or_p2_test .tmf
 not_p1_test .tmf
@@ -29,4 +32,6 @@ program_ckbd_b0 .tmf
 program_ckbd_b1 .tmf
 program_ckbd_b2 .tmf
 some_func_test .tmf
+test_with_flags .tmf
+test_with_no_flags .tmf
 xcvr_fs_vilvih .tmf

@@ -4,9 +4,12 @@ cc_test_0
 cc_test_1
 cc_test_2
 erase_all
+force_serial_false_test
+force_serial_true_test
 margin_read0_ckbd
 margin_read1_all1
 margin_read1_ckbd
+mixed_flag_check
 not_p1_or_p2_test
 not_p1_test
 p1_only_test
@@ -17,5 +20,7 @@ program_ckbd_b0
 program_ckbd_b1
 program_ckbd_b2
 some_func_test
+test_with_flags
+test_with_no_flags
 xcvr_fs_vilvih
 
