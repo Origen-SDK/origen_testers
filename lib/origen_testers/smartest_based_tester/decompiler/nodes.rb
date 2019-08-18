@@ -5,7 +5,7 @@ module OrigenTesters
         class SequencerInstruction < OrigenTesters::Decompiler::Nodes::Node
           PLATFORM_NODES = [:instruction, :arguments]
 
-          def initialize(instruction:, arguments: [], context: context)
+          def initialize(instruction:, arguments: [], context:)
             @execute = false
 
             @instruction = instruction

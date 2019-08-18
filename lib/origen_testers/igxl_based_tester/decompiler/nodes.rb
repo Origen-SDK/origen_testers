@@ -38,7 +38,7 @@ module OrigenTesters
         class Frontmatter < OrigenTesters::Decompiler::Nodes::Frontmatter
           PLATFORM_NODES = [:variable_assignments, :imports]
 
-          def initialize(pattern_header:, comments:, variable_assignments:, imports:, context: context)
+          def initialize(pattern_header:, comments:, variable_assignments:, imports:, context:)
             @variable_assignments = variable_assignments
             @imports = imports
 
