@@ -38,6 +38,9 @@ module OrigenTesters
       ATP::Program.load(f)
     end
   end
+
+  require 'origen_testers/decompiler'
+  extend Decompiler::API
 end
 autoload :ATP, 'origen_testers/atp_deprecation'
 
@@ -51,3 +54,5 @@ require 'origen_testers/pattern_compilers/runner'
 require 'origen_testers/callback_handlers'
 require 'origen_testers/origen_ext/pins/pin'
 require 'origen_testers/origen_ext/pins/pin_collection'
+require 'origen_testers/origen_ext/pins/timing'
+require 'origen_testers/origen_ext/pins/timing/timeset'

@@ -1,0 +1,85 @@
+---
+:pattern: 
+:timestamp: '2019-08-10 05:29:27 -0700'
+:class: OrigenTesters::IGXLBasedTester::Pattern
+:frontmatter:
+  :class: OrigenTesters::Decompiler::Pattern::Frontmatter
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Processors::Frontmatter
+  :pattern_header:
+  - "// ***************************************************************************"
+  - "// GENERATED:"
+  - "//   Time:    25-Mar-2019 07:56AM"
+  - "//   By:      Corey Engelken"
+  - "//   Mode:    debug"
+  - "//   Command: origen g simple -t dut.rb -e j750.rb"
+  - "// ***************************************************************************"
+  - "// ENVIRONMENT:"
+  - "//   Application"
+  - "//     Source:    git@github.com:Origen-SDK/origen_testers.git"
+  - "//     Version:   0.19.3"
+  - "//     Branch:    pattern_reader_ast(75438262d6e) (+local edits)"
+  - "//   Origen"
+  - "//     Source:    https://github.com/Origen-SDK/origen"
+  - "//     Version:   0.35.0"
+  - "//   Plugins"
+  - "//     atp:                      1.1.2"
+  - "//     origen_arm_debug:         0.4.3"
+  - "//     origen_doc_helpers:       0.7.1"
+  - "//     origen_jtag:              0.19.1"
+  - "//     origen_swd:               1.1.0"
+  - "// ***************************************************************************"
+  :comments: []
+  :platform_nodes:
+    :imports:
+      tp0: tset
+    :variable_assignments:
+      svm_only_file: 'no'
+      opcode_mode: extended
+      compressed: 'yes'
+:pinlist:
+  :class: OrigenTesters::Decompiler::Pattern::Pinlist
+  :processor: OrigenTesters::Decompiler::BaseGrammar::VectorBased::Processors::Pinlist
+  :pinlist:
+  - :tclk
+  - :tdi
+  - :tdo
+  - :tms
+  :platform_nodes: {}
+:vectors:
+- :class: OrigenTesters::Decompiler::Pattern::VectorBodyElement
+  :vector_index: 0
+  :type: :start_label
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::StartLabel
+  :platform_nodes:
+    :start_label: pattern_st
+- :class: OrigenTesters::Decompiler::Pattern::CommentBlock
+  :vector_index: 1
+  :index: 
+  :type: :comment_block
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::CommentBlock
+  :comments:
+  - "//                                                                                              t
+    t t t"
+  - "//                                                                                              c
+    d d m"
+  - "//                                                                                              l
+    i o s"
+  - "//                                                                                              k
+    \     "
+  - "// ######################################################################"
+  - "// ## Pattern complete"
+  - "// ######################################################################"
+  :platform_nodes: {}
+- :class: OrigenTesters::Decompiler::Pattern::Vector
+  :vector_index: 2
+  :type: :vector
+  :processor: OrigenTesters::IGXLBasedTester::Decompiler::Atp::Vector
+  :timeset: tp0
+  :repeat: 1
+  :pin_states:
+  - X
+  - X
+  - X
+  - X
+  :comment: ''
+  :platform_nodes: {}

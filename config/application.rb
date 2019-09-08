@@ -40,6 +40,12 @@ class OrigenTestersApplication < Origen::Application
         section.page :custom, heading: "Creating Custom Testers"
         section.page :generating, heading: "Running the ProgGen"
       end
+      index.section :decompilation, heading: "Decompilation", before: :simulation do |section|
+        section.page :overview, heading: "Overview & Example"
+        section.page :decompilerapi, heading: "Decompiling, Adding Pins, & Executing"
+        section.page :universalapi, heading: "Working with Decompiled Patterns"
+        section.page :platformspecifics, heading: "Platform Specifics"
+      end
     end
   }
 

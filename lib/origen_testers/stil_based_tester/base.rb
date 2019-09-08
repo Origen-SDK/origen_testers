@@ -105,16 +105,16 @@ module OrigenTesters
         end
       end
 
-      def set_timeset(timeset, period_in_ns = nil)
+      def set_timeset(t, period_in_ns = nil)
         super
         if pattern_only
           # Why does D10 not include this?
-          # microcode "W #{timeset};"
+          # microcode "W #{t};"
         else
           @wavesets ||= []
           wave_number = nil
           @wavesets.each_with_index do |w, i|
-            if w[:name] == @timeset.name && w[:period] = @timeset.period_in_ns
+            if w[:name] == timeset.name && w[:period] = timeset.period_in_ns
               wave_number = i
             end
           end
@@ -123,7 +123,7 @@ module OrigenTesters
             ordered_pins.each do |pin|
               if pin.direction == :input || pin.direction == :io
                 line = "#{pin.name} { 01 { "
-                wave = pin.drive_wave
+                wave = pin.drive_wave if tester.timeset.dut_timeset
                 (wave ? wave.evaluated_events : []).each do |t, v|
                   line << "'#{t}ns' "
                   if v == 0
@@ -140,7 +140,7 @@ module OrigenTesters
               end
               if pin.direction == :output || pin.direction == :io
                 line = "#{pin.name} { LHX { "
-                wave = pin.compare_wave
+                wave = pin.compare_wave if tester.timeset.dut_timeset
                 (wave ? wave.evaluated_events : []).each_with_index do |tv, i|
                   t, v = *tv
                   if i == 0 && t != 0
@@ -160,7 +160,7 @@ module OrigenTesters
                 lines << line
               end
             end
-            @wavesets << { name: @timeset.name, period: @timeset.period_in_ns, lines: lines }
+            @wavesets << { name: timeset.name, period: timeset.period_in_ns, lines: lines }
             wave_number = @wavesets.size
           end
           microcode "W Waveset#{wave_number};"

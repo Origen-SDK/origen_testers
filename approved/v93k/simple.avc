@@ -1,0 +1,31 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    30-Mar-2019 05:47AM
+#   By:      Corey Engelken
+#   Mode:    debug
+#   Command: origen g simple -t dut.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.19.3
+#     Branch:    pattern_reader_ast(75438262d6e) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.35.0
+#   Plugins
+#     atp:                      1.1.2
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.7.1
+#     origen_jtag:              0.19.1
+#     origen_swd:               1.1.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;

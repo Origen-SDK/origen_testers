@@ -239,6 +239,10 @@ module OrigenTesters
         repeat:    nil
       }.merge(options)
 
+      unless timeset.period_in_ns?
+        fail "You must supply a period_in_ns to timeset '#{timeset.name}' before you can cycle the tester!"
+      end
+      timeset.cycled = true
       if PatSeq.thread
         PatSeq.thread.cycle(options)
       else

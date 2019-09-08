@@ -1,0 +1,44 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    08-Dec-2016 10:29AM
+#   By:      Stephen McGinty
+#   Command: origen g delay -t debug_v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.8.6
+#     Branch:    master(15e5ebee0f1) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.7.40
+#   Plugins
+#     atp:                      0.4.3
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.4.2
+#     origen_jtag:              0.12.0
+#     origen_swd:               0.5.0
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# Wait for 40.0ms
+R65535                   tp0                        X X X X # Wait for 40.0ms;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+# Add an unrecongized vector type to induce an error
+Error!!!
+R11316                   tp0                        X X X X # ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;

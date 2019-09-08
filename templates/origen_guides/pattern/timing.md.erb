@@ -1,5 +1,11 @@
 % render "layouts/guides.html" do
 
+% Origen.load_target('default')
+% dut.timeset(:func) do |t|
+%   t.period_in_ns = 10
+% end
+% tester.set_timeset(:func)
+
 A common workflow is to have a tester timing file defined and managed outside of Origen, in
 which case the main concern within your Origen source code is simply to refer to required
 timeset(s) by name.
@@ -7,7 +13,6 @@ timeset(s) by name.
 However, Origen does also support a more complex timing definition where waveforms
 can be defined and mastered in Origen source code. That is discussed later on in the 
 [Complex Timing](<%= path "guides/pattern/timing/#Complex_Timing" %>) section.
-
 
 ### Simple Timing
 
@@ -214,14 +219,67 @@ timeset :func do |t|
 end
 ~~~
 
+Complex waveforms also support an initial, or default, `period_in_ns`, allowing
+`set_timeset` to be used without providing a `period_in_ns`:
+
+~~~ruby
+dut.timeset :func do |t|
+  t.period_in_ns = 10
+end
+  
+tester.set_timeset(:func)
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+
+dut.timesets[:func].period_in_ns = 11
+% dut.timesets[:func].period_in_ns = 11
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+~~~
+
+<!-- This was originally planned, but causes some examples in Origen to fail.
+This `period_in_ns` can still changed prior to pattern execution, but the defining
+timeset can lock this value, disallowing other parts of the application or
+plugins to change the `period_in_ns`:
+
+~~~ruby
+timeset :func do |t|
+  t.period_in_ns = 10
+  t.lock!
+end
+  
+tester.set_timeset(:func)
+tester.timeset.period_in_ns
+  #=> 10
+
+timesets[:func].period_in_ns = 11
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+-->
+
 #### Consuming Timeset Data
+
+##### Waveform Details
 
 The currently selected timeset can be retrieved via the following methods which are aliases:
 
 ~~~ruby
-dut.timeset               # => instance of Origen::Pins::Timing::Timeset
+dut.timeset               # => instance of OrigenTesters::Timing::Timeset
 dut.current_timeset
 ~~~
+
+Even though this returns a `OrigenTesters::Timing::Timeset` object, its linked
+back to the corresponding `Origen::Pins::Timing::Timeset` object underneath. To
+access it directly:
+
+~~~ruby
+dut.timeset.dut_timeset    #=> instance of Origen::Pins::Timing::Timeset
+
+tester.timeset.dut_timeset #=> instance of Origen::Pins::Timing::Timeset
+~~~
+
+However, this is generally not needed, as anything that the `OrigenTesters::Timing::Timeset`
+cannot do is given to the corresponding `Origen::Pins::Timing::Timeset` instance.
 
 Using the plural returns a hash containing all timesets, thereby allowing access to specific timesets
 regardless of the current selection:
@@ -277,5 +335,150 @@ dut.pin(:clk).drive_wave(1).events    # => [[0, 1], [20, 0]]
 dut.pin(:clk).drive_wave('T').events  # => [[0, 1], [10, 0], [20, 1], [30, 0]]
 ~~~
 
+##### Timeset Details
+
+You can retrieve the same `current period` information from this scope as from
+the `tester.timeset` scope:
+
+~~~ruby
+tester.set_timeset(:test, 10)
+% tester.set_timeset(:test, 10)
+
+tester.current_period
+  #=> <%= tester.current_period %>
+
+dut.current_timeset_period
+  #=> <%= dut.current_timeset_period %>
+  
+dut.current_period_in_ns
+  #=> <%= dut.current_period_in_ns %>
+
+dut.current_period_in_seconds
+  #=> <%= dut.current_period_in_seconds %>
+~~~
+
+### Timing During Execution
+
+You can freely swap between timesets during pattern execution. For example,
+a sequence resembling below is perfectly valid:
+
+~~~ruby
+# Start with an initial timeset for pattern startup
+tester.set_timeset("timing_for_startup", 100)
+tester.cycle
+# ...
+
+# Switch to a timeset for ramloading
+tester.set_timeset("timing_for_ramload", 200)
+tester.cycle
+# ...
+
+# Switch to a timeset for actual execution
+tester.set_timeset("timing_for_execution", 100)
+tester.cycle
+# ...
+~~~
+
+The period for that timeset will be remembered, allowing simpler timeset switches
+back to existing ones:
+
+~~~ruby
+# Execute using timing for SWD
+% tester.set_timeset("timing_for_swd", 40)
+tester.set_timeset("timing_for_swd", 40)
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+# ...
+
+# Execute using timing for an APB protocol
+% tester.set_timeset("timing_for_apb", 80)
+tester.set_timeset("timing_for_apb", 80)
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+# ...
+
+# Switch back to using SWD
+% tester.set_timeset("timing_for_swd")
+tester.set_timeset("timing_for_swd")
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+# ...
+
+# Switch back to using APB
+% tester.set_timeset("timing_for_apb")
+tester.set_timeset("timing_for_apb")
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+# ...
+
+# End the pattern using SWD
+% tester.set_timeset("timing_for_swd")
+tester.set_timeset("timing_for_swd")
+tester.timeset.period_in_ns
+  #=> <%= tester.timeset.period_in_ns %>
+# ...
+~~~
+
+<!--
+Notice that the `period_in_ns` is only defined once per timeset. Swiching
+the `period_in_ns` of a timeset _during_ execution is explicitly blocked
+by `OrigenTesters`:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+
+tester.cycle
+tester.set_timeset(:func, 11)
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+
+In this context, _during execution_ is defined as after a vector has been
+generated with the timeset in question; in other words, after the tester
+has been cycled. Up to the point of cycling though, timeset periods can be
+freely modified:
+
+~~~ruby
+tester.set_timeset(:func, 10)
+tester.timeset.period_in_ns
+  #=> 10
+
+tester.timeset.period_in_ns = 11
+tester.timeset.period_in_ns
+  #=> 11
+
+tester.set_timeset(:func, 12)
+tester.timeset.period_in_ns
+  #=> 12
+
+tester.cycle
+tester.timeset.period_in_ns = 13
+  #=> OrigenTester::Timing::InvalidModification
+~~~
+-->
+The `#cycled?` method to denotes if the timeset has been cycled or not:
+
+~~~ruby
+tester.set_timeset(:cycle_test, 10)
+% tester.set_timeset(:cycle_test, 10)
+tester.timeset.name
+  #=> "<%= tester.timeset.name %>"
+tester.timeset.cycled?
+  #=> <%= tester.timeset.cycled? %>
+
+tester.cycle
+tester.timeset.cycled?
+% tester.cycle
+  #=> <%= tester.timeset.cycled? %>
+
+tester.set_timeset(:cycle_test_2, 11)
+tester.timeset.cycled?
+% tester.set_timeset(:cycle_test_2, 11)
+  #=> <%= tester.timeset.cycled? %>
+
+tester.timesets[:cycle_test].cycled?
+  #=> <%= tester.timesets[:cycle_test].cycled? %>
+tester.timesets[:cycle_test_2].cycled?
+  #=> <%= tester.timesets[:cycle_test_2].cycled? %>
+~~~
 
 % end

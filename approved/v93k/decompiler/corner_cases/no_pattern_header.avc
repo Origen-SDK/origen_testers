@@ -1,0 +1,23 @@
+
+
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# Wait for 40.0ms
+R65535                   tp0                        X X X X # Wait for 40.0ms;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R65535                   tp0                        X X X X # ;
+R11316                   tp0                        X X X X # ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;

@@ -1,0 +1,16 @@
+// Sample pattern text for the J750
+// Source located at: lib/origen_testers/igxl_based_tester/decompiler
+
+import tset tp0;
+svm_only_file = no;
+opcode_mode = extended;
+compressed = yes;
+
+vector ($tset, tclk, tdi, tdo, tms)
+{
+start_label pattern_st:
+// Start of vector body
+repeat 2 > tp0 X X X X ; // First Vector
+repeat 5 > tp0 1 0 X 1 ;
+end_module   > tp0 X X X X ; // Last Vector
+}

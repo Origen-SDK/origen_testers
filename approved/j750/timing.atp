@@ -1,25 +1,31 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    31-Aug-2015 03:38AM
-//   By:      Stephen McGinty
-//   Command: origen g timing -t debug_j750_dut2.rb
+//   Time:    11-May-2019 13:34PM
+//   By:      Corey Engelken
+//   Mode:    debug
+//   Command: origen g timing -t legacy.rb -e j750.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.5.0
-//     Branch:    master(e3384c47ea4) (+local edits)
+//     Version:   0.20.0
+//     Branch:    pattern_reader_ast(24ba5ae5573) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.2.4
+//     Version:   0.43.0
 //   Plugins
+//     atp:                      1.1.3
 //     origen_arm_debug:         0.4.3
-//     origen_jtag:              0.12.0
-//     origen_swd:               0.5.0
+//     origen_doc_helpers:       0.8.0
+//     origen_jtag:              0.20.0
+//     origen_swd:               1.1.1
 // ***************************************************************************
 import tset nvmbist;                                                                            
 import tset nvm_slow;                                                                           
 import tset nvm_fast;                                                                           
+import tset nvm_slow_40ns;                                                                      
+import tset nvm_slow_200ns;                                                                     
+import tset nvm_fast_40ns;                                                                      
 svm_only_file = no;                                                                             
 opcode_mode = extended;                                                                         
 compressed = yes;                                                                               
@@ -92,11 +98,11 @@ start_label pattern_st:
 // ######################################################################
 // ## Test ability to call with a single array argument
 // ######################################################################
-// These vectors should use timeset nvm_slow
-                                                                 > nvm_slow                     1 1 1 00000000 00000000 0 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00000000 00000000 0 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+// These vectors should use timeset nvm_slow_40ns
+                                                                 > nvm_slow_40ns                1 1 1 00000000 00000000 0 H L X X X 0 1 ;
+                                                                 > nvm_slow_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_slow_40ns                1 1 1 00000000 00000000 0 H L X X X 0 1 ;
+                                                                 > nvm_slow_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // These vectors should use timeset nvm_fast
                                                                  > nvm_fast                     1 1 1 00000000 00000000 0 H L X X X 0 1 ;
                                                                  > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
@@ -117,49 +123,52 @@ start_label pattern_st:
 // ######################################################################
 // This should wait for 5 cycles, 1000/200
 // Wait for 1.0us
-repeat 5                                                         > nvm_slow                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 5                                                         > nvm_slow_200ns               1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // This should wait for 25 cycles, 1000/40
 // Wait for 1.0us
-repeat 25                                                        > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25                                                        > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // ######################################################################
 // ## Test the period counter
 // ######################################################################
 // This should generate a sequence with a clock pulse on the clk
 // pin with period of 1 ms, and overall duration 10 ms
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // Wait for 1.0ms
-repeat 25000                                                     > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_fast                     1 1 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 25000                                                     > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+                                                                 > nvm_fast_40ns                1 1 1 00000000 00000000 1 H L X X X 0 1 ;
 // ######################################################################
 // ## Test that Fixnum.cycles works
 // ######################################################################
 // There should be 10 cycles here
-repeat 10                                                        > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
-end_module                                                       > nvm_fast                     1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+repeat 10                                                        > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+end_module                                                       > nvm_fast_40ns                1 0 1 00000000 00000000 1 H L X X X 0 1 ;
 }                                                                                               

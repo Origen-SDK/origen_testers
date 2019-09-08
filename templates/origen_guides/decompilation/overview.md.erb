@@ -1,0 +1,214 @@
+% render "layouts/guides.html" do
+
+% # Test pattern that'll be used throughout these guides.
+% # Using the actual pattern object itself to get real return values when possible.
+% class OrigenDecompilerDocDut
+%   include Origen::TopLevel
+% end
+% Origen.load_target('configurable', dut: OrigenDecompilerDocDut)
+% pat = OrigenTesters.decompile_text(OrigenTesters::IGXLBasedTester.sample_direct_source, decompiler: OrigenTesters::IGXLBasedTester::Pattern)
+
+Origen provides some basic functionality for decompiling, or reverse-compiling,
+a pattern from its text representation (e.g., `.atp` for the J750 platform),
+returning an object which Origen can work with.
+
+### Philosophy
+
+The decompiler attempts to support two, somewhat competing, goals:
+
+1. Provide a `universal API` for working with decompiled patterns from any platform.
+2. Allow platforms to implement the `universal API` in such a way that still maintains
+the aspects only present on that particular platform (_platform-specifics_).
+
+The aim is to provide the best of both worlds: a generic-enough,
+`universal API` to accomplish most tasks, without regard to platform-specifics,
+but not bar those platform-specifics completely in the event that such
+a generic method either isn't available, isn't possible, or wouldn't be applicable
+across more than a single platform.
+
+### Definitions
+
+In the context of the _decompilation_ sections, the following definition apply:
+
+* Pattern Source: The text-representation of the a pattern.
+* Platform: Producer of `Pattern Sources`. In most cases, this will be an ATE,
+such as `j750`, or `v93k`, but this also could be `STIL` or `WGL`.
+* Platform-Specifics: Any aspect which separates this platform from another,
+outside of the _actual_ parsing and grammar rules.
+* (Decompiled) Pattern: The instance of an object returned after successful
+decompilation of a `Pattern Source` by a `Decompiler`.
+  * Note, this will often be written fully as `decompiled pattern`, to avoid additional confusion.
+* Decompiler: The object that takes a `Pattern Source` and returns a `Pattern`.
+There are two _flavors_ of this:
+  * In some context, this will be the `generic Decompiler`, that is, the abstract base which, itself, can't actually decompile anything. 
+  * However, in most contexts this will refer to a specific platform.
+For example, _"the J750 decompiler"_, refers to the J750's implementation of the `generic decompiler`, or
+the `OrigenTesters::IGXLBasedTester::Pattern` class.
+
+### Example Decompilation
+
+This example shows some basic usage of the decompiler, without assuming you have
+a pattern source for a supported platform ready to go. This example makes use of the `J750` platform.
+If you aren't familiar with this platform, don't worry; understanding of the pattern source format is not a requirement
+for _using_ the decompiler, specifically in the sense of the `universal API`.
+
+#### Requirements
+
+In order to follow along with these examples, you will need:
+
+* Some `dut` object that does not have the pins `tclk`, `tms`, `tdo`, or `tdi`
+already defined (you can still follow along, but you will not receive identical
+return values from `#add_pins` (covered later) if these pins are already defined).
+
+#### Decompiling Direct Source
+
+The first step to working with a pattern source in Origen is to decompile said source.
+The decompiler is accessed directly on the `OrigenTesters` module, and contains
+methods to decompile a source from a given input string.
+Consider the source, from a J750 `.atp`, below:
+
+~~~
+<%= OrigenTesters::IGXLBasedTester.sample_direct_source %>
+~~~
+
+Placing this in a `String`, we can decompile this directly using the the
+`#decompile_text` method and providing the target decompiler:
+
+<div class="alert alert-success" role="alert">
+The source above is available as a <code>String</code> already:
+
+<code>OrigenTesters::IGXLBasedTester.sample_direct_source</code>
+</div>
+
+~~~ruby
+# A very basic, pre-defined .atp source for the J750 platform
+src = OrigenTesters::IGXLBasedTester.sample_direct_source
+
+# Decompile this source.
+pat = OrigenTesters.decompile_text(src, decompiler: OrigenTesters::IGXLBasedTester::Pattern)
+  #=> OrigenTesters::IGXLBasedTester::Pattern object
+~~~
+
+Since we've specified that this is an `IGXLBasedTester` source, the `#decompile_text` method
+will use that as the target decompiler and return an object corresponding to
+that specific platform's decompiler: `OrigenTesters::IGXLBasedTester::Pattern`.
+
+If you have your own pattern source you'd rather compile, the `#decompile` method
+will accept a filename either as a `String` or `Pathname` object:
+
+~~~ruby
+pat = OrigenTesters.decompile('path/to/src.atp')
+  #=> (for a source ending with .atp)
+  #=> OrigenTesters::IGXLBasedTester::Pattern object
+~~~
+
+<div class="alert alert-info" role="alert">
+The decompiler will try to match the platform based on the extension of the given
+filename. <a href='<%= path "guides/decompilation/decompilerapi#Discerning_Platform_Decompilers" %>'>See the decompilating section for additional details</a>.
+</div>
+
+Now, we can interact with our decompiled pattern. Some easy things we may want to do:
+
+* [Query which pins are present in the pattern source](#Discerning_Pattern_Source_Pins)
+* [Add those pins to the <code>DUT</code>](#Adding_Missing_Pins)
+* [Iterate through the vectors, printing the repeat count and the pin states](#Vectors)
+* [Execute the source in its entirety, in the context of the current <code>DUT</code>](#Executing_the_Pattern_Source)
+
+#### Discerning Pattern Source Pins
+
+There's two methods available to retrieve the pins: `#pins` and `#pin_sizes`.
+
+~~~ruby
+# Return an array of pins, in the order they appear in the pattern
+pat.pins
+  #=> <%= pat.pins %>
+
+# Return the pin names and their respective size
+pat.pin_sizes
+  #=> <%= pat.pin_sizes %>
+~~~
+
+#### Adding Missing Pins
+
+One of the most common operations with respect to the pins is to simply add any
+missing pins to the current `dut`. The decompiled pattern has a built-in method
+to do just that:
+
+~~~ruby
+# Assume the current dut has no pins
+dut.pins
+  #=> <%= dut.pins %>
+
+pat.add_pins
+  #=> <%= pat.add_pins %>
+
+dut.pins
+  #=> <%= dut.pins %>
+~~~
+
+`#add_pins` will return any pins it added to the `dut`. For example, if the `dut`
+already had all the pins from the pattern defined, `#add_pins` would've returned
+`an empty array`. Running the above a second time:
+
+~~~ruby
+# Assume the current dut has no pins
+dut.pins
+  #=> <%= dut.pins %>
+
+pat.add_pins
+  #=> <%= pat.add_pins %>
+
+dut.pins
+  #=> <%= dut.pins %>
+~~~
+
+#### Vectors
+
+We can iterate through each _'vector'_ in the decompiled pattern with `#each_vector`.
+This method takes a block and runs it for each _'vector'_ encountered. Notice the
+quotes around _'vector'_. Each `v` in the example above is actually a `VectorBodyElement` object
+that acts as a placeholder for any `element type` that could appear.
+Each `vector body element` has a `type` associated with it to discern exactly
+what it is:
+
+~~~ruby
+pat.each_vector { |v| puts v.type }
+% # Use the collect method to return an actual array that'll render in the docs.
+<%= pat.collect { |v| ":#{v.type}" }.join("\n") %>
+  #=> nil
+~~~
+
+Now that we have the `type`, we can access the underlying `element`.
+In the example below, we'll check the `type` first and, in the event of a `:vector`,
+access the underlying `element` and print its repeat count and pin states.
+
+~~~ruby
+pat.each_vector { |v| puts "(#{v.element.repeat}) #{v.element.pin_states}" if v.type == :vector }
+% # Use the collect method to return an actual array that'll render in the docs.
+<%= pat.select { |v| v if v.type == :vector }.map { |v| "(#{v.element.repeat}) #{v.element.pin_states}" } .join("\n") %>
+  #=> nil
+~~~
+
+<div class="alert alert-info" role="alert">
+Note that <code>#each_vector</code> returns <code>nil</code>, <b>NOT</b> an
+array containing all the vectors like a normal `each` method would do.
+<a href='<%= path "guides/decompilation/universalapi#Contextual_Notes_For_vector_at"%>'>See the section on working with vectors</a>
+for <i>why</i> this is the case.
+</div>
+
+There's much more to vectors and vector types.
+[See the vectors section](<%= path "guides/decompilation/universalapi#Vector_Body_Elements" %>)
+for further details.
+
+#### Executing the Pattern Source
+
+Now that we've added any missing pins to our `dut` and we've seen how to access
+the vectors themselves, we can `execute` the pattern source. The `#execute`
+method will iterate through each vector, apply the pin states, and 
+cycle the tester `repeat` number of times.
+
+~~~ruby
+pat.execute
+~~~
+
+% end

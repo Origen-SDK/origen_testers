@@ -74,7 +74,7 @@ module OrigenTesters
       # * :force_fail_on_timeout (true) - Force a vector mis-compare if the match loop times out
       # * :on_timeout_goto ("") - Optionally supply a label to branch to on timeout, by default will continue from the end of the match loop
       # * :on_block_match_goto ("") - Optionally supply a label to branch to when block condition is met, by default will continue from the end of the match loop.
-      #   A hash will also be accepted for this argument to supply a specific label (or no label) for each block e.g. {0 => "on_block_0_fail"}
+      #   A hash will also be accepted for this argument to supply a specific label (or no label) for each block e.g. <code>{0 => "on_block_0_fail"}</code>
       # * :multiple_entries (false) - Supply an integer to generate multiple entries into the match (each with a unique readcode), this can be useful when debugging patterns with multiple matches
       # * :force_fail_on_timeout (true) - force pattern to fail if timeout occurs
       # * :global_loops (false) - whether match loop loops should use global labels

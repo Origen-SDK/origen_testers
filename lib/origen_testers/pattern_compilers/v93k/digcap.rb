@@ -9,7 +9,10 @@ module OrigenTesters
             @owner = owner
             @pins = nil
 
-            if options && options[:pins] && options[:vps]
+            if options && options[:skip_setup]
+              @skip_setup = options[:skip_setup]   # optional: force skip of AVI digcap setup
+              #                                                e.g. handled by RDI
+            elsif options && options[:pins] && options[:vps]
               @pins = options[:pins]           # required: pins to be captured
               @vps = options[:vps]             # required: vecotrs per sample
               @nrf = options[:nrf] || 1        # optional: nr_frames (defaults to 1)
@@ -21,15 +24,17 @@ module OrigenTesters
 
           def render_aiv_lines
             lines = []
-            lines << ''
-            lines << 'AI_DIGCAP_SETTINGS {'
-            lines << render_digcap_header
-            avc_files.each do |f|
-              if vec_per_frame[f.to_sym] > 0
-                lines << render_digcap_entry(f)
+            unless @skip_setup
+              lines << ''
+              lines << 'AI_DIGCAP_SETTINGS {'
+              lines << render_digcap_header
+              avc_files.each do |f|
+                if vec_per_frame[f.to_sym] > 0
+                  lines << render_digcap_entry(f)
+                end
               end
+              lines << '};'
             end
-            lines << '};'
             lines
           end
 

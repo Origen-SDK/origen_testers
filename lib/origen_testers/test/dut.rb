@@ -39,6 +39,18 @@ module OrigenTesters
           add_pin_group :pa, :pa2, :pa1, :pa0
           add_pin_alias :tdi_a, :tdi
         end
+
+        if options[:extra_pins]
+          options[:extra_pins].times do |i|
+            add_pin "PIN_#{i}".to_sym
+          end
+        end
+        # Add capitalized equivalent pins
+        add_pin_alias :TCLK, :tclk
+        add_pin_alias :TDI, :tdi
+        add_pin_alias :TDO, :tdo
+        add_pin_alias :TMS, :tms
+
         # add_pin_group :jtag, :tdi, :tdo, :tms
         add_power_pin_group :vdd1
         add_power_pin_group :vdd2

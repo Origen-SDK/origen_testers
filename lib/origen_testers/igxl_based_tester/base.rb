@@ -1,5 +1,12 @@
 module OrigenTesters
   module IGXLBasedTester
+    class << self
+      attr_reader :pat_extension
+      attr_reader :comment_char
+    end
+    @pat_extension = 'atp'
+    @comment_char = '//'
+
     # This is the base class of all IGXL-based testers
     class Base
       include VectorBasedTester
@@ -27,7 +34,7 @@ module OrigenTesters
         @counter_msb_bits = 0
         @max_repeat_loop = 65_535 # 16 bits
         @min_repeat_loop = 2
-        @pat_extension = 'atp'
+        @pat_extension = OrigenTesters::IGXLBasedTester.pat_extension
         @active_loads = true
         @pipeline_depth = 34
         @software_version = ''

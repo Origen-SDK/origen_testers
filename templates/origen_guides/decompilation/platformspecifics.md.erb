@@ -1,0 +1,291 @@
+% render "layouts/guides.html" do
+
+% testers_api_url = 'https://origen-sdk.org/testers/api/OrigenTesters'
+
+<table>
+  <!-- Headers -->
+  <tr>
+    <th>Platform</th>
+    <th>File Extension(s)</th>
+    <th>Decompiled Pattern Class</th>
+    <th>Module Name</th>
+    <th>Vector Body Elements</th>
+    <th>Vector Platform Nodes</th>
+    <th>Additional Information</th>
+  </tr>
+  <!-- J750 -->
+  <tr>
+    <td>J750</td>
+    <td><code>.atp</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester</code></td>
+    <td><code>:start_label</code>, <code>:global_label</code>, <code>:vector</code>, <code>:label</code></td>
+    <td><code>opcode</code>, <code>opcode_arguments</code></td>
+    <td><a href='#Teradyne_J750_and_Ultraflex'>J750 & Ultraflex</a></td>
+  </tr>
+  <!-- Uflex -->
+  <tr>
+    <td>Ultraflex</td>
+    <td><code>.atp</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::IGXLBasedTester</code></td>
+    <td><code>:start_label</code>, <code>:global_label</code>, <code>:vector</code>, <code>:label</code></td>
+    <td><code>opcode</code>, <code>opcode_arguments</code></td>
+    <td><a href='#Teradyne_J750_and_Ultraflex'>J750 & Ultraflex</a></td>
+  </tr>
+  <!-- V93K -->
+  <tr>
+    <td>V93K</td>
+    <td><code>.avc</code></td>
+    <td><code>OrigenTesters::SmartestBasedTester::Pattern</code></td>
+    <td><code>OrigenTesters::SmartestBasedTester</code></td>
+    <td><code>:sequencer_instruction</code>, <code>:vector</code></td>
+    <td><b>N/A</b></td>
+    <td><a href='#Advantest_V93K'>V93K</a></td>
+  </tr>
+</table>
+
+### Teradyne J750 and Ultraflex
+
+Both supported Teradyne platforms share the same decompiler. It's assumed, at
+this early stage, that the differences in decompiling are negligible, but
+future enhancements will most likely split the two at some point.
+
+Although all opcodes and arguments, including match loops, should decompile
+correctly, they are not yet supported for execution and are simply ignored. In fact,
+all opcodes (except `repeat`) are ignored, __including__ `end_module`.
+
+#### Platform Nodes
+
+##### Frontmatter
+
+<table>
+  <tr>
+    <th>Platform Node</th>
+    <th>Description</th>
+    <th>Return Class</th>
+    <th>Default Value</th>
+    <th>Example Output</th>
+    <th>Additional Information</th>
+  </tr>
+  <tr>
+    <td><code>variable_assignments</code></td>
+    <td>Any global variable assignments or settings</td>
+    <td><code>Hash</code></td>
+    <td><code>{}</code></td>
+    <td><code>{'opcode_mode' => 'extended'}</code></td>
+    <td><b>N/A</b></td>
+  </tr>
+  <tr>
+    <td><code>imports</code></td>
+    <td>Imported attributes, e.g., <code>timesets</code></td>
+    <td><code>Hash</code></td>
+    <td><code>{}</code></td>
+    <td><code>{'tp0' => 'tset'}</code></td>
+    <td>
+      In the source, the imports are written as <i>type of import</i> then <i>name of import.</i>
+      In the retuned Hash, the keys are the <i>name of the imports</i> and the values are the <i>import types</i>.
+    </td>
+  </tr>
+</table>
+
+##### Vector
+
+<table>
+  <tr>
+    <th>Platform Node</th>
+    <th>Description</th>
+    <th>Return Class</th>
+    <th>Default Value</th>
+    <th>Example Output</th>
+    <th>Additional Information</th>
+  </tr>
+  <tr>
+    <td><code>opcode</code></td>
+    <td>The opcode, if present in the vector.</td>
+    <td><code>String</code>, <code>NilClass</code></td>
+    <td><code>nil</code></td>
+    <td><code>"repeat"</code></td>
+    <td><b>N/A</b></td>
+  </tr>
+  <tr>
+    <td><code>opcode_arguments</code></td>
+    <td>Any comman-separated, opcode arguments, if present.</td>
+    <td><code>Array</code></td>
+    <td><code>[]</code></td>
+    <td><code>['5']</code></td>
+    <td><b>N/A</b></td>
+  </tr>
+</table>
+
+Note that `repeat` is actually an `opcode` for this platform. Many, many vectors
+will have `opcode` and `opcode_arguments` that simply duplicate the generic `repeat`
+accessor.
+
+#### Vector Body Elements
+
+<table>
+  <tr>
+    <th>Vector Body Element</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Platform Nodes</th>
+    <th>Additional Information</th>
+  </tr>
+  <tr>
+    <td>Start Label</td>
+    <td>Label that signifies the start of the vector body. Required by <code>.atp</code> sources.</td>
+    <td><code>:start_label</code></td>
+    <td>
+      <table>
+        <tr>
+          <th>Platform Node</th>
+          <th>Description</th>
+          <th>Return Class</th>
+          <th>Default Value</th>
+          <th>Example Output</th>
+          <th>Additional Information</th>
+        </tr>
+        <tr>
+          <td><code>start_label</code></td>
+          <td>Name of the pattern's start label</td>
+          <td><code>String</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>"pattern_st"</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+      </table>
+    </td>
+    <td><b>N/A</b></td>
+  </tr>
+  <tr>
+    <td>Global Label</td>
+    <td>Defines a global label.</td>
+    <td><code>:global_label</code></td>
+    <td>
+      <table>
+        <tr>
+          <th>Platform Node</th>
+          <th>Description</th>
+          <th>Return Class</th>
+          <th>Default Value</th>
+          <th>Example Output</th>
+          <th>Additional Information</th>
+        </tr>
+        <tr>
+          <td><code>label_type</code></td>
+          <td>Type, or function, of the label.</td>
+          <td><code>String</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>"subr"</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+        <tr>
+          <td><code>label_name</code></td>
+          <td>Name of the label.</td>
+          <td><code>String</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>"global_label_1"</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+      </table>
+    </td>
+    <td><b>N/A</b></td>
+  </tr>
+  <tr>
+    <td>Label</td>
+    <td>Defines a label internal to the current pattern.</td>
+    <td><code>:label</code></td>
+    <td>
+      <table>
+        <tr>
+          <th>Platform Node</th>
+          <th>Description</th>
+          <th>Return Class</th>
+          <th>Default Value</th>
+          <th>Example Output</th>
+          <th>Additional Information</th>
+        </tr>
+        <tr>
+          <td><code>label_name</code></td>
+          <td>Name of the label</td>
+          <td><code>String</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>"label1"</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+      </table>
+    </td>
+    <td><b>N/A</b></td>
+  </tr>
+</table>
+
+### Advantest V93K
+
+Similarly to the Teradyne platforms, sequencer instructions, other than `repeat`,
+are not supported and are ignored.
+
+#### Platform Nodes
+
+This decompiler does not provide any `platform nodes`.
+
+#### Vector Body Elements
+<table>
+  <tr>
+    <th>Vector Body Element</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Platform Nodes</th>
+    <th>Additional Information</th>
+  </tr>
+  <tr>
+    <td>Sequencer Instruction</td>
+    <td>Inter-pattern call to the V93K sequencer.</td>
+    <td><code>:sequencer_instruction</code></td>
+    <td>
+      <table>
+        <tr>
+          <th>Platform Node</th>
+          <th>Description</th>
+          <th>Return Class</th>
+          <th>Default Value</th>
+          <th>Example Output</th>
+          <th>Additional Information</th>
+        </tr>
+        <tr>
+          <td><code>instruction</code></td>
+          <td>Instruction code</td>
+          <td><code>String</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>"MACT"</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+        <tr>
+          <td><code>arguments</code></td>
+          <td>Arguments for the instruction.</td>
+          <td><code>Array</code>, <code>NilClass</code></td>
+          <td><code>nil</code></td>
+          <td><code>['1737']</code></td>
+          <td><b>N/A</b></td>
+        </tr>
+      </table>
+    </td>
+    <td><b>N/A</b></td>
+  </tr>
+</table>
+
+#### No First Vector
+
+The V93K supports patterns of just _sequencer instructions_ (see the approved
+`simple.avc` pattern), which __does not__ contain a `first_vector`. In such
+cases, calls to many of the methods will raise an exception. For example,
+calls to `#add_pins`, `#execute`, and anything on the `Pinlist` will fail. As
+only vector support is available at the moment, there is not much that can
+be done with these types of pattern anyway.
+
+That said, these patterns can still be decompiled, with full
+[EnumerableExt](<%= path "guides/decompilation/universalapi#EnumerableExt" %>)
+functionality. Any custom execution or conversion implementations, or custom
+processing methods, can still be used.
+
+% end
