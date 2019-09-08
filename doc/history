@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_42_0"></a>
+<h1><a href="#v0_42_0">Tag: v0.42.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Corey Engelken on 08-Sep-2019 13:16PM
+
+
+Added decompilation support and updated timesets for better syncing between the tester and
+the dut instances. See the guides for details on both.
+
 <a class="anchor release_tag" name="v0_41_0"></a>
 <h1><a href="#v0_41_0">Tag: v0.41.0</a></h1>
 
