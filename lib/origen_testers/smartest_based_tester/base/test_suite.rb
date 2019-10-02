@@ -2,10 +2,18 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestSuite
-        attr_accessor :meta
+        attr_accessor :meta, :programmed_parameters
 
         def initialize(name, attrs = {})
           @name = name
+          unless attrs[:programmed_params].nil?
+            unless attrs[:programmed_params].is_a? Array
+              Origen.log.error('Test suite user programmed parameters must be passed as an Array of test method parameters')
+              fail
+            end
+            @programmed_parameters = attrs[:programmed_params].map { |id| new_id = id.to_s;  new_id.include?('_') ? new_id.gsub('_', '.') : new_id }
+            attrs.delete :programmed_params
+          end
           if interface.unique_test_names == :signature
             if interface.flow.sig
               @name = "#{name}_#{interface.flow.sig}"
