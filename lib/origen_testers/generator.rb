@@ -254,8 +254,16 @@ module OrigenTesters
     end
 
     def import(file, options = {})
+      options = {
+        component: true # by default import method treats file as a component flow file e.g. _my_component.rb
+      }.merge(options)
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
-      file = Origen.file_handler.clean_path_to_sub_program(file)
+      if options[:component]
+        file = Origen.file_handler.clean_path_to_sub_program(file)
+      else
+        file = Origen.file_handler.add_rb_to(file)
+        file = Origen.file_handler.clean_path_to(file)
+      end
       base_collection = collection
       @collection = []
       Origen.generator.option_pipeline << options
