@@ -264,8 +264,8 @@ module OrigenTesters
       if options[:type] == :component_flow
         file = Origen.file_handler.clean_path_to_sub_program(file)
       elsif options[:type] == :flow
-       file = Origen.file_handler.add_rb_to(file)
-       file = Origen.file_handler.clean_path_to(file)       
+        file = Origen.file_handler.add_rb_to(file)
+        file = Origen.file_handler.clean_path_to(file)
       else
         Origen.log.error "#{options[:type]} is an invalid value for options[:type], it can only be :component_flow or :flow"
       end
