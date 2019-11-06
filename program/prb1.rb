@@ -9,7 +9,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_description: 'Prob
   end
 
   import 'components/prb1_main'
-  import 'custom_tests', component: false # import top-level custom_test.rb directly
+  import 'custom_tests' # import top-level custom_test.rb directly
 
   # Test that a reference to a deeply nested test works (mainly for SMT8)
   test :on_deep_1, if_failed: :deep_test
