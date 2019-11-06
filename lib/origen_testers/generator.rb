@@ -254,21 +254,9 @@ module OrigenTesters
     end
 
     def import(file, options = {})
-      options = {
-        type: :component_flow
-      }.merge(options)
-      if File.exist?("#{Origen.file_handler.base_directory}/#{file}") == true # found raw file name
-        options[:type] = :flow
-      end
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
-      if options[:type] == :component_flow
-        file = Origen.file_handler.clean_path_to_sub_program(file)
-      elsif options[:type] == :flow
-        file = Origen.file_handler.add_rb_to(file)
-        file = Origen.file_handler.clean_path_to(file)
-      else
-        Origen.log.error "#{options[:type]} is an invalid value for options[:type], it can only be :component_flow or :flow"
-      end
+      # Try a regular component name first with leading _, then try for without
+      file = Origen.file_handler.clean_path_to_sub_program(file) || Origen.file_handler.clean_path_to_sub_program(file, with_underscore: false)
       base_collection = collection
       @collection = []
       Origen.generator.option_pipeline << options
