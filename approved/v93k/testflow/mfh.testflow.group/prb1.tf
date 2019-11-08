@@ -13,33 +13,193 @@ tm_100:
   "output" = "None";
   "testName" = "Functional";
 tm_101:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_102:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_103:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_104:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_105:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_106:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_107:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_108:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
   "output" = "None";
-  "testName" = "Functional";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
 tm_109:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
+  "output" = "None";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
+tm_11:
   "output" = "None";
   "testName" = "Functional";
-tm_11:
+tm_110:
+  "forceMode" = "VOLT";
+  "forceValue" = "3.8[V]";
+  "measureMode" = "PPMUpar";
+  "output" = "None";
+  "pinlist" = "@";
+  "ppmuClampHigh" = "0[V]";
+  "ppmuClampLow" = "0[V]";
+  "precharge" = "OFF";
+  "prechargeVoltage" = "0[V]";
+  "relaySwitchMode" = "DEFAULT(BBM)";
+  "settlingTime" = "0[s]";
+  "spmuClamp" = "0[A]";
+  "termination" = "OFF";
+  "testName" = "passLimit_uA_mV";
+  "testerState" = "CONNECTED";
+tm_111:
+  "output" = "None";
+  "testName" = "Functional";
+tm_112:
+  "output" = "None";
+  "testName" = "Functional";
+tm_113:
+  "output" = "None";
+  "testName" = "Functional";
+tm_114:
+  "output" = "None";
+  "testName" = "Functional";
+tm_115:
+  "output" = "None";
+  "testName" = "Functional";
+tm_116:
+  "output" = "None";
+  "testName" = "Functional";
+tm_117:
+  "output" = "None";
+  "testName" = "Functional";
+tm_118:
+  "output" = "None";
+  "testName" = "Functional";
+tm_119:
   "output" = "None";
   "testName" = "Functional";
 tm_12:
@@ -342,24 +502,44 @@ tm_10:
 tm_100:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_101:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "35":"GE":"":"NA":"":"":"0";
 tm_102:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "":"NA":"45":"LE":"":"":"0";
 tm_103:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
 tm_104:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "35":"GE":"45":"LE":"":"":"0";
 tm_105:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
 tm_106:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "0.035":"GE":"0.045":"LE":"":"":"0";
 tm_107:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "0.01":"GE":"2000":"LE":"":"":"0";
 tm_108:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "0.01":"GE":"_some_spec":"LE":"":"":"0";
 tm_109:
-  "Functional" = "":"NA":"":"NA":"":"":"";
+  "passLimit_uA_mV" = "":"NA":"[1, 2]":"LE":"":"":"0";
 tm_11:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_110:
+  "passLimit_uA_mV" = "[1.0e-06, 2.0e-06, 3.0e-06]":"GE":"[4.0e-06, 5.0e-06]":"LE":"":"":"0";
+tm_111:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_112:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_113:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_114:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_115:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_116:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_117:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_118:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_119:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_12:
   "Functional" = "":"NA":"":"NA":"":"":"";
@@ -565,24 +745,44 @@ tm_10:
 tm_100:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_101:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_102:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_103:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_104:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_105:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_106:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_107:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_108:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_109:
-  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
 tm_11:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_110:
+  testmethod_class = "dc_tml.DcTest.GeneralPMU";
+tm_111:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_112:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_113:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_114:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_115:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_116:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_117:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_118:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_119:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_12:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -792,28 +992,28 @@ bitcell_iv_0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_0";
-  override_testf = tm_103;
+  override_testf = tm_113;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_1";
-  override_testf = tm_104;
+  override_testf = tm_114;
   site_control = "parallel:";
   site_match = 2;
 bitcell_iv_2_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitcell_iv_2";
-  override_testf = tm_105;
+  override_testf = tm_115;
   site_control = "parallel:";
   site_match = 2;
 bitmap_all0_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "bitmap_all0";
-  override_testf = tm_102;
+  override_testf = tm_112;
   site_control = "parallel:";
   site_match = 2;
 cc_test_0_864CE8F:
@@ -1079,7 +1279,7 @@ erase_all_41_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "erase_all";
-  override_testf = tm_109;
+  override_testf = tm_119;
   site_control = "parallel:";
   site_match = 2;
 erase_all_4_864CE8F:
@@ -1150,7 +1350,7 @@ margin_read0_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read0_ckbd";
-  override_testf = tm_108;
+  override_testf = tm_118;
   site_control = "parallel:";
   site_match = 2;
 margin_read0_ckbd_864CE8F:
@@ -1312,7 +1512,7 @@ margin_read1_ckbd_1_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
-  override_testf = tm_106;
+  override_testf = tm_116;
   site_control = "parallel:";
   site_match = 2;
 margin_read1_ckbd_864CE8F:
@@ -1320,6 +1520,76 @@ margin_read1_ckbd_864CE8F:
   override = 1;
   override_seqlbl = "margin_read1_ckbd";
   override_testf = tm_2;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_1_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_102;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_2_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_103;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_3_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_104;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_4_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_105;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_5_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_106;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_6_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_107;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_7_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_108;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_101;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_8_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_109;
+  site_control = "parallel:";
+  site_match = 2;
+meas_read_pump_9_864CE8F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "meas_read_pump";
+  override_testf = tm_110;
   site_control = "parallel:";
   site_match = 2;
 mixed_flag_check_864CE8F:
@@ -1333,7 +1603,7 @@ normal_read_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "normal_read_ckbd";
-  override_testf = tm_107;
+  override_testf = tm_117;
   site_control = "parallel:";
   site_match = 2;
 not_p1_or_p2_test_864CE8F:
@@ -1424,7 +1694,7 @@ program_ckbd_17_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "program_ckbd";
-  override_testf = tm_101;
+  override_testf = tm_111;
   site_control = "parallel:";
   site_match = 2;
 program_ckbd_1_864CE8F:
@@ -2076,6 +2346,67 @@ test_flow
        run(force_serial_true_test_864CE8F);
        run(force_serial_false_test_864CE8F);
     }, open,"prb1_main", ""
+    {
+       run_and_branch(meas_read_pump_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run_and_branch(meas_read_pump_1_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run_and_branch(meas_read_pump_2_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run_and_branch(meas_read_pump_3_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run_and_branch(meas_read_pump_4_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run(meas_read_pump_5_864CE8F);
+       run(meas_read_pump_6_864CE8F);
+       run(meas_read_pump_7_864CE8F);
+       run_and_branch(meas_read_pump_8_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+       run_and_branch(meas_read_pump_9_864CE8F)
+       then
+       {
+       }
+       else
+       {
+          stop_bin "2", "fail", , bad, noreprobe, red, 119, over_on;
+       }
+    }, open,"test", ""
     if @DEEP_TEST_864CE8F_FAILED == 1 then
     {
        run(on_deep_1);
@@ -2085,7 +2416,7 @@ test_flow
     }
     stop_bin "1", "", , good, noreprobe, green, 1, over_on;
 
-  }, open,"PRB1","Probe1 Main"
+  }, open,"PRB1",""
 
 end
 -----------------------------------------------------------------

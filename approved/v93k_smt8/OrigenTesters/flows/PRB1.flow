@@ -75,6 +75,7 @@ flow PRB1 {
         }
 
         flow PRB1_MAIN calls OrigenTesters.flows.prb1.PRB1_MAIN { }
+        flow TEST calls OrigenTesters.flows.prb1.TEST { }
     }
 
     execute {
@@ -88,6 +89,7 @@ flow PRB1 {
         PRB1_MAIN.execute();
         DEEP_TEST_FAILED = PRB1_MAIN.DEEP_TEST_FAILED;
         ERS_VFY_FAILED = PRB1_MAIN.ERS_VFY_FAILED;
+        TEST.execute();
         if (DEEP_TEST_FAILED == 1) {
             on_deep_1.execute();
         } else {

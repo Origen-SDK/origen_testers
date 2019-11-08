@@ -32,6 +32,8 @@ DFF 1.1	Pattern Sets
 	meas_lo_voltage_pset	nvm_global_subs.PAT	subr			
 	meas_ps_leakage_pset	meas_ps_leakage.PAT				
 	meas_ps_leakage_pset	nvm_global_subs.PAT	subr			
+	meas_read_pump_pset	meas_read_pump.PAT				
+	meas_read_pump_pset	nvm_global_subs.PAT	subr			
 	mto_read1_all1_pset	mto_read1_all1.PAT				
 	mto_read1_all1_pset	nvm_global_subs.PAT	subr			
 	normal_read_ckbd_pset	normal_read_ckbd.PAT				

@@ -200,7 +200,15 @@ when "examples", "test"
     puts
     puts "To approve any diffs in the reference.list files run the following command:"
     puts
-    puts "cp list/j750/referenced.list approved/j750/referenced.list && cp list/j750_hpt/referenced.list approved/j750_hpt/referenced.list && cp list/ultraflex/referenced.list approved/ultraflex/referenced.list && cp list/v93k/referenced.list approved/v93k/referenced.list"
+    platforms = %w(j750 j750_hpt ultraflex v93k v93k_multiport v93k_enable_flow v93k_disable_flow v93k_limits_file v93k_global v93k_smt8) # put here the various platforms used in examples/program_generator.rb
+    reflist_command = ''
+    platforms.each do |platform|
+      unless reflist_command == ''
+        reflist_command = "#{reflist_command} && "
+      end
+      reflist_command = "#{reflist_command}cp list/#{platform}/referenced.list approved/#{platform}/referenced.list"
+    end
+    puts "#{reflist_command}"
     puts
     Origen.app.stats.report_fail
     status = 1
