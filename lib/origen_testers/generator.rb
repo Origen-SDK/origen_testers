@@ -253,9 +253,24 @@ module OrigenTesters
       end
     end
 
+    # Import sub-program
     def import(file, options = {})
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
-      file = Origen.file_handler.clean_path_to_sub_program(file)
+      file = Origen.file_handler.add_rb_to(file)  # add .rb to filename if missing
+      orig_file = "#{file}"     # capture original filename possibly without pre-pended underscore
+      file_w_underscore = Origen.file_handler.add_underscore_to(file) # determine filename definitely with pre-pended underscore
+
+      # first check filename definitely with underscore
+      file = Origen.file_handler.clean_path_to(file_w_underscore, allow_missing: true)  # allow for file missing
+      if file.nil?   # check if file missing
+        # if so, check original filename that possibly is without underscore
+        file = Origen.file_handler.clean_path_to(orig_file, allow_missing: true)  # allow for file missing
+        if file.nil?
+          # give error if could not find either file
+          fail "Could not find file to import: #{orig_file}" if file.nil?  # give error if neither option above is found
+        end
+      end
+
       base_collection = collection
       @collection = []
       Origen.generator.option_pipeline << options
