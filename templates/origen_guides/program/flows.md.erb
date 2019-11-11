@@ -265,8 +265,8 @@ In our case let's say that we have a new DUT on the horizon which has two vreg i
 let's extract this suite of vreg tests to a module so that we can instantiate two of them in
 our flow.
 
-All sub flow file names must begin with "_", this is what tells Origen that it is a sub-flow and
-not a top-level flow.
+By convention, sub flow file names that are meant only to be used from inside another top-level flow should begin with a "_". 
+(We'll discuss importing top-level flows below).
 The sub-flow syntax is virtually identical to the regular flow syntax except that a hash of
 options are passed in which will contain any arguments passed in by the caller when they
 instantiate the sub-flow.
@@ -370,6 +370,32 @@ Flow.create(environment: :probe) do
     import "vreg", include_loaded_output_tests: !$dut.has_bug?(:vreg_pad), index: i
 
   end
+
+end
+~~~
+
+#### Importing Top-Level Flows
+
+Occasionally you may have the need to import a top-level flow for debug or simulation purposes.  
+This is generally not recommended since any `Flow.create` options in the top-level flow being imported 
+will be lost, but if you are careful that the `Flow.create` options are aligned between the real top-level flow 
+and any imported top-level flows, then you should be fine.
+
+The same import command is used as before, as it will also look also for a file name not starting with \"\_\"
+if one with \"\_\" is not found.
+
+So for example we have 3 top-level flows that we know work ok stand-alone, but we want to check that they work ok when 
+running back to back:
+
+~~~ruby
+# program/probe.rb
+Flow.create(environment: :probe) do  # options here match those in the probe_* flows imported below
+
+  import "probe_start"   # will import file called 'probe_start.rb'
+
+  import "probe_middle"  # will import file called 'probe_middle.rb'
+
+  import "probe_end"     # will import file called 'probe_end.rb'
 
 end
 ~~~
