@@ -14,6 +14,7 @@ force_serial_true_test.binl.gz
 margin_read0_ckbd.binl.gz
 margin_read1_all1.binl.gz
 margin_read1_ckbd.binl.gz
+meas_read_pump.binl.gz
 mixed_flag_check.binl.gz
 mrd_ckbd.binl.gz
 not_p1_or_p2_test.binl.gz

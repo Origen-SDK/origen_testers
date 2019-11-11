@@ -23,6 +23,7 @@ force_serial_true_test .tmf
 margin_read0_ckbd .tmf
 margin_read1_all1 .tmf
 margin_read1_ckbd .tmf
+meas_read_pump .tmf
 mixed_flag_check .tmf
 normal_read_ckbd .tmf
 not_p1_or_p2_test .tmf
