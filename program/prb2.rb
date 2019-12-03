@@ -1,6 +1,6 @@
 # An example of creating an entire test program from
 # a single source file
-Flow.create interface: 'OrigenTesters::Test::Interface', environment: :probe do
+Flow.create interface: 'OrigenTesters::Test::Interface', flow_bypass: true, environment: :probe do
 
   # Test that this can be overridden from the target at flow-level
   self.add_flow_enable = :enabled

@@ -53,14 +53,28 @@ module OrigenTesters::ATP
       end
 
       def on_group(node)
-        name, *nodes = *node
+        array_for_update = []
+        if node.find(:bypass) && node.find(:comment)
+          name, bypass, comment, *nodes = *node
+          array_for_update = [name, bypass, comment]
+        elsif node.find(:bypass)
+          name, bypass, *nodes = *node
+          array_for_update = [name, bypass]
+        elsif node.find(:comment)
+          name, comment, *nodes = *node
+          array_for_update = [name, comment]
+        else
+          name, *nodes = *node
+          array_for_update = [name]
+        end
+
         if conditions_to_remove.any? { |c| node.type == c.type && c.to_a == [name] }
-          conditions_to_remove << node.updated(nil, [name])
+          conditions_to_remove << node.updated(nil, array_for_update)
           result = node.updated(:inline, optimize(process_all(nodes)))
           conditions_to_remove.pop
         else
-          conditions_to_remove << node.updated(nil, [name])
-          result = node.updated(nil, [name] + optimize(process_all(nodes)))
+          conditions_to_remove << node.updated(nil, [name, bypass, comment])
+          result = node.updated(nil, array_for_update + optimize(process_all(nodes)))
           conditions_to_remove.pop
         end
         result

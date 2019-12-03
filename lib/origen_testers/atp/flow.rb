@@ -262,6 +262,10 @@ module OrigenTesters::ATP
         extract_meta!(options) do
           apply_conditions(options) do
             children = [n1(:name, name)]
+            children << n1(:bypass, options[:bypass]) if options[:bypass]
+            if options[:comment] || options[:description] || options[:desc]
+              children << n1(:comment, options[:comment] || options[:description] || options[:desc])
+            end
             children << id(options[:id]) if options[:id]
             children << on_fail(options[:on_fail]) if options[:on_fail]
             children << on_pass(options[:on_pass]) if options[:on_pass]
