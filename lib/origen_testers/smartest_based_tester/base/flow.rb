@@ -590,7 +590,7 @@ module OrigenTesters
           stack[:on_fail].pop if on_fail
           stack[:on_pass].pop if on_pass
           @indent -= 1
-          bypass = node.find(:bypass).try(:value) || flow_bypass || false
+          bypass = node.find(:bypass).try(:value) || flow_bypass
           comment = node.find(:comment).try(:value) || ''
           if smt8?
             line '// *******************************************************'
