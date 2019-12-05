@@ -306,4 +306,37 @@ end
 In all cases the `$` will be removed from the final flag name that appears in the test program.
 
 
+
+#### Adding the V93K bypass option:
+
+Add the flow bypass option:
+
+~~~ruby
+Flow.create interface: 'My::Interface', flow_bypass: true do
+  test :test1
+end
+
+Flow.create interface: 'My::Interface' do
+  flow.flow_bypass = true
+  test :test1
+end
+~~~
+
+Add group bypass option:
+
+~~~ruby
+group :my_group, bypass: true do
+  test :test1
+end
+~~~
+
+Add group comment/description options;
+
+~~~ruby
+group :my_other_group, comment: "This is the other group" do
+  test :test1
+end
+~~~
+
+
 % end

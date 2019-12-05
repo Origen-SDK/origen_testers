@@ -187,7 +187,7 @@ test_flow
        {
           run(pgm_ckbd_814CEB0);
           run(mrd_ckbd_814CEB0);
-       }, open,"prb2_main", ""
+       }, groupbypass, open,"prb2_main", ""
        run(erase_all_2_814CEB0);
        run(margin_read1_all1_2_814CEB0);
        if @EXTRA_TESTS == 1 then
@@ -195,7 +195,7 @@ test_flow
           {
              run(pgm_ckbd_1_814CEB0);
              run(mrd_ckbd_1_814CEB0);
-          }, open,"prb2_main_2", ""
+          }, groupbypass, open,"prb2_main_2", ""
        }
        else
        {
