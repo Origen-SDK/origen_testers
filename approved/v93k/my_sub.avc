@@ -1,0 +1,41 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    10-Dec-2019 03:36AM
+#   By:      Stephen McGinty
+#   Mode:    debug
+#   Command: origen g subroutines -t dut.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.44.0
+#     Branch:    master(81db0617526) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.52.3
+#   Plugins
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.8.2
+#     origen_jtag:              0.22.0
+#     origen_stil:              0.2.1
+#     origen_swd:               1.1.1
+# ***************************************************************************
+FORMAT TCLK TDI TDO TMS;
+#                                                   t t t t
+#                                                   c d d m
+#                                                   l i o s
+#                                                   k      
+# This should be inside a subroutine pattern!
+R1                       tp0                        X 0 X X # This should be inside a subroutine pattern!;
+R1                       tp0                        X 1 X X # ;
+R1                       tp0                        X 0 X X # ;
+R1                       tp0                        X 1 X X # ;
+R1                       tp0                        X 0 X X # ;
+R1                       tp0                        X 1 X X # ;
+R1                       tp0                        X 0 X X # ;
+R1                       tp0                        X 1 X X # ;
+R1                       tp0                        X 0 X X # ;
+R1                       tp0                        X 1 X X # ;
+# ######################################################################
+# ## Pattern complete
+# ######################################################################

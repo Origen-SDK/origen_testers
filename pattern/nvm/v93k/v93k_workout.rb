@@ -139,5 +139,4 @@ Pattern.create do
   cc "Inhibit complete!"
   cc "The invoke pin should be driving low on this cycle"
   $tester.cycle
-
 end
