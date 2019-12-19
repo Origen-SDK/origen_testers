@@ -1,4 +1,13 @@
-unless $tester.v93k?
+if $tester.v93k?
+  tester.start_subroutine("my_sub") if tester.respond_to?(:start_subroutine)
+  cc "This should be inside a subroutine pattern!"
+  tester.set_timeset('tp0', 60)
+  10.times do |i|
+    dut.pin(:tdi).drive(i.even? ? 0 : 1)
+    tester.cycle
+  end
+  tester.end_subroutine if tester.respond_to?(:end_subroutine)
+else
   # Pattern to define subroutines
   if $tester.respond_to?('start_subroutine')
     Pattern.create(:subroutine_pat => true) do

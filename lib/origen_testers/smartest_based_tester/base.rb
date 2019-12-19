@@ -362,12 +362,12 @@ module OrigenTesters
       def start_subroutine(name)
         local_subroutines << name.to_s.chomp unless local_subroutines.include?(name.to_s.chomp) || @inhibit_vectors
         # name += "_subr" unless name =~ /sub/
-        Pattern.open name: name, call_startup_callbacks: false, subroutine: true
+        ::Pattern.open name: name, call_startup_callbacks: false, subroutine: true
       end
 
       # Ends the current subroutine that was started with a previous call to start_subroutine
       def end_subroutine(_cond = false)
-        Pattern.close call_shutdown_callbacks: false, subroutine: true
+        ::Pattern.close call_shutdown_callbacks: false, subroutine: true
       end
 
       # Call a subroutine.
