@@ -1,8 +1,11 @@
 language: ruby
 rvm:
-  - 2.2.2
-  - 2.3.0
-  - 2.4.1
+  - 2.3.8
+  - 2.4.7
+  - 2.5.6
+  - 2.6.4
+before_install:
+  - gem install origen
 script:
   - bundle exec origen -v
   - bundle exec origen t dut.rb
