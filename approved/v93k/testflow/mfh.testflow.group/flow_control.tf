@@ -3670,8 +3670,11 @@ test_flow
     }
     else
     {
+       if @EWORD2 == 1 then
        {
-          if @EWORD2 == 1 then
+       }
+       else
+       {
           {
              if @SMALL_FLOW == 1 then
              {
@@ -3696,8 +3699,10 @@ test_flow
              else
              {
              }
-          }
-          else
+          }, open,"user_specified_sub_flow_name", ""
+       }
+       if @EWORD2 == 1 then
+       {
           {
              if @SMALL_FLOW == 1 then
              {
@@ -3722,8 +3727,11 @@ test_flow
              else
              {
              }
-          }
-       }, open,"small", ""
+          }, open,"small", ""
+       }
+       else
+       {
+       }
     }
     print_dl("Test some expressions");
     @LT_VARIABLE = "FALSE";

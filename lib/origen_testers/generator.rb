@@ -255,6 +255,9 @@ module OrigenTesters
 
     # Import sub-program
     def import(file, options = {})
+      options = {
+        name: nil
+      }.merge(options)
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
       file = Origen.file_handler.add_rb_to(file)  # add .rb to filename if missing
       orig_file = "#{file}"     # capture original filename possibly without pre-pended underscore
@@ -270,6 +273,8 @@ module OrigenTesters
           fail "Could not find file to import: #{orig_file}" if file.nil?  # give error if neither option above is found
         end
       end
+
+      OrigenTesters::Flow.name_stack << options[:name]
 
       base_collection = collection
       @collection = []

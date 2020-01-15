@@ -12,7 +12,8 @@ module Origen
       # of the ATP AST originated from
       def create(options = {}, &block)
         options = {
-          reload_target: true
+          reload_target: true,
+          name:          OrigenTesters::Flow.name_stack.pop
         }.merge(options)
         # Patch for Windows operation since the path can start with something like "C:/"
         if caller[0] =~ /(:(\/|\\))/
