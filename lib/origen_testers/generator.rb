@@ -255,9 +255,8 @@ module OrigenTesters
 
     # Import sub-program
     def import(file, options = {})
-      file = Pathname.new(file) unless file.is_a?(Pathname)
       options = {
-        name: (file.basename file.extname).to_s
+        name: nil
       }.merge(options)
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
       file = Origen.file_handler.add_rb_to(file)  # add .rb to filename if missing
@@ -275,7 +274,7 @@ module OrigenTesters
         end
       end
 
-      OrigenTesters::Flow.name_stack << options[:name]
+      OrigenTesters::Flow.name_stack << options[:name] unless options[:name].nil?
 
       base_collection = collection
       @collection = []
