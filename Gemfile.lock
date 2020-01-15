@@ -184,6 +184,7 @@ DEPENDENCIES
   origen_stil!
   origen_testers!
   ripper-tags
+  rubyzip (~> 1)
   yard-activesupport-concern
 
 BUNDLED WITH
