@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_45_0"></a>
+<h1><a href="#v0_45_0">Tag: v0.45.0</a></h1>
+
+##### Branch: 'master'
+
+##### by info-rchitect on 15-Jan-2020 10:48AM
+
+
+* Added support for naming sub-flows
+
+~~~ruby
+import :my\_sub\_flow, name: 'new\_sub\_flow\_name'
+~~~
+
 <a class="anchor release_tag" name="v0_44_1"></a>
 <h1><a href="#v0_44_1">Tag: v0.44.1</a></h1>
 
