@@ -13,7 +13,7 @@ module Origen
       def create(options = {}, &block)
         options = {
           reload_target: true,
-          name:          OrigenTesters::Flow.name_stack.empty? ? nil : OrigenTesters::Flow.name_stack.last
+          name:          OrigenTesters::Flow.name_stack.pop
         }.merge(options)
         # Patch for Windows operation since the path can start with something like "C:/"
         if caller[0] =~ /(:(\/|\\))/
@@ -57,7 +57,6 @@ module Origen
         end
         OrigenTesters::Flow.callstack.pop
         OrigenTesters::Flow.comment_stack.pop
-        OrigenTesters::Flow.name_stack.pop
         OrigenTesters::Flow.flow_comments = nil if top
       end
 
