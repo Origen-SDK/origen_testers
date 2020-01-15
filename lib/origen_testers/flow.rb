@@ -28,6 +28,10 @@ module OrigenTesters
       @comment_stack ||= []
     end
 
+    def self.name_stack
+      @name_stack ||= []
+    end
+
     def self.flow_comments
       @flow_comments
     end
