@@ -274,7 +274,7 @@ module OrigenTesters
         end
       end
 
-      OrigenTesters::Flow.name_stack << options[:name] unless options[:name].nil?
+      OrigenTesters::Flow.name_stack << options[:name]
 
       base_collection = collection
       @collection = []
