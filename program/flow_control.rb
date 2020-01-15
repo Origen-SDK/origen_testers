@@ -467,7 +467,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   log 'Test of a real life case which was found to have problems'
   unless_enable "eword1" do
     unless_enable "eword2" do
-      import 'components/small', number: 53000
+      import 'components/small', number: 53000, name: 'user_specified_sub_flow_name'
     end
     if_enable "eword2" do
       import 'components/small', number: 54000

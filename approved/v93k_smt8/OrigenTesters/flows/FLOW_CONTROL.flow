@@ -1117,8 +1117,8 @@ flow FLOW_CONTROL {
         flow LEVEL1 calls OrigenTesters.flows.flow_control.LEVEL1 { }
         flow NTG1 calls OrigenTesters.flows.flow_control.NTG1 { }
         flow NTG2 calls OrigenTesters.flows.flow_control.NTG2 { }
+        flow USER_SPECIFIED_SUB_NAME calls OrigenTesters.flows.flow_control.USER_SPECIFIED_SUB_NAME { }
         flow SMALL calls OrigenTesters.flows.flow_control.SMALL { }
-        flow SMALL_1 calls OrigenTesters.flows.flow_control.SMALL_1 { }
     }
 
     execute {
@@ -1711,12 +1711,12 @@ flow FLOW_CONTROL {
         } else {
             if (EWORD2 == 1) {
             } else {
-                SMALL.SMALL_FLOW = SMALL_FLOW;
-                SMALL.execute();
+                USER_SPECIFIED_SUB_NAME.SMALL_FLOW = SMALL_FLOW;
+                USER_SPECIFIED_SUB_NAME.execute();
             }
             if (EWORD2 == 1) {
-                SMALL_1.SMALL_FLOW = SMALL_FLOW;
-                SMALL_1.execute();
+                SMALL.SMALL_FLOW = SMALL_FLOW;
+                SMALL.execute();
             } else {
             }
         }
