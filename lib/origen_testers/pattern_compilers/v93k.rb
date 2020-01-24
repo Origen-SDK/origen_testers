@@ -312,10 +312,14 @@ module OrigenTesters
       # Given the file contents, parse and calculate number of capture vectors
       def avc_digcap_vpf(contents)
         capture_vectors = 0
+        factor = 1
         contents.each_line do |line|
-          if line[0] != "\#"     # skip any comment lines
-            capture_vectors += 1 if /#{digcap.capture_string}/.match(line)
+          next if line.match(/^\s*\#/)
+          if line.match(/^\s*SQPG\s+LBGN\s+(\d+)\s*;/)
+            factor = Regexp.last_match(1).to_i
           end
+          factor = 1 if line.match(/^\s*SQPG\s+LEND\s*;/)
+          capture_vectors += factor if /#{digcap.capture_string}/.match(line)
         end
         capture_vectors
       end
