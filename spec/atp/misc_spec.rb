@@ -96,7 +96,10 @@ describe 'Miscellaneous tests' do
     ast.id.should == id
   end
 
+  it 'throws an error when a nil flag is passed' do
+    expect{if_flag $not_a_string do
+             test :test1
+           end}.to raise_error
 
-
-
+  end
 end

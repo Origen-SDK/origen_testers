@@ -612,6 +612,10 @@ module OrigenTesters::ATP
         else
           options = {}
         end
+        if flags.include? nil
+          Origen.log.error("Found Nil flag passed to the '#{method}' method, ensure the flag is passed as a String or a Symbol!")
+          fail
+        end
         flags = flags.first if flags.size == 1
         # Legacy option provided by OrigenTesters that permits override of a block enable method by passing
         # an :or option with a true value
