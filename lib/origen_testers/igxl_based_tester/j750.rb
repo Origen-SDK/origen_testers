@@ -180,8 +180,10 @@ module OrigenTesters
         end
 
         # retroactively set loop counter values for timeout based on cycles in match loop condition
-        set_loopb_vector.microcode = "loopB #{outer_loop_count} ign ifc icc"
-        set_loopa_vector.microcode = "loopA #{inner_loop_count} ign ifc icc"
+        unless @inhibit_vectors
+          set_loopb_vector.microcode = "loopB #{outer_loop_count} ign ifc icc"
+          set_loopa_vector.microcode = "loopA #{inner_loop_count} ign ifc icc"
+        end
 
         cc 'Loop back around if time remaining'
         cycle(microcode: "end_loopA match_inner_loop_#{@unique_counter} icc")

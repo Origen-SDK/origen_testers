@@ -1,0 +1,38 @@
+# ***************************************************************************
+# GENERATED:
+#   Time:    24-Feb-2020 04:14AM
+#   By:      Stephen McGinty
+#   Mode:    debug
+#   Command: origen g v93k_workout_inhibited -t legacy.rb -e v93k.rb
+# ***************************************************************************
+# ENVIRONMENT:
+#   Application
+#     Source:    git@github.com:Origen-SDK/origen_testers.git
+#     Version:   0.45.1
+#     Branch:    match_loop_bug(9b1f7426b94) (+local edits)
+#   Origen
+#     Source:    https://github.com/Origen-SDK/origen
+#     Version:   0.55.0
+#   Plugins
+#     origen_arm_debug:         0.4.3
+#     origen_doc_helpers:       0.8.2
+#     origen_jtag:              0.22.0
+#     origen_stil:              0.2.1
+#     origen_swd:               1.1.2
+# ***************************************************************************
+FORMAT nvm_reset nvm_clk nvm_clk_mux porta portb nvm_invoke nvm_done nvm_fail nvm_alvtst nvm_ahvtst nvm_dtst TCLK TRST;
+#                                                   n n n p        p        n n n n n n t t
+#                                                   v v v o        o        v v v v v v c r
+#                                                   m m m r        r        m m m m m m l s
+#                                                   - - - t        t        - - - - - - k t
+#                                                   r c c a        b        i d f a a d    
+#                                                   e l l                   n o a l h t    
+#                                                   s k k                   v n i v v s    
+#                                                   e   -                   o e l t t t    
+#                                                   t   m                   k     s s      
+#                                                       u                   e     t t      
+#                                                       x                                  
+# ######################################################################
+# ## Pattern complete
+# ######################################################################
+SQPG STOP;
