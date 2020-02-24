@@ -1,3 +1,16 @@
+<a class="anchor release_tag" name="v0_45_2"></a>
+<h1><a href="#v0_45_2">Tag: v0.45.2</a></h1>
+
+##### Branch: 'master'
+
+##### by info-rchitect on 24-Feb-2020 10:34AM
+
+
+* Inhibit vectors bug fixes
+* nil flag check error handling
+* Match loop bug fixes
+* Removed testing for Ruby 2.3
+
 <a class="anchor release_tag" name="v0_45_1"></a>
 <h1><a href="#v0_45_1">Tag: v0.45.1</a></h1>
 
