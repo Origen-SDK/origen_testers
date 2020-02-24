@@ -319,8 +319,10 @@ module OrigenTesters
           pin.restore_state do
             pin.capture
             update_vector_pin_val pin, offset: options[:offset]
-            last_vector(options[:offset]).dont_compress = true
-            last_vector(options[:offset]).contains_capture = true
+            unless @inhibit_vectors
+              last_vector(options[:offset]).dont_compress = true
+              last_vector(options[:offset]).contains_capture = true
+            end
           end
         end
       end
@@ -545,7 +547,7 @@ module OrigenTesters
             number_of_loops = (timeout_in_cycles.to_f / (match_loop_cycle_count + mrpt)).ceil
           end
 
-          match_microcode.concat(" #{number_of_loops};")
+          match_microcode.concat(" #{number_of_loops};") unless @inhibit_vectors
 
           # Now do the wait loop, mrpt should always be a multiple of 8
           microcode "SQPG MRPT #{mrpt};"
@@ -587,9 +589,11 @@ module OrigenTesters
             loop_cycles = cycle_count - preloop_cycle_count
           end
 
-          number_of_loops = (timeout_in_cycles.to_f / loop_cycles).ceil
+          unless @inhibit_vectors
+            number_of_loops = (timeout_in_cycles.to_f / loop_cycles).ceil
 
-          loop_microcode.sub!('2', number_of_loops.to_s)
+            loop_microcode.sub!('2', number_of_loops.to_s)
+          end
 
           if options[:force_fail_on_timeout]
             fail_conditions.each(&:call)
