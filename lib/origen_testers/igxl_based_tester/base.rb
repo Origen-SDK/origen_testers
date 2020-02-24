@@ -284,7 +284,7 @@ module OrigenTesters
         options = { offset: 0
                   }.merge(options)
         update_vector microcode: 'stv', offset: options[:offset]
-        last_vector(options[:offset]).contains_capture = true
+        last_vector(options[:offset]).contains_capture = true unless @inhibit_vectors
       end
       alias_method :to_hram, :store
       alias_method :capture, :store
@@ -304,8 +304,10 @@ module OrigenTesters
         options = {
         }.merge(options)
 
-        preset_next_vector microcode: 'stv' do |vector|
-          vector.contains_capture = true
+        unless @inhibit_vectors
+          preset_next_vector microcode: 'stv' do |vector|
+            vector.contains_capture = true
+          end
         end
       end
       alias_method :store!, :store_next_cycle
