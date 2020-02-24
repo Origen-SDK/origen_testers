@@ -586,8 +586,10 @@ module OrigenTesters
         end
 
         # retroactively modify the counters based on cycles in match loop conditions
-        set_msb_vector.microcode = "set_msb #{counter_msb}"
-        set_c0_vector.microcode = "set c0 #{counter_lsb}"
+        unless @inhibit_vectors
+          set_msb_vector.microcode = "set_msb #{counter_msb}"
+          set_c0_vector.microcode = "set c0 #{counter_lsb}"
+        end
 
         if match_delay_cycles
           cc 'Delay to meet timeout value'
@@ -677,6 +679,7 @@ module OrigenTesters
       #   $tester.cycle
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
+        return if @inhibit_vectors
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = { offset: 0,
                     opcode: 'stv'
@@ -741,6 +744,7 @@ module OrigenTesters
       #   $tester.store_next_cycle
       #   $tester.cycle                # This is the vector that will be captured
       def store_next_cycle(*pins)
+        return if @inhibit_vectors
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
           opcode: 'stv'

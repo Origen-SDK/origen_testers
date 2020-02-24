@@ -4,6 +4,9 @@
 ARGV = %w(j750.list j750_workout_inhibited -t legacy -e j750.rb -r approved/j750)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
+ARGV = %w(j750_workout_inhibited -t legacy -e ultraflex.rb -r approved/ultraflex)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
 ARGV = %w(v93k_workout v93k_workout_inhibited -t legacy -e v93k.rb -r approved/v93k)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 

@@ -1,6 +1,6 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    24-Feb-2020 04:14AM
+//   Time:    24-Feb-2020 04:36AM
 //   By:      Stephen McGinty
 //   Mode:    debug
 //   Command: origen g j750_workout_inhibited -t legacy.rb -e j750.rb
@@ -9,7 +9,7 @@
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.45.1
-//     Branch:    match_loop_bug(9b1f7426b94) (+local edits)
+//     Branch:    match_loop_bug(97f4c9a3cde) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.55.0
@@ -39,39 +39,6 @@ start_label pattern_st:
 //                                                                                              t   m                   k     s s      
 //                                                                                                  u                   e     t t      
 //                                                                                                  x                                  
-// ######################################################################
-// ## Enter Test Mode
-// ######################################################################
-                                                                 > nvm_slow                     1 1 1 00100000 00000000 0 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00001000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00001000 00000000 0 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00100000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;
-                                                                 > nvm_slow                     1 1 1 00111000 00000000 1 H L X X X 0 1 ;                               
-global subr sub3:                                                                               
-match_outer_loop_2:                                                                             
-match_inner_loop_2:                                                                             
-block_0_matched_2:                                                                              
-match_loop_end_2:                                                                               
-match_outer_loop_3:                                                                             
-match_inner_loop_3:                                                                             
-block_0_matched_3:                                                                              
-match_loop_end_3:                                                                               
-match_outer_loop_4:                                                                             
-match_inner_loop_4:                                                                             
-block_0_matched_4:                                                                              
-match_loop_end_4:                                                                               
-match_outer_loop_5:                                                                             
-match_inner_loop_5:                                                                             
-block_0_matched_5:                                                                              
-block_1_matched_5:                                                                              
-match_loop_end_5:                                                                               
-a_test_label:                                                                                   
-test_loop_2_1:                                                                                  
-my_label_1:                                                                                     
 // ######################################################################
 // ## Pattern complete
 // ######################################################################
