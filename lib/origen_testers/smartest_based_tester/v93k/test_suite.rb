@@ -115,7 +115,6 @@ module OrigenTesters
           l << "  site_control = #{wrap_if_string(site_control)};" if site_control
           l << "  site_match = #{wrap_if_string(site_match)};" if site_match
           l << "  test_level = #{test_level};" if test_level
-          l << "  force_serial = #{wrap_if_string(force_serial)};" if force_serial
           l
         end
       end

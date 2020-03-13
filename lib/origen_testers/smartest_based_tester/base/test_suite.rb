@@ -100,6 +100,7 @@ module OrigenTesters
           f << 'ffv_enable' if ffv_enable
           f << 'frg_enable' if frg_enable
           f << 'hw_dsp_disable' if hardware_dsp_disable
+          f << 'force_serial' if force_serial
           f.empty? ? f : f.join(', ')
         end
 
