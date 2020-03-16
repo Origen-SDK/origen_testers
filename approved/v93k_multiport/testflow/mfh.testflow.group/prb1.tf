@@ -1241,13 +1241,12 @@ force_serial_false_test_864CE8F:
   site_control = "parallel:";
   site_match = 2;
 force_serial_true_test_864CE8F:
-  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail, force_serial;
   override = 1;
   override_seqlbl = "mPort_force_serial_true_test";
   override_testf = tm_99;
   site_control = "parallel:";
   site_match = 2;
-  force_serial = true;
 margin_read0_ckbd_864CE8F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
