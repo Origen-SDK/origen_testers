@@ -1054,7 +1054,7 @@ module OrigenTesters
           Origen.log.warn 'tester.digsrc_skip_start must be called before any overlay actions on the pin'
         end
       end
-      
+
       # Perform digsrc overlay (called by tester.cycle)
       def digsrc_overlay(options = {})
         options[:overlay] = { change_data: true }.merge(options[:overlay])
