@@ -1041,6 +1041,20 @@ module OrigenTesters
         # stage = sub_name
       end # subroutine_overlay
 
+      # Disable the automatic addition of the digsrc start command at the beginning of the pattern
+      #
+      # @example
+      #   tester.digsrc_skip_start :pin_or_group_name
+      #
+      def digsrc_skip_start(pin_or_group)
+        pin_or_group = dut.pin(pin_or_group).name
+        if @overlay_history[pin_or_group].nil?
+          @overlay_history[pin_or_group] = { count: 0, is_digsrc: true, start_applied: true }
+        else
+          Origen.log.warn 'tester.digsrc_skip_start must be called before any overlay actions on the pin'
+        end
+      end
+
       # Perform digsrc overlay (called by tester.cycle)
       def digsrc_overlay(options = {})
         options[:overlay] = { change_data: true }.merge(options[:overlay])

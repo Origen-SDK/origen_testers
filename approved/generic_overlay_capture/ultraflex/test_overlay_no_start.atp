@@ -1,0 +1,123 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    30-Mar-2020 14:55PM
+//   By:      Paul DeRouen
+//   Mode:    debug
+//   Command: origen g tester_overlay_no_start -t dut3.rb -e uflex.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.45.3
+//     Branch:    SkipDigSrcStart(bd22f83fd80) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.55.1
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.2
+//     origen_jtag:              0.22.0
+//     origen_stil:              0.2.1
+//     origen_swd:               1.1.2
+// ***************************************************************************
+//   DigSrc SEND count for tdi: 1                                                               
+//   DigSrc SEND count for pa: 6                                                                
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdm;                                                                            
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               (tdi):DigSrc 32:serial:lsb;                                                      
+               (pa):DigSrc 3;                                                                   
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+test_overlay_no_start ($tset, tclk, tdi, tdo, tms, pa)                                          
+{                                                                                               
+start_label test_overlay_no_start_st:                                                           
+//                                                                                              t t t t p  
+//                                                                                              c d d m a  
+//                                                                                              l i o s    
+//                                                                                              k          
+// should get a repeat count added to this vector for digsrc start minimum distance
+                                                                 > tp0                          X X X X XXX ;
+// should get a repeat 5 vector
+repeat 5                                                         > tp0                          1 1 H 1 XXX ;
+// should get a send microcode and 1 cycle with D
+((tdi):DigSrc = SEND)                                                                           
+                                                                 > tp0                          1 D H 1 XXX ;
+// should get a cycle with D and no send
+                                                                 > tp0                          1 D H 1 XXX ;
+// regular cycle with no D or send
+                                                                 > tp0                          1 1 H 1 XXX ;
+// cycle with 001 on pa
+                                                                 > tp0                          1 1 H 1 001 ;
+// send microcode followed by DDD on pa
+((pa):DigSrc = SEND)                                                                            
+                                                                 > tp0                          1 1 H 1 DDD ;
+// cycle with 001 on pa
+                                                                 > tp0                          1 1 H 1 001 ;
+// send microcode, DDD on pa with repeat 5 (will send 5 sets of data)
+((pa):DigSrc = SEND)                                                                            
+repeat 5                                                         > tp0                          1 1 H 1 DDD ;
+// cycle with 001 on pa
+                                                                 > tp0                          1 1 H 1 001 ;
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+// PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+                                                                 > tp0                          1 1 H 1 001 ;
+}                                                                                               

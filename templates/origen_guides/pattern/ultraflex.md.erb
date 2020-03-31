@@ -7,4 +7,24 @@ automatically to any supported platform.
 There are no significant APIs in this category currently, therefore refer to the
 [Common Pattern API](<%= path "guides/pattern/common" %>) which can fully target the UltraFLEX.
 
+### DigSrc
+
+UltraFlex supports <code>:digsrc</code> as a <code>tester.overlay_style</code> set like this:
+
+~~~ruby
+  tester.overlay_style = :digsrc
+~~~
+
+By default Origen will automatically place the digsrc start opcode at the beginning of the resulting pattern
+when <code>:digsrc</code> overlay is used. In some cases (like when the pattern is used in a pattern set that has already started
+the instrument in a previous pattern, or possibly in svm_patterns) this behavior is undesirable.
+
+The insertion of this start opcode can be disabled by placing the following code **before** any overlay operations
+for a given pin.
+
+~~~ruby
+  tester.digsrc_skip_start :pin_or_group_name if tester.ultraflex?
+  # Overlay operations can happen after this point
+~~~
+
 % end
