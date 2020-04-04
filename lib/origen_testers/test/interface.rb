@@ -63,7 +63,7 @@ module OrigenTesters
         elsif tester.v93k?
           block_loop(name, options) do |block, i|
             options[:number] = number + i if number && i
-            tm = test_methods.ac_tml.ac_test.functional_test
+            tm = test_methods.ac_tml_native.ac_test.functional_test
             ts = test_suites.run(name, options)
             ts.test_method = tm
             if tester.smt8?
@@ -95,7 +95,7 @@ module OrigenTesters
 
           block_loop(name, options) do |block, i|
             options[:number] = number + i if number && i
-            tm = test_methods.ac_tml.ac_test.functional_test
+            tm = test_methods.ac_tml_native.ac_test.functional_test
             ts = test_suites.run(name, options)
             ts.test_method = tm
             ts.levels = options.delete(:pin_levels) if options[:pin_levels]
@@ -247,7 +247,7 @@ module OrigenTesters
           end
 
         elsif tester.v93k?
-          tm = test_methods.dc_tml.dc_test.general_pmu
+          tm = test_methods.dc_tml_native.dc_test.general_pmu
           ts = test_suites.run(name, options)
           ts.test_method = tm
           if tester.smt8?

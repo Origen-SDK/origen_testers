@@ -81,7 +81,7 @@ module OrigenTesters
         line = flow.test(ins, options)
         { test_instance: ins, flow_line: line, patset: pset }
       elsif tester.v93k?
-        tm = test_methods.ac_tml.ac_test.functional_test
+        tm = test_methods.ac_tml_native.ac_test.functional_test
         ts = test_suites.run(name, options)
         ts.test_method = tm
         ts.pattern = pattern

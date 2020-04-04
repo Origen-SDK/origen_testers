@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethods
-        class AcTml < BaseTml
+        class AcTmlNative < BaseTml
           TEST_METHODS = {
             frequency_by_digital_capture: {
               class_name:           'Frequency_byDigitalCapture',
@@ -36,7 +36,7 @@ module OrigenTesters
           end
 
           def klass
-            'ac_tml.AcTest'
+            'ac_tml_native.AcTest'
           end
         end
       end

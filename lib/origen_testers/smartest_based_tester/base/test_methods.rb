@@ -7,8 +7,8 @@ module OrigenTesters
 
         require 'origen_testers/smartest_based_tester/base/test_methods/base_tml'
         require 'origen_testers/smartest_based_tester/base/test_methods/limits'
-        autoload :AcTml, 'origen_testers/smartest_based_tester/base/test_methods/ac_tml'
-        autoload :DcTml, 'origen_testers/smartest_based_tester/base/test_methods/dc_tml'
+        autoload :AcTmlNative, 'origen_testers/smartest_based_tester/base/test_methods/ac_tml'
+        autoload :DcTmlNative, 'origen_testers/smartest_based_tester/base/test_methods/dc_tml'
         autoload :CustomTml, 'origen_testers/smartest_based_tester/base/test_methods/custom_tml'
 
         attr_accessor :flow, :collection
@@ -34,13 +34,13 @@ module OrigenTesters
         end
 
         # Returns the AC test method library
-        def ac_tml
-          @ac_tml ||= AcTml.new(self)
+        def ac_tml_native
+          @ac_tml_native ||= AcTmlNative.new(self)
         end
 
         # Returns the DC test method library
-        def dc_tml
-          @dc_tml ||= DcTml.new(self)
+        def dc_tml_native
+          @dc_tml_native ||= DcTmlNative.new(self)
         end
 
         # Creates an accessor for custom test method libraries the first time they are called

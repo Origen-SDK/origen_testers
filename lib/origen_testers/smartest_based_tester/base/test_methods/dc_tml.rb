@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethods
-        class DcTml < BaseTml
+        class DcTmlNative < BaseTml
           TEST_METHODS = {
             continuity:        {
               pinlist:               [:string, '@'],
@@ -138,7 +138,7 @@ module OrigenTesters
           end
 
           def klass
-            'dc_tml.DcTest'
+            'dc_tml_native.DcTest'
           end
         end
       end
