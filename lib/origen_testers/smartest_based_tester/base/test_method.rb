@@ -85,7 +85,13 @@ module OrigenTesters
           end
           # Finally set any initial values that have been supplied
           options[:attrs].each do |k, v|
-            send("#{k}=", v) if respond_to?("#{k}=")
+            accessor = "#{k}="
+            if respond_to?(accessor)
+              send(accessor, v)
+            else
+              accessor = "#{k.to_s.underscore}="
+              send(accessor, v) if respond_to?(accessor)
+            end
           end
         end
 
