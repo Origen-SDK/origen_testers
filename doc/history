@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_46_0"></a>
+<h1><a href="#v0_46_0">Tag: v0.46.0</a></h1>
+
+##### Branch: 'master'
+
+##### by info-rchitect on 15-Apr-2020 09:53AM
+
+
+* PR#154: Enable test methods and test method parameters using non-snakecase nomenclature
+to be used in SMT7
+
 <a class="anchor release_tag" name="v0_45_4"></a>
 <h1><a href="#v0_45_4">Tag: v0.45.4</a></h1>
 
