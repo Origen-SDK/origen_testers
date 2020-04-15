@@ -9,7 +9,7 @@ module OrigenTesters
               test_current:          [:current, 10.uA],
               settling_time:         [:time, 1.ms],
               measurement_mode:      [:string, 'PPMUpar', %w(PPMUpar ProgLoad)],
-              polarity:              [:string, 'SPOL', ['SPOL' 'BPOL']],
+              polarity:              [:string, 'SPOL', %w(SPOL BPOL)],
               precharge_to_zero_vol: [:string, 'ON', %w(ON OFF)],
               test_name:             [:string, 'passVolt_mv'],
               output:                [:string, 'None', %w(None ReportUI ShowFailOnly)]

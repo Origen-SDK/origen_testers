@@ -13,14 +13,14 @@ module OrigenTesters
 
           def method_missing(method, *args, &block)
             if definitions[method]
-              m = platform::TestMethod.new methods: definitions[method].dup,
-                                           attrs:   (args.first || {}),
-                                           type:    method,
-                                           library: self
-              test_methods.add(m)
-              m
+              instantiate_test_method(method, args)
             else
-              super
+              method = method.to_s.underscore.to_sym
+              if definitions[method]
+                instantiate_test_method(method, args)
+              else
+                super
+              end
             end
           end
 
@@ -30,6 +30,17 @@ module OrigenTesters
 
           def definitions
             @definitions || self.class::TEST_METHODS
+          end
+
+          private
+
+          def instantiate_test_method(method, args)
+            m = platform::TestMethod.new methods: definitions[method].dup,
+                                         attrs:   (args.first || {}),
+                                         type:    method,
+                                         library: self
+            test_methods.add(m)
+            m
           end
         end
       end
