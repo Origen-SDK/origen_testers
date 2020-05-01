@@ -196,6 +196,21 @@ module OrigenTesters
       flow.save_program
     end
 
+    # Returns the boolean value that determines whether to use the generator's built-in subdirectory
+    # when generating the output and reference filepaths
+    def enable_subdirectory
+      if @enable_subdirectory.nil?
+        true
+      else
+        @enable_subdirectory
+      end
+    end
+
+    # set value of enable_subdirectory
+    def set_enable_subdirectory(val)
+      @enable_subdirectory = val
+    end
+
     def on_program_completion(options = {})
       reset_globals
       @@pattern_references = {}
