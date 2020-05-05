@@ -38,7 +38,6 @@ module OrigenTesters
         end
 
         def subdirectory
-          @subdirectory ||= begin
             if smt8?
               parents = []
               f = parent
@@ -48,9 +47,8 @@ module OrigenTesters
               end
               File.join tester.package_namespace, 'flows', *parents
             else
-              'testflow/mfh.testflow.group'
+              Origen.interface.flow_subdirectory || 'testflow/mfh.testflow.group'
             end
-          end
         end
 
         def filename
