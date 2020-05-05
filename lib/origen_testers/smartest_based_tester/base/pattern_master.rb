@@ -6,7 +6,7 @@ module OrigenTesters
         include OrigenTesters::Generator
 
         attr_reader :flow, :paths
-        attr_accessor :filename, :id
+        attr_accessor :filename, :id, :subdirectory
 
         def initialize(flow = nil)
           @flow = flow
@@ -18,7 +18,7 @@ module OrigenTesters
         end
 
         def subdirectory
-          'vectors'
+          @subdirectory ||= 'vectors'
         end
 
         def paths
