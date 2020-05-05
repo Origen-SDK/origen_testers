@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'V93K unique test name generation' do
+describe 'v93k output directory specification' do
   before :each do
     # Create a dummy file for the V93K interface to use. Doesn't need to exists, it won't actually be used, just needs to be set.
     # Origen.interface.try(:reset_globals)
