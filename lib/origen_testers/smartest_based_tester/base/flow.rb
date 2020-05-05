@@ -38,18 +38,16 @@ module OrigenTesters
         end
 
         def subdirectory
-          @subdirectory ||= begin
-            if smt8?
-              parents = []
-              f = parent
-              while f
-                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-                f = f.parent
-              end
-              File.join tester.package_namespace, 'flows', *parents
-            else
-              'testflow/mfh.testflow.group'
+          if smt8?
+            parents = []
+            f = parent
+            while f
+              parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+              f = f.parent
             end
+            File.join tester.package_namespace, 'flows', *parents
+          else
+            Origen.interface.flow_subdirectory || 'testflow/mfh.testflow.group'
           end
         end
 

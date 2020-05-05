@@ -221,7 +221,7 @@ module OrigenTesters
         p = Pathname.new("#{output_directory}/#{filename}")
       # Otherwise resolve one
       else
-        if respond_to?(:subdirectory) && Origen.interface.enable_subdirectory
+        if respond_to? :subdirectory
           p = Pathname.new("#{Origen.file_handler.output_directory}/#{subdirectory}/#{filename}")
         else
           p = Pathname.new("#{Origen.file_handler.output_directory}/#{filename}")
@@ -242,7 +242,7 @@ module OrigenTesters
           FileUtils.mkdir_p(dir)
           Pathname.new(File.join(dir, filename))
         else
-          if respond_to?(:subdirectory) && Origen.interface.enable_subdirectory
+          if respond_to? :subdirectory
             dir = File.join(Origen.file_handler.reference_directory, subdirectory)
             FileUtils.mkdir_p(dir)
             Pathname.new(File.join(dir, filename))
