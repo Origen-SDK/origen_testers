@@ -18,7 +18,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name, :flow_bypass, :flow_description
+        attr_accessor :add_flow_enable, :flow_name, :flow_bypass, :flow_description, :subdirectory
 
         def self.generate_flag_name(flag)
           case flag[0]
