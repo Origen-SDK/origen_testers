@@ -196,16 +196,6 @@ module OrigenTesters
       flow.save_program
     end
 
-    # If set, used as a custom flow subdirectory. Otherwise, use default subdirectory
-    def flow_subdirectory
-      @flow_subdirectory
-    end
-
-    # set value of flow_subdirectory
-    def set_flow_subdirectory(val)
-      @flow_subdirectory = val
-    end
-
     def on_program_completion(options = {})
       reset_globals
       @@pattern_references = {}

@@ -6,13 +6,13 @@ module OrigenTesters
         include OrigenTesters::Generator
 
         attr_reader :variables
-        attr_accessor :filename, :id
+        attr_accessor :filename, :id, :subdirectory
 
         def initialize(options = {})
         end
 
         def subdirectory
-          'testflow/mfh.testflow.setup'
+          @subdirectory ||= 'testflow/mfh.testflow.setup'
         end
 
         def add_variables(vars)

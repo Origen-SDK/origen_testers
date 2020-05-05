@@ -17,7 +17,7 @@ describe 'v93k output directory specification' do
     include OrigenTesters::ProgramGenerators
   end
 
-  it 'Defaults to using v93k standard subdir if flow_subdir is not set' do
+  it 'Defaults to using v93k standard subdir if subdirectory instance variable is not set' do
     Origen.target.temporary = lambda do
       MyDUT.new
       OrigenTesters::V93K.new
@@ -27,11 +27,15 @@ describe 'v93k output directory specification' do
     Origen.load_target
     Flow.create interface: 'MyInterface' do
     end
-    Origen.interface.sheet_generators.first.output_file.relative_path_from(Origen.root).to_s
+    Origen.interface.flow.output_file.relative_path_from(Origen.root).to_s
       .should == 'output/v93k/testflow/mfh.testflow.group/temp.tf'
+    Origen.interface.variables_file.output_file.relative_path_from(Origen.root).to_s
+      .should == 'output/v93k/testflow/mfh.testflow.setup/abc_vars.tf'
+    Origen.interface.pattern_master.output_file.relative_path_from(Origen.root).to_s
+      .should == 'output/v93k/vectors/global.pmfl'
   end
 
-  it 'Uses specified flow_subdirectory from interface in output_file' do
+  it 'Uses specified subdirectory in output_file' do
     Origen.target.temporary = lambda do
       MyDUT.new
       OrigenTesters::V93K.new
@@ -39,9 +43,15 @@ describe 'v93k output directory specification' do
     Origen.file_handler.current_file = Pathname.new("#{Origen.root}/temp.rb")
     Origen.load_target
     Flow.create interface: 'MyInterface' do
-      Origen.interface.set_flow_subdirectory('')
     end
-    Origen.interface.sheet_generators.first.output_file.relative_path_from(Origen.root).to_s
+    Origen.interface.flow.subdirectory = ''
+    Origen.interface.variables_file.subdirectory = ''
+    Origen.interface.pattern_master.subdirectory = ''
+    Origen.interface.flow.output_file.relative_path_from(Origen.root).to_s
       .should == 'output/v93k/temp.tf'
+    Origen.interface.variables_file.output_file.relative_path_from(Origen.root).to_s
+      .should == 'output/v93k/abc_vars.tf'
+    Origen.interface.pattern_master.output_file.relative_path_from(Origen.root).to_s
+      .should == 'output/v93k/global.pmfl'
   end
 end
