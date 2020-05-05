@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe 'v93k output directory specification' do
   before :each do
-    # Create a dummy file for the V93K interface to use. Doesn't need to exists, it won't actually be used, just needs to be set.
-    # Origen.interface.try(:reset_globals)
     Origen.instance_variable_set('@interface', nil)
   end
 
@@ -24,6 +22,7 @@ describe 'v93k output directory specification' do
       MyDUT.new
       OrigenTesters::V93K.new
     end
+    # Create a dummy file for the V93K interface to use. Doesn't need to exists, it won't actually be used, just needs to be set.
     Origen.file_handler.current_file = Pathname.new("#{Origen.root}/temp.rb")
     Origen.load_target
     Flow.create interface: 'MyInterface' do
