@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_46_1"></a>
+<h1><a href="#v0_46_1">Tag: v0.46.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 05-May-2020 16:48PM
+
+
+Interface can now specify the subdirectory location in the output folder.
+Default behavior is unchanged to ensure backwards compatibility.
+
 <a class="anchor release_tag" name="v0_46_0"></a>
 <h1><a href="#v0_46_0">Tag: v0.46.0</a></h1>
 
