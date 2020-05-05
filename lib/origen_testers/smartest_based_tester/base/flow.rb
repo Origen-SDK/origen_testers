@@ -18,7 +18,7 @@ module OrigenTesters
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 
-        attr_accessor :add_flow_enable, :flow_name, :flow_bypass, :flow_description
+        attr_accessor :add_flow_enable, :flow_name, :flow_bypass, :flow_description, :subdirectory
 
         def self.generate_flag_name(flag)
           case flag[0]
@@ -38,16 +38,18 @@ module OrigenTesters
         end
 
         def subdirectory
-          if smt8?
-            parents = []
-            f = parent
-            while f
-              parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-              f = f.parent
+          @subdirectory ||= begin
+            if smt8?
+              parents = []
+              f = parent
+              while f
+                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                f = f.parent
+              end
+              File.join tester.package_namespace, 'flows', *parents
+            else
+              'testflow/mfh.testflow.group'
             end
-            File.join tester.package_namespace, 'flows', *parents
-          else
-            Origen.interface.flow_subdirectory || 'testflow/mfh.testflow.group'
           end
         end
 
