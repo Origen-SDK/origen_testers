@@ -40,6 +40,7 @@ long_test.binl.gz
 long_test1.binl.gz
 long_test2.binl.gz
 loop_check.binl.gz
+loop_check_no_var.binl.gz
 nt1.binl.gz
 nt2.binl.gz
 nt3.binl.gz

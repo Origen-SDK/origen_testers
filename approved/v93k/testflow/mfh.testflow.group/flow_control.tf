@@ -255,6 +255,9 @@ tm_173:
 tm_174:
   "output" = "None";
   "testName" = "Functional";
+tm_175:
+  "output" = "None";
+  "testName" = "Functional";
 tm_18:
   "output" = "None";
   "testName" = "Functional";
@@ -698,6 +701,8 @@ tm_173:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_174:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_175:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_18:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_19:
@@ -1050,6 +1055,8 @@ tm_172:
 tm_173:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_174:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_175:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_18:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -1492,7 +1499,16 @@ loop_check_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "loop_check";
+  override_test_number = 60099;
   override_testf = tm_174;
+  site_control = "parallel:";
+  site_match = 2;
+loop_check_no_var_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_check_no_var";
+  override_test_number = 60099;
+  override_testf = tm_175;
   site_control = "parallel:";
   site_match = 2;
 nt1_BEA7F3B:
@@ -3782,6 +3798,11 @@ test_flow
     test_number_loop_increment = 0
     {
        run(loop_check_BEA7F3B);
+    }
+    for @index = 0; @index < 5 ; @index = @index + 1; do
+    test_number_loop_increment = 0
+    {
+       run(loop_check_no_var_BEA7F3B);
     }
 
   }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
