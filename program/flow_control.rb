@@ -524,10 +524,10 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
 
   if tester.v93k?
     loop from: 1, to: 5, step: 1, var: "loop" do
-      func :loop_check
+      func :loop_check, test_number: 60001
     end
     loop from: 1, to: 5, step: 1 do
-      func :loop_check_no_var
+      func :loop_check_no_var, test_number: 60002
     end
   end
 end

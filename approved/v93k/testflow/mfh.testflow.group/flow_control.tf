@@ -1499,6 +1499,7 @@ loop_check_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "loop_check";
+  override_test_number = 60001;
   override_testf = tm_174;
   site_control = "parallel:";
   site_match = 2;
@@ -1506,6 +1507,7 @@ loop_check_no_var_BEA7F3B:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "loop_check_no_var";
+  override_test_number = 60002;
   override_testf = tm_175;
   site_control = "parallel:";
   site_match = 2;
