@@ -167,6 +167,20 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
+        suite loop_check calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_check);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_check_no_var calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_check_no_var);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite nt1 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.nt1);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -1750,6 +1764,16 @@ flow FLOW_CONTROL {
         }
         else
         {
+        }
+        for @index = 0; @index < @loop ; @index = @index + 1; do
+        test_number_loop_increment = 0
+        {
+            loop_check.execute();
+        }
+        for @index = 0; @index < 5 ; @index = @index + 1; do
+        test_number_loop_increment = 0
+        {
+            loop_check_no_var.execute();
         }
     }
 }
