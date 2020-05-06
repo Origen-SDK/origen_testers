@@ -270,7 +270,7 @@ module OrigenTesters
           loop_inc = node.children[2]
           loop_flag = node.children[3] if node.children[3].is_a?(String)
           loop_end_str = loop_flag.nil? ? loop_end.to_s : "@#{loop_flag}"
-          line "for @index = 0; @index < #{loop_end_str} ; @index = @index + 1; do"
+          line "for @index = 0; @index < #{loop_end_str} ; @index = @index + #{loop_inc}; do"
           line "test_number_loop_increment = 0"
           line "{"
           @indent += 1
