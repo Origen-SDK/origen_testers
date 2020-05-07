@@ -274,13 +274,13 @@ module OrigenTesters
           else
             line "for @index = #{loop_start}; @index < #{loop_end} ; @index = @index + #{loop_inc}; do"
           end
-          line "test_number_loop_increment = 0"
-          line "{"
+          line 'test_number_loop_increment = 0'
+          line '{'
           @indent += 1
           children_start_index = index_flag.nil? ? 3 : 4
           process_all(node.children[children_start_index..-1])
           @indent -= 1
-          line "}"
+          line '}'
         end
 
         def on_test(node)
