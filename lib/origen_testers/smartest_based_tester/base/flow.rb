@@ -268,16 +268,19 @@ module OrigenTesters
           loop_start = node.children[0]
           loop_end = node.children[1]
           loop_inc = node.children[2]
-          loop_flag = node.children[3] if node.children[3].is_a?(String)
-          loop_end_str = loop_flag.nil? ? loop_end.to_s : "@#{loop_flag}"
-          line "for @index = 0; @index < #{loop_end_str} ; @index = @index + #{loop_inc}; do"
-          line 'test_number_loop_increment = 0'
-          line '{'
+          index_flag = node.children[3] if node.children[3].is_a?(String)
+          if index_flag.is_a?(String)
+            line "for @#{index_flag} = #{loop_start}; @#{index_flag} < #{loop_end} ; @#{index_flag} = @#{index_flag} + #{loop_inc}; do"
+          else
+            line "for @index = #{loop_start}; @index < #{loop_end} ; @index = @index + #{loop_inc}; do"
+          end
+          line "test_number_loop_increment = 0"
+          line "{"
           @indent += 1
-          children_start_index = loop_flag.nil? ? 3 : 4
+          children_start_index = index_flag.nil? ? 3 : 4
           process_all(node.children[children_start_index..-1])
           @indent -= 1
-          line '}'
+          line "}"
         end
 
         def on_test(node)

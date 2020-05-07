@@ -521,8 +521,8 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :read1, id: :ta5, bin: 10, number: 60000
     func :erase1, if_all_sites_passed: :ta5, bin: 12, number: 60010
   end
-
-  if tester.v93k?
+  
+  if tester.smt7?
     loop from: 1, to: 5, step: 1, var: "loop" do
       func :loop_check, test_number: 60001
     end
