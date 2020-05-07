@@ -3794,12 +3794,12 @@ test_flow
     else
     {
     }
-    for @index = 0; @index < @loop ; @index = @index + 1; do
+    for @loop = 1; @loop < 5 ; @loop = @loop + 1; do
     test_number_loop_increment = 0
     {
        run(loop_check_BEA7F3B);
     }
-    for @index = 0; @index < 5 ; @index = @index + 1; do
+    for @index = 1; @index < 5 ; @index = @index + 1; do
     test_number_loop_increment = 0
     {
        run(loop_check_no_var_BEA7F3B);
