@@ -70,6 +70,9 @@ module OrigenTesters
       # format (SMT8 only)
       attr_accessor :zip_patterns
 
+      # Program comment character that affects what portions of a gnerated flow file to ignore during diff
+      attr_reader :program_comment_char
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -99,8 +102,10 @@ module OrigenTesters
         @min_repeat_loop = 33
         if smt8?
           @pat_extension = 'pat'
+          @program_comment_char = '//'
         else
           @pat_extension = 'avc'
+          @program_comment_char = '--'
         end
         @compress = true
         # @support_repeat_previous = true

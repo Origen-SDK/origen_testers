@@ -22,4 +22,17 @@ describe "IGXL Based Tester class" do
     $tester.name.should == "ultraflex"
   end
 
+  it "select SmartTest SMT7 tester properly" do
+    Origen.environment.temporary = "v93k.rb"
+    Origen.load_target("dut.rb")
+    $tester.name.should == "v93k"
+    $tester.program_comment_char == '--'
+  end
+
+  it "select SmartTest SMT8 tester properly" do
+    Origen.environment.temporary = "v93k_smt8.rb"
+    Origen.load_target("dut.rb")
+    $tester.name.should == "v93k"
+    $tester.program_comment_char == '//'
+  end
 end
