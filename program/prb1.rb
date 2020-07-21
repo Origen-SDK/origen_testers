@@ -13,7 +13,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_description: 'Prob
   import 'test' # import top-level test.rb directly, note that Flow.create options of sub-flow will be ignored!
 
   # Test that a reference to a deeply nested test works (mainly for SMT8)
-  test :on_deep_1, if_failed: :deep_test
+  test :on_deep_1, if_failed: :deep_test, test_text: "some_custom_text"
 
   pass 1, description: "Good die!", softbin: 1
 end

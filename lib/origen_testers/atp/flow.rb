@@ -408,6 +408,10 @@ module OrigenTesters::ATP
             children << n(:meta, attrs)
           end
 
+          if options[:test_text]
+            children << n(:test_text, [options[:test_text]])
+          end
+
           if subs = options[:sub_test] || options[:sub_tests]
             subs = [subs] unless subs.is_a?(Array)
             subs.each do |s|
