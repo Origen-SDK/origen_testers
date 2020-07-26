@@ -3,11 +3,13 @@ language_revision = 1;
 
 declarations
 
-% declarations.each do |var|
-%   if var.is_a?(Array)
+% if declarations
+%   declarations.each do |var|
+%     if var.is_a?(Array)
 @<%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
-%   else
+%     else
 @<%= var.to_s %> = 0;
+%     end
 %   end
 % end
 
@@ -15,11 +17,13 @@ end
 -----------------------------------------------------------------
 flags
 
-% flags.each do |var|
-%   if var.is_a?(Array)
+% if flags
+%   flags.each do |var|
+%     if var.is_a?(Array)
 user <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
-%   else
+%     else
 user <%= var.to_s %> = 0;
+%     end
 %   end
 % end
 
