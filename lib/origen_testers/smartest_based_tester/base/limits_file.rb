@@ -254,7 +254,7 @@ module OrigenTesters
             l << f(options[:test_number])
             # "Test Text"
             if options[:test_text]
-              l << options[:test_text]
+              l << f(options[:test_text])
             else
               names = ["#{options[:suite_name]}", "#{options[:test_name]}"]
               l << f(names.uniq.join('.'))
