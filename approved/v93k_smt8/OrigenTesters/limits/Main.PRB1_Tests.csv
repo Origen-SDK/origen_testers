@@ -110,4 +110,4 @@ TEST.meas_read_pump_3,meas_read_pump_3,40030,meas_read_pump_3,45,35,,2
 TEST.meas_read_pump_4,meas_read_pump_4,40040,meas_read_pump_4,0.045,0.035,,2
 TEST.meas_read_pump_5,meas_read_pump_5,40050,meas_read_pump_5,0.045,0.035,,
 TEST.meas_read_pump_6,meas_read_pump_6,40060,meas_read_pump_6,2000,0.01,,
-on_deep_1,on_deep_1,,on_deep_1,0,0,,
+on_deep_1,on_deep_1,,some_custom_text,0,0,,
