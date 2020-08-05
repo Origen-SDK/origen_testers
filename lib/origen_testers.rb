@@ -24,6 +24,7 @@ module OrigenTesters
   autoload :NoInterface,        'origen_testers/no_interface'
   autoload :MemoryStyle,        'origen_testers/memory_style'
   autoload :ATP,                'origen_testers/atp'
+  autoload :Charz,              'origen_testers/charz'
 
   # not yet autoload :Time,     'origen_testers/time'
 
