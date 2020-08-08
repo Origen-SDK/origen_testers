@@ -21,12 +21,16 @@ module OrigenTesters
       @charz_session ||= Session.new
     end
 
+    def eof_tests
+      @eof_tests ||= []
+    end
+
     def add_charz_profile(id, options = {}, &block)
       if charz_profiles.include?(id)
         Origen.log.error("Cannot create charz profile '#{id}', it already exists!")
         fail
       end
-      charz_profiles[id] = Profile.new(id, options.merge(available_routines: charz_routines.ids), &block)
+      charz_profiles[id] = Profile.new(id, options.merge(defined_routines: charz_routines.ids), &block)
     end
 
     def add_charz_routine(id, options = {}, &block)
@@ -81,6 +85,10 @@ module OrigenTesters
       else
         Origen.log.error "Unknown charz object type #{options[:type]}, valid types: :profile, :routine"
       end
+      if charz_obj.nil?
+        Origen.log.error "No #{options[:type]} found for charz_id: #{charz_id}"
+        fail
+      end
       charz_stack.push([charz_obj, options])
       unless update_charz_session(*charz_stack.last)
         Origen.log.error "charz_on failed to create a valid charz session"
@@ -88,7 +96,7 @@ module OrigenTesters
       end
     end
 
-    def insert_charz_tests(options = {})
+    def insert_charz_tests(options = {}, &block)
       options = {
         skip_group: false,
       }.merge(options)
@@ -97,9 +105,18 @@ module OrigenTesters
         when :inline
           create_charz_group(options, &block)
         when :on_fail
-          create_charz_group(options, &block)
+          raise 'not yet implemented'
+          # create_charz_group(options, &block)
         when :on_pass
-          create_charz_group(options, &block)
+          raise 'not yet implemented'
+          # create_charz_group(options, &block)
+        when :eof
+          current_session = charz_session
+          eof_tests << proc do
+            # nature of proc will remember current_session is this one
+            @charz_session = current_session 
+            create_charz_group(options, &block)
+          end
         else
           if respond_to?(:"create_#{charz_session.placement}_tests")
             send(:"create_#{charz_session.placement}_tests", options, &block)
@@ -113,106 +130,128 @@ module OrigenTesters
       end
     end
 
-# def create_charz_group(test_name)
-#   if current_charz_session.enables.empty?
-#     group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#       instantiate_charz_tests
-#     end
-#   elsif current_charz_session.enables.is_a?(Array)
-#     if_enable current_charz_session.enables do
-#       group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#         instantiate_charz_tests
-#       end
-#     end
-#   else
-#     # instantiate tests without flag gates
-#     group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#       instantiate_charz_tests(current_charz.routines.map(&:type) - current_charz.enables.values.flatten)
-#     end
-#     # instantiate tests whose routines map to flags
-#     current_charz_session.enables.each do |flags, routines|
-#       if_enable flags do
-#         group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#           instantiate_charz_tests(routines)
-#         end
-#       end
-#     end
-#   end
-# end
+    def generate_eof_tests(options = {})
+      options = {
+        skip_group: false
+      }.merge(options)
+      if options[:skip_group]
+        eof_tests.map(&:call)
+      else
+        group_name = options[:group_name] || 'End of Flow Charz Tests'
+        group group_name do
+          eof_tests.map(&:call)
+        end
+      end
+    end
+
     private
 
     def update_charz_session(charz_obj, options = {})
-      charz_session.update(charz_obj, options.merge(available_routines: charz_routines.ids))
+      charz_session.update(charz_obj, options.merge(defined_routines: charz_routines.ids))
+    end
+
+    def create_charz_group(options, &block)
+      options = {
+        skip_group: false,
+      }.merge(options)
+
+      if options[:skip_group]
+        process_gates(options, &block)
+      else
+        group_name = options[:group_name] || "#{options[:parent_test_name]}_#{charz_session.name}"
+        group group_name.to_sym do
+          process_gates(options, &block)
+        end
+      end
+    end
+
+    def process_gates(options, &block)
+      options = {
+        skip_gates: false
+      }.merge(options)
+      if options[:skip_gates] or !(charz_session.enables or charz_session.flags)
+        charz_session.routines.each do |routine|
+          block.call(options.merge(current_routine: routine))
+        end
+      else
+        if charz_session.enables and charz_session.flags
+          if charz_session.enables.is_a?(Hash) and !charz_session.flags.is_a?(Hash)
+            if_flag charz_session.flags do
+              insert_hash_gates(options, charz_session.enables, :if_enable, &block)
+            end
+          elsif !charz_session.enables.is_a?(Hash) and charz_session.flags.is_a?(Hash)
+            if_enable charz_session.enables do
+              insert_hash_gates(options, charz_session.flags, :if_flag, &block)
+            end
+          elsif charz_session.enables.is_a?(Hash) and charz_session.flags.is_a?(Hash)
+            ungated_routines = charz_session.routines - (charz_session.enables.values.flatten | charz_session.flags.values.flatten)
+            ungated_routines.each do |routine|
+              block.call(options.merge(current_routine: routine))
+            end
+            gated_routines = charz_session.routines - ungated_routines
+            gated_routines.each do |routine|
+              enable = charz_session.enables.find { |gates, routines| routines.include?(routine) }&.first
+              flag = charz_session.flags.find { |gates, routines| routines.include?(routine) }&.first
+              if enable and flag
+                if_enable enable do
+                  if_flag flag do
+                    block.call(options.merge(current_routine: routine))
+                  end
+                end
+              elsif enable
+                if_enable enable do
+                  block.call(options.merge(current_routine: routine))
+                end
+              elsif flag
+                if_flag flag do
+                  block.call(options.merge(current_routine: routine))
+                end
+              end
+            end
+          else
+            if_enable charz_session.enables do
+              if_flag charz_session.flags do
+                charz_session.routines.each do |routine|
+                  block.call(options.merge(current_routine: routine))
+                end
+              end
+            end
+          end
+        else
+          if charz_session.enables
+            gates = charz_session.enables
+            gate_method = :if_enable
+          elsif charz_session.flags
+            gates = charz_session.flags
+            gate_method = :if_flag
+          end
+          if gates.is_a?(Hash)
+            insert_hash_gates(options, gates, gate_method, &block)
+          else
+            send(gate_method, gates) do
+              charz_session.routines.each do |routine|
+                block.call(options.merge(current_routine: routine))
+              end
+            end
+          end
+        end
+      end
+    end
+
+    def insert_hash_gates(options, gate_hash, gate_method, &block)
+      ungated_routines = charz_session.routines - gate_hash.values.flatten
+      ungated_routines.each do |routine|
+        block.call(options.merge(current_routine: routine))
+      end
+      gate_hash.each do |gate, gated_routines|
+        send(gate_method, gate) do
+          gated_routines.each do |routine|
+            block.call(options.merge(current_routine: routine))
+          end
+        end
+      end
     end
 
   end
 end
 
-# def create_eof_charz_tests
-#   [].tap do |ary|
-#     charz_sessions.select { |cs| cs.placement == :eof }.each do |cs|
-#       ary << generate_charz_tests(cs)
-#     end
-#   end.flatten
-# end
-# 
-# def insert_charz_tests(test_instance)
-#   unless current_charz.nil?
-#     if current_charz.test_instances_created.size > 0
-#       case current_charz.placement
-#       when :inline
-#         create_charz_group(test_instance.flow_name)
-#       when :on_fail
-#         if_failed @last_test_called do
-#           create_charz_group(test_instance.flow_name)
-#         end
-#       when :on_pass
-#         if_passed @last_test_called do
-#           create_charz_group(test_instance.flow_name)
-#         end
-#       end
-#       current_charz.clear_queue unless current_charz.placement == :eof
-#       charz_off if current_charz.close_after_completion?
-#     end
-#   end
-# end
-# 
-# def create_charz_group(test_name)
-#   if current_charz_session.enables.empty?
-#     group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#       instantiate_charz_tests
-#     end
-#   elsif current_charz_session.enables.is_a?(Array)
-#     if_enable current_charz_session.enables do
-#       group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#         instantiate_charz_tests
-#       end
-#     end
-#   else
-#     # instantiate tests without flag gates
-#     group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#       instantiate_charz_tests(current_charz.routines.map(&:type) - current_charz.enables.values.flatten)
-#     end
-#     # instantiate tests whose routines map to flags
-#     current_charz_session.enables.each do |flags, routines|
-#       if_enable flags do
-#         group "#{test_name}_#{current_charz.profile}_charz".to_sym do
-#           instantiate_charz_tests(routines)
-#         end
-#       end
-#     end
-#   end
-# end
-# 
-# def instantiate_charz_tests(enabled_routines = nil)
-#   if enabled_routines.nil?
-#     current_charz.test_instances_created.each do |curr_charz_instance|
-#       instantiate_test curr_charz_instance, type: :charz
-#     end
-#   elsif !enabled_routines.empty?
-#     current_charz.test_instances_created.select { |cz_inst| enabled_routines.include?(cz_inst.charz_routine_name) }.each do |curr_charz_instance|
-#       instantiate_test curr_charz_instance, type: :charz
-#     end
-#   end
-# end
-# 

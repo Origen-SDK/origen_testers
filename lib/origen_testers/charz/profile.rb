@@ -11,14 +11,14 @@ module OrigenTesters
         (block.arity < 1 ? (instance_eval(&block)) : block.call(self)) if block_given?
         @name ||= id
         @placement ||= :inline
-        @available_routines = options.delete(:available_routines)
+        @defined_routines = options.delete(:defined_routines)
         attrs_ok?
       end
 
       def attrs_ok?
         return if @quality_check == false
 
-        unknown_routines = @routines - @available_routines
+        unknown_routines = @routines - @defined_routines
         unless unknown_routines.empty?
           Origen.log.error "Profile #{id}: unknown routines: #{unknown_routines}"
           fail
@@ -61,7 +61,7 @@ module OrigenTesters
             end
             gate_check(gate, gate_type)
             gated_routines = [gated_routines] unless gated_routines.is_a? Array
-            unknown_routines = gated_routines - @available_routines
+            unknown_routines = gated_routines - @defined_routines
             unless unknown_routines.empty?
               Origen.log.error "Profile #{id}: unknown routines found in @#{gate_type}[#{gate.is_a?(Symbol) ? ':' : ''}#{gate}]: #{unknown_routines}"
               fail

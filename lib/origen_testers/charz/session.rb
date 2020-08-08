@@ -38,7 +38,7 @@ module OrigenTesters
           @valid_session = false
           return @valid_session
         end
-        @available_routines = options.delete(:available_routines)
+        @defined_routines = options.delete(:defined_routines)
         assign_by_priority(:placement, charz_obj, options)
         assign_by_priority(:enables, charz_obj, options)
         assign_by_priority(:flags, charz_obj, options)
@@ -46,11 +46,25 @@ module OrigenTesters
         assign_by_priority(:name, charz_obj, options)
         assign_by_priority(:charz_only, charz_obj, options)
         attrs_ok?
+        massage_gates
         @active = true
         @valid_session = true
       end
 
       private
+
+      def massage_gates
+        if @enables.is_a?(Hash)
+          @enables = {}.tap do |new_h|
+            @enables.each { |gates, routines| new_h[gates] = [routines].flatten }
+          end
+        end
+        if @flags.is_a?(Hash)
+          @flags = {}.tap do |new_h|
+            @flags.each { |gates, routines| new_h[gates] = [routines].flatten }
+          end
+        end
+      end
 
       def assign_by_priority(ivar, charz_obj, options)
         if options[ivar]
