@@ -97,9 +97,6 @@ module OrigenTesters
     end
 
     def insert_charz_tests(options = {}, &block)
-      options = {
-        skip_group: false,
-      }.merge(options)
       if charz_active?
         case charz_session.placement
         when :inline
@@ -131,9 +128,6 @@ module OrigenTesters
     end
 
     def generate_eof_tests(options = {})
-      options = {
-        skip_group: false
-      }.merge(options)
       if options[:skip_group]
         eof_tests.map(&:call)
       else
@@ -151,10 +145,6 @@ module OrigenTesters
     end
 
     def create_charz_group(options, &block)
-      options = {
-        skip_group: false,
-      }.merge(options)
-
       if options[:skip_group]
         process_gates(options, &block)
       else
@@ -166,9 +156,6 @@ module OrigenTesters
     end
 
     def process_gates(options, &block)
-      options = {
-        skip_gates: false
-      }.merge(options)
       if options[:skip_gates] or !(charz_session.enables or charz_session.flags)
         charz_session.routines.each do |routine|
           block.call(options.merge(current_routine: routine))
