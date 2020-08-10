@@ -120,6 +120,13 @@ module OrigenTesters
 
     def insert_charz_tests(options = {}, &block)
       if charz_active?
+        if options[:id]
+          # two purposes:
+          # 1) prevent all charz tests inadverntently using the same ID as their parent
+          # 2) used in on_result behavior
+          current_id = options.delete(:id)
+          options[:last_test_id] ||= current_id
+        end
         case charz_session.placement
         when :inline
           create_charz_group(options, &block)
