@@ -22,7 +22,7 @@ module OrigenTesters
 
         return if @attr_value_check == false
 
-        # TODO not sure if I want this check, if so need to scope out of step count is common
+        # TODO not sure if I want this check, if so need to scope out if step count is common
 
         # if [@x_start, @x_stop, @x_res].all? { |attr| attr.is_a? Numeric } 
         #   unless @x_res <= (@x_start - @x_stop).abs

@@ -10,6 +10,7 @@ module OrigenTesters
         @valid_session = false
         @defaults = {
           placement: :inline,
+          on_result: nil,
           enables: nil,
           flags: nil,
           name: 'charz',
@@ -40,6 +41,7 @@ module OrigenTesters
         end
         @defined_routines = options.delete(:defined_routines)
         assign_by_priority(:placement, charz_obj, options)
+        assign_by_priority(:on_result, charz_obj, options)
         assign_by_priority(:enables, charz_obj, options)
         assign_by_priority(:flags, charz_obj, options)
         assign_by_priority(:routines, charz_obj, options)

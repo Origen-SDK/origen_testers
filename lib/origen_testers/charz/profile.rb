@@ -2,7 +2,7 @@ module OrigenTesters
   module Charz
     class Profile
 
-      attr_accessor :id, :name, :placement, :enables, :flags, :routines, :charz_only
+      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only
 
       def initialize(id, options, &block)
         @id = id
@@ -24,14 +24,22 @@ module OrigenTesters
           fail
         end
 
-        @valid_placements ||= [:inline, :eof, :on_fail, :on_pass]
+        @valid_placements ||= [:inline, :eof]
         unless @valid_placements.include? @placement
           Origen.log.error "Profile #{id}: invalid placement value, must be one of: #{@valid_placements}"
           fail
         end
 
-        if @charz_only and [:on_fail, :on_pass].include?(@placement)
-          Origen.log.error "Profile #{id}: @charz_only is set, but @placement (#{@placement}) requires the parent test to exist in the flow"
+        if @on_result
+          @valid_on_results ||= [:on_fail, :fail, :failed, :on_pass, :pass, :passed]
+          unless @valid_on_results.include?(@on_result)
+            Origen.log.error "Profile #{id}: invalid on_result value, must be one of: #{@valid_on_results}"
+            fail
+          end
+        end
+
+        if @charz_only and @on_result
+          Origen.log.error "Profile #{id}: @charz_only is set, but @on_result (#{@on_result}) requires the parent test to exist in the flow"
           fail
         end
 

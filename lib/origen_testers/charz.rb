@@ -96,17 +96,33 @@ module OrigenTesters
       end
     end
 
+    def set_conditional_charz_id(*args)
+      case args.size
+      when 1
+        options = args[0]
+        parent_test_name = options[:parent_test_name]
+      when 2
+        instance = args[0]
+        options = args[1]
+        parent_test_name = instance.name
+      else
+        Origen.log.error "Too many arguments passed to set_conditional_charz_id. Pass either (test_instance, options), or just (options)"
+        fail
+      end
+      unless options[:id]
+        if charz_active?
+          if charz_session.on_result
+            options[:id] = "#{parent_test_name}_charz_#{charz_session.name}".to_sym
+          end
+        end
+      end
+    end
+
     def insert_charz_tests(options = {}, &block)
       if charz_active?
         case charz_session.placement
         when :inline
           create_charz_group(options, &block)
-        when :on_fail
-          raise 'not yet implemented'
-          # create_charz_group(options, &block)
-        when :on_pass
-          raise 'not yet implemented'
-          # create_charz_group(options, &block)
         when :eof
           current_session = charz_session
           eof_tests << proc do
@@ -115,19 +131,19 @@ module OrigenTesters
             create_charz_group(options, &block)
           end
         else
-          if respond_to?(:"create_#{charz_session.placement}_tests")
-            send(:"create_#{charz_session.placement}_tests", options, &block)
-          elsif respond_to?(:"insert_#{charz_session.placement}_tests")
-            send(:"insert_#{charz_session.placement}_tests", options, &block)
+          if respond_to?(:"create_#{charz_session.placement}_charz_tests")
+            send(:"create_#{charz_session.placement}_charz_tests", options, &block)
+          elsif respond_to?(:"insert_#{charz_session.placement}_charz_tests")
+            send(:"insert_#{charz_session.placement}_charz_tests", options, &block)
           else
-            Origen.log.error "No handling specified for #{charz_session.placement} placement tests"
+            Origen.log.error "No handling specified for #{charz_session.placement} placement charz tests"
             fail
           end
         end
       end
     end
 
-    def generate_eof_tests(options = {})
+    def generate_eof_charz_tests(options = {})
       if options[:skip_group]
         eof_tests.map(&:call)
       else
@@ -146,12 +162,36 @@ module OrigenTesters
 
     def create_charz_group(options, &block)
       if options[:skip_group]
-        process_gates(options, &block)
+        process_on_result(options, &block)
       else
         group_name = options[:group_name] || "#{options[:parent_test_name]}_#{charz_session.name}"
         group group_name.to_sym do
-          process_gates(options, &block)
+          process_on_result(options, &block)
         end
+      end
+    end
+
+    def process_on_result(options, &block)
+      if charz_session.on_result
+        case charz_session.on_result
+        when :on_fail, :fail, :failed
+          if_failed (options[:last_test_id] || @last_test_id) do
+            process_gates(options, &block)
+          end
+        when :on_pass, :pass, :passed
+          if_passed (options[:last_test_id] || @last_test_id) do
+            process_gates(options, &block)
+          end
+        else
+          if respond_to?(:"process_#{charz_session.placement}_charz_tests")
+            send(:"process_#{charz_session.on_result}_charz_tests", options, &block)
+          else
+            Origen.log.error "No handling specified for result #{charz_session.on_result} charz tests"
+            fail
+          end
+        end
+      else
+        process_gates(options, &block)
       end
     end
 
