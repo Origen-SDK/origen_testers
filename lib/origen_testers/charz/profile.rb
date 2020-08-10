@@ -1,7 +1,25 @@
 module OrigenTesters
   module Charz
+    # A Charz Profile
+    # Used to store characterization routines as well as flow control, conditional execution, and test placement meta data
     class Profile
 
+      # @!attribute id
+      #   @return [Symbol] the id of the current profile, used as a key in OrigenTesters::Charz#charz_profiles hash
+      # @!attribute name
+      #   @return [Symbol] the value used (if the user decides) to generate the name of the created charz test. defaults to the value of @id
+      # @!attribute placement
+      #   @return [Symbol] placement of the to be created charz tests, defaults to inline, accepts :eof as well. Other placements can be used as well if @valid_placements is altered
+      # @!attribute on_result
+      #   @return [Symbol] indicates if the resulting charz tests are depending on the point tests result, valid values include :on_fail, and :on_pass
+      # @!attribute enables
+      #   @return [Symbol, String, Array, Hash] enable gates to be wrapped around the resulting charz tests
+      # @!attribute flags
+      #   @return [Symbol, String, Array, Hash] flag gates to be wrapped around the resulting charz tests
+      # @!attribute routines
+      #   @return [Array] list of charz routines to be called under this profile
+      # @!attribute charz_only
+      #   @return [Boolean] indicates if the point tests should or shouldn't be added to the flow
       attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only
 
       def initialize(id, options, &block)

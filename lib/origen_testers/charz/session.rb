@@ -1,37 +1,56 @@
 module OrigenTesters
   module Charz
+    # A charz session
+    # contains the final combination of charz object (routines/profiles) and user options to determine how and what charz tests should be created 
+    # the session should be checked in your interface to determine the current status and can be queried to make charz generation decisions
     class Session < Profile
 
+      # @!attribute defaults
+      #   @return [Hash] list of values to instantiate the inherited attributes from Profile with if not altered by the session update 
       attr_accessor :defaults
 
-      def initialize
+      def initialize(options = {})
         @id = :current_charz_session
         @active = false
         @valid_session = false
-        @defaults = {
-          placement: :inline,
-          on_result: nil,
-          enables: nil,
-          flags: nil,
-          name: 'charz',
-          charz_only: false
-        }
+        if options[:defaults]
+          @defaults = options[:defaults]
+        else
+          @defaults = {
+            placement: :inline,
+            on_result: nil,
+            enables: nil,
+            flags: nil,
+            name: 'charz',
+            charz_only: false
+          }
+        end
       end
 
+      # Whether or not the session is active, indicating whether or not point tests should be generating charz tests
       def active?
         @active
       end
 
+      # Pauses the current session's activity while maintaining everthing else about the sessions state
       def pause
         @active = false
       end
 
+      # Resume activity, if the session is valid
       def resume
         if @valid_session
           @active = true
         end
       end
 
+      # Takes a Routine or Profile, and queries it to setup the session's attributes
+      # the attributes values can be set from 3 different sources, in order of priority (first is most important):
+      #   - options
+      #   - charz object
+      #   - defaults
+      #
+      # If the resulting session is invalid, @valid_session will turn false. Otherwise, the session becomes active
       def update(charz_obj, options)
         @valid_session = false
         if charz_obj.nil?
@@ -55,6 +74,7 @@ module OrigenTesters
 
       private
 
+      # convert hash gates to set convert their routines to type array if not already
       def massage_gates
         if @enables.is_a?(Hash)
           @enables = {}.tap do |new_h|
@@ -68,6 +88,7 @@ module OrigenTesters
         end
       end
 
+      # see initialize
       def assign_by_priority(ivar, charz_obj, options)
         if options[ivar]
           instance_variable_set("@#{ivar}", options[ivar])

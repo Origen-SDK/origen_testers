@@ -1,8 +1,25 @@
 module OrigenTesters
   module Charz
+    # A 2D search or "Shmoo" routine
     class ShmooRoutine < Routine
 
+      # @!attribute x_start
+      #   @return [Numeric] the starting search value for the x dimension's spec search 
+      # @!attribute x_stop
+      #   @return [Numeric] the stopping search value for the x dimension's spec search
+      # @!attribute x_res
+      #   @return the search resolution value for the x dimension's spec search
+      # @!attribute x_spec
+      #   @return [Symbol, String] the spec parameter of interest for the x dimension 
       attr_accessor :x_start, :x_stop, :x_res, :x_spec
+      # @!attribute y_start
+      #   @return [Numeric] the starting search value for the x dimension's spec search 
+      # @!attribute y_stop
+      #   @return [Numeric] the stopping search value for the x dimension's spec search
+      # @!attribute y_res
+      #   @return the search resolution value for the x dimension's spec search
+      # @!attribute y_spec
+      #   @return [Symbol, String] the spec parameter of interest for the x dimension 
       attr_accessor :y_start, :y_stop, :y_res, :y_spec
 
       def initialize(id, options = {}, &block)

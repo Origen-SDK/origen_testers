@@ -1,7 +1,13 @@
 module OrigenTesters
   module Charz
+    # A Generic charz routine
+    # Used to store characterization test specific meta data, values of which are used by the user to determine test parameter values
     class Routine
 
+      # @!attribute id
+      #   @return [Symbol] charz routine symbol, used as a key in OrigenTesters::Charz#charz_routines
+      # @!attribute name
+      #   @return [Symbol] the value used (if the user decides) to generate the name of the created charz test. defaults to the value of @id
       attr_accessor :id, :name
 
       def initialize(id, options = {}, &block)
