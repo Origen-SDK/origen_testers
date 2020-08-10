@@ -200,9 +200,8 @@ module OrigenTesters
           create_charz_group(options, &block)
         when :eof
           # collect the current session and options into a proc, stored in eof_tests to be called later
-          current_session = charz_session
+          current_session = charz_session.clone
           eof_tests << proc do
-            # nature of proc will remember current_session is this one
             @charz_session = current_session 
             create_charz_group(options, &block)
           end
