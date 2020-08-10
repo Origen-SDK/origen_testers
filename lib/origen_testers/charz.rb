@@ -144,7 +144,7 @@ module OrigenTesters
       end
       charz_stack.push([charz_obj, options])
       unless update_charz_session(*charz_stack.last)
-        Origen.log.error "charz_on failed to create a valid charz session"
+        Origen.log.error 'charz_on failed to create a valid charz session'
         fail
       end
     end
@@ -162,7 +162,7 @@ module OrigenTesters
         options = args[1]
         parent_test_name = instance.name
       else
-        Origen.log.error "Too many arguments passed to set_conditional_charz_id. Pass either (test_instance, options), or just (options)"
+        Origen.log.error 'Too many arguments passed to set_conditional_charz_id. Pass either (test_instance, options), or just (options)'
         fail
       end
       unless options[:id]
@@ -202,11 +202,11 @@ module OrigenTesters
           # collect the current session and options into a proc, stored in eof_tests to be called later
           current_session = charz_session.clone
           eof_tests << proc do
-            @charz_session = current_session 
+            @charz_session = current_session
             create_charz_group(options, &block)
           end
         else
-          # inline is the default behavior, and eof (end of flow) has built in support. 
+          # inline is the default behavior, and eof (end of flow) has built in support.
           if respond_to?(:"create_#{charz_session.placement}_charz_tests")
             send(:"create_#{charz_session.placement}_charz_tests", options, &block)
           elsif respond_to?(:"insert_#{charz_session.placement}_charz_tests")
@@ -241,7 +241,7 @@ module OrigenTesters
     #
     # if insert_charz_tests was called with the skip group option, then skip to processing the sessions on_result functionality
     # otherwise, on_result processing occurs within the created group
-    # 
+    #
     # group name defaults to <point test name> charz <session name>, but can be set by the user by passing :group_name in the options
     def create_charz_group(options, &block)
       if options[:skip_group]
@@ -268,11 +268,13 @@ module OrigenTesters
       if charz_session.on_result
         case charz_session.on_result
         when :on_fail, :fail, :failed
-          if_failed (options[:last_test_id] || @last_test_id) do
+          last_test_id = options[:last_test_id] || @last_test_id
+          if_failed last_test_id do
             process_gates(options, &block)
           end
         when :on_pass, :pass, :passed
-          if_passed (options[:last_test_id] || @last_test_id) do
+          last_test_id = options[:last_test_id] || @last_test_id
+          if_passed last_test_id do
             process_gates(options, &block)
           end
         else
@@ -300,23 +302,23 @@ module OrigenTesters
     # This is the final method of handling the insert_charz_test usecases, where the block thats been passed around is finally called
     # the user's provided block is passed the current routine (one at a time) to then take its info to generate a charz test
     def process_gates(options, &block)
-      if options[:skip_gates] or !(charz_session.enables or charz_session.flags)
+      if options[:skip_gates] || !(charz_session.enables || charz_session.flags)
         charz_session.routines.each do |routine|
           block.call(options.merge(current_routine: routine))
         end
       else
-        if charz_session.enables and charz_session.flags
-          if charz_session.enables.is_a?(Hash) and !charz_session.flags.is_a?(Hash)
+        if charz_session.enables && charz_session.flags
+          if charz_session.enables.is_a?(Hash) && !charz_session.flags.is_a?(Hash)
             # wrap all tests in flags, wrap specific tests in enables
             if_flag charz_session.flags do
               insert_hash_gates(options, charz_session.enables, :if_enable, &block)
             end
-          elsif !charz_session.enables.is_a?(Hash) and charz_session.flags.is_a?(Hash)
+          elsif !charz_session.enables.is_a?(Hash) && charz_session.flags.is_a?(Hash)
             # wrap all tests in enables, wrap specific tests in flags
             if_enable charz_session.enables do
               insert_hash_gates(options, charz_session.flags, :if_flag, &block)
             end
-          elsif charz_session.enables.is_a?(Hash) and charz_session.flags.is_a?(Hash)
+          elsif charz_session.enables.is_a?(Hash) && charz_session.flags.is_a?(Hash)
             # first insert the tests that are not tied to an enable or flag gate
             ungated_routines = charz_session.routines - (charz_session.enables.values.flatten | charz_session.flags.values.flatten)
             ungated_routines.each do |routine|
@@ -327,7 +329,7 @@ module OrigenTesters
             gated_routines.each do |routine|
               enable = charz_session.enables.find { |gates, routines| routines.include?(routine) }&.first
               flag = charz_session.flags.find { |gates, routines| routines.include?(routine) }&.first
-              if enable and flag
+              if enable && flag
                 if_enable enable do
                   if_flag flag do
                     # wrap test in both enable and flag gate
@@ -395,7 +397,5 @@ module OrigenTesters
         end
       end
     end
-
   end
 end
-

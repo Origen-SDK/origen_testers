@@ -2,7 +2,6 @@ module OrigenTesters
   module Charz
     # a 1D search routine
     class SearchRoutine < Routine
-
       # @!attribute start
       #   @return [Numeric] search start value
       # @!attribute stop
@@ -19,7 +18,7 @@ module OrigenTesters
         super
         attrs_ok?
       end
-      
+
       def attrs_ok?
         return if @quality_check == false
 
@@ -31,14 +30,13 @@ module OrigenTesters
         end
 
         return if @attr_value_check == false
-        if [@start, @stop, @res].all? { |attr| attr.is_a? Numeric } 
+        if [@start, @stop, @res].all? { |attr| attr.is_a? Numeric }
           unless @res <= (@start - @stop).abs
             Origen.log.error "ShmooRoutine #{@id}: Search resolution (#{@res}) is larger than the search range: #{(@start - @stop).abs}"
             fail
           end
         end
       end
-
     end
   end
 end

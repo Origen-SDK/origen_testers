@@ -2,24 +2,23 @@ module OrigenTesters
   module Charz
     # A 2D search or "Shmoo" routine
     class ShmooRoutine < Routine
-
       # @!attribute x_start
-      #   @return [Numeric] the starting search value for the x dimension's spec search 
+      #   @return [Numeric] the starting search value for the x dimension's spec search
       # @!attribute x_stop
       #   @return [Numeric] the stopping search value for the x dimension's spec search
       # @!attribute x_res
       #   @return the search resolution value for the x dimension's spec search
       # @!attribute x_spec
-      #   @return [Symbol, String] the spec parameter of interest for the x dimension 
+      #   @return [Symbol, String] the spec parameter of interest for the x dimension
       attr_accessor :x_start, :x_stop, :x_res, :x_spec
       # @!attribute y_start
-      #   @return [Numeric] the starting search value for the x dimension's spec search 
+      #   @return [Numeric] the starting search value for the x dimension's spec search
       # @!attribute y_stop
       #   @return [Numeric] the stopping search value for the x dimension's spec search
       # @!attribute y_res
       #   @return the search resolution value for the x dimension's spec search
       # @!attribute y_spec
-      #   @return [Symbol, String] the spec parameter of interest for the x dimension 
+      #   @return [Symbol, String] the spec parameter of interest for the x dimension
       attr_accessor :y_start, :y_stop, :y_res, :y_spec
 
       def initialize(id, options = {}, &block)
@@ -39,15 +38,15 @@ module OrigenTesters
 
         return if @attr_value_check == false
 
-        # TODO not sure if I want this check, if so need to scope out if step count is common
+        # not sure if I want this check, if so need to scope out if step count is common
 
-        # if [@x_start, @x_stop, @x_res].all? { |attr| attr.is_a? Numeric } 
+        # if [@x_start, @x_stop, @x_res].all? { |attr| attr.is_a? Numeric }
         #   unless @x_res <= (@x_start - @x_stop).abs
         #     Origen.log.error "ShmooRoutine #{@id}: Search x_resolution (#{@x_res} is larger than the search x_range (#{@x_start - @x_stop).abs})"
         #     fail
         #   end
         # end
-        # if [@y_start, @y_stop, @y_res].all? { |attr| attr.is_a? Numeric } 
+        # if [@y_start, @y_stop, @y_res].all? { |attr| attr.is_a? Numeric }
         #   unless @y_res <= (@y_start - @y_stop).abs
         #     Origen.log.error "ShmooRoutine #{@id}: Search y_resolution (#{@y_res} is larger than the search y_range (#{@y_start - @y_stop).abs})"
         #     fail
@@ -58,8 +57,6 @@ module OrigenTesters
           fail
         end
       end
-
-
     end
   end
 end

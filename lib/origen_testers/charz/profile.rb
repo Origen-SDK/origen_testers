@@ -3,7 +3,6 @@ module OrigenTesters
     # A Charz Profile
     # Used to store characterization routines as well as flow control, conditional execution, and test placement meta data
     class Profile
-
       # @!attribute id
       #   @return [Symbol] the id of the current profile, used as a key in OrigenTesters::Charz#charz_profiles hash
       # @!attribute name
@@ -56,7 +55,7 @@ module OrigenTesters
           end
         end
 
-        if @charz_only and @on_result
+        if @charz_only && @on_result
           Origen.log.error "Profile #{id}: @charz_only is set, but @on_result (#{@on_result}) requires the parent test to exist in the flow"
           fail
         end
@@ -77,7 +76,7 @@ module OrigenTesters
             return
           else
             Origen.log.error "Profile #{id}: Unknown #{gate_type} type(s) in #{gate_type} array."
-            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map {|gate| gate.class }.uniq } were found in #{gates}"
+            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
           end
         when Hash
           gates.each do |gate, gated_routines|
@@ -115,7 +114,6 @@ module OrigenTesters
         end
         send(m, *args, &block)
       end
-
     end
   end
 end

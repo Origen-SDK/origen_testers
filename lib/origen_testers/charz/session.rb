@@ -1,12 +1,11 @@
 module OrigenTesters
   module Charz
     # A charz session
-    # contains the final combination of charz object (routines/profiles) and user options to determine how and what charz tests should be created 
+    # contains the final combination of charz object (routines/profiles) and user options to determine how and what charz tests should be created
     # the session should be checked in your interface to determine the current status and can be queried to make charz generation decisions
     class Session < Profile
-
       # @!attribute defaults
-      #   @return [Hash] list of values to instantiate the inherited attributes from Profile with if not altered by the session update 
+      #   @return [Hash] list of values to instantiate the inherited attributes from Profile with if not altered by the session update
       attr_accessor :defaults
 
       def initialize(options = {})
@@ -17,11 +16,11 @@ module OrigenTesters
           @defaults = options[:defaults]
         else
           @defaults = {
-            placement: :inline,
-            on_result: nil,
-            enables: nil,
-            flags: nil,
-            name: 'charz',
+            placement:  :inline,
+            on_result:  nil,
+            enables:    nil,
+            flags:      nil,
+            name:       'charz',
             charz_only: false
           }
         end
@@ -101,7 +100,6 @@ module OrigenTesters
           fail
         end
       end
-
     end
   end
 end
