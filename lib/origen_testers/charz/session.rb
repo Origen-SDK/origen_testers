@@ -11,7 +11,7 @@ module OrigenTesters
       def initialize(options = {})
         @id = :current_charz_session
         @active = false
-        @valid_session = false
+        @valid = false
         if options[:defaults]
           @defaults = options[:defaults]
         else
@@ -38,7 +38,7 @@ module OrigenTesters
 
       # Resume activity, if the session is valid
       def resume
-        if @valid_session
+        if @valid
           @active = true
         end
       end
@@ -49,13 +49,13 @@ module OrigenTesters
       #   - charz object
       #   - defaults
       #
-      # If the resulting session is invalid, @valid_session will turn false. Otherwise, the session becomes active
+      # If the resulting session is invalid, @valid will turn false. Otherwise, the session becomes active
       def update(charz_obj, options)
-        @valid_session = false
+        @valid = false
         if charz_obj.nil?
           @active = false
-          @valid_session = false
-          return @valid_session
+          @valid = false
+          return @valid
         end
         @defined_routines = options.delete(:defined_routines)
         assign_by_priority(:placement, charz_obj, options)
@@ -68,7 +68,7 @@ module OrigenTesters
         attrs_ok?
         massage_gates
         @active = true
-        @valid_session = true
+        @valid = true
       end
 
       private

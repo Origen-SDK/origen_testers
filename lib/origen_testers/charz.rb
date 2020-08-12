@@ -11,9 +11,9 @@ module OrigenTesters
     #   @return [Hash] user defined charz profiles
     # @!attribute charz_session
     #   @return [Session] current charz session, based on data in the top of the charz_stack
-    # @!attribute eof_tests
+    # @!attribute eof_charz_tests
     #   @return [Array] charz tests to be added at the end of the flow
-    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :eof_tests
+    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :eof_charz_tests
 
     def charz_stack
       @charz_stack ||= []
@@ -31,8 +31,8 @@ module OrigenTesters
       @charz_session ||= Session.new
     end
 
-    def eof_tests
-      @eof_tests ||= []
+    def eof_charz_tests
+      @eof_charz_tests ||= []
     end
 
     # Add a new charz routine to @charz_routines
@@ -199,9 +199,9 @@ module OrigenTesters
         when :inline
           create_charz_group(options, &block)
         when :eof
-          # collect the current session and options into a proc, stored in eof_tests to be called later
+          # collect the current session and options into a proc, stored in eof_charz_tests to be called later
           current_session = charz_session.clone
-          eof_tests << proc do
+          eof_charz_tests << proc do
             @charz_session = current_session
             create_charz_group(options, &block)
           end
@@ -221,11 +221,11 @@ module OrigenTesters
 
     def generate_eof_charz_tests(options = {})
       if options[:skip_group]
-        eof_tests.map(&:call)
+        eof_charz_tests.map(&:call)
       else
         group_name = options[:group_name] || 'End of Flow Charz Tests'
         group group_name do
-          eof_tests.map(&:call)
+          eof_charz_tests.map(&:call)
         end
       end
     end
