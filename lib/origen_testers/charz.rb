@@ -52,7 +52,7 @@ module OrigenTesters
     # @param [Hash] options charz_routine options
     # @option options [Symbol] :type :search or :'1d' will create a SearchRoutine, :shmoo or :'2d' will create a ShmooRoutine, nil will create a Routine
     def add_charz_routine(id, options = {}, &block)
-      if charz_routines.include?(id)
+      if charz_routines.ids.include?(id)
         Origen.log.error("Cannot create charz routine '#{id}', it already exists!")
         fail
       end
@@ -80,7 +80,7 @@ module OrigenTesters
     # @param [Symbol] id charz_profile id, will be the key value in the @charz_profiles hash. Must not have been previously used
     # @param [Hash] options charz_profile options
     def add_charz_profile(id, options = {}, &block)
-      if charz_profiles.include?(id)
+      if charz_profiles.ids.include?(id)
         Origen.log.error("Cannot create charz profile '#{id}', it already exists!")
         fail
       end
