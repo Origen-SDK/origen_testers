@@ -9,5 +9,16 @@ single_binary_pattern_dir       ./BINL/
 AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
 
 PATTERNS name tmf_file v2b_options
+func_charz_only .tmf
+func_charz_only__cz__rt1 .tmf
+func_complex_gates .tmf
+func_complex_gates__cz__rt1 .tmf
+func_complex_gates__cz__rt2 .tmf
+func_complex_gates__cz__rt3 .tmf
+func_complex_gates__cz__rt4 .tmf
+func_complex_gates__cz__rt5 .tmf
+func_complex_gates__cz__rt6 .tmf
+func_test_level_routine .tmf
+func_test_level_routine__cz__rt1 .tmf
 meas_read_pump .tmf
 test1 .tmf

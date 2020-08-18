@@ -2,6 +2,7 @@ module OrigenTesters
   module Test
     class Interface
       include OrigenTesters::ProgramGenerators
+      include OrigenTesters::Charz
 
       attr_accessor :include_additional_prb2_test
       attr_reader :environment
@@ -10,6 +11,46 @@ module OrigenTesters
       # desired to configure your interface
       def initialize(options = {})
         @environment = options[:environment]
+        add_charz
+      end
+
+      def shutdown(options = {})
+        if tester.v93k? && tester.smt7?
+          if options[:top_level]
+            generate_eof_charz_tests(options)
+          end
+        end
+      end
+
+      def add_charz
+        add_charz_routine :routine1 do |routine|
+          routine.name = '_cz__rt1'
+        end
+        add_charz_routine :routine2 do |routine|
+          routine.name = '_cz__rt2'
+        end
+        add_charz_routine :routine3 do |routine|
+          routine.name = '_cz__rt3'
+        end
+        add_charz_routine :routine4 do |routine|
+          routine.name = '_cz__rt4'
+        end
+        add_charz_routine :routine5 do |routine|
+          routine.name = '_cz__rt5'
+        end
+        add_charz_routine :routine6 do |routine|
+          routine.name = '_cz__rt6'
+        end
+        add_charz_profile :cz_only do |profile|
+          profile.charz_only = true
+          profile.routines = [:routine1]
+        end
+        add_charz_profile :complex_gates do |profile|
+          profile.on_result = :fail
+          profile.flags = { ['$MyFlag1'] => [:routine1, :routine2], ['$MyFlag2'] => [:routine3], '$MyFlag3' => :routine4 }
+          profile.enables = { ['$MyEnable1'] => [:routine1], ['$MyEnable2'] => [:routine2, :routine3], '$MyEnable3' => :routine5 }
+          profile.routines = [:routine1, :routine2, :routine3, :routine4, :routine5, :routine6]
+        end
       end
 
       # Test that the block form of flow control methods like this can
@@ -82,6 +123,81 @@ module OrigenTesters
               #    end
             end
             flow.test ts, options
+          end
+        end
+      end
+
+      def func_with_charz(name, options = {})
+        options = {
+          duration: :static
+        }.merge(options)
+        number = options[:number]
+
+        if tester.j750? || tester.uflex?
+          raise 'Tester Not Yet Implemented'
+          # block_loop(name, options) do |block, i, group|
+          #   options[:number] = number + i if number && i
+          #   ins = test_instances.functional(name)
+          #   ins.set_wait_flags(:a) if options[:duration] == :dynamic
+          #   ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
+          #   if group
+          #     pname = "#{name}_b#{i}_pset"
+          #     patsets.add(pname, [{ pattern: "#{name}_b#{i}.PAT" },
+          #                         { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
+          #     ins.pattern = pname
+          #     flow.test(group, options) if i == 0
+          #   else
+          #     pname = "#{name}_pset"
+          #     patsets.add(pname, [{ pattern: "#{name}.PAT" },
+          #                         { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
+          #     ins.pattern = pname
+          #     if options[:cz_setup]
+          #       flow.cz(ins, options[:cz_setup], options)
+          #     else
+          #       flow.test(ins, options)
+          #     end
+          #   end
+          # end
+
+        elsif tester.v93k?
+          block_loop(name, options) do |block, i|
+            options[:number] = number + i if number && i
+            tm = test_methods.ac_tml.ac_test.functional_test
+            ts = test_suites.run(name, options)
+            ts.test_method = tm
+            if tester.smt8?
+              raise 'SMT8 Not Yet Implemented'
+              ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+              ts.spec ||= 'specs.Nominal'
+            else
+              ts.levels = options.delete(:pin_levels) if options[:pin_levels]
+            end
+            if block
+              ts.pattern = "#{name}_b#{i}"
+            else
+              ts.pattern = name.to_s
+              #    if options[:cz_setup]
+              #      flow.cz(ins, options[:cz_setup], options)
+              #    else
+              #    end
+            end
+            test_level_charz = false
+            if options[:charz]
+              charz_on(*options[:charz])
+              test_level_charz = true
+            end
+            unless charz_only? and !options[:charz_test]
+              options[:parent_test_name] = name
+              set_conditional_charz_id(options)
+              flow.test ts, options
+            end
+            unless options[:charz_test]
+              insert_charz_tests(options.merge(parent_test_name: name, charz_test: true)) do |options|
+                charz_name = :"#{name}_#{charz_routines[options[:current_routine]].name}"
+                func_with_charz(charz_name, options)
+              end
+            end
+            charz_off if test_level_charz
           end
         end
       end

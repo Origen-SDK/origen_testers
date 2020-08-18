@@ -226,12 +226,14 @@ module OrigenTesters
     end
 
     def generate_eof_charz_tests(options = {})
-      if options[:skip_group]
-        eof_charz_tests.map(&:call)
-      else
-        group_name = options[:group_name] || 'End of Flow Charz Tests'
-        group group_name do
+      unless eof_charz_tests.empty?
+        if options[:skip_group]
           eof_charz_tests.map(&:call)
+        else
+          group_name = options[:group_name] || 'End of Flow Charz Tests'
+          group group_name do
+            eof_charz_tests.map(&:call)
+          end
         end
       end
     end
