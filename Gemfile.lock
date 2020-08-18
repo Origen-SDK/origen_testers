@@ -13,7 +13,7 @@ PATH
     origen_testers (0.47.0)
       ast (~> 2)
       atp (~> 1.1, >= 1.1.3)
-      origen (>= 0.44.0)
+      origen (>= 0.57.1)
       origen_stil (>= 0.2.1)
       require_all (~> 1)
       rodf (~> 1)
