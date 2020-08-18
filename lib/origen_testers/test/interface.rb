@@ -134,7 +134,7 @@ module OrigenTesters
         number = options[:number]
 
         if tester.j750? || tester.uflex?
-          raise 'Tester Not Yet Implemented'
+          fail 'Tester Not Yet Implemented'
           # block_loop(name, options) do |block, i, group|
           #   options[:number] = number + i if number && i
           #   ins = test_instances.functional(name)
@@ -166,9 +166,9 @@ module OrigenTesters
             ts = test_suites.run(name, options)
             ts.test_method = tm
             if tester.smt8?
-              raise 'SMT8 Not Yet Implemented'
-              ts.spec = options.delete(:pin_levels) if options[:pin_levels]
-              ts.spec ||= 'specs.Nominal'
+              fail 'SMT8 Not Yet Implemented'
+              # ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+              # ts.spec ||= 'specs.Nominal'
             else
               ts.levels = options.delete(:pin_levels) if options[:pin_levels]
             end
@@ -186,7 +186,7 @@ module OrigenTesters
               charz_on(*options[:charz])
               test_level_charz = true
             end
-            unless charz_only? and !options[:charz_test]
+            unless charz_only? && !options[:charz_test]
               options[:parent_test_name] = name
               set_conditional_charz_id(options)
               flow.test ts, options
