@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_47_0"></a>
+<h1><a href="#v0_47_0">Tag: v0.47.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Stephen McGinty on 05-Aug-2020 15:57PM
+
+
+* Allow the SMT8 "test\_text" value in the limits table to be specified
+* Fix program generation crash when a flow creates no variables (Cody Horton)
+
 <a class="anchor release_tag" name="v0_46_1"></a>
 <h1><a href="#v0_46_1">Tag: v0.46.1</a></h1>
 

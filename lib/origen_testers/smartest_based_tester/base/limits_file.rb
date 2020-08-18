@@ -119,6 +119,7 @@ module OrigenTesters
           o[:test_name] = extract_test_name(node, o)
           o[:test_number] = extract_test_number(node, o)
           o[:limits] = extract_limits(node, o)
+          o[:test_text] = node.find(:test_text).try(:value)
           if on_fail = node.find(:on_fail)
             if set_result = on_fail.find(:set_result)
               if bin = set_result.find(:bin)
@@ -252,9 +253,12 @@ module OrigenTesters
             # "Test Number"
             l << f(options[:test_number])
             # "Test Text"
-            # l << f(options[:bin_s_name] || options[:bin_h_name])
-            names = ["#{options[:suite_name]}", "#{options[:test_name]}"]
-            l << f(names.uniq.join('.'))
+            if options[:test_text]
+              l << f(options[:test_text])
+            else
+              names = ["#{options[:suite_name]}", "#{options[:test_name]}"]
+              l << f(names.uniq.join('.'))
+            end
             if test_modes.empty?
               # "Low Limit"
               l << f((options[:limits][nil] || {})[:lsl])
