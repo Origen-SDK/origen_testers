@@ -89,7 +89,7 @@ module OrigenTesters
 
     # Queries the current charz session to see if its active, indicating point tests should be generating charz tests
     def charz_active?
-      charz_session.active?
+      charz_session.active
     end
 
     # Queries the current charz session to see if point tests should skip generation, only adding the resulting charz test
@@ -133,7 +133,13 @@ module OrigenTesters
       when :profile
         charz_obj = charz_profiles[charz_id]
       when :routine
-        charz_obj = charz_routines[charz_id]
+        if charz_id.is_a?(Array)
+          charz_obj = charz_routines[charz_id.first]
+          options[:routines] = charz_id
+        else
+          charz_obj = charz_routines[charz_id]
+          options[:routines] = [charz_id]
+        end
       else
         Origen.log.error "Unknown charz object type #{options[:type]}, valid types: :profile, :routine"
         fail

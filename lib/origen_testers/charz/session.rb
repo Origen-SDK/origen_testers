@@ -26,11 +26,6 @@ module OrigenTesters
         end
       end
 
-      # Whether or not the session is active, indicating whether or not point tests should be generating charz tests
-      def active?
-        @active
-      end
-
       # Pauses the current session's activity while maintaining everthing else about the sessions state
       def pause
         @active = false
@@ -89,7 +84,7 @@ module OrigenTesters
 
       # see initialize
       def assign_by_priority(ivar, charz_obj, options)
-        if options[ivar]
+        if options.keys.include?(ivar)
           instance_variable_set("@#{ivar}", options[ivar])
         elsif charz_obj.send(ivar)
           instance_variable_set("@#{ivar}", charz_obj.send(ivar))

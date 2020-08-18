@@ -11,6 +11,54 @@ describe 'Charz' do
 
   end
 
+  class MyCharzRoutineInterface
+    include OrigenTesters::ProgramGenerators
+    include OrigenTesters::Charz
+
+    def initialize(options = {})
+      add_charz_routine :routine1 do |routine|
+        routine.start = 1.0.V
+        routine.stop  = 0.5.V
+        routine.res   = 5.mV
+        routine.spec  = 'vdd1'
+      end
+      add_charz_routine :routine2 do |routine|
+        routine.start = 1.0.V
+        routine.stop  = 0.5.V
+        routine.res   = 5.mV
+        routine.spec  = 'vdd2'
+      end
+    end
+
+  end
+
+  class MyCharzInterface
+    include OrigenTesters::ProgramGenerators
+    include OrigenTesters::Charz
+
+    def initialize(options = {})
+      add_charz_routine :routine1 do |routine|
+        routine.start = 1.0.V
+        routine.stop  = 0.5.V
+        routine.res   = 5.mV
+        routine.spec  = 'vdd1'
+      end
+      add_charz_routine :routine2 do |routine|
+        routine.start = 1.0.V
+        routine.stop  = 0.5.V
+        routine.res   = 5.mV
+        routine.spec  = 'vdd2'
+      end
+      add_charz_profile :my_profile do |profile|
+        profile.name = 'my_charz_profile'
+        profile.routines = [:routine1, :routine2]
+        profile.on_result = :fail
+        profile.placement = :eof
+      end
+    end
+
+  end
+
   before :all do
     Origen.environment.temporary = "uflex"
     Origen.load_target("dut.rb")
@@ -189,33 +237,12 @@ describe 'Charz' do
 
   describe "#add_charz_profile" do
 
-    class MyCharzInterface
-      include OrigenTesters::ProgramGenerators
-      include OrigenTesters::Charz
-
-      def initialize(options = {})
-        add_charz_routine :routine1 do |routine|
-          routine.start = 1.0.V
-          routine.stop  = 0.5.V
-          routine.res   = 5.mV
-          routine.spec  = 'vdd1'
-        end
-        add_charz_routine :routine2 do |routine|
-          routine.start = 1.0.V
-          routine.stop  = 0.5.V
-          routine.res   = 5.mV
-          routine.spec  = 'vdd2'
-        end
-      end
-
-    end
-
     before :each do
       Origen.instance_variable_set("@interface", nil)
     end
 
     it 'creates a profile' do
-      Flow.create interface: 'MyCharzInterface' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
         add_charz_profile :my_profile do |profile|
           profile.routines = [:routine1, :routine2]
         end
@@ -224,31 +251,386 @@ describe 'Charz' do
       end
     end
 
-
-    it 'creates a profile again' do
+    it 'errors on duplicate profile ids' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+        add_charz_profile :my_profile do |profile|
+          profile.routines = [:routine1]
+        end
+      end
       expect {
-        Flow.create interface: 'MyCharzInterface' do
-          add_charz_profile :my_profile do |profile|
-            profile.routines = [:routine1, :routine2]
-          end
-          add_charz_profile :my_profile do |profile|
-            profile.routines = [:routine1, :routine2]
-          end
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = [:routine2]
         end
       }.to raise_error
-      Origen.reset_interface
     end
 
     it 'errors when unknown routines are passed' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
       expect {
-        Flow.create interface: 'MyCharzInterface' do
-          add_charz_profile :my_profile do |profile|
-            profile.routines = [:routineABC, :routine123]
-          end
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = [:routineABC, :routine123]
         end
       }.to raise_error
     end
 
   end
+
+  describe '#charz_on' do
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+
+    it 'updates the session with a profile' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.charz_only.should == false
+        charz_session.enables.should == nil
+        charz_session.flags.should == nil
+        charz_session.name.should == 'my_charz_profile'
+        charz_session.placement.should == :eof
+        charz_session.on_result.should == :fail
+        charz_session.routines.should == [:routine1, :routine2]
+      end
+    end
+
+    it 'updates the session with a profile and optional overrides' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile, { placement: :inline, on_result: :pass }
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.charz_only.should == false
+        charz_session.enables.should == nil
+        charz_session.flags.should == nil
+        charz_session.name.should == 'my_charz_profile'
+        charz_session.placement.should == :inline
+        charz_session.on_result.should == :pass
+        charz_session.routines.should == [:routine1, :routine2]
+      end
+    end
+
+    it 'updates the session with a routine' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :routine1, { type: :routine }
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.charz_only.should == false
+        charz_session.enables.should == nil
+        charz_session.flags.should == nil
+        charz_session.name.should == :routine1
+        charz_session.placement.should == :inline
+        charz_session.on_result.should == nil
+        charz_session.routines.should == [:routine1]
+      end
+    end
+
+    it 'errors when an invalid session is created' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      expect {
+        Origen.interface.charz_on :my_profile, { enables: 1 }
+      }.to raise_error
+    end
+
+    it 'errors when an unknown profile is passed' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      expect {
+        Origen.interface.charz_on :my_new_profile
+      }.to raise_error
+    end
+
+    it 'updates a previously valid session' do
+      Flow.create interface: 'MyCharzInterface' do
+        # initial session
+        charz_on :my_profile, { placement: :inline, on_result: :pass }
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.charz_only.should == false
+        charz_session.enables.should == nil
+        charz_session.flags.should == nil
+        charz_session.name.should == 'my_charz_profile'
+        charz_session.placement.should == :inline
+        charz_session.on_result.should == :pass
+        charz_session.routines.should == [:routine1, :routine2]
+
+        # second session
+        charz_on :routine1, { type: :routine }
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.charz_only.should == false
+        charz_session.enables.should == nil
+        charz_session.flags.should == nil
+        charz_session.name.should == :routine1
+        charz_session.placement.should == :inline
+        charz_session.on_result.should == nil
+        charz_session.routines.should == [:routine1]
+      end
+    end
+
+  end
+
+  describe '#charz_off' do
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+
+    it 'allows calling before a session is created' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_session.valid.should == false
+        charz_session.active.should == false
+        charz_off
+        charz_session.valid.should == false
+        charz_session.active.should == false
+      end
+    end
+
+    it 'returns the session to inactive after last stack pop' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_session.valid.should == true
+        charz_session.active.should == true
+        charz_off
+        charz_session.valid.should == false
+        charz_session.active.should == false
+      end
+    end
+
+    it 'tracks session updates after stack pop' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile, { on_result: :pass }
+        charz_session.valid.should == true
+        charz_session.active.should == true
+        charz_session.placement.should == :eof
+        charz_session.on_result.should == :pass
+
+        charz_on :routine1, { type: :routine }
+        charz_session.active.should == true
+        charz_session.valid.should == true
+        charz_session.placement.should == :inline
+        charz_session.on_result.should == nil
+
+        charz_off
+        charz_session.valid.should == true
+        charz_session.active.should == true
+        charz_session.placement.should == :eof
+        charz_session.on_result.should == :pass
+      end
+    end
+  end
+
+  describe '#charz_active?' do
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+
+    it 'initializes to inactive' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_active?.should == false
+      end
+    end
+
+    it 'activates after charz_on' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_active?.should == true
+      end
+    end
+
+    it 'deactivates after charz_off' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_active?.should == true
+        charz_off
+        charz_active?.should == false
+      end
+    end
+
+  end
+
+  describe '#charz_only?' do
+
+    def charz_only?
+      charz_active? && charz_session.charz_only
+    end
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+
+    it 'initalizes to false' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_only?.should == false
+      end
+    end
+
+    it 'indicates false' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_only?.should == false
+      end
+    end
+
+    it 'indicates true' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile, { on_result: nil, charz_only: true }
+        charz_only?.should == true
+      end
+    end
+  end
+
+  describe '#charz_pause' do
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+    
+    it 'does nothing to an inactive session' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_active?.should == false
+        charz_pause
+        charz_active?.should == false
+      end
+    end
+
+    it 'pauses an active session' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_active?.should == true
+        charz_pause
+        charz_active?.should == false
+      end
+    end
+
+  end
+
+  describe '#charz_resume' do
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+
+    it 'does nothing to an invalid session' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_active?.should == false
+        charz_session.valid.should == false
+        charz_resume
+        charz_active?.should == false
+        charz_session.valid.should == false
+      end
+    end
+
+    it 'does nothing to a valid, active session' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_active?.should == true
+        charz_session.valid.should == true
+        charz_session.name.should == 'my_charz_profile'
+        charz_resume
+        charz_active?.should == true
+        charz_session.valid.should == true
+        charz_session.name.should == 'my_charz_profile'
+      end
+    end
+
+    it 'resumes a valid, inactive session' do
+      Flow.create interface: 'MyCharzInterface' do
+        charz_on :my_profile
+        charz_pause
+        charz_active?.should == false
+        charz_session.valid.should == true
+        charz_session.name.should == 'my_charz_profile'
+        charz_resume
+        charz_active?.should == true
+        charz_session.valid.should == true
+        charz_session.name.should == 'my_charz_profile'
+      end
+    end
+
+  end
+
+  describe '#set_conditional_charz_id' do
+
+    class MyTest
+      attr_accessor :name
+      def initialize(name)
+        @name = name
+      end
+    end
+
+    before :each do
+      Origen.instance_variable_set("@interface", nil)
+    end
+    
+    it 'restricts the number of arguments' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      expect { Origen.interface.set_conditional_charz_id(1, 2, 3) }.to raise_error
+    end
+
+    it 'generates an ID' do
+      Flow.create interface: 'MyCharzInterface' do
+        my_test = MyTest.new('my_test')
+        charz_on :my_profile
+        # two params
+        options = {}
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == :my_test_charz_my_charz_profile
+        # one param
+        options = { parent_test_name: :my_test }
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == :my_test_charz_my_charz_profile
+      end
+    end
+
+    it 'does nothing if charz is inactive' do
+      Flow.create interface: 'MyCharzInterface' do
+        my_test = MyTest.new('my_test')
+        # two params
+        options = {}
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == nil
+        # one param
+        options = { parent_test_name: :my_test }
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == nil
+      end
+    end
+
+    it 'does nothing if charz is active but not result dependent' do
+      Flow.create interface: 'MyCharzInterface' do
+        my_test = MyTest.new('my_test')
+        charz_on :my_profile, { on_result: nil }
+        # two params
+        options = {}
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == nil
+        # one param
+        options = { parent_test_name: :my_test }
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == nil
+      end
+    end
+
+    it 'doesnt overwrite existing ID' do
+      Flow.create interface: 'MyCharzInterface' do
+        my_test = MyTest.new('my_test')
+        charz_on :my_profile
+        # two params
+        options = { id: :existing_id }
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == :existing_id
+        # one param
+        options = { id: :existing_id, parent_test_name: :my_test }
+        set_conditional_charz_id(my_test, options)
+        options[:id].should == :existing_id
+      end
+    end
+  end
+
 
 end
