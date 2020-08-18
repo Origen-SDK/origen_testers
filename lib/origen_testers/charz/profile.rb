@@ -77,6 +77,7 @@ module OrigenTesters
           else
             Origen.log.error "Profile #{id}: Unknown #{gate_type} type(s) in #{gate_type} array."
             Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
+            fail
           end
         when Hash
           gates.each do |gate, gated_routines|

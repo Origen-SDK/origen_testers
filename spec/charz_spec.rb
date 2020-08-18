@@ -144,6 +144,25 @@ describe 'Charz' do
           charz_session.should == :custom
         end
       end
+
+      it "allows custom defaults" do
+        Flow.create interface: "MyInterface" do
+          charz_session = OrigenTesters::Charz::Session.new(defaults: {
+            placement: :eof,
+            on_result: :fail,
+            enables: nil,
+            flags: nil,
+            name: 'custom_charz',
+            charz_only: false
+          })
+          charz_session.defaults[:placement].should == :eof
+          charz_session.defaults[:on_result].should == :fail
+          charz_session.defaults[:enables].should == nil
+          charz_session.defaults[:flags].should == nil
+          charz_session.defaults[:name].should == 'custom_charz'
+          charz_session.defaults[:charz_only].should == false
+        end
+      end
     end
 
     describe "#eof_charz_tests" do
@@ -193,8 +212,34 @@ describe 'Charz' do
           routine.spec  = 'vdd'
         end
         charz_routines[:search_routine].start.should == 1.0.V
+        charz_routines[:search_routine].type.should == :search
         charz_routines[:search_routine].class.should == OrigenTesters::Charz::SearchRoutine
       end
+    end
+
+    it 'errors for missing search routine attributes' do
+      Flow.create interface: 'MyInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_routine :search_routine, type: :search do |routine|
+          routine.start = 1.0.V
+          routine.stop  = 0.5.V
+          routine.res   = 5.mV
+        end
+      }.to raise_error
+    end
+
+    it 'errors for invalid search routine resolution' do
+      Flow.create interface: 'MyInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_routine :search_routine, type: :search do |routine|
+          routine.start = 1.0.V
+          routine.stop  = 0.5.V
+          routine.res   = 5.V
+          routine.spec  = 'vdd'
+        end
+      }.to raise_error
     end
 
     it 'initialized a shmoo routine' do
@@ -213,6 +258,39 @@ describe 'Charz' do
         charz_routines[:shmoo_routine].y_spec.should == 'vdd2'
         charz_routines[:shmoo_routine].class.should == OrigenTesters::Charz::ShmooRoutine
       end
+    end
+
+    it 'errors for missing shmoo routine attributes' do
+      Flow.create interface: 'MyInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_routine :shmoo_routine, type: :shmoo do |routine|
+          routine.x_start = 2.0.V
+          routine.x_stop  = 1.5.V
+          routine.x_res   = 10.mV
+          routine.y_start = 3.0.V
+          routine.y_stop  = 2.5.V
+          routine.y_res   = 15.mV
+          routine.y_spec  = 'vdd2'
+        end
+      }.to raise_error
+    end
+
+    it 'errors for matching shmoo routine specs' do
+      Flow.create interface: 'MyInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_routine :shmoo_routine, type: :shmoo do |routine|
+          routine.x_start = 2.0.V
+          routine.x_stop  = 1.5.V
+          routine.x_res   = 10.mV
+          routine.x_spec  = 'vdd2'
+          routine.y_start = 3.0.V
+          routine.y_stop  = 2.5.V
+          routine.y_res   = 15.mV
+          routine.y_spec  = 'vdd2'
+        end
+      }.to raise_error
     end
 
     it 'errors when adding a routine with an existing id' do
@@ -274,6 +352,122 @@ describe 'Charz' do
       }.to raise_error
     end
 
+    it 'errors when invalid placements are passed' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = [:routine1]
+          profile.placement = :unknown
+        end
+      }.to raise_error
+    end
+
+    it 'allows custom placements' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1]
+        profile.placement = :unknown
+        profile.valid_placements = [:inline, :eof, :unknown]
+      end
+    end
+
+    it 'errors when invalid on_results are passed' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = [:routine1]
+          profile.on_result = :unknown
+        end
+      }.to raise_error
+    end
+
+    it 'allows custom on_results' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1]
+        profile.on_result = :unknown
+        profile.valid_on_results = [:pass, :fail, :unknown]
+      end
+    end
+
+    it 'errors when on_result and charz_only are set' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = [:routine1]
+          profile.on_result = :fail
+          profile.charz_only = true
+        end
+      }.to raise_error
+    end
+    
+    it 'allows gates to be an array' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.enables = [:my_enable]
+        profile.flags = ['$my_flag']
+      end
+    end
+    
+    it 'errors when gate array contains invalid types' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.enables = [1]
+      end
+      }.to raise_error
+    end
+    
+    it 'allows gates to be a hash' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.enables = { my_enable: :routine1 }
+        profile.flags = { my_flag: :routine2 }
+      end
+    end
+
+    it 'errors when gates are a nested hash' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.enables = { { my_flag: :routine1 } => :routine2  }
+      end
+      }.to raise_error
+    end
+
+    it 'errors when gate hash refers to unknown routine' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.enables = { my_enable: :routine3 }
+      end
+      }.to raise_error
+    end
+
+    it 'allows custom attributes' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      Origen.interface.add_charz_profile :my_profile do |profile|
+        profile.routines = [:routine1, :routine2]
+        profile.custom_setting = :custom
+      end
+      Origen.interface.charz_profiles[:my_profile].custom_setting.should == :custom
+    end
   end
 
   describe '#charz_on' do
@@ -369,6 +563,26 @@ describe 'Charz' do
         charz_session.on_result.should == nil
         charz_session.routines.should == [:routine1]
       end
+    end
+
+    it 'errors when a priority value cant be set' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      Origen.interface.charz_session = OrigenTesters::Charz::Session.new(defaults: {})
+      expect { Origen.interface.charz_on :my_profile }.to raise_error
+    end
+
+    it 'errors with an unknown type' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      expect { Origen.interface.charz_on :my_profile, { type: :unknown } }.to raise_error
+    end
+
+    it 'allows array of routines to be called' do
+      Flow.create interface: 'MyCharzInterface' do
+      end
+      Origen.interface.charz_on [:routine1, :routine2], { type: :routine }
+      Origen.interface.charz_session.routines.should == [:routine1, :routine2]
     end
 
   end
