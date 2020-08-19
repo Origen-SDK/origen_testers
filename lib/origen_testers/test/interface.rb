@@ -138,75 +138,39 @@ module OrigenTesters
         options = {
           duration: :static
         }.merge(options)
-        number = options[:number]
 
-        if tester.j750? || tester.uflex?
-          fail 'Tester Not Yet Implemented'
-          # block_loop(name, options) do |block, i, group|
-          #   options[:number] = number + i if number && i
-          #   ins = test_instances.functional(name)
-          #   ins.set_wait_flags(:a) if options[:duration] == :dynamic
-          #   ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
-          #   if group
-          #     pname = "#{name}_b#{i}_pset"
-          #     patsets.add(pname, [{ pattern: "#{name}_b#{i}.PAT" },
-          #                         { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
-          #     ins.pattern = pname
-          #     flow.test(group, options) if i == 0
-          #   else
-          #     pname = "#{name}_pset"
-          #     patsets.add(pname, [{ pattern: "#{name}.PAT" },
-          #                         { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
-          #     ins.pattern = pname
-          #     if options[:cz_setup]
-          #       flow.cz(ins, options[:cz_setup], options)
-          #     else
-          #       flow.test(ins, options)
-          #     end
-          #   end
-          # end
-
-        elsif tester.v93k?
-          block_loop(name, options) do |block, i|
-            options[:number] = number + i if number && i
+        if tester.v93k?
+          if tester.smt7?
             tm = test_methods.ac_tml.ac_test.functional_test
             ts = test_suites.run(name, options)
             ts.test_method = tm
-            if tester.smt8?
-              fail 'SMT8 Not Yet Implemented'
-              # ts.spec = options.delete(:pin_levels) if options[:pin_levels]
-              # ts.spec ||= 'specs.Nominal'
-            else
-              ts.levels = options.delete(:pin_levels) if options[:pin_levels]
-            end
             ts.pattern = 'charz_example'
-            # if block
-            #   # ts.pattern = "#{name}_b#{i}"
-            # else
-            #   # ts.pattern = name.to_s
-            #   #    if options[:cz_setup]
-            #   #      flow.cz(ins, options[:cz_setup], options)
-            #   #    else
-            #   #    end
-            # end
+
             test_level_charz = false
             if options[:charz]
               charz_on(*options[:charz])
               test_level_charz = true
             end
+
             unless charz_only? && !options[:charz_test]
               options[:parent_test_name] = name
               set_conditional_charz_id(options)
               flow.test ts, options
             end
+
             unless options[:charz_test]
               insert_charz_tests(options.merge(parent_test_name: name, charz_test: true)) do |options|
                 charz_name = :"#{name}_#{charz_routines[options[:current_routine]].name}"
                 func_with_charz(charz_name, options)
               end
             end
+
             charz_off if test_level_charz
+          else
+            fail 'Only SMT7 is Implemented for Charz'
           end
+        else
+          fail "Tester #{tester.name} Not Yet Implemented for Charz"
         end
       end
 
