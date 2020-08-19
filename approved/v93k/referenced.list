@@ -7,6 +7,7 @@ bitmap_all0
 cc_test_0
 cc_test_1
 cc_test_2
+charz_example
 cold_test
 cz_test1
 cz_test2
@@ -18,17 +19,6 @@ force_serial_false_test
 force_serial_true_test
 ft_only_test1
 ft_only_test2
-func_charz_only
-func_charz_only__cz__rt1
-func_complex_gates
-func_complex_gates__cz__rt1
-func_complex_gates__cz__rt2
-func_complex_gates__cz__rt3
-func_complex_gates__cz__rt4
-func_complex_gates__cz__rt5
-func_complex_gates__cz__rt6
-func_test_level_routine
-func_test_level_routine__cz__rt1
 grp1_test1
 grp1_test2
 grp1_test3

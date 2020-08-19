@@ -41,12 +41,19 @@ module OrigenTesters
         add_charz_routine :routine6 do |routine|
           routine.name = '_cz__rt6'
         end
+        add_charz_profile :cz do |profile|
+          profile.routines = [:routine3]
+        end
         add_charz_profile :cz_only do |profile|
           profile.charz_only = true
           profile.routines = [:routine1]
         end
+        add_charz_profile :simple_gates do |profile|
+          profile.flags = :my_flag
+          profile.enables = :my_enable
+          profile.routines = [:routine1]
+        end
         add_charz_profile :complex_gates do |profile|
-          profile.on_result = :fail
           profile.flags = { ['$MyFlag1'] => [:routine1, :routine2], ['$MyFlag2'] => [:routine3], '$MyFlag3' => :routine4 }
           profile.enables = { ['$MyEnable1'] => [:routine1], ['$MyEnable2'] => [:routine2, :routine3], '$MyEnable3' => :routine5 }
           profile.routines = [:routine1, :routine2, :routine3, :routine4, :routine5, :routine6]
@@ -172,15 +179,16 @@ module OrigenTesters
             else
               ts.levels = options.delete(:pin_levels) if options[:pin_levels]
             end
-            if block
-              ts.pattern = "#{name}_b#{i}"
-            else
-              ts.pattern = name.to_s
-              #    if options[:cz_setup]
-              #      flow.cz(ins, options[:cz_setup], options)
-              #    else
-              #    end
-            end
+            ts.pattern = 'charz_example'
+            # if block
+            #   # ts.pattern = "#{name}_b#{i}"
+            # else
+            #   # ts.pattern = name.to_s
+            #   #    if options[:cz_setup]
+            #   #      flow.cz(ins, options[:cz_setup], options)
+            #   #    else
+            #   #    end
+            # end
             test_level_charz = false
             if options[:charz]
               charz_on(*options[:charz])

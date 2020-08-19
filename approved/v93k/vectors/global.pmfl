@@ -4,17 +4,7 @@ path:
 ../vectors
 
 files:
-func_charz_only.binl.gz
-func_charz_only__cz__rt1.binl.gz
-func_complex_gates.binl.gz
-func_complex_gates__cz__rt1.binl.gz
-func_complex_gates__cz__rt2.binl.gz
-func_complex_gates__cz__rt3.binl.gz
-func_complex_gates__cz__rt4.binl.gz
-func_complex_gates__cz__rt5.binl.gz
-func_complex_gates__cz__rt6.binl.gz
-func_test_level_routine.binl.gz
-func_test_level_routine__cz__rt1.binl.gz
+charz_example.binl.gz
 meas_read_pump.binl.gz
 test1.binl.gz
 
