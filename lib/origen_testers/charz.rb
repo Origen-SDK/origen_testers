@@ -13,7 +13,11 @@ module OrigenTesters
     #   @return [Session] current charz session, based on data in the top of the charz_stack
     # @!attribute eof_charz_tests
     #   @return [Array] charz tests to be added at the end of the flow
-    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :eof_charz_tests
+    # @!attribute skip_group_eof_charz_tests
+    #   @return [Boolean] whether or not to wrap eof charz tests in a group
+    # @!attribute eof_charz_tests_group_name
+    #   @return [String, Symbol] group name to be used to for eof charz tests
+    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name
 
     def charz_stack
       @charz_stack ||= []
@@ -122,6 +126,8 @@ module OrigenTesters
     # Pushes a charz object (either a profile or a routine) onto the stack, along with any optional updates to modify the current session
     # Once pushed, the charz_session will attempt to update itself with the new data, failing if the resulting session is invalid
     #
+    # If a block is passed, yield the block of tests to enable charz for those tests, then disable charz with a charz_off call
+    #
     # @param [Symbol] charz_id either a routine or profile id. Method fails if the id can't be found in @charz_routines or @charz_profiles
     # @param [Hash] options charz_on options
     # @option options [Symbol] :type (:profile) whether the charz_id refers to a charz profile or routine
@@ -152,6 +158,10 @@ module OrigenTesters
       unless update_charz_session(*charz_stack.last)
         Origen.log.error 'charz_on failed to create a valid charz session'
         fail
+      end
+      if block_given?
+        yield
+        charz_off
       end
     end
 
@@ -225,12 +235,14 @@ module OrigenTesters
       end
     end
 
-    def generate_eof_charz_tests(options = {})
+    # called automatically right after a top_level shutdown, generates end of flow charz tests
+    # user should not have to reference this call explicitly
+    def generate_eof_charz_tests
       unless eof_charz_tests.empty?
-        if options[:skip_group]
+        if skip_group_eof_charz_tests
           eof_charz_tests.map(&:call)
         else
-          group_name = options[:group_name] || 'End of Flow Charz Tests'
+          group_name = eof_charz_tests_group_name || 'End of Flow Charz Tests'
           group group_name do
             eof_charz_tests.map(&:call)
           end

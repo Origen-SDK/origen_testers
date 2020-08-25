@@ -14,14 +14,6 @@ module OrigenTesters
         add_charz
       end
 
-      def shutdown(options = {})
-        if tester.v93k? && tester.smt7?
-          if options[:top_level]
-            generate_eof_charz_tests(options)
-          end
-        end
-      end
-
       def add_charz
         add_charz_routine :routine1 do |routine|
           routine.name = '_cz__rt1'
