@@ -14,9 +14,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func_with_charz :func_complex_flag_simple_enable
     charz_off
 
-    charz_on :complex_gates, { flags: :my_flag }
-    func_with_charz :func_complex_enable_simple_flag
-    charz_off
+    charz_on :complex_gates, { flags: :my_flag } do
+      func_with_charz :func_complex_enable_simple_flag
+    end
 
     charz_on :cz_only, { placement: :eof }
     func_with_charz :func_charz_only
@@ -32,9 +32,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     func_with_charz :func_resume_charz
     charz_off
 
-    charz_on :simple_gates, { on_result: :pass } 
-    func_with_charz :func_simple_gates_on_pass
-    charz_off
+    charz_on :simple_gates, { on_result: :pass } do 
+      func_with_charz :func_simple_gates_on_pass
+    end
     
     charz_on :simple_gates, { enables: nil }
     func_with_charz :func_simple_flags
