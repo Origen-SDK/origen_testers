@@ -138,8 +138,8 @@ module Origen
           end
           Origen.interface.startup(options) if Origen.interface.respond_to?(:startup)
           interface.instance_eval(&block)
-          Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
           Origen.interface.generate_eof_charz_tests if Origen.interface.respond_to?(:generate_eof_charz_tests)
+          Origen.interface.shutdown(options) if Origen.interface.respond_to?(:shutdown)
           interface.at_flow_end if interface.respond_to?(:at_flow_end)
           Origen.app.listeners_for(:on_flow_end).each do |listener|
             listener.on_flow_end(options)
