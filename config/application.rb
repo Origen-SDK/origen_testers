@@ -31,6 +31,7 @@ class OrigenTestersApplication < Origen::Application
         section.page :interface, heading: "Creating an Interface"
         section.page :resources, heading: "Additional Resources"
         section.page :code, heading: "Dynamic Custom Code"
+        section.page :charz, heading: "Characterization API"
         section.page :j750, heading: "J750 API"
         section.page :v93k, heading: "V93K Common API"
         section.page :v93ksmt7, heading: "V93K SMT7 API"
