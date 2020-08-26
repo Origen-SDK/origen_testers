@@ -2,6 +2,7 @@ module OrigenTesters
   module Test
     class Interface
       include OrigenTesters::ProgramGenerators
+      include OrigenTesters::Charz
 
       attr_accessor :include_additional_prb2_test
       attr_reader :environment
@@ -10,6 +11,45 @@ module OrigenTesters
       # desired to configure your interface
       def initialize(options = {})
         @environment = options[:environment]
+        add_charz
+      end
+
+      def add_charz
+        add_charz_routine :routine1 do |routine|
+          routine.name = '_cz__rt1'
+        end
+        add_charz_routine :routine2 do |routine|
+          routine.name = '_cz__rt2'
+        end
+        add_charz_routine :routine3 do |routine|
+          routine.name = '_cz__rt3'
+        end
+        add_charz_routine :routine4 do |routine|
+          routine.name = '_cz__rt4'
+        end
+        add_charz_routine :routine5 do |routine|
+          routine.name = '_cz__rt5'
+        end
+        add_charz_routine :routine6 do |routine|
+          routine.name = '_cz__rt6'
+        end
+        add_charz_profile :cz do |profile|
+          profile.routines = [:routine3]
+        end
+        add_charz_profile :cz_only do |profile|
+          profile.charz_only = true
+          profile.routines = [:routine1]
+        end
+        add_charz_profile :simple_gates do |profile|
+          profile.flags = :my_flag
+          profile.enables = :my_enable
+          profile.routines = [:routine1]
+        end
+        add_charz_profile :complex_gates do |profile|
+          profile.flags = { ['$MyFlag1'] => [:routine1, :routine2], ['$MyFlag2'] => [:routine3], '$MyFlag3' => :routine4 }
+          profile.enables = { ['$MyEnable1'] => [:routine1], ['$MyEnable2'] => [:routine2, :routine3], '$MyEnable3' => :routine5 }
+          profile.routines = [:routine1, :routine2, :routine3, :routine4, :routine5, :routine6]
+        end
       end
 
       # Test that the block form of flow control methods like this can
@@ -83,6 +123,46 @@ module OrigenTesters
             end
             flow.test ts, options
           end
+        end
+      end
+
+      def func_with_charz(name, options = {})
+        options = {
+          duration: :static
+        }.merge(options)
+
+        if tester.v93k?
+          if tester.smt7?
+            tm = test_methods.ac_tml.ac_test.functional_test
+            ts = test_suites.run(name, options)
+            ts.test_method = tm
+            ts.pattern = 'charz_example'
+
+            test_level_charz = false
+            if options[:charz]
+              charz_on(*options[:charz])
+              test_level_charz = true
+            end
+
+            unless charz_only? && !options[:charz_test]
+              options[:parent_test_name] = name
+              set_conditional_charz_id(options)
+              flow.test ts, options
+            end
+
+            unless options[:charz_test]
+              insert_charz_tests(options.merge(parent_test_name: name, charz_test: true)) do |options|
+                charz_name = :"#{name}_#{charz_routines[options[:current_routine]].name}"
+                func_with_charz(charz_name, options)
+              end
+            end
+
+            charz_off if test_level_charz
+          else
+            fail 'Only SMT7 is Implemented for Charz'
+          end
+        else
+          fail "Tester #{tester.name} Not Yet Implemented for Charz"
         end
       end
 

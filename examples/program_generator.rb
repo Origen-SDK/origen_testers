@@ -3,7 +3,7 @@
   j750: ["program/prod.list"],
   j750_hpt: ["program/prod.list"],
   ultraflex: ["program/prod.list", "program/uflex_resources.rb"],
-  v93k: ["program/prod.list"],
+  v93k: ["program/charz.rb", "program/prod.list"],
   v93k_multiport: ["program/prb1.rb"],
   v93k_enable_flow: ["program/prb1.rb", "program/prb2.rb"],
   v93k_disable_flow: ["program/prb1.rb", "program/prb2.rb"],

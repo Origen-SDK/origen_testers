@@ -1,0 +1,221 @@
+% render "layouts/guides.html" do
+
+Be sure to read and understand the guide to
+[Creating an Interface](<%= path "guides/program/interface" %>) before
+reading this guide.
+This guide covers aspects of the Characterization (charz) API. 
+
+Currently, the charz API has only been proven out for V93K SMT7, but isn't inherently designed around working only for that environment.
+
+The Charz API is enabled by including the Charz module in your interface:
+
+~~~ruby
+# app/lib/my_app/interface.rb
+module MyApp
+  class Interface
+    include OrigenTesters::ProgramGenerators
+    include OrigenTesters::Charz
+~~~
+
+Note this guide assumes the audience is familiar with interface creation and custom test methods, and will not go into detail explaining those topics.
+
+## Overview
+
+The Characterization API allows a flow to add characterization to existing production tests with little additional overhead.
+
+First specify charz routines to set charz test options, then create a profile with flow creation meta for the resulting tests.
+Afterwards, the `charz_on` method can be called in the flow to activate charz profiles, which is explained below.
+
+### Charz Routines
+
+Charz routines contain relevant charz data thats specific to a charz test to be created. Created routines are stored in the `@charz_routines` attribute.
+The data stored within a routine will be used in combination with the options used to make a production test to make a charz variant of the production test.
+
+The interface adds charz routines by calling the `add_charz_routine` method:
+
+~~~ruby
+add_charz_routine :vmin do |routine|
+  routine.name = 'cz_vmin_vdd'
+  routine.start = 1.0.V
+  routine.stop = 0.5.V
+  routine.res = 5.mV
+  routine.spec = 'VDD'
+end
+~~~
+
+### Charz Profiles
+
+Charz profiles contain a collection of routines, as well as test creation meta data related to test placement, production test result dependence, and conditional execution.
+
+The interface adds charz profiles by calling the `add_charz_profile` method. To create a profile that contains previously defined vmin and vmax search routines, whose resulting searches
+only run if the production test failed, and sets the vmax search routine to only run if the 'VmaxEnable' variable is set:
+
+~~~ruby
+add_charz_profile :fail_searches do |profile|
+  profile.name = 'fail_searches'
+  profile.on_result = :on_fail
+  profile.routines = [:vmin, :vmax]
+  profile.enables = { ['$VmaxEnable'] => [:vmax] }
+end
+~~~
+
+### Charz Session
+
+The charz session (stored in your interfaces `@charz_session` attribute) monitors the current state of characterization at a given point in flow generation.
+
+The API provides some key methods for querying that state during generation, such as:
+
+ * `charz_active?` : indicates if applicable productions tests should be generating charz tests as well
+ * `charz_only?`   : indicates if the production tests should be added to the flow or not, only generating the resulting charz test
+
+## Interface Considerations
+
+A couple of enhancements will need to be added to your interface to take advantage of the API in addition to adding `include OrigenTesters::Charz` as shown above.
+The charz routines and profiles will need to be added, and your flow methods will need to be updated to know what to do when a charz session is active.
+
+### Adding charz routines and profiles
+
+As long as the desired routines and profiles exist in the interface's @charz_routines and @charz_profiles hashes, the rest of the API will work as expected.
+One option is to add them during the interface initialization:
+
+~~~ruby
+# app/lib/my_app/interface.rb
+module MyApp
+  class Interface
+    include OrigenTesters::ProgramGenerators
+    include OrigenTesters::Charz
+
+    def add_charz
+      add_charz_routine :my_routine do |routine|
+        routine.name = 'cz_vmin_vdd'
+        routine.start = 1.0.V
+        routine.stop = 0.5.V
+        routine.res = 5.mV
+        routine.spec = 'VDD'
+      end
+      add_charz_profile :my_profile do |profile|
+        profile.name = 'vmin_search'
+        profile.routines = [:vmin]
+      end
+    end
+
+    def initialize(options = {})
+      add_charz
+    end
+~~~
+
+### Configuring Existing Flow Methods
+
+Now that your interface has defined some routines and profiles, the flow methods needs to be updated to work with an active charz session.
+
+Lets take a simplistic example functional flow method defined in `MyApp::Interface`:
+
+~~~ruby
+# V93K SMT7 example
+def func(name, options = {})
+  tm = test_methods.ac_tml.ac_test.functional_test
+  ts = test_suites.run(name, options)
+  ts.test_method = tm
+  ts.pattern = 'example'
+  flow.test ts, options
+end
+~~~
+
+And now we'll add the ability for this flow method to generate a charz test as well:
+
+~~~ruby
+# V93K SMT7 example
+def func(name, options = {})
+  if options[:routine]
+    tm = test_methods.ac_tml.ac_test.spec_search
+  else
+    tm = test_methods.ac_tml.ac_test.functional_test
+  end
+  ts = test_suites.run(name, options)
+  ts.test_method = tm
+  ts.pattern = 'example'
+
+  if options[:routine]
+    ts.spec = options[:routine].spec
+    ts.min = options[:routine].stop
+    ts.max = options[:routine].start
+    ts.resolution = options[:routine].res
+  end
+
+  flow.test ts, options
+
+  unless options[:charz_test]
+    insert_charz_tests(options.merge(parent_test_name: name, charz_test: true)) do |options|
+      charz_name = :"#{name}_#{charz_routines[options[:current_routine]].name}"
+      options[:routine] = charz_routines[options[:current_routine]]
+      func(charz_name, options)
+    end
+  end
+end
+~~~
+
+### #insert_charz_tests
+
+The `insert_charz_tests` method handles everything regarding adding the charz test into the flow except determining the actual name and parameters of the test, which is
+done by the local interface in the block passed to the `insert_charz_tests` method. This method handles:
+
+ * querying the charz session
+ * test placement
+ * charz test grouping
+ * production test result dependency
+ * gate processing (enables, flags) 
+
+The block that gets passed is yielded the latest options (with id removed if passed for the production test, so it doesn't get re-used for charz tests).
+Routines in the current session are yielded one at a time, with their id being returned in `options[:current_routine]`.
+
+#### Company Plugin Oppurtunity
+
+If your company is already using a plugin to distribute the definitions of these flow methods, this is a good oppurtunity to add charz variants of those methods
+that take routine as an input. This can really streamline the process, for example if you combine the charz flow methods plugin with a central flow entry point method called by
+all flow methods, then the implementation becomes:
+
+~~~ruby
+def add_to_flow(ts, options = {})
+  flow.test ts, options
+
+  unless options[:charz_test]
+    insert_charz_tests(options.merge(parent_test_name: name, charz_test: true)) do |options|
+      insert_current_charz_test(options)
+    end
+  end
+end
+~~~
+
+Where insert_current_charz_test is a method defined in the company charz flow method plugin.
+
+### Flow Usage Examples
+
+Now that the interface has charz routines and profiles, lets look at how to use the API within the flow itself:
+
+~~~ruby
+Flow.create(interface: 'MyApp:Interface') do
+
+  # regular non charz test
+  func :my_test1
+
+  # create charz test variants of my_test2 following the production
+  # version of my_test2 using the routines in :my_profile
+  charz_on :my_profile do
+    func :my_test2
+  end
+
+  # conditional charz enablement
+  # besides dut.enable_charz? check, identical to above
+  charz_on :my_profile if dut.enable_charz?
+  func :my_test3
+  charz_off if dut.enable_charz?
+
+  # override session values at the flow level
+  charz_on :my_profile, placement: :eof do
+    func :my_test4
+  end
+
+end
+~~~
+
+% end
