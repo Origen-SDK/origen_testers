@@ -75,8 +75,25 @@ module OrigenTesters
           process_all(nodes)
         end
 
+        # Returns any IG-XL hash embedded in the given node, or nil if there is none
+        def igxl(node)
+          igxl = node.find(:igxl)
+          igxl.to_a[0] if igxl
+        end
+
         def on_test(node)
           line = new_line(:test) { |l| process_all(node) }
+
+          # Move any device conditions on this line to a group condition instead
+          if options = igxl(node)
+            if options[:change_device_condition_to_group]
+              line.group_condition = line.device_condition
+              line.device_condition = nil
+              line.group_name = line.device_name
+              line.device_name = nil
+              line.group_specifier = 'any-active'
+            end
+          end
 
           # In IG-XL you can't set the same flag in case of pass or fail, that situation should
           # never occur unless the user has manually set up that condition
