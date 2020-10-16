@@ -96,7 +96,7 @@ module OrigenTesters
         end
 
         @max_repeat_loop = 65_535
-        @min_repeat_loop = 33
+        @min_repeat_loop = 16
         if smt8?
           @pat_extension = 'pat'
         else
