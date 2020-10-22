@@ -28,6 +28,8 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
   end
 
   if tester.uflex?
+    meas_multi_limits :bin_now, tnum: 3000, bin: 119, soft_bin: 2
+    meas_multi_limits :bin_later, tnum: 3000, bin: 119, soft_bin: 2, defer_limits: true
     log "Test of ultraflex render API"
     line = flow.ultraflex.use_limit
     line.units = "Hz"

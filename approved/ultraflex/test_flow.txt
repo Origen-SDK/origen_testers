@@ -25,5 +25,11 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Use-Limit		meas_read_pump	40090	1.0e-06	4.0e-06		A			119		2	Fail														
 						Use-Limit		meas_read_pump	40090	2.0e-06	5.0e-06		A			119		2	Fail														
 						Use-Limit		meas_read_pump	40090	3.0e-06			A			119		2	Fail														
+						Test	measmulti_bin_now	measmulti_bin_now	3000							119		2	Fail														
+						Use-Limit	measmulti_bin_now	limit1	3001	0	7					119		2	Fail														
+						Use-Limit	measmulti_bin_now	limit2	3002	3	8					119		2	Fail														
+						Test-defer-limits	measmulti_bin_later	measmulti_bin_later	3000							119		2	Fail														
+						Use-Limit	measmulti_bin_later	limit1	3001	0	7					119		2	Fail														
+						Use-Limit	measmulti_bin_later	limit2	3002	3	8					119		2	Fail														
 						logprint	Test_of_ultraflex_render_API																										
 						Use-Limit							Hz						Fail														
