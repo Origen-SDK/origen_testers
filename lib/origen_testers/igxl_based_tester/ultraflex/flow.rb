@@ -10,10 +10,15 @@ module OrigenTesters
         def on_test(node)
           super
           ins = node.find(:object).value
-          if ins.respond_to?(:lo_limit) && (ins.lo_limit || ins.hi_limit) || ins.respond_to?(:lo) && (ins.lo || ins.hi)
+          
+          # allow defer limits when limits are only given in sub tests
+          if ins.respond_to?(:defer_limits)
             if ins.defer_limits
               completed_lines.last.opcode = 'Test-defer-limits'
             end
+          end
+          
+          if ins.respond_to?(:lo_limit) && (ins.lo_limit || ins.hi_limit) || ins.respond_to?(:lo) && (ins.lo || ins.hi)
             limit = completed_lines.last.dup
             limit.type = :use_limit
             limit.opcode = 'Use-Limit'
