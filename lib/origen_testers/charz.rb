@@ -44,6 +44,8 @@ module OrigenTesters
     # Its intended to be used in combination with an existing point test (regular non charz test) to create
     # a characterization version of the point test
     #
+    # To use your own Routine classes, override the create_charz_routine method in your interface
+    #
     # @example create a 1d search routine that searches vdd, from 900mv to 300mv, resolution of 5mv
     #   add_charz_routine :my_routine, type: search do |rt|
     #     rt.start = 900.mv
@@ -60,13 +62,24 @@ module OrigenTesters
         Origen.log.error("Cannot create charz routine '#{id}', it already exists!")
         fail
       end
+      charz_routines[id] = create_charz_routine(id, options, &block)
+    end
+
+    # Called by add_charz_routine, split out from that method to make it easier to override this handler from a user's interface
+    # This is the method to override if you want to use custom Routines specifc to your company's implementation
+    #
+    # @param [Symbol] id charz_routine id, will be the key value in the @charz_routines hash. Must not have been previously used
+    # @param [Hash] options charz_routine options
+    # @option options [Symbol] :type :search or :'1d' will create a SearchRoutine, :shmoo or :'2d' will create a ShmooRoutine, nil will create a Routine
+    # @return [Routine] a charz routine object
+    def create_charz_routine(id, options = {}, &block)
       case options[:type]
       when :search, :'1d'
-        charz_routines[id] = SearchRoutine.new(id, options, &block)
+        SearchRoutine.new(id, options, &block)
       when :shmoo, :'2d'
-        charz_routines[id] = ShmooRoutine.new(id, options, &block)
+        ShmooRoutine.new(id, options, &block)
       else
-        charz_routines[id] = Routine.new(id, options, &block)
+        Routine.new(id, options, &block)
       end
     end
 
