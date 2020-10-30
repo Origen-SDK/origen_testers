@@ -31,6 +31,10 @@ DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	P
 	margin_read1_ckbd_pset			nvm_global_subs.PAT	Yes	subr			
 	meas_read_pump_pset			meas_read_pump.PAT	Yes				
 	meas_read_pump_pset			nvm_global_subs.PAT	Yes	subr			
+	measmulti_bin_later_pset			measmulti_bin_later.PAT	Yes				
+	measmulti_bin_later_pset			nvm_global_subs.PAT	Yes	subr			
+	measmulti_bin_now_pset			measmulti_bin_now.PAT	Yes				
+	measmulti_bin_now_pset			nvm_global_subs.PAT	Yes	subr			
 	normal_read_ckbd_pset			normal_read_ckbd.PAT	Yes				
 	normal_read_ckbd_pset			nvm_global_subs.PAT	Yes	subr			
 	not_p1_or_p2_test_pset			not_p1_or_p2_test.PAT	Yes				

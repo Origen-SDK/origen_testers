@@ -285,6 +285,31 @@ module OrigenTesters
         end
       end
 
+      def meas_multi_limits(name, options = {})
+        options = {
+          duration: :static
+        }.merge(options)
+
+        name = "measmulti_#{name}" unless name.to_s =~ /measmulti/
+
+        if tester.uflex?
+          ins = test_instances.functional(name)
+          ins.set_wait_flags(:a) if options[:duration] == :dynamic
+          ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
+          ins.defer_limits = options[:defer_limits]
+
+          # some made up sub test limits
+          options[:sub_tests] = [sub_test('limit1', lo: 0, hi: 7), sub_test('limit2', lo: 3, hi: 8)]
+
+          pname = "#{name}_pset"
+          patsets.add(pname, [{ pattern: "#{name}.PAT" },
+                              { pattern: 'nvm_global_subs.PAT', start_label: 'subr' }])
+          ins.pattern = pname
+
+          flow.test(ins, options)
+        end
+      end
+
       def meas(name, options = {})
         options = {
           duration: :static
