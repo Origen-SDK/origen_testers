@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_48_2"></a>
+<h1><a href="#v0_48_2">Tag: v0.48.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Paul DeRouen on 30-Oct-2020 14:00PM
+
+
+allow defered binning with uflex flow generation when all limits are provided as sub-tests
+
 <a class="anchor release_tag" name="v0_48_1"></a>
 <h1><a href="#v0_48_1">Tag: v0.48.1</a></h1>
 
