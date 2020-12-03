@@ -36,7 +36,7 @@ module OrigenTesters
         unless options[:subroutine_pat]
           stage.with_bank(:body) do
             # find the first vector
-            stage.bank.delete_at(0) until stage.bank[0].is_a?(OrigenTesters::Vector)
+            stage.bank.delete_at(0) until stage.bank[0].is_a?(OrigenTesters::Vector) || stage.bank.empty?
           end
         end
       end
