@@ -23,6 +23,7 @@ module OrigenTesters
             limit.type = :use_limit
             limit.opcode = 'Use-Limit'
             limit.parameter = nil
+            limit.tnum = nil                            # Don't duplate test numbers, allow auto-increment by leaving blank
             if ins.respond_to?(:lo_limit)
               lo = ins.lo_limit
               hi = ins.hi_limit
