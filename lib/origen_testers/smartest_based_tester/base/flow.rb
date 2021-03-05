@@ -14,7 +14,7 @@ module OrigenTesters
           le: '<='
         }
 
-        attr_accessor :test_suites, :test_methods, :lines, :stack, :var_filename
+        attr_accessor :test_suites, :test_methods, :lines, :stack, :var_filename, :dec_filename, :flag_filename
         # Returns an array containing all runtime variables which get set by the flow
         attr_reader :set_runtime_variables
 

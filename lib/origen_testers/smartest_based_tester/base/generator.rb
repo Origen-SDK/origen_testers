@@ -62,7 +62,7 @@ module OrigenTesters
           @@pattern_compilers = nil
           @@variables_files = nil
           @@declarations_files = nil
-          #          @@flags_files = nil
+          @@flags_files = nil
           @@limits_workbook = nil
           limits_workbook if tester.smt8? && !generating_sub_program?
         end
