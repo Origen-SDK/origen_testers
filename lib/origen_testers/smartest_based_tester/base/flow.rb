@@ -37,6 +37,14 @@ module OrigenTesters
           @var_filename || 'global'
         end
 
+        def dec_filename
+          @dec_filename || 'global_dec'
+        end
+
+        def flag_filename
+          @flag_filename || 'global_flag'
+        end
+
         def subdirectory
           @subdirectory ||= begin
             if smt8?
@@ -222,6 +230,8 @@ module OrigenTesters
           unless smt8?
             unless flow_variables[:empty?]
               Origen.interface.variables_file(self).add_variables(flow_variables)
+              Origen.interface.declarations_file(self).add_variables(flow_variables)
+              Origen.interface.flags_file(self).add_variables(flow_variables)
             end
           end
           test_suites.finalize

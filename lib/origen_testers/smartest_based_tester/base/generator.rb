@@ -61,6 +61,8 @@ module OrigenTesters
           @@pattern_masters = nil
           @@pattern_compilers = nil
           @@variables_files = nil
+          @@declarations_files = nil
+          #          @@flags_files = nil
           @@limits_workbook = nil
           limits_workbook if tester.smt8? && !generating_sub_program?
         end
@@ -70,6 +72,8 @@ module OrigenTesters
           self.pattern_master_filename = name
           self.pattern_references_name = name
           flow.var_filename = name
+          flow.dec_filename = name
+          flow.flag_filename = name
         end
 
         def pattern_master_filename=(name)
@@ -165,6 +169,46 @@ module OrigenTesters
           @@variables_files ||= {}
         end
 
+        # Returns the declarations file for the current or given flow, by default a common variable
+        # file called 'global' will be used for all flows.
+        # To use a different one set the resources_filename at the start of the flow.
+        def declarations_file(flw = nil)
+          name = (flw || flow).dec_filename
+          declarations_files[name] ||= begin
+            m = platform::DeclarationsFile.new(manually_register: true)
+            filename = "#{name}_vars.tf"
+            filename = "#{Origen.config.program_prefix}_#{filename}" if Origen.config.program_prefix
+            m.filename = filename
+            m.id = name
+            m
+          end
+        end
+
+        # Returns a hash containing all declarations file generators
+        def declarations_files
+          @@declarations_files ||= {}
+        end
+
+        # Returns the declarations file for the current or given flow, by default a common variable
+        # file called 'global' will be used for all flows.
+        # To use a different one set the resources_filename at the start of the flow.
+        def flags_file(flw = nil)
+          name = (flw || flow).flag_filename
+          flags_files[name] ||= begin
+            m = platform::FlagsFile.new(manually_register: true)
+            filename = "#{name}_vars.tf"
+            filename = "#{Origen.config.program_prefix}_#{filename}" if Origen.config.program_prefix
+            m.filename = filename
+            m.id = name
+            m
+          end
+        end
+
+        # Returns a hash containing all declarations file generators
+        def flags_files
+          @@flags_files ||= {}
+        end
+
         # @api private
         def pattern_reference_recorded(name, options = {})
           # Will be called everytime a pattern reference is made that the ATE should be aware of,
@@ -200,6 +244,12 @@ module OrigenTesters
             g << sheet
           end
           variables_files.each do |name, sheet|
+            g << sheet
+          end
+          declarations_files.each do |name, sheet|
+            g << sheet
+          end
+          flags_files.each do |name, sheet|
             g << sheet
           end
           g << limits_workbook if tester.smt8? && !generating_sub_program?

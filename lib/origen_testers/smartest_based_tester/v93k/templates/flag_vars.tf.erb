@@ -1,0 +1,10 @@
+% if flags
+%   flags.each do |var|
+%     if var.is_a?(Array)
+user <%= var[0].to_s %> = <%= var[1].is_a?(String) || var[1].is_a?(Symbol) ? "\"#{var[1]}\"" : var[1] %>;
+%     else
+user <%= var.to_s %> = 0;
+%     end
+%   end
+% end
+
