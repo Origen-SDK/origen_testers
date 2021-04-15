@@ -430,7 +430,8 @@ module OrigenTesters
         end
 
         def clean_flag(flag)
-          flag = flag.to_s
+          # Added .dup to below line to get an unfrozen copy of the string, corrects a run time error
+          flag = flag.to_s.dup
           if flag[0] == '$'
             flag[0] = ''
           end
