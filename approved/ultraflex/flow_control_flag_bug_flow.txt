@@ -1,0 +1,15 @@
+DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Flow Table																																
+						Flow Domain:																											
+			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Flag			Group				Device			Debug			
+	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
+						logprint	Mixed-case_manual_flags																										
+						Test	test1		51420										None		My_Mixed_Flag_0												
+						defaults															My_Mixed_Flag												
+						flag-true	My_Mixed_Flag																					flag-true	My_Mixed_Flag_0				
+						Test	test2		51430										Fail									flag-true	My_Mixed_Flag				
+						Test	test3		51440										Fail								not	flag-true	My_Mixed_Flag				
+						logprint	Mixed-case_manual_flags_-_induce_frozen_string_error																										
+						Test	test4		51450										None		My_Mixed_Flag_1												
+						flag-true	My_Mixed_Flag																					flag-true	My_Mixed_Flag_1				
+						Test	test5		51460										Fail									flag-true	My_Mixed_Flag				
+						Test	test6		51470										Fail								not	flag-true	My_Mixed_Flag				

@@ -4,5 +4,6 @@ prb1_resources.rb
 prb2.rb
 test.rb
 flow_control.rb
+flow_control_flag_bug.rb
 basic_interface.rb
 custom_tests.rb
