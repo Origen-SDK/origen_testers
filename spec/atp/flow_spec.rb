@@ -231,6 +231,21 @@ describe 'The flow builder API' do
               s(:continue))))
     end
 
+    it "atp.test with priority" do
+      test("test1", bin: 1, softbin: 10, continue: true, priority: 10)
+      atp.raw.should ==
+        s(:flow,
+          s(:name, "sort1"),
+          s(:test,
+            s(:object, "test1"),
+            s(:on_fail,
+              s(:set_result, "fail",
+                s(:bin, 1),
+                s(:softbin, 10)),
+              s(:continue)),
+            s(:priority, 10)))
+    end
+
     it "atp.test with bin descriptions" do
       test("test1", bin: 1, softbin: 10, continue: true)
       test("test2", bin: 2, bin_description: 'hbin2 fails', softbin: 20, continue: true)
