@@ -1,0 +1,15 @@
+DFF 1.1	Flow Table																											
+																												
+			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
+	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
+						logprint	Mixed-case_manual_flags																					
+						Test	test1		51420					None		My_Mixed_Flag_0												
+						defaults										My_Mixed_Flag												
+						flag-true	My_Mixed_Flag																flag-true	My_Mixed_Flag_0				
+						Test	test2		51430					Fail									flag-true	My_Mixed_Flag				
+						Test	test3		51440					Fail								not	flag-true	My_Mixed_Flag				
+						logprint	Mixed-case_manual_flags_-_induce_frozen_string_error																					
+						Test	test4		51450					None		My_Mixed_Flag_1												
+						flag-true	My_Mixed_Flag																flag-true	My_Mixed_Flag_1				
+						Test	test5		51460					Fail									flag-true	My_Mixed_Flag				
+						Test	test6		51470					Fail								not	flag-true	My_Mixed_Flag				
