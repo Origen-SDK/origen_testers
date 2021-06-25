@@ -21,7 +21,6 @@ module OrigenTesters
             priority: 2
           }.merge(options)
           attrs = @softbins[number] || {}
-          options[:priority] = options[:priority] || 2
 
           attrs[:name] = options[:name] if options[:name]
           attrs[:bin] = options[:bin] if options[:bin]
