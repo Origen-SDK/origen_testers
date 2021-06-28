@@ -115,6 +115,7 @@ module OrigenTesters
         @overlay_style = :subroutine	# default to use subroutine for overlay
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
+        @overlay_history = {} # used to track labels, subroutines, digsrc pins used etc
 
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]
@@ -203,6 +204,12 @@ module OrigenTesters
             when :subroutine, :default
               subroutine_overlay(overlay_str, options)
               ovly_style = :subroutine
+            when :label, :global_label
+              options[:dont_compress] = true
+              unless @overlay_history.key?(overlay_str)
+                cc "#{overlay_str}"
+                @overlay_history[overlay_str] = { is_label: true }
+              end
             when :handshake
               if @delayed_handshake
                 if @delayed_handshake != overlay_str
