@@ -439,6 +439,8 @@ module OrigenTesters::ATP
             children << on_pass(options[:on_pass]) if options[:on_pass]
           end
 
+          children << priority(options[:priority]) if options[:priority]
+
           save_conditions
           n(:test, children)
         end
@@ -808,6 +810,10 @@ module OrigenTesters::ATP
 
     def id(name)
       n1(:id, name)
+    end
+
+    def priority(name)
+      n1(:priority, name)
     end
 
     def on_fail(options = {})
