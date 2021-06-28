@@ -119,6 +119,7 @@ module OrigenTesters
           o[:test_name] = extract_test_name(node, o)
           o[:test_number] = extract_test_number(node, o)
           o[:limits] = extract_limits(node, o)
+          o[:priority] = extract_priority(node, o)
           o[:test_text] = node.find(:test_text).try(:value)
           if on_fail = node.find(:on_fail)
             if set_result = on_fail.find(:set_result)
@@ -141,7 +142,7 @@ module OrigenTesters
             end
             if smt8?
               if o[:bin_s_num]
-                limits_workbook.add_softbin o[:bin_s_num], name: o[:bin_s_name], bin: o[:bin_h_num]
+                limits_workbook.add_softbin o[:bin_s_num], name: o[:bin_s_name], bin: o[:bin_h_num], priority: o[:priority]
               end
               if o[:bin_h_num]
                 limits_workbook.add_bin o[:bin_h_num], name: o[:bin_h_name]
@@ -215,6 +216,16 @@ module OrigenTesters
             name = test_obj.respond_to?(:name) ? test_obj.name : test_obj if test_obj
           end
           name
+        end
+
+        def extract_priority(node, o)
+          test_obj = node.find(:priority).to_a[0]
+          if test_obj.is_a?(Hash)
+            priority = test_obj['Priority']
+          else
+            priority = test_obj.respond_to?(:priority) ? test_obj.priority : test_obj if test_obj
+          end
+          priority
         end
 
         def extract_test_name(node, o)
