@@ -20,7 +20,7 @@ end
 
 require "origen"
 
-require "rspec/legacy_formatters"
+require "rspec/legacy_formatters" if Gem::Version.new(RSpec::Core::Version::STRING) < Gem::Version.new('3.0.0')
 require "#{Origen.top}/spec/format/origen_formatter"
 
 require "byebug"
