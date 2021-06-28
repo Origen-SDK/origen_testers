@@ -10,14 +10,11 @@
       <Instruction id="patternCall" value="OrigenTesters.patterns.dummy_str"/>
       <Instruction id="genVec" value="2"/>
       <Instruction id="patternCall" value="OrigenTesters.patterns.subr_test"/>
-      <Instruction id="genVec" value="20"/>
-      <Instruction id="patternCall" value="OrigenTesters.patterns.label_test"/>
+      <Instruction id="genVec" value="23"/>
       <Instruction id="genVec" value="1">
-        <Assignment id="repeat" value="39"/>
+        <Assignment id="repeat" value="40"/>
       </Instruction>
-      <Instruction id="genVec" value="1"/>
-      <Instruction id="patternCall" value="OrigenTesters.patterns.global_label_test"/>
-      <Instruction id="genVec" value="40"/>
+      <Instruction id="genVec" value="43"/>
     </Instrument>
   </Program>
   <Vector>
@@ -94,6 +91,11 @@
     11H1101
     11H1101
     11H1101
+    11H1101
+    11H1101
+    11H1101
+    11H1101
+    11H1101
   </Vector>
   <Comment>
     0 should get a repeat count added to this vector for digsrc start minimum distance
@@ -107,64 +109,71 @@
     8 send microcode followed by DDD on pa----cycle with 001 on pa
     9 send microcode, DDD on pa with repeat 5 (will send 5 sets of data)----cycle with 001 on pa
     10 (overlay keeps)
-    11 R19 
-    12 R18 
-    13 R17 
-    14 R16 
-    15 R15 
-    16 R14 
-    17 R13 
-    18 R12 
-    19 R11 
-    20 R10 
-    21 R9 
-    22 R8 
-    23 R7 
-    24 R6 
-    25 R5 
-    26 R4 
-    27 R3 
-    28 R2 
-    29 R1 
-    33 R20 
-    34 R19 
-    35 R18 
-    36 R17 
-    37 R16 
-    38 R15 
-    39 R14 
-    40 R13 
-    41 R12 
-    42 R11 
-    43 R10 
-    44 R9 
-    45 R8 
-    46 R7 
-    47 R6 
-    48 R5 
-    49 R4 
-    50 R3 
-    51 R2 
-    52 R1 
-    53 R20 Now kick the tires of handshake overlay
-    54 R19 
-    55 R18 
-    56 R17 
-    57 R16 
-    58 R15 
-    59 R14 
-    60 R13 
-    61 R12 
-    62 R11 
-    63 R10 
-    64 R9 
-    65 R8 
-    66 R7 
-    67 R6 
-    68 R5 
-    69 R4 
-    70 R3 
-    71 R2 
-    72 R1 
+    11 R20 
+    12 R19 
+    13 R18 
+    14 R17 
+    15 R16 
+    16 R15 
+    17 R14 
+    18 R13 
+    19 R12 
+    20 R11 
+    21 R10 
+    22 R9 
+    23 R8 
+    24 R7 
+    25 R6 
+    26 R5 
+    27 R4 
+    28 R3 
+    29 R2 
+    30 R1 
+    31 label_test(1st line after local label for overlay)
+    32 (2nd line after local label for overlay)
+    33 (3rd line after local label for overlay)
+    35 global_label_test(1st line after global label for overlay)
+    36 (2nd line after global label for overlay)
+    37 (3rd line after global label for overlay)
+    38 R20 
+    39 R19 
+    40 R18 
+    41 R17 
+    42 R16 
+    43 R15 
+    44 R14 
+    45 R13 
+    46 R12 
+    47 R11 
+    48 R10 
+    49 R9 
+    50 R8 
+    51 R7 
+    52 R6 
+    53 R5 
+    54 R4 
+    55 R3 
+    56 R2 
+    57 R1 
+    58 R20 Now kick the tires of handshake overlay
+    59 R19 
+    60 R18 
+    61 R17 
+    62 R16 
+    63 R15 
+    64 R14 
+    65 R13 
+    66 R12 
+    67 R11 
+    68 R10 
+    69 R9 
+    70 R8 
+    71 R7 
+    72 R6 
+    73 R5 
+    74 R4 
+    75 R3 
+    76 R2 
+    77 R1 
   </Comment>
 </Pattern>

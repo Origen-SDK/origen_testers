@@ -1,23 +1,24 @@
 # ***************************************************************************
 # GENERATED:
-#   Time:    04-Jun-2018 14:01PM
-#   By:      Stephen McGinty
-#   Command: origen g pattern/tester_overlay.rb -t dut3.rb -e v93k.rb
+#   Time:    28-Jun-2021 09:44AM
+#   By:      Daniel Hadad
+#   Mode:    debug
+#   Command: origen g tester_overlay -t dut3.rb -e v93k.rb
 # ***************************************************************************
 # ENVIRONMENT:
 #   Application
 #     Source:    git@github.com:Origen-SDK/origen_testers.git
-#     Version:   0.19.0
-#     Branch:    handshake_overlay(160a8192d3b) (+local edits)
+#     Version:   0.48.3
+#     Branch:    feature/smt_label(be8f8ea28df) (+local edits)
 #   Origen
 #     Source:    https://github.com/Origen-SDK/origen
-#     Version:   0.27.0
+#     Version:   0.57.1
 #   Plugins
-#     atp:                      1.1.2
 #     origen_arm_debug:         0.4.3
-#     origen_doc_helpers:       0.5.1
-#     origen_jtag:              0.17.1
-#     origen_swd:               1.1.0
+#     origen_doc_helpers:       0.8.2
+#     origen_jtag:              0.22.1
+#     origen_stil:              0.3.0
+#     origen_swd:               1.1.2
 # ***************************************************************************
 FORMAT TCLK TDI TDO TMS pa;
 #                                                   t t t t p  
@@ -49,6 +50,7 @@ SQPG JSUB dummy_str;
 R1                       tp0                        1 1 H 1 001 # send microcode, DDD on pa with repeat 5 (will send 5 sets of data)cycle with 001 on pa;
 R1                       tp0                        1 1 H 1 111 # (overlay keeps);
 SQPG JSUB subr_test;
+R1                       tp0                        1 1 H 1 111 # R20 ;
 R1                       tp0                        1 1 H 1 111 # R19 ;
 R1                       tp0                        1 1 H 1 111 # R18 ;
 R1                       tp0                        1 1 H 1 111 # R17 ;
@@ -68,11 +70,15 @@ R1                       tp0                        1 1 H 1 111 # R4 ;
 R1                       tp0                        1 1 H 1 111 # R3 ;
 R1                       tp0                        1 1 H 1 111 # R2 ;
 R1                       tp0                        1 1 H 1 111 # R1 ;
-R1                       tp0                        1 1 H 1 111 # ;
-SQPG JSUB label_test;
-R39                      tp0                        1 1 H 1 101 # ;
-R1                       tp0                        1 1 H 1 101 # ;
-SQPG JSUB global_label_test;
+# label_test
+R1                       tp0                        1 1 H 1 101 # label_test(1st line after local label for overlay);
+R1                       tp0                        1 1 H 1 101 # (2nd line after local label for overlay);
+R1                       tp0                        1 1 H 1 101 # (3rd line after local label for overlay);
+R40                      tp0                        1 1 H 1 101 # ;
+# global_label_test
+R1                       tp0                        1 1 H 1 101 # global_label_test(1st line after global label for overlay);
+R1                       tp0                        1 1 H 1 101 # (2nd line after global label for overlay);
+R1                       tp0                        1 1 H 1 101 # (3rd line after global label for overlay);
 R1                       tp0                        1 1 H 1 101 # R20 ;
 R1                       tp0                        1 1 H 1 101 # R19 ;
 R1                       tp0                        1 1 H 1 101 # R18 ;
