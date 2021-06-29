@@ -29,6 +29,10 @@ jobs:
       run: origen lint --no-correct  
     - name: Set Origen to debug mode
       run: origen m debug
+    - name: Set target
+      run: origen t dut.rb
+    - name: Set environment
+      run: origen e j750.rb
     - name: Run Regression tests
       run: origen test -c
     - name: Verify Building website
