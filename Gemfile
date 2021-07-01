@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 # Development dependencies
-gem 'coveralls', require: false
 gem 'byebug', "~>8"
 gem 'ripper-tags'
 gem 'origen_arm_debug', '0.4.3'
