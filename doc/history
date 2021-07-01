@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_49_0"></a>
+<h1><a href="#v0_49_0">Tag: v0.49.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 01-Jul-2021 07:10AM
+
+
+Added a couple of features for 93k support:
+- added priority support for stm8 (PR #166)
+- added custom label comments support to permit label-type overlays (PR #174)
+
 <a class="anchor release_tag" name="v0_48_3"></a>
 <h1><a href="#v0_48_3">Tag: v0.48.3</a></h1>
 
