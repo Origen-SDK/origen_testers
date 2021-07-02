@@ -1,23 +1,8 @@
 $VERBOSE=nil  # Don't care about world writable dir warnings and the like
 
 require 'pathname'
-# we know Gemfile is there, no idea why this causes issues
-# if File.exist? File.expand_path("../Gemfile", Pathname.new(__FILE__).realpath)
-  require 'rubygems'
-  require 'bundler/setup'
-# else
-  # If running on windows, can't use Origen helpers 'till we load it...
-#  if RUBY_PLATFORM == 'i386-mingw32'
-#    `where origen`.split("\n").find do |match|
-#      match =~ /(.*)\\bin\\origen$/
-#    end
-#    origen_top = $1.gsub("\\", "/")
-#  else
-#    origen_top = `which origen`.strip.sub("/bin/origen", "")
-#  end
-#
-#  $LOAD_PATH.unshift "#{origen_top}/lib"
-# end
+require 'rubygems'
+require 'bundler/setup'
 
 require "origen"
 
