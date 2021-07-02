@@ -205,6 +205,8 @@ module OrigenTesters
     def active_description
       flow_file = OrigenTesters::Flow.callstack.last
       called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
+      # Windows fix - prevent the drive letter in the file name from changing the index of the line_no below
+      called_from.gsub!(flow_file, '')
       desc = nil
       if called_from
         called_from = called_from.split(':')
