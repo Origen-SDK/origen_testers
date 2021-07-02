@@ -84,13 +84,13 @@ def add_meta!(options)
   called_from = caller.find { |l| l =~ /_spec.rb:.*/ }
   if called_from
     called_from = called_from.split(':')
-	if Origen.running_on_windows?
-	  options[:source_file] = "#{called_from[0]}:#{called_from[1]}"
-	  options[:source_line_number] = called_from[2].to_i
-	else
-	  options[:source_file] = called_from[0]
+    if Origen.running_on_windows?
+      options[:source_file] = "#{called_from[0]}:#{called_from[1]}"
+      options[:source_line_number] = called_from[2].to_i
+    else
+      options[:source_file] = called_from[0]
       options[:source_line_number] = called_from[1].to_i
-	end
+    end
   end
 end
 
