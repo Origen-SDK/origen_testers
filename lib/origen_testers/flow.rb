@@ -259,8 +259,10 @@ module OrigenTesters
       flow_file = OrigenTesters::Flow.callstack.last
       called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
       if called_from
+        # Splitting on ':' when file names are included will yield a different index for everything in Windows
+        called_from.gsub!(flow_file, '')
         called_from = called_from.split(':')
-        options[:source_file] = called_from[0]
+        options[:source_file] = flow_file # called_from[0]
         options[:source_line_number] = called_from[1].to_i
       end
     end

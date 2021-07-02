@@ -1,1 +1,1 @@
-dut.rb
+OrigenTesters::Test::DUT.new

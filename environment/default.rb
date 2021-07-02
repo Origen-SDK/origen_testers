@@ -1,1 +1,1 @@
-j750.rb
+OrigenTesters::J750.new

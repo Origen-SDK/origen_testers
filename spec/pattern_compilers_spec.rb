@@ -550,60 +550,62 @@ module CompilerSpec
         lambda { dut.pattern_compilers[:id2].find_jobs(path_to_pattern) }.should raise_error(msg)
       end
 
-      it "doesn't run empty job list" do
-        dut.pattern_compilers.should == {}
-        dut.v93k_compiler_options[:clean] = true
-        dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
-        dut.pattern_compilers[:id1].run
-      end
-
-      it 'runs existing aiv file' do
-        dut.pattern_compilers.should == {}
-        dut.v93k_compiler_options[:clean] = true
-        dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
-
-        path_to_aiv = "#{Origen.root}/spec/patterns/atp/does_not_exist/bitmap.aiv"
-        msg = 'File does not exist!  Please specify existing aiv file.'
-        lambda { dut.pattern_compilers[:id1].run(path_to_aiv) }.should raise_error(msg)
-        dut.pattern_compilers[:id1].clear
-        path_to_aiv = "#{Origen.root}/spec/patterns/bitmap.aiv"
-        dut.pattern_compilers[:id1].run(path_to_aiv, ignore_ready: true, verbose: true)
-      end
-    end
-
-    describe 'Runner' do
-      before :all do
-        Origen.target.temporary = -> do
-          tester = OrigenTesters::V93K.new
-          dut = CompilerDUT.new
+      unless Origen.running_on_windows?
+        it "doesn't run empty job list" do
+          dut.pattern_compilers.should == {}
+          dut.v93k_compiler_options[:clean] = true
+          dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
+          dut.pattern_compilers[:id1].run
         end
-        Origen.load_target
+
+        it 'runs existing aiv file' do
+          dut.pattern_compilers.should == {}
+          dut.v93k_compiler_options[:clean] = true
+          dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
+
+          path_to_aiv = "#{Origen.root}/spec/patterns/atp/does_not_exist/bitmap.aiv"
+          msg = 'File does not exist!  Please specify existing aiv file.'
+          lambda { dut.pattern_compilers[:id1].run(path_to_aiv) }.should raise_error(msg)
+          dut.pattern_compilers[:id1].clear
+          path_to_aiv = "#{Origen.root}/spec/patterns/bitmap.aiv"
+          dut.pattern_compilers[:id1].run(path_to_aiv, ignore_ready: true, verbose: true)
+        end
       end
-
-      it 'can dispatch from the Runner' do
-        path_to_pattern = "#{Origen.root}/spec/patterns/avc/bitmap.avc"
-        dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
-
-        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id1)
-
-        msg = "Pattern Compiler instance 'id2' does not exist for this tester, choose from (id1) or change tester target."
-        lambda { OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id2) }.should raise_error(msg)
-        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
-
-        dut.add_pattern_compiler(:id2, :v93k, dut.v93k_compiler_options)
-        msg = "No 'default' Pattern Compiler defined, choose from (id1, id2) or set one to be the default."
-        lambda { OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern) }.should raise_error(msg)
-
-        dut.add_pattern_compiler(:default, :v93k, dut.v93k_compiler_options)
-        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
-
-        dut.set_default_pattern_compiler(:id2)
-        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
-        OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id1)
-      end
-
-
     end
+
+    unless Origen.running_on_windows?
+      describe 'Runner' do
+        before :all do
+          Origen.target.temporary = -> do
+            tester = OrigenTesters::V93K.new
+            dut = CompilerDUT.new
+          end
+          Origen.load_target
+        end
+
+        it 'can dispatch from the Runner' do
+          path_to_pattern = "#{Origen.root}/spec/patterns/avc/bitmap.avc"
+          dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options)
+
+          OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id1)
+
+          msg = "Pattern Compiler instance 'id2' does not exist for this tester, choose from (id1) or change tester target."
+          lambda { OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id2) }.should raise_error(msg)
+          OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
+
+          dut.add_pattern_compiler(:id2, :v93k, dut.v93k_compiler_options)
+          msg = "No 'default' Pattern Compiler defined, choose from (id1, id2) or set one to be the default."
+          lambda { OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern) }.should raise_error(msg)
+
+          dut.add_pattern_compiler(:default, :v93k, dut.v93k_compiler_options)
+          OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
+
+          dut.set_default_pattern_compiler(:id2)
+          OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern)
+          OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id1)
+        end
+      end
+	end
 
     describe 'J750 Pattern Compiler' do
 
@@ -686,9 +688,11 @@ module CompilerSpec
         OrigenTesters::PatternCompilers::J750PatternCompiler.compiler_version.should == "#{cmd} -version"
       end
 
-      it 'prints empty msg when run empty joblist' do
-        dut.pattern_compilers[:id1].run
-      end
+      unless Origen.running_on_windows?
+        it 'prints empty msg when run empty joblist' do
+          dut.pattern_compilers[:id1].run
+        end
+	  end
 
       it 'finds the correct number of patterns' do
         dut.pattern_compilers[:id1].find_jobs
@@ -704,14 +708,16 @@ module CompilerSpec
         dut.pattern_compilers[:id1].jobs(dut.pattern_compilers[:id1].count+1).should == false
       end
 
-      it "can compile the expected number of patterns" do
-        j750_atp_count = dut.pattern_compilers[:id1].count
-        j750_atp_count.should == 2
-        j750_pat_matches = Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").count
-        j750_pat_matches.should == 0
-        dut.pattern_compilers[:id1].run
-        j750_pat_matches = Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").count
-        j750_atp_count.should == j750_pat_matches
+      unless Origen.running_on_windows?
+        it "can compile the expected number of patterns" do
+          j750_atp_count = dut.pattern_compilers[:id1].count
+          j750_atp_count.should == 2
+          j750_pat_matches = Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").count
+          j750_pat_matches.should == 0
+          dut.pattern_compilers[:id1].run
+          j750_pat_matches = Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").count
+          j750_atp_count.should == j750_pat_matches
+        end
       end
 
 ##      it 'creates pattern compiler instances correctly' do
@@ -803,14 +809,16 @@ module CompilerSpec
         dut.pattern_compilers[:ltg].jobs(dut.pattern_compilers[:ltg].count+1).should == false
       end
 
-      it "can compile the expected number of patterns" do
-        ltg_atp_count = dut.pattern_compilers[:ltg].count
-        ltg_atp_count.should == 1
-        ltg_pat_matches = Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").count
-        ltg_pat_matches.should == 0
-        dut.pattern_compilers[:ltg].run
-        ltg_pat_matches = Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").count
-        ltg_atp_count.should == ltg_pat_matches
+      unless Origen.running_on_windows?
+        it "can compile the expected number of patterns" do
+          ltg_atp_count = dut.pattern_compilers[:ltg].count
+          ltg_atp_count.should == 1
+          ltg_pat_matches = Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").count
+          ltg_pat_matches.should == 0
+          dut.pattern_compilers[:ltg].run
+          ltg_pat_matches = Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").count
+          ltg_atp_count.should == ltg_pat_matches
+        end
       end
 
       it 'can save log files' do
@@ -822,35 +830,37 @@ module CompilerSpec
         end
       end
 
-      it "can find and compile patterns recursively/non-recursively in directories and lists" do
-        # Clean up patterns and log files from previous spec testing
-        Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").each do |f|
-          File.delete(f)
+      unless Origen.running_on_windows?
+        it "can find and compile patterns recursively/non-recursively in directories and lists" do
+          # Clean up patterns and log files from previous spec testing
+          Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").each do |f|
+            File.delete(f)
+          end
+          Dir.glob("#{dut.ltg_compiler_options[:path]}/**/*.log").each do |f|
+            File.delete(f)
+          end
+          dut.pattern_compilers[:functional].find_jobs
+          functional_atp_count = dut.pattern_compilers[:functional].count
+          functional_atp_count.should == 2
+          functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
+          functional_pat_matches.should == 0
+          dut.pattern_compilers[:functional].run
+          functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
+          functional_atp_count.should == functional_pat_matches
+          # Turn on the recursive flag which will find patterns and lists in sub-directories
+          dut.functional_compiler_options[:recursive] = true
+          dut.add_pattern_compiler(:functional_recursive, :ultraflex, dut.functional_compiler_options)
+          dut.pattern_compilers[:functional_recursive].find_jobs
+          functional_atp_count = dut.pattern_compilers[:functional_recursive].count
+          functional_atp_count.should == 8
+          functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
+          # Should have one pattern from previous run
+          functional_pat_matches.should == 2
+          dut.pattern_compilers[:functional_recursive].run
+          functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
+          functional_atp_count.should == functional_pat_matches
         end
-        Dir.glob("#{dut.ltg_compiler_options[:path]}/**/*.log").each do |f|
-          File.delete(f)
-        end
-        dut.pattern_compilers[:functional].find_jobs
-        functional_atp_count = dut.pattern_compilers[:functional].count
-        functional_atp_count.should == 2
-        functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
-        functional_pat_matches.should == 0
-        dut.pattern_compilers[:functional].run
-        functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
-        functional_atp_count.should == functional_pat_matches
-        # Turn on the recursive flag which will find patterns and lists in sub-directories
-        dut.functional_compiler_options[:recursive] = true
-        dut.add_pattern_compiler(:functional_recursive, :ultraflex, dut.functional_compiler_options)
-        dut.pattern_compilers[:functional_recursive].find_jobs
-        functional_atp_count = dut.pattern_compilers[:functional_recursive].count
-        functional_atp_count.should == 8
-        functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
-        # Should have one pattern from previous run
-        functional_pat_matches.should == 2
-        dut.pattern_compilers[:functional_recursive].run
-        functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
-        functional_atp_count.should == functional_pat_matches
-      end
+	  end
 
       it 'can delete log files' do
         functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
@@ -861,49 +871,51 @@ module CompilerSpec
         end
       end
 
-      it "allows users to pass files individually inside an enumeration" do
-        # Clean up patterns and log files from previous spec testing
-        Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").each do |f|
-          File.delete(f)
+      unless Origen.running_on_windows?
+        it "allows users to pass files individually inside an enumeration" do
+          # Clean up patterns and log files from previous spec testing
+          Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").each do |f|
+            File.delete(f)
+          end
+          Dir.glob("#{dut.functional_compiler_options[:path]}/**/*.log").each do |f|
+            File.delete(f)
+          end
+          # This compiler instance does not specify path but does specify a pinmap
+          # The pinmap passed as an option should override $dut.pinmap
+          dut.add_pattern_compiler(:bist, :ultraflex, dut.bist_compiler_options)
+          # The pinmap passed to the compiler as an option overrode the one at $dut.pinmap
+          dut.pinmap.should_not == dut.pattern_compilers[:bist].pinmap.to_s
+          bist_pattern_count = Dir["#{Origen.root}/spec/patterns/atp/bist/*.atp*"].count
+          Dir["#{Origen.root}/spec/patterns/atp/bist/*.atp*"].each do |f|
+            atp = Pathname.new(f)
+            next unless atp.extname == '.gz' || atp.extname == '.atp'
+            # Ignore patterns that do not have 'prod' in the name
+            next unless atp.basename.to_s.match(/prod/)
+            dut.pattern_compilers[:bist].find_jobs(atp)
+          end
+          # Filtered one pattern
+          dut.pattern_compilers[:bist].count.should == 3
+          # Save the compiler queue to a pattern list file for diff or run later
+          dut.pattern_compilers[:bist].to_list(name: 'bist_compile', force: true, output_directory: dut.bist_compiler_options[:output_directory])
+          dut.pattern_compilers[:bist].run
+          bist_pat_matches = Dir.glob("#{$dut.bist_compiler_options[:output_directory]}/**/*.PAT").count
+          bist_pat_matches.should == bist_pattern_count - 1
+          # Clean up patterns and log files from previous spec testing
+          Dir.glob("#{$dut.bist_compiler_options[:output_directory]}/**/*.PAT").each do |f|
+            File.delete(f)
+          end
+          dut.pattern_compilers[:bist].count.should == 0
         end
-        Dir.glob("#{dut.functional_compiler_options[:path]}/**/*.log").each do |f|
-          File.delete(f)
-        end
-        # This compiler instance does not specify path but does specify a pinmap
-        # The pinmap passed as an option should override $dut.pinmap
-        dut.add_pattern_compiler(:bist, :ultraflex, dut.bist_compiler_options)
-        # The pinmap passed to the compiler as an option overrode the one at $dut.pinmap
-        dut.pinmap.should_not == dut.pattern_compilers[:bist].pinmap.to_s
-        bist_pattern_count = Dir["#{Origen.root}/spec/patterns/atp/bist/*.atp*"].count
-        Dir["#{Origen.root}/spec/patterns/atp/bist/*.atp*"].each do |f|
-          atp = Pathname.new(f)
-          next unless atp.extname == '.gz' || atp.extname == '.atp'
-          # Ignore patterns that do not have 'prod' in the name
-          next unless atp.basename.to_s.match(/prod/)
-          dut.pattern_compilers[:bist].find_jobs(atp)
-        end
-        # Filtered one pattern
-        dut.pattern_compilers[:bist].count.should == 3
-        # Save the compiler queue to a pattern list file for diff or run later
-        dut.pattern_compilers[:bist].to_list(name: 'bist_compile', force: true, output_directory: dut.bist_compiler_options[:output_directory])
-        dut.pattern_compilers[:bist].run
-        bist_pat_matches = Dir.glob("#{$dut.bist_compiler_options[:output_directory]}/**/*.PAT").count
-        bist_pat_matches.should == bist_pattern_count - 1
-        # Clean up patterns and log files from previous spec testing
-        Dir.glob("#{$dut.bist_compiler_options[:output_directory]}/**/*.PAT").each do |f|
-          File.delete(f)
-        end
-        dut.pattern_compilers[:bist].count.should == 0
-      end
     
-      it "can compile a pattern list" do
-        # Compile the patterns using the pattern list created earlier
-        list = Pathname.new("#{dut.bist_compiler_options[:output_directory]}/bist_compile.list")
-        dut.pattern_compilers[:bist].run(list, dut.bist_compiler_options)
-        bist_pat_matches = Dir.glob("#{dut.bist_compiler_options[:output_directory]}/**/*.PAT").count
-        # compiled patterns count should match what we had when we wrote out the pattern list
-        bist_pat_matches.should == 3
-      end
+        it "can compile a pattern list" do
+          # Compile the patterns using the pattern list created earlier
+          list = Pathname.new("#{dut.bist_compiler_options[:output_directory]}/bist_compile.list")
+          dut.pattern_compilers[:bist].run(list, dut.bist_compiler_options)
+          bist_pat_matches = Dir.glob("#{dut.bist_compiler_options[:output_directory]}/**/*.PAT").count
+          # compiled patterns count should match what we had when we wrote out the pattern list
+          bist_pat_matches.should == 3
+        end
+	  end
     end
   end
 end
