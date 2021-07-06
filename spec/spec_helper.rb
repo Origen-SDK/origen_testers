@@ -1,19 +1,19 @@
-$VERBOSE=nil  # Don't care about world writable dir warnings and the like
+$VERBOSE = nil  # Don't care about world writable dir warnings and the like
 
 require 'pathname'
 require 'rubygems'
 require 'bundler/setup'
 
-require "origen"
+require 'origen'
 
-require "rspec/legacy_formatters" if Gem::Version.new(RSpec::Core::Version::STRING) < Gem::Version.new('3.0.0')
+require 'rspec/legacy_formatters' if Gem::Version.new(RSpec::Core::Version::STRING) < Gem::Version.new('3.0.0')
 require "#{Origen.top}/spec/format/origen_formatter"
 
-require "byebug"
+require 'byebug'
 require 'pry'
 require 'origen_testers'
 
-def load_target(target="default")
+def load_target(target = 'default')
   Origen.target.switch_to target
   Origen.target.load!
 end
@@ -34,11 +34,11 @@ class SpecDUT
   include Origen::TopLevel
 end
 
-def with_open_flow(options={})
+def with_open_flow(options = {})
   options = {
     interface: 'SpecInterface',
-    dut: 'SpecDUT',
-    tester: 'V93K'
+    dut:       'SpecDUT',
+    tester:    'V93K'
   }.merge(options)
 
   Origen.target.temporary = -> do
@@ -50,11 +50,11 @@ def with_open_flow(options={})
   Origen.load_target
 
   Origen.interface.try(:reset_globals)
-  Origen.instance_variable_set("@interface", nil)
+  Origen.instance_variable_set('@interface', nil)
   Flow.create interface: options[:interface] do
     yield Origen.interface, Origen.interface.flow
   end
-  Origen.instance_variable_set("@interface", nil)
+  Origen.instance_variable_set('@interface', nil)
 end
 
 def s(type, *children)
