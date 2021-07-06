@@ -1,33 +1,19 @@
-$VERBOSE=nil  # Don't care about world writable dir warnings and the like
+$VERBOSE = nil  # Don't care about world writable dir warnings and the like
 
 require 'pathname'
-if File.exist? File.expand_path("../Gemfile", Pathname.new(__FILE__).realpath)
-  require 'rubygems'
-  require 'bundler/setup'
-else
-  # If running on windows, can't use Origen helpers 'till we load it...
-  if RUBY_PLATFORM == 'i386-mingw32'
-    `where origen`.split("\n").find do |match|
-      match =~ /(.*)\\bin\\origen$/
-    end
-    origen_top = $1.gsub("\\", "/")
-  else
-    origen_top = `which origen`.strip.sub("/bin/origen", "")
-  end
+require 'rubygems'
+require 'bundler/setup'
 
-  $LOAD_PATH.unshift "#{origen_top}/lib"
-end
+require 'origen'
 
-require "origen"
-
-require "rspec/legacy_formatters" if Gem::Version.new(RSpec::Core::Version::STRING) < Gem::Version.new('3.0.0')
+require 'rspec/legacy_formatters' if Gem::Version.new(RSpec::Core::Version::STRING) < Gem::Version.new('3.0.0')
 require "#{Origen.top}/spec/format/origen_formatter"
 
-require "byebug"
+require 'byebug'
 require 'pry'
 require 'origen_testers'
 
-def load_target(target="default")
+def load_target(target = 'default')
   Origen.target.switch_to target
   Origen.target.load!
 end
@@ -48,11 +34,11 @@ class SpecDUT
   include Origen::TopLevel
 end
 
-def with_open_flow(options={})
+def with_open_flow(options = {})
   options = {
     interface: 'SpecInterface',
-    dut: 'SpecDUT',
-    tester: 'V93K'
+    dut:       'SpecDUT',
+    tester:    'V93K'
   }.merge(options)
 
   Origen.target.temporary = -> do
@@ -64,11 +50,11 @@ def with_open_flow(options={})
   Origen.load_target
 
   Origen.interface.try(:reset_globals)
-  Origen.instance_variable_set("@interface", nil)
+  Origen.instance_variable_set('@interface', nil)
   Flow.create interface: options[:interface] do
     yield Origen.interface, Origen.interface.flow
   end
-  Origen.instance_variable_set("@interface", nil)
+  Origen.instance_variable_set('@interface', nil)
 end
 
 def s(type, *children)
@@ -83,8 +69,13 @@ def add_meta!(options)
   called_from = caller.find { |l| l =~ /_spec.rb:.*/ }
   if called_from
     called_from = called_from.split(':')
-    options[:source_file] = called_from[0]
-    options[:source_line_number] = called_from[1].to_i
+    if Origen.running_on_windows?
+      options[:source_file] = "#{called_from[0]}:#{called_from[1]}"
+      options[:source_line_number] = called_from[2].to_i
+    else
+      options[:source_file] = called_from[0]
+      options[:source_line_number] = called_from[1].to_i
+    end
   end
 end
 

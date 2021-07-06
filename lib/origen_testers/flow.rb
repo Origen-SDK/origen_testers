@@ -205,6 +205,8 @@ module OrigenTesters
     def active_description
       flow_file = OrigenTesters::Flow.callstack.last
       called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
+      # Windows fix - prevent the drive letter in the file name from changing the index of the line_no below
+      called_from.gsub!(flow_file, '')
       desc = nil
       if called_from
         called_from = called_from.split(':')
@@ -257,8 +259,10 @@ module OrigenTesters
       flow_file = OrigenTesters::Flow.callstack.last
       called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
       if called_from
+        # Splitting on ':' when file names are included will yield a different index for everything in Windows
+        called_from.gsub!(flow_file, '')
         called_from = called_from.split(':')
-        options[:source_file] = called_from[0]
+        options[:source_file] = flow_file # called_from[0]
         options[:source_line_number] = called_from[1].to_i
       end
     end
