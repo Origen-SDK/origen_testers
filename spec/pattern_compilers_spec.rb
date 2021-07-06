@@ -8,10 +8,10 @@ module CompilerSpec
     include OrigenTesters::PatternCompilers
 
     attr_accessor :pinmap
-    attr_reader   :ltg_compiler_options
-    attr_reader   :functional_compiler_options
-    attr_reader   :bist_compiler_options
-    attr_reader   :j750_compiler_options, :j750_alt_compiler_options
+    attr_reader :ltg_compiler_options
+    attr_reader :functional_compiler_options
+    attr_reader :bist_compiler_options
+    attr_reader :j750_compiler_options, :j750_alt_compiler_options
     attr_accessor :v93k_compiler_options, :v93k_alt1_compiler_options, :v93k_alt2_compiler_options
     attr_accessor :empty_compiler_options
 
@@ -29,108 +29,106 @@ module CompilerSpec
       # UltraFLEX-specific Pattern Compiler Setups
       #
       @ltg_compiler_options = {
-        path: "#{Origen.root}/spec/patterns/atp/ltg",
-        clean: false,
-        location: :local,
-        recursive: false,
+        path:             "#{Origen.root}/spec/patterns/atp/ltg",
+        clean:            false,
+        location:         :local,
+        recursive:        false,
         output_directory: "#{Origen.root}/spec/patterns/bin",
-        opcode_mode: 'single',
-        comments: true
+        opcode_mode:      'single',
+        comments:         true
       }
 
       @functional_compiler_options = {
-        path: "#{Origen.root}/spec/patterns/atp/functional",
-        clean: true,
-        location: :local,
-        recursive: false,
+        path:             "#{Origen.root}/spec/patterns/atp/functional",
+        clean:            true,
+        location:         :local,
+        recursive:        false,
         output_directory: "#{Origen.root}/spec/patterns/bin",
-        opcode_mode: 'single',
-        comments: false,
-        verbose: true
+        opcode_mode:      'single',
+        comments:         false,
+        verbose:          true
       }
 
       @bist_compiler_options = {
-        clean: true,
-        location: :local,
-        recursive: false,
+        clean:            true,
+        location:         :local,
+        recursive:        false,
         output_directory: "#{Origen.root}/spec/patterns/bin",
-        pinmap_workbook: "#{Origen.root}/spec/patterns/atp/bist/bist_pins.txt",
-        opcode_mode: 'single',
-        comments: false
+        pinmap_workbook:  "#{Origen.root}/spec/patterns/atp/bist/bist_pins.txt",
+        opcode_mode:      'single',
+        comments:         false
       }
 
       # J50-specifc Pattern Compiler Setups
       #
       @j750_compiler_options = {
-        path: "#{Origen.root}/spec/patterns/atp/j750",
-        clean: true,
-        location: :local,
-        recursive: false,
+        path:             "#{Origen.root}/spec/patterns/atp/j750",
+        clean:            true,
+        location:         :local,
+        recursive:        false,
         output_directory: "#{Origen.root}/spec/patterns/bin/j750",
-        pinmap_workbook: "#{Origen.root}/spec/patterns/atp/bist/bist_pins.txt",
-        opcode_mode: 'single',
-        comments: false
+        pinmap_workbook:  "#{Origen.root}/spec/patterns/atp/bist/bist_pins.txt",
+        opcode_mode:      'single',
+        comments:         false
       }
 
       @j750_alt_compiler_options = {
-        clean: true,
-        location: :local,
-        recursive: false,
+        clean:       true,
+        location:    :local,
+        recursive:   false,
         opcode_mode: 'single',
-        comments: false
+        comments:    false
       }
-
 
       # V93K-specific Pattern Compiler Setups
       #
       @v93k_compiler_options = {
         config_dir: "#{Origen.root}/spec/patterns",
-        pinconfig: "compiler_pins.cfg",
-        tmf: "timing_map_file.tmf",
-        aiv2b_opts: '-ALT -k',
+        pinconfig:  'compiler_pins.cfg',
+        tmf:        'timing_map_file.tmf',
+        aiv2b_opts: '-ALT -k'
       }
 
       @v93k_alt1_compiler_options = {
         config_dir: "#{Origen.root}/spec/patterns",
-        pinconfig: "compiler_pins.cfg",
-        tmf: "timing_map_file.tmf",
-        multiport: {
-          port_bursts: {
+        pinconfig:  'compiler_pins.cfg',
+        tmf:        'timing_map_file.tmf',
+        multiport:  {
+          port_bursts:   {
             p_1: 'pattern_burst_1',
             p_2: 'pat_burst_two'
           },
           port_in_focus: 'p_FOCUS',
-          prefix: 'mpb'
+          prefix:        'mpb'
         },
-        digcap: {
+        digcap:     {
           pins: :porta,
-          vps: 1,
-          nrf: 1,
-        },
+          vps:  1,
+          nrf:  1
+        }
       }
 
       @v93k_alt2_compiler_options = {
         config_dir: "#{Origen.root}/spec/patterns",
-        pinconfig: 'compiler_pins.cfg',
-        tmf: 'timing_map_file.tmf',
-        vbc: 'pattern_configuration_file.vbc',
-        aiv2b_opts: ['-CALTE','-k','-z PS800'],
-        multiport: {
+        pinconfig:  'compiler_pins.cfg',
+        tmf:        'timing_map_file.tmf',
+        vbc:        'pattern_configuration_file.vbc',
+        aiv2b_opts: ['-CALTE', '-k', '-z PS800'],
+        multiport:  {
           port_in_focus: 'p_ONLY',
-          postfix: 'pset'
+          postfix:       'pset'
         },
-        digcap: {
+        digcap:     {
           pins: 'tdo',
-          vps: 1,
-          nrf: 1,
+          vps:  1,
+          nrf:  1,
           char: 'Q'
-        },
+        }
       }
 
       # Generic Pattern Compiler Setup that can be customized for specific test
       #
       @empty_compiler_options = {}
-
     end
   end
 
@@ -141,9 +139,7 @@ module CompilerSpec
   end
 
   describe 'Pattern Compilers' do
-
     describe 'Generic Pattern Compiler' do
-
       before :all do
         Origen.target.temporary = -> do
           tester = OrigenTesters::V93K.new
@@ -151,18 +147,18 @@ module CompilerSpec
         end
         Origen.load_target
       end
-      
-      it 'supports correct tester platforms' do 
+
+      it 'supports correct tester platforms' do
         dut.pattern_compiler_platforms.should == [:j750, :ultraflex, :v93k]
       end
 
       it 'fails if origen_testers site config not given' do
         # Temporarily re-direct site_config to empty one to mimic no origen_testers config
-        Origen.instance_variable_set("@site_config", SpecSiteConfig.new)
+        Origen.instance_variable_set('@site_config', SpecSiteConfig.new)
         dut.pattern_compilers.should == {}
         msg = 'Adding a pattern compiler without site config specifying bin location not allowed'
         lambda { dut.add_pattern_compiler(:id1, :v93k, dut.v93k_compiler_options) }.should raise_error(msg)
-        Origen.instance_variable_set("@site_config", nil)
+        Origen.instance_variable_set('@site_config', nil)
         msg = 'Pinconfig file is not defined!  Pass as an option.'
         lambda { dut.add_pattern_compiler(:id2, :v93k, dut.empty_compiler_options) }.should raise_error(msg)
       end
@@ -198,21 +194,21 @@ module CompilerSpec
         dut.pattern_compiler_instances(:ultraflex).should == [:id2]
         dut.pattern_compilers(platform: :ultraflex).count.should == 1
 
-        dut.pattern_compilers(:id1).should == nil
+        dut.pattern_compilers(:id1).should.nil?
         msg = "undefined method `inspect_options' for nil:NilClass"
         lambda { dut.pattern_compilers(:id11) }.should raise_error(msg)
-        dut.pattern_compilers(:id1, platform: :j750).should == nil
+        dut.pattern_compilers(:id1, platform: :j750).should.nil?
         lambda { dut.pattern_compilers(:id11, platform: :j750) }.should raise_error(msg)
       end
 
       it 'can set default compiler' do
-        dut.default_pattern_compiler.should == nil
+        dut.default_pattern_compiler.should.nil?
         dut.add_pattern_compiler(:id2, :v93k, dut.v93k_compiler_options.merge(default: true))
         dut.default_pattern_compiler.should == :id2
         dut.set_default_pattern_compiler(:id1)
         dut.default_pattern_compiler.should == :id1
 
-        dut.default_pattern_compiler(:j750).should == nil
+        dut.default_pattern_compiler(:j750).should.nil?
         dut.set_default_pattern_compiler(:id2, :j750)
         dut.default_pattern_compiler(:j750).should == :id2
         dut.default_pattern_compiler.should == :id1
@@ -229,7 +225,6 @@ module CompilerSpec
       it 'can print options and version' do
         dut.pattern_compiler_options(:v93k)
         dut.pattern_compiler_version(:v93k)
-      
       end
 
       it 'can delete pattern compilers' do
@@ -258,10 +253,10 @@ module CompilerSpec
       end
 
       it 'can detect non-tester' do
-        msg = 'No tester platform defined, supply one of the following as an argument: j750, ultraflex, v93k' 
+        msg = 'No tester platform defined, supply one of the following as an argument: j750, ultraflex, v93k'
         lambda { dut.pattern_compiler_instances(nil) }.should raise_error(msg)
 
-        msg = 'Platform v93k is not valid, please choose from j750, ultraflex, v93k' 
+        msg = 'Platform v93k is not valid, please choose from j750, ultraflex, v93k'
         lambda { dut.platform_compiler(:d10) }.should raise_error(msg)
       end
     end
@@ -282,7 +277,6 @@ module CompilerSpec
     end
 
     describe 'V93K Pattern Compiler' do
-
       before :each do
         Origen.target.temporary = -> do
           tester = OrigenTesters::V93K.new
@@ -323,50 +317,49 @@ module CompilerSpec
         dut.empty_compiler_options[:pinconfig] = p
         dut.empty_compiler_options[:tmf] = t
         dut.add_pattern_compiler(:id1, :v93k, dut.empty_compiler_options)
-        dut.pattern_compilers[:id1].pinconfig_file.to_s.should ==  p
-        dut.pattern_compilers[:id1].tmf_file.to_s.should ==  t
-        dut.pattern_compilers[:id1].name.should ==  :id1
+        dut.pattern_compilers[:id1].pinconfig_file.to_s.should == p
+        dut.pattern_compilers[:id1].tmf_file.to_s.should == t
+        dut.pattern_compilers[:id1].name.should == :id1
 
         # File name with param-specific directory (pinconfig_dir and tmf_dir)
         pd = "#{Origen.root}/spec/patterns/"
-        pf = "compiler_pins.cfg"
+        pf = 'compiler_pins.cfg'
         td = "#{Origen.root}/spec/patterns"
-        tf = "timing_map_file.tmf"
+        tf = 'timing_map_file.tmf'
         dut.empty_compiler_options[:config_dir] = '/should/not/use/this/path/'
         dut.empty_compiler_options[:pinconfig_dir] = pd
         dut.empty_compiler_options[:pinconfig] = pf
         dut.empty_compiler_options[:tmf_dir] = td
         dut.empty_compiler_options[:tmf] = tf
         dut.add_pattern_compiler(:id2, :v93k, dut.empty_compiler_options)
-        dut.pattern_compilers[:id2].pinconfig_file.to_s.should ==  p
-        dut.pattern_compilers[:id2].tmf_file.to_s.should ==  t
+        dut.pattern_compilers[:id2].pinconfig_file.to_s.should == p
+        dut.pattern_compilers[:id2].tmf_file.to_s.should == t
 
         # File name with common directory (config_dir) only
         cd = "#{Origen.root}/spec/patterns/"
-        pf = "compiler_pins.cfg"
-        tf = "timing_map_file.tmf"
+        pf = 'compiler_pins.cfg'
+        tf = 'timing_map_file.tmf'
         dut.empty_compiler_options[:config_dir] = cd
         dut.empty_compiler_options[:pinconfig_dir] = nil
         dut.empty_compiler_options[:pinconfig] = pf
         dut.empty_compiler_options[:tmf_dir] = nil
         dut.empty_compiler_options[:tmf] = tf
         dut.add_pattern_compiler(:id3, :v93k, dut.empty_compiler_options)
-        dut.pattern_compilers[:id3].pinconfig_file.to_s.should ==  p
-        dut.pattern_compilers[:id3].tmf_file.to_s.should ==  t
+        dut.pattern_compilers[:id3].pinconfig_file.to_s.should == p
+        dut.pattern_compilers[:id3].tmf_file.to_s.should == t
 
         # File name without directory (should resolve to path relative to application root
-        pf = "spec/patterns/compiler_pins.cfg"
-        tf = "spec/patterns/timing_map_file.tmf"
+        pf = 'spec/patterns/compiler_pins.cfg'
+        tf = 'spec/patterns/timing_map_file.tmf'
         dut.empty_compiler_options[:config_dir] = nil
         dut.empty_compiler_options[:pinconfig_dir] = nil
         dut.empty_compiler_options[:pinconfig] = pf
         dut.empty_compiler_options[:tmf_dir] = nil
         dut.empty_compiler_options[:tmf] = tf
         dut.add_pattern_compiler(:id4, :v93k, dut.empty_compiler_options)
-        dut.pattern_compilers[:id4].pinconfig_file.to_s.should ==  p
-        dut.pattern_compilers[:id4].tmf_file.to_s.should ==  t
+        dut.pattern_compilers[:id4].pinconfig_file.to_s.should == p
+        dut.pattern_compilers[:id4].tmf_file.to_s.should == t
       end
-
 
       it 'finds the correct number of patterns' do
         dut.pattern_compilers.should == {}
@@ -394,8 +387,6 @@ module CompilerSpec
         dut.pattern_compilers[:id1].jobs('blah')
         msg = 'Search argument must be of type String, Regexp, or Integer'
         lambda { dut.pattern_compilers[:id1].jobs(['blah']) }.should raise_error(msg)
-
-
 
         # Add another job single AVC file with no Captures
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/v93k_workout.avc"
@@ -435,26 +426,26 @@ module CompilerSpec
         dut.pattern_compilers[:id2].multiport?.should == true
         dut.pattern_compilers[:id3].multiport?.should == false
 
-        dut.pattern_compilers[:id1].instance_variable_set("@max_avcfilename_size", 9)
+        dut.pattern_compilers[:id1].instance_variable_set('@max_avcfilename_size', 9)
         aiv_pat_line = 'PATTERNS name       port     tmf_file'
         dut.pattern_compilers[:id1].render_aiv_patterns_header.should == aiv_pat_line
         aiv_pat_line = '         spec_test  p_FOCUS  timing_map_file.tmf'
         dut.pattern_compilers[:id1].render_aiv_patterns_entry('spec_test').should == aiv_pat_line
-        aiv_mpb_lines = [""]
-        aiv_mpb_lines << "MULTI_PORT_BURST mpb_spec_test"
-        aiv_mpb_lines << "PORTS p_FOCUS    p_1              p_2            "
-        aiv_mpb_lines << "      spec_test  pattern_burst_1  pat_burst_two  "
+        aiv_mpb_lines = ['']
+        aiv_mpb_lines << 'MULTI_PORT_BURST mpb_spec_test'
+        aiv_mpb_lines << 'PORTS p_FOCUS    p_1              p_2            '
+        aiv_mpb_lines << '      spec_test  pattern_burst_1  pat_burst_two  '
         dut.pattern_compilers[:id1].multiport.render_aiv_lines('spec_test').should == aiv_mpb_lines
 
-        dut.pattern_compilers[:id2].instance_variable_set("@max_avcfilename_size", 9)
+        dut.pattern_compilers[:id2].instance_variable_set('@max_avcfilename_size', 9)
         aiv_pat_line = 'PATTERNS name       port    tmf_file'
         dut.pattern_compilers[:id2].render_aiv_patterns_header.should == aiv_pat_line
         aiv_pat_line = '         spec_test  p_ONLY  timing_map_file.tmf'
         dut.pattern_compilers[:id2].render_aiv_patterns_entry('spec_test').should == aiv_pat_line
-        aiv_mpb_lines = [""]
-        aiv_mpb_lines << "MULTI_PORT_BURST spec_test_pset"
-        aiv_mpb_lines << "PORTS p_ONLY     "
-        aiv_mpb_lines << "      spec_test  "
+        aiv_mpb_lines = ['']
+        aiv_mpb_lines << 'MULTI_PORT_BURST spec_test_pset'
+        aiv_mpb_lines << 'PORTS p_ONLY     '
+        aiv_mpb_lines << '      spec_test  '
         dut.pattern_compilers[:id2].multiport.render_aiv_lines('spec_test').should == aiv_mpb_lines
       end
 
@@ -475,7 +466,7 @@ module CompilerSpec
         dut.add_pattern_compiler(:id5, :v93k, dut.v93k_alt1_compiler_options)
         msg = 'Must specifiy pins and vps for digcap setup!'
         lambda { dut.pattern_compilers[:id5].digcap? }.should raise_error(msg)
-        dut.v93k_alt1_compiler_options[:digcap][:pins] = ['A', 'B', 'C']
+        dut.v93k_alt1_compiler_options[:digcap][:pins] = %w(A B C)
         dut.add_pattern_compiler(:id6, :v93k, dut.v93k_alt1_compiler_options)
         msg = 'Digcap Pins does not support array yet'
         lambda { dut.pattern_compilers[:id6].digcap.num_pins }.should raise_error(msg)
@@ -487,49 +478,48 @@ module CompilerSpec
 
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/bitmap.avc"
         dut.pattern_compilers[:id1].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id1].instance_variable_set("@vec_per_frame", { bitmap: 0 })
+        dut.pattern_compilers[:id1].instance_variable_set('@vec_per_frame', bitmap: 0)
         dut.pattern_compilers[:id1].digcap.empty?.should == true
         dut.pattern_compilers[:id1].vec_per_frame[:bitmap].should == 0
         dut.pattern_compilers[:id1].clear
         dut.pattern_compilers[:id2].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id2].instance_variable_set("@vec_per_frame", { bitmap: 0 })
+        dut.pattern_compilers[:id2].instance_variable_set('@vec_per_frame', bitmap: 0)
         dut.pattern_compilers[:id2].digcap.empty?.should == true
         dut.pattern_compilers[:id2].vec_per_frame[:bitmap].should == 0
         dut.pattern_compilers[:id2].clear
 
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/v93k_workout.avc"
         dut.pattern_compilers[:id1].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id1].instance_variable_set("@vec_per_frame", { v93k_workout: 1 })
+        dut.pattern_compilers[:id1].instance_variable_set('@vec_per_frame', v93k_workout: 1)
         dut.pattern_compilers[:id1].digcap.empty?.should == false
         dut.pattern_compilers[:id1].vec_per_frame[:v93k_workout].should == 1
         dut.pattern_compilers[:id1].clear
         dut.pattern_compilers[:id2].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id2].instance_variable_set("@vec_per_frame", { v93k_workout: 0 })
+        dut.pattern_compilers[:id2].instance_variable_set('@vec_per_frame', v93k_workout: 0)
         dut.pattern_compilers[:id2].digcap.empty?.should == true
         dut.pattern_compilers[:id2].vec_per_frame[:v93k_workout].should == 0
         dut.pattern_compilers[:id2].clear
 
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/test_store.avc"
         dut.pattern_compilers[:id1].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id1].instance_variable_set("@vec_per_frame", { test_store: 0 })
+        dut.pattern_compilers[:id1].instance_variable_set('@vec_per_frame', test_store: 0)
         dut.pattern_compilers[:id1].digcap.empty?.should == true
         dut.pattern_compilers[:id1].vec_per_frame[:test_store].should == 0
         dut.pattern_compilers[:id1].clear
         dut.pattern_compilers[:id2].find_jobs(path_to_pattern)
-        dut.pattern_compilers[:id2].instance_variable_set("@vec_per_frame", { test_store: 2 })
+        dut.pattern_compilers[:id2].instance_variable_set('@vec_per_frame', test_store: 2)
         dut.pattern_compilers[:id2].digcap.empty?.should == false
         dut.pattern_compilers[:id2].vec_per_frame[:test_store].should == 2
         dut.pattern_compilers[:id2].clear
 
-         
-        dut.pattern_compilers[:id1].instance_variable_set("@max_avcfilename_size", 9)
-        dut.pattern_compilers[:id1].instance_variable_set("@vec_per_frame", { spec_test: 5 })
-        dut.pattern_compilers[:id1].instance_variable_set("@avc_files", ['spec_test'])
-        aiv_digcap_lines = [""]
-        aiv_digcap_lines << "AI_DIGCAP_SETTINGS {"
-        aiv_digcap_lines << "variable       label      vec_per_frame  vec_per_sample  nr_frames  {pins};"
-        aiv_digcap_lines << "spec_test_var  spec_test  5              1               1          {porta};"
-        aiv_digcap_lines << "};"
+        dut.pattern_compilers[:id1].instance_variable_set('@max_avcfilename_size', 9)
+        dut.pattern_compilers[:id1].instance_variable_set('@vec_per_frame', spec_test: 5)
+        dut.pattern_compilers[:id1].instance_variable_set('@avc_files', ['spec_test'])
+        aiv_digcap_lines = ['']
+        aiv_digcap_lines << 'AI_DIGCAP_SETTINGS {'
+        aiv_digcap_lines << 'variable       label      vec_per_frame  vec_per_sample  nr_frames  {pins};'
+        aiv_digcap_lines << 'spec_test_var  spec_test  5              1               1          {porta};'
+        aiv_digcap_lines << '};'
         dut.pattern_compilers[:id1].digcap.render_aiv_lines.should == aiv_digcap_lines
       end
 
@@ -542,7 +532,7 @@ module CompilerSpec
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/bitmap.avc"
         dut.pattern_compilers[:id1].find_jobs(path_to_pattern)
         dut.pattern_compilers[:id1].inspect_jobs(0)
-        
+
         dut.v93k_compiler_options[:aiv2b_opts] = { opts: '-CALTE' }
         dut.add_pattern_compiler(:id2, :v93k, dut.v93k_compiler_options)
         path_to_pattern = "#{Origen.root}/spec/patterns/avc/bitmap.avc"
@@ -605,10 +595,9 @@ module CompilerSpec
           OrigenTesters::PatternCompilers::Runner.run_compiler(path_to_pattern, compiler_instance: :id1)
         end
       end
-	end
+  end
 
     describe 'J750 Pattern Compiler' do
-
       before :all do
         Origen.target.temporary = -> do
           tester = OrigenTesters::J750.new
@@ -617,19 +606,19 @@ module CompilerSpec
         Origen.load_target
         dut.pinmap = "#{Origen.root}/spec/patterns/compiler_pins.txt"
 
-  #      # Clean up any .PAT and .log files in our spec testing area
-  #      Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").each do |f|
-  #        File.delete(f)
-  #      end
-  #      Dir.glob("#{dut.j750_alt_compiler_options[:output_directory]}/**/*.PAT").each do |f|
-  #        File.delete(f)
-  #      end
-  #      Dir.glob("#{dut.j750_compiler_options[:path]}/**/*.log").each do |f|
-  #        File.delete(f)
-  #      end
-  #      Dir.glob("#{dut.j750_alt_compiler_options[:path]}/**/*.log").each do |f|
-  #        File.delete(f)
-  #      end
+        #      # Clean up any .PAT and .log files in our spec testing area
+        #      Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").each do |f|
+        #        File.delete(f)
+        #      end
+        #      Dir.glob("#{dut.j750_alt_compiler_options[:output_directory]}/**/*.PAT").each do |f|
+        #        File.delete(f)
+        #      end
+        #      Dir.glob("#{dut.j750_compiler_options[:path]}/**/*.log").each do |f|
+        #        File.delete(f)
+        #      end
+        #      Dir.glob("#{dut.j750_alt_compiler_options[:path]}/**/*.log").each do |f|
+        #        File.delete(f)
+        #      end
       end
 
       it 'fails if pinmap not specified' do
@@ -681,7 +670,7 @@ module CompilerSpec
       it 'reads site_config correctly' do
         OrigenTesters::PatternCompilers::J750PatternCompiler.linux_compiler.should == "ruby \#{Origen.root!}/spec/compilers/j750compiler.rb"
         OrigenTesters::PatternCompilers::J750PatternCompiler.windows_compiler.should == "ruby \#{Origen.root!}/spec/compilers/j750compiler.rb"
-        OrigenTesters::PatternCompilers::J750PatternCompiler.atpc_setup.should == nil
+        OrigenTesters::PatternCompilers::J750PatternCompiler.atpc_setup.should.nil?
         OrigenTesters::PatternCompilers::J750PatternCompiler.compiler.should == "ruby \#{Origen.root!}/spec/compilers/j750compiler.rb"
         cmd = OrigenTesters::PatternCompilers::J750PatternCompiler.compiler_cmd
         OrigenTesters::PatternCompilers::J750PatternCompiler.compiler_options.should == "#{cmd} -help"
@@ -692,7 +681,7 @@ module CompilerSpec
         it 'prints empty msg when run empty joblist' do
           dut.pattern_compilers[:id1].run
         end
-	  end
+    end
 
       it 'finds the correct number of patterns' do
         dut.pattern_compilers[:id1].find_jobs
@@ -705,11 +694,11 @@ module CompilerSpec
         dut.pattern_compilers[:id1].jobs(/idreg/).should == true
         dut.pattern_compilers[:id1].jobs('ls2080').should == true
         dut.pattern_compilers[:id1].jobs(0).should == true
-        dut.pattern_compilers[:id1].jobs(dut.pattern_compilers[:id1].count+1).should == false
+        dut.pattern_compilers[:id1].jobs(dut.pattern_compilers[:id1].count + 1).should == false
       end
 
       unless Origen.running_on_windows?
-        it "can compile the expected number of patterns" do
+        it 'can compile the expected number of patterns' do
           j750_atp_count = dut.pattern_compilers[:id1].count
           j750_atp_count.should == 2
           j750_pat_matches = Dir.glob("#{dut.j750_compiler_options[:output_directory]}/**/*.PAT").count
@@ -720,15 +709,14 @@ module CompilerSpec
         end
       end
 
-##      it 'creates pattern compiler instances correctly' do
-##        dut.pattern_compilers.should == {}
-##        dut.add_pattern_compiler(:j750, :j750, dut.v93k_compiler_options)
-##        dut.pattern_compilers.keys.should == [:j750]
-##      end
+      ##      it 'creates pattern compiler instances correctly' do
+      ##        dut.pattern_compilers.should == {}
+      ##        dut.add_pattern_compiler(:j750, :j750, dut.v93k_compiler_options)
+      ##        dut.pattern_compilers.keys.should == [:j750]
+      ##      end
     end
 
     describe 'Ultraflex Pattern Compiler' do
-
       before :all do
         Origen.target.temporary = -> do
           tester = OrigenTesters::UltraFLEX.new
@@ -780,7 +768,7 @@ module CompilerSpec
       it 'reads site_config correctly' do
         OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.linux_compiler.should == "ruby \#{Origen.root!}/spec/compilers/atpcompiler.rb"
         OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.windows_compiler.should == "ruby \#{Origen.root!}/spec/compilers/atpcompiler.rb"
-        OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.atpc_setup.should == nil
+        OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.atpc_setup.should.nil?
         OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.compiler.should == "ruby \#{Origen.root!}/spec/compilers/atpcompiler.rb"
         cmd = OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.compiler_cmd
         OrigenTesters::PatternCompilers::UltraFLEXPatternCompiler.compiler_options.should == "#{cmd} -help"
@@ -806,11 +794,11 @@ module CompilerSpec
         dut.pattern_compilers[:ltg].jobs(/idreg/).should == true
         dut.pattern_compilers[:ltg].jobs('ls2080').should == true
         dut.pattern_compilers[:ltg].jobs(0).should == true
-        dut.pattern_compilers[:ltg].jobs(dut.pattern_compilers[:ltg].count+1).should == false
+        dut.pattern_compilers[:ltg].jobs(dut.pattern_compilers[:ltg].count + 1).should == false
       end
 
       unless Origen.running_on_windows?
-        it "can compile the expected number of patterns" do
+        it 'can compile the expected number of patterns' do
           ltg_atp_count = dut.pattern_compilers[:ltg].count
           ltg_atp_count.should == 1
           ltg_pat_matches = Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").count
@@ -831,7 +819,7 @@ module CompilerSpec
       end
 
       unless Origen.running_on_windows?
-        it "can find and compile patterns recursively/non-recursively in directories and lists" do
+        it 'can find and compile patterns recursively/non-recursively in directories and lists' do
           # Clean up patterns and log files from previous spec testing
           Dir.glob("#{dut.ltg_compiler_options[:output_directory]}/**/*.PAT").each do |f|
             File.delete(f)
@@ -860,7 +848,7 @@ module CompilerSpec
           functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
           functional_atp_count.should == functional_pat_matches
         end
-	  end
+    end
 
       it 'can delete log files' do
         functional_pat_matches = Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").count
@@ -872,7 +860,7 @@ module CompilerSpec
       end
 
       unless Origen.running_on_windows?
-        it "allows users to pass files individually inside an enumeration" do
+        it 'allows users to pass files individually inside an enumeration' do
           # Clean up patterns and log files from previous spec testing
           Dir.glob("#{dut.functional_compiler_options[:output_directory]}/**/*.PAT").each do |f|
             File.delete(f)
@@ -906,8 +894,8 @@ module CompilerSpec
           end
           dut.pattern_compilers[:bist].count.should == 0
         end
-    
-        it "can compile a pattern list" do
+
+        it 'can compile a pattern list' do
           # Compile the patterns using the pattern list created earlier
           list = Pathname.new("#{dut.bist_compiler_options[:output_directory]}/bist_compile.list")
           dut.pattern_compilers[:bist].run(list, dut.bist_compiler_options)
@@ -915,7 +903,7 @@ module CompilerSpec
           # compiled patterns count should match what we had when we wrote out the pattern list
           bist_pat_matches.should == 3
         end
-	  end
+    end
     end
   end
 end
