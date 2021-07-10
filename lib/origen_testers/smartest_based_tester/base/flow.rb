@@ -264,6 +264,25 @@ module OrigenTesters
           @lines_buffer.pop
         end
 
+        def on_loop(node)
+          loop_start = node.children[0]
+          loop_end = node.children[1]
+          loop_inc = node.children[2]
+          index_flag = node.children[3] if node.children[3].is_a?(String)
+          if index_flag.is_a?(String)
+            line "for @#{index_flag} = #{loop_start}; @#{index_flag} < #{loop_end} ; @#{index_flag} = @#{index_flag} + #{loop_inc}; do"
+          else
+            line "for @index = #{loop_start}; @index < #{loop_end} ; @index = @index + #{loop_inc}; do"
+          end
+          line 'test_number_loop_increment = 0'
+          line '{'
+          @indent += 1
+          children_start_index = index_flag.nil? ? 3 : 4
+          process_all(node.children[children_start_index..-1])
+          @indent -= 1
+          line '}'
+        end
+
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
           if test_suite.is_a?(String)
