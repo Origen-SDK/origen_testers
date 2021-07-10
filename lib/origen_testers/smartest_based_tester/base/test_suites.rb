@@ -22,6 +22,9 @@ module OrigenTesters
         end
 
         def add(name, options = {})
+          options = {
+            programmed_params: nil
+          }.merge!(options)
           symbol = name.is_a?(Symbol)
           name = make_unique(name)
           # Ensure names given as a symbol stay as a symbol, this is more for
