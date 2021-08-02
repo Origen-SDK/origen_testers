@@ -78,4 +78,6 @@ test8 .tmf
 test_3lt5 .tmf
 test_5gt4_and_4gt3 .tmf
 test_5gt4_or_4gt5 .tmf
+test_myloop .tmf
+test_myloop2 .tmf
 warmish_test .tmf
