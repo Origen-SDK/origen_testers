@@ -340,18 +340,36 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   end
 
   if tester.v93k? && !tester.smt8?
-    log "Tests of flow loop with variable"
-    # flow loop without variable not yet supported
+    log "Tests of flow loop"
     loop from: 0, to: 5, step: 1, var: '$LOOP_VARIABLE' do
       func :test_myloop, number: 56000
     end
 
-    log "Tests of nested flow loop"
+    log "Tests of flow loop, no step"
+    loop from: 0, to: 5, var: '$LOOP_VARIABLE' do
+      func :test_myloop2, number: 5610
+    end
+
+    log "Tests of flow loop, non-default test number increment" 
+    loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
+      func :test_myloop3, number: 56200
+    end
+ 
+    log "Tests of decrementing loop"
+    loop from: 5, to: 2, step: -1, var: '$LOOP_VARIABLE' do
+      func :test_myloop4, number: 56300
+    end
+ 
+    log "Tests of nested flow loop, depth 3"
     loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
       loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
-        func :test_myloop2, number: 58000
+        loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
+          func :test_myloop5, number: 56400
+        end
       end
     end
+
+    # Test of skipping variable name not yet ready
   end
 
   log 'An optimization test case, this should not generate a flag on V93K'

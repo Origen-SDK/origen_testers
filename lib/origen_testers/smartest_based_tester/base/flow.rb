@@ -475,12 +475,21 @@ module OrigenTesters
           else
             var = generate_flag_name(node.to_a[3])
           end
+          test_num_inc = node.to_a[4]
           unless smt8?
             var = "@#{var}"
           end
           num = (stop - start) / step + 1
-          line "for #{var} = #{start}; #{var} < #{stop + step} ; #{var} = #{var} + #{step}; do"
-          line 'test_number_loop_increment = 1'
+          # Handle increment/decrement
+          if step < 0
+            compare = '>'
+            incdec = "- #{step * -1}"
+          else
+            compare = '<'
+            incdec = "+ #{step}"
+          end
+          line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+          line "test_number_loop_increment = #{test_num_inc}"
           line '{'
           @indent += 1
           process_all(node.children)

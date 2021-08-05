@@ -75,5 +75,8 @@ test_5gt4_and_4gt3.binl.gz
 test_5gt4_or_4gt5.binl.gz
 test_myloop.binl.gz
 test_myloop2.binl.gz
+test_myloop3.binl.gz
+test_myloop4.binl.gz
+test_myloop5.binl.gz
 warmish_test.binl.gz
 
