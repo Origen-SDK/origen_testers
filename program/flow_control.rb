@@ -254,7 +254,6 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   enable :nvm_minimum_ft, if_enable: "nvm_minimum_room", if_job: :fr
   enable :nvm_minimum_ft, if_enable: "nvm_minimum_cold", if_job: :fc
   disable :nvm_minimum_ft, if_enable: "nvm_minimum_hot", if_job: :fh
-
   log "Test enable words that wrap a lot of tests"
   if_enable :word1 do
     5.times do |i|
@@ -338,6 +337,39 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     render 'multi_bin;', if_flag: :my_flag
 
     func :test36, on_fail: { render: 'multi_bin;' }, if_flag: :my_flag, number: 51570
+  end
+
+  if tester.v93k? && !tester.smt8?
+    log "Tests of flow loop"
+    loop from: 0, to: 5, step: 1, var: '$LOOP_VARIABLE' do
+      func :test_myloop, number: 56000
+    end
+
+    log "Tests of flow loop, no step"
+    loop from: 0, to: 5, var: '$LOOP_VARIABLE' do
+      func :test_myloop2, number: 5610
+    end
+
+    log "Tests of flow loop, non-default test number increment" 
+    loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
+      func :test_myloop3, number: 56200
+    end
+ 
+    log "Tests of decrementing loop"
+    loop from: 5, to: 2, step: -1, var: '$LOOP_VARIABLE' do
+      func :test_myloop4, number: 56300
+    end
+ 
+    log "Tests of nested flow loop, depth 3"
+    loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
+      loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
+        loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
+          func :test_myloop5, number: 56400
+        end
+      end
+    end
+
+    # Test of skipping variable name not yet ready
   end
 
   log 'An optimization test case, this should not generate a flag on V93K'

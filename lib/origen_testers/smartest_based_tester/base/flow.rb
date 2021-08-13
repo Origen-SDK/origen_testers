@@ -462,6 +462,41 @@ module OrigenTesters
         alias_method :on_whenever_any, :on_whenever
         alias_method :on_whenever_all, :on_whenever
 
+        def on_loop(node, options = {})
+          # TODO: don't have the SMT8 way to do this yet
+          if smt8?
+            fail 'Flow loop control not yet supported for SMT8!'
+          end
+          start = node.to_a[0]
+          stop = node.to_a[1]
+          step = node.to_a[2]
+          if node.to_a[3].nil?
+            fail 'You must supply a loop variable name!'
+          else
+            var = generate_flag_name(node.to_a[3])
+          end
+          test_num_inc = node.to_a[4]
+          unless smt8?
+            var = "@#{var}"
+          end
+          num = (stop - start) / step + 1
+          # Handle increment/decrement
+          if step < 0
+            compare = '>'
+            incdec = "- #{step * -1}"
+          else
+            compare = '<'
+            incdec = "+ #{step}"
+          end
+          line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+          line "test_number_loop_increment = #{test_num_inc}"
+          line '{'
+          @indent += 1
+          process_all(node.children)
+          @indent -= 1
+          line '}'
+        end
+
         def generate_expr_string(node, options = {})
           return node unless node.respond_to?(:type)
           case node.type

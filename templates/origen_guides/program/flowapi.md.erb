@@ -339,4 +339,37 @@ end
 ~~~
 
 
+#### Flow Loops for V93k (SMT7 only)
+Use flow loop control to permit re-running tests without using additional sequence labels.
+
+~~~ruby
+loop from: 0, to: 5, step: 1, var: '$LOOP_VARIABLE' do
+  func :test_myloop, number: 56000
+end
+~~~
+
+Indicating step value is optional, default is 1.
+
+These loops can also be nested:
+~~~ruby
+loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
+  loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
+    loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
+      func :test_myloop5, number: 56400
+    end
+  end
+end
+~~~
+
+You can also indicate a test number increment if desired (default is 1):
+~~~ruby
+loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
+    func :test_myloop3, number: 56200
+end
+~~~
+
+Decrementing loops, having `from:` value > `to:` value and using negative `step:`, is also supported.
+ 
+
+
 % end

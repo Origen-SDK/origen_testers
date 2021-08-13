@@ -583,14 +583,26 @@ module OrigenTesters::ATP
     end
 
     def loop(*args, &block)
-      unless args[0].keys.include?(:from) && args[0].keys.include?(:to) && args[0].keys.include?(:step)
-        fail 'Loop must specify :from, :to, :step'
+      unless args[0].keys.include?(:from) && args[0].keys.include?(:to)
+        fail 'Loop must specify :from, :to'
+      end
+      # assume 1 if :step not provided
+      unless args[0].keys.include?(:step)
+        args[0][:step] = 1
+      end
+      # assume 1 if :test_num_inc not provided
+      unless args[0].keys.include?(:test_num_inc)
+        args[0][:test_num_inc] = 1
+      end
+      # Add node for set of flag to be used for loop
+      unless args[0][:var].nil?
+        set(args[0][:var], 0)
       end
       extract_meta!(options) do
         apply_conditions(options) do
-          # always pass 4-element array to loop node to simplify downstream parser
-          #   last element, 'var', will be nil if not specified by loop call
-          params = [args[0][:from], args[0][:to], args[0][:step], args[0][:var]]
+          # always pass 5-element array to loop node to simplify downstream parser
+          #   element, 'var', will be nil if not specified by loop call
+          params = [args[0][:from], args[0][:to], args[0][:step], args[0][:var], args[0][:test_num_inc]]
 
           node = n(:loop, params)
           node = append_to(node) { block.call }
@@ -603,7 +615,7 @@ module OrigenTesters::ATP
       define_method method do |*args, &block|
         options = args.pop if args.last.is_a?(Hash)
         unless args.size == 2
-          fail "Format for relational operation must match: ':<opertor>(var1, var2)'"
+          fail "Format for relational operation must match: ':<operator>(var1, var2)'"
         end
         n2(method.to_sym, args[0], args[1])
       end unless method_defined?(method)
