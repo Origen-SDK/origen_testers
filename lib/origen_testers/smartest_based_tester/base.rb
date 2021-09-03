@@ -107,6 +107,7 @@ module OrigenTesters
         @match_entries = 10
         @name = 'v93k'
         @comment_char = '#'
+        @program_comment_char = ['print_dl', "//"]
         @level_period = true
         @inline_comments = true
         @multiport = options[:multiport]
