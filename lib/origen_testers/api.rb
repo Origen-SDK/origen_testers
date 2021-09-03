@@ -11,6 +11,7 @@ module OrigenTesters
     attr_accessor :includes
     attr_accessor :comment_level
     attr_accessor :generating
+
     # Get/Set the overlay style
     #
     # This method changes the way overlay is handled.
@@ -19,6 +20,7 @@ module OrigenTesters
     # @example
     #   tester.overlay_style = :label
     attr_accessor :overlay_style
+
     # Get/Set the capture style
     #
     # This method changes the way tester.store() implements the store
@@ -49,8 +51,16 @@ module OrigenTesters
     end
     alias_method :pattern_extension, :pat_extension
 
+    def comment_char=(val)
+      @comment_char = val
+    end
+
     def comment_char
       @comment_char || '//'
+    end
+
+    def program_comment_char=(val)
+      @program_comment_char = val
     end
 
     def program_comment_char
