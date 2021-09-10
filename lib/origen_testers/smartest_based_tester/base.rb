@@ -99,15 +99,16 @@ module OrigenTesters
         @min_repeat_loop = 33
         if smt8?
           @pat_extension = 'pat'
+          @program_comment_char = ['println', '//']
         else
           @pat_extension = 'avc'
+          @program_comment_char = ['print_dl', '//']
         end
         @compress = true
         # @support_repeat_previous = true
         @match_entries = 10
         @name = 'v93k'
         @comment_char = '#'
-        @program_comment_char = ['print_dl', '//']
         @level_period = true
         @inline_comments = true
         @multiport = options[:multiport]

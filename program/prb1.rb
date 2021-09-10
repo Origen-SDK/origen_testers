@@ -8,6 +8,10 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_description: 'Prob
     self.resources_filename = 'prb1'
   end
 
+  # Extra log below not in approved/ folder to show that comments are 
+  # being skipped correctly during the difference checks
+  log 'PRB1 Test Flow Version 00001 - do not copy me to approved!'
+
   import 'components/prb1_main'
 
   import 'test' # import top-level test.rb directly, note that Flow.create options of sub-flow will be ignored!
