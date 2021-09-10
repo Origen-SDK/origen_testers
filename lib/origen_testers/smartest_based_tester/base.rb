@@ -107,7 +107,7 @@ module OrigenTesters
         @match_entries = 10
         @name = 'v93k'
         @comment_char = '#'
-        @program_comment_char = ['print_dl', "//"]
+        @program_comment_char = ['print_dl', '//']
         @level_period = true
         @inline_comments = true
         @multiport = options[:multiport]
@@ -466,7 +466,6 @@ module OrigenTesters
         # Ensure the match pins are don't care by default
         pin.dont_care
         options[:pin2].dont_care if options[:pin2]
-
         if !options[:pin2]
           cc "for the #{pin.name.upcase} pin to go #{state.to_s.upcase}"
           match_block(timeout_in_cycles, options) do |match_or_conditions, fail_conditions|
