@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_49_2"></a>
+<h1><a href="#v0_49_2">Tag: v0.49.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 13-Sep-2021 07:58AM
+
+
+Added program_comment_char support for v93k (smt7 and smt8).
+Added ability for user to modify comment_char or program_comment_char for any tester at
+app level.
+
 <a class="anchor release_tag" name="v0_49_1"></a>
 <h1><a href="#v0_49_1">Tag: v0.49.1</a></h1>
 
