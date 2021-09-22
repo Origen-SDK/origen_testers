@@ -342,6 +342,35 @@ describe 'Charz' do
       }.to raise_error
     end
 
+    it 'errors when profile routines are not an array' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_profile :my_profile do |profile|
+        end
+      }.to raise_error
+    end
+
+    it 'errors when no routines are passed' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+      end
+      expect {
+        Origen.interface.add_charz_profile :my_profile do |profile|
+          profile.routines = []
+        end
+      }.to raise_error
+    end
+
+    it 'passes when no routines are passed but @allow_empty_routines is asserted' do
+      Flow.create interface: 'MyCharzRoutineInterface' do
+        add_charz_profile :my_profile do |profile|
+          profile.routines = []
+          profile.allow_empty_routines = true
+        end
+        charz_profiles[:my_profile].routines.should == []
+      end
+    end
+
     it 'errors when unknown routines are passed' do
       Flow.create interface: 'MyCharzRoutineInterface' do
       end
