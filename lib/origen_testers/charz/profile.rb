@@ -35,6 +35,19 @@ module OrigenTesters
       def attrs_ok?
         return if @quality_check == false
 
+        unless @routines.is_a?(Array)
+          Origen.log.error "Profile #{id}: routines is expected to be of type <Array>, but is instead of type <#{@routines.class}>!"
+          fail
+        end
+
+        # allowing a config for empty routines for usecase of
+        # determining routines on the fly dynamically
+        if @routines.empty? && !@allow_empty_routines
+          Origen.log.error "Profile #{id}: routines array is empty!"
+          Origen.log.warn "If you'd like to enable profile creation without routines, set the profile's @allow_empty_routines attribute to true"
+          fail
+        end
+
         unknown_routines = @routines - @defined_routines
         unless unknown_routines.empty?
           Origen.log.error "Profile #{id}: unknown routines: #{unknown_routines}"
