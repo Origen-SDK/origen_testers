@@ -28,7 +28,7 @@ module OrigenTesters
 
       # Returns a new IGXLBasedTester instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target.
-      def initialize
+      def initialize(options = {})
         @unique_counter = 0
         @counter_lsb_bits = 0
         @counter_msb_bits = 0
