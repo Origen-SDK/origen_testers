@@ -60,7 +60,7 @@ describe 'Charz' do
   end
 
   before :all do
-    Origen.environment.temporary = "uflex"
+    Origen.environment.temporary = "uflex.rb"
     Origen.load_target("dut.rb")
     Origen.file_handler.current_file = Pathname.new("#{Origen.root}/spec/charz_spec")
   end
