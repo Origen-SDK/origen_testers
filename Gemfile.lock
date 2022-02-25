@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    origen_testers (0.49.3)
+    origen_testers (0.49.4)
       ast (~> 2)
       atp (~> 1.1, >= 1.1.3)
       dentaku (~> 3)
@@ -119,9 +119,8 @@ GEM
     rake (10.5.0)
     require_all (1.5.0)
     ripper-tags (0.9.0)
-    rodf (1.1.1)
+    rodf (1.2.0)
       builder (>= 3.0)
-      dry-inflector (~> 0.1)
       rubyzip (>= 1.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -147,7 +146,7 @@ GEM
     ruby-progressbar (1.11.0)
     rubyzip (1.3.0)
     scrub_rb (1.0.1)
-    sexpistol (0.0.7)
+    sexpistol (0.1.2)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
