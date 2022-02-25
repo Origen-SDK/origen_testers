@@ -1,0 +1,112 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    24-Feb-2022 15:11PM
+//   By:      Paul DeRouen
+//   Mode:    debug
+//   Command: origen g pattern/simple.rb -t default.rb -e uflex_hsdmq.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.49.3
+//     Branch:    master(03072629780) (+local edits)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.60.1
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.6
+//     origen_jtag:              0.22.1
+//     origen_stil:              0.3.0
+//     origen_swd:               1.1.2
+// ***************************************************************************
+import tset tp0;                                                                                
+opcode_mode = single;                                                                           
+digital_inst = hsdmq;                                                                           
+compressed = yes;                                                                               
+instruments = {                                                                                 
+               VDDHV:DCVS;                                                                      
+               VDDLV:DCVS;                                                                      
+               tdi:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tms:digsrc 1:msb:parallel:format=binary:unique_sites:auto_cond_disable;                               
+               tdo:digcap 8:lsb:serial:format=twos_complement:data_type=default:auto_cond_disable:auto_trig_disable:store_stv_disable:store_stv_disable;                               
+               mto;                                                                             
+}                                                                                               
+                                                                                                
+vm_vector                                                                                       
+simple ($tset, tclk, tdi, tdo, tms)                                                             
+{                                                                                               
+start_label simple_st:                                                                          
+//                                                                                              t t t t
+//                                                                                              c d d m
+//                                                                                              l i o s
+//                                                                                              k      
+// ######################################################################
+// ## Pattern complete
+// ######################################################################
+// PADDING VECTORS ADDED TO MEET MIN 64 FOR PATTERN
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+                                                                 > tp0                          X X X X ;
+}                                                                                               

@@ -4,6 +4,10 @@ module OrigenTesters
     class UltraFLEX < Base
       autoload :Generator,   'origen_testers/igxl_based_tester/ultraflex/generator.rb'
 
+      # Read or update the digital instrument
+      #  Ex: tester.digital_instrument = 'hsdmq'
+      attr_accessor :digital_instrument
+
       # Tester model to generate .atp patterns for the Teradyne UltraFLEX
       #
       # == Basic Usage
@@ -18,8 +22,9 @@ module OrigenTesters
 
       # Returns a new UltraFLEX instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target.
-      def initialize
-        super
+      def initialize(options = {})
+        super(options)
+        options = { digital_instrument: 'hsdm' }.merge(options)
         @pipeline_depth = 255  # for single mode
         @software_version = '8.10.10'
         @name = 'ultraflex'
@@ -36,7 +41,7 @@ module OrigenTesters
         # this handled in pattern_header below
         @min_pattern_vectors = (@opcode_mode == :single) ? 64 : 128
 
-        @digital_instrument = 'hsdm' # 'hsdm' for HSD1000 and UP800, ok with UP1600 though
+        @digital_instrument = options[:digital_instrument] # 'hsdm' for HSD1000 and UP800, ok with UP1600 though
 
         @capture_state = 'V'            # STV requires valid 'V' expect data
 

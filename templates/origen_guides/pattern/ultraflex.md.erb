@@ -27,4 +27,16 @@ for a given pin.
   # Overlay operations can happen after this point
 ~~~
 
+### Digital Instrument
+
+The default digital instrument used is hsdm. This can be changed with either a create option or through an accessor:
+
+~~~ruby
+  # Instantiate with a different digital instrument
+  OrigenTesters::UltraFLEX.new(digital_instrument: 'hsdmq')
+  
+  # set the digital instrument after instantiation
+  tester.digital_instrument = 'hsdmq'
+~~~
+
 % end

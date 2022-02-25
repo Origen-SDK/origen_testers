@@ -20,7 +20,13 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 ARGV = %w(regression.list -t dut.rb -e j750_hpt.rb -r approved/j750_hpt)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
-ARGV = %w(regression.list -t dut.rb -e uflex -r approved/ultraflex)
+ARGV = %w(regression.list -t dut.rb -e uflex.rb -r approved/ultraflex)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(simple -t dut.rb -e uflex_hsdmq.rb -r approved/ultraflex_hsdmq)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(uflex_digital_instrument -t dut.rb -e uflex_hsdmq.rb -r approved/ultraflex_hsdmq)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(regression.list -t dut.rb -e v93k.rb -r approved/v93k)
@@ -29,7 +35,7 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 ARGV = %w(regression.list -t dut.rb -e v93k_smt8.rb -r approved/v93k_smt8)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
-ARGV = %w(tester_overlay tester_store tester_overlay_no_start -t dut3.rb -e uflex -r approved/generic_overlay_capture/ultraflex)
+ARGV = %w(tester_overlay tester_store tester_overlay_no_start -t dut3.rb -e uflex.rb -r approved/generic_overlay_capture/ultraflex)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
 ARGV = %w(tester_overlay tester_store -t dut3.rb -e j750.rb -r approved/generic_overlay_capture/j750)

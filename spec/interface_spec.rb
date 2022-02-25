@@ -33,7 +33,7 @@ describe "An interface" do
   end
 
   it "resources_filename can be set from an interface initialize" do
-    Origen.environment.temporary = "uflex"
+    Origen.environment.temporary = "uflex.rb"
     Origen.load_target("dut.rb")
     Flow.create interface: "MyInterface" do
       Origen.interface.test_instances_filename.should == "abc"
@@ -104,7 +104,7 @@ describe "An interface that does not want the target re-loaded" do
   end
 
   it "Target is only loaded once during flow generation" do
-    Origen.environment.temporary = "uflex"
+    Origen.environment.temporary = "uflex.rb"
     Origen.load_target("dut.rb")
     dut.target_load_count.should == 1
     Flow.create interface: 'InterfaceThatLikesSpeed' do
