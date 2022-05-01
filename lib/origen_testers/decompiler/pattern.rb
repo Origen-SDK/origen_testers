@@ -51,7 +51,11 @@ module OrigenTesters
       include EnumerableExt
       include SpecHelpers
 
-      def initialize(source, direct_source: false, no_verify: false)
+      def initialize(source, options = {})
+        options = { direct_source: false, no_verify: false }.merge(options)
+        direct_source = options[:direct_source]
+        no_verify = options[:no_verify]
+
         if source.is_a?(File)
           source = source.path
         end
