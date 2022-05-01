@@ -49,7 +49,6 @@ flow ERASE {
     }
 
     execute {
-
         erase_all.execute();
         erase_all_1.execute();
         erase_all_2.execute();
