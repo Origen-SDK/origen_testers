@@ -425,7 +425,11 @@ module OrigenTesters
             flag[0] = ''
             flag
           else
-            flag.downcase
+            if tester.literal_enables
+              flag
+            else
+              flag.downcase
+            end
           end
         end
 

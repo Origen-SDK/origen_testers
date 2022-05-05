@@ -1,0 +1,49 @@
+DTPatternSetSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pattern Sets								
+									
+	Pattern Set	TD Group	Time Domain	File/Group Name	Burst	Start Label	Stop Label	Comment	
+	cz_test1_pset			cz_test1.PAT	Yes				
+	cz_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	cz_test2_pset			cz_test2.PAT	Yes				
+	cz_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	erase1_pset			erase1.PAT	Yes				
+	erase1_pset			nvm_global_subs.PAT	Yes	subr			
+	erase2_pset			erase2.PAT	Yes				
+	erase2_pset			nvm_global_subs.PAT	Yes	subr			
+	extra_test_pset			extra_test.PAT	Yes				
+	extra_test_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test1_pset			grp1_test1.PAT	Yes				
+	grp1_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test2_pset			grp1_test2.PAT	Yes				
+	grp1_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	grp1_test3_pset			grp1_test3.PAT	Yes				
+	grp1_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test1_pset			grp2_test1.PAT	Yes				
+	grp2_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test2_pset			grp2_test2.PAT	Yes				
+	grp2_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	grp2_test3_pset			grp2_test3.PAT	Yes				
+	grp2_test3_pset			nvm_global_subs.PAT	Yes	subr			
+	long_test1_pset			long_test1.PAT	Yes				
+	long_test1_pset			nvm_global_subs.PAT	Yes	subr			
+	long_test2_pset			long_test2.PAT	Yes				
+	long_test2_pset			nvm_global_subs.PAT	Yes	subr			
+	long_test_pset			long_test.PAT	Yes				
+	long_test_pset			nvm_global_subs.PAT	Yes	subr			
+	pgm1_pset			pgm1.PAT	Yes				
+	pgm1_pset			nvm_global_subs.PAT	Yes	subr			
+	pgm_pset			pgm.PAT	Yes				
+	pgm_pset			nvm_global_subs.PAT	Yes	subr			
+	read0_pset			read0.PAT	Yes				
+	read0_pset			nvm_global_subs.PAT	Yes	subr			
+	read1_pset			read1.PAT	Yes				
+	read1_pset			nvm_global_subs.PAT	Yes	subr			
+	read2_pset			read2.PAT	Yes				
+	read2_pset			nvm_global_subs.PAT	Yes	subr			
+	test1_pset			test1.PAT	Yes				
+	test1_pset			nvm_global_subs.PAT	Yes	subr			
+	test2_pset			test2.PAT	Yes				
+	test2_pset			nvm_global_subs.PAT	Yes	subr			
+	test3_pset			test3.PAT	Yes				
+	test3_pset			nvm_global_subs.PAT	Yes	subr			
+	test4_pset			test4.PAT	Yes				
+	test4_pset			nvm_global_subs.PAT	Yes	subr			
