@@ -20,7 +20,7 @@ module OrigenTesters
           ext: '.atp',
         }
 
-        def self.handle_platform_specific_vector_body_element(context, vector_type, **test_setup)
+        def self.handle_platform_specific_vector_body_element(context, vector_type, test_setup = {})
           case vector_type
             when :start_label
               context.include_examples(:validate_start_label, test_setup)

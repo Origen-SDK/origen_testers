@@ -52,7 +52,7 @@ module OrigenTesters
         end
 
         def split!
-          section_indices = split(splitter_config)
+          section_indices = split(**splitter_config)
 
           # Check that we found each section in the pattern.
           if section_indices[:pinlist_start].nil?
