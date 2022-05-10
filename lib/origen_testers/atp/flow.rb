@@ -337,8 +337,11 @@ module OrigenTesters::ATP
 
           name = (options[:name] || options[:tname] || options[:test_name])
           unless name
-            [:name, :tname, :test_name].each do |m|
-              name ||= instance.respond_to?(m) ? instance.send(m) : nil
+            # Starting in Ruby3 type Symbol responds to name
+            unless instance.is_a?(Symbol)
+              [:name, :tname, :test_name].each do |m|
+                name ||= instance.respond_to?(m) ? instance.send(m) : nil
+              end
             end
           end
           children << n1(:name, name) if name

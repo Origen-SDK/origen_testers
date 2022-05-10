@@ -1,5 +1,6 @@
 flow PRB2_MAIN_1 {
 
+
     setup {
         suite mrd_ckbd calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.mrd_ckbd);
@@ -18,7 +19,6 @@ flow PRB2_MAIN_1 {
     }
 
     execute {
-
         pgm_ckbd.execute();
         mrd_ckbd.execute();
     }

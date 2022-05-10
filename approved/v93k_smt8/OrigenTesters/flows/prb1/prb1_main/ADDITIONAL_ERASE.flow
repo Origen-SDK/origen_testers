@@ -13,7 +13,6 @@ flow ADDITIONAL_ERASE {
     }
 
     execute {
-
         if (ADDITIONAL_ERASE == 1) {
             erase_all.execute();
         } else {

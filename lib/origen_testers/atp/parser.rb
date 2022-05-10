@@ -2,6 +2,7 @@ require 'sexpistol'
 module OrigenTesters::ATP
   class Parser < Sexpistol
     def initialize
+      # This accessor moves to Sexpistol::Parser in newer versions of the gem
       self.ruby_keyword_literals = true
     end
 

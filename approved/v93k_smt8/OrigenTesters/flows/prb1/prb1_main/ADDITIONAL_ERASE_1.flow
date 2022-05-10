@@ -1,5 +1,6 @@
 flow ADDITIONAL_ERASE_1 {
 
+
     setup {
         suite erase_all calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.erase_all);
@@ -11,7 +12,6 @@ flow ADDITIONAL_ERASE_1 {
     }
 
     execute {
-
         erase_all.execute();
     }
 }

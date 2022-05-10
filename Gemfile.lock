@@ -18,7 +18,7 @@ PATH
       origen_stil (>= 0.2.1)
       require_all (~> 1)
       rodf (~> 1)
-      sexpistol (~> 0.0)
+      sexpistol (= 0.0.7)
       simplecov (~> 0.17)
       simplecov-html (~> 0.10.0)
 
@@ -146,7 +146,7 @@ GEM
     ruby-progressbar (1.11.0)
     rubyzip (1.3.0)
     scrub_rb (1.0.1)
-    sexpistol (0.1.2)
+    sexpistol (0.0.7)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)

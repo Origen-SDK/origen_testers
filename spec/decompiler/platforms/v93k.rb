@@ -17,7 +17,7 @@ module OrigenTesters
           ext: '.avc',
         }
 
-        def self.handle_platform_specific_vector_body_element(context, vector_type, **test_setup)
+        def self.handle_platform_specific_vector_body_element(context, vector_type, test_setup = {})
           case vector_type
             when :sequencer_instruction
               context.include_examples(:sequencer_instruction, test_setup)
