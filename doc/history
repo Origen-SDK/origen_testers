@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_51_0"></a>
+<h1><a href="#v0_51_0">Tag: v0.51.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Daniel Hadad on 20-May-2022 13:26PM
+
+
+Added ability to override default syntax behavior where flag or enable word names are made
+lowercase and any double-scores removed.
+See PR 187.
+
 <a class="anchor release_tag" name="v0_50_0"></a>
 <h1><a href="#v0_50_0">Tag: v0.50.0</a></h1>
 
