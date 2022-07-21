@@ -156,7 +156,7 @@ GEM
     thread_safe (0.3.6)
     treetop (1.6.11)
       polyglot (~> 0.3)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     yard (0.9.26)
     yard-activesupport-concern (0.0.1)
