@@ -37,6 +37,10 @@ module OrigenTesters
           @var_filename || 'global'
         end
 
+        def set_var_filename(new_var_filename)
+          @var_filename = new_var_filename
+        end
+
         def subdirectory
           @subdirectory ||= begin
             if smt8?
@@ -217,6 +221,7 @@ module OrigenTesters
           @open_test_names = []
           @post_test_lines = []
           @stack = { on_fail: [], on_pass: [] }
+          debugger
           @set_runtime_variables = ast.excluding_sub_flows.set_flags
           process(ast)
           unless smt8?

@@ -40,6 +40,16 @@ module OrigenTesters::ATP
       results
     end
 
+    def remove_globals(results, nodes)
+      nodes.to_a.each do |node|
+        n = process(node)
+        if n.respond_to?(:type) && n.type == :global
+          results.delete(n.to_a[0].value)
+        end
+      end
+      results
+    end
+
     def handler_missing(node)
       node.updated(nil, process_all(node.children))
     end
@@ -61,6 +71,26 @@ module OrigenTesters::ATP
     # Returns true if the given flag name has been marked as volatile
     def volatile?(flag)
       result = volatile_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
+      result
+    end
+
+    def extract_globals(flow)
+      @globals = {}
+      if v = flow.find(:global)
+        @globals[:flags] = Array(v.find_all(:flag)).map(&:value)
+      end
+    end
+
+    def global_flags
+      unless @globals
+        fail 'You must first call extract_volatiles(node) from your on_flow hander method'
+      end
+      @globals[:flags] || []
+    end
+
+    # Returns true if the given flag name has been marked as volatile
+    def global?(flag)
+      result = global_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
       result
     end
 

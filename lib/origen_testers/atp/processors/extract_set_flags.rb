@@ -6,6 +6,7 @@ module OrigenTesters::ATP
       def run(nodes)
         @results = []
         process_all(nodes)
+        remove_globals(@results, nodes)
         @results.uniq
       end
 
