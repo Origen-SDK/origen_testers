@@ -23,6 +23,7 @@ flow FLOW_CONTROL {
     in WORD1 = -1;
     in WORD2 = -1;
     in WORD3 = -1;
+    in non_global = -1;
 
     out AF11_FAILED = -1;
     out AF1_FAILED = -1;
@@ -53,6 +54,7 @@ flow FLOW_CONTROL {
     out T6_RAN = -1;
     out T7_RAN = -1;
     out T8_RAN = -1;
+    out global = -1;
 
     setup {
         suite cold_test calls ac_tml.AcTest.FunctionalTest {
@@ -1151,6 +1153,7 @@ flow FLOW_CONTROL {
         T6_RAN = -1;
         T7_RAN = -1;
         T8_RAN = -1;
+        global = -1;
 
         println("Test that if_failed works");
         read1.execute();
@@ -1522,6 +1525,17 @@ flow FLOW_CONTROL {
         } else {
             test1.execute();
             test2.execute();
+        }
+        println("Test global flag functionality");
+        global_test1.execute();
+        if (!global_test1.pass) {
+            global = 1;
+        }
+        if (global == 1) {
+        } else {
+        }
+        if (non_global == 1) {
+        } else {
         }
         println("This should retain the set-run-flag in the else conditional");
         test22.execute();

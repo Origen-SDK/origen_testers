@@ -220,7 +220,7 @@ module OrigenTesters::ATP
       @pipeline[0] = add_volatile_flags(@pipeline[0], flags)
     end
 
-    # Indicate the that given flags should keep state between units 
+    # Indicate the that given flags should keep state between units
     # prevent them from being in the initialization block
     # these flags will be the user's responsibility to initialize
     def global(*flags)

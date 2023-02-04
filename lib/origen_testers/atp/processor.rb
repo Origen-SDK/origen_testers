@@ -33,18 +33,10 @@ module OrigenTesters::ATP
         n = process(node)
         if n.respond_to?(:type) && n.type == :inline
           results += n.children
+        elsif n.respond_to?(:type) && n.type == :global
+          add_global_flag(n.to_a[0].value)
         else
           results << n unless n.respond_to?(:type) && n.type == :remove
-        end
-      end
-      results
-    end
-
-    def remove_globals(results, nodes)
-      nodes.to_a.each do |node|
-        n = process(node)
-        if n.respond_to?(:type) && n.type == :global
-          results.delete(n.to_a[0].value)
         end
       end
       results
@@ -74,21 +66,27 @@ module OrigenTesters::ATP
       result
     end
 
+    def add_global_flag(flag)
+      # Had to do @@ because the state got lost after the recursive calls
+      @@globals ||= {}
+      @@globals[:flags] ||= []
+      @@globals[:flags] << flag
+    end
+
     def extract_globals(flow)
-      @globals = {}
+      @@globals ||= {}
       if v = flow.find(:global)
-        @globals[:flags] = Array(v.find_all(:flag)).map(&:value)
+        @@globals[:flags] ||= []
+        @@globals[:flags] += Array(v.find_all(:flag)).map(&:value) if v.respond_to?(:find_all) && v.method(:find_all).parameters.size == 1
       end
     end
 
     def global_flags
-      unless @globals
-        fail 'You must first call extract_volatiles(node) from your on_flow hander method'
-      end
-      @globals[:flags] || []
+      @@globals ||= {}
+      @@globals[:flags] || []
     end
 
-    # Returns true if the given flag name has been marked as volatile
+    # Returns true if the given flag name has been marked as global
     def global?(flag)
       result = global_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
       result

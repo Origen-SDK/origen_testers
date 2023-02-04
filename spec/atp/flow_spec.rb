@@ -443,6 +443,21 @@ describe 'The flow builder API' do
             s(:soft, 100, "Soft Bin100")))
     end
 
+    it 'can capture global flags' do
+      self.atp = OrigenTesters::ATP::Program.new.flow(:sort1) 
+      global :flag1, :flag2
+      global :flag3
+
+      atp.raw.should ==
+        s(:flow,
+          s(:name, "sort1"),
+          s(:global,
+            s(:flag, "flag1"),
+            s(:flag, "flag2"),
+            s(:flag, "flag3"))) 
+
+    end
+
     it 'can handle a proc on_fail and a bin' do
       self.atp = OrigenTesters::ATP::Program.new.flow(:sort1) 
 

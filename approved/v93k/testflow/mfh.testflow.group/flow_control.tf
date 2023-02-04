@@ -3419,6 +3419,27 @@ test_flow
        run(test1);
        run(test2);
     }
+    print_dl("Test global flag functionality");
+    run_and_branch(global_test1)
+    then
+    {
+    }
+    else
+    {
+       @global = 1;
+    }
+    if @global == 1 then
+    {
+    }
+    else
+    {
+    }
+    if @non_global == 1 then
+    {
+    }
+    else
+    {
+    }
     print_dl("This should retain the set-run-flag in the else conditional");
     run_and_branch(test22_BEA7F3B)
     then
@@ -3500,7 +3521,7 @@ test_flow
           for @LOOP_VARIABLE3 = 1; @LOOP_VARIABLE3 < 6 ; @LOOP_VARIABLE3 = @LOOP_VARIABLE3 + 1; do
           test_number_loop_increment = 1
           {
-          run(test_myloop5_BEA7F3B);
+             run(test_myloop5_BEA7F3B);
           }
        }
     }
