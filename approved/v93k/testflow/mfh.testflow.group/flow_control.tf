@@ -2543,6 +2543,7 @@ test_flow
        @ECT2_2_BEA7F3B_FAILED = -1;
        @MY_FLAG = -1;
        @My_Mixed_Flag = -1;
+       @non_global = -1;
        @AT22_BEA7F3B_FAILED = -1;
        @OF1_BEA7F3B_FAILED = -1;
        @OF2_BEA7F3B_FAILED = -1;
@@ -3433,9 +3434,11 @@ test_flow
     }
     else
     {
+       @non_global = 1;
     }
     if @non_global == 1 then
     {
+       @global = 1;
     }
     else
     {

@@ -250,6 +250,9 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 	LABEL_12_C2A232F					nop																											
 						logprint	Test_global_flag_functionality																										
 						Test	global_test1												None		global												
+						defaults															non_global												
+						flag-true	non_global																				not	flag-true	global				
+						flag-true	global																					flag-true	non_global				
 						logprint	An_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																										
 						Test	test1	test1	51580										None	t1a_C2A232F_PASSED	t1a_C2A232F_FAILED												
 						Test	test2	test2	51590										Fail									flag-true	t1a_C2A232F_PASSED				
