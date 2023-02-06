@@ -87,7 +87,7 @@ module OrigenTesters::ATP
     end
 
     # Returns true if the given flag name has been marked as global
-    def global?(flag)
+    def global_flag?(flag)
       result = global_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
       result
     end

@@ -445,8 +445,8 @@ describe 'The flow builder API' do
 
     it 'can capture global flags' do
       self.atp = OrigenTesters::ATP::Program.new.flow(:sort1) 
-      global :flag1, :flag2
-      global :flag3
+      add_global_flag :flag1, :flag2
+      add_global_flag :flag3
 
       atp.raw.should ==
         s(:flow,

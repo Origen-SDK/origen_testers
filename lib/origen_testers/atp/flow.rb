@@ -223,10 +223,10 @@ module OrigenTesters::ATP
     # Indicate the that given flags should keep state between units
     # prevent them from being in the initialization block
     # these flags will be the user's responsibility to initialize
-    def global(*flags)
+    def add_global_flag(*flags)
       options = flags.pop if flags.last.is_a?(Hash)
       flags = flags.flatten
-      @pipeline[0] = add_global_flags(@pipeline[0], flags)
+      @pipeline[0] = add_global_flag_to_node(@pipeline[0], flags)
     end
 
     # Record a description for a bin number
@@ -958,7 +958,7 @@ module OrigenTesters::ATP
 
     # Ensures the flow ast has a global node, then adds the
     # given flags to it
-    def add_global_flags(node, flags)
+    def add_global_flag_to_node(node, flags)
       name, *nodes = *node
       if nodes[0] && nodes[0].type == :global
         v = nodes.shift
