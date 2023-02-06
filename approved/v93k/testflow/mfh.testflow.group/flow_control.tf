@@ -3427,7 +3427,7 @@ test_flow
     }
     else
     {
-       @global = 1;
+       @non_global = 1;
     }
     if @global == 1 then
     {

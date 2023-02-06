@@ -249,8 +249,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	test2		51470										Fail														
 	LABEL_12_C2A232F					nop																											
 						logprint	Test_global_flag_functionality																										
-						Test	global_test1												None		global												
-						defaults															non_global												
+						Test	global_test1												None		non_global												
 						flag-true	non_global																				not	flag-true	global				
 						flag-true	global																					flag-true	non_global				
 						logprint	An_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																										

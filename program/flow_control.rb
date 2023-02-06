@@ -311,7 +311,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
 
   log 'Test global flag functionality'
   add_global_flag :global
-  test :global_test1, on_fail: { set_flag: :$global }, continue: true
+  test :global_test1, on_fail: { set_flag: :$non_global }, continue: true
   unless_flag "$global" do
     set_flag '$non_global'
   end
