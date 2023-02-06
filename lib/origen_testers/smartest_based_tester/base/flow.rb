@@ -37,6 +37,10 @@ module OrigenTesters
           @var_filename || 'global'
         end
 
+        def set_var_filename(new_var_filename)
+          @var_filename = new_var_filename
+        end
+
         def subdirectory
           @subdirectory ||= begin
             if smt8?
@@ -218,6 +222,10 @@ module OrigenTesters
           @post_test_lines = []
           @stack = { on_fail: [], on_pass: [] }
           @set_runtime_variables = ast.excluding_sub_flows.set_flags
+          global_flags.each do |global_var_name|
+            @set_runtime_variables.delete(global_var_name)
+            @set_runtime_variables.delete('$' + global_var_name)
+          end
           process(ast)
           unless smt8?
             unless flow_variables[:empty?]

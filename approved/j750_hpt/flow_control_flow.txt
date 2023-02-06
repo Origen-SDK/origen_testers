@@ -262,6 +262,10 @@ DFF 1.1	Flow Table
 						Test	test1		51460					Fail														
 						Test	test2		51470					Fail														
 	LABEL_12_C2A232F					nop																						
+						logprint	Test_global_flag_functionality																					
+						Test	global_test1							None		non_global												
+						flag-true	non_global															not	flag-true	global				
+						flag-true	global																flag-true	non_global				
 						logprint	An_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																					
 						Test	test1	test1	51580					None	t1a_C2A232F_PASSED	t1a_C2A232F_FAILED												
 						Test	test2	test2	51590					Fail									flag-true	t1a_C2A232F_PASSED				
@@ -273,10 +277,10 @@ DFF 1.1	Flow Table
 						set-device					10			Fail									flag-true	t1b_C2A232F_FAILED				
 						Test	test2	test2	51630					Fail									flag-true	t1b_C2A232F_PASSED				
 						logprint	Test_the_block_form_of_expressing_if_passed/failed_dependents																					
-						Test	test1	test1	51960					None	t114_C2A232F_PASSED	t114_C2A232F_FAILED												
-						Test	test3	test3	51980					Fail									flag-true	t114_C2A232F_FAILED				
-						set-device					10			Fail									flag-true	t114_C2A232F_FAILED				
-						Test	test2	test2	51970					Fail									flag-true	t114_C2A232F_PASSED				
+						Test	test1	test1	51960					None	t115_C2A232F_PASSED	t115_C2A232F_FAILED												
+						Test	test3	test3	51980					Fail									flag-true	t115_C2A232F_FAILED				
+						set-device					10			Fail									flag-true	t115_C2A232F_FAILED				
+						Test	test2	test2	51970					Fail									flag-true	t115_C2A232F_PASSED				
 						logprint	Test_the_else_block_on_a_flag_condition																					
 		bitmap				Test	test2		51990					Fail														
 		bitmap				goto	LABEL_13_C2A232F																					

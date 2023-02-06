@@ -39,6 +39,8 @@ declarations
 @T6_BEA7F3B_RAN = 0;
 @T7_BEA7F3B_RAN = 0;
 @T8_BEA7F3B_RAN = 0;
+@global = 0;
+@non_global = 0;
 
 end
 -----------------------------------------------------------------

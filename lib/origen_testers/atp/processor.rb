@@ -33,6 +33,8 @@ module OrigenTesters::ATP
         n = process(node)
         if n.respond_to?(:type) && n.type == :inline
           results += n.children
+        elsif n.respond_to?(:type) && n.type == :global
+          add_global_flag(n.to_a[0].value)
         else
           results << n unless n.respond_to?(:type) && n.type == :remove
         end
@@ -61,6 +63,32 @@ module OrigenTesters::ATP
     # Returns true if the given flag name has been marked as volatile
     def volatile?(flag)
       result = volatile_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
+      result
+    end
+
+    def add_global_flag(flag)
+      # Had to do @@ because the state got lost after the recursive calls
+      @@globals ||= {}
+      @@globals[:flags] ||= []
+      @@globals[:flags] << flag
+    end
+
+    def extract_globals(flow)
+      @@globals ||= {}
+      if v = flow.find(:global)
+        @@globals[:flags] ||= []
+        @@globals[:flags] += Array(v.find_all(:flag)).map(&:value) if v.respond_to?(:find_all) && v.method(:find_all).parameters.size == 1
+      end
+    end
+
+    def global_flags
+      @@globals ||= {}
+      @@globals[:flags] || []
+    end
+
+    # Returns true if the given flag name has been marked as global
+    def global_flag?(flag)
+      result = global_flags.any? { |f| clean_flag(f) == clean_flag(flag) }
       result
     end
 

@@ -2543,6 +2543,7 @@ test_flow
        @ECT2_2_BEA7F3B_FAILED = -1;
        @MY_FLAG = -1;
        @My_Mixed_Flag = -1;
+       @non_global = -1;
        @AT22_BEA7F3B_FAILED = -1;
        @OF1_BEA7F3B_FAILED = -1;
        @OF2_BEA7F3B_FAILED = -1;
@@ -3419,6 +3420,29 @@ test_flow
        run(test1);
        run(test2);
     }
+    print_dl("Test global flag functionality");
+    run_and_branch(global_test1)
+    then
+    {
+    }
+    else
+    {
+       @non_global = 1;
+    }
+    if @global == 1 then
+    {
+    }
+    else
+    {
+       @non_global = 1;
+    }
+    if @non_global == 1 then
+    {
+       @global = 1;
+    }
+    else
+    {
+    }
     print_dl("This should retain the set-run-flag in the else conditional");
     run_and_branch(test22_BEA7F3B)
     then
@@ -3500,7 +3524,7 @@ test_flow
           for @LOOP_VARIABLE3 = 1; @LOOP_VARIABLE3 < 6 ; @LOOP_VARIABLE3 = @LOOP_VARIABLE3 + 1; do
           test_number_loop_increment = 1
           {
-          run(test_myloop5_BEA7F3B);
+             run(test_myloop5_BEA7F3B);
           }
        }
     }
