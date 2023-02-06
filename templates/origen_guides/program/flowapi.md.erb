@@ -305,6 +305,20 @@ end
 
 In all cases the `$` will be removed from the final flag name that appears in the test program.
 
+Whenever you set a flag or automation initializes a variable, you can remove the variable from initialization flow by labeling as a global flag
+with the `add_global_flag` API. The variable removal is currently only enabled for v93k at the moment but the flags can still be labeled as global.
+The below example will set the `global` variable in the flow but not initialize it to a value. `non_global` will behave as normal.
+
+~~~ruby
+add_global_flag :global
+test :global_test1, on_fail: { set_flag: :$global }, continue: true
+unless_flag "$global" do
+  set_flag '$non_global'
+end
+if_flag "$non_global" do
+  set_flag '$global'
+end
+~~~
 
 
 #### Adding the V93K bypass option:
