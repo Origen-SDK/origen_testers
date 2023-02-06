@@ -61,14 +61,15 @@ GEM
     kramdown (1.17.0)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.8.1)
     minitest (5.17.0)
     multi_xml (0.6.0)
     nanoc (3.7.5)
       cri (~> 2.3)
     net-ldap (0.17.1)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     origen (0.60.7)
       activesupport (~> 4.1)
       bundler (> 1.7)
@@ -113,6 +114,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    racc (1.6.2)
     rainbow (2.2.2)
       rake
     rake (10.5.0)
@@ -169,7 +171,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (~> 8)
   dry-inflector (= 0.1.2)
-  nokogiri (= 1.10.10)
+  nokogiri
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers
   origen_jtag (>= 0.12.0)
