@@ -56,7 +56,6 @@ module OrigenTesters
           end
           if specification && !specification.to_s.empty?
             l << "    measurement.specification = setupRef(#{tester.package_namespace}.#{tester.spec_path}.#{specification});"
-            # l << "    measurement.specification = setupRef(mainSpecs.#{specification});"
           end
           test_method.sorted_parameters.each do |param|
             name = param[0]
