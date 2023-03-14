@@ -4,6 +4,7 @@ module OrigenTesters
     autoload :J750,                'origen_testers/igxl_based_tester/j750.rb'
     autoload :J750_HPT,            'origen_testers/igxl_based_tester/j750_hpt.rb'
     autoload :UltraFLEX,           'origen_testers/igxl_based_tester/ultraflex.rb'
+    autoload :UltraFLEXP,           'origen_testers/igxl_based_tester/ultraflexp.rb'
 
     require 'origen_testers/igxl_based_tester/base.rb'
     require 'origen_testers/igxl_based_tester/decompiler'
@@ -12,4 +13,5 @@ module OrigenTesters
   autoload :J750,                  'origen_testers/igxl_based_tester/j750.rb'
   autoload :J750_HPT,              'origen_testers/igxl_based_tester/j750_hpt.rb'
   autoload :UltraFLEX,             'origen_testers/igxl_based_tester/ultraflex.rb'
+  autoload :UltraFLEXP,             'origen_testers/igxl_based_tester/ultraflexp.rb'
 end

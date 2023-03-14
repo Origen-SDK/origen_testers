@@ -2,11 +2,10 @@ require 'sexpistol'
 module OrigenTesters::ATP
   class Parser < Sexpistol
     def initialize
-      self.ruby_keyword_literals = true
     end
 
     def string_to_ast(string)
-      to_sexp(parse_string(string))
+      to_sexp(Sexpistol.parse(string, parse_ruby_keyword_literals: true))
     end
 
     def to_sexp(ast_array)

@@ -65,34 +65,36 @@ module OrigenTesters
           Origen.log.info "Writing... #{output_file}"
           spreadsheet = RODF::Spreadsheet.new
           Origen.interface.flow_sheets.each do |name, flow|
-            if flow.limits_file
-              limits_name = flow.limits_file.filename.sub('.csv', '')
-              table = spreadsheet.table limits_name
-              flow.limits_file.output_file.readlines.each_with_index do |line, i|
-                # Need to fix the first row, SMT8 won't allow the Low/High limits cells not to be merged
-                if i == 0
-                  row = table.row
-                  x = nil
-                  line.chomp.split(',').each do |word|
-                    if word == 'Low Limit'
-                      x = 0
-                    elsif word == 'High Limit'
-                      row.cell 'Low Limit', span: x + 1
-                      x = 0
-                    elsif word == 'Unit'
-                      row.cell 'High Limit', span: x + 1
-                      row.cell word
-                      x = nil
-                    elsif x
-                      x += 1
-                    else
+            if tester.create_limits_file
+              if flow.limits_file
+                limits_name = flow.limits_file.filename.sub('.csv', '')
+                table = spreadsheet.table limits_name
+                flow.limits_file.output_file.readlines.each_with_index do |line, i|
+                  # Need to fix the first row, SMT8 won't allow the Low/High limits cells not to be merged
+                  if i == 0
+                    row = table.row
+                    x = nil
+                    line.chomp.split(',').each do |word|
+                      if word == 'Low Limit'
+                        x = 0
+                      elsif word == 'High Limit'
+                        row.cell 'Low Limit', span: x + 1
+                        x = 0
+                      elsif word == 'Unit'
+                        row.cell 'High Limit', span: x + 1
+                        row.cell word
+                        x = nil
+                      elsif x
+                        x += 1
+                      else
+                        row.cell word
+                      end
+                    end
+                  else
+                    row = table.row
+                    line.chomp.split(',').each do |word|
                       row.cell word
                     end
-                  end
-                else
-                  row = table.row
-                  line.chomp.split(',').each do |word|
-                    row.cell word
                   end
                 end
               end

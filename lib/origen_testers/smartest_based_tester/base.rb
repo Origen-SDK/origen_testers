@@ -62,6 +62,8 @@ module OrigenTesters
       # defaults to the application's namespace if not defined (SMT8 only)
       attr_writer :package_namespace
 
+      attr_writer :spec_path
+
       # When set to true, the bins and softbins sheets from the limits spreadsheet will
       # be written out to a standalone (spreadsheet) file instead (SMT8 only)
       attr_accessor :separate_bins_file
@@ -131,16 +133,17 @@ module OrigenTesters
             @unique_test_names = :signature
           end
         end
-        if smt8?
-          @create_limits_file = true
+        if options.key?(:create_limits_file)
+          @create_limits_file = options[:create_limits_file]
         else
-          if options.key?(:create_limits_file)
-            @create_limits_file = options[:create_limits_file]
+          if smt8?
+            @create_limits_file = true
           else
             @create_limits_file = false
           end
         end
         @package_namespace = options.delete(:package_namespace)
+        @spec_path = options.delete(:spec_path)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
@@ -156,6 +159,9 @@ module OrigenTesters
         @package_namespace || Origen.app.namespace
       end
 
+      def spec_path
+        @spec_path || 'specs'
+      end
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
       # to set multiple.
       def limitfile_test_modes=(val)

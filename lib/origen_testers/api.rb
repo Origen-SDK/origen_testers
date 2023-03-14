@@ -103,8 +103,13 @@ module OrigenTesters
     end
     alias_method :uflex?, :ultraflex?
 
+    def ultraflexp?
+      is_a?(OrigenTesters::IGXLBasedTester::UltraFLEXP)
+    end
+    alias_method :uflexp?, :ultraflexp?
+
     def igxl?
-      j750? || j750_hpt? || ultraflex?
+      j750? || j750_hpt? || ultraflex? || ultraflexp?
     end
 
     def stil?

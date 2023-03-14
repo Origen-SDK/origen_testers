@@ -15,7 +15,6 @@ describe 'AST Nodes' do
           s(:test_result, :t1, false,
             s(:test,
               s(:name, "test3")))))
-  
     OrigenTesters::ATP::AST::Node.from_sexp(node.to_sexp).to_sexp.should == node.to_sexp
 
     ast = to_ast <<-END

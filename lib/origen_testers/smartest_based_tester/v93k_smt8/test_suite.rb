@@ -12,6 +12,7 @@ module OrigenTesters
 
             pattern
             specification
+            seq
           )
 
         ALIASES = {
@@ -22,6 +23,9 @@ module OrigenTesters
         DEFAULTS = {
         }
 
+        SKIP_LINES = %w(
+          pattern
+        )
         # Generate accessors for all attributes and their aliases
         ATTRS.each do |attr|
           if attr == 'name' || attr == 'pattern'
@@ -43,19 +47,26 @@ module OrigenTesters
 
         def lines
           l = []
-          l << "suite #{name} calls #{test_method.klass} {"
+          l << "suite #{name} calls #{test_method.klass[0].downcase + test_method.klass[1..-1]} {"
           if pattern && !pattern.to_s.empty?
             l << "    measurement.pattern = setupRef(#{tester.package_namespace}.patterns.#{pattern});"
           end
+          if seq && !seq.to_s.empty?
+            l << "    measurement.operatingSequence = setupRef(#{seq});"
+          end
           if specification && !specification.to_s.empty?
-            l << "    measurement.specification = setupRef(#{tester.package_namespace}.specs.#{specification});"
+            l << "    measurement.specification = setupRef(#{tester.package_namespace}.#{tester.spec_path}.#{specification});"
+            # l << "    measurement.specification = setupRef(mainSpecs.#{specification});"
           end
           test_method.sorted_parameters.each do |param|
             name = param[0]
             unless name.is_a?(String)
               name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
             end
-            l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
+
+            if test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
+              l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
+            end
           end
           l << '}'
           l

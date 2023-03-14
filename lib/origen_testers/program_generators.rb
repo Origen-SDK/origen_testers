@@ -9,7 +9,7 @@ module OrigenTesters
     extend ActiveSupport::Concern
     include Interface
 
-    PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K]
+    PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K, UltraFLEXP]
 
     included do
       Origen.add_interface(self)
@@ -56,6 +56,8 @@ module OrigenTesters
         class << self; include OrigenTesters::J750::Generator; end
       elsif tester.ultraflex?
         class << self; include OrigenTesters::UltraFLEX::Generator; end
+      elsif tester.ultraflexp?
+        class << self; include OrigenTesters::UltraFLEXP::Generator; end
       elsif defined? tester.class::TEST_PROGRAM_GENERATOR
         class << self; include tester.class::TEST_PROGRAM_GENERATOR; end
       else
