@@ -9,15 +9,25 @@ module OrigenTesters::ATP
       end
 
       # Make all IDs lower cased symbols
+      # unless literal_flags is set
       def on_id(node)
         id = node.to_a[0]
-        node.updated(nil, [clean(id)])
+        if tester.literal_flags
+          node.updated(nil, [id])
+        else
+          node.updated(nil, [clean(id)])
+        end
       end
 
       # Make all ID references use the lower case symbols
+      # unless literal_flags is set
       def on_if_failed(node)
         id, *children = *node
-        node.updated(nil, [clean(id)] + process_all(children))
+        if tester.literal_flags
+          node.updated(nil, [id] + process_all(children))
+        else
+          node.updated(nil, [clean(id)] + process_all(children))
+        end
       end
       alias_method :on_if_passed, :on_if_failed
       alias_method :on_if_any_failed, :on_if_failed

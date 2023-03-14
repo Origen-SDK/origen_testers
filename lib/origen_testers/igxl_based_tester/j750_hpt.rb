@@ -14,8 +14,8 @@ module OrigenTesters
     class J750_HPT < J750
       require 'origen_testers/igxl_based_tester/j750_hpt/generator.rb'
 
-      def initialize
-        super
+      def initialize(options = {})
+        super(options)
         @@hpt_mode = true
         @drive_hi_state = '.1'
         @drive_lo_state = '.0'

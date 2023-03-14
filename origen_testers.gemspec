@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Add any gems that your plugin needs to run within a host application
-  spec.add_runtime_dependency 'origen', '>= 0.57.1'
+  spec.add_runtime_dependency 'origen', '>= 0.60.7'
   spec.add_runtime_dependency 'dentaku', '~>3'  # to support ruby 2.7. if origen requirement ever goes to >= 0.60.1 then you can remove this one
   spec.add_runtime_dependency "simplecov", "~>0.17" # simplecov version 0.17 is the last release that supports older Ruby versions (< 2.4)
   spec.add_runtime_dependency "simplecov-html", "~>0.10.0" # Constraint to avoid Ruby 2.3 issues at Travis CI (2.3.8) check.
@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rodf', '~>1'
   spec.add_runtime_dependency 'origen_stil', '>= 0.2.1'
   spec.add_runtime_dependency "ast", "~> 2"
-  spec.add_runtime_dependency "sexpistol", "~> 0.0"
+  spec.add_runtime_dependency "sexpistol", "= 0.0.7"
 end

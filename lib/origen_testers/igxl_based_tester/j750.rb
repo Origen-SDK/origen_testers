@@ -26,8 +26,8 @@ module OrigenTesters
 
       # Returns a new J750 instance, normally there would only ever be one of these
       # assigned to the global variable such as $tester by your target.
-      def initialize
-        super
+      def initialize(options = {})
+        super(options)
         @pipeline_depth = 34  # for extended mode is vectors, for normal mode is vector pairs (54 for J750Ex)
         @use_hv_pin = false   # allows to use high voltage for a pin for all patterns
         @software_version = '3.50.40'

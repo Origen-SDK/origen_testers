@@ -129,7 +129,7 @@ module OrigenTesters
               current_line.flag_pass = flag
             end
           else
-            unless set_previously
+            if !set_previously && !global_flags.include?(flag)
               completed_lines << platform::FlowLine.new(:defaults, flag_fail: flag)
             end
             completed_lines << new_line(:flag_true, parameter: flag)
@@ -425,7 +425,11 @@ module OrigenTesters
             flag[0] = ''
             flag
           else
-            flag.downcase
+            if tester.literal_enables
+              flag
+            else
+              flag.downcase
+            end
           end
         end
 

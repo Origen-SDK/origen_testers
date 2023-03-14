@@ -23,6 +23,11 @@ module OrigenTesters
       attr_accessor :min_repeat_loop
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
+
+      # Control literal flag definitions
+      attr_accessor :literal_flags      # whether flags should be exactly as indicated
+      attr_accessor :literal_enables    # whether enables should be exactly as indicated
+
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
 
@@ -64,6 +69,13 @@ module OrigenTesters
         @overlay_history = {}			# used to track labels, subroutines, digsrc pins used etc
         @overlay_subr = nil
         @capture_history = {}
+
+        if options[:literal_flags]
+          @literal_flags = true
+        end
+        if options[:literal_enables]
+          @literal_enables = true
+        end
       end
 
       def igxl_based?

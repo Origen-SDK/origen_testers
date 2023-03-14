@@ -27,6 +27,10 @@ module OrigenTesters
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
 
+      # Control literal flag definitions
+      attr_accessor :literal_flags      # whether flags should be exactly as indicated
+      attr_accessor :literal_enables    # whether enables should be exactly as indicated
+
       # permit option to generate multiport type patterns
       # and use multiport type code
       attr_accessor :multiport
@@ -142,6 +146,13 @@ module OrigenTesters
             @create_limits_file = false
           end
         end
+        if options[:literal_flags]
+          @literal_flags = true
+        end
+        if options[:literal_enables]
+          @literal_enables = true
+        end
+
         @package_namespace = options.delete(:package_namespace)
         @spec_path = options.delete(:spec_path)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
