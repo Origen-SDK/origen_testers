@@ -7,7 +7,7 @@ module OrigenTesters::ATP
     end
 
     def string_to_ast(string)
-      to_sexp(Sexpistol.parse(string, parse_ruby_keyword_literals: true))
+      to_sexp(parse_string(string))
     end
 
     def to_sexp(ast_array)
