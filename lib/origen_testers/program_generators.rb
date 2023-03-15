@@ -9,7 +9,7 @@ module OrigenTesters
     extend ActiveSupport::Concern
     include Interface
 
-    PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K, UltraFLEXP]
+    PLATFORMS = [J750, J750_HPT, UltraFLEX, V93K]
 
     included do
       Origen.add_interface(self)
