@@ -50,7 +50,12 @@ module OrigenTesters
                 parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
                 f = f.parent
               end
-              File.join tester.package_namespace, 'flows', *parents
+              # need to variablize this for internal usage!!
+              if Origen.interface.respond_to?(:insertion)
+                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+              else
+                File.join tester.package_namespace, 'flows', *parents
+              end
             else
               'testflow/mfh.testflow.group'
             end
