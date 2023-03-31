@@ -18,26 +18,26 @@ DFF 1.1	Flow Table
 						Test	pgm1	pgm1	50090					Fail									flag-true	p_flw_FLOW_CONTROL_LITERALS_Test__Flag4_06D8931				
 						logprint	Test_that_if_ran_works																					
 						Test	pgm	pgm	50100		10			Fail														
-						defaults										RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931												
-						flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931																					
-						Test	read0	read0	50110					Fail									flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931				
+						defaults										r_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931												
+						flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931																					
+						Test	read0	read0	50110					Fail									flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag5_06D8931				
 						logprint	Test_the_block_form_of_if_ran																					
 						Test	pgm	pgm	50120		10			Fail														
-						defaults										RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931												
-						flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931																					
-						Test	read0	read0	50130					Fail									flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931				
-						Test	read0	read0	50140					Fail									flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931				
+						defaults										r_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931												
+						flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931																					
+						Test	read0	read0	50130					Fail									flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931				
+						Test	read0	read0	50140					Fail									flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag6_06D8931				
 						logprint	Test_that_unless_ran_works																					
 						Test	pgm	pgm	50150		10			Fail														
-						defaults										RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931												
-						flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931																					
-						Test	read0	read0	50160					Fail								not	flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931				
+						defaults										r_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931												
+						flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931																					
+						Test	read0	read0	50160					Fail								not	flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag7_06D8931				
 						logprint	Test_the_block_form_of_unless_ran																					
 						Test	pgm	pgm	50170		10			Fail														
-						defaults										RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931												
-						flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931																					
-						Test	read0	read0	50180					Fail								not	flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931				
-						Test	read0	read0	50190					Fail								not	flag-true	RAN_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931				
+						defaults										r_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931												
+						flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931																					
+						Test	read0	read0	50180					Fail								not	flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931				
+						Test	read0	read0	50190					Fail								not	flag-true	r_flw_FLOW_CONTROL_LITERALS_Test__Flag8_06D8931				
 						logprint	Test_that_if_enable_works																					
 		Extras__123				Test	extra_test	extra_test	50270					Fail														
 						logprint	Test_the_block_form_of_if_enable																					
