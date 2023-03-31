@@ -40,7 +40,7 @@ module OrigenTesters::ATP
       def on_if_failed(node)
         ids = node.to_a[0]
         [ids].flatten.each do |id|
-          unless id =~ /^extern/
+          unless id =~ /^extern/ || tester.literal_flags && id =~ /_extern/
             @referenced_ids[id] ||= []
             @referenced_ids[id] << node
             unless @present_ids[id]

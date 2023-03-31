@@ -29,6 +29,7 @@ module OrigenTesters
 
       # Control literal flag definitions
       attr_accessor :literal_flags      # whether flags should be exactly as indicated
+      attr_accessor :literal_flag_options  # any custom options for flag names
       attr_accessor :literal_enables    # whether enables should be exactly as indicated
 
       # permit option to generate multiport type patterns

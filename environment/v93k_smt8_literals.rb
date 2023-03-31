@@ -1,4 +1,5 @@
-OrigenTesters::UltraFLEX.new(literal_flags: true, literal_enables: true)
+OrigenTesters::V93K.new smt_version: 8,#, separate_bins_file: true
+                        zip_patterns: false
 
 # Optional - provide 
 tester.literal_flag_options = {

@@ -1,4 +1,4 @@
-OrigenTesters::UltraFLEX.new(literal_flags: true, literal_enables: true)
+OrigenTesters::V93K.new
 
 # Optional - provide 
 tester.literal_flag_options = {

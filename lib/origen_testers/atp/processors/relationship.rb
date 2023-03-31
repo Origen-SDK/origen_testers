@@ -68,7 +68,20 @@ module OrigenTesters::ATP
         node = node.ensure_node_present(:on_fail)
         node.updated(nil, node.children.map do |n|
           if n.type == :on_pass
-            n = n.add node.updated(:set_flag, ["#{id}_PASSED", :auto_generated])
+            type = 'PASSED'
+            if !tester.literal_flag_options.nil?
+              if tester.literal_flag_options[:using_f_p_instead_FAILED_PASSED]
+                type = 'p'
+              end
+              if tester.literal_flag_options[:type_first]
+                n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
+              else
+                n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+              end
+            else
+              n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+            end
+
           elsif n.type == :on_fail
             delayed = n.find(:delayed)
             if delayed && delayed.to_a[0]
@@ -86,7 +99,20 @@ module OrigenTesters::ATP
         node = node.ensure_node_present(:on_fail)
         node.updated(nil, node.children.map do |n|
           if n.type == :on_fail
-            n = n.add node.updated(:set_flag, ["#{id}_FAILED", :auto_generated])
+            type = 'FAILED'
+            if !tester.literal_flag_options.nil?
+              if tester.literal_flag_options[:using_f_p_instead_FAILED_PASSED]
+                type = 'f'
+              end
+              if tester.literal_flag_options[:type_first]
+                n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
+              else
+                n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+              end
+            else
+              n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+            end
+
             delayed = n.find(:delayed)
             if delayed && delayed.to_a[0]
               n
@@ -100,7 +126,15 @@ module OrigenTesters::ATP
       end
 
       def add_ran_flags(id, node)
-        set_flag = node.updated(:set_flag, ["#{id}_RAN", :auto_generated])
+        if !tester.literal_flag_options.nil?
+          if tester.literal_flag_options[:type_first]
+            set_flag = node.updated(:set_flag, ["RAN_#{id}", :auto_generated])
+          else
+            set_flag = node.updated(:set_flag, ["#{id}_RAN", :auto_generated])
+          end
+        else
+          set_flag = node.updated(:set_flag, ["#{id}_RAN", :auto_generated])
+        end
         # For a group, set a flag immediately upon entry to the group to signal that
         # it ran to later tests, this is better than doing it immediately after the group
         # in case it was bypassed
@@ -212,10 +246,30 @@ module OrigenTesters::ATP
       end
 
       def id_to_flag(id, type)
-        if id.is_a?(Array)
-          id.map { |i| "#{i}_#{type}" }
+        # default is {id}_type, but allow option to switch
+        if !tester.literal_flag_options.nil?
+          if id.is_a?(Array)
+            id.map { |i| "#{i}_#{type}" }
+          else
+            "#{id}_#{type}"
+          end
+          if tester.literal_flag_options[:using_f_p_instead_FAILED_PASSED]
+            type = 'f' if type == 'FAILED'
+            type = 'p' if type == 'PASSED'
+          end
+          if tester.literal_flag_options[:type_first]
+            if id.is_a?(Array)
+              id.map { |i| "#{type}_#{i}" }
+            else
+              "#{type}_#{id}"
+            end
+          end
         else
-          "#{id}_#{type}"
+          if id.is_a?(Array)
+            id.map { |i| "#{i}_#{type}" }
+          else
+            "#{id}_#{type}"
+          end
         end
       end
     end

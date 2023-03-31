@@ -25,8 +25,9 @@ module OrigenTesters
       alias_method :min_repeat_count=, :min_repeat_loop=
 
       # Control literal flag definitions
-      attr_accessor :literal_flags      # whether flags should be exactly as indicated
-      attr_accessor :literal_enables    # whether enables should be exactly as indicated
+      attr_accessor :literal_flags         # whether flags should be exactly as indicated
+      attr_accessor :literal_flag_options  # any custom options for flag names
+      attr_accessor :literal_enables       # whether enables should be exactly as indicated
 
       # NOTE: DO NOT USE THIS CLASS DIRECTLY ONLY USED AS PARENT FOR
       # DESIRED TESTER CLASS
