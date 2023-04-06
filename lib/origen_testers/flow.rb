@@ -141,7 +141,9 @@ module OrigenTesters
       else
         @model ||= begin
           f = program.flow(try(:path) || id, description: OrigenTesters::Flow.flow_comments)
-          @sig = flow_sig(try(:path) || id)
+          unless tester.no_unique_md5
+            @sig = flow_sig(try(:path) || id)
+          end
           # f.id = @sig if OrigenTesters::Flow.unique_ids
           f
         end

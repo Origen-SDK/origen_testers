@@ -70,7 +70,7 @@ module OrigenTesters::ATP
           if n.type == :on_pass
             type = 'PASSED'
             if !tester.literal_flag_options.nil?
-              type = "#{tester.literal_flag_options[:pass_name]}"
+              type = tester.literal_flag_options[:pass_name] ? "#{tester.literal_flag_options[:pass_name]}" : type
               if tester.literal_flag_options[:type_first]
                 n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
               else
@@ -99,7 +99,7 @@ module OrigenTesters::ATP
           if n.type == :on_fail
             type = 'FAILED'
             if !tester.literal_flag_options.nil?
-              type = "#{tester.literal_flag_options[:fail_name]}"
+              type = tester.literal_flag_options[:fail_name] ? "#{tester.literal_flag_options[:fail_name]}" : type
               if tester.literal_flag_options[:type_first]
                 n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
               else
@@ -124,7 +124,7 @@ module OrigenTesters::ATP
       def add_ran_flags(id, node)
         type = 'RAN'
         if !tester.literal_flag_options.nil?
-          type = "#{tester.literal_flag_options[:ran_name]}"
+          type = tester.literal_flag_options[:ran_name] ? "#{tester.literal_flag_options[:ran_name]}" : type
           if tester.literal_flag_options[:type_first]
             set_flag = node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
           else
@@ -246,11 +246,6 @@ module OrigenTesters::ATP
       def id_to_flag(id, type)
         # default is {id}_type, but allow option to switch
         if !tester.literal_flag_options.nil?
-          if id.is_a?(Array)
-            id.map { |i| "#{i}_#{type}" }
-          else
-            "#{id}_#{type}"
-          end
           type = "#{tester.literal_flag_options[:fail_name]}" if type == 'FAILED'
           type = "#{tester.literal_flag_options[:pass_name]}" if type == 'PASSED'
           type = "#{tester.literal_flag_options[:ran_name]}" if type == 'RAN'
@@ -259,6 +254,12 @@ module OrigenTesters::ATP
               id.map { |i| "#{type}_#{i}" }
             else
               "#{type}_#{id}"
+            end
+          else
+            if id.is_a?(Array)
+              id.map { |i| "#{i}_#{type}" }
+            else
+              "#{id}_#{type}"
             end
           end
         else

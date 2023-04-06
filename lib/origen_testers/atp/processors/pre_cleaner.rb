@@ -13,9 +13,6 @@ module OrigenTesters::ATP
       def on_id(node)
         id = node.to_a[0]
         if tester.literal_flags
-          if tester.literal_flag_options[:flag_included_flow_name]
-            id = "flw_#{Origen.file_handler.current_file.basename('.rb').to_s.gsub('.rb', '').upcase}_#{id}"
-          end
           node.updated(nil, [id])
         else
           node.updated(nil, [clean(id)])
@@ -27,15 +24,6 @@ module OrigenTesters::ATP
       def on_if_failed(node)
         id, *children = *node
         if tester.literal_flags
-          if tester.literal_flag_options[:flag_included_flow_name]
-            if id.is_a?(Array)
-              id.map! do |i|
-                "flw_#{Origen.file_handler.current_file.basename('.rb').to_s.gsub('.rb', '').upcase}_#{i}"
-              end
-            else
-              id = "flw_#{Origen.file_handler.current_file.basename('.rb').to_s.gsub('.rb', '').upcase}_#{id}"
-            end
-          end
           node.updated(nil, [id] + process_all(children))
         else
           node.updated(nil, [clean(id)] + process_all(children))
