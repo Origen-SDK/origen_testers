@@ -10,7 +10,7 @@ module OrigenTesters::ATP
       end
 
       def on_id(node)
-        if node.value =~ /^extern/
+        if node.value =~ /^extern/ || node.value =~ /_extern/
           node
         else
           node.updated(nil, ["#{node.value}_#{id}"])
@@ -21,14 +21,16 @@ module OrigenTesters::ATP
         tid, *nodes = *node
         if tid.is_a?(Array)
           tid = tid.map do |tid|
-            if tid =~ /^extern/
+            if tid =~ /^extern/ || node.value =~ /_extern/
               tid
             else
-              "#{tid}_#{id}"
+              tid = "#{tid}_#{id}"
             end
           end
         else
-          if tid !~ /^extern/
+          if tid =~ /^extern/ || node.value =~ /_extern/
+            tid
+          else
             tid = "#{tid}_#{id}"
           end
         end

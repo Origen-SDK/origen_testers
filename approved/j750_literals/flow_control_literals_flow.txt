@@ -127,3 +127,7 @@ DFF 1.1	Flow Table
 						Test	grp2_test1	grp2_test1	50640		5			Fail									flag-true	f_Group__1_06D8931				
 						Test	grp2_test2	grp2_test2	50650		5			Fail									flag-true	f_Group__1_06D8931				
 						Test	grp2_test3	grp2_test3	50660		5			Fail									flag-true	f_Group__1_06D8931				
+						logprint	Test_that_if_failed_works_using_extern_and_exclude_flow_id																					
+						Test	erase1	erase1	50670		12			Fail									flag-true	f_Test__extern_Flag1				
+						logprint	Test_that_if_passed_works_using_extern_and_exclude_flow_id																					
+						Test	erase1	erase1	50680		12			Fail									flag-true	p_Test__extern_Flag2				

@@ -31,8 +31,6 @@ module OrigenTesters
       attr_accessor :literal_flags      # whether flags should be exactly as indicated
       attr_accessor :literal_flag_options  # any custom options for flag names
       attr_accessor :literal_enables    # whether enables should be exactly as indicated
-      # options to not include md5
-      attr_accessor :no_unique_md5       # dont attach MD5 to flags nor test suite
 
       # permit option to generate multiport type patterns
       # and use multiport type code
@@ -152,9 +150,6 @@ module OrigenTesters
         end
         if options[:literal_enables]
           @literal_enables = true
-        end
-        if options[:no_unique_md5]
-          @no_unique_md5 = true
         end
 
         @package_namespace = options.delete(:package_namespace)
