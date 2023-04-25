@@ -136,10 +136,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :grp2_test3, bin: 5, number: 50660
   end
 
-  log "Test that if_failed works using extern and exclude flow id"
-  func :erase1, if_failed: :Test__extern_Flag1, bin: 12, number: 50670
+  # Only J750 and Ultraflex are support external flags.  V93k are not supported
+  if Origen.environment.name =~ /(ultraflex|j750)/
+    log "Test that if_failed works using extern and exclude flow id"
+    func :erase1, if_failed: :Test__extern_Flag1, bin: 12, number: 50670
 
-  log "Test that if_passed works using extern and exclude flow id"
-  func :erase1, if_passed: :Test__extern_Flag2, bin: 12, number: 50680
+    log "Test that if_passed works using extern and exclude flow id"
+    func :erase1, if_passed: :Test__extern_Flag2, bin: 12, number: 50680
+  end
 
 end

@@ -1,0 +1,608 @@
+flow FLOW_CONTROL_LITERALS {
+    in CZ__123 = -1;
+    in EXTRAS__123 = -1;
+    in QUICK__123 = -1;
+
+    out F_IFALL_1 = -1;
+    out F_IFALL_B1 = -1;
+    out F_IFA_1 = -1;
+    out F_IFA_2 = -1;
+    out F_OOF_PASSCODE1 = -1;
+    out F_OOF_PASSCODE2 = -1;
+    out P_IFALL_P1 = -1;
+    out P_IFALL_PB1 = -1;
+    out P_IF_AP1 = -1;
+    out P_IF_AP2 = -1;
+    out P_IF_APB1 = -1;
+    out P_IF_APB2 = -1;
+    out R_TEST_FLAG5 = -1;
+    out R_TEST_FLAG6 = -1;
+    out R_TEST_FLAG7 = -1;
+    out R_TEST_FLAG8 = -1;
+
+    setup {
+        suite cz_test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.cz_test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite cz_test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.cz_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite erase2_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.erase2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite extra_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.extra_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite long_test calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.long_test);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite long_test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.long_test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite long_test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.long_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm1_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm1_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read0_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read0);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read1_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite read2_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.read2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test1_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test1);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test2_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test3_7 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test4_1 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test4_2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test4_3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        flow GRP1 calls OrigenTesters.flows.flow_control_literals.GRP1 { }
+        flow GRP2 calls OrigenTesters.flows.flow_control_literals.GRP2 { }
+    }
+
+    execute {
+        F_IFALL_1 = -1;
+        F_IFALL_B1 = -1;
+        F_IFA_1 = -1;
+        F_IFA_2 = -1;
+        F_OOF_PASSCODE1 = -1;
+        F_OOF_PASSCODE2 = -1;
+        P_IFALL_P1 = -1;
+        P_IFALL_PB1 = -1;
+        P_IF_AP1 = -1;
+        P_IF_AP2 = -1;
+        P_IF_APB1 = -1;
+        P_IF_APB2 = -1;
+        R_TEST_FLAG5 = -1;
+        R_TEST_FLAG6 = -1;
+        R_TEST_FLAG7 = -1;
+        R_TEST_FLAG8 = -1;
+
+        println("Test that if_failed works using Literal");
+        read1.execute();
+        if (!read1.pass) {
+            erase1.execute();
+        }
+        println("Test the block form of if_failed");
+        read2.execute();
+        if (!read2.pass) {
+            erase2.execute();
+            erase2_1.execute();
+        }
+        println("Test that if_passed works");
+        read1_1.execute();
+        if (read1_1.pass) {
+            pgm1.execute();
+        }
+        println("Test the block form of if_passed");
+        read2_1.execute();
+        if (read2_1.pass) {
+            pgm1_1.execute();
+            pgm1_2.execute();
+        }
+        println("Test that if_ran works");
+        pgm.execute();
+        R_TEST_FLAG5 = 1;
+        if (R_TEST_FLAG5 == 1) {
+            read0.execute();
+        } else {
+        }
+        println("Test the block form of if_ran");
+        pgm_1.execute();
+        R_TEST_FLAG6 = 1;
+        if (R_TEST_FLAG6 == 1) {
+            read0_1.execute();
+            read0_2.execute();
+        } else {
+        }
+        println("Test that unless_ran works");
+        pgm_2.execute();
+        R_TEST_FLAG7 = 1;
+        if (R_TEST_FLAG7 == 1) {
+        } else {
+            read0_3.execute();
+        }
+        println("Test the block form of unless_ran");
+        pgm_3.execute();
+        R_TEST_FLAG8 = 1;
+        if (R_TEST_FLAG8 == 1) {
+        } else {
+            read0_4.execute();
+            read0_5.execute();
+        }
+        println("Test that if_enable works");
+        if (EXTRAS__123 == 1) {
+            extra_test.execute();
+        } else {
+        }
+        println("Test the block form of if_enable");
+        if (CZ__123 == 1) {
+            cz_test1.execute();
+            cz_test2.execute();
+        } else {
+        }
+        println("Test that unless_enable works");
+        if (QUICK__123 == 1) {
+        } else {
+            long_test.execute();
+        }
+        println("Test the block form of unless_enable");
+        if (QUICK__123 == 1) {
+        } else {
+            long_test1.execute();
+            long_test2.execute();
+        }
+        println("Test that if_any_failed works");
+        test1.execute();
+        if (!test1.pass) {
+            F_IFA_1 = 1;
+        }
+        test2.execute();
+        if (!test2.pass) {
+            F_IFA_2 = 1;
+        }
+        if ((F_IFA_1 == 1) || (F_IFA_2 == 1)) {
+            test3.execute();
+        } else {
+        }
+        println("Test the block form of if_any_failed");
+        test1_1.execute();
+        if (!test1_1.pass) {
+            F_OOF_PASSCODE1 = 1;
+        }
+        test2_1.execute();
+        if (!test2_1.pass) {
+            F_OOF_PASSCODE2 = 1;
+        }
+        if ((F_OOF_PASSCODE1 == 1) || (F_OOF_PASSCODE2 == 1)) {
+            test3_1.execute();
+            test4.execute();
+        } else {
+        }
+        println("Test that if_all_failed works");
+        test1_2.execute();
+        if (!test1_2.pass) {
+            F_IFALL_1 = 1;
+        }
+        test2_2.execute();
+        if (!test2_2.pass) {
+            if (F_IFALL_1 == 1) {
+                test3_2.execute();
+            } else {
+            }
+        }
+        println("Test the block form of if_all_failed");
+        test1_3.execute();
+        if (!test1_3.pass) {
+            F_IFALL_B1 = 1;
+        }
+        test2_3.execute();
+        if (!test2_3.pass) {
+            if (F_IFALL_B1 == 1) {
+                test3_3.execute();
+                test4_1.execute();
+            } else {
+            }
+        }
+        println("Test that if_any_passed works");
+        test1_4.execute();
+        if (test1_4.pass) {
+            P_IF_AP1 = 1;
+        }
+        test2_4.execute();
+        if (test2_4.pass) {
+            P_IF_AP2 = 1;
+        }
+        if ((P_IF_AP1 == 1) || (P_IF_AP2 == 1)) {
+            test3_4.execute();
+        } else {
+        }
+        println("Test the block form of if_any_passed");
+        test1_5.execute();
+        if (test1_5.pass) {
+            P_IF_APB1 = 1;
+        }
+        test2_5.execute();
+        if (test2_5.pass) {
+            P_IF_APB2 = 1;
+        }
+        if ((P_IF_APB1 == 1) || (P_IF_APB2 == 1)) {
+            test3_5.execute();
+            test4_2.execute();
+        } else {
+        }
+        println("Test that if_all_passed works");
+        test1_6.execute();
+        if (test1_6.pass) {
+            P_IFALL_P1 = 1;
+        }
+        test2_6.execute();
+        if (test2_6.pass) {
+            if (P_IFALL_P1 == 1) {
+                test3_6.execute();
+            } else {
+            }
+        }
+        println("Test the block form of if_all_passed");
+        test1_7.execute();
+        if (test1_7.pass) {
+            P_IFALL_PB1 = 1;
+        }
+        test2_7.execute();
+        if (test2_7.pass) {
+            if (P_IFALL_PB1 == 1) {
+                test3_7.execute();
+                test4_3.execute();
+            } else {
+            }
+        }
+        println("Test that group-level dependencies work");
+        GRP1.execute();
+        if (!GRP1.pass) {
+            GRP2.execute();
+        }
+    }
+}

@@ -1,0 +1,34 @@
+AI_DIR_FILE
+tmp_dir                         ./tmp
+tmf_dir                         ./
+vbc_dir                         ./
+avc_dir                         ./AVC/
+pinconfig_file                  ./.cfg
+single_binary_pattern_dir       ./BINL/
+ 
+AI_V2B_OPTIONS  -ALT -c .vbc -k -z PS800
+
+PATTERNS name tmf_file v2b_options
+cz_test1 .tmf
+cz_test2 .tmf
+erase1 .tmf
+erase2 .tmf
+extra_test .tmf
+grp1_test1 .tmf
+grp1_test2 .tmf
+grp1_test3 .tmf
+grp2_test1 .tmf
+grp2_test2 .tmf
+grp2_test3 .tmf
+long_test .tmf
+long_test1 .tmf
+long_test2 .tmf
+pgm .tmf
+pgm1 .tmf
+read0 .tmf
+read1 .tmf
+read2 .tmf
+test1 .tmf
+test2 .tmf
+test3 .tmf
+test4 .tmf
