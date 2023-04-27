@@ -2,7 +2,8 @@ module OrigenTesters
   module IGXLBasedTester
     class Base
       class TestInstanceGroup
-        attr_accessor :name, :version, :append_version
+        attr_accessor :version, :append_version
+        attr_writer :name
 
         include Enumerable
 
@@ -48,7 +49,7 @@ module OrigenTesters
           self.class == other_instance_group.class &&
             unversioned_name.to_s == other_instance_group.unversioned_name.to_s &&
             size == other_instance_group.size &&
-            self.all? do |ins|
+            all? do |ins|
               other_instance_group.any? { |other_ins| ins == other_ins }
             end
         end

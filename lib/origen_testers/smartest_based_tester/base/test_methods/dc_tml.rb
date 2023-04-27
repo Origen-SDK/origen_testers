@@ -94,7 +94,9 @@ module OrigenTesters
             output_dc:         {
               class_name:              'OutputDC',
               pinlist:                 [:string, ''],
+              # rubocop:disable Lint/PercentStringArray
               mode:                    [:string, 'PROGRAMLOAD', %w(PROGRAMLOAD, PPMU SPMU PPMUTERM SPMUTERM)],
+              # rubocop:enable Lint/PercentStringArray
               measure_level:           [:string, 'BOTH', %(BOTH LOW HIGH)],
               force_current_low:       [:current, 0],
               force_current_high:      [:current, 0],

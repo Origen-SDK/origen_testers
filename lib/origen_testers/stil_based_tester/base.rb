@@ -126,6 +126,8 @@ module OrigenTesters
                 wave = pin.drive_wave if tester.timeset.dut_timeset
                 (wave ? wave.evaluated_events : []).each do |t, v|
                   line << "'#{t}ns' "
+                  # TODO: https://github.com/Origen-SDK/origen_testers/issues/196
+                  # rubocop:disable Lint/DuplicateElsifCondition
                   if v == 0
                     line << 'D'
                   elsif v == 0
@@ -133,6 +135,7 @@ module OrigenTesters
                   else
                     line << 'D/U'
                   end
+                  # rubocop:enable Lint/DuplicateElsifCondition
                   line << '; '
                 end
                 line << '}}'
@@ -147,6 +150,8 @@ module OrigenTesters
                     line << "'0ns' X; "
                   end
                   line << "'#{t}ns' "
+                  # TODO: https://github.com/Origen-SDK/origen_testers/issues/196
+                  # rubocop:disable Lint/DuplicateElsifCondition
                   if v == 0
                     line << 'L'
                   elsif v == 0
@@ -154,6 +159,7 @@ module OrigenTesters
                   else
                     line << 'L/H/X'
                   end
+                  # rubocop:enable Lint/DuplicateElsifCondition
                   line << '; '
                 end
                 line << '}}'
@@ -207,12 +213,12 @@ module OrigenTesters
       # other platforms, such as the J750, is required.
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the STIL generation you must supply the pins to store/capture'
         end
+
         pins.each do |pin|
           pin.restore_state do
             pin.capture
@@ -238,6 +244,7 @@ module OrigenTesters
         if pins.empty?
           fail 'For STIL generation you must supply the pins to store/capture'
         end
+
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated, cool or what!

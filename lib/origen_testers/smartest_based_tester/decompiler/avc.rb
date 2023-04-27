@@ -24,8 +24,7 @@ module OrigenTesters
           end
           OrigenTesters::Decompiler::Nodes::Frontmatter.new(context:        context,
                                                             pattern_header: header,
-                                                            comments:       []
-                                                           )
+                                                            comments:       [])
         end
 
         def parse_pinlist(raw_pinlist:, context:)
@@ -35,16 +34,14 @@ module OrigenTesters
           # up the names.
           # E.g.: FORMAT TCLK TDI TDO TMS;
           OrigenTesters::Decompiler::Nodes::Pinlist.new(context: context,
-                                                        pins:    raw_pinlist[raw_pinlist.index('FORMAT')..raw_pinlist.index(';') - 1].split(/\s+/)[1..-1].map(&:strip)
-                                                       )
+                                                        pins:    raw_pinlist[raw_pinlist.index('FORMAT')..raw_pinlist.index(';') - 1].split(/\s+/)[1..-1].map(&:strip))
         end
 
         def parse_vector(raw_vector:, context:, meta:)
           if raw_vector =~ Regexp.new('^\s*#')
             # Comment
             OrigenTesters::Decompiler::Nodes::CommentBlock.new(context:  context,
-                                                               comments: raw_vector.split("\n")
-                                                              )
+                                                               comments: raw_vector.split("\n"))
           elsif raw_vector =~ Regexp.new('^R\d+\s')
             # Vector
             elements = raw_vector.split(/\s+/, 2 + context.pinlist.size)
@@ -56,8 +53,7 @@ module OrigenTesters
                                         repeat:     elements[0].gsub('R', '').to_i,
                                         timeset:    elements[1],
                                         pin_states: (elements[2..-2] || []) << elements[-1][0],
-                                        comment:    elements[-1][1]
-                                       )
+                                        comment:    elements[-1][1])
           else
             # Anything that doesn't start with Rxyz where xyz is some integer
             # will be considered a sequencer instruction
@@ -66,8 +62,7 @@ module OrigenTesters
 
             nodes_namespace::SequencerInstruction.new(context:     context,
                                                       instruction: inst_plus_args[0],
-                                                      arguments:   inst_plus_args[1..-1]
-                                                     )
+                                                      arguments:   inst_plus_args[1..-1])
           end
         end
       end

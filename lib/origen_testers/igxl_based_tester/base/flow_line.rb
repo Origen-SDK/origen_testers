@@ -2,7 +2,9 @@ module OrigenTesters
   module IGXLBasedTester
     class Base
       class FlowLine
-        attr_accessor :type, :id, :cz_setup # cz_setup is a virtual attrib since it is not part of the regular flow line
+        attr_accessor :type, :cz_setup # cz_setup is a virtual attrib since it is not part of the regular flow line
+        attr_writer :id
+
         # cz_setup combine with instance name when characterize opcode is used
 
         # Map any aliases to the official names here, multiple aliases for a given attribute
@@ -24,30 +26,23 @@ module OrigenTesters
           # Aliases can also be used to set defaults on multiple attributes like this,
           # use :value to refer to the value passed in to the given alias
           flag_false:     { device_condition: 'flag-false',
-                            device_name:      :value
-                         },
+                            device_name:      :value },
           flag_true:      { device_condition: 'flag-true',
-                            device_name:      :value
-                         },
+                            device_name:      :value },
           flag_false_any: { group_specifier: 'any-active',
                             group_condition: 'flag-false',
-                            group_name:      :value
-                             },
+                            group_name:      :value },
           flag_false_all: { group_specifier: 'all-active',
                             group_condition: 'flag-false',
-                            group_name:      :value
-                             },
+                            group_name:      :value },
           flag_true_any:  { group_specifier: 'any-active',
                             group_condition: 'flag-true',
-                            group_name:      :value
-                            },
+                            group_name:      :value },
           flag_true_all:  { group_specifier: 'all-active',
                             group_condition: 'flag-true',
-                            group_name:      :value
-                            },
+                            group_name:      :value },
           flag_clear:     { device_condition: 'flag-clear',
-                            device_name:      :value
-                         }
+                            device_name:      :value }
         }
 
         # Assign attribute defaults here, generally this should match whatever defaults
@@ -155,11 +150,11 @@ module OrigenTesters
           @type = type
           # Set the defaults
           DEFAULTS[@type.to_sym].each do |k, v|
-            send("#{k}=", v) if self.respond_to?("#{k}=")
+            send("#{k}=", v) if respond_to?("#{k}=")
           end
           # Then the values that have been supplied
           attrs.each do |k, v|
-            send("#{k}=", v) if self.respond_to?("#{k}=")
+            send("#{k}=", v) if respond_to?("#{k}=")
           end
           # override test numbers if diff-friendly output desired
           if Origen.tester.diff_friendly_output?

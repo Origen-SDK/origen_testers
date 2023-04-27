@@ -17,7 +17,8 @@ module OrigenTesters
     #   @return [Boolean] whether or not to wrap eof charz tests in a group
     # @!attribute eof_charz_tests_group_name
     #   @return [String, Symbol] group name to be used to for eof charz tests
-    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name
+    attr_accessor :skip_group_eof_charz_tests, :eof_charz_tests_group_name
+    attr_writer :charz_stack, :charz_profiles, :charz_routines, :charz_session, :eof_charz_tests
 
     def charz_stack
       @charz_stack ||= []

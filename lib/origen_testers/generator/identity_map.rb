@@ -15,9 +15,12 @@ module OrigenTesters
         end
       end
 
+      # rubocop:disable Lint/HashCompareByIdentity
+      # .object_id is not the "preferred" method
       def map_for(obj)
         @store[obj.object_id]
       end
+      # rubocop:enable Lint/HashCompareByIdentity
     end
   end
 end

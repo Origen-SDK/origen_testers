@@ -173,7 +173,10 @@ module OrigenTesters
       def limitfile_test_modes=(val)
         @limitfile_test_modes = Array(val).map(&:to_s)
       end
+      # TODO: limitsfile_test_modes is getting redifined here, is this the intention?
+      # rubocop:disable Lint/DuplicateMethods
       alias_method :limitsfile_test_modes, :limitfile_test_modes=
+      # rubocop:enable Lint/DuplicateMethods
 
       # return the multiport burst name
       # provide the name you want to obtain multiport for
@@ -248,9 +251,11 @@ module OrigenTesters
           super(options)
         end
 
+        # rubocop:disable Lint/EmptyConditionalBody
         unless options_overlay.nil?
           # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
         end
+        # rubocop:enable Lint/EmptyConditionalBody
       end
 
       # Warn user of unsupported overlay style
@@ -330,12 +335,12 @@ module OrigenTesters
       # other platforms, such as the J750, is required.
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the V93K you must supply the pins to store/capture'
         end
+
         pins.each do |pin|
           pin.restore_state do
             pin.capture
@@ -363,6 +368,7 @@ module OrigenTesters
         if pins.empty?
           fail 'For the V93K you must supply the pins to store/capture'
         end
+
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated, cool or what!
@@ -700,7 +706,7 @@ module OrigenTesters
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
         options = {
-          end_in_ka:      false
+          end_in_ka: false
         }.merge(options)
         if options[:end_in_ka]
           Origen.log.warning '93K keep alive not yet implemented!'

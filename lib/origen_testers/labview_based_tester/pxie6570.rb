@@ -101,6 +101,7 @@ module OrigenTesters
         pins = pins.flatten.compact
 
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
+
         add_capture_start pins, options
 
         pins.each do |pin|
@@ -191,6 +192,7 @@ module OrigenTesters
         repeat_count = options[:repeat].nil? ? 1 : options[:repeat]
 
         fail 'For the PXIE6570 you must supply the pins to store/capture' if pins.empty?
+
         add_capture_start pins, options
         @capture_history[:count] += repeat_count
 

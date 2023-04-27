@@ -38,8 +38,7 @@ module OrigenTesters
              hardware_dsp_disable
              site_control
              site_match
-             force_serial
-          )
+             force_serial)
 
         ALIASES = {
           tim_equ_set:     :timing_equation,

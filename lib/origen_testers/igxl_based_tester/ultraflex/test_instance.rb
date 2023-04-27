@@ -244,7 +244,7 @@ module OrigenTesters
             wait_flag1:     -2, # waitoff
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
-            wait_flag4:     -2, # waitoff
+            wait_flag4:     -2 # waitoff
           }
         }
 
@@ -258,10 +258,10 @@ module OrigenTesters
         # assumes clr flag means to set it off (waitoff = -2)
         # does not yet support waitlo = 0
         def set_wait_flags(*flags)
-          a = (flags.include?(:a) || flags.include?(:a)) ? '-1' : '-2'
-          b = (flags.include?(:b) || flags.include?(:b)) ? '-1' : '-2'
-          c = (flags.include?(:c) || flags.include?(:c)) ? '-1' : '-2'
-          d = (flags.include?(:d) || flags.include?(:d)) ? '-1' : '-2'
+          a = flags.include?(:a) ? '-1' : '-2'
+          b = flags.include?(:b) ? '-1' : '-2'
+          c = flags.include?(:c) ? '-1' : '-2'
+          d = flags.include?(:d) ? '-1' : '-2'
           self.wait_flag1 = a
           self.wait_flag2 = b
           self.wait_flag3 = c
@@ -279,9 +279,9 @@ module OrigenTesters
         # intended to be used in documentation
         def to_meta
           return @meta if @meta
+
           m = { 'Test' => name,
-                'Type' => type
-          }
+                'Type' => type }
           if type == :functional
             m['Pattern'] = pattern
           elsif type == :board_pmu || type == :pin_pmu

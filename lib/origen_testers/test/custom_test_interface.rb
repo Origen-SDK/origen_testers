@@ -69,12 +69,12 @@ module OrigenTesters
                     # An optional finalize function can be supplied to do any final test instance configuration, this
                     # function will be called immediately before the test method is finally rendered. The test method
                     # object itself will be passed in as an argument.
-                    finalize:    lambda  do |tm|
+                    finalize:    lambda do |tm|
                       tm.my_arg3 = 'arg3_set_from_finalize'
                     end,
                     # Example of a custom method.
                     # In all cases the test method object will be passed in as the first argument.
-                    set_my_arg4: lambda  do |tm, val|
+                    set_my_arg4: lambda do |tm, val|
                       tm.my_arg4 = val
                     end
                   }
@@ -108,12 +108,12 @@ module OrigenTesters
                     # An optional finalize function can be supplied to do any final test instance configuration, this
                     # function will be called immediately before the test instance is finally rendered. The test instance
                     # object itself will be passed in as an argument.
-                    finalize:    lambda  do |ti|
+                    finalize:    lambda do |ti|
                       ti.my_arg3 = 'arg3_set_from_finalize'
                     end,
                     # Example of a custom method.
                     # In all cases the test method object will be passed in as the first argument.
-                    set_my_arg4: lambda  do |ti, val|
+                    set_my_arg4: lambda do |ti, val|
                       ti.my_arg4 = val
                     end
                   }

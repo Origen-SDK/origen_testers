@@ -20,7 +20,7 @@ module OrigenTesters
           esname = esname.to_sym unless esname.is_a? Symbol
           pin = pin.to_sym unless pin.is_a? Symbol
           @es.key?(esname) ? @es[esname].add_edge(pin, edge) : @es[esname] = platform::Edgeset.new(esname, pin, edge, options)
-          @es_sheet_pins = options[:es_sheet_pins] unless @es_sheet_pins
+          @es_sheet_pins ||= options[:es_sheet_pins]
           @es
         end
 

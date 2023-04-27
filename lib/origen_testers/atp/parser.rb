@@ -12,7 +12,7 @@ module OrigenTesters::ATP
 
     def to_sexp(ast_array)
       children = ast_array.map do |item|
-        if  item.is_a?(Array)
+        if item.is_a?(Array)
           to_sexp(item)
         else
           item
@@ -20,6 +20,7 @@ module OrigenTesters::ATP
       end
       type = children.shift
       return type if type.is_a?(OrigenTesters::ATP::AST::Node)
+
       type = type.to_s.gsub('-', '_').to_sym
       OrigenTesters::ATP::AST::Node.new(type, children)
     end

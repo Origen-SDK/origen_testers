@@ -9,8 +9,6 @@ module OrigenTesters::ATP
 
       # Extracts all test-result nodes from the given AST
       class ExtractTestResults < Processor
-        attr_reader :results
-
         def on_if_failed(node)
           ids, *children = *node
           unless ids.is_a?(Array)
@@ -139,9 +137,7 @@ module OrigenTesters::ATP
         if node.type == :group || node.type == :sub_flow
           nodes = node.to_a.dup
           pre_nodes = []
-          while [:name, :id, :path].include?(nodes.first.try(:type))
-            pre_nodes << nodes.shift
-          end
+          pre_nodes << nodes.shift while [:name, :id, :path].include?(nodes.first.try(:type))
           node.updated(nil, pre_nodes + [set_flag] + nodes)
 
         # For a test, set a flag immediately after the referenced test has executed

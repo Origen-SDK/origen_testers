@@ -10,13 +10,13 @@ module Tester
                  if exact
                    val.any? { |v| item.send(attr).to_s == v.to_s }
                  else
-                   val.any? { |v| item.send(attr).to_s =~ /#{v.to_s}/ }
+                   val.any? { |v| item.send(attr).to_s =~ /#{v}/ }
                  end
                else
                  if exact
                    item.send(attr).to_s == val.to_s
                  else
-                   item.send(attr).to_s =~ /#{val.to_s}/
+                   item.send(attr).to_s =~ /#{val}/
                  end
                end
              end

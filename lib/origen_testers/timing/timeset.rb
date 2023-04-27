@@ -65,7 +65,9 @@ module OrigenTesters
         end
 
         # Return the period
+        # rubocop:disable Lint/Void
         p
+        # rubocop:enable Lint/Void
       end
 
       # Indicates whether a period_in_ns has been defined for this timeset.
@@ -134,7 +136,9 @@ module OrigenTesters
         #  )
         # end
         @period_in_ns = p
+        # rubocop:disable Lint/Void
         @period_in_ns
+        # rubocop:enable Lint/Void
       end
     end
   end

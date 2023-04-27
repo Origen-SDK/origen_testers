@@ -1,4 +1,3 @@
-
 module OrigenTesters
   # A base class that can be used to model command-based, rather than
   # vector-based testers.
@@ -35,11 +34,13 @@ module OrigenTesters
     end
 
     # Loop the content embedded in the supplied block
+    # rubocop:disable Style/OptionalArguments
     def loop(_name = nil, number_of_loops)
       number_of_loops.times do
         yield
       end
     end
     alias_method :loop_vector, :loop
+    # rubocop:enable Style/OptionalArguments
   end
 end

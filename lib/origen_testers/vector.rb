@@ -1,9 +1,11 @@
 module OrigenTesters
   # A simple class to model a vector
   class Vector
-    attr_accessor :repeat, :microcode, :timeset, :pin_vals,
+    attr_accessor :timeset, :pin_vals,
                   :number, :cycle_number, :dont_compress,
-                  :comments, :inline_comment, :cycle, :number, :contains_capture
+                  :inline_comment, :cycle, :contains_capture
+    attr_writer   :comments, :repeat
+    attr_reader   :microcode
 
     def initialize(attrs = {})
       @inline_comment = ''
@@ -73,6 +75,7 @@ module OrigenTesters
         if timeset.period_in_ns % tset.period_in_ns != 0
           fail "The period of timeset #{timeset.name} is not a multiple of the period of timeset #{tset.name}!"
         end
+
         if contains_capture
           vector_modification_required = true
         elsif $tester.timing_toggled_pins.empty?
@@ -196,7 +199,7 @@ module OrigenTesters
 
     def ==(obj)
       if obj.is_a?(Vector)
-        self.has_microcode? == obj.has_microcode? &&
+        has_microcode? == obj.has_microcode? &&
           timeset == obj.timeset &&
           pin_vals == obj.pin_vals
       else
