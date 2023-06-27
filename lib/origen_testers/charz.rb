@@ -348,13 +348,13 @@ module OrigenTesters
           gated_routines = charz_session.routines - ungated_routines    
           gated_routines.each do |routine|       
             my_proc = -> {block.call(options.merge(current_routine: routine))}   
-            charz_session.enables_and[routine].inject(my_proc) { |my_block, enable| 
-              -> { 
-                  if_enable :"#{enable}" do
-                    my_block.call
-                  end 
-                 }
-              }.call
+            charz_session.enables_and[routine].inject(my_proc) do |my_block, enable| 
+              lambda do
+                if_enable :"#{enable}" do
+                  my_block.call
+                end 
+              end
+            end.call
           end
         elsif charz_session.enables && charz_session.flags
           if charz_session.enables.is_a?(Hash) && !charz_session.flags.is_a?(Hash)
