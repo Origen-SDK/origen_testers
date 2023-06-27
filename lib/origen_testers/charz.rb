@@ -335,12 +335,28 @@ module OrigenTesters
     # This is the final method of handling the insert_charz_test usecases, where the block thats been passed around is finally called
     # the user's provided block is passed the current routine (one at a time) to then take its info to generate a charz test
     def process_gates(options, &block)
-      if options[:skip_gates] || !(charz_session.enables || charz_session.flags)
+      if options[:skip_gates] || !(charz_session.enables || charz_session.flags || charz_session.enables_and)
         charz_session.routines.each do |routine|
           block.call(options.merge(current_routine: routine))
         end
       else
-        if charz_session.enables && charz_session.flags
+        if charz_session.enables_and
+          ungated_routines = charz_session.routines - charz_session.enables_and.keys
+          ungated_routines.each do |routine|
+            block.call(options.merge(current_routine: routine))
+          end
+          gated_routines = charz_session.routines - ungated_routines    
+          gated_routines.each do |routine|       
+            my_proc = -> {block.call(options.merge(current_routine: routine))}   
+            charz_session.enables_and[routine].inject(my_proc) { |my_block, enable| 
+              -> { 
+                  if_enable :"#{enable}" do
+                    my_block.call
+                  end 
+                 }
+              }.call
+          end
+        elsif charz_session.enables && charz_session.flags
           if charz_session.enables.is_a?(Hash) && !charz_session.flags.is_a?(Hash)
             # wrap all tests in flags, wrap specific tests in enables
             if_flag charz_session.flags do
@@ -431,4 +447,12 @@ module OrigenTesters
       end
     end
   end
+
+  def insert_and_enables(options, enables, &block)
+    enables.inject(block) { |block, enable| 
+    -> { if_enable :"#{enable}" do
+          block.call
+          end }
+        }.call 
+  end   
 end

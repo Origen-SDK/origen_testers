@@ -20,6 +20,7 @@ module OrigenTesters
             on_result:  nil,
             enables:    nil,
             flags:      nil,
+            enables_and: nil,
             name:       'charz',
             charz_only: false
           }
@@ -57,6 +58,7 @@ module OrigenTesters
         assign_by_priority(:on_result, charz_obj, options)
         assign_by_priority(:enables, charz_obj, options)
         assign_by_priority(:flags, charz_obj, options)
+        assign_by_priority(:enables_and, charz_obj, options)
         assign_by_priority(:routines, charz_obj, options)
         assign_by_priority(:name, charz_obj, options)
         assign_by_priority(:charz_only, charz_obj, options)

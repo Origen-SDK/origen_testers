@@ -19,7 +19,7 @@ module OrigenTesters
       #   @return [Array] list of charz routines to be called under this profile
       # @!attribute charz_only
       #   @return [Boolean] indicates if the point tests should or shouldn't be added to the flow
-      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only
+      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only, :enables_and
 
       def initialize(id, options, &block)
         @id = id
@@ -76,6 +76,7 @@ module OrigenTesters
         unless @gate_checks == false
           gate_check(@enables, :enables) if @enables
           gate_check(@flags, :flags) if @flags
+          #gate_check(@enables_and, :enables_and) if @enables_and
         end
       end
 
