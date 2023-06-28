@@ -54,11 +54,22 @@ module OrigenTesters
           return @valid
         end
         @defined_routines = options.delete(:defined_routines)
+        # binding.pry 
+        # tmp = 1
+        if charz_obj.and_flags
+          @and_flags = charz_obj.and_flags
+        else
+          @and_flags = false
+        end
+        if charz_obj.and_enables
+          @and_enables = charz_obj.and_enables
+        else
+          @and_enables = false
+        end
         assign_by_priority(:placement, charz_obj, options)
         assign_by_priority(:on_result, charz_obj, options)
         assign_by_priority(:enables, charz_obj, options)
         assign_by_priority(:flags, charz_obj, options)
-        assign_by_priority(:enables_and, charz_obj, options)
         assign_by_priority(:routines, charz_obj, options)
         assign_by_priority(:name, charz_obj, options)
         assign_by_priority(:charz_only, charz_obj, options)

@@ -80,12 +80,12 @@ module OrigenTesters
           end
           if @and_enables
             gate_check(@flags, :flags) if @flags
-            gate_check_and(@enables, :enables) if @enables
+            gate_check_and(@enables, :enables, @flags) if @enables
           elsif @and_flags
             gate_check(@enables, :enables) if @enables
-            gate_check_and(@flags, :flags) if @flags
+            gate_check_and(@flags, :flags, @enables) if @flags
           else
-            gate_check(@enables, :enables) if @enables
+            gate_check(@enables, :enable) if @enables
             gate_check(@flags, :flags) if @flags
           end
         end
@@ -124,7 +124,11 @@ module OrigenTesters
         end
       end
 
-      def gate_check_and(gates, gate_type)
+      def gate_check_and(gates, gate_type, other_gate)
+        if other_gate.is_a? Hash
+            Origen.log.error "Profile #{id}: #{other_gate} When using &&-ing feature, the non-anded gate can not be of type hash."
+            fail
+        end
         case gates
         when Symbol, String
           return
