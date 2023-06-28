@@ -54,8 +54,7 @@ module OrigenTesters
           return @valid
         end
         @defined_routines = options.delete(:defined_routines)
-        # binding.pry 
-        # tmp = 1
+
         if charz_obj.and_flags
           @and_flags = charz_obj.and_flags
         else
