@@ -16,13 +16,13 @@ module OrigenTesters
           @defaults = options[:defaults]
         else
           @defaults = {
-            placement:  :inline,
-            on_result:  nil,
-            enables:    nil,
-            flags:      nil,
+            placement:   :inline,
+            on_result:   nil,
+            enables:     nil,
+            flags:       nil,
             enables_and: nil,
-            name:       'charz',
-            charz_only: false
+            name:        'charz',
+            charz_only:  false
           }
         end
       end

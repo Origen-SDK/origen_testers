@@ -126,8 +126,8 @@ module OrigenTesters
 
       def gate_check_and(gates, gate_type, other_gate)
         if other_gate.is_a? Hash
-            Origen.log.error "Profile #{id}: #{other_gate} When using &&-ing feature, the non-anded gate can not be of type hash."
-            fail
+          Origen.log.error "Profile #{id}: #{other_gate} When using &&-ing feature, the non-anded gate can not be of type hash."
+          fail
         end
         case gates
         when Symbol, String
@@ -147,12 +147,12 @@ module OrigenTesters
               Origen.log.error "Profile #{id}: #{gate_type} Hash keys cannot be of type Hash, but only Symbol, String, or Array"
               fail
             end
-            if !@defined_routines.include?(gated_routine)
+            unless @defined_routines.include?(gated_routine)
               Origen.log.error "Profile #{id}: #{gated_routine} Hash keys for &&-ed gates must be defined routines."
               fail
             end
             gates = [gates] unless gates.is_a? Array
-            unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class}
+            unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
             unless unknown_gates.empty?
               Origen.log.error "Gate array must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
               fail
@@ -164,8 +164,6 @@ module OrigenTesters
         end
       end
 
-
-            
       def method_missing(m, *args, &block)
         ivar = "@#{m.to_s.gsub('=', '')}"
         ivar_sym = ":#{ivar}"
