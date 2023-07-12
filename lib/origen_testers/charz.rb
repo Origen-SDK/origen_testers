@@ -63,7 +63,7 @@ module OrigenTesters
         fail
       end
       charz_routines[id] = create_charz_routine(id, options, &block)
-  end
+    end
 
     # Called by add_charz_routine, split out from that method to make it easier to override this handler from a user's interface
     # This is the method to override if you want to use custom Routines specifc to your company's implementation
@@ -81,7 +81,7 @@ module OrigenTesters
       else
         Routine.new(id, options, &block)
       end
-  end
+    end
 
     # Add a new charz profile to @charz_profiles
     # A charz profile is a collection of one or more charz routines, as well as flow control and placement data for
@@ -389,8 +389,8 @@ module OrigenTesters
             end
             gated_routines = charz_session.routines - ungated_routines
             gated_routines.each do |routine|
-              my_proc = -> { if_enable charz_session.flags do block.call(options.merge(current_routine: routine)) end }
-              charz_session.enables[routine].inject(my_proc) do |my_block, flag|
+              my_proc = -> { if_enable charz_session.enables do block.call(options.merge(current_routine: routine)) end }
+              charz_session.flags[routine].inject(my_proc) do |my_block, flag|
                 lambda do
                   if_flag :"#{flag}" do
                     my_block.call
@@ -489,19 +489,19 @@ module OrigenTesters
         end
       end
     end
-end
 
-  # helper method for the process gates method above
-  # handles wrapping routines in specific gates, and passing ungated routines back to the user
-  def insert_hash_gates(options, gate_hash, gate_method, &block)
-    ungated_routines = charz_session.routines - gate_hash.values.flatten
-    ungated_routines.each do |routine|
-      block.call(options.merge(current_routine: routine))
-    end
-    gate_hash.each do |gate, gated_routines|
-      send(gate_method, gate) do
-        gated_routines.each do |routine|
-          block.call(options.merge(current_routine: routine))
+    # helper method for the process gates method above
+    # handles wrapping routines in specific gates, and passing ungated routines back to the user
+    def insert_hash_gates(options, gate_hash, gate_method, &block)
+      ungated_routines = charz_session.routines - gate_hash.values.flatten
+      ungated_routines.each do |routine|
+        block.call(options.merge(current_routine: routine))
+      end
+      gate_hash.each do |gate, gated_routines|
+        send(gate_method, gate) do
+          gated_routines.each do |routine|
+            block.call(options.merge(current_routine: routine))
+          end
         end
       end
     end
