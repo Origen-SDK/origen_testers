@@ -48,7 +48,7 @@ end
 Charz profiles contain a collection of routines, as well as test creation meta data related to test placement, production test result dependence, and conditional execution.
 
 The interface adds charz profiles by calling the `add_charz_profile` method. To create a profile that contains previously defined vmin and vmax search routines, whose resulting searches
-only run if the production test failed, and sets the vmax search routine to only run if the 'VmaxEnable' variable is set:
+only run if the production test failed, and sets the vmax search routine to only run if the 'VmaxEnable' variable is set. 
 
 ~~~ruby
 add_charz_profile :fail_searches do |profile|
@@ -56,6 +56,16 @@ add_charz_profile :fail_searches do |profile|
   profile.on_result = :on_fail
   profile.routines = [:vmin, :vmax]
   profile.enables = { ['$VmaxEnable'] => [:vmax] }
+end
+~~~
+
+Additionally, the profile can be updated to "AND" together multiple enables or flags. The default behavior is to OR them. To set up this functionality, create a hash which maps a routine name to multiple flags. 
+~~~ruby
+add_charz_profile :anded_enables do |profile|
+  profile.name = 'anded_enables'
+  profile.routines = [:vmin, :vmax]
+  profile.and_enables = true
+  profile.enables = { vmin: [:overall_enable, :vmin_enable], vmax: [:overall_enable, :vmax_enable]}
 end
 ~~~
 
