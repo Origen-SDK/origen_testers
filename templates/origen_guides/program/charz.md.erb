@@ -59,7 +59,8 @@ add_charz_profile :fail_searches do |profile|
 end
 ~~~
 
-Additionally, the profile can be updated to "AND" together multiple enables or flags. The default behavior is to OR them. To set up this functionality, create a hash which maps a routine name to multiple flags. 
+Additionally, the profile can be updated to "AND" together multiple enables or flags. The default behavior is to OR them. To set up this functionality
+create a hash which maps a routine name to multiple flags and set the corresponding "and_" profile attribute to true.
 ~~~ruby
 add_charz_profile :anded_enables do |profile|
   profile.name = 'anded_enables'
