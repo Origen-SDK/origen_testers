@@ -59,7 +59,16 @@ add_charz_profile :fail_searches do |profile|
 end
 ~~~
 
-Additionally, the profile can be updated to "AND" together multiple enables or flags. The default behavior is to OR them. To set up this functionality
+The default behavior for gates is to "OR" them if multiple are defined. The below will result in each routine being nested inside 'my_enable1 or my_enable2'.
+~~~ruby
+add_charz_profile :enables do |profile|
+  profile.name = 'enables'
+  profile.routines = [:vmin, :vmax]
+  profile.enables = [:my_enable1, :my_enable2]
+end
+~~~
+
+The profile can be updated to "AND" together multiple enables or flags. To set up this functionality
 create a hash which maps a routine name to multiple flags and set the corresponding "and_" profile attribute to true.
 ~~~ruby
 add_charz_profile :anded_enables do |profile|
