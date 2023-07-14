@@ -384,14 +384,14 @@ module OrigenTesters
           end
         elsif charz_session.and_flags
           if charz_session.enables
-            #Wrap all tests in enable, some tests in anded flags. 
+            # Wrap all tests in enable, some tests in anded flags.
             ungated_routines = charz_session.routines - charz_session.flags.keys
             ungated_routines.each do |routine|
               if_enable charz_session.enables do
                 block.call(options.merge(current_routine: routine))
               end
             end
-            #Build the proc which contains the nested if statemements for each routine so they are anded.
+            # Build the proc which contains the nested if statemements for each routine so they are anded.
             gated_routines = charz_session.routines - ungated_routines
             gated_routines.each do |routine|
               my_proc = -> { if_enable charz_session.enables do block.call(options.merge(current_routine: routine)) end }
@@ -408,7 +408,7 @@ module OrigenTesters
             ungated_routines.each do |routine|
               block.call(options.merge(current_routine: routine))
             end
-            #Build the proc which contains the nested if statemements for each routine so they are anded.
+            # Build the proc which contains the nested if statemements for each routine so they are anded.
             gated_routines = charz_session.routines - ungated_routines
             gated_routines.each do |routine|
               my_proc = -> { block.call(options.merge(current_routine: routine)) }
