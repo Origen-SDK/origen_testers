@@ -50,6 +50,28 @@ module OrigenTesters
           profile.enables = { ['$MyEnable1'] => [:routine1], ['$MyEnable2'] => [:routine2, :routine3], '$MyEnable3' => :routine5 }
           profile.routines = [:routine1, :routine2, :routine3, :routine4, :routine5, :routine6]
         end
+
+        add_charz_profile :simple_anded_flags do |profile|
+          profile.and_flags = true
+          profile.routines = [:routine1]
+        end
+
+        add_charz_profile :simple_anded_enables do |profile|
+          profile.and_enables = true
+          profile.routines = [:routine1]
+        end
+
+        add_charz_profile :complex_anded_flags do |profile|
+          profile.and_flags = true
+          profile.enables = :my_enable
+          profile.routines = [:routine1]
+        end
+
+        add_charz_profile :complex_anded_enables do |profile|
+          profile.and_enables = true
+          profile.flags = :my_flag
+          profile.routines = [:routine1]
+        end
       end
 
       # Test that the block form of flow control methods like this can

@@ -334,13 +334,102 @@ module OrigenTesters
     #
     # This is the final method of handling the insert_charz_test usecases, where the block thats been passed around is finally called
     # the user's provided block is passed the current routine (one at a time) to then take its info to generate a charz test
+
+    # Pass an "and_if_true" variable for enables and flags? And use that to to decide what to do? Then we don't need 4.
+    # But the hash has to be structured a different way for the enable_and (routine is key, enables is value.)
     def process_gates(options, &block)
       if options[:skip_gates] || !(charz_session.enables || charz_session.flags)
         charz_session.routines.each do |routine|
           block.call(options.merge(current_routine: routine))
         end
       else
-        if charz_session.enables && charz_session.flags
+        if charz_session.and_enables
+          if charz_session.flags
+            # Wrap all tests in flag, wrap some tests in anded enables.
+            ungated_routines = charz_session.routines - charz_session.enables.keys
+            ungated_routines.each do |routine|
+              if_flag charz_session.flags do
+                block.call(options.merge(current_routine: routine))
+              end
+            end
+            gated_routines = charz_session.routines - ungated_routines
+            # Build the proc which contains the nested if statements for each routine so they are anded.
+            gated_routines.each do |routine|
+              my_proc = -> do
+                if_flag charz_session.flags do
+                  block.call(options.merge(current_routine: routine))
+                end
+              end
+              charz_session.enables[routine].inject(my_proc) do |my_block, enable|
+                lambda do
+                  if_enable :"#{enable}" do
+                    my_block.call
+                  end
+                end
+              end.call
+            end
+          else
+            ungated_routines = charz_session.routines - charz_session.enables.keys
+            ungated_routines.each do |routine|
+              block.call(options.merge(current_routine: routine))
+            end
+            # Build the proc which contains the nested if statements for each routine so they are anded.
+            gated_routines = charz_session.routines - ungated_routines
+            gated_routines.each do |routine|
+              my_proc = -> { block.call(options.merge(current_routine: routine)) }
+              charz_session.enables[routine].inject(my_proc) do |my_block, enable|
+                lambda do
+                  if_enable :"#{enable}" do
+                    my_block.call
+                  end
+                end
+              end.call
+            end
+          end
+        elsif charz_session.and_flags
+          if charz_session.enables
+            # Wrap all tests in enable, some tests in anded flags.
+            ungated_routines = charz_session.routines - charz_session.flags.keys
+            ungated_routines.each do |routine|
+              if_enable charz_session.enables do
+                block.call(options.merge(current_routine: routine))
+              end
+            end
+            # Build the proc which contains the nested if statemements for each routine so they are anded.
+            gated_routines = charz_session.routines - ungated_routines
+            gated_routines.each do |routine|
+              my_proc = -> do
+                if_enable charz_session.enables do
+                  block.call(options.merge(current_routine: routine))
+                end
+              end
+              charz_session.flags[routine].inject(my_proc) do |my_block, flag|
+                lambda do
+                  if_flag :"#{flag}" do
+                    my_block.call
+                  end
+                end
+              end.call
+            end
+          else
+            ungated_routines = charz_session.routines - charz_session.flags.keys
+            ungated_routines.each do |routine|
+              block.call(options.merge(current_routine: routine))
+            end
+            # Build the proc which contains the nested if statemements for each routine so they are anded.
+            gated_routines = charz_session.routines - ungated_routines
+            gated_routines.each do |routine|
+              my_proc = -> { block.call(options.merge(current_routine: routine)) }
+              charz_session.flags[routine].inject(my_proc) do |my_block, flag|
+                lambda do
+                  if_flag :"#{flag}" do
+                    my_block.call
+                  end
+                end
+              end.call
+            end
+          end
+        elsif charz_session.enables && charz_session.flags
           if charz_session.enables.is_a?(Hash) && !charz_session.flags.is_a?(Hash)
             # wrap all tests in flags, wrap specific tests in enables
             if_flag charz_session.flags do

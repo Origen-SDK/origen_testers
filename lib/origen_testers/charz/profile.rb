@@ -19,7 +19,7 @@ module OrigenTesters
       #   @return [Array] list of charz routines to be called under this profile
       # @!attribute charz_only
       #   @return [Boolean] indicates if the point tests should or shouldn't be added to the flow
-      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only
+      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only, :and_enables, :and_flags
 
       def initialize(id, options, &block)
         @id = id
@@ -74,8 +74,20 @@ module OrigenTesters
         end
 
         unless @gate_checks == false
-          gate_check(@enables, :enables) if @enables
-          gate_check(@flags, :flags) if @flags
+          if @and_enables && @and_flags
+            Origen.log.error "@and_enables and @and_flags are both set to true. Please only 'and' one gate type"
+            fail
+          end
+          if @and_enables
+            gate_check(@flags, :flags) if @flags
+            gate_check_and(@enables, :enables, @flags) if @enables
+          elsif @and_flags
+            gate_check(@enables, :enables) if @enables
+            gate_check_and(@flags, :flags, @enables) if @flags
+          else
+            gate_check(@enables, :enable) if @enables
+            gate_check(@flags, :flags) if @flags
+          end
         end
       end
 
@@ -103,6 +115,46 @@ module OrigenTesters
             unknown_routines = gated_routines - @defined_routines
             unless unknown_routines.empty?
               Origen.log.error "Profile #{id}: unknown routines found in @#{gate_type}[#{gate.is_a?(Symbol) ? ':' : ''}#{gate}]: #{unknown_routines}"
+              fail
+            end
+          end
+        else
+          Origen.log.error "Profile #{id}: Unknown #{gate_type} type: #{gates.class}. #{gate_type} must be of type Symbol, String, Array, or Hash"
+          fail
+        end
+      end
+
+      def gate_check_and(gates, gate_type, other_gate)
+        if other_gate.is_a? Hash
+          Origen.log.error "Profile #{id}: #{other_gate} When using &&-ing feature, the non-anded gate can not be of type hash."
+          fail
+        end
+        case gates
+        when Symbol, String
+          return
+        when Array
+          unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
+          if unknown_gates.empty?
+            return
+          else
+            Origen.log.error "Profile #{id}: Unknown #{gate_type} type(s) in #{gate_type} array."
+            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
+            fail
+          end
+        when Hash
+          gates.each do |gated_routine, gates|
+            if gated_routine.is_a? Hash
+              Origen.log.error "Profile #{id}: #{gate_type} Hash keys cannot be of type Hash, but only Symbol, String, or Array"
+              fail
+            end
+            unless @defined_routines.include?(gated_routine)
+              Origen.log.error "Profile #{id}: #{gated_routine} Hash keys for &&-ed gates must be defined routines."
+              fail
+            end
+            gates = [gates] unless gates.is_a? Array
+            unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
+            unless unknown_gates.empty?
+              Origen.log.error "Gate array must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
               fail
             end
           end

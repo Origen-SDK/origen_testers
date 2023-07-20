@@ -16,12 +16,13 @@ module OrigenTesters
           @defaults = options[:defaults]
         else
           @defaults = {
-            placement:  :inline,
-            on_result:  nil,
-            enables:    nil,
-            flags:      nil,
-            name:       'charz',
-            charz_only: false
+            placement:   :inline,
+            on_result:   nil,
+            enables:     nil,
+            flags:       nil,
+            enables_and: nil,
+            name:        'charz',
+            charz_only:  false
           }
         end
       end
@@ -53,6 +54,17 @@ module OrigenTesters
           return @valid
         end
         @defined_routines = options.delete(:defined_routines)
+
+        if charz_obj.and_flags
+          @and_flags = charz_obj.and_flags
+        else
+          @and_flags = false
+        end
+        if charz_obj.and_enables
+          @and_enables = charz_obj.and_enables
+        else
+          @and_enables = false
+        end
         assign_by_priority(:placement, charz_obj, options)
         assign_by_priority(:on_result, charz_obj, options)
         assign_by_priority(:enables, charz_obj, options)
