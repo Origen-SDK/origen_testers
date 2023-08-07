@@ -5,7 +5,7 @@ module OrigenTesters
         class Limits
           attr_reader :test_method
           attr_accessor :lo_limit, :hi_limit
-          attr_accessor :unit
+          attr_reader :unit
           attr_accessor :tnum
           attr_accessor :render
           alias_method :lo, :lo_limit

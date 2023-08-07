@@ -5,8 +5,9 @@ module OrigenTesters
       class PatternMaster
         include OrigenTesters::Generator
 
-        attr_reader :flow, :paths
-        attr_accessor :filename, :id, :subdirectory
+        attr_reader :flow
+        attr_accessor :id
+        attr_writer :filename, :subdirectory
 
         def initialize(flow = nil)
           @flow = flow

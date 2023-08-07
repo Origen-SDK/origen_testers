@@ -119,6 +119,7 @@ module OrigenTesters
     # tester-level by the target.
     def add_flow_enable=(value)
       return unless flow.respond_to?(:add_flow_enable=)
+
       if value
         if value == :enable || value == :enabled
           flow.add_flow_enable = :enabled
@@ -151,17 +152,16 @@ module OrigenTesters
     # Compile a template file
     def compile(file, options = {})
       return unless write?
+
       # Any options passed in from an interface will be passed to the compiler and to
       # the templates being compiled
       options[:initial_options] = options
       Origen.file_handler.preserve_state do
-        begin
-          file = Origen.file_handler.clean_path_to_template(file)
-          Origen.generator.compile_file_or_directory(file, options)
-        rescue
-          file = Origen.file_handler.clean_path_to(file)
-          Origen.generator.compile_file_or_directory(file, options)
-        end
+        file = Origen.file_handler.clean_path_to_template(file)
+        Origen.generator.compile_file_or_directory(file, options)
+      rescue
+        file = Origen.file_handler.clean_path_to(file)
+        Origen.generator.compile_file_or_directory(file, options)
       end
     end
 
@@ -186,12 +186,14 @@ module OrigenTesters
     end
 
     def write_files(options = {})
+      # rubocop:disable Style/CombinableLoops
       sheet_generators.each do |generator|
         generator.finalize(options)
       end
       sheet_generators.each do |generator|
         generator.write_to_file(options) if generator.to_be_written?
       end
+      # rubocop:enable Style/CombinableLoops
       clean_referenced_patterns
       flow.save_program
     end

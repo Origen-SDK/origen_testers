@@ -164,7 +164,10 @@ module OrigenTesters
             end
             vectors
           else
+            # this loop will be executed only once
+            # rubocop:disable Lint/UnreachableLoop
             each_vector { |v| return v }
+            # rubocop:enable Lint/UnreachableLoop
           end
         end
       end

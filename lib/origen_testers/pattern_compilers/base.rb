@@ -9,7 +9,7 @@ module OrigenTesters
       attr_accessor :id
 
       # Compiler commands array
-      attr_accessor :jobs
+      attr_writer :jobs
 
       def initialize(id, options = {})
         unless Origen.site_config.origen_testers
@@ -24,7 +24,7 @@ module OrigenTesters
           path:                nil,     # required: will be passed in or parsed from a .list file
           reference_directory: nil,     # optional: will be set to @path or Origen.app.config.pattern_output_directory
           target:              nil,     # optional: allows user to temporarily set target and run compilation
-          recursive:           false,   # optional: controls whether to look for patterns in a directory recursively
+          recursive:           false   # optional: controls whether to look for patterns in a directory recursively
         }
 
         @job_options = {
@@ -32,7 +32,7 @@ module OrigenTesters
           location:         :local,     # optional: controls whether the commands go to the LSF or run locally
           clean:            false,      # optional: controls whether compiler log files are deleted after compilation
           output_directory: nil,        # optional:
-          verbose:          false,      # optional: controls whether the compiler output gets put to STDOUT
+          verbose:          false      # optional: controls whether the compiler output gets put to STDOUT
         }
         @compiler_options = {}
         @compiler_options_with_args = {}
@@ -143,6 +143,7 @@ module OrigenTesters
               req = 'true '
             else
               next if v.nil? || v == false
+
               req = 'false'
             end
             desc << "| #{k}".ljust(22) + "| #{v}".ljust(argument_padding) + "| #{req}    |"
@@ -255,7 +256,7 @@ module OrigenTesters
       end
 
       def empty_msg
-        puts "No compiler jobs created, check the compiler options\n" if self.empty?
+        puts "No compiler jobs created, check the compiler options\n" if empty?
       end
 
       def convert_to_pathname(opt)

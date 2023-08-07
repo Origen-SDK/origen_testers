@@ -104,6 +104,7 @@ module OrigenTesters
       if p.nil?
         fail "No tester platform defined, supply one of the following as an argument: #{PLATFORMS.keys.sort.join(', ')}"
       end
+
       p = p.to_sym
       @pattern_compilers[p].keys
     end

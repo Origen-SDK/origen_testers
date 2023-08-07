@@ -244,12 +244,11 @@ module OrigenTesters
 
     def get_app(file)
       path = Pathname.new(file).dirname
-      until File.exist?(File.join(path, 'config/application.rb')) || path.root?
-        path = path.parent
-      end
+      path = path.parent until File.exist?(File.join(path, 'config/application.rb')) || path.root?
       if path.root?
         fail 'Something went wrong resoving the app root in OrigenTesters'
       end
+
       Origen.find_app_by_root(path)
     end
 

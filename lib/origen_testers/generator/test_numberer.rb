@@ -9,7 +9,6 @@ module OrigenTesters
       # @option options [Integer] :offset (0) The o
       def test_number_for(test_name, options = {})
         options = {
-
         }.merge(options)
       end
 

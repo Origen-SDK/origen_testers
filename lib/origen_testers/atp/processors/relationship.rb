@@ -9,8 +9,6 @@ module OrigenTesters::ATP
 
       # Extracts all test-result nodes from the given AST
       class ExtractTestResults < Processor
-        attr_reader :results
-
         def on_if_failed(node)
           ids, *children = *node
           unless ids.is_a?(Array)
@@ -68,7 +66,18 @@ module OrigenTesters::ATP
         node = node.ensure_node_present(:on_fail)
         node.updated(nil, node.children.map do |n|
           if n.type == :on_pass
-            n = n.add node.updated(:set_flag, ["#{id}_PASSED", :auto_generated])
+            type = 'PASSED'
+            if !tester.literal_flag_options.nil?
+              type = tester.literal_flag_options[:pass_name] ? "#{tester.literal_flag_options[:pass_name]}" : type
+              if tester.literal_flag_options[:type_first]
+                n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
+              else
+                n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+              end
+            else
+              n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+            end
+
           elsif n.type == :on_fail
             delayed = n.find(:delayed)
             if delayed && delayed.to_a[0]
@@ -86,7 +95,18 @@ module OrigenTesters::ATP
         node = node.ensure_node_present(:on_fail)
         node.updated(nil, node.children.map do |n|
           if n.type == :on_fail
-            n = n.add node.updated(:set_flag, ["#{id}_FAILED", :auto_generated])
+            type = 'FAILED'
+            if !tester.literal_flag_options.nil?
+              type = tester.literal_flag_options[:fail_name] ? "#{tester.literal_flag_options[:fail_name]}" : type
+              if tester.literal_flag_options[:type_first]
+                n = n.add node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
+              else
+                n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+              end
+            else
+              n = n.add node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+            end
+
             delayed = n.find(:delayed)
             if delayed && delayed.to_a[0]
               n
@@ -100,16 +120,24 @@ module OrigenTesters::ATP
       end
 
       def add_ran_flags(id, node)
-        set_flag = node.updated(:set_flag, ["#{id}_RAN", :auto_generated])
+        type = 'RAN'
+        if !tester.literal_flag_options.nil?
+          type = tester.literal_flag_options[:ran_name] ? "#{tester.literal_flag_options[:ran_name]}" : type
+          if tester.literal_flag_options[:type_first]
+            set_flag = node.updated(:set_flag, ["#{type}_#{id}", :auto_generated])
+          else
+            set_flag = node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+          end
+        else
+          set_flag = node.updated(:set_flag, ["#{id}_#{type}", :auto_generated])
+        end
         # For a group, set a flag immediately upon entry to the group to signal that
         # it ran to later tests, this is better than doing it immediately after the group
         # in case it was bypassed
         if node.type == :group || node.type == :sub_flow
           nodes = node.to_a.dup
           pre_nodes = []
-          while [:name, :id, :path].include?(nodes.first.try(:type))
-            pre_nodes << nodes.shift
-          end
+          pre_nodes << nodes.shift while [:name, :id, :path].include?(nodes.first.try(:type))
           node.updated(nil, pre_nodes + [set_flag] + nodes)
 
         # For a test, set a flag immediately after the referenced test has executed
@@ -212,10 +240,30 @@ module OrigenTesters::ATP
       end
 
       def id_to_flag(id, type)
-        if id.is_a?(Array)
-          id.map { |i| "#{i}_#{type}" }
+        # default is {id}_type, but allow option to switch
+        if !tester.literal_flag_options.nil?
+          type = "#{tester.literal_flag_options[:fail_name]}" if type == 'FAILED'
+          type = "#{tester.literal_flag_options[:pass_name]}" if type == 'PASSED'
+          type = "#{tester.literal_flag_options[:ran_name]}" if type == 'RAN'
+          if tester.literal_flag_options[:type_first]
+            if id.is_a?(Array)
+              id.map { |i| "#{type}_#{i}" }
+            else
+              "#{type}_#{id}"
+            end
+          else
+            if id.is_a?(Array)
+              id.map { |i| "#{i}_#{type}" }
+            else
+              "#{id}_#{type}"
+            end
+          end
         else
-          "#{id}_#{type}"
+          if id.is_a?(Array)
+            id.map { |i| "#{i}_#{type}" }
+          else
+            "#{id}_#{type}"
+          end
         end
       end
     end

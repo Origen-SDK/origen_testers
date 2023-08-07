@@ -177,6 +177,7 @@ module OrigenTesters
           if @first_vector.nil?
             fail OrigenTesters::Decompiler::ParseError, "Could not locate the first vector in pattern #{@source}"
           end
+
           @first_vector
         end
       end
@@ -249,7 +250,7 @@ module OrigenTesters
       def first_vector?
         first_vector
       rescue OrigenTesters::Decompiler::ParseError
-        return false
+        false
       end
 
       # Adds any pins in the decompiled pattern to the DUT which are not already present.

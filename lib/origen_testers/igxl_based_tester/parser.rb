@@ -1,18 +1,18 @@
 module OrigenTesters
   class IGXLBasedTester
     class Parser
-      autoload :Flows,   'origen_testers/igxl_based_tester/parser/flows'
-      autoload :Flow,   'origen_testers/igxl_based_tester/parser/flow'
-      autoload :FlowLine,   'origen_testers/igxl_based_tester/parser/flow_line'
-      autoload :TestInstances,   'origen_testers/igxl_based_tester/parser/test_instances'
-      autoload :TestInstance,   'origen_testers/igxl_based_tester/parser/test_instance'
-      autoload :PatternSets,   'origen_testers/igxl_based_tester/parser/pattern_sets'
-      autoload :PatternSet,   'origen_testers/igxl_based_tester/parser/pattern_set'
-      autoload :DCSpecs,   'origen_testers/igxl_based_tester/parser/dc_specs'
-      autoload :DCSpec,   'origen_testers/igxl_based_tester/parser/dc_spec'
-      autoload :ACSpecs,   'origen_testers/igxl_based_tester/parser/ac_specs'
-      autoload :ACSpec,   'origen_testers/igxl_based_tester/parser/ac_spec'
-      autoload :Descriptions,   'origen_testers/igxl_based_tester/parser/descriptions'
+      autoload :Flows, 'origen_testers/igxl_based_tester/parser/flows'
+      autoload :Flow, 'origen_testers/igxl_based_tester/parser/flow'
+      autoload :FlowLine, 'origen_testers/igxl_based_tester/parser/flow_line'
+      autoload :TestInstances, 'origen_testers/igxl_based_tester/parser/test_instances'
+      autoload :TestInstance, 'origen_testers/igxl_based_tester/parser/test_instance'
+      autoload :PatternSets, 'origen_testers/igxl_based_tester/parser/pattern_sets'
+      autoload :PatternSet, 'origen_testers/igxl_based_tester/parser/pattern_set'
+      autoload :DCSpecs, 'origen_testers/igxl_based_tester/parser/dc_specs'
+      autoload :DCSpec, 'origen_testers/igxl_based_tester/parser/dc_spec'
+      autoload :ACSpecs, 'origen_testers/igxl_based_tester/parser/ac_specs'
+      autoload :ACSpec, 'origen_testers/igxl_based_tester/parser/ac_spec'
+      autoload :Descriptions, 'origen_testers/igxl_based_tester/parser/descriptions'
 
       def reset
         @flows = nil

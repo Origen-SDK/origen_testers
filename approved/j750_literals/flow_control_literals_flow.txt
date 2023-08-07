@@ -3,41 +3,41 @@ DFF 1.1	Flow Table
 			Gate			Command				Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
 						logprint	Test_that_if_failed_works_using_Literal																					
-						Test	read1	read1	50000		10			None		Test__Flag1_06D8931_FAILED												
-						Test	erase1	erase1	50010		12			Fail									flag-true	Test__Flag1_06D8931_FAILED				
+						Test	read1	read1	50000		10			None		f_Test__Flag1_06D8931												
+						Test	erase1	erase1	50010		12			Fail									flag-true	f_Test__Flag1_06D8931				
 						logprint	Test_the_block_form_of_if_failed																					
-						Test	read2	read2	50020		10			None		Test__Flag2_06D8931_FAILED												
-						Test	erase2	erase2	50030					Fail									flag-true	Test__Flag2_06D8931_FAILED				
-						Test	erase2	erase2	50040					Fail									flag-true	Test__Flag2_06D8931_FAILED				
+						Test	read2	read2	50020		10			None		f_Test__Flag2_06D8931												
+						Test	erase2	erase2	50030					Fail									flag-true	f_Test__Flag2_06D8931				
+						Test	erase2	erase2	50040					Fail									flag-true	f_Test__Flag2_06D8931				
 						logprint	Test_that_if_passed_works																					
-						Test	read1	read1	50050		10			None	Test__Flag3_06D8931_PASSED													
-						Test	pgm1	pgm1	50060					Fail									flag-true	Test__Flag3_06D8931_PASSED				
+						Test	read1	read1	50050		10			None	p_Test__Flag3_06D8931													
+						Test	pgm1	pgm1	50060					Fail									flag-true	p_Test__Flag3_06D8931				
 						logprint	Test_the_block_form_of_if_passed																					
-						Test	read2	read2	50070		10			None	Test__Flag4_06D8931_PASSED													
-						Test	pgm1	pgm1	50080					Fail									flag-true	Test__Flag4_06D8931_PASSED				
-						Test	pgm1	pgm1	50090					Fail									flag-true	Test__Flag4_06D8931_PASSED				
+						Test	read2	read2	50070		10			None	p_Test__Flag4_06D8931													
+						Test	pgm1	pgm1	50080					Fail									flag-true	p_Test__Flag4_06D8931				
+						Test	pgm1	pgm1	50090					Fail									flag-true	p_Test__Flag4_06D8931				
 						logprint	Test_that_if_ran_works																					
 						Test	pgm	pgm	50100		10			Fail														
-						defaults										Test__Flag5_06D8931_RAN												
-						flag-true	Test__Flag5_06D8931_RAN																					
-						Test	read0	read0	50110					Fail									flag-true	Test__Flag5_06D8931_RAN				
+						defaults										r_Test__Flag5_06D8931												
+						flag-true	r_Test__Flag5_06D8931																					
+						Test	read0	read0	50110					Fail									flag-true	r_Test__Flag5_06D8931				
 						logprint	Test_the_block_form_of_if_ran																					
 						Test	pgm	pgm	50120		10			Fail														
-						defaults										Test__Flag6_06D8931_RAN												
-						flag-true	Test__Flag6_06D8931_RAN																					
-						Test	read0	read0	50130					Fail									flag-true	Test__Flag6_06D8931_RAN				
-						Test	read0	read0	50140					Fail									flag-true	Test__Flag6_06D8931_RAN				
+						defaults										r_Test__Flag6_06D8931												
+						flag-true	r_Test__Flag6_06D8931																					
+						Test	read0	read0	50130					Fail									flag-true	r_Test__Flag6_06D8931				
+						Test	read0	read0	50140					Fail									flag-true	r_Test__Flag6_06D8931				
 						logprint	Test_that_unless_ran_works																					
 						Test	pgm	pgm	50150		10			Fail														
-						defaults										Test__Flag7_06D8931_RAN												
-						flag-true	Test__Flag7_06D8931_RAN																					
-						Test	read0	read0	50160					Fail								not	flag-true	Test__Flag7_06D8931_RAN				
+						defaults										r_Test__Flag7_06D8931												
+						flag-true	r_Test__Flag7_06D8931																					
+						Test	read0	read0	50160					Fail								not	flag-true	r_Test__Flag7_06D8931				
 						logprint	Test_the_block_form_of_unless_ran																					
 						Test	pgm	pgm	50170		10			Fail														
-						defaults										Test__Flag8_06D8931_RAN												
-						flag-true	Test__Flag8_06D8931_RAN																					
-						Test	read0	read0	50180					Fail								not	flag-true	Test__Flag8_06D8931_RAN				
-						Test	read0	read0	50190					Fail								not	flag-true	Test__Flag8_06D8931_RAN				
+						defaults										r_Test__Flag8_06D8931												
+						flag-true	r_Test__Flag8_06D8931																					
+						Test	read0	read0	50180					Fail								not	flag-true	r_Test__Flag8_06D8931				
+						Test	read0	read0	50190					Fail								not	flag-true	r_Test__Flag8_06D8931				
 						logprint	Test_that_if_enable_works																					
 		Extras__123				Test	extra_test	extra_test	50270					Fail														
 						logprint	Test_the_block_form_of_if_enable																					
@@ -53,77 +53,81 @@ DFF 1.1	Flow Table
 						Test	long_test2	long_test2	50320					Fail														
 	LABEL_2_06D8931					nop																						
 						logprint	Test_that_if_any_failed_works																					
-						Test	test1	test1	50330					None		iFA__1_06D8931_FAILED												
-						Test	test2	test2	50340					None		iFA__2_06D8931_FAILED												
-						defaults										iFA__1_06D8931_FAILED_OR_iFA__2_06D8931_FAILED												
-						flag-true	iFA__1_06D8931_FAILED_OR_iFA__2_06D8931_FAILED																flag-true	iFA__1_06D8931_FAILED				
-						flag-true	iFA__1_06D8931_FAILED_OR_iFA__2_06D8931_FAILED																flag-true	iFA__2_06D8931_FAILED				
-						Test	test3	test3	50350					Fail									flag-true	iFA__1_06D8931_FAILED_OR_iFA__2_06D8931_FAILED				
+						Test	test1	test1	50330					None		f_iFA__1_06D8931												
+						Test	test2	test2	50340					None		f_iFA__2_06D8931												
+						defaults										f_iFA__1_06D8931_OR_f_iFA__2_06D8931												
+						flag-true	f_iFA__1_06D8931_OR_f_iFA__2_06D8931																flag-true	f_iFA__1_06D8931				
+						flag-true	f_iFA__1_06D8931_OR_f_iFA__2_06D8931																flag-true	f_iFA__2_06D8931				
+						Test	test3	test3	50350					Fail									flag-true	f_iFA__1_06D8931_OR_f_iFA__2_06D8931				
 						logprint	Test_the_block_form_of_if_any_failed																					
-						Test	test1	test1	50360					None		OOF__Passcode1_06D8931_FAILED												
-						Test	test2	test2	50370					None		OOF__Passcode2_06D8931_FAILED												
-						defaults										OOF__Passcode1_06D8931_FAILED_OR_OOF__Passcode2_06D8931_FAILED												
-						flag-true	OOF__Passcode1_06D8931_FAILED_OR_OOF__Passcode2_06D8931_FAILED																flag-true	OOF__Passcode1_06D8931_FAILED				
-						flag-true	OOF__Passcode1_06D8931_FAILED_OR_OOF__Passcode2_06D8931_FAILED																flag-true	OOF__Passcode2_06D8931_FAILED				
-						Test	test3	test3	50380					Fail									flag-true	OOF__Passcode1_06D8931_FAILED_OR_OOF__Passcode2_06D8931_FAILED				
-						Test	test4	test4	50390					Fail									flag-true	OOF__Passcode1_06D8931_FAILED_OR_OOF__Passcode2_06D8931_FAILED				
+						Test	test1	test1	50360					None		f_OOF__Passcode1_06D8931												
+						Test	test2	test2	50370					None		f_OOF__Passcode2_06D8931												
+						defaults										f_OOF__Passcode1_06D8931_OR_f_OOF__Passcode2_06D8931												
+						flag-true	f_OOF__Passcode1_06D8931_OR_f_OOF__Passcode2_06D8931																flag-true	f_OOF__Passcode1_06D8931				
+						flag-true	f_OOF__Passcode1_06D8931_OR_f_OOF__Passcode2_06D8931																flag-true	f_OOF__Passcode2_06D8931				
+						Test	test3	test3	50380					Fail									flag-true	f_OOF__Passcode1_06D8931_OR_f_OOF__Passcode2_06D8931				
+						Test	test4	test4	50390					Fail									flag-true	f_OOF__Passcode1_06D8931_OR_f_OOF__Passcode2_06D8931				
 						logprint	Test_that_if_all_failed_works																					
-						Test	test1	test1	50400					None		iFall__1_06D8931_FAILED												
-						Test	test2	test2	50410					None		iFall__2_06D8931_FAILED												
-						defaults										iFall__1_06D8931_FAILED_AND_iFall__2_06D8931_FAILED												
-						flag-true	iFall__1_06D8931_FAILED_AND_iFall__2_06D8931_FAILED																					
-						flag-false	iFall__1_06D8931_FAILED_AND_iFall__2_06D8931_FAILED															not	flag-true	iFall__2_06D8931_FAILED				
-						flag-false	iFall__1_06D8931_FAILED_AND_iFall__2_06D8931_FAILED															not	flag-true	iFall__1_06D8931_FAILED				
-						Test	test3	test3	50420					Fail									flag-true	iFall__1_06D8931_FAILED_AND_iFall__2_06D8931_FAILED				
+						Test	test1	test1	50400					None		f_iFall__1_06D8931												
+						Test	test2	test2	50410					None		f_iFall__2_06D8931												
+						defaults										f_iFall__1_06D8931_AND_f_iFall__2_06D8931												
+						flag-true	f_iFall__1_06D8931_AND_f_iFall__2_06D8931																					
+						flag-false	f_iFall__1_06D8931_AND_f_iFall__2_06D8931															not	flag-true	f_iFall__2_06D8931				
+						flag-false	f_iFall__1_06D8931_AND_f_iFall__2_06D8931															not	flag-true	f_iFall__1_06D8931				
+						Test	test3	test3	50420					Fail									flag-true	f_iFall__1_06D8931_AND_f_iFall__2_06D8931				
 						logprint	Test_the_block_form_of_if_all_failed																					
-						Test	test1	test1	50430					None		iFall__B1_06D8931_FAILED												
-						Test	test2	test2	50440					None		iFall__B2_06D8931_FAILED												
-						defaults										iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED												
-						flag-true	iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED																					
-						flag-false	iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED															not	flag-true	iFall__B2_06D8931_FAILED				
-						flag-false	iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED															not	flag-true	iFall__B1_06D8931_FAILED				
-						Test	test3	test3	50450					Fail									flag-true	iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED				
-						Test	test4	test4	50460					Fail									flag-true	iFall__B1_06D8931_FAILED_AND_iFall__B2_06D8931_FAILED				
+						Test	test1	test1	50430					None		f_iFall__B1_06D8931												
+						Test	test2	test2	50440					None		f_iFall__B2_06D8931												
+						defaults										f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931												
+						flag-true	f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931																					
+						flag-false	f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931															not	flag-true	f_iFall__B2_06D8931				
+						flag-false	f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931															not	flag-true	f_iFall__B1_06D8931				
+						Test	test3	test3	50450					Fail									flag-true	f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931				
+						Test	test4	test4	50460					Fail									flag-true	f_iFall__B1_06D8931_AND_f_iFall__B2_06D8931				
 						logprint	Test_that_if_any_passed_works																					
-						Test	test1	test1	50470					None	if__AP1_06D8931_PASSED													
-						Test	test2	test2	50480					None	if__AP2_06D8931_PASSED													
-						defaults										if__AP1_06D8931_PASSED_OR_if__AP2_06D8931_PASSED												
-						flag-true	if__AP1_06D8931_PASSED_OR_if__AP2_06D8931_PASSED																flag-true	if__AP1_06D8931_PASSED				
-						flag-true	if__AP1_06D8931_PASSED_OR_if__AP2_06D8931_PASSED																flag-true	if__AP2_06D8931_PASSED				
-						Test	test3	test3	50490					Fail									flag-true	if__AP1_06D8931_PASSED_OR_if__AP2_06D8931_PASSED				
+						Test	test1	test1	50470					None	p_if__AP1_06D8931													
+						Test	test2	test2	50480					None	p_if__AP2_06D8931													
+						defaults										p_if__AP1_06D8931_OR_p_if__AP2_06D8931												
+						flag-true	p_if__AP1_06D8931_OR_p_if__AP2_06D8931																flag-true	p_if__AP1_06D8931				
+						flag-true	p_if__AP1_06D8931_OR_p_if__AP2_06D8931																flag-true	p_if__AP2_06D8931				
+						Test	test3	test3	50490					Fail									flag-true	p_if__AP1_06D8931_OR_p_if__AP2_06D8931				
 						logprint	Test_the_block_form_of_if_any_passed																					
-						Test	test1	test1	50500					None	if__APB1_06D8931_PASSED													
-						Test	test2	test2	50510					None	if__APB2_06D8931_PASSED													
-						defaults										if__APB1_06D8931_PASSED_OR_if__APB2_06D8931_PASSED												
-						flag-true	if__APB1_06D8931_PASSED_OR_if__APB2_06D8931_PASSED																flag-true	if__APB1_06D8931_PASSED				
-						flag-true	if__APB1_06D8931_PASSED_OR_if__APB2_06D8931_PASSED																flag-true	if__APB2_06D8931_PASSED				
-						Test	test3	test3	50520					Fail									flag-true	if__APB1_06D8931_PASSED_OR_if__APB2_06D8931_PASSED				
-						Test	test4	test4	50530					Fail									flag-true	if__APB1_06D8931_PASSED_OR_if__APB2_06D8931_PASSED				
+						Test	test1	test1	50500					None	p_if__APB1_06D8931													
+						Test	test2	test2	50510					None	p_if__APB2_06D8931													
+						defaults										p_if__APB1_06D8931_OR_p_if__APB2_06D8931												
+						flag-true	p_if__APB1_06D8931_OR_p_if__APB2_06D8931																flag-true	p_if__APB1_06D8931				
+						flag-true	p_if__APB1_06D8931_OR_p_if__APB2_06D8931																flag-true	p_if__APB2_06D8931				
+						Test	test3	test3	50520					Fail									flag-true	p_if__APB1_06D8931_OR_p_if__APB2_06D8931				
+						Test	test4	test4	50530					Fail									flag-true	p_if__APB1_06D8931_OR_p_if__APB2_06D8931				
 						logprint	Test_that_if_all_passed_works																					
-						Test	test1	test1	50540					None	iFall__P1_06D8931_PASSED													
-						Test	test2	test2	50550					None	iFall__P2_06D8931_PASSED													
-						defaults										iFall__P1_06D8931_PASSED_AND_iFall__P2_06D8931_PASSED												
-						flag-true	iFall__P1_06D8931_PASSED_AND_iFall__P2_06D8931_PASSED																					
-						flag-false	iFall__P1_06D8931_PASSED_AND_iFall__P2_06D8931_PASSED															not	flag-true	iFall__P2_06D8931_PASSED				
-						flag-false	iFall__P1_06D8931_PASSED_AND_iFall__P2_06D8931_PASSED															not	flag-true	iFall__P1_06D8931_PASSED				
-						Test	test3	test3	50560					Fail									flag-true	iFall__P1_06D8931_PASSED_AND_iFall__P2_06D8931_PASSED				
+						Test	test1	test1	50540					None	p_iFall__P1_06D8931													
+						Test	test2	test2	50550					None	p_iFall__P2_06D8931													
+						defaults										p_iFall__P1_06D8931_AND_p_iFall__P2_06D8931												
+						flag-true	p_iFall__P1_06D8931_AND_p_iFall__P2_06D8931																					
+						flag-false	p_iFall__P1_06D8931_AND_p_iFall__P2_06D8931															not	flag-true	p_iFall__P2_06D8931				
+						flag-false	p_iFall__P1_06D8931_AND_p_iFall__P2_06D8931															not	flag-true	p_iFall__P1_06D8931				
+						Test	test3	test3	50560					Fail									flag-true	p_iFall__P1_06D8931_AND_p_iFall__P2_06D8931				
 						logprint	Test_the_block_form_of_if_all_passed																					
-						Test	test1	test1	50570					None	iFall__PB1_06D8931_PASSED													
-						Test	test2	test2	50580					None	iFall__PB2_06D8931_PASSED													
-						defaults										iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED												
-						flag-true	iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED																					
-						flag-false	iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED															not	flag-true	iFall__PB2_06D8931_PASSED				
-						flag-false	iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED															not	flag-true	iFall__PB1_06D8931_PASSED				
-						Test	test3	test3	50590					Fail									flag-true	iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED				
-						Test	test4	test4	50600					Fail									flag-true	iFall__PB1_06D8931_PASSED_AND_iFall__PB2_06D8931_PASSED				
+						Test	test1	test1	50570					None	p_iFall__PB1_06D8931													
+						Test	test2	test2	50580					None	p_iFall__PB2_06D8931													
+						defaults										p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931												
+						flag-true	p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931																					
+						flag-false	p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931															not	flag-true	p_iFall__PB2_06D8931				
+						flag-false	p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931															not	flag-true	p_iFall__PB1_06D8931				
+						Test	test3	test3	50590					Fail									flag-true	p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931				
+						Test	test4	test4	50600					Fail									flag-true	p_iFall__PB1_06D8931_AND_p_iFall__PB2_06D8931				
 						logprint	Test_that_group-level_dependencies_work																					
-						Test	grp1_test1	grp1_test1	50610		5			None		Group__1_06D8931_FAILED_0												
-						defaults										Group__1_06D8931_FAILED												
-						flag-true	Group__1_06D8931_FAILED																flag-true	Group__1_06D8931_FAILED_0				
-						Test	grp1_test2	grp1_test2	50620		5			None		Group__1_06D8931_FAILED_1												
-						flag-true	Group__1_06D8931_FAILED																flag-true	Group__1_06D8931_FAILED_1				
-						Test	grp1_test3	grp1_test3	50630		5			None		Group__1_06D8931_FAILED_2												
-						flag-true	Group__1_06D8931_FAILED																flag-true	Group__1_06D8931_FAILED_2				
-						Test	grp2_test1	grp2_test1	50640		5			Fail									flag-true	Group__1_06D8931_FAILED				
-						Test	grp2_test2	grp2_test2	50650		5			Fail									flag-true	Group__1_06D8931_FAILED				
-						Test	grp2_test3	grp2_test3	50660		5			Fail									flag-true	Group__1_06D8931_FAILED				
+						Test	grp1_test1	grp1_test1	50610		5			None		f_Group__1_06D8931_0												
+						defaults										f_Group__1_06D8931												
+						flag-true	f_Group__1_06D8931																flag-true	f_Group__1_06D8931_0				
+						Test	grp1_test2	grp1_test2	50620		5			None		f_Group__1_06D8931_1												
+						flag-true	f_Group__1_06D8931																flag-true	f_Group__1_06D8931_1				
+						Test	grp1_test3	grp1_test3	50630		5			None		f_Group__1_06D8931_2												
+						flag-true	f_Group__1_06D8931																flag-true	f_Group__1_06D8931_2				
+						Test	grp2_test1	grp2_test1	50640		5			Fail									flag-true	f_Group__1_06D8931				
+						Test	grp2_test2	grp2_test2	50650		5			Fail									flag-true	f_Group__1_06D8931				
+						Test	grp2_test3	grp2_test3	50660		5			Fail									flag-true	f_Group__1_06D8931				
+						logprint	Test_that_if_failed_works_using_extern_and_exclude_flow_id																					
+						Test	erase1	erase1	50670		12			Fail									flag-true	f_Test__extern_Flag1				
+						logprint	Test_that_if_passed_works_using_extern_and_exclude_flow_id																					
+						Test	erase1	erase1	50680		12			Fail									flag-true	p_Test__extern_Flag2				

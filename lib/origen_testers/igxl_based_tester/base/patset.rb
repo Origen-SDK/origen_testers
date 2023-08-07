@@ -34,11 +34,13 @@ module OrigenTesters
           @name
         end
 
+        # rubocop:disable Lint/Void
         def name=(n)
           @name = n
           lines.each { |l| l.pattern_set = n }
           n
         end
+        # rubocop:enable Lint/Void
 
         # Returns all lines in the pattern set
         def lines

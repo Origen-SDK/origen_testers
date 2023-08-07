@@ -94,7 +94,6 @@ module OrigenTesters
         #    - Its possible (and fine) for endmatter to be non-existant, or even not allowed.
         #    - In the latter case, the endvector symbol should the EoF symbol.
         # @return (Hash)
-        # rubocop:disable Metrics/ParameterLists
         def split(pinlist_start:, vectors_start:, vectors_end:, vectors_include_start_line: false, vectors_include_end_line: false, &block)
           def check_match(matcher, line, index, indices)
             if matcher.respond_to?(:call)
@@ -158,7 +157,6 @@ module OrigenTesters
 
             indices
           end
-          # rubocop:enable Metrics/ParameterLists
         end
       end
     end

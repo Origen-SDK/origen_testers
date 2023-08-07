@@ -6,7 +6,8 @@ module OrigenTesters
         include OrigenTesters::Generator
 
         attr_reader :variables
-        attr_accessor :filename, :id, :subdirectory
+        attr_accessor :filename, :id
+        attr_writer :subdirectory
 
         def initialize(options = {})
         end

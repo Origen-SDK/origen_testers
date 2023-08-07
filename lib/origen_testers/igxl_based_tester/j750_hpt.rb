@@ -12,7 +12,7 @@ module OrigenTesters
     # *Also note that this class inherits from the base Tester class and so all methods
     # described there are also available*
     class J750_HPT < J750
-      require 'origen_testers/igxl_based_tester/j750_hpt/generator.rb'
+      require 'origen_testers/igxl_based_tester/j750_hpt/generator'
 
       def initialize(options = {})
         super(options)

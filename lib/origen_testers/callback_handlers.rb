@@ -23,6 +23,7 @@ module OrigenTesters
           # Found a .atp or .atp.gz file so we should compile it
           matches = Dir.glob("#{Origen.root}/**/#{patname}")
           fail "Found multiple locations for #{patname}, exiting...\n\t#{matches}" if matches.size > 1
+
           pattern = matches.first.to_s
           current_compiler = select_compiler
           run_compiler(current_compiler, pattern)

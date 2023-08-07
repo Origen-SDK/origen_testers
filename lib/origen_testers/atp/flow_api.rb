@@ -45,6 +45,7 @@ module OrigenTesters::ATP
       unless options[:rule]
         fail 'You must supply option :rule (e.g. rule: :gt) when calling the limit helper'
       end
+
       {
         value:    value,
         rule:     options[:rule] || :lt,
