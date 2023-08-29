@@ -678,12 +678,14 @@ describe 'Charz' do
       end
     end
 
-    it 'errors when a priority value cant be set' do
-      Flow.create interface: 'MyCharzInterface' do
-      end
-      Origen.interface.charz_session = OrigenTesters::Charz::Session.new(defaults: {})
-      expect { Origen.interface.charz_on :my_profile }.to raise_error
-    end
+    # Note: Rewrite now makes this case essentially impossible to trigger
+    #
+    # it 'errors when a priority value cant be set' do
+    #   Flow.create interface: 'MyCharzInterface' do
+    #   end
+    #   Origen.interface.charz_session = OrigenTesters::Charz::Session.new(defaults: {})
+    #   expect { Origen.interface.charz_on :my_profile }.to raise_error
+    # end
 
     it 'errors with an unknown type' do
       Flow.create interface: 'MyCharzInterface' do
@@ -904,13 +906,13 @@ describe 'Charz' do
         my_test = MyTest.new('my_test')
         charz_on :my_profile
         # two params
-        options = {}
+        options = { id: :dummy_id }
         set_conditional_charz_id(my_test, options)
-        options[:id].should == :my_test_charz_my_charz_profile
+        options[:id].should == :dummy_id
         # one param
-        options = { parent_test_name: :my_test }
-        set_conditional_charz_id(my_test, options)
-        options[:id].should == :my_test_charz_my_charz_profile
+        options[:parent_test_name] = :my_test
+        set_conditional_charz_id(options)
+        options[:id].should == :dummy_id
       end
     end
 

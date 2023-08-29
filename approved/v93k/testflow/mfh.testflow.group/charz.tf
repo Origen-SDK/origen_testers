@@ -641,8 +641,8 @@ test_flow
 
   {
     {
-       @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED = -1;
-       @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED = -1;
+       @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED = -1;
+       @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED = -1;
     }, open,"Init Flow Control Vars", ""
     run_and_branch(func_complex_gates_on_fail_E4F9C4F)
     then
@@ -650,10 +650,10 @@ test_flow
     }
     else
     {
-       @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED = 1;
+       @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED = 1;
     }
     {
-       if @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED == 1 then
+       if @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED == 1 then
        {
           run(func_complex_gates_on_fail__cz__rt6_E4F9C4F);
           if @MyFlag1 == 1 then
@@ -788,13 +788,13 @@ test_flow
     run_and_branch(func_simple_gates_on_pass_E4F9C4F)
     then
     {
-       @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED = 1;
+       @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED = 1;
     }
     else
     {
     }
     {
-       if @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED == 1 then
+       if @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED == 1 then
        {
           if @MY_ENABLE == 1 then
           {
