@@ -167,6 +167,68 @@ describe 'Charz' do
           charz_session.defaults[:charz_only].should == false
         end
       end
+
+      it "tracks the current instance" do
+        Flow.create interface: 'MyInterface' do
+          add_charz_routine :search_routine, type: :search do |routine|
+            routine.start = 1.0.V
+            routine.stop  = 0.5.V
+            routine.res   = 5.mV
+            routine.spec  = 'vdd'
+          end
+          Origen.interface.add_charz_profile :my_profile do |profile|
+            profile.routines = [:search_routine]
+          end
+          Origen.interface.charz_instance.should == nil
+          charz_on :my_profile
+          Origen.interface.charz_instance.id.should == :my_profile
+          Origen.interface.charz_session.loop_instances do
+            Origen.interface.charz_instance.id.should == :my_profile
+          end
+          Origen.interface.charz_instance.id.should == :my_profile
+          charz_off
+          Origen.interface.charz_instance.should == nil
+          Origen.interface.charz_session.current_instance = :dummy
+          Origen.interface.charz_instance.should == :dummy
+        end
+      end
+
+      it "enables charz_only if any instance is set, unless on_result" do
+        Flow.create interface: 'MyInterface' do
+          add_charz_routine :search_routine, type: :search do |routine|
+            routine.start = 1.0.V
+            routine.stop  = 0.5.V
+            routine.res   = 5.mV
+            routine.spec  = 'vdd'
+          end
+          Origen.interface.add_charz_profile :my_profile do |profile|
+            profile.routines = [:search_routine]
+          end
+          Origen.interface.add_charz_profile :my_profile_cz_only do |profile|
+            profile.charz_only = true
+            profile.routines = [:search_routine]
+          end
+          Origen.interface.add_charz_profile :my_profile_on_result do |profile|
+            profile.on_result = :pass
+            profile.routines = [:search_routine]
+          end
+          Origen.interface.add_charz_profile :my_profile_keep_parent do |profile|
+            profile.force_keep_parent = true
+            profile.routines = [:search_routine]
+          end
+          charz_on :my_profile
+          Origen.interface.charz_only?.should == false
+          charz_on_append :my_profile_cz_only
+          Origen.interface.charz_only?.should == true
+          charz_on_append :my_profile_on_result
+          Origen.interface.charz_only?.should == false
+          charz_off_truncate
+          Origen.interface.charz_only?.should == true
+          charz_on_append :my_profile_keep_parent
+          Origen.interface.charz_only?.should == false
+          charz_off
+        end
+      end
     end
 
     describe "#eof_charz_tests" do

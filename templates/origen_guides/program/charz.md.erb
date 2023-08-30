@@ -210,7 +210,10 @@ Where insert_current_charz_test is a method defined in the company charz flow me
 
 ### Flow Usage Examples
 
-Now that the interface has charz routines and profiles, lets look at how to use the API within the flow itself:
+Now that the interface has charz routines and profiles, lets look at how to use the API within the flow itself. Basic usage is to make charz_on/off calls, which will set the
+session to contain the called profile as the current instance to generate against.
+
+Additionally if you would like to add additional profiles to the current session, you can use the `charz_on_append` (and its counter part: `charz_off_truncate`) to do so.
 
 ~~~ruby
 Flow.create(interface: 'MyApp:Interface') do
@@ -233,6 +236,19 @@ Flow.create(interface: 'MyApp:Interface') do
   # override session values at the flow level
   charz_on :my_profile, placement: :eof do
     func :my_test4
+  end
+
+  # create profileA charz test variants of my_test5, as well as profileA and profileB charz variants of my_test6
+  # this would produce the following tests in order:
+  # my_test5
+  # my_test5_routineA
+  # my_test6
+  # my_test6_routineA
+  # my_test6_routineB
+  charz_on :profileA do
+    func :my_test5
+    charz_on_append :profileB
+    func :my_test6
   end
 
 end

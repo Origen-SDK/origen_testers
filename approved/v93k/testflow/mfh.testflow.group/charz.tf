@@ -120,6 +120,15 @@ tm_43:
 tm_44:
   "output" = "None";
   "testName" = "Functional";
+tm_45:
+  "output" = "None";
+  "testName" = "Functional";
+tm_46:
+  "output" = "None";
+  "testName" = "Functional";
+tm_47:
+  "output" = "None";
+  "testName" = "Functional";
 tm_5:
   "output" = "None";
   "testName" = "Functional";
@@ -218,6 +227,12 @@ tm_43:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_44:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_45:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_46:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_47:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_5:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_6:
@@ -311,6 +326,12 @@ tm_43:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_44:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_45:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_46:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_47:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_5:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_6:
@@ -337,21 +358,21 @@ func_charz_only__cz__rt1_E4F9C4F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "charz_example";
-  override_testf = tm_44;
+  override_testf = tm_47;
   site_control = "parallel:";
   site_match = 2;
 func_complex_anded_enables_E4F9C4F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "charz_example";
-  override_testf = tm_42;
+  override_testf = tm_45;
   site_control = "parallel:";
   site_match = 2;
 func_complex_anded_enables__cz__rt1_E4F9C4F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "charz_example";
-  override_testf = tm_43;
+  override_testf = tm_46;
   site_control = "parallel:";
   site_match = 2;
 func_complex_anded_flags_E4F9C4F:
@@ -366,6 +387,27 @@ func_complex_anded_flags__cz__rt1_E4F9C4F:
   override = 1;
   override_seqlbl = "charz_example";
   override_testf = tm_41;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_42;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_43;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2__cz__rt2_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_44;
   site_control = "parallel:";
   site_match = 2;
 func_complex_enable_simple_flag_E4F9C4F:
@@ -888,6 +930,31 @@ test_flow
        {
        }
     }, open,"func_complex_anded_flags charz complex_anded_flags", ""
+    run(func_complex_anded_flags_add_simple_rt2_E4F9C4F);
+    {
+       if @MY_FLAG2 == 1 then
+       {
+          if @MY_FLAG1 == 1 then
+          {
+             if @MY_ENABLE == 1 then
+             {
+                run(func_complex_anded_flags_add_simple_rt2__cz__rt1_E4F9C4F);
+             }
+             else
+             {
+             }
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_complex_anded_flags_add_simple_rt2 charz complex_anded_flags", ""
+    {
+       run(func_complex_anded_flags_add_simple_rt2__cz__rt2_E4F9C4F);
+    }, open,"func_complex_anded_flags_add_simple_rt2 charz _cz__rt2", ""
     run(func_complex_anded_enables_E4F9C4F);
     {
        if @MY_ENABLE2 == 1 then

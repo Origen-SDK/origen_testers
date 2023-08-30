@@ -146,6 +146,9 @@ module OrigenTesters
         Origen.log.error 'charz_on failed to create a valid charz session'
         fail
       end
+      if charz_stack.empty?
+        @charz_instance = nil
+      end
     end
 
     # Pushes a charz object (either a profile or a routine) onto the stack, along with any optional updates to modify the current session
@@ -209,6 +212,9 @@ module OrigenTesters
       unless charz_session.update(charz_stack.last) || charz_stack.empty?
         Origen.log.error 'charz_on failed to create a valid charz session'
         fail
+      end
+      if charz_stack.empty?
+        @charz_instance = nil
       end
     end
 
