@@ -43,9 +43,14 @@ module OrigenTesters
     # stored already
     def charz_instance
       unless charz_session.current_instance.nil?
-        @charz_instance = charz_session.current_instance
+        set_charz_instance(charz_session.current_instance)
       end
       @charz_instance
+    end
+
+    def set_charz_instance(instance)
+      @charz_instance = instance
+      charz_session.stored_instance = instance
     end
 
     def eof_charz_tests
@@ -147,7 +152,7 @@ module OrigenTesters
         fail
       end
       if charz_stack.empty?
-        @charz_instance = nil
+        set_charz_instance(nil)
       end
     end
 
@@ -214,7 +219,7 @@ module OrigenTesters
         fail
       end
       if charz_stack.empty?
-        @charz_instance = nil
+        set_charz_instance(nil)
       end
     end
 
@@ -276,7 +281,7 @@ module OrigenTesters
             # collect the current instance and options into a proc, stored in eof_charz_tests to be called later
             current_instance = charz_instance.clone
             eof_charz_tests << proc do
-              @charz_instance = current_instance
+              set_charz_instance(current_instance)
               create_charz_group(options, &block)
             end
           else

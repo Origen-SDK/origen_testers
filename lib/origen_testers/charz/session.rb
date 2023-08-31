@@ -14,12 +14,15 @@ module OrigenTesters
       #   @return [Boolean] whether or not the current session setup is valid, if not then charz wont be created
       # @!attribute defaults
       #   @return [Hash] list of values to instantiate the inherited attributes from Profile with if not altered by the session update
-      attr_accessor :id, :instances, :current_instance, :valid, :defaults
+      # @!attribute stored_instance
+      #   @return [Profile] This is to store the instance that the interface is storing. Its to support a legacy usecase of querying the session for instance level info during EOF
+      attr_accessor :id, :instances, :current_instance, :valid, :defaults, :stored_instance
 
       def initialize(options = {})
         @id = :empty_session
         @instances = []
         @current_instance = nil
+        @stored_instance = nil
         @active = false
         @valid = false
         @defaults = {
@@ -71,47 +74,12 @@ module OrigenTesters
       end
 
       def current_instance
-        @current_instance || instances.first
-      end
-
-      def name
-        Origen.log.deprecate 'charz_session.name has been deprecated. Please query charz_instance.name instead.'
-        current_instance.name
-      end
-
-      def placement
-        Origen.log.deprecate 'charz_session.placement has been deprecated. Please query charz_instance.placement instead.'
-        current_instance.placement
-      end
-
-      def on_result
-        Origen.log.deprecate 'charz_session.on_result has been deprecated. Please query charz_instance.on_result instead.'
-        current_instance.on_result
-      end
-
-      def enables
-        Origen.log.deprecate 'charz_session.enables has been deprecated. Please query charz_instance.enables instead.'
-        current_instance.enables
-      end
-
-      def flags
-        Origen.log.deprecate 'charz_session.flags has been deprecated. Please query charz_instance.flags instead.'
-        current_instance.flags
-      end
-
-      def routines
-        Origen.log.deprecate 'charz_session.routines has been deprecated. Please query charz_instance.routines instead.'
-        current_instance.routines
-      end
-
-      def and_enables
-        Origen.log.deprecate 'charz_session.and_enables has been deprecated. Please query charz_instance.and_enables instead.'
-        current_instance.and_enables
-      end
-
-      def and_flags
-        Origen.log.deprecate 'charz_session.and_flags has been deprecated. Please query charz_instance.and_flags instead.'
-        current_instance.and_flags
+        instance = @current_instance || instances.first
+        if instance.nil? && @stored_instance
+          Origen.log.deprecate '@current_instance had to source @stored_instance. This likely means charz_session.<some_attr> is being queried when the newer charz_instance.<some_attr> should be instead'
+          instance = @stored_instance
+        end
+        instance
       end
 
       def loop_instances
@@ -175,6 +143,34 @@ module OrigenTesters
         keys.map! { |k| k.to_s.sub('@', '').to_sym }
         keys -= [:id]
         keys
+      end
+
+      def method_missing(method, *args, &block)
+        deprecated_methods = [
+          :name,
+          :placement,
+          :on_result,
+          :enables,
+          :flags,
+          :routines,
+          :and_enables,
+          :enables_and,
+          :and_flags,
+          :flags_and,
+          :charz_only,
+          :force_keep_parent
+        ]
+        if deprecated_methods.include?(method.to_sym) || deprecated_methods.include?(method.to_s[0..-2].to_sym)
+          Origen.log.deprecate "charz_session.#{method} has been deprecated. Please query charz_instance.#{method} instead."
+          if current_instance.nil? && !valid
+            Origen.log.error "blocked call of 'charz_session.#{method}'!"
+            Origen.log.warn 'The charz instance attributes are no longer accessible when the session is invalid!'
+          else
+            current_instance.send(method, *args, &block)
+          end
+        else
+          super
+        end
       end
     end
   end
