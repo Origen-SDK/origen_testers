@@ -54,11 +54,16 @@ Flow.create interface: 'OrigenTesters::Test::Interface' do
     
     charz_on :complex_anded_flags, {flags: { routine1: [:my_flag1, :my_flag2]}}
       func_with_charz :func_complex_anded_flags
+      charz_on_append :routine2, { type: :routine }
+      func_with_charz :func_complex_anded_flags_add_simple_rt2
+      charz_off_truncate
     charz_off
 
     charz_on :complex_anded_enables, {enables: { routine1: [:my_enable1, :my_enable2]}}
       func_with_charz :func_complex_anded_enables
     charz_off
+
+    
 
   end
 end

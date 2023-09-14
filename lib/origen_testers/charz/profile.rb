@@ -19,7 +19,7 @@ module OrigenTesters
       #   @return [Array] list of charz routines to be called under this profile
       # @!attribute charz_only
       #   @return [Boolean] indicates if the point tests should or shouldn't be added to the flow
-      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only, :and_enables, :and_flags
+      attr_accessor :id, :name, :placement, :on_result, :enables, :flags, :routines, :charz_only, :force_keep_parent, :and_enables, :and_flags
 
       def initialize(id, options, &block)
         @id = id
@@ -30,6 +30,7 @@ module OrigenTesters
         @placement ||= :inline
         @defined_routines = options.delete(:defined_routines)
         attrs_ok?
+        massage_gates
       end
 
       def attrs_ok?
@@ -87,6 +88,20 @@ module OrigenTesters
           else
             gate_check(@enables, :enable) if @enables
             gate_check(@flags, :flags) if @flags
+          end
+        end
+      end
+
+      # convert hash gates to set convert their routines to type array if not already
+      def massage_gates
+        if @enables.is_a?(Hash)
+          @enables = {}.tap do |new_h|
+            @enables.each { |gates, routines| new_h[gates] = [routines].flatten }
+          end
+        end
+        if @flags.is_a?(Hash)
+          @flags = {}.tap do |new_h|
+            @flags.each { |gates, routines| new_h[gates] = [routines].flatten }
           end
         end
       end

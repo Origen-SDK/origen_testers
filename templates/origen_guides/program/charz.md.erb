@@ -79,6 +79,63 @@ add_charz_profile :anded_enables do |profile|
 end
 ~~~
 
+### Flow API
+
+Once your profiles and routines are initialized, the primary way of using the Charz API are through charz on/off calls as well as their append/truncate counterparts:
+
+#### charz_on / charz_off
+
+Pushes/pops a charz object (either a profile or a routine) onto the stack, along with any optional updates to modify the current session.
+Once pushed, the charz_session will attempt to update itself with the new data, failing if the resulting session is invalid. The updates will be stored as an "instance" which
+is essentially a dummy Profile, and placed inside the sessions instance stack, effectively making the charz_stack a 2D array.
+
+Once an instance is pushed onto the stack, the session becomes active and valid, allowing your apps hooks to query that state to know if a charz test needs to be inserted.
+
+Basic Usage:
+
+~~~ruby
+# pushes the profile :my_profile onto the charz stack
+charz_on :my_profile
+# after you've updated your app to insert charz tests,
+# this line will make two tests: point test and charz variant
+func :my_test
+# pops :my_profile off the charz stack
+charz_off
+
+# alternate block form, functionally identical
+charz_on :my_profile do
+  func :my_test
+end
+~~~
+
+#### charz_on_append / charz_off_truncate
+
+Very similar to the previous charz_on/off, the append/truncate instead operates in the 2nd dimension of the 2D array that is the charz stack.
+Pushes/pops a charz object (either a profile or a routine) onto the current sessions instance stack, along with any optional updates to modify that instance.
+This will result in subsequent charzable point tests in being processed against each of the current instances. In other words, this new push will not take
+priority over the current stack head, but instead append to it.
+
+Basic Usage:
+
+~~~ruby
+# pushes the profile :my_profile onto the charz stack
+charz_on :my_profile
+# after you've updated your app to insert charz tests, this line will make two tests:
+# point test and charz variant
+func :my_test
+# instead of pushing onto the charz stack itself,
+# this will push :my_other_profile onto the instance stack of the current session,
+# which is the at the head of the charz stack
+charz_on_append :my_other_profile
+# this line now makes 3 tests: the point test, a charz variant
+# per :my_profile, and another per :my_other_profile
+func :my_other_test
+# pops the session of the stack, meaning both :my_profile and :my_other_profile
+# are gone since they were in the same session alternately run charz_off_truncate
+# to only remove :my_other_profile
+charz_off
+~~~
+
 ### Charz Session
 
 The charz session (stored in your interfaces `@charz_session` attribute) monitors the current state of characterization at a given point in flow generation.
@@ -210,7 +267,10 @@ Where insert_current_charz_test is a method defined in the company charz flow me
 
 ### Flow Usage Examples
 
-Now that the interface has charz routines and profiles, lets look at how to use the API within the flow itself:
+Now that the interface has charz routines and profiles, lets look at how to use the API within the flow itself. Basic usage is to make charz_on/off calls, which will set the
+session to contain the called profile as the current instance to generate against.
+
+Additionally if you would like to add additional profiles to the current session, you can use the `charz_on_append` (and its counter part: `charz_off_truncate`) to do so.
 
 ~~~ruby
 Flow.create(interface: 'MyApp:Interface') do
@@ -233,6 +293,19 @@ Flow.create(interface: 'MyApp:Interface') do
   # override session values at the flow level
   charz_on :my_profile, placement: :eof do
     func :my_test4
+  end
+
+  # create profileA charz test variants of my_test5, as well as profileA and profileB charz variants of my_test6
+  # this would produce the following tests in order:
+  # my_test5
+  # my_test5_routineA
+  # my_test6
+  # my_test6_routineA
+  # my_test6_routineB
+  charz_on :profileA do
+    func :my_test5
+    charz_on_append :profileB
+    func :my_test6
   end
 
 end

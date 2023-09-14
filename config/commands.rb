@@ -175,7 +175,7 @@ when "tags"
 # Run the unit tests  
 when "specs"
   require "rspec"
-  exit RSpec::Core::Runner.run(['spec'])
+  exit RSpec::Core::Runner.run($ARGV.empty? ? ['spec'] : $ARGV)
 
 # Run the example-based (diff) tests
 when "examples", "test"
