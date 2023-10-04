@@ -76,11 +76,26 @@ module OrigenTesters
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
+            elsif param.last.is_a? Array
+              l = add_nested_params(l, param.last, 1)
             end
           end
           l << '}'
           l
         end
+        
+        def add_nested_params(l, nested_params, nested_loop_count)
+          l << "    #{name}[key] = {"
+          dynamic_spacing = ' ' * (4 * nested_loop_count)
+          nested_params.each do |nested_param|
+            if nested_param.last.is_a? Array
+              l = add_nested_params(l, nested_param.last, nested_loop_count+1)
+            end
+            l << "    #{dynamic_spacing}#{name} = #{wrap_if_string(test_method.format(param[0]))};"
+          end
+          l << '    };'
+          l
+        end 
       end
     end
   end
