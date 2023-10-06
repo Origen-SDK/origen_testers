@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean]
+        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :collection]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
@@ -107,6 +107,8 @@ module OrigenTesters
               type = send(name)
             elsif respond_to?(name.sub(/b$/, ''))
               type = inverse_of(send(name.sub(/b$/, '')))
+            elsif parameters[attr].is_a? Hash
+              type = :collection
             else
               fail "Unknown attribute type: #{parameters[attr]}"
             end
@@ -136,6 +138,8 @@ module OrigenTesters
             else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
             end
+          when :collection
+            val
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end

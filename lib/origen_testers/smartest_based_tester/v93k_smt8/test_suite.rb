@@ -72,28 +72,37 @@ module OrigenTesters
             unless name.is_a?(String)
               name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
             end
+            debugger if param.first == 'variables'
             if [true, false].include? test_method.format(param[0])
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
-            elsif param.last.is_a? Array
-              l = add_nested_params(l, param.last, 1)
+            elsif param.last.is_a? Hash
+              unless test_method.format(name).is_a? Hash
+                fail "#{name} parameter structure requires a Hash but value provided is #{test_method.format(name).class}"
+              end
+              test_method.format(name).each do |key, meta_hash|
+                l = add_nested_params(l, name, key, meta_hash, param.last, 1)
+              end
             end
           end
           l << '}'
           l
         end
         
-        def add_nested_params(l, nested_params, nested_loop_count)
-          l << "    #{name}[key] = {"
+        def add_nested_params(l, name, key, value_hash, nested_params, nested_loop_count)
+          l << "    #{name}[#{key}] = {" unless name.nil?
           dynamic_spacing = ' ' * (4 * nested_loop_count)
           nested_params.each do |nested_param|
-            if nested_param.last.is_a? Array
-              l = add_nested_params(l, nested_param.last, nested_loop_count+1)
+            # TODO: underscore might happen on amd_client_wrapper side and might not be here. I need to double check how to get a valid key for both
+            key = value_hash.keys.all?(Symbol) ? nested_param.first.to_s.underscore.to_sym : nested_param.first.to_s.underscore
+            if nested_param.last.is_a? Hash
+              l = add_nested_params(l, nil, nil, value_hash[key], nested_param.last, nested_loop_count+1)
             end
-            l << "    #{dynamic_spacing}#{name} = #{wrap_if_string(test_method.format(param[0]))};"
+            # debugger
+            l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[key])};" if value_hash[key]
           end
-          l << '    };'
+          l << '    };' unless name.nil?
           l
         end 
       end
