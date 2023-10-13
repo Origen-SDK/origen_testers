@@ -108,7 +108,7 @@ module OrigenTesters
             elsif respond_to?(name.sub(/b$/, ''))
               type = inverse_of(send(name.sub(/b$/, '')))
             elsif parameters[attr].is_a? Hash
-              type = :collection
+              type = :hash
             else
               fail "Unknown attribute type: #{parameters[attr]}"
             end
@@ -138,7 +138,7 @@ module OrigenTesters
             else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
             end
-          when :collection
+          when :hash
             val
           else
             fail "Unknown type for attribute #{attr}: #{type}"

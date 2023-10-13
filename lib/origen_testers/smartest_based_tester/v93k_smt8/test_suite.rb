@@ -72,7 +72,6 @@ module OrigenTesters
             unless name.is_a?(String)
               name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
             end
-            debugger if param.first == 'variables'
             if [true, false].include? test_method.format(param[0])
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
@@ -91,18 +90,41 @@ module OrigenTesters
         end
         
         def add_nested_params(l, name, key, value_hash, nested_params, nested_loop_count)
-          l << "    #{name}[#{key}] = {" unless name.nil?
-          dynamic_spacing = ' ' * (4 * nested_loop_count)
-          nested_params.each do |nested_param|
-            # TODO: underscore might happen on amd_client_wrapper side and might not be here. I need to double check how to get a valid key for both
-            key = value_hash.keys.all?(Symbol) ? nested_param.first.to_s.underscore.to_sym : nested_param.first.to_s.underscore
-            if nested_param.last.is_a? Hash
-              l = add_nested_params(l, nil, nil, value_hash[key], nested_param.last, nested_loop_count+1)
+          nested_params_accepted_keys = []
+          unless value_hash.nil?
+            dynamic_spacing = ' ' * (4 * nested_loop_count)
+            l << "#{dynamic_spacing}#{name}[#{key}] = {" unless name.nil?
+            nested_params.each do |nested_param|
+              # Guarentee hash is using all symbol keys
+              # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to 
+              value_hash = value_hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+              key = nested_param.first.to_sym
+              key_underscore = key.to_s.underscore.to_sym
+              nested_params_accepted_keys << key
+              nested_params_accepted_keys << key_underscore
+              # We cannot create nested member functions with aliases
+              # Requirement for hash parameter passing is to pass one of the key types and not both
+              if value_hash.keys.include?(key) &&
+                 value_hash.keys.include?(key_underscore) &&  
+                 key != key_underscore
+                 fail 'You are using a hash based test method and provided both the parameter name and alias name.'
+              end
+              key = key_underscore if value_hash.keys.include?(key_underscore)
+              if nested_param.last.first.is_a?(Hash) && value_hash[key].is_a?(Hash)
+                value_hash[key].each do |inner_key, inner_meta_hash|
+                  l = add_nested_params(l, nested_param.first, inner_key, value_hash[key], nested_param.last.first, nested_loop_count+1)
+                end
+              end
+              l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[key])};" if value_hash[key]
             end
-            # debugger
-            l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[key])};" if value_hash[key]
+            l << "#{dynamic_spacing}};" unless name.nil?
           end
-          l << '    };' unless name.nil?
+          # Sanity check there are not overpassed parameters
+          value_hash.keys.each do |key|
+            unless nested_params_accepted_keys.include?(key.to_sym)
+              fail "You provided a parameter \'#{key}\' that was not an accepted parameter to the hash parameter \'#{name}\'"
+            end
+          end
           l
         end 
       end
