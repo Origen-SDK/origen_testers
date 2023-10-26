@@ -76,6 +76,10 @@ module OrigenTesters
       # format (SMT8 only)
       attr_accessor :zip_patterns
 
+      # When set to true (the default), parameters will be generated in the flow file regardless if the default is selected
+      # (SMT8 only)
+      attr_accessor :print_all_params
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -106,6 +110,7 @@ module OrigenTesters
         if smt8?
           @pat_extension = 'pat'
           @program_comment_char = ['println', '//']
+          @print_all_params = options[:print_all_params].nil? ? true : options[:print_all_params]
         else
           @pat_extension = 'avc'
           @program_comment_char = ['print_dl', '//']

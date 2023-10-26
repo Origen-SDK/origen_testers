@@ -115,7 +115,11 @@ module OrigenTesters
                   l = add_nested_params(l, nested_param.first, inner_key, value_hash[key], nested_param.last.first, nested_loop_count+1)
                 end
               end
-              l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[key])};" if value_hash[key]
+              if value_hash[key]
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[key])};"
+              elsif nested_param.last.first != :hash && tester.print_all_params
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(nested_param.last.last)};"
+              end
             end
             l << "#{dynamic_spacing}};" unless name.nil?
           end

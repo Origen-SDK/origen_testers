@@ -113,35 +113,39 @@ module OrigenTesters
               fail "Unknown attribute type: #{parameters[attr]}"
             end
           end
-          case type
-          when :current, 'CURR'
-            "#{val}[A]"
-          when :voltage, 'VOLT'
-            "#{val}[V]"
-          when :time
-            "#{val}[s]"
-          when :frequency
-            "#{val}[Hz]"
-          when :string
-            val.to_s
-          when :integer, :double
-            val
-          when :boolean
-            # Check for valid values
-            if [0, 1, true, false, 'true', 'false'].include?(val)
-              # Use true/false for smt8 and 0/1 for smt7
-              if [1, true].include?(val)
-                tester.smt8? ? true : 1
-              else
-                tester.smt8? ? false : 0
-              end
-            else
-              fail "Unknown boolean value for attribute #{attr}: #{val}"
-            end
-          when :hash
-            val
+          if val.nil? && !tester.print_all_params
+            nil
           else
-            fail "Unknown type for attribute #{attr}: #{type}"
+            case type
+            when :current, 'CURR'
+              "#{val}[A]"
+            when :voltage, 'VOLT'
+              "#{val}[V]"
+            when :time
+              "#{val}[s]"
+            when :frequency
+              "#{val}[Hz]"
+            when :string
+              val.to_s
+            when :integer, :double
+              val
+            when :boolean
+              # Check for valid values
+              if [0, 1, true, false, 'true', 'false'].include?(val)
+                # Use true/false for smt8 and 0/1 for smt7
+                if [1, true].include?(val)
+                  tester.smt8? ? true : 1
+                else
+                  tester.smt8? ? false : 0
+                end
+              else
+                fail "Unknown boolean value for attribute #{attr}: #{val}"
+              end
+            when :hash
+              val
+            else
+              fail "Unknown type for attribute #{attr}: #{type}"
+            end
           end
         end
 
