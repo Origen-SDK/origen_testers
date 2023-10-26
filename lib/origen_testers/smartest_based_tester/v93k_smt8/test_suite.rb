@@ -88,7 +88,8 @@ module OrigenTesters
           l << '}'
           l
         end
-        
+
+        # rubocop:disable Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters.
         def add_nested_params(l, name, key, value_hash, nested_params, nested_loop_count)
           nested_params_accepted_keys = []
           unless value_hash.nil?
@@ -96,8 +97,8 @@ module OrigenTesters
             l << "#{dynamic_spacing}#{name}[#{key}] = {" unless name.nil?
             nested_params.each do |nested_param|
               # Guarentee hash is using all symbol keys
-              # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to 
-              value_hash = value_hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+              # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to
+              value_hash = value_hash.inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo }
               key = nested_param.first.to_sym
               key_underscore = key.to_s.underscore.to_sym
               nested_params_accepted_keys << key
@@ -105,14 +106,13 @@ module OrigenTesters
               # We cannot create nested member functions with aliases
               # Requirement for hash parameter passing is to pass one of the key types and not both
               if value_hash.keys.include?(key) &&
-                 value_hash.keys.include?(key_underscore) &&  
-                 key != key_underscore
-                 fail 'You are using a hash based test method and provided both the parameter name and alias name.'
+                 value_hash.keys.include?(key_underscore) && key != key_underscore
+                fail 'You are using a hash based test method and provided both the parameter name and alias name.'
               end
               key = key_underscore if value_hash.keys.include?(key_underscore)
               if nested_param.last.first.is_a?(Hash) && value_hash[key].is_a?(Hash)
                 value_hash[key].each do |inner_key, inner_meta_hash|
-                  l = add_nested_params(l, nested_param.first, inner_key, value_hash[key], nested_param.last.first, nested_loop_count+1)
+                  l = add_nested_params(l, nested_param.first, inner_key, value_hash[key], nested_param.last.first, nested_loop_count + 1)
                 end
               end
               if value_hash[key]
@@ -130,7 +130,8 @@ module OrigenTesters
             end
           end
           l
-        end 
+        end
+        # rubocop:enable Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters.
       end
     end
   end
