@@ -49,7 +49,7 @@ module OrigenTesters
 
       def add_custom_tml
         add_tml :my_tml,
-                test_a: {
+                test_a:    {
                   # Parameters can be defined with an underscored symbol as the name, this can be used
                   # if the C++ implementation follows the standard V93K convention of calling the attribute
                   # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
@@ -91,7 +91,7 @@ module OrigenTesters
                     end
                   }
                 },
-                test_b: {
+                test_b:    {
                   render_limits_in_tf: false,
                   my_arg0:             [:string, ''],
                   my_arg1:             [:string, 'b_default_value']
@@ -106,8 +106,8 @@ module OrigenTesters
                   # An optional 3rd parameter can be supplied to give an array of allowed values. If supplied,
                   # Origen will raise an error upon an attempt to set it to an unlisted value.
                   tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
-                  test_name: [:string, 'Functional'],
-                  my_arg_hash: [{
+                  test_name:    [:string, 'Functional'],
+                  my_arg_hash:  [{
                     my_arg0: [:string, ''],
                     my_arg1: [:string, 'a_default_value'],
                     my_arg2: [:integer, 0]
