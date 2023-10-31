@@ -1,4 +1,8 @@
 Flow.create do |options|
+  if tester.smt8?
+    my_hash_test :hash_example
+  end
+
   # Instantiate tests via the
   # interface
   func 'program_ckbd', tname: 'PGM_CKBD', tnum: 1000, bin: 100, soft_bin: 1100

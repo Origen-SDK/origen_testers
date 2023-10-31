@@ -255,6 +255,41 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite hash_example calls myTmlHashNamespace.MyHashExampleClass {
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            forceMode = "VOLT";
+            hashParameter[param1] = {
+                param_name0 = "NO";
+                param_name1 = 0;
+            };
+            hashParameter2[param0] = {
+                param_name0 = "NO";
+                param_name1 = 0;
+            };
+            nestedHashParameter[my_param_name0] = {
+                param_name0 = "hello";
+                param_name1[my_param_name1] = {
+                    param_name0 = 1;
+                };
+                param_name1[my_param_name2] = {
+                    param_name0 = 2;
+                };
+                param_name1[my_param_name3] = {
+                    param_name0 = 3;
+                };
+            };
+            nestedHashParameter2[my_param_name4] = {
+                param_name0 = "goodbye";
+            };
+            nestedHashParameter2[my_param_name5] = {
+                param_name0 = "goodbye forever";
+            };
+            prechargeVoltage = "0[V]";
+            settlingTime = "0[s]";
+            testName = "HashExample";
+            testerState = "CONNECTED";
+        }
+
         suite margin_read0_ckbd calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.margin_read0_ckbd);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -534,6 +569,7 @@ flow PRB1_MAIN {
         ERASE_RAN_3_RAN = -1;
         ERASE_RAN_4_RAN = -1;
 
+        hash_example.execute();
         program_ckbd.execute();
         margin_read1_ckbd.execute();
         margin_read0_ckbd.execute();

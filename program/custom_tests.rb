@@ -9,5 +9,8 @@ Flow.create interface: 'OrigenTesters::Test::CustomTestInterface', flow_descript
 
   if tester.v93k?
     custom_b :test4, number: 30040
+    if tester.smt8?
+      custom_hash :test_james, number: 30050
+    end
   end
 end

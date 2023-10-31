@@ -1,5 +1,6 @@
 Test Suite,Test,Test Number,Test Text,Low Limit,High Limit,Unit,Soft Bin
 ,,,,default,default
+PRB1_MAIN.hash_example,hash_example,0,hash_example,0,0,,
 PRB1_MAIN.program_ckbd,PGM_CKBD,1000,program_ckbd.PGM_CKBD,0,0,,1100
 PRB1_MAIN.margin_read1_ckbd,margin_read1_ckbd,1010,margin_read1_ckbd,0,0,,
 PRB1_MAIN.margin_read0_ckbd,margin_read0_ckbd,1030,margin_read0_ckbd,0,0,,

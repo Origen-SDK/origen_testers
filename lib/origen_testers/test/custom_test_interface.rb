@@ -33,6 +33,18 @@ module OrigenTesters
         end
       end
 
+      def custom_hash(name, options = {})
+        name = "custom_hash_#{name}".to_sym
+        if tester.v93k? && tester.smt8?
+          ti = test_methods.my_tml.test_hash
+          ti.my_arg_hash = {
+            my_param_name: {
+              my_arg2: 1
+            }
+          }
+        end
+      end
+
       private
 
       def add_custom_tml
@@ -83,6 +95,24 @@ module OrigenTesters
                   render_limits_in_tf: false,
                   my_arg0:             [:string, ''],
                   my_arg1:             [:string, 'b_default_value']
+                },
+                test_hash: {
+                  # Parameters can be defined with an underscored symbol as the name, this can be used
+                  # if the C++ implementation follows the standard V93K convention of calling the attribute
+                  # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
+                  # first example.
+                  # The attribute definition has two required parameters, the type and the default value.
+                  # The type can be :string, :current, :voltage, :time, :frequency, or :integer
+                  # An optional 3rd parameter can be supplied to give an array of allowed values. If supplied,
+                  # Origen will raise an error upon an attempt to set it to an unlisted value.
+                  tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
+                  test_name: [:string, 'Functional'],
+                  my_arg_hash: [{
+                    my_arg0: [:string, ''],
+                    my_arg1: [:string, 'a_default_value'],
+                    my_arg2: [:integer, 0]
+                  }]
+                  # Define any methods you want the test method to have
                 }
       end
 
