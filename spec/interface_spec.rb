@@ -12,7 +12,7 @@ describe "An interface" do
 
     def initialize(options = {})
       self.resources_filename = "abc"
-      add_my_tml if tester.v93k? && tester.smt8?
+      add_my_tml if tester.smt8?
     end
 
     def on_my_callback
