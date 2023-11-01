@@ -16,59 +16,59 @@ module OrigenTesters
       end
 
       def add_my_tml
-       add_tml :my_hash_tml,
-        class_name:      'MyTmlHashNamespace',
+        add_tml :my_hash_tml,
+                class_name:   'MyTmlHashNamespace',
 
-        # Here is a test definition.
-        # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
-        # By default the class name will be the camel-cased version of this identifier, so 'myTest' in
-        # this case.
-        my_hash_test: {
-          # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
-          class_name:   'MyHashExampleClass',
-          # [OPTIONAL] If the test method does not require a definition in the testmethodlimits section
-          #    of the .tf file, you can suppress like this:
-          # render_limits_in_file: false,
-          # Parameters can be defined with an underscored symbol as the name, this can be used
-          # if the C++ implementation follows the standard V93K convention of calling the attribute
-          # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
-          # first example.
-          # The attribute definition has two required parameters, the type and the default value.
-          # The type can be :string, :current, :voltage, :time, :frequency, integer, :double or :boolean
-          pin_list: [:string, ''],
-          samples: [:integer, 1],
-          precharge_voltage: [:voltage, 0],
-          settling_time: [:time, 0],
-          # An optional parameter that sets the limits name in the 'testmethodlimits' section
-          # of the generated .tf file.  Defaults to 'Functional' if not provided.
-          test_name: [:string, 'HashExample'],
-          # An optional 3rd parameter can be supplied to provide an array of allowed values. If supplied,
-          # Origen will raise an error upon an attempt to set it to an unlisted value.
-          tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED DISCONNECTED)],
-          force_mode: [:string, 'VOLT', %w(VOLT CURR)],
-          # The name of another parameter can be supplied as the type argument, meaning that the type
-          # here will be either :current or :voltage depending on the value of :force_mode
-          # force_value: [:force_mode, 3800.mV],
-          # In cases where the C++ library has deviated from standard attribute naming conventions
-          # (camel-cased with lower cased first character), the absolute attribute name can be given
-          # as a string.
-          # The Origen accessor for these will be the underscored version, with '.' characters
-          # converted to underscores e.g. tm.an_unusual_name
-          'hashParameter':        [{param_name0: [:string, 'NO'], param_name1: [:integer, 0]}],
-          'hashParameter2':       [{param_name0: [:string, 'NO'], param_name1: [:integer, 0]}],
-          'nestedHashParameter':  [{
-            param_name0: [:string, ''],
-            param_name1: [{
-              param_name0: [:integer, 0]
-            }]
-          }],
-          'nestedHashParameter2': [{
-            param_name0: [:string, ''],
-            param_name1: [{
-              param_name0: [:integer, 0]
-            }]
-          }]
-        }       
+                # Here is a test definition.
+                # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
+                # By default the class name will be the camel-cased version of this identifier, so 'myTest' in
+                # this case.
+                my_hash_test: {
+                  # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
+                  class_name:             'MyHashExampleClass',
+                  # [OPTIONAL] If the test method does not require a definition in the testmethodlimits section
+                  #    of the .tf file, you can suppress like this:
+                  # render_limits_in_file: false,
+                  # Parameters can be defined with an underscored symbol as the name, this can be used
+                  # if the C++ implementation follows the standard V93K convention of calling the attribute
+                  # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
+                  # first example.
+                  # The attribute definition has two required parameters, the type and the default value.
+                  # The type can be :string, :current, :voltage, :time, :frequency, integer, :double or :boolean
+                  pin_list:               [:string, ''],
+                  samples:                [:integer, 1],
+                  precharge_voltage:      [:voltage, 0],
+                  settling_time:          [:time, 0],
+                  # An optional parameter that sets the limits name in the 'testmethodlimits' section
+                  # of the generated .tf file.  Defaults to 'Functional' if not provided.
+                  test_name:              [:string, 'HashExample'],
+                  # An optional 3rd parameter can be supplied to provide an array of allowed values. If supplied,
+                  # Origen will raise an error upon an attempt to set it to an unlisted value.
+                  tester_state:           [:string, 'CONNECTED', %w(CONNECTED UNCHANGED DISCONNECTED)],
+                  force_mode:             [:string, 'VOLT', %w(VOLT CURR)],
+                  # The name of another parameter can be supplied as the type argument, meaning that the type
+                  # here will be either :current or :voltage depending on the value of :force_mode
+                  # force_value: [:force_mode, 3800.mV],
+                  # In cases where the C++ library has deviated from standard attribute naming conventions
+                  # (camel-cased with lower cased first character), the absolute attribute name can be given
+                  # as a string.
+                  # The Origen accessor for these will be the underscored version, with '.' characters
+                  # converted to underscores e.g. tm.an_unusual_name
+                  'hashParameter':        [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
+                  'hashParameter2':       [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
+                  'nestedHashParameter':  [{
+                    param_name0: [:string, ''],
+                    param_name1: [{
+                      param_name0: [:integer, 0]
+                    }]
+                  }],
+                  'nestedHashParameter2': [{
+                    param_name0: [:string, ''],
+                    param_name1: [{
+                      param_name0: [:integer, 0]
+                    }]
+                  }]
+                }
       end
 
       def add_charz
@@ -294,7 +294,6 @@ module OrigenTesters
             flow.test ts, options
           end
         end
-       
       end
 
       def block_loop(name, options)
