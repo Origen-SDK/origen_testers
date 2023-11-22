@@ -1,3 +1,26 @@
+<a class="anchor release_tag" name="v0_51_3"></a>
+<h1><a href="#v0_51_3">Tag: v0.51.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 14-Sep-2023 15:56PM
+
+
+- add support to append multiple characterization profiles to the current session.
+- added new api calls "charz_on_append" and "charz_off_truncate"
+- @CodyBriscoe
+
+<a class="anchor release_tag" name="v0_51_2"></a>
+<h1><a href="#v0_51_2">Tag: v0.51.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 20-Jul-2023 15:44PM
+
+
+Characterization AND functionality and some documentation updates - @joshwman92 (Joshua
+Waldman)
+
 <a class="anchor release_tag" name="v0_51_1"></a>
 <h1><a href="#v0_51_1">Tag: v0.51.1</a></h1>
 

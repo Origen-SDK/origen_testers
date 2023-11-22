@@ -93,7 +93,40 @@ tm_35:
 tm_36:
   "output" = "None";
   "testName" = "Functional";
+tm_37:
+  "output" = "None";
+  "testName" = "Functional";
+tm_38:
+  "output" = "None";
+  "testName" = "Functional";
+tm_39:
+  "output" = "None";
+  "testName" = "Functional";
 tm_4:
+  "output" = "None";
+  "testName" = "Functional";
+tm_40:
+  "output" = "None";
+  "testName" = "Functional";
+tm_41:
+  "output" = "None";
+  "testName" = "Functional";
+tm_42:
+  "output" = "None";
+  "testName" = "Functional";
+tm_43:
+  "output" = "None";
+  "testName" = "Functional";
+tm_44:
+  "output" = "None";
+  "testName" = "Functional";
+tm_45:
+  "output" = "None";
+  "testName" = "Functional";
+tm_46:
+  "output" = "None";
+  "testName" = "Functional";
+tm_47:
   "output" = "None";
   "testName" = "Functional";
 tm_5:
@@ -176,7 +209,29 @@ tm_35:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_36:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_37:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_38:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_39:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_4:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_40:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_41:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_42:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_43:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_44:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_45:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_46:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_47:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_5:
   "Functional" = "":"NA":"":"NA":"":"":"";
@@ -253,7 +308,29 @@ tm_35:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_36:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_37:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_38:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_39:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_4:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_40:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_41:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_42:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_43:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_44:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_45:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_46:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_47:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_5:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -281,7 +358,56 @@ func_charz_only__cz__rt1_E4F9C4F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
   override_seqlbl = "charz_example";
-  override_testf = tm_36;
+  override_testf = tm_47;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_enables_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_45;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_enables__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_46;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_40;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_41;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_42;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_43;
+  site_control = "parallel:";
+  site_match = 2;
+func_complex_anded_flags_add_simple_rt2__cz__rt2_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_44;
   site_control = "parallel:";
   site_match = 2;
 func_complex_enable_simple_flag_E4F9C4F:
@@ -452,6 +578,34 @@ func_resume_charz__cz__rt3_E4F9C4F:
   override_testf = tm_29;
   site_control = "parallel:";
   site_match = 2;
+func_simple_anded_enables_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_38;
+  site_control = "parallel:";
+  site_match = 2;
+func_simple_anded_enables__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_39;
+  site_control = "parallel:";
+  site_match = 2;
+func_simple_anded_flags_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_36;
+  site_control = "parallel:";
+  site_match = 2;
+func_simple_anded_flags__cz__rt1_E4F9C4F:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "charz_example";
+  override_testf = tm_37;
+  site_control = "parallel:";
+  site_match = 2;
 func_simple_enables_E4F9C4F:
   local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
   override = 1;
@@ -529,8 +683,8 @@ test_flow
 
   {
     {
-       @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED = -1;
-       @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED = -1;
+       @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED = -1;
+       @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED = -1;
     }, open,"Init Flow Control Vars", ""
     run_and_branch(func_complex_gates_on_fail_E4F9C4F)
     then
@@ -538,10 +692,10 @@ test_flow
     }
     else
     {
-       @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED = 1;
+       @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED = 1;
     }
     {
-       if @FUNC_COMPLEX_GATES_ON_FAIL_CHARZ_COMPLEX_GATES_E4F9C4F_FAILED == 1 then
+       if @AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED == 1 then
        {
           run(func_complex_gates_on_fail__cz__rt6_E4F9C4F);
           if @MyFlag1 == 1 then
@@ -676,13 +830,13 @@ test_flow
     run_and_branch(func_simple_gates_on_pass_E4F9C4F)
     then
     {
-       @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED = 1;
+       @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED = 1;
     }
     else
     {
     }
     {
-       if @FUNC_SIMPLE_GATES_ON_PASS_CHARZ_SIMPLE_GATES_E4F9C4F_PASSED == 1 then
+       if @AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED == 1 then
        {
           if @MY_ENABLE == 1 then
           {
@@ -722,6 +876,107 @@ test_flow
        {
        }
     }, open,"func_simple_enables charz simple_gates", ""
+    run(func_simple_anded_flags_E4F9C4F);
+    {
+       if @MY_FLAG2 == 1 then
+       {
+          if @MY_FLAG1 == 1 then
+          {
+             run(func_simple_anded_flags__cz__rt1_E4F9C4F);
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_simple_anded_flags charz simple_anded_flags", ""
+    run(func_simple_anded_enables_E4F9C4F);
+    {
+       if @MY_ENABLE2 == 1 then
+       {
+          if @MY_ENABLE1 == 1 then
+          {
+             run(func_simple_anded_enables__cz__rt1_E4F9C4F);
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_simple_anded_enables charz simple_anded_enables", ""
+    run(func_complex_anded_flags_E4F9C4F);
+    {
+       if @MY_FLAG2 == 1 then
+       {
+          if @MY_FLAG1 == 1 then
+          {
+             if @MY_ENABLE == 1 then
+             {
+                run(func_complex_anded_flags__cz__rt1_E4F9C4F);
+             }
+             else
+             {
+             }
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_complex_anded_flags charz complex_anded_flags", ""
+    run(func_complex_anded_flags_add_simple_rt2_E4F9C4F);
+    {
+       if @MY_FLAG2 == 1 then
+       {
+          if @MY_FLAG1 == 1 then
+          {
+             if @MY_ENABLE == 1 then
+             {
+                run(func_complex_anded_flags_add_simple_rt2__cz__rt1_E4F9C4F);
+             }
+             else
+             {
+             }
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_complex_anded_flags_add_simple_rt2 charz complex_anded_flags", ""
+    {
+       run(func_complex_anded_flags_add_simple_rt2__cz__rt2_E4F9C4F);
+    }, open,"func_complex_anded_flags_add_simple_rt2 charz _cz__rt2", ""
+    run(func_complex_anded_enables_E4F9C4F);
+    {
+       if @MY_ENABLE2 == 1 then
+       {
+          if @MY_ENABLE1 == 1 then
+          {
+             if @MY_FLAG == 1 then
+             {
+                run(func_complex_anded_enables__cz__rt1_E4F9C4F);
+             }
+             else
+             {
+             }
+          }
+          else
+          {
+          }
+       }
+       else
+       {
+       }
+    }, open,"func_complex_anded_enables charz complex_anded_enables", ""
     {
        {
           run(func_charz_only__cz__rt1_E4F9C4F);
