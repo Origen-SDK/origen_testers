@@ -262,10 +262,6 @@ flow PRB1_MAIN {
                 param_name0 = "NO";
                 param_name1 = 0;
             };
-            hashParameter2[param0] = {
-                param_name0 = "NO";
-                param_name1 = 0;
-            };
             nestedHashParameter[my_param_name0] = {
                 param_name0 = "hello";
                 param_name1[my_param_name1] = {
