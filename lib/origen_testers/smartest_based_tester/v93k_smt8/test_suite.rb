@@ -80,7 +80,7 @@ module OrigenTesters
               if !test_method.format(name).nil? && !test_method.format(name).is_a?(Hash)
                 fail "#{name} parameter structure requires a Hash but value provided is #{test_method.format(name).class}"
               elsif test_method.format(name).nil?
-                # Don't populate the test_suite if nothing has been provided
+                l = add_nested_params(l, name, 'param0', {}, param.last, 1)
               else
                 test_method.format(name).each do |key, meta_hash|
                   l = add_nested_params(l, name, key, meta_hash, param.last, 1)
@@ -96,7 +96,6 @@ module OrigenTesters
         def add_nested_params(l, name, key, value_hash, nested_params, nested_loop_count)
           nested_params_accepted_keys = []
           skip_keys                   = []
-          debugger if name == 'softset'
           unless value_hash.nil?
             unless value_hash.is_a?(Hash)
               fail "Provided value to nested params was not a Hash. Instead the value was #{value_hash.class}"
@@ -123,6 +122,8 @@ module OrigenTesters
                   l = add_nested_params(l, nested_param.first, inner_key, value_hash.dig(nested_key, inner_key), nested_param.last.first, nested_loop_count + 1)
                   skip_keys << nested_key
                 end
+              elsif nested_param.last.first.is_a?(Hash) && tester.print_all_params
+                l = add_nested_params(l, nested_param.first, 'param0', {}, nested_param.last.first, nested_loop_count + 1)
               end
               if value_hash[nested_key] && !skip_keys.include?(nested_key)
                 l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[nested_key])};"

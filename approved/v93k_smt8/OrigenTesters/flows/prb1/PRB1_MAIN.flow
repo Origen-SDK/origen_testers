@@ -262,6 +262,10 @@ flow PRB1_MAIN {
                 param_name0 = "NO";
                 param_name1 = 0;
             };
+            hashParameter2[param0] = {
+                param_name0 = "NO";
+                param_name1 = 0;
+            };
             nestedHashParameter[my_param_name0] = {
                 param_name0 = "hello";
                 param_name1[my_param_name1] = {
@@ -276,9 +280,15 @@ flow PRB1_MAIN {
             };
             nestedHashParameter2[my_param_name4] = {
                 param_name0 = "goodbye";
+                param_name1[param0] = {
+                    param_name0 = 0;
+                };
             };
             nestedHashParameter2[my_param_name5] = {
                 param_name0 = "goodbye forever";
+                param_name1[param0] = {
+                    param_name0 = 0;
+                };
             };
             prechargeVoltage = "0[V]";
             settlingTime = "0[s]";
