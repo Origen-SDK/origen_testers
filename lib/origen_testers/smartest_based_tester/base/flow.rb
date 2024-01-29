@@ -81,14 +81,16 @@ module OrigenTesters
         end
 
         def flow_name(filename = nil)
-          if smt8?
-            @flow_name_ = (filename || self.filename).sub(/\..*/, '')
-            @flow_name_ = @flow_name_.upcase unless Origen.interface.try(:disable_upcase_flow_name)
-            @flow_name_.gsub(' ', '_')
-          else
-            @flow_name_ = @flow_name
+          @flow_name_ = @flow_name unless smt8?
+          @flow_name_ ||= begin
+            flow_name = (filename || self.filename).sub(/\..*/, '')
+            flow_name = flow_name.upcase unless Origen.interface.try(:disable_upcase_flow_name)
+            if smt8?
+              flow_name.gsub(' ', '_')
+            else
+              flow_name
+            end
           end
-          @flow_name_
         end
 
         def flow_bypass
