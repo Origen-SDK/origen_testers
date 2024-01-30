@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean]
+        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :class, :list]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
@@ -116,36 +116,42 @@ module OrigenTesters
           if val.nil? && !tester.print_all_params
             nil
           else
-            case type
-            when :current, 'CURR'
-              "#{val}[A]"
-            when :voltage, 'VOLT'
-              "#{val}[V]"
-            when :time
-              "#{val}[s]"
-            when :frequency
-              "#{val}[Hz]"
-            when :string
-              val.to_s
-            when :integer, :double
-              val
-            when :boolean
-              # Check for valid values
-              if [0, 1, true, false, 'true', 'false'].include?(val)
-                # Use true/false for smt8 and 0/1 for smt7
-                if [1, true].include?(val)
-                  tester.smt8? ? true : 1
-                else
-                  tester.smt8? ? false : 0
-                end
+            handle_val_type(val, type)
+          end
+        end
+
+        def handle_val_type(val, type)
+          case type
+          when :current, 'CURR'
+            "#{val}[A]"
+          when :voltage, 'VOLT'
+            "#{val}[V]"
+          when :time
+            "#{val}[s]"
+          when :frequency
+            "#{val}[Hz]"
+          when :string
+            val.to_s
+          when :integer, :double
+            val
+          when :boolean
+            # Check for valid values
+            if [0, 1, true, false, 'true', 'false'].include?(val)
+              # Use true/false for smt8 and 0/1 for smt7
+              if [1, true].include?(val)
+                tester.smt8? ? true : 1
               else
-                fail "Unknown boolean value for attribute #{attr}: #{val}"
+                tester.smt8? ? false : 0
               end
-            when :hash
-              val
             else
-              fail "Unknown type for attribute #{attr}: #{type}"
+              fail "Unknown boolean value for attribute #{attr}: #{val}"
             end
+          when :hash, :class
+            val
+          when :list
+            "##{val}"
+          else
+            fail "Unknown type for attribute #{attr}: #{type}"
           end
         end
 

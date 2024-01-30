@@ -74,6 +74,8 @@ module OrigenTesters
             end
             if [true, false].include? test_method.format(param[0])
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
+            elsif [:list, :class].include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
+              l << "    #{name} = #{test_method.format(param[0])};"
             elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             elsif param.last.is_a? Hash
@@ -125,10 +127,15 @@ module OrigenTesters
               elsif nested_param.last.first.is_a?(Hash) && tester.print_all_params
                 l = add_nested_params(l, nested_param.first, 'param0', {}, nested_param.last.first, nested_loop_count + 1)
               end
-              if value_hash[nested_key] && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(value_hash[nested_key])};"
+              type = nested_param.last.first
+              if [:list, :class].include?(nested_param.last.first) && value_hash[nested_key] && !skip_keys.include?(nested_key)
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(value_hash[nested_key], type)};"
+              elsif value_hash[nested_key] && !skip_keys.include?(nested_key)
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(value_hash[nested_key], type))};"
+              elsif [:list, :class].include?(nested_param.last.first) && !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(nested_param.last.last, type)};"
               elsif !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(nested_param.last.last)};"
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(nested_param.last.last, type))};"
               end
             end
             l << "#{dynamic_spacing}};" unless name.nil?
