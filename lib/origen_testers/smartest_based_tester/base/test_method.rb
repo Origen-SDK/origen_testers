@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :class, :list]
+        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :class, :list, :list_w_class_elements]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
@@ -150,6 +150,8 @@ module OrigenTesters
             val
           when :list
             "##{val}"
+          when :list_w_class_elements
+            "##{val.gsub('"', '')}"
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end
