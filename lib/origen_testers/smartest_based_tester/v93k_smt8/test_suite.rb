@@ -29,7 +29,7 @@ module OrigenTesters
           # binning.binnable
         )
         
-        NO_STRING_TYPES = [:list, :list_w_class_elements, :class]
+        NO_STRING_TYPES = [:list_strings, :list_classes, :class]
         # Generate accessors for all attributes and their aliases
         ATTRS.each do |attr|
           if attr == 'name' || attr == 'pattern'

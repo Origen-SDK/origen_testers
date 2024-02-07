@@ -88,7 +88,11 @@ module OrigenTesters
           return flow_sheets[id] if flow_sheets[id] # will return flow if already existing
           p = platform::Flow.new
           p.inhibit_output if Origen.interface.resources_mode?
-          p.filename = filename
+          if id == Origen.file_handler.current_file.basename('.rb').to_s && Origen.interface.try(:use_flow_name_for_top_level)
+            p.filename = Origen.interface.flow_name
+          else
+            p.filename = filename
+          end
           p.test_suites ||= platform::TestSuites.new(p)
           p.test_methods ||= platform::TestMethods.new(p)
           flow_sheets[id] = p
