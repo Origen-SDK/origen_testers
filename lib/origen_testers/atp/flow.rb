@@ -547,6 +547,22 @@ module OrigenTesters::ATP
       end
     end
 
+    def unset_flag(flag, options = {})
+      extract_meta!(options) do
+        apply_conditions(options) do
+          unset_flag_node(flag)
+        end
+      end
+    end
+
+    def add_flag(flag, options = {})
+      extract_meta!(options) do
+        apply_conditions(options) do
+          add_flag_node(flag)
+        end
+      end
+    end
+
     def set(var, val, options = {})
       extract_meta!(options) do
         apply_conditions(options) do
@@ -936,6 +952,14 @@ module OrigenTesters::ATP
 
     def set_flag_node(flag)
       n1(:set_flag, flag)
+    end
+
+    def unset_flag_node(flag)
+      n1(:unset_flag, flag)
+    end
+
+    def add_flag_node(flag)
+      n1(:add_flag, flag)
     end
 
     # Ensures the flow ast has a volatile node, then adds the

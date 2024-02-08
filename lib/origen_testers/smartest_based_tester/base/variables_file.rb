@@ -48,7 +48,7 @@ module OrigenTesters
         # What SMT7 calls a declaration
         def declarations
           if variables
-            (variables[:all][:jobs] + variables[:all][:referenced_flags] + variables[:all][:set_flags]).uniq.sort do |x, y|
+            (variables[:all][:jobs] + variables[:all][:referenced_flags] + variables[:all][:set_flags] + variables[:all][:unset_flags] + variables[:all][:add_flags]).uniq.sort do |x, y|
               x = x[0] if x.is_a?(Array)
               y = y[0] if y.is_a?(Array)
               # Need to use strings for the comparison as some declarations can be a string and some a symbol

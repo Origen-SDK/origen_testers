@@ -156,7 +156,7 @@ module OrigenTesters
           # Jobs and enables flow into a sub-flow
           (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
             # As do any flags which are referenced by it but which are not set within it
-            (vars[:all][:referenced_flags] - vars[:all][:set_flags])).uniq.sort do |x, y|
+            (vars[:all][:referenced_flags] + vars[:all][:add_flags] - vars[:all][:set_flags] - vars[:all][:unset_flags])).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
             x <=> y

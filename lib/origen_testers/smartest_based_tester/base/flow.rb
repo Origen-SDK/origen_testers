@@ -619,6 +619,15 @@ module OrigenTesters
           end
         end
 
+        def on_unset_flag(node)
+          flag = generate_flag_name(node.value)
+          if smt8?
+            line "#{flag} = 0;"
+          else
+            line "@#{flag} = 0;"
+          end
+        end
+
         # Note that for smt8?, this should never be hit anymore since groups are now generated as sub-flows
         def on_group(node)
           on_fail = node.children.find { |n| n.try(:type) == :on_fail }
