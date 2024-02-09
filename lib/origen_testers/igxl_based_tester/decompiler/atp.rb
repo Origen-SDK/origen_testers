@@ -33,8 +33,6 @@ module OrigenTesters
               imports[val.gsub(';', '')] = type
             elsif l.strip.empty?
               # Just whitespace. Ignore this, but don't throw an error
-            elsif !(l =~ Regexp.new(/vector/)).nil?
-              # Line break between vector keyword and pinlist, ignore
             else
               Origen.app!.fail!("Unable to parse pattern frontmatter, at line: #{i}")
             end
