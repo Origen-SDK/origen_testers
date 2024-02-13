@@ -45,6 +45,17 @@ module OrigenTesters
         @flattened_ordered_pins
       end
 
+      def output_group_definition(grp, grp_name)
+        line = "\"#{grp_name}\" = '"
+        grp.each_with_index do |pin, i|
+          unless i == 0
+            line << '+'
+          end
+          line << pin.name.to_s
+        end
+        microcode "  #{line}';"
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -73,14 +84,13 @@ module OrigenTesters
 
           microcode ''
           microcode 'SignalGroups {'
-          line = "\"#{ordered_pins_name || 'ALL'}\" = '"
-          flattened_ordered_pins.each_with_index do |pin, i|
-            unless i == 0
-              line << '+'
-            end
-            line << pin.name.to_s
+          # output pin group definitions used in this pattern
+          ordered_pins.each do |p|
+            output_group_definition(p, p.name.to_s) if p.is_a?(Origen::Pins::PinCollection)
           end
-          microcode "  #{line}';"
+
+          # output the all pin group
+          output_group_definition(flattened_ordered_pins, "#{ordered_pins_name || 'ALL'}")
           microcode '}'
 
           microcode ''
