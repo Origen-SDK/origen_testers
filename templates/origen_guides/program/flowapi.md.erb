@@ -280,6 +280,9 @@ test :test2, if_flag: :my_pass_flag
 unless_flag :my_pass_flag do
   test :test3
 end
+
+log "Example of manually unsetting flag"
+test :test4, on_pass: { unset_flag :my_custom_flag1 }
 ~~~
 
 Note that flag names will usually be forced to uppercase, this is to institute a convention that
@@ -301,6 +304,14 @@ unless_enable "$MCEn_test" do
   test :test1
   test :test2
 end
+~~~
+
+For custom environment libraries, there might be a need to reference a flag without using the native
+flag API. `add_flag` will allow the flow and sub-flow to have access to the flag without adding to the flow.
+
+~~~ruby
+log "Example of manually adding a flag to a flow without calling the flag"
+add_flag :my_custom_flag2
 ~~~
 
 In all cases the `$` will be removed from the final flag name that appears in the test program.

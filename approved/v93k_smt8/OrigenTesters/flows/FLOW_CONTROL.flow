@@ -13,6 +13,7 @@ flow FLOW_CONTROL {
     in MCEn_extras = -1;
     in MCEn_test = -1;
     in MY_ENABLE_WORD = -1;
+    in MY_UNCALLED_FLAG = -1;
     in NVM_MINIMUM_COLD = -1;
     in NVM_MINIMUM_FT = -1;
     in NVM_MINIMUM_HOT = -1;
@@ -54,6 +55,7 @@ flow FLOW_CONTROL {
     out T7_RAN = -1;
     out T8_RAN = -1;
     out global = -1;
+    out my_unset_flag = -1;
     out non_global = -1;
 
     setup {
@@ -1154,6 +1156,7 @@ flow FLOW_CONTROL {
         T7_RAN = -1;
         T8_RAN = -1;
         global = -1;
+        my_unset_flag = -1;
         non_global = -1;
 
         println("Test that if_failed works");
@@ -1540,6 +1543,10 @@ flow FLOW_CONTROL {
             global = 1;
         } else {
         }
+        println("Test unset_flag functionality");
+        my_unset_flag = 1;
+        my_unset_flag = 0;
+        println("Test add_flag functionality");
         println("This should retain the set-run-flag in the else conditional");
         test22.execute();
         if (!test22.pass) {

@@ -319,6 +319,13 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     set_flag '$global'
   end
 
+  log 'Test unset_flag functionality'
+  set_flag '$my_unset_flag'
+  unset_flag '$my_unset_flag'
+
+  log 'Test add_flag functionality'
+  add_flag :my_uncalled_flag
+
   if tester.v93k?
     log "This should retain the set-run-flag in the else conditional"
     func :test22, id: :at22, number: 51480

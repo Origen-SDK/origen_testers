@@ -27,6 +27,7 @@ declarations
 @JOB = "";
 @L1T5_BEA7F3B_FAILED = 0;
 @MY_FLAG = 0;
+@MY_UNCALLED_FLAG = 0;
 @My_Mixed_Flag = 0;
 @OF11_BEA7F3B_FAILED = 0;
 @OF12_BEA7F3B_FAILED = 0;
@@ -40,6 +41,7 @@ declarations
 @T7_BEA7F3B_RAN = 0;
 @T8_BEA7F3B_RAN = 0;
 @global = 0;
+@my_unset_flag = 0;
 @non_global = 0;
 
 end

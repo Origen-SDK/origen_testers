@@ -2544,6 +2544,7 @@ test_flow
        @MY_FLAG = -1;
        @My_Mixed_Flag = -1;
        @non_global = -1;
+       @my_unset_flag = -1;
        @AT22_BEA7F3B_FAILED = -1;
        @OF1_BEA7F3B_FAILED = -1;
        @OF2_BEA7F3B_FAILED = -1;
@@ -3443,6 +3444,10 @@ test_flow
     else
     {
     }
+    print_dl("Test unset_flag functionality");
+    @my_unset_flag = 1;
+    @my_unset_flag = 0;
+    print_dl("Test add_flag functionality");
     print_dl("This should retain the set-run-flag in the else conditional");
     run_and_branch(test22_BEA7F3B)
     then
