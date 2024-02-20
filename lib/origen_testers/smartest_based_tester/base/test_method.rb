@@ -138,7 +138,7 @@ module OrigenTesters
             # Check for valid values
             if [0, 1, true, false, 'true', 'false'].include?(val)
               # Use true/false for smt8 and 0/1 for smt7
-              if [1, true].include?(val)
+              if [1, true, 'true'].include?(val)
                 tester.smt8? ? true : 1
               else
                 tester.smt8? ? false : 0
