@@ -1746,7 +1746,7 @@ flow FLOW_CONTROL {
         }
         println("Test some expressions");
         LT_VARIABLE = "FALSE";
-        if 3 < 5 then
+        if (3 < 5)
         {
             LT_VARIABLE = "TRUE";
             test_3lt5.execute();
@@ -1754,21 +1754,21 @@ flow FLOW_CONTROL {
         else
         {
         }
-        if LT_VARIABLE == "TRUE" then
+        if (LT_VARIABLE == "TRUE")
         {
             addBin(12);
         }
         else
         {
         }
-        if FIVE > FOUR or 5 != 4 then
+        if (FIVE > FOUR || 5 != 4)
         {
             test_5gt4_or_4gt5.execute();
         }
         else
         {
         }
-        if FIVE_PNT_TWO >= 5.1 and 4 < 3 then
+        if (FIVE_PNT_TWO >= 5.1 && 4 < 3)
         {
             test_5gt4_and_4gt3.execute();
         }

@@ -452,17 +452,26 @@ module OrigenTesters
 
         def on_whenever(node)
           expressions, *nodes = *node
-
+          and_string = ' and '
+          or_string  = ' or '
+          if smt8?
+            and_string = ' && '
+            or_string  = ' || '
+          end
           case node.type
           when :whenever_all
-            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(' and ')
+            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(and_string)
           when :whenever_any
-            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(' or ')
+            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(or_string)
           else
             condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join('ERROR')
           end
 
-          line "if #{condition} then"
+          if smt8?
+            line "if (#{condition})"
+          else
+            line "if #{condition} then"
+          end
           line '{'
           @indent += 1
           process_all(node.children)
