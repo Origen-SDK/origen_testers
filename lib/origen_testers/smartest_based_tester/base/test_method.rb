@@ -152,12 +152,12 @@ module OrigenTesters
             unless val.is_a?(Array)
               fail "#{val} is not an Array. List_strings must have Array values"
             end
-            "##{val}"
+            "##{val.to_s}"
           when :list_classes
             unless val.is_a?(Array)
               fail "#{val} is not an Array. List_classes must have Array values"
             end
-            "##{val.gsub('"', '')}"
+            "##{val.to_s.gsub('"', '')}"
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end
