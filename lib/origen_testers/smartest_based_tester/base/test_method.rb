@@ -149,8 +149,14 @@ module OrigenTesters
           when :hash, :class
             val
           when :list_strings
+            unless val.is_a?(Array)
+              fail "#{val} is not an Array. List_strings must have Array values"
+            end
             "##{val}"
           when :list_classes
+            unless val.is_a?(Array)
+              fail "#{val} is not an Array. List_classes must have Array values"
+            end
             "##{val.gsub('"', '')}"
           else
             fail "Unknown type for attribute #{attr}: #{type}"
