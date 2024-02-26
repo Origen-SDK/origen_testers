@@ -170,6 +170,8 @@ module OrigenTesters
           (vars[:this_flow][:set_flags] +
            # As do any flags set by its children which are marked as external
            vars[:all][:set_flags_extern] +
+           # Add flag is calling the methodology for both output and input variables 
+           vars[:this_flow][:add_flags] +
            # And any flags which are set by a child and referenced in this flow
            (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
            # And also intermediate flags, those are flags which are set by a child and referenced

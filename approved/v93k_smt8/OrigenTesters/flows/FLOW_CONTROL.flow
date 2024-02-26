@@ -43,6 +43,7 @@ flow FLOW_CONTROL {
     out IFAPB1_PASSED = -1;
     out IFAPB2_PASSED = -1;
     out MY_FLAG = -1;
+    out MY_UNCALLED_FLAG = -1;
     out My_Mixed_Flag = -1;
     out OF11_FAILED = -1;
     out OF12_FAILED = -1;
