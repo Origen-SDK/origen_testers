@@ -30,6 +30,32 @@ module OrigenTesters
         true
       end
 
+      # returns the orderd pins with groups decomposed into individual pins
+      def flattened_ordered_pins
+        if @flattened_ordered_pins.nil?
+          @flattened_ordered_pins = []
+          ordered_pins.each do |p|
+            if p.is_a?(Origen::Pins::PinCollection)
+              p.each { |ip| @flattened_ordered_pins << ip }
+            else
+              @flattened_ordered_pins << p
+            end
+          end
+        end
+        @flattened_ordered_pins
+      end
+
+      def output_group_definition(grp, grp_name)
+        line = "\"#{grp_name}\" = '"
+        grp.each_with_index do |pin, i|
+          unless i == 0
+            line << '+'
+          end
+          line << pin.name.to_s
+        end
+        microcode "  #{line}';"
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -42,7 +68,7 @@ module OrigenTesters
 
           microcode ''
           microcode 'Signals {'
-          ordered_pins.each do |pin|
+          flattened_ordered_pins.each do |pin|
             line = ''
             line << "#{pin.name} "
             if pin.direction == :input
@@ -58,14 +84,13 @@ module OrigenTesters
 
           microcode ''
           microcode 'SignalGroups {'
-          line = "\"#{ordered_pins_name || 'ALL'}\" = '"
-          ordered_pins.each_with_index do |pin, i|
-            unless i == 0
-              line << '+'
-            end
-            line << pin.name.to_s
+          # output pin group definitions used in this pattern
+          ordered_pins.each do |p|
+            output_group_definition(p, p.name.to_s) if p.is_a?(Origen::Pins::PinCollection)
           end
-          microcode "  #{line}';"
+
+          # output the all pin group
+          output_group_definition(flattened_ordered_pins, "#{ordered_pins_name || 'ALL'}")
           microcode '}'
 
           microcode ''
@@ -120,7 +145,7 @@ module OrigenTesters
           end
           unless wave_number
             lines = []
-            ordered_pins.each do |pin|
+            flattened_ordered_pins.each do |pin|
               if pin.direction == :input || pin.direction == :io
                 line = "#{pin.name} { 01 { "
                 wave = pin.drive_wave if tester.timeset.dut_timeset
@@ -128,7 +153,7 @@ module OrigenTesters
                   line << "'#{t}ns' "
                   if v == 0
                     line << 'D'
-                  elsif v == 0
+                  elsif v == 1
                     line << 'U'
                   else
                     line << 'D/U'
