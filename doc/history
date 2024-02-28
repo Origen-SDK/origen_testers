@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_51_4"></a>
+<h1><a href="#v0_51_4">Tag: v0.51.4</a></h1>
+
+##### Branch: 'master'
+
+##### by Paul DeRouen on 28-Feb-2024 13:11PM
+
+
+add groups to stil output
+fix decompile of reverse compiled patterns
+
 <a class="anchor release_tag" name="v0_51_3"></a>
 <h1><a href="#v0_51_3">Tag: v0.51.3</a></h1>
 
