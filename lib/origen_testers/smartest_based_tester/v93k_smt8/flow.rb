@@ -156,7 +156,7 @@ module OrigenTesters
           # Jobs and enables flow into a sub-flow
           (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
             # As do any flags which are referenced by it but which are not set within it
-            (vars[:all][:referenced_flags] + vars[:all][:add_flags] - vars[:all][:set_flags] - vars[:all][:unset_flags])).uniq.sort do |x, y|
+            (vars[:all][:referenced_flags] - vars[:all][:set_flags] - vars[:all][:unset_flags])).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
             x <=> y
@@ -170,8 +170,10 @@ module OrigenTesters
           (vars[:this_flow][:set_flags] +
            # As do any flags set by its children which are marked as external
            vars[:all][:set_flags_extern] +
-           # Add flag is calling the methodology for both output and input variables 
+           # Other test methods are setting the flags
            vars[:this_flow][:add_flags] +
+           # Other test methods are set in the children
+           vars[:all][:add_flags_extern] +
            # And any flags which are set by a child and referenced in this flow
            (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
            # And also intermediate flags, those are flags which are set by a child and referenced

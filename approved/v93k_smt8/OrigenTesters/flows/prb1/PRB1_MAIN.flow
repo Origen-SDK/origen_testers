@@ -268,14 +268,22 @@ flow PRB1_MAIN {
             };
             nestedHashParameter[my_param_name0] = {
                 param_name0 = "hello";
+                param_list_strings = #["E1", "E2"];
+                param_list_classes = #[E1, E2];
                 param_name1[my_param_name1] = {
                     param_name0 = 1;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
                 };
                 param_name1[my_param_name2] = {
                     param_name0 = 2;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
                 };
                 param_name1[my_param_name3] = {
                     param_name0 = 3;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
                 };
             };
             nestedHashParameter2[my_param_name4] = {
