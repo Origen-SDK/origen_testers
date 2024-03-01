@@ -326,6 +326,11 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   log 'Test add_flag functionality'
   add_flag :my_uncalled_flag
 
+  log 'Test inout variables'
+  add_flag :MY_INOUT_ADD_FLAG
+  if_flag '$MY_INOUT_ADD_FLAG' do
+  end
+
   if tester.v93k?
     log "This should retain the set-run-flag in the else conditional"
     func :test22, id: :at22, number: 51480

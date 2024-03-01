@@ -4,6 +4,7 @@ module OrigenTesters
       require 'origen_testers/smartest_based_tester/base/flow'
       class Flow < Base::Flow
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
+        IN_IDENTIFIER = '_AUTOIN'
 
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
@@ -96,8 +97,13 @@ module OrigenTesters
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
           # Pass down all input variables before executing
           sub_flow.input_variables.each do |var|
-            var = var[0] if var.is_a?(Array)
-            line "#{name}.#{var} = #{var};"
+            if sub_flow.inout_variables.keys.include?(var)
+              var = var[0] if var.is_a?(Array)
+              line "#{name}.#{var} = #{sub_flow.inout_variables[var]};"
+            else
+              var = var[0] if var.is_a?(Array)
+              line "#{name}.#{var} = #{var};"
+            end
           end
           line "#{name}.execute();"
           # And then retrieve all common output variables
@@ -150,16 +156,32 @@ module OrigenTesters
           @sub_flows || {}
         end
 
+        def inout_variables
+          @inout_variables || {}
+        end
+
         # Variables which should be defined as an input to the current flow
         def input_variables
           vars = flow_variables
           # Jobs and enables flow into a sub-flow
-          (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
+          in_var_array = (vars[:all][:jobs] + vars[:all][:referenced_enables] + vars[:all][:set_enables] +
             # As do any flags which are referenced by it but which are not set within it
-            (vars[:all][:referenced_flags] - vars[:all][:set_flags] - vars[:all][:unset_flags])).uniq.sort do |x, y|
+            (vars[:all][:referenced_flags] - vars[:all][:set_flags] - vars[:all][:unset_flags])).uniq
+          identified_inout_variables = in_var_array.select { |e| output_variables.include?(e) }
+          result = in_var_array.reject { |e| output_variables.include?(e) }
+          @inout_variables = {}
+          # create inout variables with unique ids for later substitute
+          identified_inout_variables.each do |var|
+            unique_id = 0
+            var.each_byte { |n| unique_id += n }
+            identifier = IN_IDENTIFIER + "_#{unique_id.to_s[0..4]}"
+            @inout_variables[:"#{var}#{identifier}"] = var
+          end
+          result += @inout_variables.keys
+          result.uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
-            x <=> y
+            x.to_s <=> y.to_s
           end
         end
 
@@ -220,6 +242,9 @@ module OrigenTesters
             else
               h << i + "#{var} = -1;"
             end
+          end
+          inout_variables.each do |inout_var, orig_var|
+            h << i + "#{orig_var} = #{inout_var};"
           end
           h << '' unless flow_variables[:this_flow][:set_flags].empty?
           h

@@ -2545,6 +2545,7 @@ test_flow
        @My_Mixed_Flag = -1;
        @non_global = -1;
        @my_unset_flag = -1;
+       @MY_INOUT_SET_FLAG = -1;
        @AT22_BEA7F3B_FAILED = -1;
        @OF1_BEA7F3B_FAILED = -1;
        @OF2_BEA7F3B_FAILED = -1;
@@ -3448,6 +3449,20 @@ test_flow
     @my_unset_flag = 1;
     @my_unset_flag = 0;
     print_dl("Test add_flag functionality");
+    print_dl("Test inout variables");
+    if @MY_INOUT_ADD_FLAG == 1 then
+    {
+    }
+    else
+    {
+    }
+    if @MY_INOUT_SET_FLAG == 1 then
+    {
+    }
+    else
+    {
+    }
+    @MY_INOUT_SET_FLAG = 1;
     print_dl("This should retain the set-run-flag in the else conditional");
     run_and_branch(test22_BEA7F3B)
     then
