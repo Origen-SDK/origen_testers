@@ -97,6 +97,8 @@ module OrigenTesters
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
           # Pass down all input variables before executing
           sub_flow.input_variables.each do |var|
+            # Handle the inout variables
+            # Get the main value into the temporary input variable
             if sub_flow.inout_variables.keys.include?(var)
               var = var[0] if var.is_a?(Array)
               line "#{name}.#{var} = #{sub_flow.inout_variables[var]};"
@@ -170,7 +172,7 @@ module OrigenTesters
           identified_inout_variables = in_var_array.select { |e| output_variables.include?(e) }
           result = in_var_array.reject { |e| output_variables.include?(e) }
           @inout_variables = {}
-          # create inout variables with unique ids for later substitute
+          # create inout variables with unique ids to reduce user conflicts
           identified_inout_variables.each do |var|
             unique_id = 0
             var.each_byte { |n| unique_id += n }
@@ -243,6 +245,8 @@ module OrigenTesters
               h << i + "#{var} = -1;"
             end
           end
+          # Handle the inout variables
+          # Use the original variable name and get the value out of the temporary input variable
           inout_variables.each do |inout_var, orig_var|
             h << i + "#{orig_var} = #{inout_var};"
           end
