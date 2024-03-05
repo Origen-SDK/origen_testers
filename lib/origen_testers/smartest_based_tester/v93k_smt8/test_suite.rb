@@ -50,8 +50,8 @@ module OrigenTesters
         end
 
         def lines
-          if Origen.interface.respond_to? :custom_st8_prefix
-            prefix = Origen.interface.custom_st8_prefix
+          if Origen.interface.respond_to? :custom_smt8_prefix
+            prefix = Origen.interface.custom_smt8_prefix
           else
             prefix = 'measurement.'
           end
