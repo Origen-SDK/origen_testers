@@ -14,6 +14,11 @@ module OrigenTesters
             specification
             seq
             burst
+
+            spec_namespace
+            spec_path
+            seq_namespace
+            seq_path
           )
 
         ALIASES = {
@@ -50,24 +55,34 @@ module OrigenTesters
         end
 
         def lines
+          # Initialize path setting
+          # prefix = test method library prefix expectations
+          # self.spec_namespace = instance override from the tester specification namespace
+          # self.seq_namespace = instance override from the tester sequence namespace
+          # self.spec_path = instance override from the tester specification path
+          # self.seq_path = instance override from the tester sequence path
           if Origen.interface.respond_to? :custom_smt8_prefix
             prefix = Origen.interface.custom_smt8_prefix
           else
             prefix = 'measurement.'
           end
+          spec_namespace = self.spec_namespace || tester.package_namespace
+          spec_path      = self.spec_path      || tester.spec_path
+          seq_namespace  = self.seq_namespace  || tester.package_namespace
+          seq_path       = self.seq_path       || tester.seq_path
           l = []
           l << "suite #{name} calls #{test_method.klass[0].downcase + test_method.klass[1..-1]} {"
           if pattern && !pattern.to_s.empty?
-            l << "    #{prefix}pattern = setupRef(#{tester.package_namespace}.patterns.#{pattern});"
+            l << "    #{prefix}pattern = setupRef(#{seq_namespace}.patterns.#{pattern});"
           end
           if seq && !seq.to_s.empty?
-            l << "    #{prefix}operatingSequence = setupRef(#{tester.package_namespace}.#{tester.seq_path}.#{seq});"
+            l << "    #{prefix}operatingSequence = setupRef(#{seq_namespace}.#{seq_path}.#{seq});"
           end
           if burst && !burst.to_s.empty?
-            l << "    #{prefix}operatingSequence = setupRef(#{tester.package_namespace}.#{tester.seq_path}.#{burst});"
+            l << "    #{prefix}operatingSequence = setupRef(#{seq_namespace}.#{seq_path}.#{burst});"
           end
           if specification && !specification.to_s.empty?
-            l << "    #{prefix}specification = setupRef(#{tester.package_namespace}.#{tester.spec_path}.#{specification});"
+            l << "    #{prefix}specification = setupRef(#{spec_namespace}.#{spec_path}.#{specification});"
           end
           test_method.sorted_parameters.each do |param|
             name = param[0]

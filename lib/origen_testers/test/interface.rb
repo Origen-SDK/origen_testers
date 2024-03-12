@@ -322,6 +322,25 @@ module OrigenTesters
         end
       end
 
+      def my_override_spec_test(name, options = {})
+        number = options[:number]
+
+        if tester.v93k? && tester.smt8?
+          tm = test_methods.ac_tml.ac_test.functional_test
+          ts = test_suites.run(name, options)
+          ts.test_method = tm
+          ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+          ts.spec ||= 'specs.Nominal'
+          ts.pattern = 'pat1'
+          ts.burst = 'sequence1'
+          ts.spec_path = 'myCustomSpecPath'
+          ts.seq_path  = 'myCustomSeqPath'
+          ts.spec_namespace = 'myCustomSpecNamespace'
+          ts.seq_namespace  = 'myCustomSeqNamespace'
+          flow.test ts, options
+        end
+      end
+
       def block_loop(name, options)
         if options[:by_block]
           if tester.j750? || tester.uflex?

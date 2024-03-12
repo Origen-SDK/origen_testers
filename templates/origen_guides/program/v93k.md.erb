@@ -74,6 +74,20 @@ or to assign a spec in SMT8:
 t.spec = 'my_spec_min'
 ~~~
 
+The default namespace and folder paths are determined by your environment with `tester.package_namespace` and
+`tester.spec_path`/`tester.seq_path` respectively. If you need to override these values for specific test suites
+you have the following available:
+
+~~~ruby
+# Overrides spec namespace and folder path
+t.spec_namespace
+t.spec_path
+# Overrides sequence and pattern namespace
+t.seq_namespace
+# Overrides sequence folder path
+t.seq_path
+~~~
+
 If the test method provides parameters, you can set them in the same way. As a convenience,
 Origen will automatically work out whether the reference is to a parameter of the test suite
 or of the test method, and will assign it accordingly.

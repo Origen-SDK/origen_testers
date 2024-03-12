@@ -528,6 +528,14 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite spec_override_example calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(myCustomSeqNamespace.patterns.pat1);
+            measurement.operatingSequence = setupRef(myCustomSeqNamespace.myCustomSeqPath.sequence1);
+            measurement.specification = setupRef(myCustomSpecNamespace.myCustomSpecPath.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite xcvr_fs_vilvih calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -584,6 +592,7 @@ flow PRB1_MAIN {
         ERASE_RAN_4_RAN = -1;
 
         hash_example.execute();
+        spec_override_example.execute();
         program_ckbd.execute();
         margin_read1_ckbd.execute();
         margin_read0_ckbd.execute();

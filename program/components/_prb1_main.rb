@@ -1,6 +1,7 @@
 Flow.create do |options|
   if tester.smt8?
-    my_hash_test :hash_example
+    my_hash_test :hash_example, number: 8000
+    my_override_spec_test :spec_override_example, number: 8010
   end
 
   # Instantiate tests via the
