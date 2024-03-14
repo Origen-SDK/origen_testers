@@ -116,11 +116,11 @@ module OrigenTesters
           if val.nil? && !tester.print_all_params
             nil
           else
-            handle_val_type(val, type)
+            handle_val_type(val, type, attr)
           end
         end
 
-        def handle_val_type(val, type)
+        def handle_val_type(val, type, attr)
           case type
           when :current, 'CURR'
             "#{val}[A]"
