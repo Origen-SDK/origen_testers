@@ -146,13 +146,13 @@ module OrigenTesters
               end
               type = nested_param.last.first
               if NO_STRING_TYPES.include?(nested_param.last.first) && value_hash[nested_key] && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(value_hash[nested_key], type)};"
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(value_hash[nested_key], type, nested_param.first)};"
               elsif value_hash[nested_key] && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(value_hash[nested_key], type))};"
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(value_hash[nested_key], type, nested_param.first))};"
               elsif NO_STRING_TYPES.include?(nested_param.last.first) && !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(nested_param.last.last, type)};"
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(nested_param.last.last, type, nested_param.first)};"
               elsif !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
-                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(nested_param.last.last, type))};"
+                l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(nested_param.last.last, type, nested_param.first))};"
               end
             end
             l << "#{dynamic_spacing}};" unless name.nil?
