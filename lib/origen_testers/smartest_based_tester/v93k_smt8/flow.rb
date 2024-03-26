@@ -94,6 +94,7 @@ module OrigenTesters
           @sub_flows ||= {}
           path = Pathname.new(node.find(:path).value)
           name = path.basename('.*').to_s
+          path = Origen.interface.smt8_sub_flow_path_overwrite(path) if Origen.interface.respond_to? :smt8_sub_flow_path_overwrite
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
           # Pass down all input variables before executing
           sub_flow.input_variables.each do |var|
