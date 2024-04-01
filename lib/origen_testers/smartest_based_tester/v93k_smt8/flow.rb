@@ -262,6 +262,11 @@ module OrigenTesters
           end
           f
         end
+
+        def add_sub_flow(name, path)
+          @sub_flows ||= {}
+          @sub_flows[name] = "#{path}"
+        end
       end
     end
   end
