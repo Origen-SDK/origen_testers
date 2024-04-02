@@ -97,5 +97,15 @@ describe "Smartest Based Tester" do
     end
   end
 
+  it "Auxiliary flows raise errors correctly" do
+    with_open_flow smt8: true do
+      lambda { interface.add_auxiliary_flow(:POWERDOWN, 'testflow') }.should raise_error
+    end
+    # Reset the environment for future specs
+    with_open_flow target_option: nil do
+    end
+    with_open_flow do
+      lambda { interface.add_auxiliary_flow(:POWERDOWN, 'testflow.POWERDOWN') }.should raise_error
+    end
+  end
 end
-

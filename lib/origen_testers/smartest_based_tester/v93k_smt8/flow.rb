@@ -155,8 +155,20 @@ module OrigenTesters
           end
         end
 
+        def on_auxiliary_flow(node)
+          @auxiliary_flows ||= {}
+          path = node.find(:path).value
+          name = node.find(:name).value
+          @auxiliary_flows[name] = "#{path}"
+          line "#{name}.execute();"
+        end
+
         def sub_flows
           @sub_flows || {}
+        end
+
+        def auxiliary_flows
+          @auxiliary_flows || {}
         end
 
         def inout_variables
@@ -261,11 +273,6 @@ module OrigenTesters
             f << '        }'
           end
           f
-        end
-
-        def add_sub_flow(name, path)
-          @sub_flows ||= {}
-          @sub_flows[name] = "#{path}"
         end
       end
     end

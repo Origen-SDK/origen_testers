@@ -57,13 +57,13 @@ module OrigenTesters
                   'hashParameter':        [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
                   'hashParameter2':       [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
                   'nestedHashParameter':  [{
-                    param_name0: [:string, ''],
-                    param_list_strings: [:list_strings, ['E1', 'E2']],
-                    param_list_classes: [:list_classes, ['E1', 'E2']],
-                    param_name1: [{
-                      param_name0: [:integer, 0],
-                      param_list_strings: [:list_strings, ["E1", "E2"]],
-                      param_list_classes: [:list_classes, ["E1", "E2"]]
+                    param_name0:        [:string, ''],
+                    param_list_strings: [:list_strings, %w(E1 E2)],
+                    param_list_classes: [:list_classes, %w(E1 E2)],
+                    param_name1:        [{
+                      param_name0:        [:integer, 0],
+                      param_list_strings: [:list_strings, %w(E1 E2)],
+                      param_list_classes: [:list_classes, %w(E1 E2)]
                     }]
                   }],
                   'nestedHashParameter2': [{

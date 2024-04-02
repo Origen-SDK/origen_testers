@@ -105,16 +105,16 @@ module OrigenTesters
                   # The type can be :string, :current, :voltage, :time, :frequency, or :integer
                   # An optional 3rd parameter can be supplied to give an array of allowed values. If supplied,
                   # Origen will raise an error upon an attempt to set it to an unlisted value.
-                  tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
-                  test_name:    [:string, 'Functional'],
-                  my_list_string: [:list_strings, ['E1', 'E2']],
-                  my_list_class:  [:list_classes, ['E1', 'E2']],
-                  my_arg_hash:  [{
+                  tester_state:   [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
+                  test_name:      [:string, 'Functional'],
+                  my_list_string: [:list_strings, %w(E1 E2)],
+                  my_list_class:  [:list_classes, %w(E1 E2)],
+                  my_arg_hash:    [{
                     my_arg0: [:string, ''],
                     my_arg1: [:string, 'a_default_value'],
                     my_arg2: [:integer, 0],
-                    my_arg2: [:list_strings, ['E1', 'E2']],
-                    my_arg3: [:list_classes, ['E1', 'E2']]
+                    my_arg2: [:list_strings, %w(E1 E2)],
+                    my_arg3: [:list_classes, %w(E1 E2)]
                   }]
                   # Define any methods you want the test method to have
                 }

@@ -479,6 +479,21 @@ module OrigenTesters::ATP
       end
     end
 
+    def add_auxiliary_flow(name, options = {})
+      if tester.smt8?
+        if name.to_s != options[:path].split('.').last.to_s
+          fail "Auxiliary flow path does not end in '#{name}'. The path instead is '#{options[:path]}'. Please update the path to align with the provided name."
+        end
+        extract_meta!(options) do
+          apply_conditions(options) do
+            n2(:auxiliary_flow, n1(:name, name), n1(:path, options[:path]))
+          end
+        end
+      else
+        fail 'Auxiliary flow API is only usable in SMT8.'
+      end
+    end
+
     def bin(number, options = {})
       if number.is_a?(Hash)
         fail 'The bin number must be passed as the first argument'

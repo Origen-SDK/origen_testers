@@ -564,6 +564,7 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        flow POWERDOWN calls testflow.POWERDOWN {}
         flow ERASE calls OrigenTesters.flows.prb1.prb1_main.ERASE { }
         flow PROGRAM_CKBD calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD { }
         flow PROGRAM_CKBD_1 calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD_1 { }
@@ -593,6 +594,7 @@ flow PRB1_MAIN {
 
         hash_example.execute();
         spec_override_example.execute();
+        POWERDOWN.execute();
         program_ckbd.execute();
         margin_read1_ckbd.execute();
         margin_read0_ckbd.execute();

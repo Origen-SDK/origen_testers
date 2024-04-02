@@ -33,7 +33,7 @@ module OrigenTesters
           # pattern
           # binning.binnable
         )
-        
+
         NO_STRING_TYPES = [:list_strings, :list_classes, :class]
         # Generate accessors for all attributes and their aliases
         ATTRS.each do |attr|
@@ -67,9 +67,9 @@ module OrigenTesters
             prefix = 'measurement.'
           end
           spec_namespace = self.spec_namespace || tester.package_namespace
-          spec_path      = self.spec_path      || tester.spec_path
-          seq_namespace  = self.seq_namespace  || tester.package_namespace
-          seq_path       = self.seq_path       || tester.seq_path
+          spec_path      = self.spec_path || tester.spec_path
+          seq_namespace  = self.seq_namespace || tester.package_namespace
+          seq_path       = self.seq_path || tester.seq_path
           l = []
           l << "suite #{name} calls #{test_method.klass[0].downcase + test_method.klass[1..-1]} {"
           if pattern && !pattern.to_s.empty?
