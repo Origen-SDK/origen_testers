@@ -19,7 +19,7 @@ jobs:
       run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
     - name: Install Bundler
       # last version to support our version of Ruby/RubyGems was 2.4.22
-      run: gem install bundler -v 2.4.222
+      run: gem install bundler -v 2.4.22
     - name: Install dependencies
       run: bundle install  
     - name: Gem Install Origen 
