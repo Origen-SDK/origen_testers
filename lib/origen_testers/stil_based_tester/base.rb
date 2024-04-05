@@ -152,8 +152,23 @@ module OrigenTesters
       def set_timeset(t, period_in_ns = nil)
         # check for period size override from the app if performing convert command
         if Origen.current_command == 'convert'
-          Origen.listeners_for(:convert_command_set_period_in_ns).each do |listener|
-            period_in_ns = listener.convert_command_set_period_in_ns(t)
+          listeners = Origen.listeners_for(:convert_command_set_period_in_ns)
+          if listeners.empty?
+            unless @call_back_message_displayed
+              Origen.log.warn 'STIL output is generated using "origen convert" with no timeset period callback method defined. Default period size will be used.'
+              Origen.log.info 'stil tester implements a callback for setting the timeset period size when converting a pattern to stil format'
+              Origen.log.info 'to use the callback feature add the following define to your app in config/application.rb'
+              Origen.log.info '  def convert_command_set_period_in_ns(timeset_name)'
+              Origen.log.info '    return 25 if timeset_name == "timeset0"'
+              Origen.log.info '    return 30 if timeset_name == "timeset1"'
+              Origen.log.info '    40'
+              Origen.log.info '  end'
+              @call_back_message_displayed = true
+            end
+          else
+            listeners.each do |listener|
+              period_in_ns = listener.convert_command_set_period_in_ns(t)
+            end
           end
         end
         super
