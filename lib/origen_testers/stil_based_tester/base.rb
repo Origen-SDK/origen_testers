@@ -15,6 +15,7 @@ module OrigenTesters
         @min_repeat_loop = 2
         @pat_extension = 'stil'
         @compress = true
+        @use_timing_equations = options[:use_timing_equations]
 
         # @support_repeat_previous = true
         @match_entries = 10
@@ -93,12 +94,29 @@ module OrigenTesters
           output_group_definition(flattened_ordered_pins, "#{ordered_pins_name || 'ALL'}")
           microcode '}'
 
+          # output the period category specs
+          if @use_timing_equations
+            microcode ''
+            microcode 'Spec {'
+            microcode "  Category c_#{@pattern_name} {"
+            (@wavesets || []).each_with_index do |w, i|
+              microcode "    period_#{w[:name]} = '#{w[:period]}ns';"
+            end
+            microcode '  }'
+            microcode '}'
+          end
+
           microcode ''
           microcode "Timing t_#{@pattern_name} {"
           (@wavesets || []).each_with_index do |w, i|
             microcode '' if i != 0
             microcode "  WaveformTable Waveset#{i + 1} {"
-            microcode "    Period '#{w[:period]}ns';"
+            period_var = "period_#{w[:name]}"
+            if @use_timing_equations
+              microcode "    Period '#{period_var}';"
+            else
+              microcode "    Period '#{w[:period]}ns';"
+            end
             microcode '    Waveforms {'
             w[:lines].each do |line|
               microcode "      #{line}"
@@ -115,6 +133,7 @@ module OrigenTesters
 
           microcode ''
           microcode "PatternExec e_#{@pattern_name} {"
+          microcode "  Category c_#{@pattern_name};" if @use_timing_equations
           microcode "  Timing t_#{@pattern_name};"
           microcode "  PatternBurst b_#{@pattern_name};"
           microcode '}'
@@ -151,20 +170,27 @@ module OrigenTesters
           end
           unless wave_number
             lines = []
+            period_var = "period_#{timeset.name}"
             flattened_ordered_pins.each do |pin|
               if pin.direction == :input || pin.direction == :io
                 line = "#{pin.name} { 01 { "
                 wave = pin.drive_wave if tester.timeset.dut_timeset
-                (wave ? wave.evaluated_events : []).each do |t, v|
-                  line << "'#{t}ns' "
-                  if v == 0
-                    line << 'D'
-                  elsif v == 1
-                    line << 'U'
-                  else
-                    line << 'D/U'
+                if wave
+                  (@use_timing_equations ? wave.events : wave.evaluated_events).each do |t, v|
+                    if @use_timing_equations
+                      line << "'#{t.to_s.gsub('period', period_var)}' "
+                    else
+                      line << "'#{t}ns' "
+                    end
+                    if v == 0
+                      line << 'D'
+                    elsif v == 1
+                      line << 'U'
+                    else
+                      line << 'D/U'
+                    end
+                    line << '; '
                   end
-                  line << '; '
                 end
                 line << '}}'
                 lines << line
@@ -172,20 +198,26 @@ module OrigenTesters
               if pin.direction == :output || pin.direction == :io
                 line = "#{pin.name} { LHX { "
                 wave = pin.compare_wave if tester.timeset.dut_timeset
-                (wave ? wave.evaluated_events : []).each_with_index do |tv, i|
-                  t, v = *tv
-                  if i == 0 && t != 0
-                    line << "'0ns' X; "
+                if wave
+                  (@use_timing_equations ? wave.events : wave.evaluated_events).each_with_index do |tv, i|
+                    t, v = *tv
+                    if i == 0 && t != 0
+                      line << "'0ns' X; "
+                    end
+                    if @use_timing_equations
+                      line << "'#{t.to_s.gsub('period', period_var)}' "
+                    else
+                      line << "'#{t}ns' "
+                    end
+                    if v == 0
+                      line << 'L'
+                    elsif v == 0
+                      line << 'H'
+                    else
+                      line << 'L/H/X'
+                    end
+                    line << '; '
                   end
-                  line << "'#{t}ns' "
-                  if v == 0
-                    line << 'L'
-                  elsif v == 0
-                    line << 'H'
-                  else
-                    line << 'L/H/X'
-                  end
-                  line << '; '
                 end
                 line << '}}'
                 lines << line
