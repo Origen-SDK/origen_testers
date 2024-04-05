@@ -131,6 +131,12 @@ module OrigenTesters
       end
 
       def set_timeset(t, period_in_ns = nil)
+        # check for period size override from the app if performing convert command
+        if Origen.current_command == 'convert'
+          Origen.listeners_for(:convert_command_set_period_in_ns).each do |listener|
+            period_in_ns = listener.convert_command_set_period_in_ns(t)
+          end
+        end
         super
         if pattern_only
           # Why does D10 not include this?
@@ -140,7 +146,7 @@ module OrigenTesters
           wave_number = nil
           @wavesets.each_with_index do |w, i|
             if w[:name] == timeset.name && w[:period] = timeset.period_in_ns
-              wave_number = i
+              wave_number = i + 1               # bug fix wave numbers are 1 more than their index #
             end
           end
           unless wave_number
