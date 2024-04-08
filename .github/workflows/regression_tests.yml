@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        ruby-version: [2.6, 2.7]
+        ruby-version: [2.7]
 
     runs-on: ${{ matrix.os }}
 
@@ -18,7 +18,8 @@ jobs:
     - name: Update Env
       run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
     - name: Install Bundler
-      run: gem install bundler -v '> 2'
+      # last version to support our version of Ruby/RubyGems was 2.4.22
+      run: gem install bundler -v 2.4.22
     - name: Install dependencies
       run: bundle install  
     - name: Gem Install Origen 
