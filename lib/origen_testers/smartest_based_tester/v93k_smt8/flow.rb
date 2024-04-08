@@ -97,6 +97,11 @@ module OrigenTesters
           path = Origen.interface.smt8_sub_flow_path_overwrite(path) if Origen.interface.respond_to? :smt8_sub_flow_path_overwrite
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
           # Pass down all input variables before executing
+          if sub_flow.input_variables.size > 0 && Origen.site_config.flow_variable_grouping
+            line "// #{name} sub-flow input variables"
+            line '{'
+            @indent += 1
+          end
           sub_flow.input_variables.each do |var|
             # Handle the inout variables
             # Get the main value into the temporary input variable
@@ -108,11 +113,24 @@ module OrigenTesters
               line "#{name}.#{var} = #{var};"
             end
           end
+          if sub_flow.input_variables.size > 0 && Origen.site_config.flow_variable_grouping
+            @indent -= 1
+            line '}'
+          end
           line "#{name}.execute();"
           # And then retrieve all common output variables
+          if (output_variables & sub_flow.output_variables).size > 0 && Origen.site_config.flow_variable_grouping
+            line "// #{name} sub-flow output variables"
+            line '{'
+            @indent += 1
+          end
           (output_variables & sub_flow.output_variables).sort.each do |var|
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
+          end
+          if (output_variables & sub_flow.output_variables).size > 0 && Origen.site_config.flow_variable_grouping
+            @indent -= 1
+            line '}'
           end
           if on_pass = node.find(:on_pass)
             pass_lines = capture_lines do
