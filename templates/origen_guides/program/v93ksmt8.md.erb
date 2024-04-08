@@ -103,10 +103,25 @@ flow Main {
 }
 ~~~
 
+#### Auxiliary Flows
 
+SMT8 utilizes auxiliary flows to perform recurring actions. `add_auxiliary_flow` API exists to symlink to a predefined auxiliary flow.
+This API does not allow variables to be passed to or from the auxiliary flow since they are stand alone flows.
 
+~~~ruby
+add_auxiliary_flow :POWERDOWN, 'testflow.POWERDOWN'
+~~~
 
+~~~java
+flow Main {
+    setup {
+        flow POWERDOWN calls testflow.POWERDOWN {}
+    }
 
-
+    execute {
+        POWERDOWN.execute();
+    }
+}
+~~~
 
 % end
