@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        ruby-version: [2.7]
+        ruby-version: [2.6, 2.7]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,6 +19,9 @@ jobs:
       run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
     - name: Install Bundler
       run: gem install bundler -v '2.1.4'
+    - name: Work around bundler/ruby/gem/rubocop-ast version issue
+      if: matrix.ruby-version == '2.6'
+      run: gem install rubocop-ast -v 1.30.0
     - name: Install dependencies
       run: bundle install  
     - name: Gem Install Origen 
