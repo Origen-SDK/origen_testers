@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        ruby-version: [2.7]
+        ruby-version: [2.6, 2.7]
 
     runs-on: ${{ matrix.os }}
 
@@ -20,6 +20,9 @@ jobs:
     - name: Install Bundler
       # last version to support our version of Ruby/RubyGems was 2.4.22
       run: gem install bundler -v 2.4.22
+    - name: Work around bundler/ruby/gem/rubocop-ast version issue
+      if: matrix.ruby-version == '2.6'
+      run: gem install rubocop-ast -v 1.30.0      
     - name: Install dependencies
       run: bundle install  
     - name: Gem Install Origen 
