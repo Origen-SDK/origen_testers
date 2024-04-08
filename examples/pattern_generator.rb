@@ -53,7 +53,10 @@ load "#{Origen.top}/lib/origen/commands/generate.rb"
 ARGV = %w(read_write_reg -t dut.rb -e d10 -r approved/d10)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
 
-ARGV = %w(regression.list -t dut.rb -e stil -r approved/stil)
+ARGV = %w(regression.list -t dut.rb -e stil.rb -r approved/stil)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
-ARGV = %w(v93k_workout -t legacy -e stil -r approved/stil)
+ARGV = %w(v93k_workout -t legacy -e stil.rb -r approved/stil)
+load "#{Origen.top}/lib/origen/commands/generate.rb"
+
+ARGV = %w(regression.list -t dut.rb -e stil_w_equations.rb -r approved/stil_w_equations)
 load "#{Origen.top}/lib/origen/commands/generate.rb"
