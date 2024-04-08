@@ -124,4 +124,14 @@ flow Main {
 }
 ~~~
 
+#### Flow Variable Grouping
+
+Sub-flow variable passing causes variables before and after the execution call to populate the flow.
+If you wish to have a collapse-able block for the variables, you need to set the flow_variable_grouping variable to true.
+
+~~~
+# add this line to your origen_site_config.yml
+flow_variable_grouping: true
+~~~
+
 % end
