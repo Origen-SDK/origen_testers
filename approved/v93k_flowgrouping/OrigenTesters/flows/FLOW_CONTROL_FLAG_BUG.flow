@@ -1,0 +1,32 @@
+flow FLOW_CONTROL_FLAG_BUG {
+
+    out My_Mixed_Flag = -1;
+
+    setup {
+    }
+
+    execute {
+        My_Mixed_Flag = -1;
+
+        println("Mixed-case manual flags");
+        test1.execute();
+        if (!test1.pass) {
+            My_Mixed_Flag = 1;
+        }
+        if (My_Mixed_Flag == 1) {
+            test2.execute();
+        } else {
+            test3.execute();
+        }
+        println("Mixed-case manual flags - induce frozen string error");
+        test4.execute();
+        if (!test4.pass) {
+            My_Mixed_Flag = 1;
+        }
+        if (My_Mixed_Flag == 1) {
+            test5.execute();
+        } else {
+            test6.execute();
+        }
+    }
+}

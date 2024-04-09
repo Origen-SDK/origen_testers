@@ -97,7 +97,7 @@ module OrigenTesters
           path = Origen.interface.sub_flow_path_overwrite(path) if Origen.interface.respond_to? :sub_flow_path_overwrite
           @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
           # Pass down all input variables before executing
-          if sub_flow.input_variables.size > 0 && Origen.site_config.flow_variable_grouping
+          if sub_flow.input_variables.size > 0 && tester.flow_variable_grouping
             line "// #{name} sub-flow input variables"
             line '{'
             @indent += 1
@@ -113,13 +113,13 @@ module OrigenTesters
               line "#{name}.#{var} = #{var};"
             end
           end
-          if sub_flow.input_variables.size > 0 && Origen.site_config.flow_variable_grouping
+          if sub_flow.input_variables.size > 0 && tester.flow_variable_grouping
             @indent -= 1
             line '}'
           end
           line "#{name}.execute();"
           # And then retrieve all common output variables
-          if (output_variables & sub_flow.output_variables).size > 0 && Origen.site_config.flow_variable_grouping
+          if (output_variables & sub_flow.output_variables).size > 0 && tester.flow_variable_grouping
             line "// #{name} sub-flow output variables"
             line '{'
             @indent += 1
@@ -128,7 +128,7 @@ module OrigenTesters
             var = var[0] if var.is_a?(Array)
             line "#{var} = #{name}.#{var};"
           end
-          if (output_variables & sub_flow.output_variables).size > 0 && Origen.site_config.flow_variable_grouping
+          if (output_variables & sub_flow.output_variables).size > 0 && tester.flow_variable_grouping
             @indent -= 1
             line '}'
           end

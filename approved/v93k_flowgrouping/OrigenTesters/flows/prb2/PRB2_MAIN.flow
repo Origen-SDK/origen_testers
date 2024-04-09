@@ -1,0 +1,25 @@
+flow PRB2_MAIN {
+
+
+    setup {
+        suite mrd_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.mrd_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite pgm_ckbd calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.pgm_ckbd);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+    }
+
+    execute {
+        pgm_ckbd.execute();
+        mrd_ckbd.execute();
+    }
+}

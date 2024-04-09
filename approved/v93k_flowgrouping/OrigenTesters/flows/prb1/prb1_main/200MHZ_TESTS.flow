@@ -1,0 +1,12 @@
+flow 200MHZ_TESTS {
+
+
+    setup {
+    }
+
+    execute {
+        test200_1.execute();
+        test200_2.execute();
+        test200_3.execute();
+    }
+}
