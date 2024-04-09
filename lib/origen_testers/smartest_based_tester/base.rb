@@ -19,6 +19,9 @@ module OrigenTesters
       # flow, the default value is :signature
       attr_reader :unique_test_names
 
+      # use flow variable grouping or not
+      attr_accessor :flow_variable_grouping
+
       # Returns the SMT version, defaults to 7
       attr_reader :smt_version
 
@@ -151,6 +154,11 @@ module OrigenTesters
             @create_limits_file = false
           end
         end
+
+        if options.key?(:flow_variable_grouping)
+          @flow_variable_grouping = options[:flow_variable_grouping]
+        end
+
         if options[:literal_flags]
           @literal_flags = true
         end
