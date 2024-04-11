@@ -1,0 +1,242 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    08-Apr-2024 08:10AM
+//   By:      Paul DeRouen
+//   Mode:    debug
+//   Command: origen g bitmap -t dut.rb -e stil_w_equations.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.51.4
+//     Branch:    stil_update(800f7491ff4)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.60.7
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.6
+//     origen_jtag:              0.22.2
+//     origen_stil:              0.3.0
+//     origen_swd:               1.1.2
+// ***************************************************************************
+STIL 1.0;
+
+Signals {
+  tclk InOut;
+  tdi InOut;
+  tdo InOut;
+  tms InOut;
+}
+
+SignalGroups {
+  "ALL" = 'tclk+tdi+tdo+tms';
+}
+
+Spec {
+  Category c_bitmap {
+    period_tp0 = '60ns';
+  }
+}
+
+Timing t_bitmap {
+  WaveformTable Waveset1 {
+    Period 'period_tp0';
+    Waveforms {
+      tclk { 01 { '0' D/U; }}
+      tclk { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tdi { 01 { '0' D/U; }}
+      tdi { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tdo { 01 { '0' D/U; }}
+      tdo { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tms { 01 { '0' D/U; }}
+      tms { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+    }
+  }
+}
+
+PatternBurst b_bitmap {
+  PatList { bitmap; }
+}
+
+PatternExec e_bitmap {
+  Category c_bitmap;
+  Timing t_bitmap;
+  PatternBurst b_bitmap;
+}
+
+Pattern "bitmap" {
+bitmap:
+W Waveset1;
+Ann {*// ######################################################################*}
+Ann {*// ## Dummy write reg*}
+Ann {*// ######################################################################*}
+Loop 6 {
+  V { "ALL" = 0XX1; }
+}
+Loop 2 {
+  V { "ALL" = 0XX0; }
+}
+Loop 2 {
+  V { "ALL" = 0XX1; }
+}
+Loop 2 {
+  V { "ALL" = 0XX0; }
+}
+Ann {*// [JTAG] Write IR: 0xB*}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xB*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x1*}
+  V { "ALL" = 01X0; }
+Loop 33 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x1*}
+  V { "ALL" = 00X1; }
+Loop 8 {
+  V { "ALL" = 00X0; }
+}
+Loop 2 {
+  V { "ALL" = 00X1; }
+}
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write IR: 0xA*}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xA*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x7*}
+Loop 3 {
+  V { "ALL" = 01X0; }
+}
+Loop 31 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x7*}
+  V { "ALL" = 00X1; }
+Loop 8 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-DP: R-32: name='RDBUFF'*}
+Ann {*// JTAG-AP: R-32: addr=0x00000000*}
+Loop 2 {
+  V { "ALL" = 00X1; }
+}
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write IR: 0xB*}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write IR: 0xB*}
+  V { "ALL" = 01X1; }
+  V { "ALL" = 01X0; }
+  V { "ALL" = 01X1; }
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// [JTAG] Write DR: 0x118000210*}
+Loop 4 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+Loop 4 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+Loop 17 {
+  V { "ALL" = 00X0; }
+}
+Loop 2 {
+  V { "ALL" = 01X0; }
+}
+Loop 3 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x118000210*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x00000000, data=0x23000042*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x3D2*}
+  V { "ALL" = 00X0; }
+  V { "ALL" = 01X0; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 01X0; }
+  V { "ALL" = 00X0; }
+Loop 4 {
+  V { "ALL" = 01X0; }
+}
+Loop 24 {
+  V { "ALL" = 00X0; }
+}
+  V { "ALL" = 00X1; }
+Ann {*// [JTAG] /Write DR: 0x3D2*}
+  V { "ALL" = 00X1; }
+Loop 16 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x00000004, data=0x0000007a*}
+  V { "ALL" = 00X1; }
+Loop 2 {
+  V { "ALL" = 00X0; }
+}
+Ann {*// [JTAG] Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 00X0; }
+Loop 4 {
+  V { "ALL" = 01X0; }
+}
+Loop 6 {
+  V { "ALL" = 00X0; }
+}
+Loop 23 {
+  V { "ALL" = 01X0; }
+}
+  V { "ALL" = 01X1; }
+Ann {*// [JTAG] /Write DR: 0x7FFFFF81E*}
+  V { "ALL" = 01X1; }
+Loop 16 {
+  V { "ALL" = 01X0; }
+}
+Ann {*// JTAG-AP: W-32: addr=0x0000000c, data=0xffffff03*}
+Ann {*// MEM-AP(default): WR-32: addr=0x0000007a, data=0xffffff03*}
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = 01X0; }
+Stop;
+}

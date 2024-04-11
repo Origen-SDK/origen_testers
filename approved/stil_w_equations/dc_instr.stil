@@ -1,0 +1,76 @@
+// ***************************************************************************
+// GENERATED:
+//   Time:    08-Apr-2024 08:10AM
+//   By:      Paul DeRouen
+//   Mode:    debug
+//   Command: origen g dc_instr -t dut.rb -e stil_w_equations.rb
+// ***************************************************************************
+// ENVIRONMENT:
+//   Application
+//     Source:    git@github.com:Origen-SDK/origen_testers.git
+//     Version:   0.51.4
+//     Branch:    stil_update(800f7491ff4)
+//   Origen
+//     Source:    https://github.com/Origen-SDK/origen
+//     Version:   0.60.7
+//   Plugins
+//     origen_arm_debug:         0.4.3
+//     origen_doc_helpers:       0.8.6
+//     origen_jtag:              0.22.2
+//     origen_stil:              0.3.0
+//     origen_swd:               1.1.2
+// ***************************************************************************
+STIL 1.0;
+
+Signals {
+  tclk InOut;
+  tdi InOut;
+  tdo InOut;
+  tms InOut;
+}
+
+SignalGroups {
+  "ALL" = 'tclk+tdi+tdo+tms';
+}
+
+Spec {
+  Category c_dc_instr {
+    period_tp0 = '60ns';
+  }
+}
+
+Timing t_dc_instr {
+  WaveformTable Waveset1 {
+    Period 'period_tp0';
+    Waveforms {
+      tclk { 01 { '0' D/U; }}
+      tclk { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tdi { 01 { '0' D/U; }}
+      tdi { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tdo { 01 { '0' D/U; }}
+      tdo { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+      tms { 01 { '0' D/U; }}
+      tms { LHX { '0ns' X; 'period_tp0 / 2' L/H/X; }}
+    }
+  }
+}
+
+PatternBurst b_dc_instr {
+  PatList { dc_instr; }
+}
+
+PatternExec e_dc_instr {
+  Category c_dc_instr;
+  Timing t_dc_instr;
+  PatternBurst b_dc_instr;
+}
+
+Pattern "dc_instr" {
+dc_instr:
+W Waveset1;
+Ann {*// ######################################################################*}
+Ann {*// ## Pattern complete*}
+Ann {*// ######################################################################*}
+  V { "ALL" = XXXX; }
+Stop;
+}
