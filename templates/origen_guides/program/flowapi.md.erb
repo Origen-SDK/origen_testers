@@ -363,7 +363,7 @@ end
 ~~~
 
 
-#### Flow Loops for V93k (SMT7 only)
+#### Flow Loops for V93k
 Use flow loop control to permit re-running tests without using additional sequence labels.
 
 ~~~ruby
@@ -392,7 +392,21 @@ loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
 end
 ~~~
 
+You can also provide a variable starting point:
+~~~ruby
+loop from: '$TEST_VARIABLE', to: 5, var: '$LOOP_VARIABLE' do
+    func :test_myloop6, number: 56600
+end
+~~~
+
 Decrementing loops, having `from:` value > `to:` value and using negative `step:`, is also supported.
+
+##### Loop Rules For Each Environment
+
+`SMT7` cannot support a variable stop location. Only the `from:` parameter is allowed to be a variable.
+
+`SMT8` cannot have a step other than -1 or 1. The limitations of the range flow restrict those steps.
+The `to:` parameter can be a flow variable just like `from:`.
  
 
 
