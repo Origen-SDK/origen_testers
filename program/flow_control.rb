@@ -361,7 +361,7 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :test36, on_fail: { render: 'multi_bin;' }, if_flag: :my_flag, number: 51570
   end
 
-  if tester.v93k? && !tester.smt8?
+  if tester.v93k?
     log "Tests of flow loop"
     loop from: 0, to: 5, step: 1, var: '$LOOP_VARIABLE' do
       func :test_myloop, number: 56000
@@ -372,9 +372,11 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
       func :test_myloop2, number: 5610
     end
 
-    log "Tests of flow loop, non-default test number increment" 
-    loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
-      func :test_myloop3, number: 56200
+    if tester.smt7?
+      log "Tests of flow loop, non-default test number increment" 
+      loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
+        func :test_myloop3, number: 56200
+      end
     end
  
     log "Tests of decrementing loop"
@@ -383,12 +385,27 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     end
  
     log "Tests of nested flow loop, depth 3"
-    loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
-      loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
-        loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
-          func :test_myloop5, number: 56400
+    if tester.smt7?
+      loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
+        loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
+          loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
+            func :test_myloop5, number: 56400
+          end
         end
       end
+    else
+      loop from: 0, to: 9, step: 1, var: '$LOOP_VARIABLE1'do
+        loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
+          loop from: 1, to: 5, step: 1, var: '$LOOP_VARIABLE3' do
+            func :test_myloop5, number: 56400
+          end
+        end
+      end
+    end
+
+    log "Tests of variable loop"
+    loop from: '$TEST_VAR', to: 1, step: -1, var: '$LOOP_VARIABLE' do
+      func :test_myloop6, number: 56500
     end
 
     # Test of skipping variable name not yet ready

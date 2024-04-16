@@ -485,13 +485,23 @@ module OrigenTesters
         alias_method :on_whenever_all, :on_whenever
 
         def on_loop(node, options = {})
-          # TODO: don't have the SMT8 way to do this yet
-          if smt8?
-            fail 'Flow loop control not yet supported for SMT8!'
-          end
           start = node.to_a[0]
+          if start.is_a?(String)
+            start = generate_flag_name(start)
+            unless smt8?
+              start = "@#{start}"
+            end
+          end
           stop = node.to_a[1]
+          if stop.is_a?(String) && smt8?
+            stop = generate_flag_name(stop)
+          elsif stop.is_a?(String)
+            fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
+          end
           step = node.to_a[2]
+          if smt8? && !(step == -1 || step == 1)
+            fail 'SMT8 does not support steps other than -1 or 1.'
+          end
           if node.to_a[3].nil?
             fail 'You must supply a loop variable name!'
           else
@@ -501,7 +511,7 @@ module OrigenTesters
           unless smt8?
             var = "@#{var}"
           end
-          num = (stop - start) / step + 1
+          # num = (stop - start) / step + 1
           # Handle increment/decrement
           if step < 0
             compare = '>'
@@ -510,13 +520,24 @@ module OrigenTesters
             compare = '<'
             incdec = "+ #{step}"
           end
-          line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
-          line "test_number_loop_increment = #{test_num_inc}"
-          line '{'
-          @indent += 1
-          process_all(node.children)
-          @indent -= 1
-          line '}'
+          if tester.smt7?
+            line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+            line "test_number_loop_increment = #{test_num_inc}"
+            line '{'
+            @indent += 1
+            process_all(node.children)
+            @indent -= 1
+            line '}'
+          elsif smt8?
+            line "for (#{var} : #{start}..#{stop})"
+            line '{'
+            @indent += 1
+            process_all(node.children)
+            @indent -= 1
+            line '}'
+          else
+            fail 'Environment was not supported for flow loops.'
+          end
         end
 
         def generate_expr_string(node, options = {})

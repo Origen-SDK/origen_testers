@@ -9,6 +9,10 @@ flow FLOW_CONTROL {
     in EXTRAS = -1;
     in FLAG1 = -1;
     in JOB = "";
+    in LOOP_VARIABLE = -1;
+    in LOOP_VARIABLE1 = -1;
+    in LOOP_VARIABLE2 = -1;
+    in LOOP_VARIABLE3 = -1;
     in LT_VARIABLE = -1;
     in MCEn_extras = -1;
     in MCEn_test = -1;
@@ -1109,6 +1113,41 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
+        suite test_myloop calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop5);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop6);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite warmish_test calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.warmish_test);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -1579,6 +1618,44 @@ flow FLOW_CONTROL {
                 multi_bin;
             }
         } else {
+        }
+        println("Tests of flow loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 0..5)
+        {
+            test_myloop.execute();
+        }
+        println("Tests of flow loop, no step");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 0..5)
+        {
+            test_myloop2.execute();
+        }
+        println("Tests of decrementing loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 5..2)
+        {
+            test_myloop4.execute();
+        }
+        println("Tests of nested flow loop, depth 3");
+        LOOP_VARIABLE1 = 0;
+        for (LOOP_VARIABLE1 : 0..9)
+        {
+            LOOP_VARIABLE2 = 0;
+            for (LOOP_VARIABLE2 : 1..10)
+            {
+                LOOP_VARIABLE3 = 0;
+                for (LOOP_VARIABLE3 : 1..5)
+                {
+                    test_myloop5.execute();
+                }
+            }
+        }
+        println("Tests of variable loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : TEST_VAR..1)
+        {
+            test_myloop6.execute();
         }
         println("An optimization test case, this should not generate a flag on V93K");
         test1_23.execute();
