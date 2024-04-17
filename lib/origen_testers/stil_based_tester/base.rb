@@ -15,6 +15,7 @@ module OrigenTesters
         @min_repeat_loop = 2
         @pat_extension = 'stil'
         @compress = true
+        @use_timing_equations = options[:use_timing_equations]
 
         # @support_repeat_previous = true
         @match_entries = 10
@@ -30,6 +31,32 @@ module OrigenTesters
         true
       end
 
+      # returns the orderd pins with groups decomposed into individual pins
+      def flattened_ordered_pins
+        if @flattened_ordered_pins.nil?
+          @flattened_ordered_pins = []
+          ordered_pins.each do |p|
+            if p.is_a?(Origen::Pins::PinCollection)
+              p.each { |ip| @flattened_ordered_pins << ip }
+            else
+              @flattened_ordered_pins << p
+            end
+          end
+        end
+        @flattened_ordered_pins
+      end
+
+      def output_group_definition(grp, grp_name)
+        line = "\"#{grp_name}\" = '"
+        grp.each_with_index do |pin, i|
+          unless i == 0
+            line << '+'
+          end
+          line << pin.name.to_s
+        end
+        microcode "  #{line}';"
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -42,7 +69,7 @@ module OrigenTesters
 
           microcode ''
           microcode 'Signals {'
-          ordered_pins.each do |pin|
+          flattened_ordered_pins.each do |pin|
             line = ''
             line << "#{pin.name} "
             if pin.direction == :input
@@ -58,22 +85,38 @@ module OrigenTesters
 
           microcode ''
           microcode 'SignalGroups {'
-          line = "\"#{ordered_pins_name || 'ALL'}\" = '"
-          ordered_pins.each_with_index do |pin, i|
-            unless i == 0
-              line << '+'
-            end
-            line << pin.name.to_s
+          # output pin group definitions used in this pattern
+          ordered_pins.each do |p|
+            output_group_definition(p, p.name.to_s) if p.is_a?(Origen::Pins::PinCollection)
           end
-          microcode "  #{line}';"
+
+          # output the all pin group
+          output_group_definition(flattened_ordered_pins, "#{ordered_pins_name || 'ALL'}")
           microcode '}'
+
+          # output the period category specs
+          if @use_timing_equations
+            microcode ''
+            microcode 'Spec {'
+            microcode "  Category c_#{@pattern_name} {"
+            (@wavesets || []).each_with_index do |w, i|
+              microcode "    period_#{w[:name]} = '#{w[:period]}ns';"
+            end
+            microcode '  }'
+            microcode '}'
+          end
 
           microcode ''
           microcode "Timing t_#{@pattern_name} {"
           (@wavesets || []).each_with_index do |w, i|
             microcode '' if i != 0
             microcode "  WaveformTable Waveset#{i + 1} {"
-            microcode "    Period '#{w[:period]}ns';"
+            period_var = "period_#{w[:name]}"
+            if @use_timing_equations
+              microcode "    Period '#{period_var}';"
+            else
+              microcode "    Period '#{w[:period]}ns';"
+            end
             microcode '    Waveforms {'
             w[:lines].each do |line|
               microcode "      #{line}"
@@ -90,6 +133,7 @@ module OrigenTesters
 
           microcode ''
           microcode "PatternExec e_#{@pattern_name} {"
+          microcode "  Category c_#{@pattern_name};" if @use_timing_equations
           microcode "  Timing t_#{@pattern_name};"
           microcode "  PatternBurst b_#{@pattern_name};"
           microcode '}'
@@ -106,6 +150,27 @@ module OrigenTesters
       end
 
       def set_timeset(t, period_in_ns = nil)
+        # check for period size override from the app if performing convert command
+        if Origen.current_command == 'convert'
+          listeners = Origen.listeners_for(:convert_command_set_period_in_ns)
+          if listeners.empty?
+            unless @call_back_message_displayed
+              Origen.log.warn 'STIL output is generated using "origen convert" with no timeset period callback method defined. Default period size will be used.'
+              Origen.log.info 'stil tester implements a callback for setting the timeset period size when converting a pattern to stil format'
+              Origen.log.info 'to use the callback feature add the following define to your app in config/application.rb'
+              Origen.log.info '  def convert_command_set_period_in_ns(timeset_name)'
+              Origen.log.info '    return 25 if timeset_name == "timeset0"'
+              Origen.log.info '    return 30 if timeset_name == "timeset1"'
+              Origen.log.info '    40'
+              Origen.log.info '  end'
+              @call_back_message_displayed = true
+            end
+          else
+            listeners.each do |listener|
+              period_in_ns = listener.convert_command_set_period_in_ns(t)
+            end
+          end
+        end
         super
         if pattern_only
           # Why does D10 not include this?
@@ -115,25 +180,32 @@ module OrigenTesters
           wave_number = nil
           @wavesets.each_with_index do |w, i|
             if w[:name] == timeset.name && w[:period] = timeset.period_in_ns
-              wave_number = i
+              wave_number = i + 1               # bug fix wave numbers are 1 more than their index #
             end
           end
           unless wave_number
             lines = []
-            ordered_pins.each do |pin|
+            period_var = "period_#{timeset.name}"
+            flattened_ordered_pins.each do |pin|
               if pin.direction == :input || pin.direction == :io
                 line = "#{pin.name} { 01 { "
                 wave = pin.drive_wave if tester.timeset.dut_timeset
-                (wave ? wave.evaluated_events : []).each do |t, v|
-                  line << "'#{t}ns' "
-                  if v == 0
-                    line << 'D'
-                  elsif v == 0
-                    line << 'U'
-                  else
-                    line << 'D/U'
+                if wave
+                  (@use_timing_equations ? wave.events : wave.evaluated_events).each do |t, v|
+                    if @use_timing_equations
+                      line << "'#{t.to_s.gsub('period', period_var)}' "
+                    else
+                      line << "'#{t}ns' "
+                    end
+                    if v == 0
+                      line << 'D'
+                    elsif v == 1
+                      line << 'U'
+                    else
+                      line << 'D/U'
+                    end
+                    line << '; '
                   end
-                  line << '; '
                 end
                 line << '}}'
                 lines << line
@@ -141,20 +213,26 @@ module OrigenTesters
               if pin.direction == :output || pin.direction == :io
                 line = "#{pin.name} { LHX { "
                 wave = pin.compare_wave if tester.timeset.dut_timeset
-                (wave ? wave.evaluated_events : []).each_with_index do |tv, i|
-                  t, v = *tv
-                  if i == 0 && t != 0
-                    line << "'0ns' X; "
+                if wave
+                  (@use_timing_equations ? wave.events : wave.evaluated_events).each_with_index do |tv, i|
+                    t, v = *tv
+                    if i == 0 && t != 0
+                      line << "'0ns' X; "
+                    end
+                    if @use_timing_equations
+                      line << "'#{t.to_s.gsub('period', period_var)}' "
+                    else
+                      line << "'#{t}ns' "
+                    end
+                    if v == 0
+                      line << 'L'
+                    elsif v == 0
+                      line << 'H'
+                    else
+                      line << 'L/H/X'
+                    end
+                    line << '; '
                   end
-                  line << "'#{t}ns' "
-                  if v == 0
-                    line << 'L'
-                  elsif v == 0
-                    line << 'H'
-                  else
-                    line << 'L/H/X'
-                  end
-                  line << '; '
                 end
                 line << '}}'
                 lines << line

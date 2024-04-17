@@ -1,15 +1,15 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    05-Apr-2024 16:09PM
+//   Time:    08-Apr-2024 08:10AM
 //   By:      Paul DeRouen
 //   Mode:    debug
-//   Command: origen g multi_vector -t dut.rb -e stil.rb
+//   Command: origen g multi_vector -t dut.rb -e stil_w_equations.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.51.4
-//     Branch:    stil_update(b3ed65b8127)
+//     Branch:    stil_update(800f7491ff4)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.60.7
@@ -33,9 +33,16 @@ SignalGroups {
   "ALL" = 'tclk+tdi+tdo+tms';
 }
 
+Spec {
+  Category c_mm_dual {
+    period_nvmbist = '40ns';
+    period_nvmbist_readout = '160ns';
+  }
+}
+
 Timing t_mm_dual {
   WaveformTable Waveset1 {
-    Period '40ns';
+    Period 'period_nvmbist';
     Waveforms {
       tclk { 01 { }}
       tclk { LHX { }}
@@ -49,7 +56,7 @@ Timing t_mm_dual {
   }
 
   WaveformTable Waveset2 {
-    Period '160ns';
+    Period 'period_nvmbist_readout';
     Waveforms {
       tclk { 01 { }}
       tclk { LHX { }}
@@ -68,6 +75,7 @@ PatternBurst b_mm_dual {
 }
 
 PatternExec e_mm_dual {
+  Category c_mm_dual;
   Timing t_mm_dual;
   PatternBurst b_mm_dual;
 }

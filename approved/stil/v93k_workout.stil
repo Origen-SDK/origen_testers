@@ -1,24 +1,24 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    07-May-2019 15:36PM
-//   By:      Stephen McGinty
+//   Time:    13-Feb-2024 10:23AM
+//   By:      Paul DeRouen
 //   Mode:    debug
 //   Command: origen g v93k_workout -t legacy.rb -e stil.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
-//     Version:   0.20.0
-//     Branch:    smt8(a7ca95b19d0) (+local edits)
+//     Version:   0.51.3
+//     Branch:    stil_groups(063718e8bff) (+local edits)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
-//     Version:   0.43.0
+//     Version:   0.60.7
 //   Plugins
-//     atp:                      1.1.3
 //     origen_arm_debug:         0.4.3
-//     origen_doc_helpers:       0.8.0
-//     origen_jtag:              0.21.1
-//     origen_swd:               1.1.1
+//     origen_doc_helpers:       0.8.6
+//     origen_jtag:              0.22.2
+//     origen_stil:              0.3.0
+//     origen_swd:               1.1.2
 // ***************************************************************************
 STIL 1.0;
 
@@ -26,8 +26,22 @@ Signals {
   nvm_reset InOut;
   nvm_clk InOut;
   nvm_clk_mux InOut;
-  porta InOut;
-  portb InOut;
+  porta7 InOut;
+  porta6 InOut;
+  porta5 InOut;
+  porta4 InOut;
+  porta3 InOut;
+  porta2 InOut;
+  porta1 InOut;
+  porta0 InOut;
+  portb0 InOut;
+  portb1 InOut;
+  portb2 InOut;
+  portb3 InOut;
+  portb4 InOut;
+  portb5 InOut;
+  portb6 InOut;
+  portb7 InOut;
   nvm_invoke InOut;
   nvm_done InOut;
   nvm_fail InOut;
@@ -39,7 +53,9 @@ Signals {
 }
 
 SignalGroups {
-  "ALL" = 'nvm_reset+nvm_clk+nvm_clk_mux+porta+portb+nvm_invoke+nvm_done+nvm_fail+nvm_alvtst+nvm_ahvtst+nvm_dtst+tclk+trst';
+  "porta" = 'porta7+porta6+porta5+porta4+porta3+porta2+porta1+porta0';
+  "portb" = 'portb0+portb1+portb2+portb3+portb4+portb5+portb6+portb7';
+  "ALL" = 'nvm_reset+nvm_clk+nvm_clk_mux+porta7+porta6+porta5+porta4+porta3+porta2+porta1+porta0+portb0+portb1+portb2+portb3+portb4+portb5+portb6+portb7+nvm_invoke+nvm_done+nvm_fail+nvm_alvtst+nvm_ahvtst+nvm_dtst+tclk+trst';
 }
 
 Timing t_v93k_workout {
@@ -52,10 +68,38 @@ Timing t_v93k_workout {
       nvm_clk { LHX { }}
       nvm_clk_mux { 01 { }}
       nvm_clk_mux { LHX { }}
-      porta { 01 { }}
-      porta { LHX { }}
-      portb { 01 { }}
-      portb { LHX { }}
+      porta7 { 01 { }}
+      porta7 { LHX { }}
+      porta6 { 01 { }}
+      porta6 { LHX { }}
+      porta5 { 01 { }}
+      porta5 { LHX { }}
+      porta4 { 01 { }}
+      porta4 { LHX { }}
+      porta3 { 01 { }}
+      porta3 { LHX { }}
+      porta2 { 01 { }}
+      porta2 { LHX { }}
+      porta1 { 01 { }}
+      porta1 { LHX { }}
+      porta0 { 01 { }}
+      porta0 { LHX { }}
+      portb0 { 01 { }}
+      portb0 { LHX { }}
+      portb1 { 01 { }}
+      portb1 { LHX { }}
+      portb2 { 01 { }}
+      portb2 { LHX { }}
+      portb3 { 01 { }}
+      portb3 { LHX { }}
+      portb4 { 01 { }}
+      portb4 { LHX { }}
+      portb5 { 01 { }}
+      portb5 { LHX { }}
+      portb6 { 01 { }}
+      portb6 { LHX { }}
+      portb7 { 01 { }}
+      portb7 { LHX { }}
       nvm_invoke { 01 { }}
       nvm_invoke { LHX { }}
       nvm_done { 01 { }}

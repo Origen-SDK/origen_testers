@@ -19,7 +19,7 @@ module OrigenTesters
 
       @platform = 'j750'
       @splitter_config = {
-        pinlist_start:              /^vector/,
+        pinlist_start:              /\$tset/,
         vectors_start:              /^{/,
         vectors_end:                /^}/,
         vectors_include_start_line: false,
