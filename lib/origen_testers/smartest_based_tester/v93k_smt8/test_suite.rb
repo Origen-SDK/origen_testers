@@ -98,8 +98,10 @@ module OrigenTesters
             elsif param.last.is_a? Hash
               if !test_method.format(name).nil? && !test_method.format(name).is_a?(Hash)
                 fail "#{name} parameter structure requires a Hash but value provided is #{test_method.format(name).class}"
-              elsif test_method.format(name).nil?
+              elsif test_method.format(name).nil? && tester.print_all_params
                 l = add_nested_params(l, name, 'param0', {}, param.last, 1)
+              elsif test_method.format(name).nil?
+                # Do nothing
               else
                 test_method.format(name).each do |key, meta_hash|
                   l = add_nested_params(l, name, key, meta_hash, param.last, 1)
