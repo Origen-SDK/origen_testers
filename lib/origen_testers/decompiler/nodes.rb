@@ -103,7 +103,7 @@ module OrigenTesters
         alias_method :pinlist, :pins
 
         def initialize(pins:, context:)
-          @pins = pins.map(&:to_sym)
+          @pins = pins.map(&:strip).map(&:to_sym)
           super(context: context, type: :pinlist)
         end
       end

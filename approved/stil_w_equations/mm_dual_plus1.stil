@@ -1,15 +1,15 @@
 // ***************************************************************************
 // GENERATED:
-//   Time:    05-Apr-2024 16:09PM
+//   Time:    08-Apr-2024 08:10AM
 //   By:      Paul DeRouen
 //   Mode:    debug
-//   Command: origen g multi_vector -t dut.rb -e stil.rb
+//   Command: origen g multi_vector_plus1 -t dut.rb -e stil_w_equations.rb
 // ***************************************************************************
 // ENVIRONMENT:
 //   Application
 //     Source:    git@github.com:Origen-SDK/origen_testers.git
 //     Version:   0.51.4
-//     Branch:    stil_update(b3ed65b8127)
+//     Branch:    stil_update(800f7491ff4)
 //   Origen
 //     Source:    https://github.com/Origen-SDK/origen
 //     Version:   0.60.7
@@ -33,9 +33,16 @@ SignalGroups {
   "ALL" = 'tclk+tdi+tdo+tms';
 }
 
-Timing t_mm_dual {
+Spec {
+  Category c_mm_dual_plus1 {
+    period_nvmbist = '40ns';
+    period_nvmbist_readout = '80ns';
+  }
+}
+
+Timing t_mm_dual_plus1 {
   WaveformTable Waveset1 {
-    Period '40ns';
+    Period 'period_nvmbist';
     Waveforms {
       tclk { 01 { }}
       tclk { LHX { }}
@@ -49,7 +56,7 @@ Timing t_mm_dual {
   }
 
   WaveformTable Waveset2 {
-    Period '160ns';
+    Period 'period_nvmbist_readout';
     Waveforms {
       tclk { 01 { }}
       tclk { LHX { }}
@@ -63,17 +70,18 @@ Timing t_mm_dual {
   }
 }
 
-PatternBurst b_mm_dual {
-  PatList { mm_dual; }
+PatternBurst b_mm_dual_plus1 {
+  PatList { mm_dual_plus1; }
 }
 
-PatternExec e_mm_dual {
-  Timing t_mm_dual;
-  PatternBurst b_mm_dual;
+PatternExec e_mm_dual_plus1 {
+  Category c_mm_dual_plus1;
+  Timing t_mm_dual_plus1;
+  PatternBurst b_mm_dual_plus1;
 }
 
-Pattern "mm_dual" {
-mm_dual:
+Pattern "mm_dual_plus1" {
+mm_dual_plus1:
 W Waveset1;
 Ann {*// ######################################################################*}
 Ann {*// ## $tester.cycle(repeat: 128)*}
@@ -883,62 +891,43 @@ Loop 2 {
 Ann {*// ######################################################################*}
 Ann {*// ## Test of period levelling*}
 Ann {*// ######################################################################*}
-  V { "ALL" = 1XLX; }
-Loop 4 {
-  V { "ALL" = 1XLX; }
+  V { "ALL" = 0XXX; }
+Loop 8 {
+  V { "ALL" = 1XXX; }
 }
 W Waveset2;
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
+  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XLX; }Ann {*// Period levelled (nvmbist_readout)*}
-Ann {*// ######################################################################*}
-Ann {*// ## Test that additional stores are not injected, only 4 TDO vectors should be captured*}
-Ann {*// ######################################################################*}
   V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 1XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XXX; }Ann {*// Period levelled (nvmbist_readout)*}
-  V { "ALL" = 0XCX; }Ann {*// Period levelled (nvmbist_readout)*}
 W Waveset1;
 Ann {*// ######################################################################*}
 Ann {*// ## Test that these collapse to correct multiple repeats*}
@@ -965,6 +954,8 @@ Loop 600 {
   V { "ALL" = 10XX; }
 }
 Ann {*// This comment should appear after the delay 1200*}
+  V { "ALL" = 10XX; }
+  V { "ALL" = 10XX; }
 Ann {*// ######################################################################*}
 Ann {*// ## Pattern complete*}
 Ann {*// ######################################################################*}
