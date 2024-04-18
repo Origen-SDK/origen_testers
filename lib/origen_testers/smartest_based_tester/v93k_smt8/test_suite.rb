@@ -30,11 +30,6 @@ module OrigenTesters
         DEFAULTS = {
         }
 
-        SKIP_LINES = %w(
-          # pattern
-          # binning.binnable
-        )
-
         NO_STRING_TYPES = [:list_strings, :list_classes, :class]
         # Generate accessors for all attributes and their aliases
         ATTRS.each do |attr|
@@ -95,9 +90,9 @@ module OrigenTesters
             end
             if [true, false].include? test_method.format(param[0])
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
-            elsif NO_STRING_TYPES.include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
+            elsif NO_STRING_TYPES.include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
               l << "    #{name} = #{test_method.format(param[0])};"
-            elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty? && !SKIP_LINES.include?(name)
+            elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
               l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             elsif param.last.is_a? Hash
               if !test_method.format(name).nil? && !test_method.format(name).is_a?(Hash)
