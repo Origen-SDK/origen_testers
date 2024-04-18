@@ -7,6 +7,7 @@ module OrigenTesters
           %w(
             name
             comment
+            bypass
 
             test_method
 
@@ -83,6 +84,9 @@ module OrigenTesters
           end
           if specification && !specification.to_s.empty?
             l << "    #{prefix}specification = setupRef(#{spec_namespace}.#{spec_path}.#{specification});"
+          end
+          if bypass
+            l << '    bypass = true;'
           end
           test_method.sorted_parameters.each do |param|
             name = param[0]

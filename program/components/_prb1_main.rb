@@ -246,6 +246,9 @@ Flow.create do |options|
     log 'Passing test flags works as expected'
     func :test_with_no_flags, bypass: false, output_on_pass: false, output_on_fail: false, value_on_pass: false, value_on_fail: false, per_pin_on_pass: false, per_pin_on_fail: false, number: 6020
     func :test_with_flags, bypass: true, output_on_pass: true, output_on_fail: true, value_on_pass: true, value_on_fail: true, per_pin_on_pass: true, per_pin_on_fail: true, number: 6030
+  elsif tester.smt8?
+    func :test_with_no_flags, bypass: false, number: 6020
+    func :test_with_flags, bypass: true, number: 6030
   end
 
   if tester.smt7?
