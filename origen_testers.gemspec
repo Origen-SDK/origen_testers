@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rodf', '~>1'
   spec.add_runtime_dependency 'origen_stil', '>= 0.2.1'
   spec.add_runtime_dependency "ast", "~> 2"
-  spec.add_runtime_dependency "sexpistol", "= 0.0.7"
+  spec.add_runtime_dependency "sexpistol", "= 0.1.2"
 end
