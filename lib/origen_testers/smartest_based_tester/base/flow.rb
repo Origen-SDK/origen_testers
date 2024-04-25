@@ -554,7 +554,7 @@ module OrigenTesters
         end
 
         def generate_expr_term(val)
-          return val if val.is_a?(Fixnum) || val.is_a?(Integer) || val.is_a?(Float)
+          return val if val.is_a?(Integer) || val.is_a?(Float)
           case val[0]
           when '$'
             if smt8?
