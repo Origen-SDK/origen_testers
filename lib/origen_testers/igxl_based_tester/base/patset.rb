@@ -37,7 +37,6 @@ module OrigenTesters
         def name=(n)
           @name = n
           lines.each { |l| l.pattern_set = n }
-          n
         end
 
         # Returns all lines in the pattern set

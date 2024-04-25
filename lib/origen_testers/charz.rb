@@ -426,7 +426,7 @@ module OrigenTesters
             gated_routines = charz_instance.routines - ungated_routines
             # Build the proc which contains the nested if statements for each routine so they are anded.
             gated_routines.each do |routine|
-              my_proc = -> do
+              my_proc = lambda do
                 if_flag charz_instance.flags do
                   block.call(options.merge(current_routine: routine))
                 end
@@ -469,7 +469,7 @@ module OrigenTesters
             # Build the proc which contains the nested if statemements for each routine so they are anded.
             gated_routines = charz_instance.routines - ungated_routines
             gated_routines.each do |routine|
-              my_proc = -> do
+              my_proc = lambda do
                 if_enable charz_instance.enables do
                   block.call(options.merge(current_routine: routine))
                 end

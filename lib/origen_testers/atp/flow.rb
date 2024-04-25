@@ -484,6 +484,7 @@ module OrigenTesters::ATP
         if name.to_s != options[:path].split('.').last.to_s
           fail "Auxiliary flow path does not end in '#{name}'. The path instead is '#{options[:path]}'. Please update the path to align with the provided name."
         end
+
         extract_meta!(options) do
           apply_conditions(options) do
             n2(:auxiliary_flow, n1(:name, name), n1(:path, options[:path]))
@@ -498,6 +499,7 @@ module OrigenTesters::ATP
       if number.is_a?(Hash)
         fail 'The bin number must be passed as the first argument'
       end
+
       options[:bin_description] ||= options.delete(:description)
       extract_meta!(options) do
         apply_conditions(options) do
@@ -513,6 +515,7 @@ module OrigenTesters::ATP
       if number.is_a?(Hash)
         fail 'The bin number must be passed as the first argument'
       end
+
       options[:type] = :pass
       bin(number, options)
     end
@@ -629,6 +632,7 @@ module OrigenTesters::ATP
       unless args[0].keys.include?(:from) && args[0].keys.include?(:to)
         fail 'Loop must specify :from, :to'
       end
+
       # assume 1 if :step not provided
       unless args[0].keys.include?(:step)
         args[0][:step] = 1
@@ -655,37 +659,42 @@ module OrigenTesters::ATP
     end
 
     RELATIONAL_OPERATORS.each do |method|
-      define_method method do |*args, &block|
-        options = args.pop if args.last.is_a?(Hash)
-        unless args.size == 2
-          fail "Format for relational operation must match: ':<operator>(var1, var2)'"
+      unless method_defined?(method)
+        define_method method do |*args, &block|
+          options = args.pop if args.last.is_a?(Hash)
+          unless args.size == 2
+            fail "Format for relational operation must match: ':<operator>(var1, var2)'"
+          end
+
+          n2(method.to_sym, args[0], args[1])
         end
-        n2(method.to_sym, args[0], args[1])
-      end unless method_defined?(method)
+      end
     end
 
     # Define handlers for all of the flow control block methods, unless a custom one has already
     # been defined above
     CONDITION_KEYS.keys.each do |method|
-      define_method method do |*flags, &block|
-        if flags.last.is_a?(Hash)
-          options = flags.pop
-        else
-          options = {}
+      unless method_defined?(method)
+        define_method method do |*flags, &block|
+          if flags.last.is_a?(Hash)
+            options = flags.pop
+          else
+            options = {}
+          end
+          if flags.include? nil
+            Origen.log.error("Found Nil flag passed to the '#{method}' method, ensure the flag is passed as a String or a Symbol!")
+            fail
+          end
+          flags = flags.first if flags.size == 1
+          # Legacy option provided by OrigenTesters that permits override of a block enable method by passing
+          # an :or option with a true value
+          if (CONDITION_KEYS[method] == :if_enabled || CONDITION_KEYS[method] || :unless_enabled) && options[:or]
+            block.call
+          else
+            flow_control_method(CONDITION_KEYS[method], flags, options, &block)
+          end
         end
-        if flags.include? nil
-          Origen.log.error("Found Nil flag passed to the '#{method}' method, ensure the flag is passed as a String or a Symbol!")
-          fail
-        end
-        flags = flags.first if flags.size == 1
-        # Legacy option provided by OrigenTesters that permits override of a block enable method by passing
-        # an :or option with a true value
-        if (CONDITION_KEYS[method] == :if_enabled || CONDITION_KEYS[method] || :unless_enabled) && options[:or]
-          block.call
-        else
-          flow_control_method(CONDITION_KEYS[method], flags, options, &block)
-        end
-      end unless method_defined?(method)
+      end
     end
 
     def inspect
@@ -733,6 +742,7 @@ module OrigenTesters::ATP
             unless options[:then] || options[:else]
               fail "You must supply a :then or :else option when calling #{name} like this!"
             end
+
             node = n1(name, flag)
             if options[:then]
               node = append_to(node) { options[:then].call }
@@ -763,6 +773,7 @@ module OrigenTesters::ATP
         unless found
           fail 'The request to apply the current context has failed, this is likely a bug in OrigenTesters::ATP'
         end
+
         node
       else
         conditions = extract_conditions(options)
@@ -1018,6 +1029,7 @@ module OrigenTesters::ATP
     def add_bin_description(node, number, description, options)
       @existing_bin_descriptions ||= { soft: {}, hard: {} }
       return node if @existing_bin_descriptions[options[:type]][number]
+
       @existing_bin_descriptions[options[:type]][number] = true
       name, *nodes = *node
       if nodes[0] && nodes[0].type == :volatile

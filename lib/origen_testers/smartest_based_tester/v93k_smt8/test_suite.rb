@@ -27,8 +27,7 @@ module OrigenTesters
           test_function: :test_method
         }
 
-        DEFAULTS = {
-        }
+        DEFAULTS = {}
 
         NO_STRING_TYPES = [:list_strings, :list_classes, :class]
         # Generate accessors for all attributes and their aliases
@@ -120,12 +119,13 @@ module OrigenTesters
             unless value_hash.is_a?(Hash)
               fail "Provided value to nested params was not a Hash. Instead the value was #{value_hash.class}"
             end
+
             dynamic_spacing = ' ' * (4 * nested_loop_count)
             l << "#{dynamic_spacing}#{name}[#{key}] = {" unless name.nil?
             nested_params.each do |nested_param|
               # Guarentee hash is using all symbol keys
               # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to
-              value_hash = value_hash.inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo }
+              value_hash = value_hash.each_with_object({}) { |(k, v), memo| memo[k.to_sym] = v; }
               nested_key = nested_param.first.to_sym
               nested_key_underscore = nested_key.to_s.underscore.to_sym
               nested_params_accepted_keys << nested_key
@@ -136,6 +136,7 @@ module OrigenTesters
                  value_hash.keys.include?(nested_key_underscore) && nested_key != nested_key_underscore
                 fail 'You are using a hash based test method and provided both the parameter name and alias name.'
               end
+
               nested_key = nested_key_underscore if value_hash.keys.include?(nested_key_underscore)
               if nested_param.last.first.is_a?(Hash) && value_hash[nested_key].is_a?(Hash)
                 value_hash[nested_key].each do |inner_key, inner_meta_hash|

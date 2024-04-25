@@ -13,6 +13,7 @@ module OrigenTesters
         # All descriptions are stored in this lookup table
         def lookup
           return @lookup if @lookup
+
           # Use the one from the interface if present, program generation will
           # automatically push descriptions in here
           if Origen.interface_present?
@@ -26,7 +27,6 @@ module OrigenTesters
           @parser = options[:parser]
           FileUtils.rm_rf(SCRATCH_DIR) if File.exist?(SCRATCH_DIR)
           parse_program
-          true
         end
 
         # Returns the description for the given flow
@@ -151,8 +151,8 @@ module OrigenTesters
               markup_source_file_comments
               # Compile the flow file, with Ruby comments now preserved and marked up
               desc = Origen.app.runner.generate(program: true, patterns: ungenerated_dir, output: generated_dir,
-                                              check_for_changes: false, collect_stats: false, quiet: true,
-                                              collect_descriptions: true)
+                                                check_for_changes: false, collect_stats: false, quiet: true,
+                                                collect_descriptions: true)
               Origen.log.info ''
             end
             @program_generated = true
@@ -172,7 +172,7 @@ module OrigenTesters
               markup_template_comments
               # Compile the flow file, with Ruby comments now preserved and marked up
               Origen.app.runner.generate(compile: true, patterns: uncompiled_dir, output: compiled_dir,
-                                       check_for_changes: false, collect_stats: false, quiet: true)
+                                         check_for_changes: false, collect_stats: false, quiet: true)
               Origen.log.info ''
             end
             @program_compiled = true
@@ -263,19 +263,18 @@ module OrigenTesters
           # Not sure the best way to determine the file type of a partial, just
           # return true for now to play it safe
           return true if file.basename.to_s =~ /^_/
+
           File.readlines(file).each do |line|
-            begin
-              unless line =~ /^%/ || line =~ /^\s*<comment>/
-                return !!(line =~ /#{match}/)
-              end
-            rescue Exception => e
-              if e.is_a?(ArgumentError) && e.message =~ /invalid byte sequence/
-                return false
-              else
-                puts e.message
-                puts e.backtrace
-                exit 1
-              end
+            unless line =~ /^%/ || line =~ /^\s*<comment>/
+              return !!(line =~ /#{match}/)
+            end
+          rescue Exception => e
+            if e.is_a?(ArgumentError) && e.message =~ /invalid byte sequence/
+              return false
+            else
+              puts e.message
+              puts e.backtrace
+              exit 1
             end
           end
         end

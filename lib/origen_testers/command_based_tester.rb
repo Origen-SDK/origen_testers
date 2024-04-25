@@ -1,4 +1,3 @@
-
 module OrigenTesters
   # A base class that can be used to model command-based, rather than
   # vector-based testers.

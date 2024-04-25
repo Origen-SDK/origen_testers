@@ -40,7 +40,7 @@ module OrigenTesters
 
         @job_options = {
           tester:   :j750,
-          compiler: self.class.compiler,   # required
+          compiler: self.class.compiler   # required
         }.merge(@job_options)
 
         # These are compiler options that are specific to J750 compiler (builds on options from IGXL-Based)
@@ -50,7 +50,7 @@ module OrigenTesters
           extended:      false,     # Compiles the pattern for extended mode.
           scan_parallel: false,     # Expands scan vectors into parallel SVM/LVM vectors.
           svm_only:      false,     # Compile all vectors in the file for SVM.
-          svm_subr_only: false,     # Only SVM subroutines in file being used.
+          svm_subr_only: false     # Only SVM subroutines in file being used.
         }.merge(@compiler_options)
 
         # These are compiler options that are specific to J750 compiler (builds on options from IGXL-Based)
@@ -58,7 +58,7 @@ module OrigenTesters
           i:          nil,          # Includes paths to be passed to C++ preprocessor.
           lvm_size:   nil,          # Number of LVM vectors to allow in a single pattern.
           max_errors: nil,          # Number of errors that will cause compilation of the pattern file to be aborted.
-          min_period: nil,          # Minimum period, in seconds, that will be used during a pattern burst.
+          min_period: nil          # Minimum period, in seconds, that will be used during a pattern burst.
         }.merge(@compiler_options_with_args)
 
         update_common_options(options)      # Update common options with default (see BasePatternCompiler)
@@ -69,6 +69,7 @@ module OrigenTesters
       # Executes the compiler for each job in the queue
       def run(list = nil, options = {})
         fail "Error: the tester #{Origen.tester} is not an J750 tester,exiting..." unless is_j750?
+
         msg = "Error: application #{Origen.app.name} is running on Windows, "
         msg += 'to run the pattern compiler you must be on a Linux machine'
         fail msg if Origen.running_on_windows?

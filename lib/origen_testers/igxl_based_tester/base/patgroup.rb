@@ -11,8 +11,7 @@ module OrigenTesters
             pattern: :pattern_file
           }
 
-          DEFAULTS = {
-          }
+          DEFAULTS = {}
 
           # Generate accessors for all attributes and their aliases
           ATTRS.each do |attr|
@@ -82,7 +81,6 @@ module OrigenTesters
         def name=(n)
           @name = n
           lines.each { |l| l.group_name = n }
-          n
         end
 
         # Returns all lines in the pattern set

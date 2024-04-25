@@ -73,6 +73,7 @@ module OrigenTesters
         if timeset.period_in_ns % tset.period_in_ns != 0
           fail "The period of timeset #{timeset.name} is not a multiple of the period of timeset #{tset.name}!"
         end
+
         if contains_capture
           vector_modification_required = true
         elsif $tester.timing_toggled_pins.empty?
@@ -196,7 +197,7 @@ module OrigenTesters
 
     def ==(obj)
       if obj.is_a?(Vector)
-        self.has_microcode? == obj.has_microcode? &&
+        has_microcode? == obj.has_microcode? &&
           timeset == obj.timeset &&
           pin_vals == obj.pin_vals
       else

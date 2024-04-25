@@ -52,19 +52,19 @@ module OrigenTesters
           # Build the type specific accessors (aliases)
           self.class::TEST_INSTANCE_ALIASES[@type.to_sym].each do |_alias, val|
             define_singleton_method("#{_alias}=") do |v|
-              send("#{val}=", v) if self.respond_to?("#{val}=", v)
+              send("#{val}=", v) if respond_to?("#{val}=", v)
             end
             define_singleton_method("#{_alias}") do
-              send(val) if self.respond_to?(val)
+              send(val) if respond_to?(val)
             end
           end
           # Set the defaults
           self.class::TEST_INSTANCE_DEFAULTS[@type.to_sym].each do |k, v|
-            send("#{k}=", v) if self.respond_to?("#{k}=", v)
+            send("#{k}=", v) if respond_to?("#{k}=", v)
           end
           # Then the values that have been supplied
           attrs.each do |k, v|
-            send("#{k}=", v) if self.respond_to?("#{k}=", v)
+            send("#{k}=", v) if respond_to?("#{k}=", v)
           end
         end
 
@@ -225,7 +225,7 @@ module OrigenTesters
                 when r > 0.00002 then 2
                 when r > 0.000002 then 1
                 else 0
-                end
+                            end
             end
 
           elsif @type == :powersupply
@@ -242,21 +242,22 @@ module OrigenTesters
                 when r > 0.00005 then 2   # between 50ua - 500u
                 when r > 0.000005 then 3  # between 5u - 50u
                 else 8
-              end
+                            end
             end
 
           else # :pin_pmu
             if r == :smart
               self.irange = 5
             elsif r == :auto
-              fail 'Auto range not available in FIMV mode!' if self.fimv?
+              fail 'Auto range not available in FIMV mode!' if fimv?
+
               self.irange = 6
             else
               if fimv?
                 self.irange = case
                   when r > 0.0002 then 2
                   else 4
-                  end
+                              end
               else
                 self.irange = case
                   when r > 0.0002 then 2
@@ -264,7 +265,7 @@ module OrigenTesters
                   when r > 0.000002 then 0
                   when r > 0.0000002 then 1
                   else 3
-                  end
+                              end
               end
             end
           end
@@ -303,7 +304,7 @@ module OrigenTesters
             when r > 5 then 2
             when r > 2 then 1
             else 0
-            end
+                        end
           self
         end
 

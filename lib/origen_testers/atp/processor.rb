@@ -57,6 +57,7 @@ module OrigenTesters::ATP
       unless @volatiles
         fail 'You must first call extract_volatiles(node) from your on_flow hander method'
       end
+
       @volatiles[:flags] || []
     end
 

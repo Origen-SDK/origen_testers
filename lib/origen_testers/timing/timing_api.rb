@@ -142,7 +142,7 @@ module OrigenTesters
           time_in_ns:     0,
           time_in_ms:     0,
           time_in_s:      0,
-          match:          false,   # Set to true to invoke a match loop where the supplied delay
+          match:          false   # Set to true to invoke a match loop where the supplied delay
           # will become the timeout duration
         }.merge(options)
 

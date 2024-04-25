@@ -133,7 +133,7 @@ module OrigenTesters
                     # :match_2pins
                     delay_in_us: 5,           # match loop delay
                     define:      false,       # whether to define subr or call it
-                    subr_name:   false,       # default use match type as subr name
+                    subr_name:   false       # default use match type as subr name
                 }.merge(options)
 
         subr_name = options[:subr_name] ? options[:subr_name] : options[:type].to_s
@@ -226,7 +226,7 @@ module OrigenTesters
 
       def handshake(options = {})
         options = {
-          define: false,          # whether to define subr or call it
+          define: false          # whether to define subr or call it
         }.merge(options)
 
         if options[:define]
@@ -265,7 +265,7 @@ module OrigenTesters
                     subr_name:         false,       # default use match type as subr name
                     digsrc_pins:       @digsrc_pins, # defaults to what's defined in $dut
                     overlay_reg:       nil, # defaults to testme32 register
-                    overlay_cycle_num: 32, # Only needed if overlay_reg is NOT nil, this specificies how many clk cycles to overlay.
+                    overlay_cycle_num: 32 # Only needed if overlay_reg is NOT nil, this specificies how many clk cycles to overlay.
                 }.merge(options)
         if options[:define]
           $tester.start_subroutine(options[:subr_name]) # Start subroutine
@@ -301,8 +301,7 @@ module OrigenTesters
       end
 
       def memory_test(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         $tester.memory_test(inc_counter_x: true, gen_vector: true)
 
@@ -318,8 +317,7 @@ module OrigenTesters
       end
 
       def freq_count(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         $tester.freq_count($dut.pin(:tdo), readcode: 73)
       end

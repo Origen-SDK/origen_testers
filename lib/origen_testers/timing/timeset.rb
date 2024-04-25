@@ -65,7 +65,6 @@ module OrigenTesters
         end
 
         # Return the period
-        p
       end
 
       # Indicates whether a period_in_ns has been defined for this timeset.
@@ -134,7 +133,6 @@ module OrigenTesters
         #  )
         # end
         @period_in_ns = p
-        @period_in_ns
       end
     end
   end

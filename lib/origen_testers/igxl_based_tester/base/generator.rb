@@ -337,6 +337,7 @@ module OrigenTesters
           [edgeset_sheets, timeset_sheets].each do |sheets|
             sheets.each do |name, sheet|
               next if sheet.class.name =~ /Edgesets$/ && sheet.ts_basic
+
               g << sheet
             end
           end
@@ -362,6 +363,7 @@ module OrigenTesters
         def pinmaps(filename = pinmaps_filename)
           f = filename.to_sym
           return pinmap_sheets[f] if pinmap_sheets[f]
+
           p = platform::Pinmap.new
           p.filename = f
           pinmap_sheets[f] = p
@@ -377,6 +379,7 @@ module OrigenTesters
         def test_instances(filename = test_instances_filename)
           f = filename.to_sym
           return test_instance_sheets[f] if test_instance_sheets[f]
+
           t = platform::TestInstances.new
           t.filename = f
           test_instance_sheets[f] = t
@@ -391,6 +394,7 @@ module OrigenTesters
         def patsets(filename = patsets_filename)
           f = filename.to_sym
           return patset_sheets[f] if patset_sheets[f]
+
           p = platform::Patsets.new
           p.filename = f
           patset_sheets[f] = p
@@ -407,6 +411,7 @@ module OrigenTesters
         def patsubrs(filename = patsubrs_filename)
           f = filename.to_sym
           return patsubr_sheets[f] if patsubr_sheets[f]
+
           p = platform::Patsubrs.new
           p.filename = f
           patsubr_sheets[f] = p
@@ -426,6 +431,7 @@ module OrigenTesters
             # DH here need to reset the flow!!
             f = filename.to_sym
             return flow_sheets[f] if flow_sheets[f] # will return flow if already existing
+
             p = platform::Flow.new
             p.inhibit_output if Origen.interface.resources_mode?
             p.filename = f
@@ -442,6 +448,7 @@ module OrigenTesters
         def patgroups(filename = patgroups_filename)
           f = filename.to_sym
           return patgroup_sheets[f] if patgroup_sheets[f]
+
           p = platform::Patgroups.new
           p.filename = f
           patgroup_sheets[f] = p
@@ -470,6 +477,7 @@ module OrigenTesters
 
           f = filename.to_sym
           return edgeset_sheets[f] if edgeset_sheets[f]
+
           e = platform::Edgesets.new(options)
           e.filename = f
           edgeset_sheets[f] = e
@@ -489,6 +497,7 @@ module OrigenTesters
 
           f = filename.to_sym
           return timeset_sheets[f] if timeset_sheets[f]
+
           case options[:timeset_basic]
           when true
             t = platform::TimesetsBasic.new(options)
@@ -518,6 +527,7 @@ module OrigenTesters
         def levelsets(filename = levelsets_filename)
           f = filename.to_sym
           return levelset_sheets[f] if levelset_sheets[f]
+
           t = platform::Levelset.new
           t.filename = f
           levelset_sheets[f] = t
@@ -534,6 +544,7 @@ module OrigenTesters
         def ac_specsets(filename = ac_specsets_filename)
           f = filename.to_sym
           return ac_specset_sheets[f] if ac_specset_sheets[f]
+
           s = platform::ACSpecsets.new
           s.filename = f
           ac_specset_sheets[f] = s
@@ -548,6 +559,7 @@ module OrigenTesters
         def dc_specsets(filename = dc_specsets_filename)
           f = filename.to_sym
           return dc_specset_sheets[f] if dc_specset_sheets[f]
+
           s = platform::DCSpecsets.new
           s.filename = f
           dc_specset_sheets[f] = s
@@ -562,6 +574,7 @@ module OrigenTesters
         def global_specs(filename = global_specs_filename)
           f = filename.to_sym
           return global_spec_sheets[f] if global_spec_sheets[f]
+
           s = platform::GlobalSpecs.new
           s.filename = f
           global_spec_sheets[f] = s
@@ -576,6 +589,7 @@ module OrigenTesters
         def program_jobs(filename = jobs_filename)
           f = filename.to_sym
           return job_sheets[f] if job_sheets[f]
+
           j = platform::Jobs.new
           j.filename = f
           job_sheets[f] = j
@@ -590,6 +604,7 @@ module OrigenTesters
         def references(filename = references_filename)
           f = filename.to_sym
           return reference_sheets[f] if reference_sheets[f]
+
           r = platform::References.new
           r.filename = f
           reference_sheets[f] = r

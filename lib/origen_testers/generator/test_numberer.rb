@@ -8,9 +8,7 @@ module OrigenTesters
       # @option options [Float] :range (1.26) The range parameter, see code formula
       # @option options [Integer] :offset (0) The o
       def test_number_for(test_name, options = {})
-        options = {
-
-        }.merge(options)
+        options = {}.merge(options)
       end
 
       private

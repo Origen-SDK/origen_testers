@@ -392,7 +392,7 @@ module OrigenTesters
 
         # Returns an array of all pattern names referenced in this test instance
         def patterns
-          if self.respond_to?(:pattern)
+          if respond_to?(:pattern)
             pattern.split(',').map do |pat|
               extract_pattern_from_patset(pat)
             end.flatten.map { |pat| pat.gsub(/.*[\\\/]/, '').gsub(/\..*/, '') }

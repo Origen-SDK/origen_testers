@@ -42,24 +42,22 @@ module OrigenTesters
         end
 
         def subdirectory
-          @subdirectory ||= begin
-            if smt8?
-              parents = []
-              f = parent
-              while f
-                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-                f = f.parent
-              end
-              # need to variablize this for internal usage!!
-              if Origen.interface.respond_to?(:insertion)
-                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
-              else
-                File.join tester.package_namespace, 'flows', *parents
-              end
-            else
-              'testflow/mfh.testflow.group'
-            end
-          end
+          @subdirectory ||= if smt8?
+                              parents = []
+                              f = parent
+                              while f
+                                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                                f = f.parent
+                              end
+                              # need to variablize this for internal usage!!
+                              if Origen.interface.respond_to?(:insertion)
+                                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+                              else
+                                File.join tester.package_namespace, 'flows', *parents
+                              end
+                            else
+                              'testflow/mfh.testflow.group'
+                            end
         end
 
         def filename
@@ -153,9 +151,8 @@ module OrigenTesters
           @ast ||= begin
             unique_id = smt8? ? nil : sig
             atp.ast(unique_id: unique_id, optimization: :smt,
-                  implement_continue: !tester.force_pass_on_continue,
-                  optimize_flags_when_continue: !tester.force_pass_on_continue
-                   )
+                    implement_continue: !tester.force_pass_on_continue,
+                    optimize_flags_when_continue: !tester.force_pass_on_continue)
           end
         end
 
@@ -188,6 +185,7 @@ module OrigenTesters
         def finalize(options = {})
           if smt8?
             return unless top_level? || options[:called_by_top_level]
+
             super
             @finalized = true
             # All flows have now been executed and the top-level contains the final AST.
@@ -203,6 +201,7 @@ module OrigenTesters
                 unless sub_flow
                   fail "Something went wrong, couldn't find the sub-flow object for path #{path}"
                 end
+
                 # on_fail and on_pass nodes are removed because they will be rendered by the sub-flow's parent
                 sub_flow.instance_variable_set(:@ast, sub_flow_ast.remove(:on_fail, :on_pass).updated(:flow))
                 sub_flow.instance_variable_set(:@finalized, true)  # To stop the AST being regenerated
@@ -507,6 +506,7 @@ module OrigenTesters
           else
             var = generate_flag_name(node.to_a[3])
           end
+
           test_num_inc = node.to_a[4]
           unless smt8?
             var = "@#{var}"
@@ -542,6 +542,7 @@ module OrigenTesters
 
         def generate_expr_string(node, options = {})
           return node unless node.respond_to?(:type)
+
           case node.type
           when :eq, :ne, :gt, :ge, :lt, :le
             result = "#{generate_expr_term(node.to_a[0])} "             # operand 1
@@ -555,6 +556,7 @@ module OrigenTesters
 
         def generate_expr_term(val)
           return val if val.is_a?(Integer) || val.is_a?(Float)
+
           case val[0]
           when '$'
             if smt8?

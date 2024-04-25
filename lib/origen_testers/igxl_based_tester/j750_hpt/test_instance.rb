@@ -19,8 +19,7 @@ module OrigenTesters
           timeset:          :time_sets,
           timesets:         :time_sets,
 
-          other:            {
-          },
+          other:            {},
 
           empty:            {
             start_func:           :arg0,

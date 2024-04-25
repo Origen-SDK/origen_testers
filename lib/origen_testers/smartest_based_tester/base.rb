@@ -191,6 +191,7 @@ module OrigenTesters
       def seq_path
         @seq_path || 'specs'
       end
+
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
       # to set multiple.
       def limitfile_test_modes=(val)
@@ -359,6 +360,7 @@ module OrigenTesters
         if pins.empty?
           fail 'For the V93K you must supply the pins to store/capture'
         end
+
         pins.each do |pin|
           pin.restore_state do
             pin.capture
@@ -380,12 +382,12 @@ module OrigenTesters
       #   $tester.cycle                # This is the vector that will be captured
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the V93K you must supply the pins to store/capture'
         end
+
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated, cool or what!
@@ -455,8 +457,7 @@ module OrigenTesters
       # ==== Examples
       #   $tester.handshake                   # Pass control to the tester for a measurement
       def handshake(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         ::Pattern.split(options)
       end
 
@@ -465,8 +466,7 @@ module OrigenTesters
       # ==== Examples
       #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
       def freq_count(_pin, options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         ::Pattern.split(options)
       end
 
@@ -691,8 +691,7 @@ module OrigenTesters
 
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         pin_list = ordered_pins.map do |p|
           if Origen.app.pin_pattern_order.include?(p.id)
             # specified name overrides pin name
@@ -723,7 +722,7 @@ module OrigenTesters
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
         options = {
-          end_in_ka:      false
+          end_in_ka: false
         }.merge(options)
         if options[:end_in_ka]
           Origen.log.warning '93K keep alive not yet implemented!'

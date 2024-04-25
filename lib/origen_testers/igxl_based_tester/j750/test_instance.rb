@@ -19,8 +19,7 @@ module OrigenTesters
           timeset:          :time_sets,
           timesets:         :time_sets,
 
-          other:            {
-          },
+          other:            {},
 
           empty:            {
             start_func:           :arg0,
@@ -658,6 +657,7 @@ module OrigenTesters
         # intended to be used in documentation
         def to_meta
           return @meta if @meta
+
           m = { 'Test' => name,
                 'Type' => type
           }

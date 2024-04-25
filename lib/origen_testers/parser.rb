@@ -2,7 +2,7 @@ module OrigenTesters
   module Parser
     autoload :SearchableArray, 'origen_testers/parser/searchable_array'
     autoload :SearchableHash,  'origen_testers/parser/searchable_hash'
-    autoload :DescriptionLookup,  'origen_testers/parser/description_lookup'
+    autoload :DescriptionLookup, 'origen_testers/parser/description_lookup'
 
     def parse(*args, &block)
       parser.parse(*args, &block)

@@ -23,8 +23,7 @@ module OrigenTesters
           timeset:    :time_sets,
           timesets:   :time_sets,
 
-          other:      {
-          },
+          other:      {},
 
           empty:      {
             arg_list:             :arg0,
@@ -244,7 +243,7 @@ module OrigenTesters
             wait_flag1:     -2, # waitoff
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
-            wait_flag4:     -2, # waitoff
+            wait_flag4:     -2 # waitoff
           }
         }
 
@@ -279,6 +278,7 @@ module OrigenTesters
         # intended to be used in documentation
         def to_meta
           return @meta if @meta
+
           m = { 'Test' => name,
                 'Type' => type
           }
