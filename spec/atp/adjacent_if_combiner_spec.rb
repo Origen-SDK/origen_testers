@@ -51,6 +51,19 @@ describe 'The adjacent if combiner' do
 
   end
 
+  it "should cleanly add the add_flag and unset_flag entries to the ast" do
+    
+    add_flag "MY_FLAG"
+    unset_flag "SOME_FLAG"
+
+    ast.should ==
+      s(:flow,
+        s(:name, "sort1"),
+        s(:add_flag, "MY_FLAG"),
+        s(:unset_flag, "SOME_FLAG"))
+
+  end
+
   it "should combine adjacent nodes based on a volatile flag, if the first node cannot modify the flag" do
     volatile :my_flag
     # This section should combine, since does not contain any tests

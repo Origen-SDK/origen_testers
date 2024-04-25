@@ -12,10 +12,34 @@ describe "An interface" do
 
     def initialize(options = {})
       self.resources_filename = "abc"
+      add_my_tml if tester.smt8?
     end
 
     def on_my_callback
       $_test_var += 1
+    end
+
+    def add_my_tml
+      add_tml :my_hash_tml,
+        class_name:      'MyTmlHashNamespace',
+
+        # Here is a test definition.
+        # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
+        # By default the class name will be the camel-cased version of this identifier, so 'myTest' in
+        # this case.
+        my_hash_test: {
+          # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
+          class_name:   'MyHashExampleClass',
+          # [OPTIONAL] If the test method does not require a definition in the testmethodlimits section
+          #    of the .tf file, you can suppress like this:
+          test_name: [:string, 'HashExample'],
+          # In cases where the C++ library has deviated from standard attribute naming conventions
+          # (camel-cased with lower cased first character), the absolute attribute name can be given
+          # as a string.
+          # The Origen accessor for these will be the underscored version, with '.' characters
+          # converted to underscores e.g. tm.an_unusual_name
+          'hashParameter':  [{param_name0: [:string, 'NO'], paramName1: [:integer, 0]}]
+        } 
     end
   end
 

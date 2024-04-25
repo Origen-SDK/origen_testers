@@ -479,6 +479,21 @@ module OrigenTesters::ATP
       end
     end
 
+    def add_auxiliary_flow(name, options = {})
+      if tester.smt8?
+        if name.to_s != options[:path].split('.').last.to_s
+          fail "Auxiliary flow path does not end in '#{name}'. The path instead is '#{options[:path]}'. Please update the path to align with the provided name."
+        end
+        extract_meta!(options) do
+          apply_conditions(options) do
+            n2(:auxiliary_flow, n1(:name, name), n1(:path, options[:path]))
+          end
+        end
+      else
+        fail 'Auxiliary flow API is only usable in SMT8.'
+      end
+    end
+
     def bin(number, options = {})
       if number.is_a?(Hash)
         fail 'The bin number must be passed as the first argument'
@@ -543,6 +558,22 @@ module OrigenTesters::ATP
       extract_meta!(options) do
         apply_conditions(options) do
           set_flag_node(flag)
+        end
+      end
+    end
+
+    def unset_flag(flag, options = {})
+      extract_meta!(options) do
+        apply_conditions(options) do
+          unset_flag_node(flag)
+        end
+      end
+    end
+
+    def add_flag(flag, options = {})
+      extract_meta!(options) do
+        apply_conditions(options) do
+          add_flag_node(flag)
         end
       end
     end
@@ -936,6 +967,14 @@ module OrigenTesters::ATP
 
     def set_flag_node(flag)
       n1(:set_flag, flag)
+    end
+
+    def unset_flag_node(flag)
+      n1(:unset_flag, flag)
+    end
+
+    def add_flag_node(flag)
+      n1(:add_flag, flag)
     end
 
     # Ensures the flow ast has a volatile node, then adds the

@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean]
+        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :class, :list_strings, :list_classes]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
@@ -107,10 +107,20 @@ module OrigenTesters
               type = send(name)
             elsif respond_to?(name.sub(/b$/, ''))
               type = inverse_of(send(name.sub(/b$/, '')))
+            elsif parameters[attr].is_a?(Hash) || parameters[attr.to_sym].is_a?(Hash)
+              type = :hash
             else
               fail "Unknown attribute type: #{parameters[attr]}"
             end
           end
+          if val.nil? && !tester.print_all_params
+            nil
+          else
+            handle_val_type(val, type, attr)
+          end
+        end
+
+        def handle_val_type(val, type, attr)
           case type
           when :current, 'CURR'
             "#{val}[A]"
@@ -126,9 +136,9 @@ module OrigenTesters
             val
           when :boolean
             # Check for valid values
-            if [0, 1, true, false].include?(val)
+            if [0, 1, true, false, 'true', 'false'].include?(val)
               # Use true/false for smt8 and 0/1 for smt7
-              if [1, true].include?(val)
+              if [1, true, 'true'].include?(val)
                 tester.smt8? ? true : 1
               else
                 tester.smt8? ? false : 0
@@ -136,6 +146,18 @@ module OrigenTesters
             else
               fail "Unknown boolean value for attribute #{attr}: #{val}"
             end
+          when :hash, :class
+            val
+          when :list_strings
+            unless val.is_a?(Array)
+              fail "#{val} is not an Array. List_strings must have Array values"
+            end
+            "##{val}"
+          when :list_classes
+            unless val.is_a?(Array)
+              fail "#{val} is not an Array. List_classes must have Array values"
+            end
+            "##{val.to_s.gsub('"', '')}"
           else
             fail "Unknown type for attribute #{attr}: #{type}"
           end

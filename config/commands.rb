@@ -200,7 +200,7 @@ when "examples", "test"
     puts
     puts "To approve any diffs in the reference.list files run the following command:"
     puts
-    platforms = %w(j750 j750_literals j750_hpt ultraflex ultraflex_literals v93k v93k_multiport v93k_enable_flow v93k_disable_flow v93k_limits_file v93k_global v93k_smt8) # put here the various platforms used in examples/program_generator.rb
+    platforms = %w(j750 j750_literals j750_hpt ultraflex ultraflex_literals v93k v93k_multiport v93k_enable_flow v93k_disable_flow v93k_limits_file v93k_global v93k_smt8 v93k_flowgrouping) # put here the various platforms used in examples/program_generator.rb
     reflist_command = ''
     platforms.each do |platform|
       unless reflist_command == ''

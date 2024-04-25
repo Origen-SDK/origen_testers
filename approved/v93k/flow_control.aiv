@@ -83,4 +83,5 @@ test_myloop2 .tmf
 test_myloop3 .tmf
 test_myloop4 .tmf
 test_myloop5 .tmf
+test_myloop6 .tmf
 warmish_test .tmf

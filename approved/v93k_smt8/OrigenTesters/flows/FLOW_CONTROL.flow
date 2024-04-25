@@ -9,10 +9,15 @@ flow FLOW_CONTROL {
     in EXTRAS = -1;
     in FLAG1 = -1;
     in JOB = "";
+    in LOOP_VARIABLE = -1;
+    in LOOP_VARIABLE1 = -1;
+    in LOOP_VARIABLE2 = -1;
+    in LOOP_VARIABLE3 = -1;
     in LT_VARIABLE = -1;
     in MCEn_extras = -1;
     in MCEn_test = -1;
     in MY_ENABLE_WORD = -1;
+    in MY_INOUT_ADD_FLAG_AUTOIN_1333 = -1;
     in NVM_MINIMUM_COLD = -1;
     in NVM_MINIMUM_FT = -1;
     in NVM_MINIMUM_HOT = -1;
@@ -42,6 +47,8 @@ flow FLOW_CONTROL {
     out IFAPB1_PASSED = -1;
     out IFAPB2_PASSED = -1;
     out MY_FLAG = -1;
+    out MY_INOUT_ADD_FLAG = -1;
+    out MY_UNCALLED_FLAG = -1;
     out My_Mixed_Flag = -1;
     out OF11_FAILED = -1;
     out OF12_FAILED = -1;
@@ -54,6 +61,7 @@ flow FLOW_CONTROL {
     out T7_RAN = -1;
     out T8_RAN = -1;
     out global = -1;
+    out my_unset_flag = -1;
     out non_global = -1;
 
     setup {
@@ -1105,6 +1113,41 @@ flow FLOW_CONTROL {
             testName = "Functional";
         }
 
+        suite test_myloop calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop4 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop4);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop5 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop5);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_myloop6 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_myloop6);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite warmish_test calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.warmish_test);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -1154,7 +1197,9 @@ flow FLOW_CONTROL {
         T7_RAN = -1;
         T8_RAN = -1;
         global = -1;
+        my_unset_flag = -1;
         non_global = -1;
+        MY_INOUT_ADD_FLAG = MY_INOUT_ADD_FLAG_AUTOIN_1333;
 
         println("Test that if_failed works");
         read1.execute();
@@ -1540,6 +1585,14 @@ flow FLOW_CONTROL {
             global = 1;
         } else {
         }
+        println("Test unset_flag functionality");
+        my_unset_flag = 1;
+        my_unset_flag = 0;
+        println("Test add_flag functionality");
+        println("Test inout variables");
+        if (MY_INOUT_ADD_FLAG == 1) {
+        } else {
+        }
         println("This should retain the set-run-flag in the else conditional");
         test22.execute();
         if (!test22.pass) {
@@ -1565,6 +1618,44 @@ flow FLOW_CONTROL {
                 multi_bin;
             }
         } else {
+        }
+        println("Tests of flow loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 0..5)
+        {
+            test_myloop.execute();
+        }
+        println("Tests of flow loop, no step");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 0..5)
+        {
+            test_myloop2.execute();
+        }
+        println("Tests of decrementing loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : 5..2)
+        {
+            test_myloop4.execute();
+        }
+        println("Tests of nested flow loop, depth 3");
+        LOOP_VARIABLE1 = 0;
+        for (LOOP_VARIABLE1 : 0..9)
+        {
+            LOOP_VARIABLE2 = 0;
+            for (LOOP_VARIABLE2 : 1..10)
+            {
+                LOOP_VARIABLE3 = 0;
+                for (LOOP_VARIABLE3 : 1..5)
+                {
+                    test_myloop5.execute();
+                }
+            }
+        }
+        println("Tests of variable loop");
+        LOOP_VARIABLE = 0;
+        for (LOOP_VARIABLE : TEST_VAR..1)
+        {
+            test_myloop6.execute();
         }
         println("An optimization test case, this should not generate a flag on V93K");
         test1_23.execute();
@@ -1739,7 +1830,7 @@ flow FLOW_CONTROL {
         }
         println("Test some expressions");
         LT_VARIABLE = "FALSE";
-        if 3 < 5 then
+        if (3 < 5)
         {
             LT_VARIABLE = "TRUE";
             test_3lt5.execute();
@@ -1747,21 +1838,21 @@ flow FLOW_CONTROL {
         else
         {
         }
-        if LT_VARIABLE == "TRUE" then
+        if (LT_VARIABLE == "TRUE")
         {
             addBin(12);
         }
         else
         {
         }
-        if FIVE > FOUR or 5 != 4 then
+        if (FIVE > FOUR || 5 != 4)
         {
             test_5gt4_or_4gt5.execute();
         }
         else
         {
         }
-        if FIVE_PNT_TWO >= 5.1 and 4 < 3 then
+        if (FIVE_PNT_TWO >= 5.1 && 4 < 3)
         {
             test_5gt4_and_4gt3.execute();
         }

@@ -255,6 +255,55 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite hash_example calls myTmlHashNamespace.MyHashExampleClass {
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            forceMode = "VOLT";
+            hashParameter[param1] = {
+                param_name0 = "NO";
+                param_name1 = 0;
+            };
+            hashParameter2[param0] = {
+                param_name0 = "NO";
+                param_name1 = 0;
+            };
+            nestedHashParameter[my_param_name0] = {
+                param_name0 = "hello";
+                param_list_strings = #["E1", "E2"];
+                param_list_classes = #[E1, E2];
+                param_name1[my_param_name1] = {
+                    param_name0 = 1;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
+                };
+                param_name1[my_param_name2] = {
+                    param_name0 = 2;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
+                };
+                param_name1[my_param_name3] = {
+                    param_name0 = 3;
+                    param_list_strings = #["E1", "E2"];
+                    param_list_classes = #[E1, E2];
+                };
+            };
+            nestedHashParameter2[my_param_name4] = {
+                param_name0 = "goodbye";
+                param_name1[param0] = {
+                    param_name0 = 0;
+                };
+            };
+            nestedHashParameter2[my_param_name5] = {
+                param_name0 = "goodbye forever";
+                param_name1[param0] = {
+                    param_name0 = 0;
+                };
+            };
+            prechargeVoltage = "0[V]";
+            settlingTime = "0[s]";
+            testName = "HashExample";
+            testerState = "CONNECTED";
+        }
+
         suite margin_read0_ckbd calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.margin_read0_ckbd);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -479,6 +528,29 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        suite spec_override_example calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(myCustomSeqNamespace.patterns.pat1);
+            measurement.operatingSequence = setupRef(myCustomSeqNamespace.myCustomSeqPath.sequence1);
+            measurement.specification = setupRef(myCustomSpecNamespace.myCustomSpecPath.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_with_flags calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_with_flags);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            bypass = true;
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite test_with_no_flags calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.test_with_no_flags);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
         suite xcvr_fs_vilvih calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.xcvr_fs_vilvih);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
@@ -507,6 +579,7 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        flow POWERDOWN calls testflow.POWERDOWN {}
         flow ERASE calls OrigenTesters.flows.prb1.prb1_main.ERASE { }
         flow PROGRAM_CKBD calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD { }
         flow PROGRAM_CKBD_1 calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD_1 { }
@@ -534,6 +607,9 @@ flow PRB1_MAIN {
         ERASE_RAN_3_RAN = -1;
         ERASE_RAN_4_RAN = -1;
 
+        hash_example.execute();
+        spec_override_example.execute();
+        POWERDOWN.execute();
         program_ckbd.execute();
         margin_read1_ckbd.execute();
         margin_read0_ckbd.execute();
@@ -765,5 +841,7 @@ flow PRB1_MAIN {
         cc_test_2.execute();
         DEEP_NESTED.execute();
         DEEP_TEST_FAILED = DEEP_NESTED.DEEP_TEST_FAILED;
+        test_with_no_flags.execute();
+        test_with_flags.execute();
     }
 }

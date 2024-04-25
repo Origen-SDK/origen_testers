@@ -8,8 +8,8 @@ module OrigenTesters::ATP
       @atp
     end
 
-    ([:test, :bin, :pass, :continue, :cz, :log, :sub_test, :volatile, :add_global_flag, :set_flag, :set, :enable, :disable, :render,
-      :context_changed?, :ids, :describe_bin, :describe_softbin, :describe_soft_bin, :loop] +
+    ([:test, :bin, :pass, :continue, :cz, :log, :sub_test, :volatile, :add_global_flag, :set_flag, :unset_flag, :add_flag, :set, :enable, :disable, :render,
+      :context_changed?, :ids, :describe_bin, :describe_softbin, :describe_soft_bin, :loop, :add_auxiliary_flow] +
       OrigenTesters::ATP::Flow::CONDITION_KEYS.keys + OrigenTesters::ATP::Flow::RELATIONAL_OPERATORS).each do |method|
       define_method method do |*args, &block|
         options = args.pop if args.last.is_a?(Hash)

@@ -19,6 +19,9 @@ module OrigenTesters
       # flow, the default value is :signature
       attr_reader :unique_test_names
 
+      # use flow variable grouping or not
+      attr_accessor :flow_variable_grouping
+
       # Returns the SMT version, defaults to 7
       attr_reader :smt_version
 
@@ -66,6 +69,8 @@ module OrigenTesters
       # defaults to the application's namespace if not defined (SMT8 only)
       attr_writer :package_namespace
 
+      attr_writer :spec_path, :seq_path
+
       # When set to true, the bins and softbins sheets from the limits spreadsheet will
       # be written out to a standalone (spreadsheet) file instead (SMT8 only)
       attr_accessor :separate_bins_file
@@ -73,6 +78,10 @@ module OrigenTesters
       # When set to true (the default), patterns will be generated in ZIP format instead of ASCII
       # format (SMT8 only)
       attr_accessor :zip_patterns
+
+      # When set to true (the default), parameters will be generated in the flow file regardless if the default is selected
+      # (SMT8 only)
+      attr_accessor :print_all_params
 
       def initialize(options = {})
         options = {
@@ -104,6 +113,7 @@ module OrigenTesters
         if smt8?
           @pat_extension = 'pat'
           @program_comment_char = ['println', '//']
+          @print_all_params = options[:print_all_params].nil? ? true : options[:print_all_params]
         else
           @pat_extension = 'avc'
           @program_comment_char = ['print_dl', '//']
@@ -135,15 +145,20 @@ module OrigenTesters
             @unique_test_names = :signature
           end
         end
-        if smt8?
-          @create_limits_file = true
+        if options.key?(:create_limits_file)
+          @create_limits_file = options[:create_limits_file]
         else
-          if options.key?(:create_limits_file)
-            @create_limits_file = options[:create_limits_file]
+          if smt8?
+            @create_limits_file = true
           else
             @create_limits_file = false
           end
         end
+
+        if options.key?(:flow_variable_grouping)
+          @flow_variable_grouping = options[:flow_variable_grouping]
+        end
+
         if options[:literal_flags]
           @literal_flags = true
         end
@@ -152,6 +167,8 @@ module OrigenTesters
         end
 
         @package_namespace = options.delete(:package_namespace)
+        @spec_path = options.delete(:spec_path)
+        @seq_path = options.delete(:seq_path)
         self.limitfile_test_modes = options[:limitfile_test_modes] || options[:limitsfile_test_modes]
         self.force_pass_on_continue = options[:force_pass_on_continue]
         self.delayed_binning = options[:delayed_binning]
@@ -167,6 +184,13 @@ module OrigenTesters
         @package_namespace || Origen.app.namespace
       end
 
+      def spec_path
+        @spec_path || 'specs'
+      end
+
+      def seq_path
+        @seq_path || 'specs'
+      end
       # Set the test mode(s) that you want to see in the limits files, supply an array of mode names
       # to set multiple.
       def limitfile_test_modes=(val)

@@ -50,7 +50,12 @@ module OrigenTesters
                 parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
                 f = f.parent
               end
-              File.join tester.package_namespace, 'flows', *parents
+              # need to variablize this for internal usage!!
+              if Origen.interface.respond_to?(:insertion)
+                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+              else
+                File.join tester.package_namespace, 'flows', *parents
+              end
             else
               'testflow/mfh.testflow.group'
             end
@@ -447,17 +452,26 @@ module OrigenTesters
 
         def on_whenever(node)
           expressions, *nodes = *node
-
+          and_string = ' and '
+          or_string  = ' or '
+          if smt8?
+            and_string = ' && '
+            or_string  = ' || '
+          end
           case node.type
           when :whenever_all
-            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(' and ')
+            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(and_string)
           when :whenever_any
-            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(' or ')
+            condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join(or_string)
           else
             condition = expressions.map { |e| "#{generate_expr_string(e)}" }.join('ERROR')
           end
 
-          line "if #{condition} then"
+          if smt8?
+            line "if (#{condition})"
+          else
+            line "if #{condition} then"
+          end
           line '{'
           @indent += 1
           process_all(node.children)
@@ -471,13 +485,23 @@ module OrigenTesters
         alias_method :on_whenever_all, :on_whenever
 
         def on_loop(node, options = {})
-          # TODO: don't have the SMT8 way to do this yet
-          if smt8?
-            fail 'Flow loop control not yet supported for SMT8!'
-          end
           start = node.to_a[0]
+          if start.is_a?(String)
+            start = generate_flag_name(start)
+            unless smt8?
+              start = "@#{start}"
+            end
+          end
           stop = node.to_a[1]
+          if stop.is_a?(String) && smt8?
+            stop = generate_flag_name(stop)
+          elsif stop.is_a?(String)
+            fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
+          end
           step = node.to_a[2]
+          if smt8? && !(step == -1 || step == 1)
+            fail 'SMT8 does not support steps other than -1 or 1.'
+          end
           if node.to_a[3].nil?
             fail 'You must supply a loop variable name!'
           else
@@ -487,7 +511,7 @@ module OrigenTesters
           unless smt8?
             var = "@#{var}"
           end
-          num = (stop - start) / step + 1
+          # num = (stop - start) / step + 1
           # Handle increment/decrement
           if step < 0
             compare = '>'
@@ -496,13 +520,24 @@ module OrigenTesters
             compare = '<'
             incdec = "+ #{step}"
           end
-          line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
-          line "test_number_loop_increment = #{test_num_inc}"
-          line '{'
-          @indent += 1
-          process_all(node.children)
-          @indent -= 1
-          line '}'
+          if tester.smt7?
+            line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+            line "test_number_loop_increment = #{test_num_inc}"
+            line '{'
+            @indent += 1
+            process_all(node.children)
+            @indent -= 1
+            line '}'
+          elsif smt8?
+            line "for (#{var} : #{start}..#{stop})"
+            line '{'
+            @indent += 1
+            process_all(node.children)
+            @indent -= 1
+            line '}'
+          else
+            fail 'Environment was not supported for flow loops.'
+          end
         end
 
         def generate_expr_string(node, options = {})
@@ -611,6 +646,15 @@ module OrigenTesters
             else
               line "@#{flag} = 1;"
             end
+          end
+        end
+
+        def on_unset_flag(node)
+          flag = generate_flag_name(node.value)
+          if smt8?
+            line "#{flag} = 0;"
+          else
+            line "@#{flag} = 0;"
           end
         end
 

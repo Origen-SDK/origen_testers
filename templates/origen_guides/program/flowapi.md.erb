@@ -280,6 +280,9 @@ test :test2, if_flag: :my_pass_flag
 unless_flag :my_pass_flag do
   test :test3
 end
+
+log "Example of manually unsetting flag"
+test :test4, on_pass: { unset_flag :my_custom_flag1 }
 ~~~
 
 Note that flag names will usually be forced to uppercase, this is to institute a convention that
@@ -301,6 +304,14 @@ unless_enable "$MCEn_test" do
   test :test1
   test :test2
 end
+~~~
+
+For custom environment libraries, there might be a need to reference a flag without using the native
+flag API. `add_flag` will allow the flow and sub-flow to have access to the flag without adding to the flow.
+
+~~~ruby
+log "Example of manually adding a flag to a flow without calling the flag"
+add_flag :my_custom_flag2
 ~~~
 
 In all cases the `$` will be removed from the final flag name that appears in the test program.
@@ -352,7 +363,7 @@ end
 ~~~
 
 
-#### Flow Loops for V93k (SMT7 only)
+#### Flow Loops for V93k
 Use flow loop control to permit re-running tests without using additional sequence labels.
 
 ~~~ruby
@@ -381,7 +392,21 @@ loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
 end
 ~~~
 
+You can also provide a variable starting point:
+~~~ruby
+loop from: '$TEST_VARIABLE', to: 5, var: '$LOOP_VARIABLE' do
+    func :test_myloop6, number: 56600
+end
+~~~
+
 Decrementing loops, having `from:` value > `to:` value and using negative `step:`, is also supported.
+
+##### Loop Rules For Each Environment
+
+`SMT7` cannot support a variable stop location. Only the `from:` parameter is allowed to be a variable.
+
+`SMT8` cannot have a step other than -1 or 1. The limitations of the range flow restrict those steps.
+The `to:` parameter can be a flow variable just like `from:`.
  
 
 

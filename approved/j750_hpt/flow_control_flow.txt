@@ -266,6 +266,11 @@ DFF 1.1	Flow Table
 						Test	global_test1							None		non_global												
 						flag-true	non_global															not	flag-true	global				
 						flag-true	global																flag-true	non_global				
+						logprint	Test_unset_flag_functionality																					
+						defaults										my_unset_flag												
+						flag-true	my_unset_flag																					
+						logprint	Test_add_flag_functionality																					
+						logprint	Test_inout_variables																					
 						logprint	An_optimization_test_case,_this_should_not_generate_a_flag_on_V93K																					
 						Test	test1	test1	51580					None	t1a_C2A232F_PASSED	t1a_C2A232F_FAILED												
 						Test	test2	test2	51590					Fail									flag-true	t1a_C2A232F_PASSED				

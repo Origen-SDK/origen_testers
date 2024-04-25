@@ -5,7 +5,9 @@ describe "Smartest Based Tester" do
   def with_open_flow(options={})
     Origen.target.temporary = -> do
       MyDUT.new
-      if options.has_key?(:target_option)
+      if options.has_key?(:smt8)
+        OrigenTesters::V93K.new smt_version: 8
+      elsif options.has_key?(:target_option)
         OrigenTesters::V93K.new unique_test_names: options[:target_option]
       else
         OrigenTesters::V93K.new
@@ -50,6 +52,14 @@ describe "Smartest Based Tester" do
       end
       test_suites.add(name, options)
     end
+
+    def hash_test(name, options={})
+      tm = test_methods.my_hash_tml.my_hash_test
+      tm.hashParameter = options
+      ts = test_suites.run(name, options)
+      ts.test_method = tm
+      ts.lines
+    end
   end
 
   
@@ -74,5 +84,28 @@ describe "Smartest Based Tester" do
     end
   end
 
-end
+  it "Hash parameter raised errors correctly" do
+    with_open_flow smt8: true do
+      interface.hash_test(:hash_test, {my_param_name: { param_name0: 1 }})
+      lambda { interface.hash_test(:hash_test, {my_param_name: { fake_param: 1 }}) }.should raise_error
+      lambda { interface.hash_test(:hash_test, 1) }.should raise_error
+      lambda { interface.hash_test(:hash_test, {paramName1: 1, param_name1: 2}) }.should raise_error
+      lambda { interface.hash_test(:hash_test, {my_param_name: {paramName1: 1, param_name1: 2} }) }.should raise_error
+    end
+    # Reset the environment for future specs
+    with_open_flow target_option: nil do
+    end
+  end
 
+  it "Auxiliary flows raise errors correctly" do
+    with_open_flow smt8: true do
+      lambda { interface.add_auxiliary_flow(:POWERDOWN, 'testflow') }.should raise_error
+    end
+    # Reset the environment for future specs
+    with_open_flow target_option: nil do
+    end
+    with_open_flow do
+      lambda { interface.add_auxiliary_flow(:POWERDOWN, 'testflow.POWERDOWN') }.should raise_error
+    end
+  end
+end

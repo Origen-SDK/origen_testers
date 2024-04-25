@@ -103,6 +103,7 @@ test_myloop2
 test_myloop3
 test_myloop4
 test_myloop5
+test_myloop6
 test_with_flags
 test_with_no_flags
 warmish_test

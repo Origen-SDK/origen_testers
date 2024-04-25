@@ -12,6 +12,67 @@ module OrigenTesters
       def initialize(options = {})
         @environment = options[:environment]
         add_charz
+        add_my_tml if tester.v93k?
+      end
+
+      def add_my_tml
+        add_tml :my_hash_tml,
+                class_name:   'MyTmlHashNamespace',
+
+                # Here is a test definition.
+                # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
+                # By default the class name will be the camel-cased version of this identifier, so 'myTest' in
+                # this case.
+                my_hash_test: {
+                  # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
+                  class_name:             'MyHashExampleClass',
+                  # [OPTIONAL] If the test method does not require a definition in the testmethodlimits section
+                  #    of the .tf file, you can suppress like this:
+                  # render_limits_in_file: false,
+                  # Parameters can be defined with an underscored symbol as the name, this can be used
+                  # if the C++ implementation follows the standard V93K convention of calling the attribute
+                  # the camel cased version, starting with a lower-cased letter, i.e. 'testerState' in this
+                  # first example.
+                  # The attribute definition has two required parameters, the type and the default value.
+                  # The type can be :string, :current, :voltage, :time, :frequency, integer, :double or :boolean
+                  pin_list:               [:string, ''],
+                  samples:                [:integer, 1],
+                  precharge_voltage:      [:voltage, 0],
+                  settling_time:          [:time, 0],
+                  # An optional parameter that sets the limits name in the 'testmethodlimits' section
+                  # of the generated .tf file.  Defaults to 'Functional' if not provided.
+                  test_name:              [:string, 'HashExample'],
+                  # An optional 3rd parameter can be supplied to provide an array of allowed values. If supplied,
+                  # Origen will raise an error upon an attempt to set it to an unlisted value.
+                  tester_state:           [:string, 'CONNECTED', %w(CONNECTED UNCHANGED DISCONNECTED)],
+                  force_mode:             [:string, 'VOLT', %w(VOLT CURR)],
+                  # The name of another parameter can be supplied as the type argument, meaning that the type
+                  # here will be either :current or :voltage depending on the value of :force_mode
+                  # force_value: [:force_mode, 3800.mV],
+                  # In cases where the C++ library has deviated from standard attribute naming conventions
+                  # (camel-cased with lower cased first character), the absolute attribute name can be given
+                  # as a string.
+                  # The Origen accessor for these will be the underscored version, with '.' characters
+                  # converted to underscores e.g. tm.an_unusual_name
+                  'hashParameter':        [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
+                  'hashParameter2':       [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
+                  'nestedHashParameter':  [{
+                    param_name0:        [:string, ''],
+                    param_list_strings: [:list_strings, %w(E1 E2)],
+                    param_list_classes: [:list_classes, %w(E1 E2)],
+                    param_name1:        [{
+                      param_name0:        [:integer, 0],
+                      param_list_strings: [:list_strings, %w(E1 E2)],
+                      param_list_classes: [:list_classes, %w(E1 E2)]
+                    }]
+                  }],
+                  'nestedHashParameter2': [{
+                    param_name0: [:string, ''],
+                    param_name1: [{
+                      param_name0: [:integer, 0]
+                    }]
+                  }]
+                }
       end
 
       def add_charz
@@ -215,6 +276,68 @@ module OrigenTesters
           end
         else
           func(name, options)
+        end
+      end
+
+      def my_hash_test(name, options = {})
+        number = options[:number]
+
+        if tester.v93k? && tester.smt8?
+          block_loop(name, options) do |block, i|
+            options[:number] = number + i if number && i
+            tm = test_methods.my_hash_tml.my_hash_test
+            tm.hashParameter = {
+              param1: {}
+            }
+            tm.nestedHashParameter = {
+              my_param_name0: {
+                param_name0: 'hello',
+                param_name1: {
+                  my_param_name1: {
+                    param_name0: 1
+                  },
+                  my_param_name2: {
+                    param_name0: 2
+                  },
+                  my_param_name3: {
+                    param_name0: 3
+                  }
+                }
+              }
+            }
+            tm.nestedHashParameter2 = {
+              my_param_name4: {
+                param_name0: 'goodbye'
+              },
+              my_param_name5: {
+                param_name0: 'goodbye forever'
+              }
+            }
+            ts = test_suites.run(name, options)
+            ts.test_method = tm
+            ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+            ts.spec ||= 'specs.Nominal'
+            flow.test ts, options
+          end
+        end
+      end
+
+      def my_override_spec_test(name, options = {})
+        number = options[:number]
+
+        if tester.v93k? && tester.smt8?
+          tm = test_methods.ac_tml.ac_test.functional_test
+          ts = test_suites.run(name, options)
+          ts.test_method = tm
+          ts.spec = options.delete(:pin_levels) if options[:pin_levels]
+          ts.spec ||= 'specs.Nominal'
+          ts.pattern = 'pat1'
+          ts.burst = 'sequence1'
+          ts.spec_path = 'myCustomSpecPath'
+          ts.seq_path  = 'myCustomSeqPath'
+          ts.spec_namespace = 'myCustomSpecNamespace'
+          ts.seq_namespace  = 'myCustomSeqNamespace'
+          flow.test ts, options
         end
       end
 
