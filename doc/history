@@ -1,3 +1,62 @@
+<a class="anchor release_tag" name="v0_52_0"></a>
+<h1><a href="#v0_52_0">Tag: v0.52.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 25-Apr-2024 16:57PM
+
+
+## Change List
+
+#### Flow Flag Manipulation (unset_flag, add_flag)
+
+`unset_flag` is used for manually set flags the user defines. Initially origen core intended set_flag to be called for auto-generated flags only. The tester still allows flow flags to be unset after conditions are met. The API was needed.
+
+`add_flag` is used for custom ways of setting flags like custom test method library functionality. Origen does not understand that the flags would be needed in that flow's context since there is not direct call to those flags. `add_flag` will still add the variables to the infrastructure use cases without adding an flow baggage.
+
+`loop` only supported integer SMT7 use cases. Updates help to support SMT8 use cases, documentation and variable passing for both SMT7 and SMT8. There are environment restrictions for the use cases. Added origen fail statements based on those conditions.
+
+### SMT8 Only
+
+#### Auxiliary Flow Calls
+
+`add_auxiliary_flow` is used to call SMT8 defined auxiliary flows like POWERDOWN without re-defining multiple test suites. 
+This is applicable for all auxiliary flows (PREBIND, PRERUN, PRESTART, POWERUP, POWERDOWN, POSTRUN, PRESTOP). 
+The most likely use cases will be POWERUP and POWERDOWN. 
+No flow variables are allowed to be used for these calls. This is also not recommended or intended for other sub-flows the user defines since the flow variables are not handled.
+
+#### Flow Variable Grouping
+
+Controlled through environment variable flow_variable_grouping. If this is true, then a flow comment and brace block will be added to the flow for fast visual collapsing.
+
+#### Print All Parameters (even if they match defaults)
+
+Controlled through environment variable print_all_parms. If this is true, then all parameters will be printed regardless if they match the loaded parameter defaults.
+
+#### Complex Data Structure Passing (List/Hash)
+
+SMT8 supports List and Hash passing. This support is needed for List, List, and Hashes. Hashes have been documented with regression testing along with nested hashes.
+
+#### Prefix handling
+
+SMT8 has automated prefixes for operatingSequence, specification, etc. There was a default, but added in an overwrite capability to customize these values.
+
+Added in an ability to overwrite the flow namespace if the Origen generated one happens to be incorrect.
+
+#### Limit File Creation
+
+Customize the tester environment limit file creation based on the environment variable settings. `create_limits_file`
+
+#### Bypass flag
+
+SMT7 enabled the flag properly based on the test options. SMT8 sets it as a flag as well but needs a parameter added to the test suite for it to be properly applied.
+
+#### Conditional type changes
+
+SMT7 used 'and'/'or' for conditionals. SMT8 needs java coding conditionals like &&/||.
+
+updates by Priyavadan Kumar & James Creamer
+
 <a class="anchor release_tag" name="v0_51_5"></a>
 <h1><a href="#v0_51_5">Tag: v0.51.5</a></h1>
 
