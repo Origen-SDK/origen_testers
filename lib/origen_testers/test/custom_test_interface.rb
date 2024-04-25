@@ -113,8 +113,8 @@ module OrigenTesters
                     my_arg0: [:string, ''],
                     my_arg1: [:string, 'a_default_value'],
                     my_arg2: [:integer, 0],
-                    my_arg2: [:list_strings, %w(E1 E2)],
-                    my_arg3: [:list_classes, %w(E1 E2)]
+                    my_arg3: [:list_strings, %w(E1 E2)],
+                    my_arg4: [:list_classes, %w(E1 E2)]
                   }]
                   # Define any methods you want the test method to have
                 }
