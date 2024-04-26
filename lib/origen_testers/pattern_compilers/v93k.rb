@@ -259,7 +259,7 @@ module OrigenTesters
 
           # Move AVC files into job space (through pre-processor)
           @files.each do |file|
-            contents = File.open(file, 'rb') { |f| f.read }
+            contents = File.open(file, 'rb', &:read)
             new_contents = preprocess_avc(contents)
             new_avc_file = Pathname.new("#{job_avc_dir}/#{Pathname.new(file).basename}").cleanpath
             File.open(new_avc_file, 'w') { |f| f.write(new_contents.force_encoding('UTF-8')) }
@@ -405,7 +405,7 @@ module OrigenTesters
 
       def extract_job_options_from_aiv(file)
         options = {}
-        contents = File.open(file, 'rb') { |f| f.read }
+        contents = File.open(file, 'rb', &:read)
         count = 0
         counting = false
         contents.each_line do |line|
