@@ -88,13 +88,7 @@ module OrigenTesters
             unless name.is_a?(String)
               name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
             end
-            if [true, false].include? test_method.format(param[0])
-              l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
-            elsif NO_STRING_TYPES.include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
-              l << "    #{name} = #{test_method.format(param[0])};"
-            elsif test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
-              l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
-            elsif param.last.is_a? Hash
+            if param.last.is_a? Hash
               if !test_method.format(name).nil? && !test_method.format(name).is_a?(Hash)
                 fail "#{name} parameter structure requires a Hash but value provided is #{test_method.format(name).class}"
               elsif test_method.format(name).nil? && tester.print_all_params
@@ -106,6 +100,10 @@ module OrigenTesters
                   l = add_nested_params(l, name, key, meta_hash, param.last, 1)
                 end
               end
+            elsif NO_STRING_TYPES.include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
+              l << "    #{name} = #{test_method.format(param[0])};"
+            else
+              l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
             end
           end
           l << '}'

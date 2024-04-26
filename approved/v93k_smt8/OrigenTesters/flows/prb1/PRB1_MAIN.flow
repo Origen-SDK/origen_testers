@@ -298,7 +298,9 @@ flow PRB1_MAIN {
                     param_name0 = 0;
                 };
             };
+            pinList = "";
             prechargeVoltage = "0[V]";
+            samples = 1;
             settlingTime = "0[s]";
             testName = "HashExample";
             testerState = "CONNECTED";
