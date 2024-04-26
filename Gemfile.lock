@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/Origen-SDK/origen.git
-  revision: 5ab16e8484249f7619b9faf58dbf0ac840284daf
+  revision: f30f61bd1d37383c893fd81d993a001d39e763f1
+  branch: feature/ruby_3_3_1
   specs:
     origen (0.60.13)
       activesupport (~> 4.1)
