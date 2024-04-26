@@ -195,8 +195,11 @@ module CompilerSpec
         dut.pattern_compilers(platform: :ultraflex).count.should == 1
 
         dut.pattern_compilers(:id1).should.nil?
-        # msg = "undefined method `inspect_options' for nil:NilClass"
-        msg = "undefined method `inspect_options' for nil"
+        if RUBY_VERSION < '3.2.0'
+         msg = "undefined method `inspect_options' for nil:NilClass"
+        else
+         msg = "undefined method `inspect_options' for nil"
+        end
         lambda { dut.pattern_compilers(:id11) }.should raise_error(msg)
         dut.pattern_compilers(:id1, platform: :j750).should.nil?
         lambda { dut.pattern_compilers(:id11, platform: :j750) }.should raise_error(msg)
