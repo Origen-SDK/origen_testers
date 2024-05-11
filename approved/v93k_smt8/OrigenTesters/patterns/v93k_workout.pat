@@ -7,7 +7,9 @@
       <Instruction id="genVec" value="1"/>
       <Instruction id="patternCall" value="OrigenTesters.patterns.sub2"/>
       <Instruction id="genVec" value="9"/>
-      <Instruction id="match" value="7813"/>
+      <Instruction id="match" value="7813">
+         <Assignment id="matchMode" value="stopOnFail"/>
+      </Instruction>
       <Instruction id="genVec" value="8"/>
       <Instruction id="matchRepeat" value="8"/>
       <Instruction id="loop" value="11"/>
@@ -29,7 +31,9 @@
       </Instruction>
       <Instruction id="loopEnd"/>
       <Instruction id="genVec" value="9"/>
-      <Instruction id="match" value="7813"/>
+      <Instruction id="match" value="7813">
+         <Assignment id="matchMode" value="stopOnFail"/>
+      </Instruction>
       <Instruction id="genVec" value="8"/>
       <Instruction id="matchRepeat" value="8"/>
       <Instruction id="genVec" value="2"/>

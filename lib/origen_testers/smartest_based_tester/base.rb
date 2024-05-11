@@ -83,6 +83,14 @@ module OrigenTesters
       # (SMT8 only)
       attr_accessor :print_all_params
 
+      # Whether the pattern execution stops when the match loop fails (stopOnFail) or continues after the REPEATEND statement (continueOnFail).
+      # (SMT8 only)
+      attr_reader :match_continue_on_fail
+
+      # If the optional inverted keyword is added, the loop matches whenever a comparison fails
+      # (SMT8 only)
+      attr_reader :match_inverted
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -92,6 +100,9 @@ module OrigenTesters
         }.merge(options)
 
         @smt_version = options[:smt_version] || 7
+
+        @match_continue_on_fail = options[:match_continue_on_fail]
+        @match_inverted = options[:match_inverted]
 
         @separate_bins_file = options[:separate_bins_file] || false
         if options.key?(:zip_patterns)
