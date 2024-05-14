@@ -558,7 +558,10 @@ module OrigenTesters
           fail 'ERROR: block not passed to match_block!'
         end
 
-        @max_wait_in_time_options = options
+        # take in the wait in time options for later usage
+        if @max_wait_in_time
+          @max_wait_in_time_options = options
+        end
 
         # Create BlockArgs objects in order to receive multiple blocks
         match_conditions = Origen::Utility::BlockArgs.new
