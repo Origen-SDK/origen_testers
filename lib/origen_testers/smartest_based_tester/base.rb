@@ -91,6 +91,10 @@ module OrigenTesters
       # (SMT8 only)
       attr_reader :match_inverted
 
+      # wait time (s or ms) instead of repeat count
+      # (SMT8 only)
+      attr_reader :max_wait_in_time
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -103,6 +107,7 @@ module OrigenTesters
 
         @match_continue_on_fail = options[:match_continue_on_fail]
         @match_inverted = options[:match_inverted]
+        @max_wait_in_time = options[:max_wait_in_time]
 
         @separate_bins_file = options[:separate_bins_file] || false
         if options.key?(:zip_patterns)
@@ -552,6 +557,8 @@ module OrigenTesters
         unless block_given?
           fail 'ERROR: block not passed to match_block!'
         end
+
+        @max_wait_in_time_options = options
 
         # Create BlockArgs objects in order to receive multiple blocks
         match_conditions = Origen::Utility::BlockArgs.new

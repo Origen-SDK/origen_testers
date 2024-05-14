@@ -122,14 +122,31 @@ module OrigenTesters
             if comment =~ /^SQPG JSUB ([^;]+);/
               @program_lines << "    <Instruction id=\"patternCall\" value=\"#{tester.package_namespace}.patterns.#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG MACT (\d+);/
-              @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\">"
+              if @max_wait_in_time
+                time_unit = 's'
+                wait_time = 0
+                @max_wait_in_time_options.each do |key, value|
+                  if key =~ /time_in_/ && value != 0
+                    time_unit = key.to_s.gsub('time_in_', '')
+                    wait_time = value
+                  end
+                end
+                @program_lines << "    <Instruction id=\"match\" value=\"#{wait_time} #{time_unit}\">"
+              else
+                @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\">"
+              end
               @program_lines << "       <Assignment id=\"matchMode\" value=\"#{match_continue_on_fail ? 'continueOnFail' : 'stopOnFail'}\"/>"
               if @match_inverted
                 @program_lines << "       <Assignment id=\"inverted\" value=\"true\"/>"
               end
               @program_lines << '    </Instruction>'
             elsif comment =~ /^SQPG MRPT (\d+);/
+              # if @max_wait_in_time
+              # the loop already wait in time, no need repeat, this is just required by SM8
+              #  @program_lines << "    <Instruction id=\"matchRepeat\" value=\"32\"/>"
+              # else
               @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
+              # end
             elsif comment =~ /^SQPG LBGN (\d+);/
               @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG LEND;/
