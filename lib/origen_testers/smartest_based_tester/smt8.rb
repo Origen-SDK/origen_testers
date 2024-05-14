@@ -136,19 +136,15 @@ module OrigenTesters
                 @program_lines << "    <Instruction id=\"match\" value=\"#{Regexp.last_match(1)}\">"
               end
               @program_lines << "       <Assignment id=\"matchMode\" value=\"#{match_continue_on_fail ? 'continueOnFail' : 'stopOnFail'}\"/>"
-              debugger
               if @match_inverted
                 @program_lines << "       <Assignment id=\"inverted\" value=\"true\"/>"
               end
               @program_lines << '    </Instruction>'
             elsif comment =~ /^SQPG MRPT (\d+);/
-               if @max_wait_in_time
-              # the loop already wait in time, no need repeat, this is just required by SM8
-                @program_lines << "    <Instruction id=\"matchRepeat\" value=\"32\"/>"
+              if @max_wait_in_time
                 @no_vector_group_close_required = true
-               else
-                @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
-               end
+              end
+              @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG LBGN (\d+);/
               @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG LEND;/
@@ -173,7 +169,7 @@ module OrigenTesters
         if has_microcode || has_repeat
           # Close out current gen_vec group
           write_gen_vec
-          if has_repeat && !@no_vector_group_close_required 
+          if has_repeat && !@no_vector_group_close_required
             @program_lines << "    <Instruction id=\"genVec\" value=\"1\">"
             @program_lines << "      <Assignment id=\"repeat\" value=\"#{vec.repeat}\"/>"
             @program_lines << '    </Instruction>'

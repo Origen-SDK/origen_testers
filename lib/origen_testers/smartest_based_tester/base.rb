@@ -613,6 +613,10 @@ module OrigenTesters
 
           match_microcode.concat(" #{number_of_loops};") unless @inhibit_vectors
 
+          if @max_wait_in_time
+            mrpt = 8
+          end
+
           # Now do the wait loop, mrpt should always be a multiple of 8
           microcode "SQPG MRPT #{mrpt};"
 
