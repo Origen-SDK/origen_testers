@@ -613,6 +613,9 @@ module OrigenTesters
 
           match_microcode.concat(" #{number_of_loops};") unless @inhibit_vectors
 
+          # for now forcing 8 vector for the pipe line cleaner - when using wait as time, might need to
+          # investigate with using count
+          # mrpt value might depends on the xMODE, need to find out how many xMODE there are in SM8
           if @max_wait_in_time
             mrpt = 8
           end

@@ -141,9 +141,6 @@ module OrigenTesters
               end
               @program_lines << '    </Instruction>'
             elsif comment =~ /^SQPG MRPT (\d+);/
-              if @max_wait_in_time
-                @no_vector_group_close_required = true
-              end
               @program_lines << "    <Instruction id=\"matchRepeat\" value=\"#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG LBGN (\d+);/
               @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
@@ -169,7 +166,7 @@ module OrigenTesters
         if has_microcode || has_repeat
           # Close out current gen_vec group
           write_gen_vec
-          if has_repeat && !@no_vector_group_close_required
+          if has_repeat
             @program_lines << "    <Instruction id=\"genVec\" value=\"1\">"
             @program_lines << "      <Assignment id=\"repeat\" value=\"#{vec.repeat}\"/>"
             @program_lines << '    </Instruction>'
