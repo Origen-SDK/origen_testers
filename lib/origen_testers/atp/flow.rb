@@ -639,7 +639,9 @@ module OrigenTesters::ATP
       end
       # Add node for set of flag to be used for loop
       unless args[0][:var].nil?
-        set(args[0][:var], 0)
+        unless tester.smt8?
+          set(args[0][:var], 0)
+        end
       end
       extract_meta!(options) do
         apply_conditions(options) do
