@@ -43,6 +43,27 @@ describe 'Loop Support' do
         s(:test,
           s(:object, "test_post_loop")))
   end
+
+  it "can cede to ruby loop keyword" do
+    test :test_pre_loop
+    id = 1
+    loop do
+      test "test_loop#{id}".to_sym
+      id += 1
+      break if id > 3
+    end
+    atp.raw.should ==
+    s(:flow,
+      s(:name, "sort1"),
+      s(:test,
+        s(:object, "test_pre_loop")),
+          s(:test,
+            s(:object, "test_loop1")),
+          s(:test,
+            s(:object, "test_loop2")),
+          s(:test,
+            s(:object, "test_loop3")))
+  end
 end
 
 
