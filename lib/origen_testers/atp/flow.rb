@@ -626,7 +626,10 @@ module OrigenTesters::ATP
     end
 
     def loop(*args, &block)
-      if !args[0].except(:source_file, :source_line_number).empty?
+      if args[0].except(:source_file, :source_line_number).empty?
+        # not a flow api call, just a loop block
+        super(&block)
+      else
         unless args[0].keys.include?(:from) && args[0].keys.include?(:to)
           fail 'Loop must specify :from, :to'
         end
@@ -655,8 +658,6 @@ module OrigenTesters::ATP
             node
           end
         end
-      else
-        super(&block)
       end
     end
 
