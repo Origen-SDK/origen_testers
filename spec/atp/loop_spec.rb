@@ -57,12 +57,12 @@ describe 'Loop Support' do
       s(:name, "sort1"),
       s(:test,
         s(:object, "test_pre_loop")),
-          s(:test,
-            s(:object, "test_loop1")),
-          s(:test,
-            s(:object, "test_loop2")),
-          s(:test,
-            s(:object, "test_loop3")))
+      s(:test,
+        s(:object, "test_loop1")),
+      s(:test,
+        s(:object, "test_loop2")),
+      s(:test,
+        s(:object, "test_loop3")))
   end
 end
 
