@@ -33,6 +33,20 @@ module OrigenTesters
         end
       end
 
+      def custom_c(name, options = {})
+        name = "custom_c_#{name}".to_sym
+        if tester.v93k?
+          ti = test_methods.my_tml.test_c
+          ti.my_arg0 = 'arg0_set'
+          if options[:my_arg1]
+            ti.my_arg0 = 'arg1_should_render'
+            ti.my_arg1 = options[:my_arg1]
+          else
+            ti.my_arg0 = 'arg1_should_not_render'
+          end
+        end
+      end
+
       def custom_hash(name, options = {})
         name = "custom_hash_#{name}".to_sym
         if tester.v93k? && tester.smt8?
@@ -95,6 +109,25 @@ module OrigenTesters
                   render_limits_in_tf: false,
                   my_arg0:             [:string, ''],
                   my_arg1:             [:string, 'b_default_value']
+                },
+                test_c:    {
+                  tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
+                  test_name: [:string, 'Functional'],
+                  my_arg0: [:string, ''],
+                  my_arg1: [:string, 'DELETE_ME'],
+                  my_arg2: [:string, 'VOLT', %w(VOLT CURR)],
+
+                  # Define any methods you want the test method to have
+                  methods: {
+                    # An optional finalize function can be supplied to do any final test instance configuration, this
+                    # function will be called immediately before the test method is finally rendered. The test method
+                    # object itself will be passed in as an argument.
+                    finalize:    lambda  do |tm|
+                      if tm.my_arg1 == 'DELETE_ME'
+                        tm.remove_parameter(:my_arg1)
+                      end
+                    end
+                  }
                 },
                 test_hash: {
                   # Parameters can be defined with an underscored symbol as the name, this can be used

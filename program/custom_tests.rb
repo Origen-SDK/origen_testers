@@ -12,5 +12,8 @@ Flow.create interface: 'OrigenTesters::Test::CustomTestInterface', flow_descript
     if tester.smt8?
       custom_hash :test5, number: 30050
     end
+
+    custom_c :test6, number: 30060
+    custom_c :test7, number: 30070, my_arg1: 'KEEP_ME'
   end
 end
