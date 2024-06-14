@@ -112,13 +112,13 @@ module OrigenTesters
                 },
                 test_c:    {
                   tester_state: [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
-                  test_name: [:string, 'Functional'],
-                  my_arg0: [:string, ''],
-                  my_arg1: [:string, 'DELETE_ME'],
-                  my_arg2: [:string, 'VOLT', %w(VOLT CURR)],
+                  test_name:    [:string, 'Functional'],
+                  my_arg0:      [:string, ''],
+                  my_arg1:      [:string, 'DELETE_ME'],
+                  my_arg2:      [:string, 'VOLT', %w(VOLT CURR)],
 
                   # Define any methods you want the test method to have
-                  methods: {
+                  methods:      {
                     # An optional finalize function can be supplied to do any final test instance configuration, this
                     # function will be called immediately before the test method is finally rendered. The test method
                     # object itself will be passed in as an argument.
