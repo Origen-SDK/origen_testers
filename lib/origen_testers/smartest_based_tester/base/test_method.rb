@@ -132,8 +132,10 @@ module OrigenTesters
             "#{val}[Hz]"
           when :string
             val.to_s
-          when :integer, :double
-            val
+          when :integer
+            val.to_i
+          when :double
+            val.to_f
           when :boolean
             # Check for valid values
             if [0, 1, true, false, 'true', 'false'].include?(val)
