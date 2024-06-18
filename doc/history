@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_52_2"></a>
+<h1><a href="#v0_52_2">Tag: v0.52.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 23-May-2024 07:49AM
+
+
+SMT8 does not require an initialization of the loop variable - @JamesCreamer
+
 <a class="anchor release_tag" name="v0_52_1"></a>
 <h1><a href="#v0_52_1">Tag: v0.52.1</a></h1>
 

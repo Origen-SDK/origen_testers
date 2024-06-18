@@ -95,6 +95,10 @@ module OrigenTesters
       # (SMT8 only)
       attr_reader :max_wait_in_time
 
+      # When set to true, the flow path will have insertion in the subdirectories
+      # (SMT8 only)
+      attr_reader :insertion_in_the_flow_path
+
       def initialize(options = {})
         options = {
           # whether to use multiport bursts or not, if so this indicates the name of the port to use
@@ -148,6 +152,7 @@ module OrigenTesters
         @capture_style = :hram			# default to use hram for capture
         @overlay_subr = nil
         @overlay_history = {} # used to track labels, subroutines, digsrc pins used etc
+        @insertion_in_the_flow_path = options[:insertion_in_the_flow_path] # add insertion for path to the flows
 
         if options[:add_flow_enable]
           self.add_flow_enable = options[:add_flow_enable]
