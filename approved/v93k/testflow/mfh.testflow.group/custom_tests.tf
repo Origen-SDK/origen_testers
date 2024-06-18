@@ -36,6 +36,17 @@ tm_3:
 tm_4:
   "myArg0" = "arg0_set";
   "myArg1" = "b_default_value";
+tm_5:
+  "myArg0" = "arg1_should_not_render";
+  "myArg2" = "VOLT";
+  "testName" = "Functional";
+  "testerState" = "CONNECTED";
+tm_6:
+  "myArg0" = "arg1_should_render";
+  "myArg1" = "KEEP_ME";
+  "myArg2" = "VOLT";
+  "testName" = "Functional";
+  "testerState" = "CONNECTED";
 
 end
 -----------------------------------------------------------------
@@ -46,6 +57,10 @@ tm_1:
 tm_2:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_3:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_5:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_6:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -60,6 +75,10 @@ tm_3:
   testmethod_class = "MyTml.TestA";
 tm_4:
   testmethod_class = "MyTml.TestB";
+tm_5:
+  testmethod_class = "MyTml.TestC";
+tm_6:
+  testmethod_class = "MyTml.TestC";
 
 end
 -----------------------------------------------------------------

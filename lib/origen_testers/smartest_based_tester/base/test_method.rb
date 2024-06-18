@@ -198,6 +198,10 @@ module OrigenTesters
           end
         end
 
+        def remove_parameter(name)
+          @parameters.delete(name)
+        end
+
         private
 
         def inverse_of(type)
