@@ -75,7 +75,7 @@ module OrigenTesters
                   }]
                 }
         add_tml :my_type_check,
-                class_name:   'MyTypeCheck',
+                class_name:         'MyTypeCheck',
 
                 # Here is a test definition.
                 # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
@@ -85,7 +85,7 @@ module OrigenTesters
                   # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
                   class_name: 'MyHashExampleClass',
                   int:        [:integer, 1],
-                  double:     [:double,  1.0],
+                  double:     [:double,  1.0]
                 }
       end
 
@@ -293,7 +293,6 @@ module OrigenTesters
         end
       end
 
-
       def double_int_type_check(name, options = {})
         number = options[:number]
         if tester.v93k?
@@ -329,7 +328,7 @@ module OrigenTesters
                   },
                   my_param_name2: {
                     param_name_int:    2,
-                    param_name_double: 2.0,
+                    param_name_double: 2.0
                   },
                   my_param_name3: {
                     param_name_int: 3
