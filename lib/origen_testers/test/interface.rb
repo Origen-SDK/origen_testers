@@ -61,7 +61,8 @@ module OrigenTesters
                     param_list_strings: [:list_strings, %w(E1 E2)],
                     param_list_classes: [:list_classes, %w(E1 E2)],
                     param_name1:        [{
-                      param_name0:        [:integer, 0],
+                      param_name_int:     [:integer, 0],
+                      param_name_double:  [:double,  0],
                       param_list_strings: [:list_strings, %w(E1 E2)],
                       param_list_classes: [:list_classes, %w(E1 E2)]
                     }]
@@ -69,9 +70,22 @@ module OrigenTesters
                   'nestedHashParameter2': [{
                     param_name0: [:string, ''],
                     param_name1: [{
-                      param_name0: [:integer, 0]
+                      param_name_int: [:integer, 0]
                     }]
                   }]
+                }
+        add_tml :my_type_check,
+                class_name:         'MyTypeCheck',
+
+                # Here is a test definition.
+                # The identifier should be lower-cased and underscored, in-keeping with Ruby naming conventions.
+                # By default the class name will be the camel-cased version of this identifier, so 'myTest' in
+                # this case.
+                my_type_check_test: {
+                  # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
+                  class_name: 'MyHashExampleClass',
+                  int:        [:integer, 1],
+                  double:     [:double,  1.0]
                 }
       end
 
@@ -279,6 +293,21 @@ module OrigenTesters
         end
       end
 
+      def double_int_type_check(name, options = {})
+        number = options[:number]
+        if tester.v93k?
+          block_loop(name, options) do |block, i|
+            options[:number] = number + i if number && i
+            tm = test_methods.my_type_check.my_type_check_test
+            tm.int    = '1'
+            tm.double = '1.0'
+            ts = test_suites.run(name, options)
+            ts.test_method = tm
+            flow.test ts, options
+          end
+        end
+      end
+
       def my_hash_test(name, options = {})
         number = options[:number]
 
@@ -294,13 +323,15 @@ module OrigenTesters
                 param_name0: 'hello',
                 param_name1: {
                   my_param_name1: {
-                    param_name0: 1
+                    param_name_int:    '1',
+                    param_name_double: '1.0'
                   },
                   my_param_name2: {
-                    param_name0: 2
+                    param_name_int:    2,
+                    param_name_double: 2.0
                   },
                   my_param_name3: {
-                    param_name0: 3
+                    param_name_int: 3
                   }
                 }
               }
@@ -313,6 +344,7 @@ module OrigenTesters
                 param_name0: 'goodbye forever'
               }
             }
+            tm.samples = '2'
             ts = test_suites.run(name, options)
             ts.test_method = tm
             ts.spec = options.delete(:pin_levels) if options[:pin_levels]

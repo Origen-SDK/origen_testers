@@ -257,4 +257,6 @@ Flow.create do |options|
     func :force_serial_false_test, force_serial: false
   end
 
+  double_int_type_check :type_check, number: 6035
+
 end
