@@ -1,3 +1,14 @@
+<a class="anchor release_tag" name="v0_52_3"></a>
+<h1><a href="#v0_52_3">Tag: v0.52.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 19-Jun-2024 20:32PM
+
+
+add options to enable adding insertion in the flow path (insertion_in_the_flow_path_options) - Thao Huynh
+Fix for SMT8 requires the types to be maintained for the parameters. Without forcing the type in the parameters, providing a string to integers and doubles will show up as strings in the final output. - James Creamer
+
 <a class="anchor release_tag" name="v0_52_2"></a>
 <h1><a href="#v0_52_2">Tag: v0.52.2</a></h1>
 
