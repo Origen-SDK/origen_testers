@@ -36,7 +36,7 @@ module OrigenTesters::ATP
         flag, *nodes = *node
         flag = [flag].flatten
         enabled = node.type == :if_flag
-        active = flag.any? { |f| set_flags.include?(f) }
+        active = flag.any?
         if (enabled && active) || (!enabled && !active)
           process_all(nodes)
         end
@@ -54,7 +54,7 @@ module OrigenTesters::ATP
         flag, *nodes = *node
         flag = [flag].flatten
         enabled = node.type == :if_enabled
-        active = flag.any? { |f| set_enables.include?(f) }
+        active = flag.any?
         if (enabled && active) || (!enabled && !active)
           process_all(nodes)
         end
