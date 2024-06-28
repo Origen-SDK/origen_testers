@@ -124,7 +124,7 @@ module OrigenTesters
               # Guarentee hash is using all symbol keys
               # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to
               value_hash = value_hash.inject({}) { |memo, (k, v)| memo[k.to_sym] = v; memo }
-              nested_key = nested_param.first.to_sym
+              nested_key = nested_param.first.to_s.gsub('.', '_').to_sym
               nested_key_underscore = nested_key.to_s.underscore.to_sym
               nested_params_accepted_keys << nested_key
               nested_params_accepted_keys << nested_key_underscore

@@ -270,23 +270,27 @@ flow PRB1_MAIN {
                 param_name0 = "hello";
                 param_list_strings = #["E1", "E2"];
                 param_list_classes = #[E1, E2];
+                param_group.param0 = "test_group";
                 param_name1[my_param_name1] = {
                     param_name_int = 1;
                     param_name_double = 1.0;
                     param_list_strings = #["E1", "E2"];
                     param_list_classes = #[E1, E2];
+                    param_group.param1 = "test_nested_group";
                 };
                 param_name1[my_param_name2] = {
                     param_name_int = 2;
                     param_name_double = 2.0;
                     param_list_strings = #["E1", "E2"];
                     param_list_classes = #[E1, E2];
+                    param_group.param1 = "";
                 };
                 param_name1[my_param_name3] = {
                     param_name_int = 3;
                     param_name_double = 0.0;
                     param_list_strings = #["E1", "E2"];
                     param_list_classes = #[E1, E2];
+                    param_group.param1 = "";
                 };
             };
             nestedHashParameter2[my_param_name4] = {

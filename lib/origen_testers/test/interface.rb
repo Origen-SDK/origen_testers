@@ -57,14 +57,16 @@ module OrigenTesters
                   'hashParameter':        [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
                   'hashParameter2':       [{ param_name0: [:string, 'NO'], param_name1: [:integer, 0] }],
                   'nestedHashParameter':  [{
-                    param_name0:        [:string, ''],
-                    param_list_strings: [:list_strings, %w(E1 E2)],
-                    param_list_classes: [:list_classes, %w(E1 E2)],
-                    param_name1:        [{
-                      param_name_int:     [:integer, 0],
-                      param_name_double:  [:double,  0],
-                      param_list_strings: [:list_strings, %w(E1 E2)],
-                      param_list_classes: [:list_classes, %w(E1 E2)]
+                    param_name0:          [:string, ''],
+                    param_list_strings:   [:list_strings, %w(E1 E2)],
+                    param_list_classes:   [:list_classes, %w(E1 E2)],
+                    'param_group.param0': [:string, ''],
+                    param_name1:          [{
+                      param_name_int:       [:integer, 0],
+                      param_name_double:    [:double,  0],
+                      param_list_strings:   [:list_strings, %w(E1 E2)],
+                      param_list_classes:   [:list_classes, %w(E1 E2)],
+                      'param_group.param1': [:string, '']
                     }]
                   }],
                   'nestedHashParameter2': [{
@@ -320,11 +322,13 @@ module OrigenTesters
             }
             tm.nestedHashParameter = {
               my_param_name0: {
-                param_name0: 'hello',
-                param_name1: {
+                param_name0:        'hello',
+                param_group_param0: 'test_group',
+                param_name1:        {
                   my_param_name1: {
-                    param_name_int:    '1',
-                    param_name_double: '1.0'
+                    param_name_int:     '1',
+                    param_name_double:  '1.0',
+                    param_group_param1: 'test_nested_group'
                   },
                   my_param_name2: {
                     param_name_int:    2,
