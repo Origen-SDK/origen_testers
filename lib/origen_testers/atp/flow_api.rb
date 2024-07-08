@@ -24,7 +24,7 @@ module OrigenTesters::ATP
     alias_method :logprint, :log
 
     def loop(*args, &block)
-      if args.empty? && !Origen.interface_loaded?
+      if args.empty?
         super(&block)
       else
         options = args.pop if args.last.is_a?(Hash)
