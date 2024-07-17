@@ -188,6 +188,9 @@ module OrigenTesters
           if smt8?
             return unless top_level? || options[:called_by_top_level]
             super
+            # Refresh the ast before finalized gets set to true
+            # If ast gets called by the user the finalized flag will lock it to the incorrect value
+            ast
             @finalized = true
             # All flows have now been executed and the top-level contains the final AST.
             # The AST contained in each child flow may not be complete since it has not been subject to the
