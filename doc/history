@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_52_5"></a>
+<h1><a href="#v0_52_5">Tag: v0.52.5</a></h1>
+
+##### Branch: 'master'
+
+##### by James Creamer on 18-Jul-2024 10:48AM
+
+
+Add in a final AST lock before @finalized is set to true
+
 <a class="anchor release_tag" name="v0_52_4"></a>
 <h1><a href="#v0_52_4">Tag: v0.52.4</a></h1>
 
