@@ -103,6 +103,8 @@ module OrigenTesters
         alias_method :pinlist, :pins
 
         def initialize(pins:, context:)
+          # remove trailing formatting characters
+          pins = pins.map { |p| p.split(':').first }
           @pins = pins.map(&:strip).map(&:to_sym)
           super(context: context, type: :pinlist)
         end
