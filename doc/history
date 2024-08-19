@@ -1,3 +1,54 @@
+<a class="anchor release_tag" name="v0_52_5"></a>
+<h1><a href="#v0_52_5">Tag: v0.52.5</a></h1>
+
+##### Branch: 'master'
+
+##### by James Creamer on 18-Jul-2024 10:48AM
+
+
+Add in a final AST lock before @finalized is set to true
+
+<a class="anchor release_tag" name="v0_52_4"></a>
+<h1><a href="#v0_52_4">Tag: v0.52.4</a></h1>
+
+##### Branch: 'master'
+
+##### by James Creamer on 12-Jul-2024 11:14AM
+
+
+Align nested parameter aliases with the other alias key names
+
+<a class="anchor release_tag" name="v0_52_3"></a>
+<h1><a href="#v0_52_3">Tag: v0.52.3</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 19-Jun-2024 20:32PM
+
+
+add options to enable adding insertion in the flow path (insertion_in_the_flow_path_options) - Thao Huynh
+Fix for SMT8 requires the types to be maintained for the parameters. Without forcing the type in the parameters, providing a string to integers and doubles will show up as strings in the final output. - James Creamer
+
+<a class="anchor release_tag" name="v0_52_2"></a>
+<h1><a href="#v0_52_2">Tag: v0.52.2</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 23-May-2024 07:49AM
+
+
+SMT8 does not require an initialization of the loop variable - @JamesCreamer
+
+<a class="anchor release_tag" name="v0_52_1"></a>
+<h1><a href="#v0_52_1">Tag: v0.52.1</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 30-Apr-2024 13:48PM
+
+
+added back the missing case when smt8 test method parameter default is empty - @ThaoHuynhFsl
+
 <a class="anchor release_tag" name="v0_52_0"></a>
 <h1><a href="#v0_52_0">Tag: v0.52.0</a></h1>
 

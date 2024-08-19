@@ -42,22 +42,23 @@ module OrigenTesters
         end
 
         def subdirectory
-          @subdirectory ||= if smt8?
-                              parents = []
-                              f = parent
-                              while f
-                                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-                                f = f.parent
-                              end
-                              # need to variablize this for internal usage!!
-                              if Origen.interface.respond_to?(:insertion)
-                                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
-                              else
-                                File.join tester.package_namespace, 'flows', *parents
-                              end
-                            else
-                              'testflow/mfh.testflow.group'
-                            end
+          @subdirectory ||= begin
+            if smt8?
+              parents = []
+              f = parent
+              while f
+                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                f = f.parent
+              end
+              if Origen.interface.respond_to?(:insertion) && tester.insertion_in_the_flow_path
+                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+              else
+                File.join tester.package_namespace, 'flows', *parents
+              end
+            else
+              'testflow/mfh.testflow.group'
+            end
+          end
         end
 
         def filename
@@ -187,6 +188,9 @@ module OrigenTesters
             return unless top_level? || options[:called_by_top_level]
 
             super
+            # Refresh the ast before finalized gets set to true
+            # If ast gets called by the user the finalized flag will lock it to the incorrect value
+            ast
             @finalized = true
             # All flows have now been executed and the top-level contains the final AST.
             # The AST contained in each child flow may not be complete since it has not been subject to the

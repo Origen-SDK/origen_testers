@@ -375,6 +375,7 @@ end
 Indicating step value is optional, default is 1.
 
 These loops can also be nested:
+
 ~~~ruby
 loop from: 0, to: 9, step: 2, var: '$LOOP_VARIABLE1'do
   loop from: 1, to: 10, step: 1, var: '$LOOP_VARIABLE2' do
@@ -386,6 +387,7 @@ end
 ~~~
 
 You can also indicate a test number increment if desired (default is 1):
+
 ~~~ruby
 loop from: 0, to: 5, var: '$LOOP_VARIABLE', test_num_inc: 2 do
     func :test_myloop3, number: 56200
@@ -393,6 +395,7 @@ end
 ~~~
 
 You can also provide a variable starting point:
+
 ~~~ruby
 loop from: '$TEST_VARIABLE', to: 5, var: '$LOOP_VARIABLE' do
     func :test_myloop6, number: 56600
