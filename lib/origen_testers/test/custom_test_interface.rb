@@ -122,7 +122,7 @@ module OrigenTesters
                     # An optional finalize function can be supplied to do any final test instance configuration, this
                     # function will be called immediately before the test method is finally rendered. The test method
                     # object itself will be passed in as an argument.
-                    finalize:    lambda  do |tm|
+                    finalize: lambda do |tm|
                       if tm.my_arg1 == 'DELETE_ME'
                         tm.remove_parameter(:my_arg1)
                       end

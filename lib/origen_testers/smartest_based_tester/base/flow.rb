@@ -42,23 +42,21 @@ module OrigenTesters
         end
 
         def subdirectory
-          @subdirectory ||= begin
-            if smt8?
-              parents = []
-              f = parent
-              while f
-                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-                f = f.parent
-              end
-              if Origen.interface.respond_to?(:insertion) && tester.insertion_in_the_flow_path
-                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
-              else
-                File.join tester.package_namespace, 'flows', *parents
-              end
-            else
-              'testflow/mfh.testflow.group'
-            end
-          end
+          @subdirectory ||= if smt8?
+                              parents = []
+                              f = parent
+                              while f
+                                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                                f = f.parent
+                              end
+                              if Origen.interface.respond_to?(:insertion) && tester.insertion_in_the_flow_path
+                                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+                              else
+                                File.join tester.package_namespace, 'flows', *parents
+                              end
+                            else
+                              'testflow/mfh.testflow.group'
+                            end
         end
 
         def filename
