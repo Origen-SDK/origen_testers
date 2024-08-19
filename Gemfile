@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Development dependencies
 gem 'byebug', "~>11"
 gem 'ripper-tags'
+gem 'origen', '0.60.7'		# tmp - prevent 100's of new lint errors
 gem 'origen_arm_debug', '0.4.3'
 gem 'yard-activesupport-concern'
 gem 'origen_jtag', '>= 0.12.0'
