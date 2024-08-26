@@ -229,17 +229,17 @@ module OrigenTesters
           vars = flow_variables
           # Flags that are set by this flow flow out of it
           (vars[:this_flow][:set_flags] +
-          # As do any flags set by its children which are marked as external
-          vars[:all][:set_flags_extern] +
-          # Other test methods are setting the flags
-          vars[:this_flow][:add_flags] +
-          # Other test methods are set in the children
-          vars[:all][:add_flags_extern] +
-          # And any flags which are set by a child and referenced in this flow
-          (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
-          # And also intermediate flags, those are flags which are set by a child and referenced
-          # by a parent of the current flow
-          intermediate_variables).uniq.sort do |x, y|
+           # As do any flags set by its children which are marked as external
+           vars[:all][:set_flags_extern] +
+           # Other test methods are setting the flags
+           vars[:this_flow][:add_flags] +
+           # Other test methods are set in the children
+           vars[:all][:add_flags_extern] +
+           # And any flags which are set by a child and referenced in this flow
+           (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
+           # And also intermediate flags, those are flags which are set by a child and referenced
+           # by a parent of the current flow
+           intermediate_variables).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
             x <=> y
