@@ -10,6 +10,8 @@ module OrigenTesters
           test_suite = node.find(:object).to_a[0]
           if test_suite.is_a?(String)
             name = test_suite
+          elsif test_suite.is_a?(ShmooTest)
+            name = test_suite.name
           else
             name = test_suite.name
             test_method = test_suite.test_method
@@ -185,6 +187,10 @@ module OrigenTesters
           @sub_flows || {}
         end
 
+        def shmoo_tests
+          @shmoo_tests ||= platform::ShmooTests.new(self)
+        end
+
         def auxiliary_flows
           @auxiliary_flows || {}
         end
@@ -223,17 +229,17 @@ module OrigenTesters
           vars = flow_variables
           # Flags that are set by this flow flow out of it
           (vars[:this_flow][:set_flags] +
-           # As do any flags set by its children which are marked as external
-           vars[:all][:set_flags_extern] +
-           # Other test methods are setting the flags
-           vars[:this_flow][:add_flags] +
-           # Other test methods are set in the children
-           vars[:all][:add_flags_extern] +
-           # And any flags which are set by a child and referenced in this flow
-           (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
-           # And also intermediate flags, those are flags which are set by a child and referenced
-           # by a parent of the current flow
-           intermediate_variables).uniq.sort do |x, y|
+          # As do any flags set by its children which are marked as external
+          vars[:all][:set_flags_extern] +
+          # Other test methods are setting the flags
+          vars[:this_flow][:add_flags] +
+          # Other test methods are set in the children
+          vars[:all][:add_flags_extern] +
+          # And any flags which are set by a child and referenced in this flow
+          (vars[:this_flow][:referenced_flags] & vars[:sub_flows][:set_flags]) +
+          # And also intermediate flags, those are flags which are set by a child and referenced
+          # by a parent of the current flow
+          intermediate_variables).uniq.sort do |x, y|
             x = x[0] if x.is_a?(Array)
             y = y[0] if y.is_a?(Array)
             x <=> y

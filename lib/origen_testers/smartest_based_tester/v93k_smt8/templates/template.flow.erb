@@ -22,6 +22,12 @@ flow <%= flow_name %> {
 %   end
 
 % end
+% shmoo_tests.sorted_collection.each do |shmoo_test|
+%   shmoo_test.lines.each do |line|
+        <%= line %>
+%   end
+
+% end
 % auxiliary_flows.each do |name, path|
         flow <%= name %> calls <%= path %> {}
 % end

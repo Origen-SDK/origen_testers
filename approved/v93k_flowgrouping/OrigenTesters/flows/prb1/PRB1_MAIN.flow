@@ -593,6 +593,92 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        shmoo shmoo_over_tf {
+            target = erase;
+            resultTitle = "shmooOverTF";
+        
+            axis [vcc] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3;
+                range.stop = 5;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_1D {
+            target = test200_1;
+            resultTitle = "shmooOverTest";
+            executionOrder = horizontal;
+        
+            axis [axis1] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3.0;
+                range.stop = 5.0;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_3D {
+            target = test200_2;
+        
+            axis [axis1] = {
+                resourceType = instrumentProperty;
+                resourceName = "vih";
+                range.relativePercentage.start = -0.01;
+                range.relativePercentage.stop = 0.01;
+                range.steps = 10;
+            };
+            axis [axis2] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3;
+                range.stop = 5;
+                range.steps = 10;
+            };
+            axis [axis3] = {
+                resourceType = suiteParameter;
+                resourceName = "forceVoltage";
+                range.start = 4.8;
+                range.stop = 5.2;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_multiple_ts {
+            target = #[test200_1,test200_2];
+            resultTitle = "shmooOverMultiTS";
+        
+            axis [vih] = {
+                resourceType = instrumentProperty;
+                resourceName = "vih";
+                range.relativePercentage.start = -0.01;
+                range.relativePercentage.stop = 0.01;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_with_tracking_para {
+            target = erase;
+            resultTitle = "shmooOverTF";
+        
+            axis [vcc] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 0.5;
+                range.stop = 3.5;
+                range.steps = 10;
+        
+                tracking [voh] = {
+                    resourceType = instrumentProperty;
+                    resourceName = "voh";
+                    range.relativeValue.start = 1;
+                    range.relativeValue.stop = 2;
+                };
+            };
+        }
+
         flow POWERDOWN calls testflow.POWERDOWN {}
         flow ERASE calls OrigenTesters.flows.prb1.prb1_main.ERASE { }
         flow PROGRAM_CKBD calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD { }
@@ -873,5 +959,15 @@ flow PRB1_MAIN {
         test_with_no_flags.execute();
         test_with_flags.execute();
         type_check.execute();
+        println("shmoo test insertion works as expected, shmoo over test suite 1D");
+        shmoo_over_ts_1D.execute();
+        println("shmoo test insertion works as expected, shmoo over test suite 3D");
+        shmoo_over_ts_3D.execute();
+        println("shmoo test insertion works as expected, shmoo over multiple test suites");
+        shmoo_over_ts_multiple_ts.execute();
+        println("shmoo test insertion works as expected, shmoo over test flow");
+        shmoo_over_tf.execute();
+        println("shmoo test insertion works as expected, shmoo with tracking parameters");
+        shmoo_with_tracking_para.execute();
     }
 }
