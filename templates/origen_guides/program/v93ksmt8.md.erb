@@ -134,4 +134,69 @@ If you wish to have a collapse-able block for the variables, you need to set the
 flow_variable_grouping: true
 ~~~
 
+#### Built-In Shmoo Element
+
+SMT8 provides a built in shmoo element that can be used to shmoo a test suite or test flow.
+In order to add setup and execute code to the flow, create the shmoo_test object using `shmoo_tests.run(name, options)` and add it to the flow with `flow.test` method.
+
+
+Example of integrating the shmoo api in an interface:
+
+~~~ruby
+def shmoo(name, targets, options = {})
+  if tester.v93k? && tester.smt8?
+    targets = [targets] unless targets.is_a?(Array)
+    st = shmoo_tests.run(name, { targets: targets }.merge(options))
+    flow.test st, options
+  end
+end
+~~~
+
+
+Then in the flow, you can add the shmoo element to the flow with the following code:
+
+~~~ruby
+Flow.create
+  ...
+  range = { start: 3.0, stop: 5.0, steps: 10 }
+  axis = { name: :axis1, resource_type: 'specVariable', resource_name: 'vcc', range: range }
+  shmoo :shmoo_over_ts_1D, :cc_test_0, title: 'shmooOverTest', execution_order: :horizontal, axis: axis
+  ...
+end
+~~~
+
+Please see Advantest TDC Topic 253309 for details ahbout Shmoo parameters.
+
+
+The above code will generate the following flow code:
+
+~~~java
+flow <FLOW> {
+    setup {
+        ...
+        shmoo shmoo_over_ts_1D {
+            target = cc_test_0;
+            resultTitle = "shmooOverTest";
+            executionOrder = horizontal;
+		
+            axis [axis1] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3.0;
+                range.stop = 5.0;
+                range.steps = 10;
+            };
+        }
+        ...
+    }
+
+    execute {
+        ...
+        shmoo_over_ts_1D.execute();
+        ...
+    }
+}
+~~~
+
+
 % end
