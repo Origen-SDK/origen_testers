@@ -39,8 +39,34 @@ module OrigenTesters
         end
 
         def finalize
-          # collection.each do |suite|
-          # end
+          # match any formatting difference between test suite shmoo and test flow shmoo
+          @collection.each do |shmoo_test|
+            shmoo_test.targets.each_with_index do |target, i|
+              target_is_a_test_suite = false
+              flow.test_suites.sorted_collection.each do |suite|
+                if suite.name.to_s == target.to_s
+                  target_is_a_test_suite = true
+                  break
+                end
+              end
+
+              unless target_is_a_test_suite
+                target_is_a_test_flow = false
+                flow.sub_flows.each do |name, path|
+                  target_name = target.to_s.gsub(' ', '_')
+                  if name.to_s.downcase == target_name.to_s.downcase
+                    target_is_a_test_flow = true
+                    shmoo_test.targets[i] = name
+                    break
+                  end
+                end
+
+                unless target_is_a_test_flow
+                  fail "Shmoo test target '#{target}' for shmoo test '#{shmoo_test.name}' not found in test suites or sub_flows"
+                end
+              end
+            end
+          end
         end
 
         def sorted_collection

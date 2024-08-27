@@ -595,7 +595,7 @@ flow PRB1_MAIN {
         }
 
         shmoo shmoo_over_tf {
-            target = erase;
+            target = 200MHZ_TESTS;
             resultTitle = "shmooOverTF";
         
             axis [vcc] = {
@@ -608,7 +608,7 @@ flow PRB1_MAIN {
         }
 
         shmoo shmoo_over_ts_1D {
-            target = test200_1;
+            target = cc_test_0;
             resultTitle = "shmooOverTest";
             executionOrder = horizontal;
         
@@ -622,7 +622,7 @@ flow PRB1_MAIN {
         }
 
         shmoo shmoo_over_ts_3D {
-            target = test200_2;
+            target = erase_all;
         
             axis [axis1] = {
                 resourceType = instrumentProperty;
@@ -648,7 +648,7 @@ flow PRB1_MAIN {
         }
 
         shmoo shmoo_over_ts_multiple_ts {
-            target = #[test200_1,test200_2];
+            target = #[margin_read0_ckbd,margin_read1_ckbd];
             resultTitle = "shmooOverMultiTS";
         
             axis [vih] = {
@@ -661,7 +661,7 @@ flow PRB1_MAIN {
         }
 
         shmoo shmoo_with_tracking_para {
-            target = erase;
+            target = ERASE;
             resultTitle = "shmooOverTF";
         
             axis [vcc] = {
@@ -965,14 +965,14 @@ flow PRB1_MAIN {
         println("shmoo test insertion works as expected, shmoo over test suite 1D");
         shmoo_over_ts_1D.execute();
         println("shmoo test insertion works as expected, shmoo over test suite 3D");
-        if (G200_FAILED == 1) {
+        if (DO_ERASE == 1) {
             shmoo_over_ts_3D.execute();
         } else {
         }
         println("shmoo test insertion works as expected, shmoo over multiple test suites");
         shmoo_over_ts_multiple_ts.execute();
         println("shmoo test insertion works as expected, shmoo over test flow");
-        if (DO_ERASE == 1) {
+        if (G200_FAILED == 1) {
             shmoo_over_tf.execute();
         } else {
         }
