@@ -72,9 +72,11 @@ module OrigenTesters
           if axis = attrs.delete(:axis)
             axis = [axis] unless axis.is_a?(Array)
             axis.each_with_index do |a, i|
-              name = a.delete(:name) || "axis#{i + 1}"  # uniquify
-
-              axes << ShmooTestAxis.new(name, a)
+              aname = a.delete(:name) || "axis#{i + 1}"
+              if axes_names.include?(aname.to_sym)
+                fail "Axis name #{aname} is already used in shmoo test '#{@name}'"
+              end
+              axes << ShmooTestAxis.new(aname.to_sym, a)
             end
           else
             fail 'ShmooTest must have at least one axis'
@@ -109,6 +111,10 @@ module OrigenTesters
 
         def axes
           @axes ||= []
+        end
+
+        def axes_names
+          axes.map(&:name)
         end
 
         def lines
@@ -240,8 +246,11 @@ module OrigenTesters
           if tracking = attrs.delete(:tracking)
             tracking = [tracking] unless tracking.is_a?(Array)
             tracking.each_with_index do |t, i|
-              name = t.delete(:name) || "tracking#{i + 1}"  # uniquify
-              trackings << ShmooTestTracking.new(name, t)
+              tname = t.delete(:name) || "tracking#{i + 1}"
+              if trackings_names.include?(tname.to_sym)
+                fail "Tracking name #{tname} is already used in shmoo test axis '#{@name}'"
+              end
+              trackings << ShmooTestTracking.new(tname.to_sym, t)
             end
           end
 
@@ -306,6 +315,10 @@ module OrigenTesters
 
         def trackings
           @trackings ||= []
+        end
+
+        def trackings_names
+          trackings.map(&:name)
         end
       end
 
