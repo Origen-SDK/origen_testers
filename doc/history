@@ -1,3 +1,15 @@
+<a class="anchor release_tag" name="v0_52_6"></a>
+<h1><a href="#v0_52_6">Tag: v0.52.6</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 28-Aug-2024 15:10PM
+
+
+Adds support for SMT8 built-in shmoo element @rlaj \
+Fixes various issues uncovered while running origen convert on ascii patterns from various
+sources @pderouen
+
 <a class="anchor release_tag" name="v0_52_5"></a>
 <h1><a href="#v0_52_5">Tag: v0.52.5</a></h1>
 
