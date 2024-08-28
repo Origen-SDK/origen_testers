@@ -398,6 +398,14 @@ module OrigenTesters
         end
       end
 
+      def shmoo(name, targets, options = {})
+        if tester.v93k? && tester.smt8?
+          targets = [targets] unless targets.is_a?(Array)
+          st = shmoo_tests.run(name, { targets: targets }.merge(options))
+          flow.test st, options
+        end
+      end
+
       def por(options = {})
         options = {
           instance_not_available: true

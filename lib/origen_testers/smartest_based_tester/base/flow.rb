@@ -241,6 +241,9 @@ module OrigenTesters
           end
           test_suites.finalize
           test_methods.finalize
+          if smt8?
+            shmoo_tests.finalize
+          end
           if tester.create_limits_file && top_level?
             render_limits_file
           end

@@ -107,6 +107,11 @@ PRB1_MAIN.DEEP_NESTED.deep_test,deep_test,,deep_test,0,0,,
 PRB1_MAIN.test_with_no_flags,test_with_no_flags,6020,test_with_no_flags,0,0,,
 PRB1_MAIN.test_with_flags,test_with_flags,6030,test_with_flags,0,0,,
 PRB1_MAIN.type_check,type_check,6035,type_check,0,0,,
+PRB1_MAIN.shmoo_over_ts_1D,shmoo_over_ts_1D,,shmoo_over_ts_1D,0,0,,
+PRB1_MAIN.shmoo_over_ts_3D,shmoo_over_ts_3D,,shmoo_over_ts_3D,0,0,,
+PRB1_MAIN.shmoo_over_ts_multiple_ts,shmoo_over_ts_multiple_ts,,shmoo_over_ts_multiple_ts,0,0,,
+PRB1_MAIN.shmoo_over_tf,shmoo_over_tf,,shmoo_over_tf,0,0,,
+PRB1_MAIN.shmoo_with_tracking_para,shmoo_with_tracking_para,,shmoo_with_tracking_para,0,0,,
 TEST.program_ckbd,program_ckbd,40000,program_ckbd,0,0,,1100
 TEST.meas_read_pump,meas_read_pump,40005,meas_read_pump,,35,,2
 TEST.meas_read_pump_1,meas_read_pump_1,40010,meas_read_pump_1,45,,,2

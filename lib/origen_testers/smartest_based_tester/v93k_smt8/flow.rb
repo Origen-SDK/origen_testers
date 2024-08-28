@@ -10,6 +10,8 @@ module OrigenTesters
           test_suite = node.find(:object).to_a[0]
           if test_suite.is_a?(String)
             name = test_suite
+          elsif test_suite.is_a?(ShmooTest)
+            name = test_suite.name
           else
             name = test_suite.name
             test_method = test_suite.test_method
@@ -183,6 +185,10 @@ module OrigenTesters
 
         def sub_flows
           @sub_flows || {}
+        end
+
+        def shmoo_tests
+          @shmoo_tests ||= platform::ShmooTests.new(self)
         end
 
         def auxiliary_flows
