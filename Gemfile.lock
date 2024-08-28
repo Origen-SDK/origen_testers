@@ -174,6 +174,7 @@ DEPENDENCIES
   byebug (~> 11)
   dry-inflector (= 0.1.2)
   nokogiri
+  origen (= 0.60.7)
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers
   origen_jtag (>= 0.12.0)
@@ -184,4 +185,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   2.4.10
+   2.4.22
