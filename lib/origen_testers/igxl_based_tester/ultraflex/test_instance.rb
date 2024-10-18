@@ -206,6 +206,59 @@ module OrigenTesters
             force_cond_alt:          :arg56,
             force_irange_alt:        :arg57,
             meas_irange_alt:         :arg58
+          },
+          powersupply:    {
+            arg_list:                :arg0,
+	            precond_pat:		   :arg1,
+              start_func:		       :arg2,
+              pre_pat_func:			         :arg3,
+              pre_test_func:			:arg4,
+              post_test_func:		:arg5,
+              post_pat_func:			:arg6,
+              end_of_body_f:		:arg7,
+              hold_state_pat:		:arg8,
+              DriveLoPins:		:arg9,
+              DriveHiPins:		:arg10,
+              DriveZPins:		:arg11,
+              FloatPins:		:arg12,
+              SamplingTime:		:arg13,
+              SampleSize:		:arg14,
+              SettlingTime:		:arg15,
+              MainVoltage:		:arg16,
+              AltVoltage:		:arg17,
+              PowerPins:		:arg18,
+              DisablePins:		:arg19,
+              VoltageOutput:		:arg20,
+              PcpStartLabel:		:arg21,
+              PcpStopLabel:		:arg22,
+              StartOfBodyFArgs:		:arg23,
+              PrePatFArgs:		:arg24,
+              PreTestFArgs:		:arg25,
+              PostTestFArgs:		:arg26,
+              PostPatFArgs:		:arg27,
+              EndOfBodyFArgs:		:arg28,
+              HspStartLabel:		:arg29,
+              HspStopLabel:		:arg30,
+              PcpCheckPatGen:		:arg31,
+              CurrentClamp:		:arg32,
+              HspCheckPatGen:		:arg33,
+              HspResumePat:		:arg34,
+              RelayMode:		:arg35,
+              Util1Pins:		:arg36,
+              Util0Pins:		:arg37,
+              TestControl:		:arg38,
+              SerializeMeas:		:arg39,
+              MeasF:			:arg40,
+              MeasFArgs:		:arg41,
+              WaitFlag1:		:arg42,
+              WaitFlag2:		:arg43,
+              WaitFlag3:		:arg44,
+              WaitFlag4:		:arg45,
+              Validating:		:arg46,
+              Irange:			:arg47,
+              PatternTimeout:		:arg48,
+              PcpDisableAlarm:		:arg49,
+              HspDisableAlarm:		:arg50,
           }
 
         }
@@ -245,7 +298,18 @@ module OrigenTesters
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
             wait_flag4:     -2, # waitoff
+          },
+          powersupply:    {
+            arg_list:       'PreconditionPat,StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,HoldStatePat,DriveLoPins,DriveHiPins,DriveZPins,FloatPins,SamplingTime,SampleSize,SettlingTime,MainVoltage,AltVoltage,PowerPins,DisablePins,VoltageOutput,PcpStartLabel,PcpStopLabel,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,HspStartLabel,HspStopLabel,PcpCheckPatGen,CurrentClamp,HspCheckPatGen,HspResumePat,RelayMode,Util1Pins,Util0Pins,TestControl,SerializeMeas,MeasF,MeasFArgs,WaitFlagA,WaitFlagB,WaitFlagC,WaitFlagD,Validating_,Irange,PatternTimeout,PcpDisableAlarm,HspDisableAlarm',
+            proc_type:      'VBT',
+            proc_name:      'DCVIPowerSupply_T',
+            proc_called_as: 'Excel Macro',
+            wait_flag1:     -2, # waitoff
+            wait_flag2:     -2, # waitoff
+            wait_flag3:     -2, # waitoff
+            wait_flag4:     -2, # waitoff
           }
+
         }
 
         # Generate the instance method definitions based on the above
