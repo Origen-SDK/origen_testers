@@ -110,6 +110,10 @@ module OrigenTesters
           new(name, :powersupply, attrs)
         end
 
+        def self.new_dcvi_powersupply(name, attrs = {})
+          new(name, :dcvi_powersupply, attrs)
+        end
+
         def self.new_mto_memory(name, attrs = {})
           new(name, :mto_memory, attrs)
         end

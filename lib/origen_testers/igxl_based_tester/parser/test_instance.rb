@@ -5,7 +5,7 @@ module OrigenTesters
         attr_accessor :parser
 
         TYPES = %w(
-          functional board_pmu empty pin_pmu powersupply mto_memory
+          functional board_pmu empty pin_pmu powersupply mto_memory dcvi_powersupply
         )
 
         TYPE_ALIASES = {
@@ -18,7 +18,8 @@ module OrigenTesters
           nvmpinpmucal_t:       :pin_pmu,
           nvmpinpmumeas_t:      :pin_pmu,
           powersupply_t:        :powersupply,
-          mto_memory_t:         :mto_memory
+          mto_memory_t:         :mto_memory,
+          dcvi_powersupply_t:   :dcvi_powersupply
         }
 
         attributes = %w(

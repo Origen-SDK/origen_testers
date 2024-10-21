@@ -163,6 +163,10 @@ module OrigenTesters
         end
         alias_method :power_supply, :powersupply
 
+        def dcvi_powersupply(name, options = {})
+          add(name, :dcvi_powersupply, options)
+        end
+
         def ppmu(name, options = {})
           add(name, :pin_pmu, options)
         end
