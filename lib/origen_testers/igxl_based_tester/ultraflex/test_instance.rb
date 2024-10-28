@@ -207,6 +207,7 @@ module OrigenTesters
             force_irange_alt:        :arg57,
             meas_irange_alt:         :arg58
           },
+
           dcvi_powersupply: {
             arg_list:             :arg0,
             precond_pat:		        :arg1,
