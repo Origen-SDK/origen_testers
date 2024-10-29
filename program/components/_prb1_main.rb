@@ -194,6 +194,7 @@ Flow.create do |options|
     
     meas :bgap_voltage_meas, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, number: 5910
     meas :bgap_voltage_meas1, number: 5920
+    meas :standby_current, pins: :dcvi, power_pins: :vdd, number: 5930
   end
 
   if tester.j750?
