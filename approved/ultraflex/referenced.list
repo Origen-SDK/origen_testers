@@ -48,6 +48,7 @@ margin_read0_ckbd
 margin_read1_all1
 margin_read1_ckbd
 meas_read_pump
+meas_standby_current
 measmulti_bin_later
 measmulti_bin_now
 mrd_ckbd
