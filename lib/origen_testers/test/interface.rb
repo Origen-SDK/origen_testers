@@ -510,23 +510,18 @@ module OrigenTesters
           if tester.uflex?
             if options[:pins] == :dcvi
               ins = test_instances.dcvi_powersupply(name)
-              ins.set_wait_flags(:a)
-              ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
-              ins.relay_mode = 1
-              ins.lo_limit = options[:lo_limit]
-              ins.hi_limit = options[:hi_limit]
-              ins.units = options[:units]
-              ins.defer_limits = options[:defer_limits]
+              ins.set_wait_flags(:a) # set wait flag for tester handshake with patterns
+              ins.relay_mode = 1 # tlPowered - keep power on
             else
               ins = test_instances.functional(name)
               ins.set_wait_flags(:a) if options[:duration] == :dynamic
-              ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
-              ins.lo_limit = options[:lo_limit]
-              ins.hi_limit = options[:hi_limit]
               ins.scale = options[:scale]
               ins.units = options[:units]
-              ins.defer_limits = options[:defer_limits]
             end
+            ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
+            ins.lo_limit = options[:lo_limit]
+            ins.hi_limit = options[:hi_limit]
+            ins.defer_limits = options[:defer_limits]
           else
             if options[:pins] == :hi_v
               ins = test_instances.board_pmu(name)
