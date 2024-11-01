@@ -2,6 +2,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Flow Domain:																											
 			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Flag			Group				Device			Debug			
 	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Comment	
+						logprint	PRB1_Test_Flow_Version_00001_-_do_not_copy_me_to_approved!																										
 						Test	program_ckbd_v1	PGM_CKBD	1000							100		1100	Fail														
 						Test	margin_read1_ckbd	margin_read1_ckbd	1010										Fail														
 						Test	margin_read0_ckbd	margin_read0_ckbd	1030										Fail														
@@ -129,6 +130,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						Test	bgap_voltage_meas	bgap_voltage_meas	5910							119		2	Fail														
 						Use-Limit		bgap_voltage_meas			45					119		2	Fail														
 						Test	bgap_voltage_meas1	bgap_voltage_meas1	5920										Fail														
+						Test	meas_standby_current	meas_standby_current	5930										Fail														
 						logprint	Speed_binning_example_bug_from_video_5																										
 						Test	test200_1		5950										None		g200_7AF57D1_FAILED_0												
 						defaults															g200_7AF57D1_FAILED												

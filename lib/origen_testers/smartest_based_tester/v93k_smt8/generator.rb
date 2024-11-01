@@ -42,6 +42,10 @@ module OrigenTesters
         def limits_workbook
           @@limits_workbook ||= LimitsWorkbook.new(manually_register: true)
         end
+
+        def shmoo_tests
+          flow.shmoo_tests
+        end
       end
     end
   end

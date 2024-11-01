@@ -22,6 +22,7 @@ flow PRB1_MAIN {
     out ERASE_RAN_4_RAN = -1;
     out ERS_VFY_FAILED = -1;
     out G100_RAN = -1;
+    out G200_FAILED = -1;
 
     setup {
         suite another_not_p1_or_p2_test calls ac_tml.AcTest.FunctionalTest {
@@ -593,6 +594,92 @@ flow PRB1_MAIN {
             testName = "Functional";
         }
 
+        shmoo shmoo_over_tf {
+            target = 200MHZ_TESTS;
+            resultTitle = "shmooOverTF";
+        
+            axis [vcc] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3;
+                range.stop = 5;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_1D {
+            target = cc_test_0;
+            resultTitle = "shmooOverTest";
+            executionOrder = horizontal;
+        
+            axis [axis1] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3.0;
+                range.stop = 5.0;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_3D {
+            target = erase_all;
+        
+            axis [axis1] = {
+                resourceType = instrumentProperty;
+                resourceName = "vih";
+                range.relativePercentage.start = -0.01;
+                range.relativePercentage.stop = 0.01;
+                range.steps = 10;
+            };
+            axis [axis2] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 3;
+                range.stop = 5;
+                range.steps = 10;
+            };
+            axis [axis3] = {
+                resourceType = suiteParameter;
+                resourceName = "forceVoltage";
+                range.start = 4.8;
+                range.stop = 5.2;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_over_ts_multiple_ts {
+            target = #[margin_read0_ckbd,margin_read1_ckbd];
+            resultTitle = "shmooOverMultiTS";
+        
+            axis [vih] = {
+                resourceType = instrumentProperty;
+                resourceName = "vih";
+                range.relativePercentage.start = -0.01;
+                range.relativePercentage.stop = 0.01;
+                range.steps = 10;
+            };
+        }
+
+        shmoo shmoo_with_tracking_para {
+            target = ERASE;
+            resultTitle = "shmooOverTF";
+        
+            axis [vcc] = {
+                resourceType = specVariable;
+                resourceName = "vcc";
+                range.start = 0.5;
+                range.stop = 3.5;
+                range.steps = 10;
+        
+                tracking [voh] = {
+                    resourceType = instrumentProperty;
+                    resourceName = "voh";
+                    range.relativeValue.start = 1;
+                    range.relativeValue.stop = 2;
+                };
+            };
+        }
+
         flow POWERDOWN calls testflow.POWERDOWN {}
         flow ERASE calls OrigenTesters.flows.prb1.prb1_main.ERASE { }
         flow PROGRAM_CKBD calls OrigenTesters.flows.prb1.prb1_main.PROGRAM_CKBD { }
@@ -620,6 +707,7 @@ flow PRB1_MAIN {
         ERASE_RAN_2_RAN = -1;
         ERASE_RAN_3_RAN = -1;
         ERASE_RAN_4_RAN = -1;
+        G200_FAILED = -1;
 
         hash_example.execute();
         spec_override_example.execute();
@@ -833,6 +921,7 @@ flow PRB1_MAIN {
         println("Speed binning example bug from video 5");
         200MHZ_TESTS.execute();
         if (!200MHZ_TESTS.pass) {
+            G200_FAILED = 1;
             100MHZ_TESTS.execute();
             G100_RAN = 100MHZ_TESTS.G100_RAN;
         }
@@ -858,5 +947,21 @@ flow PRB1_MAIN {
         test_with_no_flags.execute();
         test_with_flags.execute();
         type_check.execute();
+        println("shmoo test insertion works as expected, shmoo over test suite 1D");
+        shmoo_over_ts_1D.execute();
+        println("shmoo test insertion works as expected, shmoo over test suite 3D");
+        if (DO_ERASE == 1) {
+            shmoo_over_ts_3D.execute();
+        } else {
+        }
+        println("shmoo test insertion works as expected, shmoo over multiple test suites");
+        shmoo_over_ts_multiple_ts.execute();
+        println("shmoo test insertion works as expected, shmoo over test flow");
+        if (G200_FAILED == 1) {
+            shmoo_over_tf.execute();
+        } else {
+        }
+        println("shmoo test insertion works as expected, shmoo with tracking parameters");
+        shmoo_with_tracking_para.execute();
     }
 }

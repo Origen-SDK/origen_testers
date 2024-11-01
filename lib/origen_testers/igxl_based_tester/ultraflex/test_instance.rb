@@ -18,14 +18,15 @@ module OrigenTesters
         TEST_INSTANCE_EXTRA_ARGS = 130
 
         TEST_INSTANCE_ALIASES = {
-          name:       :test_name,
-          time_set:   :time_sets,
-          timeset:    :time_sets,
-          timesets:   :time_sets,
+          name:             :test_name,
+          time_set:         :time_sets,
+          timeset:          :time_sets,
+          timesets:         :time_sets,
 
-          other:      {},
+          other:            {
+          },
 
-          empty:      {
+          empty:            {
             arg_list:             :arg0,
             start_func:           :arg1,
             start_of_body_f:      :arg1,
@@ -64,7 +65,7 @@ module OrigenTesters
           },
 
           # Functional test instances
-          functional: {
+          functional:       {
             arg_list:             :arg0,
             pattern:              :arg1,
             patterns:             :arg1,
@@ -124,7 +125,7 @@ module OrigenTesters
             concurrent_mode:      :arg35
           },
 
-          pin_pmu:    {
+          pin_pmu:          {
             arg_list:                :arg0,
             hsp_start:               :arg1,
             start_func:              :arg2,
@@ -205,22 +206,88 @@ module OrigenTesters
             force_cond_alt:          :arg56,
             force_irange_alt:        :arg57,
             meas_irange_alt:         :arg58
+          },
+
+          dcvi_powersupply: {
+            arg_list:             :arg0,
+            precond_pat:		        :arg1,
+            start_func:		         :arg2,
+            pre_pat_func:			      :arg3,
+            pre_test_func:			     :arg4,
+            post_test_func:		     :arg5,
+            post_pat_func:			     :arg6,
+            end_of_body_f:		      :arg7,
+            hold_state_pat:		     :arg8,
+            pattern:		            :arg8,
+            drive_lo_pins:		      :arg9,
+            drive_hi_pins:		      :arg10,
+            drive_z_pins:		       :arg11,
+            float_pins:		         :arg12,
+            sampling_time:		      :arg13,
+            sample:		             :arg14,
+            sample_size:		        :arg14,
+            settling_time:		      :arg15,
+            main_voltage:		       :arg16,
+            alt_voltage:		        :arg17,
+            power_pins:		         :arg18,
+            disable_pins:		       :arg19,
+            voltage_output:		     :arg20,
+            pcp_start_label:		    :arg21,
+            pcp_start:		          :arg21,
+            pcp_stop_label:		     :arg22,
+            pcp_stop:		           :arg22,
+            start_func_args:      :arg23,
+            start_of_body_f_args: :arg23,
+            pre_pat_func_args:    :arg24,
+            pre_pat_f_args:       :arg24,
+            pre_test_func_args:   :arg25,
+            pre_test_f_args:      :arg25,
+            post_test_func_args:  :arg26,
+            post_test_f_args:     :arg26,
+            post_pat_func_args:   :arg27,
+            post_pat_f_args:      :arg27,
+            end_func_args:        :arg28,
+            end_of_body_f_args:   :arg28,
+            hsp_start_label:		    :arg29,
+            hsp_start:		          :arg29,
+            hsp_stop_label:		     :arg30,
+            hsp_stop:		           :arg30,
+            pcp_check_patGen:		   :arg31,
+            current_clamp:		      :arg32,
+            hsp_checkpat_gen:		   :arg33,
+            hsp_resume_pat:		     :arg34,
+            relay_mode:		         :arg35,
+            utility_pins_1:       :arg36,
+            utility_pins_0:       :arg37,
+            test_control:		       :arg38,
+            serialize_meas:		     :arg39,
+            meas_f:			            :arg40,
+            meas_f_args:		        :arg41,
+            wait_flag1:           :arg42,
+            wait_flag2:           :arg43,
+            wait_flag3:           :arg44,
+            wait_flag4:           :arg45,
+            validating:           :arg46,
+            i_range:			           :arg47,
+            pattern_timeout:		    :arg48,
+            pcp_disable_alarm:		  :arg49,
+            hcp_disable_alarm:		  :arg50
           }
 
         }
 
         TEST_INSTANCE_DEFAULTS = {
-          empty:      {
+          empty:            {
             arg_list:       'StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,Util1Pins,Util0Pins,DriveLoPins,DriveHiPins,DriveZPins,FloatPins,DisablePins',
             proc_type:      'VBT',
             proc_name:      'Empty_T',
             proc_called_as: 'Excel Macro'
           },
-          other:      {
+          other:            {
             proc_type:      'Other',
             proc_called_as: 'Excel Macro'
           },
-          functional: {
+          functional:       {
             arg_list:        'Patterns,StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,ReportResult,ResultMode,DriveLoPins,DriveHiPins,DriveZPins,DisablePins,FloatPins,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,Util1Pins,Util0Pins,PatFlagF,PatFlagFArgs,RelayMode,PatThreading,MatchAllSites,WaitFlagA,WaitFlagB,WaitFlagC,WaitFlagD,Validating_,PatternTimeout,WaitTimeDomain,ConcurrentMode',
             proc_type:       'VBT',
             proc_name:       'Functional_T',
@@ -235,7 +302,7 @@ module OrigenTesters
             wait_flag4:      -2, # waitoff
             wait_time:       30
           },
-          pin_pmu:    {
+          pin_pmu:          {
             arg_list:       'HspStartLabel,StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,PreconditionPat,HoldStatePat,PcpStopLabel,DriveLoPins,DriveHiPins,DriveZPins,DisablePins,FloatPins,Pins,MeasureMode,SettlingTime,ForceCond1,ForceCond2,RelayMode,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,PcpStartLabel,PcpCheckPatGen,HspStopLabel,HspCheckPatGen,SamplingTime,SampleCount,HspResumePat,VClampLo,VClampHi,Util1Pins,Util0Pins,WaitFlagA,WaitFlagB,WaitFlagC,WaitFlagD,Validating_,ForceIRange,MeasIRange,PatternTimeout,PcpDisableAlarmCheck,HspDisableAlarmCheck,TestingInSeries,BackgroundMeasureMode,BackgroundForceIRange,BackgroundMeasIRange,BackgroundForceCond,PinsAlt,MeasureModeAlt,ForceCondAlt,ForceIRangeAlt,MeasIRangeAlt',
             proc_type:      'VBT',
             proc_name:      'PinPmu_T',
@@ -243,8 +310,19 @@ module OrigenTesters
             wait_flag1:     -2, # waitoff
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
-            wait_flag4:     -2 # waitoff
+            wait_flag4:     -2, # waitoff
+          },
+          dcvi_powersupply: {
+            arg_list:       'PreconditionPat,StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,HoldStatePat,DriveLoPins,DriveHiPins,DriveZPins,FloatPins,SamplingTime,SampleSize,SettlingTime,MainVoltage,AltVoltage,PowerPins,DisablePins,VoltageOutput,PcpStartLabel,PcpStopLabel,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,HspStartLabel,HspStopLabel,PcpCheckPatGen,CurrentClamp,HspCheckPatGen,HspResumePat,RelayMode,Util1Pins,Util0Pins,TestControl,SerializeMeas,MeasF,MeasFArgs,WaitFlagA,WaitFlagB,WaitFlagC,WaitFlagD,Validating_,Irange,PatternTimeout,PcpDisableAlarm,HspDisableAlarm',
+            proc_type:      'VBT',
+            proc_name:      'DCVIPowerSupply_T',
+            proc_called_as: 'Excel Macro',
+            wait_flag1:     -2, # waitoff
+            wait_flag2:     -2, # waitoff
+            wait_flag3:     -2, # waitoff
+            wait_flag4:     -2, # waitoff
           }
+
         }
 
         # Generate the instance method definitions based on the above

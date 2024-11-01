@@ -194,6 +194,7 @@ Flow.create do |options|
     
     meas :bgap_voltage_meas, tnum: 1050, bin: 119, soft_bin: 2, hi_limit: 45, number: 5910
     meas :bgap_voltage_meas1, number: 5920
+    meas :standby_current, pins: :dcvi, power_pins: :vdd, number: 5930
   end
 
   if tester.j750?
@@ -258,5 +259,34 @@ Flow.create do |options|
   end
 
   double_int_type_check :type_check, number: 6035
+
+  if tester.smt8?
+    log 'shmoo test insertion works as expected, shmoo over test suite 1D'
+    range = { start: 3.0, stop: 5.0, steps: 10 }
+    axis = { name: :axis1, resource_type: 'specVariable', resource_name: 'vcc', range: range }
+    shmoo :shmoo_over_ts_1D, :cc_test_0, title: 'shmooOverTest', execution_order: :horizontal, axis: axis
+
+    log 'shmoo test insertion works as expected, shmoo over test suite 3D'
+    axis = [
+      { resource_type: :instrumentProperty, resource_name: 'vih', range_relative_percentage: -0.01..0.01, steps: 10 },
+      { resource_type: :specVariable, resource_name: 'vcc', range: 3..5, steps: 10 },
+      { resource_type: :suiteParameter, resource_name: 'forceVoltage', range: 4.8..5.2, steps: 10 }
+    ]
+    shmoo :shmoo_over_ts_3D, :erase_all, axis: axis, if_enable: 'do_erase'
+
+    log 'shmoo test insertion works as expected, shmoo over multiple test suites'
+    axis = { name: :vih, resource_type: :instrumentProperty, resource_name: 'vih', range_relative_percentage: -0.01..0.01, steps: 10 }
+    shmoo :shmoo_over_ts_multiple_ts, [:margin_read0_ckbd, :margin_read1_ckbd], title: 'shmooOverMultiTS', axis: axis 
+
+    log 'shmoo test insertion works as expected, shmoo over test flow'
+    axis = { name: :vcc, resource_type: :specVariable, resource_name: 'vcc', range: 3..5, steps: 10 }
+    shmoo :shmoo_over_tf, "200Mhz Tests", title: 'shmooOverTF', axis: axis, if_failed: :g200
+
+    log 'shmoo test insertion works as expected, shmoo with tracking parameters'
+    range = { start: 0.5, stop: 3.5, steps: 10 }
+    tracking = { name: :voh, resource_type: 'instrumentProperty', resource_name: 'voh', range_relative_value: 1..2 }
+    axis = { name: :vcc, resource_type: 'specVariable', resource_name: 'vcc', range: range, tracking: tracking }
+    shmoo :shmoo_with_tracking_para, :erase, title: 'shmooOverTF', axis: axis
+  end
 
 end
