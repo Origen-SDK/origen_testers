@@ -508,13 +508,19 @@ module OrigenTesters
 
         if tester.j750? || tester.uflex?
           if tester.uflex?
-            ins = test_instances.functional(name)
-            ins.set_wait_flags(:a) if options[:duration] == :dynamic
+            if options[:pins] == :dcvi
+              ins = test_instances.dcvi_powersupply(name)
+              ins.set_wait_flags(:a) # set wait flag for tester handshake with patterns
+              ins.relay_mode = 1 # tlPowered - keep power on
+            else
+              ins = test_instances.functional(name)
+              ins.set_wait_flags(:a) if options[:duration] == :dynamic
+              ins.scale = options[:scale]
+              ins.units = options[:units]
+            end
             ins.pin_levels = options.delete(:pin_levels) if options[:pin_levels]
             ins.lo_limit = options[:lo_limit]
             ins.hi_limit = options[:hi_limit]
-            ins.scale = options[:scale]
-            ins.units = options[:units]
             ins.defer_limits = options[:defer_limits]
           else
             if options[:pins] == :hi_v
