@@ -55,8 +55,7 @@ module OrigenTesters
         def parse_vector(raw_vector:, context:, meta:)
           if raw_vector =~ Regexp.new('^\s*//')
             nodes_namespace::CommentBlock.new(context:  self,
-                                              comments: raw_vector.split("\n")
-                                             )
+                                              comments: raw_vector.split("\n"))
           elsif raw_vector.strip.size == 0
             nodes_namespace::CommentBlock.new(context: self, comments: ['// blank line replaced with comment by origen convert'])
           elsif raw_vector =~ Regexp.new('^\s*start_label')
@@ -66,8 +65,7 @@ module OrigenTesters
             contents = raw_vector.strip['global'.size + 1..-2].strip.split(/\s+/)
             nodes_namespace::GlobalLabel.new(context:    self,
                                              label_type: contents[0],
-                                             label_name: contents[1]
-                                            )
+                                             label_name: contents[1])
           # original elsif for label was updated to avoid confusing origen's eol comments for a label
           # elsif raw_vector =~ Regexp.new(':(?!(.*>))')
           elsif raw_vector.split(';').first =~ Regexp.new(':(?!(.*>))')

@@ -23,8 +23,7 @@ module OrigenTesters
           timeset:          :time_sets,
           timesets:         :time_sets,
 
-          other:            {
-          },
+          other:            {},
 
           empty:            {
             arg_list:             :arg0,
@@ -310,7 +309,7 @@ module OrigenTesters
             wait_flag1:     -2, # waitoff
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
-            wait_flag4:     -2, # waitoff
+            wait_flag4:     -2 # waitoff
           },
           dcvi_powersupply: {
             arg_list:       'PreconditionPat,StartOfBodyF,PrePatF,PreTestF,PostTestF,PostPatF,EndOfBodyF,HoldStatePat,DriveLoPins,DriveHiPins,DriveZPins,FloatPins,SamplingTime,SampleSize,SettlingTime,MainVoltage,AltVoltage,PowerPins,DisablePins,VoltageOutput,PcpStartLabel,PcpStopLabel,StartOfBodyFArgs,PrePatFArgs,PreTestFArgs,PostTestFArgs,PostPatFArgs,EndOfBodyFArgs,HspStartLabel,HspStopLabel,PcpCheckPatGen,CurrentClamp,HspCheckPatGen,HspResumePat,RelayMode,Util1Pins,Util0Pins,TestControl,SerializeMeas,MeasF,MeasFArgs,WaitFlagA,WaitFlagB,WaitFlagC,WaitFlagD,Validating_,Irange,PatternTimeout,PcpDisableAlarm,HspDisableAlarm',
@@ -320,7 +319,7 @@ module OrigenTesters
             wait_flag1:     -2, # waitoff
             wait_flag2:     -2, # waitoff
             wait_flag3:     -2, # waitoff
-            wait_flag4:     -2, # waitoff
+            wait_flag4:     -2 # waitoff
           }
 
         }
