@@ -73,10 +73,12 @@ module OrigenTesters
         end
       end
 
-      def current_instance
+      def current_instance(options = {})
         instance = @current_instance || instances.first
         if instance.nil? && @stored_instance
-          Origen.log.deprecate '@current_instance had to source @stored_instance. This likely means charz_session.<some_attr> is being queried when the newer charz_instance.<some_attr> should be instead'
+          unless options[:stored_instance_valid]
+            Origen.log.deprecate '@current_instance had to source @stored_instance. This likely means charz_session.<some_attr> is being queried when the newer charz_instance.<some_attr> should be instead'
+          end
           instance = @stored_instance
         end
         instance
