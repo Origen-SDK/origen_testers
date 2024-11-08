@@ -47,6 +47,13 @@ module OrigenTesters
         end
       end
 
+      def custom_d(name, options = {})
+        name = "custom_d_#{name}".to_sym
+        if tester.v93k?
+          ti = test_methods.my_tml.test_d
+        end
+      end
+
       def custom_hash(name, options = {})
         name = "custom_hash_#{name}".to_sym
         if tester.v93k? && tester.smt8?
@@ -128,6 +135,24 @@ module OrigenTesters
                       end
                     end
                   }
+                },
+                test_d:    {
+                  tester_state:         [:string, 'CONNECTED', %w(CONNECTED UNCHANGED)],
+                  test_name:            [:string, 'Functional'],
+                  current_arg:          [:current, 1],
+                  current_no_default:   [:current, ''],
+                  voltage_arg:          [:voltage, 1.2],
+                  voltage_no_default:   [:voltage, ''],
+                  time_arg:             [:time, 10],
+                  time_no_default:      [:time, ''],
+                  frequency_arg:        [:frequency, 1_000_000],
+                  frequency_no_default: [:frequency, ''],
+                  integer_arg:          [:integer, 5.22],
+                  integer_no_default:   [:integer, ''],
+                  double_arg:           [:double, '5.22'],
+                  double_no_default:    [:double, ''],
+                  boolean_arg:          [:boolean, true],
+                  boolean_no_default:   [:boolean, '']
                 },
                 test_hash: {
                   # Parameters can be defined with an underscored symbol as the name, this can be used

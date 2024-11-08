@@ -47,6 +47,23 @@ tm_6:
   "myArg2" = "VOLT";
   "testName" = "Functional";
   "testerState" = "CONNECTED";
+tm_7:
+  "booleanArg" = "1";
+  "booleanNoDefault" = "";
+  "currentArg" = "1[A]";
+  "currentNoDefault" = "";
+  "doubleArg" = "5.22";
+  "doubleNoDefault" = "";
+  "frequencyArg" = "1000000[Hz]";
+  "frequencyNoDefault" = "";
+  "integerArg" = "5";
+  "integerNoDefault" = "";
+  "testName" = "Functional";
+  "testerState" = "CONNECTED";
+  "timeArg" = "10[s]";
+  "timeNoDefault" = "";
+  "voltageArg" = "1.2[V]";
+  "voltageNoDefault" = "";
 
 end
 -----------------------------------------------------------------
@@ -61,6 +78,8 @@ tm_3:
 tm_5:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_6:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_7:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -79,6 +98,8 @@ tm_5:
   testmethod_class = "MyTml.TestC";
 tm_6:
   testmethod_class = "MyTml.TestC";
+tm_7:
+  testmethod_class = "MyTml.TestD";
 
 end
 -----------------------------------------------------------------

@@ -15,5 +15,8 @@ Flow.create interface: 'OrigenTesters::Test::CustomTestInterface', flow_descript
 
     custom_c :test6, number: 30060
     custom_c :test7, number: 30070, my_arg1: 'KEEP_ME'
+
+    custom_d :test8, number: 30080
   end
 end
+
