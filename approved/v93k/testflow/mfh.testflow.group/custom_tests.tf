@@ -47,6 +47,13 @@ tm_6:
   "myArg2" = "VOLT";
   "testName" = "Functional";
   "testerState" = "CONNECTED";
+tm_7:
+  "doubleArg" = "5.22";
+  "doubleArgNodef" = "";
+  "integerArg" = "5";
+  "integerArgNodef" = "";
+  "testName" = "Functional";
+  "testerState" = "CONNECTED";
 
 end
 -----------------------------------------------------------------
@@ -61,6 +68,8 @@ tm_3:
 tm_5:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_6:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_7:
   "Functional" = "":"NA":"":"NA":"":"":"";
 
 end
@@ -79,6 +88,8 @@ tm_5:
   testmethod_class = "MyTml.TestC";
 tm_6:
   testmethod_class = "MyTml.TestC";
+tm_7:
+  testmethod_class = "MyTml.TestD";
 
 end
 -----------------------------------------------------------------
