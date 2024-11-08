@@ -48,12 +48,22 @@ tm_6:
   "testName" = "Functional";
   "testerState" = "CONNECTED";
 tm_7:
+  "booleanArg" = "1";
+  "booleanNoDefault" = "";
+  "currentArg" = "1[A]";
+  "currentNoDefault" = "";
   "doubleArg" = "5.22";
-  "doubleArgNodef" = "";
+  "doubleNoDefault" = "";
+  "frequencyArg" = "1000000[Hz]";
+  "frequencyNoDefault" = "";
   "integerArg" = "5";
-  "integerArgNodef" = "";
+  "integerNoDefault" = "";
   "testName" = "Functional";
   "testerState" = "CONNECTED";
+  "timeArg" = "10[s]";
+  "timeNoDefault" = "";
+  "voltageArg" = "1.2[V]";
+  "voltageNoDefault" = "";
 
 end
 -----------------------------------------------------------------

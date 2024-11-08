@@ -2,7 +2,7 @@ module OrigenTesters
   module SmartestBasedTester
     class Base
       class TestMethod
-        FORMAT_TYPES = [:current, :voltage, :time, :string, :integer, :double, :boolean, :class, :list_strings, :list_classes]
+        FORMAT_TYPES = [:current, :voltage, :time, :frequency, :string, :integer, :double, :boolean, :class, :list_strings, :list_classes]
 
         # Returns the object representing the test method library that the
         # given test method is defined in
