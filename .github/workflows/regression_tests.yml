@@ -41,5 +41,7 @@ jobs:
       run: origen test -c
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v2.3.4
+      with:
+        parallel: true
     - name: Verify Building website
       run: origen web compile --no-serve
