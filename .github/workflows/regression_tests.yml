@@ -42,6 +42,7 @@ jobs:
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v2.3.4
       with:
+        flag-name: ${{ join(matrix.*, '-') }}
         parallel: true
     - name: Verify Building website
       run: origen web compile --no-serve
