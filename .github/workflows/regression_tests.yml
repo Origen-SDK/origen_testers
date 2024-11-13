@@ -38,6 +38,21 @@ jobs:
     - name: Set environment
       run: origen e j750.rb
     - name: Run Regression tests
-      run: origen test
+      run: origen test -c
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v2.3.4
+      with:
+        flag-name: ${{ join(matrix.*, '-') }}
+        parallel: true
     - name: Verify Building website
       run: origen web compile --no-serve
+
+  finish:
+    needs: build
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@v2.3.4
+      with:
+        parallel-finished: true

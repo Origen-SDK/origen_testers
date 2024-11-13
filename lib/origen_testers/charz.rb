@@ -42,8 +42,8 @@ module OrigenTesters
     # the instance to be used is no longer set, so instead of referencing the session, use the one that we've
     # stored already
     def charz_instance
-      unless charz_session.current_instance.nil?
-        set_charz_instance(charz_session.current_instance)
+      unless charz_session.current_instance(stored_instance_valid: true).nil?
+        set_charz_instance(charz_session.current_instance(stored_instance_valid: true))
       end
       @charz_instance
     end

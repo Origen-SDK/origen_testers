@@ -115,16 +115,16 @@ module OrigenTesters
         def add_bin_sheets(spreadsheet)
           table = spreadsheet.table 'Software_Bins'
           row = table.row
-          row.cell 'Software Bin'
           row.cell 'Software Bin Name'
+          row.cell 'Software Bin'
           row.cell 'Hardware Bin'
           row.cell 'Result'
           row.cell 'Color'
           row.cell 'Priority'
           @softbins.each do |sbin, attrs|
             row = table.row
-            row.cell sbin
             row.cell attrs[:name]
+            row.cell sbin
             row.cell attrs[:bin]
             row.cell attrs[:result]
             row.cell attrs[:color]
@@ -134,13 +134,13 @@ module OrigenTesters
           # Write out the bin table
           table = spreadsheet.table 'Hardware_Bins'
           row = table.row
-          row.cell 'Hardware Bin'
           row.cell 'Hardware Bin Name'
+          row.cell 'Hardware Bin'
           row.cell 'Result'
           @bins.each do |bin, attrs|
             row = table.row
-            row.cell bin
             row.cell attrs[:name]
+            row.cell bin
             row.cell attrs[:result]
           end
         end

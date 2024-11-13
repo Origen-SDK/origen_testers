@@ -1,3 +1,20 @@
+<a class="anchor release_tag" name="v0_52_8"></a>
+<h1><a href="#v0_52_8">Tag: v0.52.8</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 12-Nov-2024 22:03PM
+
+
+ - allow software bin desciption to pass in from the app  (@ThaoHuynhFsl)
+ - re-arrange the columns in Software Bin and Hardware Bin tabs in the ods file (@ThaoHuynhFsl)
+ - Remove formatting typecast if val is blank (empty string) (@rlaj)
+ - Add test case , add frequency to known types (@rlaj)
+ - eof charz generation has a valid usecase for referencing the stored instance. Stop the deprecation warnings (@CodyBriscoe)
+ - Prevent empty default value from being converted to default type value. Ex. ''.to_i => 0 (@rlaj)
+ - Re-enable Coveralls (via GitHub actions) (@rlaj)
+
+
 <a class="anchor release_tag" name="v0_52_7"></a>
 <h1><a href="#v0_52_7">Tag: v0.52.7</a></h1>
 
