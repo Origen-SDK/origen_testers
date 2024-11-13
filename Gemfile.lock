@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    origen_testers (0.52.7)
+    origen_testers (0.52.8)
       ast (~> 2)
       atp (~> 1.1, >= 1.1.3)
       dentaku (~> 3)
