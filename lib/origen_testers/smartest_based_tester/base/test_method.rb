@@ -121,7 +121,7 @@ module OrigenTesters
         end
 
         def handle_val_type(val, type, attr)
-          return val if val == ''
+          return val if val == '' && !tester.smt8?
           case type
           when :current, 'CURR'
             "#{val}[A]"

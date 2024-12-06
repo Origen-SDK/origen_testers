@@ -563,7 +563,9 @@ flow PRB1_MAIN {
 
         suite type_check calls myTypeCheck.MyHashExampleClass {
             double = 1.0;
+            doubleNoDefault = 0.0;
             int = 1;
+            intNoDefault = 0;
         }
 
         suite xcvr_fs_vilvih calls ac_tml.AcTest.FunctionalTest {
