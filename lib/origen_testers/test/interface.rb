@@ -86,8 +86,10 @@ module OrigenTesters
                 my_type_check_test: {
                   # [OPTIONAL] The C++ test method class name can be overridden from the default like this:
                   class_name: 'MyHashExampleClass',
-                  int:        [:integer, 1],
-                  double:     [:double,  1.0]
+                  int:               [:integer, 1],
+                  double:            [:double,  1.0],
+                  int_no_default:    [:integer],
+                  double_no_default: [:double]
                 }
       end
 
@@ -303,6 +305,8 @@ module OrigenTesters
             tm = test_methods.my_type_check.my_type_check_test
             tm.int    = '1'
             tm.double = '1.0'
+            tm.int_no_default = ''
+            tm.double_no_default = ''
             ts = test_suites.run(name, options)
             ts.test_method = tm
             flow.test ts, options
