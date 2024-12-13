@@ -14,7 +14,9 @@ tm_100:
   "testName" = "Functional";
 tm_101:
   "double" = "1.0";
+  "doubleNoDefault" = "";
   "int" = "1";
+  "intNoDefault" = "";
 tm_102:
   "forceMode" = "VOLT";
   "forceValue" = "3.8[V]";
