@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    origen_testers (0.52.8)
+    origen_testers (0.52.9)
       ast (~> 2)
       atp (~> 1.1, >= 1.1.3)
       dentaku (~> 3)
@@ -183,4 +183,4 @@ DEPENDENCIES
   yard-activesupport-concern
 
 BUNDLED WITH
-   2.2.33
+   2.4.10
