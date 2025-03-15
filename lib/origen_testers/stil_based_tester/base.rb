@@ -25,6 +25,7 @@ module OrigenTesters
         @inline_comments = true
         @header_done = false
         @footer_done = false
+        @pushed_stil_header = []
       end
 
       def stil_based?
@@ -57,6 +58,11 @@ module OrigenTesters
         microcode "  #{line}';"
       end
 
+      # Method to build content for STIL 'Header' section 
+      def push_stil_header(text)
+        @pushed_stil_header << text
+      end
+
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
         options = {
@@ -66,6 +72,16 @@ module OrigenTesters
 
         unless pattern_only
           microcode 'STIL 1.0;'
+          
+          # If a STIL Header section is requested, add it 
+          if @pushed_stil_header != []
+            microcode ''
+            microcode 'Header {'
+            @pushed_stil_header.each do |line|
+              microcode "  " + line
+            end
+            microcode '}'
+          end
 
           microcode ''
           microcode 'Signals {'
