@@ -58,7 +58,7 @@ module OrigenTesters
         microcode "  #{line}';"
       end
 
-      # Method to build content for STIL 'Header' section 
+      # Method to build content for STIL 'Header' section
       def push_stil_header(text)
         @pushed_stil_header << text
       end
@@ -72,13 +72,13 @@ module OrigenTesters
 
         unless pattern_only
           microcode 'STIL 1.0;'
-          
-          # If a STIL Header section is requested, add it 
+
+          # If a STIL Header section is requested, add it
           if @pushed_stil_header != []
             microcode ''
             microcode 'Header {'
             @pushed_stil_header.each do |line|
-              microcode "  " + line
+              microcode '  ' + line
             end
             microcode '}'
           end
