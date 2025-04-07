@@ -498,10 +498,13 @@ module OrigenTesters
             end
           end
           stop = node.to_a[1]
-          if stop.is_a?(String) && smt8?
+          if stop.is_a?(String)
             stop = generate_flag_name(stop)
-          elsif stop.is_a?(String)
-            fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
+            if tester.smt7?
+              stop = "@#{stop}"
+            end
+          # elsif stop.is_a?(String)
+          #   fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
           end
           step = node.to_a[2]
           if smt8? && !(step == -1 || step == 1)
@@ -526,7 +529,10 @@ module OrigenTesters
             incdec = "+ #{step}"
           end
           if tester.smt7?
-            line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+            unless stop.is_a?(String)
+              stop = "#{stop + step}"
+            end
+            line "for #{var} = #{start}; #{var} #{compare} #{stop} ; #{var} = #{var} #{incdec}; do"
             line "test_number_loop_increment = #{test_num_inc}"
             line '{'
             @indent += 1
