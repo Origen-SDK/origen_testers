@@ -24,6 +24,11 @@ module OrigenTesters
       def initialize(id, options, &block)
         @id = id
         @id = @id.symbolize unless id.is_a? Symbol
+        if Origen.interface_loaded? && Origen.interface.respond_to?(:default_valid_charz_placements)
+          @valid_placements = Origen.interface.default_valid_charz_placements
+        else
+          @valid_placements = [:inline, :eof]
+        end
         options.each { |k, v| instance_variable_set("@#{k}", v) }
         (block.arity < 1 ? (instance_eval(&block)) : block.call(self)) if block_given?
         @name ||= id
@@ -55,7 +60,6 @@ module OrigenTesters
           fail
         end
 
-        @valid_placements ||= [:inline, :eof]
         unless @valid_placements.include? @placement
           Origen.log.error "Profile #{id}: invalid placement value, must be one of: #{@valid_placements}"
           fail

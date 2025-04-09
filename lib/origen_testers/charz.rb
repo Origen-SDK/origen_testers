@@ -20,7 +20,11 @@ module OrigenTesters
     #   @return [Boolean] whether or not to wrap eof charz tests in a group
     # @!attribute eof_charz_tests_group_name
     #   @return [String, Symbol] group name to be used to for eof charz tests
-    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :charz_instance, :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name
+    # @!attribute default_valid_charz_placements
+    #   @return [Array<Symbol>] (:inline, :eof) list of charz placements used when verifying a new profile is valid
+    attr_accessor :charz_stack, :charz_routines, :charz_profiles, :charz_session, :charz_instance,
+                  :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name,
+                  :default_valid_charz_placements
 
     def charz_stack
       @charz_stack ||= []
@@ -36,6 +40,10 @@ module OrigenTesters
 
     def charz_session
       @charz_session ||= Session.new
+    end
+
+    def default_valid_charz_placements
+      @default_valid_charz_placements ||= [:inline, :eof]
     end
 
     # If there is a current instance present, that should always be used. However when running EOF charz,

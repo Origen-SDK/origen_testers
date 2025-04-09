@@ -503,8 +503,8 @@ module OrigenTesters
             if tester.smt7?
               stop = "@#{stop}"
             end
-          # elsif stop.is_a?(String)
-          #   fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
+            # elsif stop.is_a?(String)
+            #   fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
           end
           step = node.to_a[2]
           if smt8? && !(step == -1 || step == 1)

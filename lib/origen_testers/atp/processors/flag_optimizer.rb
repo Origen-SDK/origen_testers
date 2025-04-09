@@ -125,8 +125,6 @@ module OrigenTesters::ATP
         results = []
         node1 = nil
         nodes.each do |node2|
-          binding.pry if node2.find(:id)&.value == "pptest_rmhi_pmin01_7877627" 
-          binding.pry if node2.find_all(:on_fail, :on_pass).any? { |dn| dn.find(:set_flag).to_a[0] == "pptest_rmhi_pmin01_7877627_FAILED" }
           if node1
             if can_be_combined?(node1, node2)
               node1 = combine(node1, node2)
@@ -147,7 +145,6 @@ module OrigenTesters::ATP
            # Don't optimize tests which are marked as continue if told not to
            !(node1.find(:on_fail) && node1.find(:on_fail).find(:continue) && !optimize_when_continue)
 
-        # if if_run_flag_to_remove.last == node.to_a[0] || node.to_a[0] == "pptest_rmhi_pmin01_7877627_PASSED"
           if node1.find_all(:on_fail, :on_pass).any? do |node|
             if n = node.find(:set_flag)
               # Inline instead of setting a flag if...
