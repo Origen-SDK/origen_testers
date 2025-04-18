@@ -258,6 +258,12 @@ module OrigenTesters
       options = {
         name: nil
       }.merge(options)
+
+      if !options.key?(:disable_group_on_sub_flow) &&
+         Origen.interface.instance_variable_get(:@disable_group_on_sub_flow)
+        options[:disable_group_on_sub_flow] = true
+      end
+
       file = Pathname.new(file).absolute? ? file : "#{current_dir}/#{file}"
       file = Origen.file_handler.add_rb_to(file)  # add .rb to filename if missing
       orig_file = "#{file}"     # capture original filename possibly without pre-pended underscore
