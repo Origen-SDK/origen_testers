@@ -34,15 +34,17 @@ module Origen
         if OrigenTesters::Flow.flow_comments
           top = false
           name = options[:name] || Pathname.new(file).basename('.rb').to_s.sub(/^_/, '')
-          # Generate imports as separate sub-flow files on this platform
-          if tester.v93k? && tester.smt8?
-            parent, sub_flow = *_sub_flow(name, options, &block)
-            path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
-            parent.atp.sub_flow(sub_flow.atp.raw, path: path.to_s)
+          import_options = Origen.generator.option_pipeline.last || {}
+          if import_options[:disable_group_on_sub_flow] ||
+             # runtime options passed to the import call take priority over Flow.create static options
+             (import_options[:disable_group_on_sub_flow].nil? && options[:disable_group])
+            _create(options, &block)
           else
-            import_options = Origen.generator.option_pipeline.last || {}
-            if import_options[:disable_group_on_sub_flow]
-              _create(options, &block)
+            # Generate imports as separate sub-flow files on this platform
+            if tester.v93k? && tester.smt8?
+              parent, sub_flow = *_sub_flow(name, options, &block)
+              path = sub_flow.output_file.relative_path_from(Origen.file_handler.output_directory)
+              parent.atp.sub_flow(sub_flow.atp.raw, path: path.to_s)
             else
               Origen.interface.flow.group(name, description: flow_comments) do
                 _create(options, &block)
@@ -67,6 +69,7 @@ module Origen
 
       # @api private
       def _sub_flow(name, options, &block)
+        Origen.interface._on_sub_flow(name, options) if Origen.interface.respond_to?(:_on_sub_flow)
         @top_level_flow ||= Origen.interface.flow
         parent = Origen.interface.flow
         # If the parent flow already has a child flow of this name then we need to generate a
