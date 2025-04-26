@@ -2306,6 +2306,11 @@ test_flow
        else
        {
        }
+       run(ungrouped_import_option_disable);
+       run(ungrouped_flow_create_option_disable);
+       {
+          run(grouped_flow_create_option_override);
+       }, open,"default_no_group_import", ""
        stop_bin "1", "", , good, noreprobe, green, 1, over_on;
     }
     else

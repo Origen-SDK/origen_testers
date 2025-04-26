@@ -55,7 +55,11 @@ Contains the limits tables for all flows.
 A top-level test program flow file in Origen will generate a correspondingly named file in the `flows/` directory,
 where the name of the generated file is the upper-cased version of the source file name.
 If the flow imports sub-flows or contains groups, then those will be contained in a directory named after the
-lower-cased version of the flow name.
+lower-cased version of the flow name. For sub-flow imports, this can be disabled by passing the option
+`disable_sub_flow_on_group: true` to the import call, or by setting the disable_group option in your sub-flow:
+`Flow.create(disable_group: true)`. Note that if both are provided, the import option value will take priority.
+When the group is disabled this way, the content of the sub-flow will simply be inserted as if it was defined
+in the calling flow instead of a sub flow.
 
 ##### limits/
 

@@ -19,5 +19,10 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_description: 'Prob
   # Test that a reference to a deeply nested test works (mainly for SMT8)
   test :on_deep_1, if_failed: :deep_test, test_text: "some_custom_text"
 
+  import 'components/default_group_import',    type: 'import_option_disable', disable_group_on_sub_flow: true, status: :ungrouped
+  import 'components/default_no_group_import', type: 'flow_create_option_disable', status: :ungrouped
+  import 'components/default_no_group_import', type: 'flow_create_option_override', disable_group_on_sub_flow: false, status: :grouped
+
+
   pass 1, description: "Good die!", softbin: 1
 end
