@@ -110,6 +110,38 @@ end
 
 This same API may be used to implement similar features on other platforms in future, but for now only the V93K is implemented.
 
+#### Grouping on sub-flows
+
+By default, imported sub-flows are wrapped in a group named by the passed `:name` option if provided, otherwise the name of the file is used.
+
+~~~ruby
+import 'my_sub_flow' # sub flow contains single test 'my_test'
+
+# Results in the following output in the .tf file:
+#   {
+#      run(my_test);
+#   }, open,"my_sub_flow", ""
+~~~
+
+To disable this behavior, you can either pass to your import call the option `disable_group_on_sub_flow: true`,
+or set `disable_group: true` in your Flow.create() parameters:
+
+~~~ruby
+# Pass option to import
+import 'my_sub_flow', { disable_group_on_sub_flow: true }
+
+# Or set in Flow.create() in _my_sub_flow.rb
+Flow.create(disable_group: true) do
+  func :my_test
+end
+
+# Results in the following output in the .tf file:
+#   run(my_test);
+~~~
+
+Note that the import option takes priority, so if `Flow.create(disable_group: true)`
+is set but import is passed `disable_group_on_sub_flow: false` then a group will still be created.
+
 ### Test Name Uniqueness
 
 Test (suite) naming collisions can occur when importing multiple independent test flow modules into a
