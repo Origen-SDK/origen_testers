@@ -311,4 +311,87 @@ Flow.create(interface: 'MyApp:Interface') do
 end
 ~~~
 
+#### Custom Placement Example
+
+For an example of adding new placements lets say we want to insert a charz test if the parent
+test fails, but not until after a later test in the flow "testB" has ran. To do so:
+
+* The profile needs to know that this new placement is valid and then target it
+* The charz tests themselves need a placement specific constructor method that collects the results for later use
+* Lastly, a method for calling the collected constructors and inserting them into the flow
+
+##### Adding valid placements
+
+To add new valid placements, you can do so either on a per-profile basis or across all profiles
+for the current interface:
+
+~~~ruby
+# Per-Profile
+add_charz_profile :my_profile |p|
+  # ...
+  p.valid_placements = [:on_fail_after_testB]
+  p.placement = :on_fail_after_testB
+end
+
+# Across Interface via interface instance variable:
+@default_valid_charz_placements = [:inline, :eof, :on_fail_after_testB]
+
+add_charz_profile :my_profile |p|
+  # ...
+  p.placement = :on_fail_after_testB
+end
+~~~
+
+##### Placement Constructor and Collection
+
+So that the charz API knows how to handle this placement, it will expect a method to be defined
+named as `create_<placement>_charz_tests(options, &block)`. This method will need to store the
+current context in a manner that can be called later. To collect multiple tests, we'll use
+an interface instance variable.
+
+~~~ruby
+# collect the current instance and options into a proc,
+# which will be stored in @on_fail_after_testB_charz_tests to be called later
+def create_on_fail_after_testB_charz_tests(options, &block)
+  # we'll need to save the current charz instance as it is now as its used in the test creation
+  current_instance = charz_instance.clone
+
+  # Store the setup instructions in a proc to be called later
+  @on_fail_after_testB_charz_tests ||= []
+  @on_fail_after_testB_charz_tests << proc do
+    # these are existing methods in the charz API
+    set_charz_instance(current_instance)
+    create_charz_group(options, &block)
+  end
+end
+~~~
+
+##### Inserting collected tests into the flow
+
+Now all thats left is to define the generator to call the collected tests, then
+we can apply our charz profile to the tests of interest and call the generator after testB
+has ran.
+
+~~~ruby
+# simple generator to call each collected proc
+def generate_on_fail_after_testB_charz_tests
+  @on_fail_after_testB_charz_tests.map(&:call)
+  @on_fail_after_testB_charz_tests = [] # clear to prevent accidental repeats
+end
+~~~
+
+And then finally in the flow:
+
+~~~ruby
+charz_on :my_profile do
+  func :test_i_want_to_charz1, id: :t1
+  func :test_i_want_to_charz2, id: :t2
+end
+
+# ...
+
+func :testB
+generate_on_fail_after_testB_charz_tests
+~~~
+
 % end
