@@ -19,10 +19,16 @@ module OrigenTesters
       attr_accessor :default_channelmap
       attr_accessor :default_testerconfig
       attr_accessor :max_site
+
       # permit modification of minimum repeat count
       attr_accessor :min_repeat_loop
       alias_method :min_repeat_count, :min_repeat_loop
       alias_method :min_repeat_count=, :min_repeat_loop=
+
+      # permit modification of maximum repeat count
+      attr_accessor :max_repeat_loop
+      alias_method :max_repeat_count, :max_repeat_loop
+      alias_method :max_repeat_count=, :max_repeat_loop=
 
       # Control literal flag definitions
       attr_accessor :literal_flags      # whether flags should be exactly as indicated
