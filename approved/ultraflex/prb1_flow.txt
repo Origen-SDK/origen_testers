@@ -197,4 +197,7 @@ DTFlowtableSheet,version=2.2:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Fl
 						logprint	Test_of_ultraflex_render_API																										
 						Use-Limit							Hz						Fail														
 						Test	on_deep_1												Fail									flag-true	deep_test_7AF57D1_FAILED				
+						Test	ungrouped_import_option_disable												Fail														
+						Test	ungrouped_flow_create_option_disable												Fail														
+						Test	grouped_flow_create_option_override												Fail														
 						set-device									1		1		Pass													Good die!	
