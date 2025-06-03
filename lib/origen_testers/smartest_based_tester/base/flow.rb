@@ -507,6 +507,7 @@ module OrigenTesters
           if smt8? && !(step == -1 || step == 1)
             fail 'SMT8 does not support steps other than -1 or 1.'
           end
+          
           if step.is_a?(String) || step.is_a?(Symbol)
             step = generate_flag_name(step)
             if tester.smt7?
