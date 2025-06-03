@@ -490,21 +490,28 @@ module OrigenTesters
 
         def on_loop(node, options = {})
           start = node.to_a[0]
-          if start.is_a?(String)
+          if start.is_a?(String) || start.is_a?(Symbol)
             start = generate_flag_name(start)
             unless smt8?
               start = "@#{start}"
             end
           end
           stop = node.to_a[1]
-          if stop.is_a?(String) && smt8?
+          if stop.is_a?(String) || stop.is_a?(Symbol)
             stop = generate_flag_name(stop)
-          elsif stop.is_a?(String)
-            fail 'loops with \'stop\' defined as a variable cannot be supported in the defined environments.'
+            if tester.smt7?
+              stop = "@#{stop}"
+            end
           end
           step = node.to_a[2]
           if smt8? && !(step == -1 || step == 1)
             fail 'SMT8 does not support steps other than -1 or 1.'
+          end
+          if step.is_a?(String) || step.is_a?(Symbol)
+            step = generate_flag_name(step)
+            if tester.smt7?
+              step = "@#{step}"
+            end
           end
           if node.to_a[3].nil?
             fail 'You must supply a loop variable name!'
@@ -518,7 +525,7 @@ module OrigenTesters
           end
           # num = (stop - start) / step + 1
           # Handle increment/decrement
-          if step < 0
+          if step.is_a?(Numeric) && step < 0
             compare = '>'
             incdec = "- #{step * -1}"
           else
@@ -526,7 +533,10 @@ module OrigenTesters
             incdec = "+ #{step}"
           end
           if tester.smt7?
-            line "for #{var} = #{start}; #{var} #{compare} #{stop + step} ; #{var} = #{var} #{incdec}; do"
+            unless stop.is_a?(String)
+              stop = "#{stop + step}"
+            end
+            line "for #{var} = #{start}; #{var} #{compare} #{stop} ; #{var} = #{var} #{incdec}; do"
             line "test_number_loop_increment = #{test_num_inc}"
             line '{'
             @indent += 1

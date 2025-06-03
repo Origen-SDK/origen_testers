@@ -1,3 +1,17 @@
+<a class="anchor release_tag" name="v0_52_11"></a>
+<h1><a href="#v0_52_11">Tag: v0.52.11</a></h1>
+
+##### Branch: 'master'
+
+##### by Cody Horton on 28-May-2025 17:14PM
+
+
+* V93K
+    * loop feature now allows tester variables for the stop parameter
+    * group creation can be opted out of on subflow import
+* Charz
+    * Can now specify default valid placements for all charz profiles instead of having to specify on each profile    
+
 <a class="anchor release_tag" name="v0_52_10"></a>
 <h1><a href="#v0_52_10">Tag: v0.52.10</a></h1>
 

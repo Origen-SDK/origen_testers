@@ -173,4 +173,7 @@ DFF 1.1	Flow Table
 						Test	meas_read_pump_v7	meas_read_pump	40080		119		2	Fail														
 						Test	meas_read_pump_v8	meas_read_pump	40090		119		2	Fail														
 						Test	on_deep_1							Fail									flag-true	deep_test_7AF57D1_FAILED				
+						Test	ungrouped_import_option_disable							Fail														
+						Test	ungrouped_flow_create_option_disable							Fail														
+						Test	grouped_flow_create_option_override							Fail														
 						set-device				1		1		Pass													Good die!	

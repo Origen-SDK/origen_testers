@@ -76,6 +76,7 @@ flow PRB1 {
 
         flow PRB1_MAIN calls OrigenTesters.flows.prb1.PRB1_MAIN { }
         flow TEST calls OrigenTesters.flows.prb1.TEST { }
+        flow DEFAULT_NO_GROUP_IMPORT calls OrigenTesters.flows.prb1.DEFAULT_NO_GROUP_IMPORT { }
     }
 
     execute {
@@ -101,6 +102,9 @@ flow PRB1 {
             on_deep_1.execute();
         } else {
         }
+        ungrouped_import_option_disable.execute();
+        ungrouped_flow_create_option_disable.execute();
+        DEFAULT_NO_GROUP_IMPORT.execute();
         addBin(1);
     }
 }

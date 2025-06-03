@@ -121,3 +121,6 @@ TEST.meas_read_pump_4,meas_read_pump_4,40040,meas_read_pump_4,0.045,0.035,,2
 TEST.meas_read_pump_5,meas_read_pump_5,40050,meas_read_pump_5,0.045,0.035,,
 TEST.meas_read_pump_6,meas_read_pump_6,40060,meas_read_pump_6,2000,0.01,,
 on_deep_1,on_deep_1,,some_custom_text,0,0,,
+ungrouped_import_option_disable,ungrouped_import_option_disable,,ungrouped_import_option_disable,0,0,,
+ungrouped_flow_create_option_disable,ungrouped_flow_create_option_disable,,ungrouped_flow_create_option_disable,0,0,,
+DEFAULT_NO_GROUP_IMPORT.grouped_flow_create_option_override,grouped_flow_create_option_override,,grouped_flow_create_option_override,0,0,,
