@@ -31,8 +31,12 @@ flow <%= flow_name %> {
 % auxiliary_flows.each do |name, path|
         flow <%= name %> calls <%= path %> {}
 % end
-% sub_flows.each do |name, path|
-        flow <%= name %> calls <%= path %> { }
+% sub_flows.each do |name, settings|
+        flow <%= name %> calls <%= settings[:path] %> {<%=" }" unless settings[:bypass]%>
+%   if settings[:bypass]
+            bypass = true;
+        }
+%   end
 % end
     }
 

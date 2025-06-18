@@ -38,7 +38,9 @@ flow LEVEL1 {
             testName = "Functional";
         }
 
-        flow LEVEL2 calls OrigenTesters.flows.flow_control.level1.LEVEL2 { }
+        flow LEVEL2 calls OrigenTesters.flows.flow_control.level1.LEVEL2 {
+            bypass = true;
+        }
     }
 
     execute {

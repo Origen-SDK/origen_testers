@@ -95,9 +95,18 @@ module OrigenTesters
           sub_flow = sub_flow_from(node)
           @sub_flows ||= {}
           path = Pathname.new(node.find(:path).value)
+          bypass = false
+          if node.find(:bypass)
+            if node.find(:bypass).value.to_s.match(/true/)
+              bypass = true
+            end
+          end
           name = path.basename('.*').to_s
           path = Origen.interface.sub_flow_path_overwrite(path) if Origen.interface.respond_to? :sub_flow_path_overwrite
-          @sub_flows[name] = "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
+          @sub_flows[name] = {
+            bypass: bypass,
+            path:   "#{path.dirname}.#{name}".gsub(/(\/|\\)/, '.')
+          }
           # Pass down all input variables before executing
           if sub_flow.input_variables.size > 0 && tester.flow_variable_grouping
             line "// #{name} sub-flow input variables"
