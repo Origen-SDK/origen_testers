@@ -80,7 +80,6 @@ flow PRB1 {
     }
 
     execute {
-        println("PRB1 Test Flow Version 00001 - do not copy me to approved!");
         PRB1_MAIN.ADDITIONAL_ERASE = ADDITIONAL_ERASE;
         PRB1_MAIN.ALARM = ALARM;
         PRB1_MAIN.ALARMENABLED = ALARMENABLED;
