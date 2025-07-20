@@ -56,6 +56,18 @@ module OrigenTesters
           end
           alias_method :on_unless_job, :on_if_job
 
+          def on_whenever(node)
+            flow_var, *nodes = *node
+            [flow_var].flatten.each do |f|
+              if f.value.is_a?(String) && f.value.to_s.match?(/^\$/)
+                add generate_flag_name(f.value), :referenced_flags
+              end
+            end
+            process_all(nodes)
+          end
+          alias_method :on_whenever_all, :on_whenever
+          alias_method :on_whenever_any, :on_whenever
+
           def on_if_flag(node)
             flag, *nodes = *node
             [flag].flatten.each do |f|

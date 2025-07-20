@@ -7,6 +7,8 @@ flow FLOW_CONTROL {
     in EWORD1 = -1;
     in EWORD2 = -1;
     in EXTRAS = -1;
+    in FIVE = -1;
+    in FIVE_PNT_TWO = -1;
     in FLAG1 = -1;
     in JOB = "";
     in LT_VARIABLE = -1;
