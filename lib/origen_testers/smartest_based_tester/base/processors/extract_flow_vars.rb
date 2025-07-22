@@ -59,8 +59,8 @@ module OrigenTesters
           def on_whenever(node)
             flow_var, *nodes = *node
             [flow_var].flatten.each do |f|
-              if f.value.is_a?(String) && f.value.to_s.match?(/^\$/)
-                add generate_flag_name(f.value), :referenced_flags
+              if [String, Symbol].include?(f.value.class)
+                add generate_flag_name(f.value.to_s), :referenced_flags
               end
             end
             process_all(nodes)
