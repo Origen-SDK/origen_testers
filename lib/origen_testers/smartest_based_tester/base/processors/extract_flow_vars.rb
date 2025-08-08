@@ -121,6 +121,17 @@ module OrigenTesters
             add flag, :set_enables
           end
 
+          def on_loop(node)
+            start, stop, step, loop_var, test_inc, *nodes = *node
+            [start, stop, step, loop_var].each do |type|
+              if [String, Symbol].include?(type.class) && tester.smt8?
+                add generate_flag_name(type), :referenced_flags
+              end
+            end
+
+            process_all(nodes)
+          end
+
           private
 
           def in_sub_flow?
