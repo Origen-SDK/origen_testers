@@ -166,6 +166,19 @@ module OrigenTesters
           l
         end
         # rubocop:enable Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters.
+
+        def wrap_if_string(value)
+          if value.is_a?(String)
+            if value =~ /setupRef(.*)/
+              # Do not wrap setupRef calls in quotes
+              return value
+            else
+              "\"#{value}\""
+            end
+          else
+            value
+          end
+        end
       end
     end
   end

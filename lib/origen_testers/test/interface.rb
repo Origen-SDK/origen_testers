@@ -60,6 +60,7 @@ module OrigenTesters
                     param_name0:          [:string, ''],
                     param_list_strings:   [:list_strings, %w(E1 E2)],
                     param_list_classes:   [:list_classes, %w(E1 E2)],
+                    param_func_call:      [:string, 'setupRef(FQN)'],
                     'param_group.param0': [:string, ''],
                     param_name1:          [{
                       param_name_int:       [:integer, 0],

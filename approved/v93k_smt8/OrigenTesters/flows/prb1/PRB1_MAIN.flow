@@ -271,6 +271,7 @@ flow PRB1_MAIN {
                 param_name0 = "hello";
                 param_list_strings = #["E1", "E2"];
                 param_list_classes = #[E1, E2];
+                param_func_call = setupRef(FQN);
                 param_group.param0 = "test_group";
                 param_name1[my_param_name1] = {
                     param_name_int = 1;

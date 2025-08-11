@@ -259,6 +259,7 @@ module OrigenTesters::ATP
             nodes = [name]
             nodes << id(options[:id]) if options[:id]
             nodes << n1(:path, path.to_s)
+            nodes << n1(:bypass, true) if options[:bypass] == true
             nodes += children
             ast = ast.updated :sub_flow, nodes,
                               file:        options.delete(:source_file) || source_file,
