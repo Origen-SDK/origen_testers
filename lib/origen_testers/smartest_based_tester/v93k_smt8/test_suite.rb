@@ -171,7 +171,7 @@ module OrigenTesters
           if value.is_a?(String)
             if value =~ /setupRef(.*)/
               # Do not wrap setupRef calls in quotes
-              return value
+              value
             else
               "\"#{value}\""
             end
