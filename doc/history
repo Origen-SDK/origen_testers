@@ -1,3 +1,20 @@
+<a class="anchor release_tag" name="v0_52_12"></a>
+<h1><a href="#v0_52_12">Tag: v0.52.12</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 26-Aug-2025 12:21PM
+
+
+* smt8 handle string formatted func params (Ronnie)
+* Allow bypass to be rendered into
+SMT8 flow call setup (Ignatius)
+* Update on_whenever nodes to create input flow variables
+for string variables (Ignatius)
+* Update on_whenever to be able to add Symbol/String type
+without case sensitivity (Ignatius)
+* Add loop vars to flow input variables (Ignatius)
+
 <a class="anchor release_tag" name="v0_52_11"></a>
 <h1><a href="#v0_52_11">Tag: v0.52.11</a></h1>
 
