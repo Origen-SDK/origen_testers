@@ -56,6 +56,18 @@ module OrigenTesters
           end
           alias_method :on_unless_job, :on_if_job
 
+          def on_whenever(node)
+            flow_var, *nodes = *node
+            [flow_var].flatten.each do |f|
+              if [String, Symbol].include?(f.value.class)
+                add generate_flag_name(f.value.to_s), :referenced_flags
+              end
+            end
+            process_all(nodes)
+          end
+          alias_method :on_whenever_all, :on_whenever
+          alias_method :on_whenever_any, :on_whenever
+
           def on_if_flag(node)
             flag, *nodes = *node
             [flag].flatten.each do |f|
@@ -107,6 +119,17 @@ module OrigenTesters
           def on_set(node)
             flag = generate_flag_name(node.to_a[0])
             add flag, :set_enables
+          end
+
+          def on_loop(node)
+            start, stop, step, loop_var, test_inc, *nodes = *node
+            [start, stop, step, loop_var].each do |type|
+              if [String, Symbol].include?(type.class) && tester.smt8?
+                add generate_flag_name(type), :referenced_flags
+              end
+            end
+
+            process_all(nodes)
           end
 
           private
