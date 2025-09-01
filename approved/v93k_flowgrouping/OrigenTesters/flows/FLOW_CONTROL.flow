@@ -11,6 +11,10 @@ flow FLOW_CONTROL {
     in FIVE_PNT_TWO = -1;
     in FLAG1 = -1;
     in JOB = "";
+    in LOOP_VARIABLE = -1;
+    in LOOP_VARIABLE1 = -1;
+    in LOOP_VARIABLE2 = -1;
+    in LOOP_VARIABLE3 = -1;
     in LT_VARIABLE = -1;
     in MCEn_extras = -1;
     in MCEn_test = -1;
