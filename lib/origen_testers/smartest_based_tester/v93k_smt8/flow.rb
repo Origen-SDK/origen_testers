@@ -20,57 +20,73 @@ module OrigenTesters
           indices.reverse
         end
 
+        def find_first_test_node(node)
+          test_node  = nil
+          fqn_prefix = nil
+          if node.type == :test
+            test_node = node
+          elsif node.type == :sub_flow
+            path       = Pathname.new(node.find(:name).value.to_s.gsub('.', '/'))
+            fqn_prefix = path.dirname.to_s.gsub('/', '.') + '.' + path.basename.to_s.upcase + '.'
+            node.children.each do |child|
+              if child.type == :test
+                test_node = child 
+                break
+              elsif child.type == :sub_flow
+                test_node = find_first_test(child, child.find(:path))
+                break
+              end
+            end
+          end
+          {
+            fqn_prefix: fqn_prefix,
+            node:       test_node
+          }
+        end
+
         def find_next_node(node)
           # Find current node
-          indices    = []
-          node_array = []
-          next_node  = nil
+          indices        = []
+          node_array     = []
+          test_node_hash = {}
           top_level.ast.to_a.each do |lower_node|
             indices = children_idx_to_current_node(lower_node, node)
             node_array[0] = lower_node
             indices.each_with_index do |child_idx, location_idx|
               node_array << node_array[location_idx].children.to_a[child_idx]
-              if child_idx == indices.last
-                if node_array[location_idx].children.to_a.size >= (child_idx+1)
-                  next_node = node_array[location_idx-1].children.to_a[indices[location_idx-1]]
+              if location_idx == (indices.size-1)
+                second_children = nil
+                if node_array[location_idx].children.to_a.size <= (child_idx+1)
+                  if next_node = node_array[location_idx-1].children.to_a[indices[location_idx]+1]
+                    test_node_hash = find_first_test_node(next_node)
+                  end
                 else
-                  next_node = node_array[location_idx].children.to_a[child_idx+1]
+                  test_node_hash = find_first_test_node(node_array[location_idx].children.to_a[child_idx+1])
                 end
               end
             end
           end
-          next_node
+          test_node_hash
         end
 
         # return an Array of all next tests
         def find_next_tests(node)
-          next_tests = []
+          next_tests = {}
           if node.type == :test
             [:on_pass, :on_fail].each do |flow_path|
-              debugger
               if node.find(flow_path) && node.find(flow_path).find(:test)
-                next_tests << node.find(flow_path).find(:test).find(:name).value
+                next_tests[node.find(flow_path).find(:test).find(:name).value] = flow_path
               else
-                if current_node_idx = ast.to_a.find_index(node)
-                  if (current_node_idx+1) < ast.to_a.size
-                    next_tests << ast.to_a[current_node_idx+1].find(:name).value
-                  else
-                    if next_node = find_next_node(node)
-                      next_tests << next_node.find(:name).value
-                    end
-                  end
-                else
-                  find_next_tests(node)
+                next_test_node_hash = find_next_node(node)
+                if next_test_node_hash[:node]
+                  next_node = next_test_node_hash[:node]
+                  prefix    = ''
+                  prefix    = next_test_node_hash[:fqn_prefix] if next_test_node_hash[:fqn_prefix]
+                  next_tests[prefix + next_node.find(:name).value] = flow_path
                 end
-                # next_tests << node.find(:test).find(:name).value
               end
             end
-          else
-            # (ast.to_a.find_index(node)+1) < ast.to_a.size
           end
-          # if we break, on_pass and on_fail both lead to stop(); return nil
-          # if we have on_pass and on_fail return a test, 2 nodes to return
-          # if no on_pass or on_fail get next test, return one node
           next_tests
         end
 
@@ -92,7 +108,7 @@ module OrigenTesters
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
             if tester.extreme_memory_pooling
-              find_next_tests(node).each do |next_test|
+              find_next_tests(node).each do |next_test, flow_path|
                 line "#{next_test}.preloadExecutionData();"
               end
             end
@@ -161,7 +177,7 @@ module OrigenTesters
             @post_test_lines.pop.each { |l| line(l) }
           else
             if tester.extreme_memory_pooling
-              find_next_tests(node).each do |next_test|
+              find_next_tests(node).each do |next_test, flow_path|
                 line "#{next_test}.preloadExecutionData();"
               end
             end
@@ -207,7 +223,7 @@ module OrigenTesters
             line '}'
           end
           if tester.extreme_memory_pooling
-            find_next_tests(node).each do |next_test|
+            find_next_tests(node).each do |next_test, flow_path|
               line "#{next_test}.preloadExecutionData();"
             end
           end
