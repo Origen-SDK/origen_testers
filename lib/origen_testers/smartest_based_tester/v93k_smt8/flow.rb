@@ -6,6 +6,74 @@ module OrigenTesters
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
         IN_IDENTIFIER = '_AUTOIN'
 
+        def children_idx_to_current_node(search_node, node)
+          indices = []
+          if search_node.type == :test || search_node.type == :sub_flow
+            search_node.children.each_with_index do |lower_node, idx|
+              indices = children_idx_to_current_node(lower_node, node)
+              if (lower_node == node) || indices.size > 0
+                indices << idx
+                break
+              end
+            end
+          end
+          indices.reverse
+        end
+
+        def find_next_node(node)
+          # Find current node
+          indices    = []
+          node_array = []
+          next_node  = nil
+          top_level.ast.to_a.each do |lower_node|
+            indices = children_idx_to_current_node(lower_node, node)
+            node_array[0] = lower_node
+            indices.each_with_index do |child_idx, location_idx|
+              node_array << node_array[location_idx].children.to_a[child_idx]
+              if child_idx == indices.last
+                if node_array[location_idx].children.to_a.size >= (child_idx+1)
+                  next_node = node_array[location_idx-1].children.to_a[indices[location_idx-1]]
+                else
+                  next_node = node_array[location_idx].children.to_a[child_idx+1]
+                end
+              end
+            end
+          end
+          next_node
+        end
+
+        # return an Array of all next tests
+        def find_next_tests(node)
+          next_tests = []
+          if node.type == :test
+            [:on_pass, :on_fail].each do |flow_path|
+              debugger
+              if node.find(flow_path) && node.find(flow_path).find(:test)
+                next_tests << node.find(flow_path).find(:test).find(:name).value
+              else
+                if current_node_idx = ast.to_a.find_index(node)
+                  if (current_node_idx+1) < ast.to_a.size
+                    next_tests << ast.to_a[current_node_idx+1].find(:name).value
+                  else
+                    if next_node = find_next_node(node)
+                      next_tests << next_node.find(:name).value
+                    end
+                  end
+                else
+                  find_next_tests(node)
+                end
+                # next_tests << node.find(:test).find(:name).value
+              end
+            end
+          else
+            # (ast.to_a.find_index(node)+1) < ast.to_a.size
+          end
+          # if we break, on_pass and on_fail both lead to stop(); return nil
+          # if we have on_pass and on_fail return a test, 2 nodes to return
+          # if no on_pass or on_fail get next test, return one node
+          next_tests
+        end
+
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
           if test_suite.is_a?(String)
@@ -23,6 +91,11 @@ module OrigenTesters
 
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
+            if tester.extreme_memory_pooling
+              find_next_tests(node).each do |next_test|
+                line "#{next_test}.preloadExecutionData();"
+              end
+            end
             line "#{name}.execute();"
             @open_test_names << name
             @post_test_lines << []
@@ -87,6 +160,11 @@ module OrigenTesters
             @open_test_names.pop
             @post_test_lines.pop.each { |l| line(l) }
           else
+            if tester.extreme_memory_pooling
+              find_next_tests(node).each do |next_test|
+                line "#{next_test}.preloadExecutionData();"
+              end
+            end
             line "#{name}.execute();"
           end
         end
@@ -127,6 +205,11 @@ module OrigenTesters
           if sub_flow.input_variables.size > 0 && tester.flow_variable_grouping
             @indent -= 1
             line '}'
+          end
+          if tester.extreme_memory_pooling
+            find_next_tests(node).each do |next_test|
+              line "#{next_test}.preloadExecutionData();"
+            end
           end
           line "#{name}.execute();"
           # And then retrieve all common output variables

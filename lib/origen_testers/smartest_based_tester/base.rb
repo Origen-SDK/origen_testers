@@ -88,6 +88,10 @@ module OrigenTesters
       # (SMT8 only)
       attr_accessor :print_all_params
 
+      # When set to true (default is false), extreme memory pooling flow requirement features for preloading a test suite 
+      # (SMT8 only)
+      attr_accessor :extreme_memory_pooling
+
       # When set to true, the flow path will have insertion in the subdirectories
       # (SMT8 only)
       attr_reader :insertion_in_the_flow_path
@@ -123,6 +127,7 @@ module OrigenTesters
           @pat_extension = 'pat'
           @program_comment_char = ['println', '//']
           @print_all_params = options[:print_all_params].nil? ? true : options[:print_all_params]
+          @extreme_memory_pooling = options[:extreme_memory_pooling].nil? ? false : options[:extreme_memory_pooling]
         else
           @pat_extension = 'avc'
           @program_comment_char = ['print_dl', '//']
