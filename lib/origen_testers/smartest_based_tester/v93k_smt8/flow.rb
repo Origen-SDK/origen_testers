@@ -8,7 +8,7 @@ module OrigenTesters
 
         def children_idx_to_current_node(search_node, node)
           indices = []
-          if search_node.type == :test || search_node.type == :sub_flow
+          if [:test, :sub_flow, :on_pass, :on_fail].include?(search_node.type)
             search_node.children.each_with_index do |lower_node, idx|
               indices = children_idx_to_current_node(lower_node, node)
               if (lower_node == node) || indices.size > 0
@@ -17,31 +17,36 @@ module OrigenTesters
               end
             end
           end
-          indices.reverse
+          indices
         end
 
         def find_first_test_node(node)
-          test_node  = nil
-          fqn_prefix = nil
+          test_node_hash = {}
+          fqn_prefix     = nil
           if node.type == :test
-            test_node = node
-          elsif node.type == :sub_flow
-            path       = Pathname.new(node.find(:name).value.to_s.gsub('.', '/'))
-            fqn_prefix = path.dirname.to_s.gsub('/', '.') + '.' + path.basename.to_s.upcase + '.'
+            test_node_hash = {
+              node: node
+            }
+          elsif node.type == :sub_flow || node.type.to_s.match(/(unless|if)/)
+            if node.type == :sub_flow
+              path       = Pathname.new(node.find(:name).value.to_s.gsub('.', '/'))
+              fqn_prefix = path.dirname.to_s.gsub('/', '.') + '.' + path.basename.to_s.upcase + '.'
+            end
             node.children.each do |child|
-              if child.type == :test
-                test_node = child 
+              if child.type == :sub_flow || child.type.to_s.match(/(unless|if)/)
+                child = child.children[1] if child.type.to_s.match(/(unless|if)/)
+                test_node_hash = find_first_test_node(child)
                 break
-              elsif child.type == :sub_flow
-                test_node = find_first_test(child, child.find(:path))
+              elsif child.type == :test
+                test_node_hash = {
+                  fqn_prefix: fqn_prefix,
+                  node:       child
+                }
                 break
               end
             end
           end
-          {
-            fqn_prefix: fqn_prefix,
-            node:       test_node
-          }
+          test_node_hash
         end
 
         def find_next_node(node)
@@ -50,18 +55,21 @@ module OrigenTesters
           node_array     = []
           test_node_hash = {}
           top_level.ast.to_a.each do |lower_node|
-            indices = children_idx_to_current_node(lower_node, node)
+            indices = children_idx_to_current_node(lower_node, node).reverse
             node_array[0] = lower_node
             indices.each_with_index do |child_idx, location_idx|
               node_array << node_array[location_idx].children.to_a[child_idx]
               if location_idx == (indices.size-1)
                 second_children = nil
                 if node_array[location_idx].children.to_a.size <= (child_idx+1)
-                  if next_node = node_array[location_idx-1].children.to_a[indices[location_idx]+1]
-                    test_node_hash = find_first_test_node(next_node)
+                  ((location_idx-1)..0).each do |array_idx|
+                    searching_child_idx = indices[array_idx]
+                    if next_node = node_array[array_idx].children[searching_child_idx+1]
+                      test_node_hash = find_first_test_node(next_node)
+                    end
                   end
                 else
-                  test_node_hash = find_first_test_node(node_array[location_idx].children.to_a[child_idx+1])
+                  test_node_hash = find_first_test_node(node_array[location_idx].children[child_idx+1])
                 end
               end
             end
