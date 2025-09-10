@@ -6,20 +6,29 @@ module OrigenTesters
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
         IN_IDENTIFIER = '_AUTOIN'
 
+        # Recursive call to search through children of OrigenTesters::ATP::AST::Node tree
+        # Return a reversed array of children indexes that will return the node if it is inside search_node
+        # Example: if search_node.children[1].children[3].children[5].children[2], the returned array would be [2,5,3,1]
         def children_idx_to_current_node(search_node, node)
           indices = []
-          if [:test, :sub_flow, :on_pass, :on_fail].include?(search_node.type)
-            search_node.children.each_with_index do |lower_node, idx|
-              indices = children_idx_to_current_node(lower_node, node)
-              if (lower_node == node) || indices.size > 0
-                indices << idx
-                break
+          if search_node.is_a?(OrigenTesters::ATP::AST::Node)
+            search_node.children.each_with_index do |child_node, idx|
+              if child_node.is_a?(OrigenTesters::ATP::AST::Node)
+                indices = children_idx_to_current_node(child_node, node)
+                if (child_node == node) || indices.size > 0
+                  indices << idx
+                  break
+                end
               end
             end
           end
           indices
         end
 
+        # From OrigenTesters::ATP::AST::Node, find the first test node
+        # Return Hash with:
+        #   node - [OrigenTesters::ATP::AST::Node] REQUIRED: node type :test
+        #   fqn_prefix - [String] OPTIONAL: represents the sub_flow path if that exists in the test node path
         def find_first_test_node(node)
           test_node_hash = {}
           fqn_prefix     = nil
@@ -55,20 +64,23 @@ module OrigenTesters
           node_array     = []
           test_node_hash = {}
           top_level.ast.to_a.each do |lower_node|
+            # Reverse the array since it is provided in that order from the recursive search
             indices = children_idx_to_current_node(lower_node, node).reverse
             node_array[0] = lower_node
             indices.each_with_index do |child_idx, location_idx|
-              node_array << node_array[location_idx].children.to_a[child_idx]
+              node_array << node_array[location_idx].children[child_idx]
               if location_idx == (indices.size-1)
                 second_children = nil
                 if node_array[location_idx].children.to_a.size <= (child_idx+1)
                   ((location_idx-1)..0).each do |array_idx|
                     searching_child_idx = indices[array_idx]
                     if next_node = node_array[array_idx].children[searching_child_idx+1]
+                      # If a next_node exists, find the first test from the node
                       test_node_hash = find_first_test_node(next_node)
                     end
                   end
                 else
+                  # Go to the very next node inside the node tree to find the next test node
                   test_node_hash = find_first_test_node(node_array[location_idx].children[child_idx+1])
                 end
               end
