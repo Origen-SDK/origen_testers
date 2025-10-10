@@ -8,6 +8,20 @@ module OrigenTesters
         add_custom_tml if tester.v93k?
       end
 
+      def set_flow_variables(vars)
+        [:referenced_enables, :set_enables].each do |key|
+          new_array = []
+          vars[:all][key].each do |var|
+            if var.to_s.match(/SYM_FLAG/) 
+              new_array << [var, 2]
+            else
+              new_array << var
+            end
+          end
+          vars[:all][key] = new_array
+        end
+      end
+
       def custom(name, options = {})
         name = "custom_#{name}".to_sym
         if tester.try(:igxl_based?)
