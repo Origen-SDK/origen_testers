@@ -12,7 +12,7 @@ module OrigenTesters
         [:referenced_enables, :set_enables].each do |key|
           new_array = []
           vars[:all][key].each do |var|
-            if var.to_s.match(/SYM_FLAG/) 
+            if var.to_s.match(/SYM_FLAG/)
               new_array << [var, 2]
             else
               new_array << var
