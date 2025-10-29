@@ -6,6 +6,7 @@
   ultraflex: ["program/prod.list", "program/uflex_resources.rb"],
   ultraflex_literals: ["program/flow_control_literals.rb"],
   v93k: ["program/charz.rb", "program/prod.list"],
+  v93k_disable_test_loop_increment: ["program/charz.rb", "program/prod.list"],
   v93k_multiport: ["program/prb1.rb"],
   v93k_enable_flow: ["program/prb1.rb", "program/prb2.rb"],
   v93k_disable_flow: ["program/prb1.rb", "program/prb2.rb"],

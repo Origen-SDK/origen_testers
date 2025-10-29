@@ -537,7 +537,9 @@ module OrigenTesters
               stop = "#{stop + step}"
             end
             line "for #{var} = #{start}; #{var} #{compare} #{stop} ; #{var} = #{var} #{incdec}; do"
-            line "test_number_loop_increment = #{test_num_inc}"
+            unless tester.disable_test_number_loop_increment || options[:disable_test_number_loop_increment]
+              line "test_number_loop_increment = #{test_num_inc}"
+            end
             line '{'
             @indent += 1
             process_all(node.children)
