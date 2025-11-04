@@ -58,15 +58,19 @@ module OrigenTesters
           test_node_hash
         end
 
+        # node - [OrigenTesters::ATP::AST::Node] current location node
+        # Find the next node relative to the current node. The returned node could be outside the scope of the current ast
         def find_next_node(node)
           # Find current node
           indices        = []
           node_array     = []
           test_node_hash = {}
+          # Search through the top_level ast to find the current node location
           top_level.ast.to_a.each do |lower_node|
             # Reverse the array since it is provided in that order from the recursive search
             indices = children_idx_to_current_node(lower_node, node).reverse
             node_array[0] = lower_node
+            # From the current node location, go to the next test node
             indices.each_with_index do |child_idx, location_idx|
               node_array << node_array[location_idx].children[child_idx]
               if location_idx == (indices.size-1)
