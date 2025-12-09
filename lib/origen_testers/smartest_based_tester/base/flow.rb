@@ -118,6 +118,7 @@ module OrigenTesters
                 vars[:empty?] = false
               end
             end
+            Origen.interface.set_flow_variables(vars) if Origen.interface.respond_to?(:set_flow_variables)
             vars
           end
         end

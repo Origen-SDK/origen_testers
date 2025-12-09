@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_52_14"></a>
+<h1><a href="#v0_52_14">Tag: v0.52.14</a></h1>
+
+##### Branch: 'master'
+
+##### by James Creamer on 04-Nov-2025 15:44PM
+
+
+Add in SMT7 set_flow_variables hook for variable value override access
+
 <a class="anchor release_tag" name="v0_52_13"></a>
 <h1><a href="#v0_52_13">Tag: v0.52.13</a></h1>
 

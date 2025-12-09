@@ -30,7 +30,7 @@ user ADDITIONAL_ERASE = 0;
 user ALARMENABLED = 0;
 user DO_ERASE = 0;
 user NO_EXTRA_ERASE = 0;
-user SYM_FLAG = 0;
+user SYM_FLAG = 2;
 user StringFLag = 0;
 user USB_XCVR_CZ = 0;
 
