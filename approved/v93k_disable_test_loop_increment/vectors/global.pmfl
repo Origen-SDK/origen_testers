@@ -1,0 +1,10 @@
+hp93000,pattern_master_file,0.1
+
+path:
+../vectors
+
+files:
+charz_example.binl.gz
+meas_read_pump.binl.gz
+test1.binl.gz
+

@@ -70,6 +70,9 @@ module OrigenTesters
       # delayed: false is supplied when defining the test
       attr_accessor :delayed_binning
 
+      # When set to true, disable the rendering of the `test_number_loop_increment` line
+      attr_accessor :disable_test_number_loop_increment
+
       # Sets the package namespace that all generated test collateral should be placed under,
       # defaults to the application's namespace if not defined (SMT8 only)
       attr_writer :package_namespace
@@ -99,6 +102,8 @@ module OrigenTesters
           multiport_prefix:  false,
           multiport_postfix: false
         }.merge(options)
+
+        @disable_test_number_loop_increment = options[:disable_test_number_loop_increment] || false
 
         @smt_version = options[:smt_version] || 7
 
