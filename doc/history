@@ -1,3 +1,13 @@
+<a class="anchor release_tag" name="v0_52_15"></a>
+<h1><a href="#v0_52_15">Tag: v0.52.15</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 12-Jan-2026 11:05AM
+
+
+Allow for test_number_loop_increment render in SMT7 environment to be optional (Ignatius)
+
 <a class="anchor release_tag" name="v0_52_14"></a>
 <h1><a href="#v0_52_14">Tag: v0.52.14</a></h1>
 
