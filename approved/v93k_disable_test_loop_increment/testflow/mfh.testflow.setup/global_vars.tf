@@ -3,36 +3,25 @@ language_revision = 1;
 
 declarations
 
-@ALARM = 0;
-@DEEP_TEST_864CE8F_FAILED = 0;
-@ERASE_FAILED_1_864CE8F_FAILED = 0;
-@ERASE_FAILED_2_864CE8F_FAILED = 0;
-@ERASE_FAILED_3_864CE8F_PASSED = 0;
-@ERASE_FAILED_4_864CE8F_PASSED = 0;
-@ERASE_PASSED_1_864CE8F_PASSED = 0;
-@ERASE_PASSED_2_864CE8F_PASSED = 0;
-@ERASE_PASSED_3_864CE8F_FAILED = 0;
-@ERASE_PASSED_4_864CE8F_FAILED = 0;
-@ERASE_RAN_1_864CE8F_RAN = 0;
-@ERASE_RAN_2_864CE8F_RAN = 0;
-@ERASE_RAN_3_864CE8F_RAN = 0;
-@ERASE_RAN_4_864CE8F_RAN = 0;
-@ERS_VFY_FAILED = 0;
-@G100_864CE8F_RAN = 0;
-@G200_864CE8F_FAILED = 0;
-@JOB = "";
+@AUTO_CHARZ_ID_538E35D64F9C10B1D83B196E10C935B9_E4F9C4F_FAILED = 0;
+@AUTO_CHARZ_ID_A5AAB7880ABF16C25368AE6EAFA6120B_E4F9C4F_PASSED = 0;
+@MY_FLAG = 0;
+@MY_FLAG1 = 0;
+@MY_FLAG2 = 0;
+@MyFlag1 = 0;
+@MyFlag2 = 0;
+@MyFlag3 = 0;
 
 end
 -----------------------------------------------------------------
 flags
 
-user ADDITIONAL_ERASE = 0;
-user ALARMENABLED = 0;
-user DO_ERASE = 0;
-user NO_EXTRA_ERASE = 0;
-user SYM_FLAG = 2;
-user StringFLag = 0;
-user USB_XCVR_CZ = 0;
+user MY_ENABLE = 0;
+user MY_ENABLE1 = 0;
+user MY_ENABLE2 = 0;
+user MyEnable1 = 0;
+user MyEnable2 = 0;
+user MyEnable3 = 0;
 
 end
 -----------------------------------------------------------------

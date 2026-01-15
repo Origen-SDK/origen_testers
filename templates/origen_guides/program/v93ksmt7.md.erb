@@ -110,6 +110,27 @@ end
 
 This same API may be used to implement similar features on other platforms in future, but for now only the V93K is implemented.
 
+#### Changing default flow variable values
+
+The default values for global_var are 0 since the loading of the file only happens once. However if you want to change the default,
+you can add `set_flow_variables(vars)` to your Interface class. An example is provided below:
+
+~~~ruby
+def set_flow_variables(vars)
+  [:referenced_enables, :set_enables].each do |key|
+    new_array = []
+    vars[:all][key].each do |var|
+      if var.to_s.match(/MY_VAR_NAME/) 
+        new_array << [var, 1]
+      else
+        new_array << var
+      end
+    end
+    vars[:all][key] = new_array
+  end
+end
+~~~
+
 #### Grouping on sub-flows
 
 By default, imported sub-flows are wrapped in a group named by the passed `:name` option if provided, otherwise the name of the file is used.
@@ -192,6 +213,5 @@ Or, it can be set directly within your interface logic which will take the highe
 # lib/my_app/interface.rb
 self.unique_test_names = :flowname
 ~~~
-
 
 % end

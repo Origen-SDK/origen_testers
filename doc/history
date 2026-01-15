@@ -1,3 +1,50 @@
+<a class="anchor release_tag" name="v0_52_15"></a>
+<h1><a href="#v0_52_15">Tag: v0.52.15</a></h1>
+
+##### Branch: 'master'
+
+##### by Ronnie Lajaunie on 12-Jan-2026 11:05AM
+
+
+Allow for test_number_loop_increment render in SMT7 environment to be optional (Ignatius)
+
+<a class="anchor release_tag" name="v0_52_14"></a>
+<h1><a href="#v0_52_14">Tag: v0.52.14</a></h1>
+
+##### Branch: 'master'
+
+##### by James Creamer on 04-Nov-2025 15:44PM
+
+
+Add in SMT7 set_flow_variables hook for variable value override access
+
+<a class="anchor release_tag" name="v0_52_13"></a>
+<h1><a href="#v0_52_13">Tag: v0.52.13</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 17-Sep-2025 11:02AM
+
+
+remove loop var and step from SMT8 flow var initialization (Ignatius)
+
+<a class="anchor release_tag" name="v0_52_12"></a>
+<h1><a href="#v0_52_12">Tag: v0.52.12</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 26-Aug-2025 12:21PM
+
+
+* smt8 handle string formatted func params (Ronnie)
+* Allow bypass to be rendered into
+SMT8 flow call setup (Ignatius)
+* Update on_whenever nodes to create input flow variables
+for string variables (Ignatius)
+* Update on_whenever to be able to add Symbol/String type
+without case sensitivity (Ignatius)
+* Add loop vars to flow input variables (Ignatius)
+
 <a class="anchor release_tag" name="v0_52_11"></a>
 <h1><a href="#v0_52_11">Tag: v0.52.11</a></h1>
 
