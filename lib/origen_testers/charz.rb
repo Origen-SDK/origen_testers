@@ -252,7 +252,11 @@ module OrigenTesters
           if charz_session.on_result?
             md5_id = Digest::MD5.new
             md5_id << parent_test_name.to_s
-            md5_id << options.to_s
+            # Use a deterministic string representation of options that is consistent
+            # across Ruby versions. Ruby 4.0 changed Hash#inspect to use "key: val"
+            # syntax instead of ":key=>val", which produces different MD5 digests.
+            # Explicitly build the old-style rocket format to keep IDs stable.
+            md5_id << ('{' + options.map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ') + '}')
             md5_id << charz_session.id.to_s
             options[:id] = "auto_charz_id_#{md5_id}".to_sym
           end

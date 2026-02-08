@@ -195,10 +195,12 @@ module CompilerSpec
         dut.pattern_compilers(platform: :ultraflex).count.should == 1
 
         dut.pattern_compilers(:id1).should.nil?
-        if RUBY_VERSION < '3.2.0'
+        if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.3.0')
          msg = "undefined method `inspect_options' for nil:NilClass"
-        else
+        elsif Gem::Version.new(RUBY_VERSION) < Gem::Version.new('4.0.0')
          msg = "undefined method `inspect_options' for nil"
+        else
+         msg = "undefined method 'inspect_options' for nil"  # Ruby 4.0+ uses straight quotes
         end
         lambda { dut.pattern_compilers(:id11) }.should raise_error(msg)
         dut.pattern_compilers(:id1, platform: :j750).should.nil?

@@ -3,34 +3,37 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        ruby-version: [3.0.4, 3.1, 3.3.1, 4.0.0]
+        ruby-version: [2.6, 3.0.4, 3.1, 3.3.1, 3.4.2, 4.0.0]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
+        bundler: '2.4.22'
     - name: Update Env
       run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
-    - name: Install Bundler
-      # last version to support our version of Ruby/RubyGems was 2.4.22
-      run: gem install bundler -v 2.4.22
-    - name: Work around bundler/ruby/gem/rubocop-ast version issue
-      if: matrix.ruby-version == '2.6'
-      run: gem install rubocop-ast -v 1.30.0      
+    - name: Remove Gemfile.lock
+      run: rm Gemfile.lock
     - name: Install dependencies
-      run: bundle install  
-    - name: Gem Install Origen 
-      run: gem install origen 
+      run: bundle install
+    # Build and install origen from the bundled git source so the origen
+    # command uses our feature branch code, not the old RubyGems.org release
+    - name: Build and Install Origen Gem
+      shell: bash
+      run: |
+        ORIGEN_PATH=$(bundle info origen --path)
+        gem build "$ORIGEN_PATH/origen.gemspec" --output origen.gem && gem install origen.gem
     - name: Setup Dependencies
       run: origen -v
     - name: Run Origen Lint
-      run: origen lint --no-correct  
+      run: origen lint --no-correct
     - name: Set Origen to debug mode
       run: origen m debug
     - name: Set target
@@ -45,6 +48,7 @@ jobs:
         flag-name: ${{ join(matrix.*, '-') }}
         parallel: true
     - name: Verify Building website
+      if: matrix.os == 'ubuntu-latest'
       run: origen web compile --no-serve
 
   finish:
