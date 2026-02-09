@@ -691,7 +691,7 @@ module OrigenTesters::ATP
           flags = flags.first if flags.size == 1
           # Legacy option provided by OrigenTesters that permits override of a block enable method by passing
           # an :or option with a true value
-          if (CONDITION_KEYS[method] == :if_enabled || CONDITION_KEYS[method] || :unless_enabled) && options[:or]
+          if (CONDITION_KEYS[method] == :if_enabled || CONDITION_KEYS[method] || :unless_enabled) && options[:or] # rubocop:disable Lint/LiteralAsCondition, Lint/RedundantCopDisableDirective
             block.call
           else
             flow_control_method(CONDITION_KEYS[method], flags, options, &block)

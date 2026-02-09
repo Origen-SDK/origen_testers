@@ -13,15 +13,15 @@ module OrigenTesters
           @paths = {}
         end
 
-        def filename
+        def filename # rubocop:disable Lint/DuplicateMethods
           @filename || flow.filename.sub('.tf', '.pmfl')
         end
 
-        def subdirectory
+        def subdirectory # rubocop:disable Lint/DuplicateMethods
           @subdirectory ||= 'vectors'
         end
 
-        def paths
+        def paths # rubocop:disable Lint/DuplicateMethods
           { '../vectors' => patterns }
         end
 

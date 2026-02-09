@@ -82,7 +82,7 @@ module OrigenTesters
           supply = Struct.new(:forcev, :irange, :source_overload_i, :source_overload_t, :source_fold_i,
                               :source_fold_t, :sink_overload_i, :sink_overload_t, :sink_fold_i,
                               :sink_fold_t, :meter_irange, :meter_vrange, :tdelay, :accuracy,
-                              :filter, :bandwidth)
+                              :filter, :bandwidth) # rubocop:disable Lint/StructNewOverride
           if @instrument == 'VSM'
             forcev = (0.V..4.V)
             irange = [1.A, 11.A, 21.A, 51.A, 81.A]

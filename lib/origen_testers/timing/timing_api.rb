@@ -255,8 +255,7 @@ module OrigenTesters
       #   end
       def count(options = {})
         options = { period_in_cycles: 0, period_in_ms: 0, period_in_us: 0, period_in_ns: 0,
-                    duration_in_cycles: 0, duration_in_ms: 0, duration_in_us: 0, duration_in_ns: 0
-                  }.merge(options)
+                    duration_in_cycles: 0, duration_in_ms: 0, duration_in_us: 0, duration_in_ns: 0 }.merge(options)
 
         period_cycles = options[:period_in_cycles] + ms_to_cycles(options[:period_in_ms]) +
                         us_to_cycles(options[:period_in_us]) + ns_to_cycles(options[:period_in_ns])

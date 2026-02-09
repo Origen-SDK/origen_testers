@@ -25,30 +25,23 @@ module OrigenTesters
           # Aliases can also be used to set defaults on multiple attributes like this,
           # use :value to refer to the value passed in to the given alias
           flag_false:     { device_condition: 'flag-false',
-                            device_name:      :value
-                         },
+                            device_name:      :value },
           flag_true:      { device_condition: 'flag-true',
-                            device_name:      :value
-                         },
+                            device_name:      :value },
           flag_false_any: { group_specifier: 'any-active',
                             group_condition: 'flag-false',
-                            group_name:      :value
-                             },
+                            group_name:      :value },
           flag_false_all: { group_specifier: 'all-active',
                             group_condition: 'flag-false',
-                            group_name:      :value
-                             },
+                            group_name:      :value },
           flag_true_any:  { group_specifier: 'any-active',
                             group_condition: 'flag-true',
-                            group_name:      :value
-                            },
+                            group_name:      :value },
           flag_true_all:  { group_specifier: 'all-active',
                             group_condition: 'flag-true',
-                            group_name:      :value
-                            },
+                            group_name:      :value },
           flag_clear:     { device_condition: 'flag-clear',
-                            device_name:      :value
-                         }
+                            device_name:      :value }
         }
 
         # Assign attribute defaults here, generally this should match whatever defaults
@@ -258,7 +251,7 @@ module OrigenTesters
           # code
         end
 
-        def id
+        def id # rubocop:disable Lint/DuplicateMethods
           @id || "#{parameter}_#{unique_counter}"
         end
 

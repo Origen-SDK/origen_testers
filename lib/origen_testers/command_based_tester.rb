@@ -34,7 +34,7 @@ module OrigenTesters
     end
 
     # Loop the content embedded in the supplied block
-    def loop(_name = nil, number_of_loops)
+    def loop(_name = nil, number_of_loops) # rubocop:disable Style/OptionalArguments
       number_of_loops.times do
         yield
       end

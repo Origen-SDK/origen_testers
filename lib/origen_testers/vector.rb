@@ -1,7 +1,7 @@
 module OrigenTesters
   # A simple class to model a vector
   class Vector
-    attr_accessor :repeat, :microcode, :timeset, :pin_vals,
+    attr_accessor :repeat, :microcode, :timeset, :pin_vals, # rubocop:disable Lint/DuplicateMethods
                   :number, :cycle_number, :dont_compress,
                   :comments, :inline_comment, :cycle, :number, :contains_capture
 
@@ -12,7 +12,7 @@ module OrigenTesters
       end
     end
 
-    def comments
+    def comments # rubocop:disable Lint/DuplicateMethods
       @comments ||= []
     end
 
@@ -178,7 +178,7 @@ module OrigenTesters
       Origen.app.pin_map.sort_by { |id, pin| pin.order }.map { |id, pin| pin }
     end
 
-    def microcode=(val)
+    def microcode=(val) # rubocop:disable Lint/DuplicateMethods
       if val && has_microcode? && @microcode != val
         fail "Trying to assign microcode: #{val}, but vector already has microcode: #{@microcode}"
       else
@@ -187,7 +187,7 @@ module OrigenTesters
     end
 
     # Since repeat 0 is non-intuitive every vector implicitly has a repeat of 1
-    def repeat
+    def repeat # rubocop:disable Lint/DuplicateMethods
       @repeat || 1
     end
 

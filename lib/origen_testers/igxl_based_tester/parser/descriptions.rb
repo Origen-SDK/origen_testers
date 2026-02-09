@@ -57,11 +57,11 @@ module OrigenTesters
           end
         end
 
-        def source_directories
+        def source_directories # rubocop:disable Lint/DuplicateMethods
           [@source_directories, Origen.config.test_program_source_directory].compact.flatten
         end
 
-        def template_directories
+        def template_directories # rubocop:disable Lint/DuplicateMethods
           [@template_directories, Origen.config.test_program_template_directory].compact.flatten
         end
 
@@ -251,8 +251,7 @@ module OrigenTesters
         # templates to
         def flow_or_instance_file?(file, options = {})
           options = { flow:     true,
-                      instance: true
-          }.merge(options)
+                      instance: true }.merge(options)
           if options[:flow] && options[:instance]
             match = 'Flow|Instances'
           elsif options[:flow]

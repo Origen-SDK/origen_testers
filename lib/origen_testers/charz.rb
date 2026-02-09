@@ -26,30 +26,30 @@ module OrigenTesters
                   :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name,
                   :default_valid_charz_placements
 
-    def charz_stack
+    def charz_stack # rubocop:disable Lint/DuplicateMethods
       @charz_stack ||= []
     end
 
-    def charz_profiles
+    def charz_profiles # rubocop:disable Lint/DuplicateMethods
       @charz_profiles ||= {}
     end
 
-    def charz_routines
+    def charz_routines # rubocop:disable Lint/DuplicateMethods
       @charz_routines ||= {}
     end
 
-    def charz_session
+    def charz_session # rubocop:disable Lint/DuplicateMethods
       @charz_session ||= Session.new
     end
 
-    def default_valid_charz_placements
+    def default_valid_charz_placements # rubocop:disable Lint/DuplicateMethods
       @default_valid_charz_placements ||= [:inline, :eof]
     end
 
     # If there is a current instance present, that should always be used. However when running EOF charz,
     # the instance to be used is no longer set, so instead of referencing the session, use the one that we've
     # stored already
-    def charz_instance
+    def charz_instance # rubocop:disable Lint/DuplicateMethods
       unless charz_session.current_instance(stored_instance_valid: true).nil?
         set_charz_instance(charz_session.current_instance(stored_instance_valid: true))
       end
@@ -61,7 +61,7 @@ module OrigenTesters
       charz_session.stored_instance = instance
     end
 
-    def eof_charz_tests
+    def eof_charz_tests # rubocop:disable Lint/DuplicateMethods
       @eof_charz_tests ||= []
     end
 

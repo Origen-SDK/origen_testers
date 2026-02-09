@@ -65,7 +65,7 @@ module Origen
           @supply = $tester.ate_hardware(@instrument).supply
           instrumentinfo.new(@channel, @instrument, options[:chanmapname], options[:site], options[:testerconfigname], @supply)
         else  # Collecting information of individual members and put in arrays
-          instrumentinfo = Struct.new(:members, :channel, :instrument, :chanmapname, :site, :testerconfigname, :ppmu)
+          instrumentinfo = Struct.new(:members, :channel, :instrument, :chanmapname, :site, :testerconfigname, :ppmu) # rubocop:disable Lint/StructNewOverride
           @members = []
           @channel = []
           @instrument = []

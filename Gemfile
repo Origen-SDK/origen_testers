@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Development dependencies
-gem 'byebug', "~>11" if RUBY_VERSION < "4" # byebug C extension doesn't compile on Ruby 4.0+
+gem 'byebug', "~>11"
 gem 'ripper-tags'
 gem 'origen_arm_debug', '0.4.3'
 gem 'yard-activesupport-concern'

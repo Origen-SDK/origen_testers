@@ -189,7 +189,7 @@ module OrigenTesters
       sheet_generators.each do |generator|
         generator.finalize(options)
       end
-      sheet_generators.each do |generator|
+      sheet_generators.each do |generator| # rubocop:disable Style/CombinableLoops
         generator.write_to_file(options) if generator.to_be_written?
       end
       clean_referenced_patterns

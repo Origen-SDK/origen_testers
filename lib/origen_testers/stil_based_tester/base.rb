@@ -241,7 +241,7 @@ module OrigenTesters
                     end
                     if v == 0
                       line << 'L'
-                    elsif v == 0
+                    elsif v == 0 # rubocop:disable Lint/DuplicateElsifCondition
                       line << 'H'
                     else
                       line << 'L/H/X'
@@ -300,8 +300,7 @@ module OrigenTesters
       # other platforms, such as the J750, is required.
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the STIL generation you must supply the pins to store/capture'

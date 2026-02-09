@@ -212,7 +212,7 @@ module OrigenTesters
       def limitfile_test_modes=(val)
         @limitfile_test_modes = Array(val).map(&:to_s)
       end
-      alias_method :limitsfile_test_modes, :limitfile_test_modes=
+      alias_method :limitsfile_test_modes, :limitfile_test_modes= # rubocop:disable Lint/DuplicateMethods
 
       # return the multiport burst name
       # provide the name you want to obtain multiport for
@@ -287,7 +287,7 @@ module OrigenTesters
           super(options)
         end
 
-        unless options_overlay.nil?
+        unless options_overlay.nil? # rubocop:disable Lint/EmptyConditionalBody, Lint/RedundantCopDisableDirective
           # stage = :body if ovly_style == :subroutine 		# always set stage back to body in case subr overlay was selected
         end
       end
@@ -369,8 +369,7 @@ module OrigenTesters
       # other platforms, such as the J750, is required.
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the V93K you must supply the pins to store/capture'

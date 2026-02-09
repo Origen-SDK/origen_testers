@@ -65,8 +65,7 @@ module OrigenTesters
       #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
       #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        options = { readcode: false
-                  }.merge(options)
+        options = { readcode: false }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuA
@@ -191,8 +190,7 @@ module OrigenTesters
       #
       def set_code(*code)
         options = code.last.is_a?(Hash) ? code.pop : {}
-        options = { counter: 'c15'
-                  }.merge(options)
+        options = { counter: 'c15' }.merge(options)
         cc " Using counter #{options[:counter]} as set_code replacement - value set to #{code[0]} + 1"
         unless @set_msb_issued
           set_msb(1)
@@ -203,8 +201,7 @@ module OrigenTesters
 
       def set_code_no_msb(*code)
         options = code.last.is_a?(Hash) ? code.pop : {}
-        options = { counter: 'c15'
-                  }.merge(options)
+        options = { counter: 'c15' }.merge(options)
         unless @set_msb_issued
           cycle   # set_msb doesn't issue a cycle
         end
@@ -688,8 +685,7 @@ module OrigenTesters
 
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = { offset: 0,
-                    opcode: 'stv'
-                  }.merge(options)
+                    opcode: 'stv' }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the UltraFLEX you must supply the pins to store/capture'

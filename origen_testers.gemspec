@@ -5,8 +5,8 @@ require "#{config}/version"
 Gem::Specification.new do |spec|
   spec.name          = "origen_testers"
   spec.version       = OrigenTesters::VERSION
-  spec.authors       = ["Stephen McGinty"]
-  spec.email         = ["stephen.f.mcginty@gmail.com"]
+  spec.authors       = ["Stephen McGinty", "Priyavadan Kumar"]
+  spec.email         = ["stephen.f.mcginty@gmail.com", "priyavadan@gmail.com"]
   spec.summary       = "This plugin provides Origen tester models to drive ATE type testers like the J750, UltraFLEX, V93K,..."
   spec.homepage      = "http://origen-sdk.org/testers"
 

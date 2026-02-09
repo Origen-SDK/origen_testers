@@ -212,8 +212,7 @@ module OrigenTesters
               r = r / 1_000_000.0
             elsif r = options.delete(:ma) || options.delete(:mA)
               r = r / 1000.0
-            elsif r = options.delete(:a) || options.delete(:A)
-            else
+              r = options.delete(:a) || options.delete(:A)
               fail "Can't determine requested irange!"
             end
           end
@@ -298,8 +297,7 @@ module OrigenTesters
           elsif r == :auto
             self.vrange = 5
           elsif !r
-            if r = options.delete(:v) || options.delete(:V)
-            else
+            unless r = options.delete(:v) || options.delete(:V)
               fail "Can't determine requested vrange!"
             end
           end

@@ -51,7 +51,7 @@ module OrigenTesters::ATP
         end
         alias_method :on_unless_ran, :on_if_ran
 
-        def results
+        def results # rubocop:disable Lint/DuplicateMethods
           @results ||= {}.with_indifferent_access
         end
       end

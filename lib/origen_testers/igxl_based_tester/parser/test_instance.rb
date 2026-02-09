@@ -395,7 +395,7 @@ module OrigenTesters
           if respond_to?(:pattern)
             pattern.split(',').map do |pat|
               extract_pattern_from_patset(pat)
-            end.flatten.map { |pat| pat.gsub(/.*[\\\/]/, '').gsub(/\..*/, '') }
+            end.flatten.map { |pat| pat.gsub(/.*[\\\/]/, '').gsub(/\..*/, '') } # rubocop:disable Style/MultilineBlockChain
           end
         end
 

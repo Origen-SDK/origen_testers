@@ -297,8 +297,7 @@ module OrigenTesters
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         update_vector microcode: 'stv', offset: options[:offset]
         last_vector(options[:offset]).contains_capture = true unless @inhibit_vectors
       end
@@ -404,8 +403,7 @@ module OrigenTesters
       #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
       #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        options = { readcode: false
-                  }.merge(options)
+        options = { readcode: false }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
         cycle(microcode: "#{@microcode[:set_flag]} (cpuA)")
@@ -847,8 +845,9 @@ module OrigenTesters
       end
 
       def enable_flag(options = {})
-        options = { flagnum: 4      # default flag to use
-                }.merge(options)
+        options = {
+          flagnum: 4 # default flag to use
+        }.merge(options)
 
         if options[:flagnum] > @flags.length
           abort "ERROR! Invalid flag value passed to 'enable_flag' method!\n"
@@ -858,8 +857,9 @@ module OrigenTesters
       end
 
       def set_flag(options = {})
-        options = { flagnum: 4      # default flag to use
-                }.merge(options)
+        options = {
+          flagnum: 4 # default flag to use
+        }.merge(options)
 
         if options[:flagnum] > @flags.length
           abort "ERROR! Invalid flag value passed to 'set_flag' method!\n"

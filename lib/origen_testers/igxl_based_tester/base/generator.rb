@@ -532,8 +532,8 @@ module OrigenTesters
           t.filename = f
           levelset_sheets[f] = t
         end
-        alias_method :time_sets, :timesets
-        alias_method :timing_sets, :timesets
+        alias_method :time_sets, :timesets # rubocop:disable Lint/DuplicateMethods
+        alias_method :timing_sets, :timesets # rubocop:disable Lint/DuplicateMethods
 
         # Returns the current AC specset sheet (as defined by the current value of
         # ac_specsets_filename).

@@ -58,7 +58,7 @@ module OrigenTesters
       end
 
       # Allow users to search for a pattern in the job queue or default to return all jobs
-      def jobs(search = nil)
+      def jobs(search = nil) # rubocop:disable Lint/DuplicateMethods
         found = false
         if search.nil?
           inspect_jobs

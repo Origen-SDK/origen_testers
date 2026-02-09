@@ -33,7 +33,7 @@ module OrigenTesters
           tester.smt8?
         end
 
-        def var_filename
+        def var_filename # rubocop:disable Lint/DuplicateMethods
           @var_filename || 'global'
         end
 
@@ -41,7 +41,7 @@ module OrigenTesters
           @var_filename = new_var_filename
         end
 
-        def subdirectory
+        def subdirectory # rubocop:disable Lint/DuplicateMethods
           @subdirectory ||= if smt8?
                               parents = []
                               f = parent
@@ -77,7 +77,7 @@ module OrigenTesters
           end
         end
 
-        def flow_name(filename = nil)
+        def flow_name(filename = nil) # rubocop:disable Lint/DuplicateMethods
           @flow_name_ = @flow_name unless smt8?
           @flow_name_ ||= begin
             flow_name = (filename || self.filename).sub(/\..*/, '').upcase
@@ -89,11 +89,11 @@ module OrigenTesters
           end
         end
 
-        def flow_bypass
+        def flow_bypass # rubocop:disable Lint/DuplicateMethods
           @flow_bypass || false
         end
 
-        def flow_description
+        def flow_description # rubocop:disable Lint/DuplicateMethods
           @flow_description || ''
         end
 
