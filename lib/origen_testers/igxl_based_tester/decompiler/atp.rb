@@ -43,42 +43,36 @@ module OrigenTesters
                                            pattern_header:       header,
                                            variable_assignments: variable_assignments,
                                            imports:              imports,
-                                           comments:             comments
-                                          )
+                                           comments:             comments)
         end
 
         def parse_pinlist(raw_pinlist:, context:)
           raw_pinlist = raw_pinlist.join('')
           OrigenTesters::Decompiler::Nodes::Pinlist.new(context: self,
-                                                        pins:    raw_pinlist[raw_pinlist.index('$') + 1..raw_pinlist.index(')') - 1].split(/,\s*/)[1..-1]
-                                                       )
+                                                        pins:    raw_pinlist[raw_pinlist.index('$') + 1..raw_pinlist.index(')') - 1].split(/,\s*/)[1..-1])
         end
 
         def parse_vector(raw_vector:, context:, meta:)
           if raw_vector =~ Regexp.new('^\s*//')
             nodes_namespace::CommentBlock.new(context:  self,
-                                              comments: raw_vector.split("\n")
-                                             )
+                                              comments: raw_vector.split("\n"))
           elsif raw_vector.strip.size == 0
             nodes_namespace::CommentBlock.new(context: self, comments: ['// blank line replaced with comment by origen convert'])
           elsif raw_vector =~ Regexp.new('^\s*start_label')
             nodes_namespace::StartLabel.new(context:     self,
-                                            start_label: raw_vector[raw_vector.index('start_label') + 11..-1].strip[0..-2]
-                                           )
+                                            start_label: raw_vector[raw_vector.index('start_label') + 11..-1].strip[0..-2])
           elsif raw_vector =~ Regexp.new('^\s*global')
             contents = raw_vector.strip['global'.size + 1..-2].strip.split(/\s+/)
             nodes_namespace::GlobalLabel.new(context:    self,
                                              label_type: contents[0],
-                                             label_name: contents[1]
-                                            )
+                                             label_name: contents[1])
           # original elsif for label was updated to avoid confusing origen's eol comments for a label
           # elsif raw_vector =~ Regexp.new(':(?!(.*>))')
           elsif raw_vector.split(';').first =~ Regexp.new(':(?!(.*>))')
             nodes_namespace::Label.new(context:    self,
                                        # Strip any whitespace from the vector and grab contents up to
                                        # the ':' symbol.
-                                       label_name: raw_vector.strip[0..-2]
-                                      )
+                                       label_name: raw_vector.strip[0..-2])
           else
 
             opcode_plus_args = raw_vector[0..(raw_vector.index('>') - 1)].rstrip.split(/\s+/)
@@ -88,14 +82,12 @@ module OrigenTesters
                                         pin_states:       timeset_plus_pins[1..-1],
                                         opcode:           (opcode_plus_args[0] && opcode_plus_args[0].empty?) ? nil : opcode_plus_args[0],
                                         opcode_arguments: opcode_plus_args[1..-1],
-                                        comment:          begin
-                if raw_vector =~ Regexp.new('//')
-                  raw_vector[raw_vector.index('//') + 2..-1].strip
-                else
-                  ''
-                end
-              end
-                                       )
+                                        comment:
+                                                          if raw_vector =~ Regexp.new('//')
+                                                            raw_vector[raw_vector.index('//') + 2..-1].strip
+                                                          else
+                                                            ''
+                                                          end)
           end
         end
       end

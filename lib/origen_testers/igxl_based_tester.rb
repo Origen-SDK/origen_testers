@@ -5,7 +5,7 @@ module OrigenTesters
     autoload :J750_HPT,            'origen_testers/igxl_based_tester/j750_hpt.rb'
     autoload :UltraFLEX,           'origen_testers/igxl_based_tester/ultraflex.rb'
 
-    require 'origen_testers/igxl_based_tester/base.rb'
+    require 'origen_testers/igxl_based_tester/base'
     require 'origen_testers/igxl_based_tester/decompiler'
   end
   # Convenience/Legacy names without the IGXLBasedTester namespace

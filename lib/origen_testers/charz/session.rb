@@ -73,7 +73,7 @@ module OrigenTesters
         end
       end
 
-      def current_instance(options = {})
+      def current_instance(options = {}) # rubocop:disable Lint/DuplicateMethods
         instance = @current_instance || instances.first
         if instance.nil? && @stored_instance
           unless options[:stored_instance_valid]

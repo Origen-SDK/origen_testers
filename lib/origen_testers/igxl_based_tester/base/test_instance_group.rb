@@ -12,7 +12,7 @@ module OrigenTesters
           @append_version = true
         end
 
-        def name
+        def name # rubocop:disable Lint/DuplicateMethods
           if unversioned_name
             if version && @append_version
               "#{unversioned_name}_v#{version}"
@@ -48,7 +48,7 @@ module OrigenTesters
           self.class == other_instance_group.class &&
             unversioned_name.to_s == other_instance_group.unversioned_name.to_s &&
             size == other_instance_group.size &&
-            self.all? do |ins|
+            all? do |ins|
               other_instance_group.any? { |other_ins| ins == other_ins }
             end
         end

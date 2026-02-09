@@ -8,7 +8,7 @@
 # and implements the OrigenTesters::Decompiler::Pattern interface.
 RSpec.shared_examples(:pattern_validator) do |target_pattern, platform|
   model = platform.pattern_model(target_pattern)
-  unless File.exists?(model)
+  unless File.exist?(model)
     fail "Pattern validator could not find pattern model for target pattern :#{target_pattern} (#{model})"
   end
 

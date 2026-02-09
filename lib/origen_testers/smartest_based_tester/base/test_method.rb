@@ -122,6 +122,7 @@ module OrigenTesters
 
         def handle_val_type(val, type, attr)
           return val if val == '' && !tester.smt8?
+
           case type
           when :current, 'CURR'
             "#{val}[A]"
@@ -155,11 +156,13 @@ module OrigenTesters
             unless val.is_a?(Array)
               fail "#{val} is not an Array. List_strings must have Array values"
             end
+
             "##{val}"
           when :list_classes
             unless val.is_a?(Array)
               fail "#{val} is not an Array. List_classes must have Array values"
             end
+
             "##{val.to_s.gsub('"', '')}"
           else
             fail "Unknown type for attribute #{attr}: #{type}"

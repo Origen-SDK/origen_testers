@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 # Development dependencies
 gem 'byebug', "~>11"
 gem 'ripper-tags'
-gem 'origen', '0.60.7'		# tmp - prevent 100's of new lint errors
 gem 'origen_arm_debug', '0.4.3'
 gem 'yard-activesupport-concern'
 gem 'origen_jtag', '>= 0.12.0'
@@ -15,6 +14,6 @@ gem 'dry-inflector', '0.1.2'
 gem 'rubyzip', '~>1'
 
 gem 'origen_stil', git: "https://github.com/Origen-SDK/origen_stil.git"
-
+gem 'origen', git: "https://github.com/Origen-SDK/origen.git", branch: "feature/ruby_4_0"
 # Specify all runtime dependencies in origen_testers.gemspec
 gemspec

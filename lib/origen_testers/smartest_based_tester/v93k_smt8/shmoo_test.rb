@@ -23,8 +23,7 @@ module OrigenTesters
           signal:  :result_signal
         }
 
-        DEFAULTS = {
-        }
+        DEFAULTS = {}
 
         NO_STRING_TYPES = [:list_strings, :list_classes, :class]
         # Generate accessors for all attributes and their aliases
@@ -76,6 +75,7 @@ module OrigenTesters
               if axes_names.include?(aname.to_sym)
                 fail "Axis name #{aname} is already used in shmoo test '#{@name}'"
               end
+
               axes << ShmooTestAxis.new(aname.to_sym, a)
             end
           else
@@ -250,6 +250,7 @@ module OrigenTesters
               if trackings_names.include?(tname.to_sym)
                 fail "Tracking name #{tname} is already used in shmoo test axis '#{@name}'"
               end
+
               trackings << ShmooTestTracking.new(tname.to_sym, t)
             end
           end

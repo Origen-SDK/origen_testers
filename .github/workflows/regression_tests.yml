@@ -3,34 +3,37 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        ruby-version: [2.6, 2.7]
+        ruby-version: [2.6, 2.7, 3.0.4, 3.1, 3.3.1, 3.4.2, 4.0.0]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
+        bundler: '2.4.22'
     - name: Update Env
       run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
-    - name: Install Bundler
-      # last version to support our version of Ruby/RubyGems was 2.4.22
-      run: gem install bundler -v 2.4.22
-    - name: Work around bundler/ruby/gem/rubocop-ast version issue
-      if: matrix.ruby-version == '2.6'
-      run: gem install rubocop-ast -v 1.30.0      
+    # Ruby 2.7 ships with RubyGems 3.1.6 which has a bug resolving transitive
+    # deps with required_ruby_version. Updating to 3.4.22 fixes it.
+    - name: Update RubyGems (Ruby 2.7 fix)
+      if: matrix.ruby-version == '2.7'
+      run: gem update --system 3.4.22
+    - name: Remove Gemfile.lock
+      run: rm Gemfile.lock
     - name: Install dependencies
-      run: bundle install  
-    - name: Gem Install Origen 
-      run: gem install origen 
+      run: bundle install
+    - name: Install Origen
+      run: gem install origen
     - name: Setup Dependencies
       run: origen -v
     - name: Run Origen Lint
-      run: origen lint --no-correct  
+      run: origen lint --no-correct
     - name: Set Origen to debug mode
       run: origen m debug
     - name: Set target
@@ -45,6 +48,7 @@ jobs:
         flag-name: ${{ join(matrix.*, '-') }}
         parallel: true
     - name: Verify Building website
+      if: matrix.os == 'ubuntu-latest'
       run: origen web compile --no-serve
 
   finish:

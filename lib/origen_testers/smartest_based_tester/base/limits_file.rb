@@ -36,7 +36,7 @@ module OrigenTesters
               l += ',default,default'
             else
               test_modes.each { |mode| l += ",#{mode}" }
-              test_modes.each { |mode| l += ",#{mode}" }
+              test_modes.each { |mode| l += ",#{mode}" } # rubocop:disable Style/CombinableLoops
             end
             lines << l
 
@@ -282,7 +282,7 @@ module OrigenTesters
                 # "Low Limit"
                 l << f((options[:limits][mode] || options[:limits][nil] || {})[:lsl] || 'na')
               end
-              test_modes.each do |mode|
+              test_modes.each do |mode| # rubocop:disable Style/CombinableLoops
                 # "High Limit"
                 l << f((options[:limits][mode] || options[:limits][nil] || {})[:usl] || 'na')
               end

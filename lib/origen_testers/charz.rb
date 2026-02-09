@@ -26,30 +26,30 @@ module OrigenTesters
                   :eof_charz_tests, :skip_group_eof_charz_tests, :eof_charz_tests_group_name,
                   :default_valid_charz_placements
 
-    def charz_stack
+    def charz_stack # rubocop:disable Lint/DuplicateMethods
       @charz_stack ||= []
     end
 
-    def charz_profiles
+    def charz_profiles # rubocop:disable Lint/DuplicateMethods
       @charz_profiles ||= {}
     end
 
-    def charz_routines
+    def charz_routines # rubocop:disable Lint/DuplicateMethods
       @charz_routines ||= {}
     end
 
-    def charz_session
+    def charz_session # rubocop:disable Lint/DuplicateMethods
       @charz_session ||= Session.new
     end
 
-    def default_valid_charz_placements
+    def default_valid_charz_placements # rubocop:disable Lint/DuplicateMethods
       @default_valid_charz_placements ||= [:inline, :eof]
     end
 
     # If there is a current instance present, that should always be used. However when running EOF charz,
     # the instance to be used is no longer set, so instead of referencing the session, use the one that we've
     # stored already
-    def charz_instance
+    def charz_instance # rubocop:disable Lint/DuplicateMethods
       unless charz_session.current_instance(stored_instance_valid: true).nil?
         set_charz_instance(charz_session.current_instance(stored_instance_valid: true))
       end
@@ -61,7 +61,7 @@ module OrigenTesters
       charz_session.stored_instance = instance
     end
 
-    def eof_charz_tests
+    def eof_charz_tests # rubocop:disable Lint/DuplicateMethods
       @eof_charz_tests ||= []
     end
 
@@ -252,7 +252,11 @@ module OrigenTesters
           if charz_session.on_result?
             md5_id = Digest::MD5.new
             md5_id << parent_test_name.to_s
-            md5_id << options.to_s
+            # Use a deterministic string representation of options that is consistent
+            # across Ruby versions. Ruby 4.0 changed Hash#inspect to use "key: val"
+            # syntax instead of ":key=>val", which produces different MD5 digests.
+            # Explicitly build the old-style rocket format to keep IDs stable.
+            md5_id << ('{' + options.map { |k, v| "#{k.inspect}=>#{v.inspect}" }.join(', ') + '}')
             md5_id << charz_session.id.to_s
             options[:id] = "auto_charz_id_#{md5_id}".to_sym
           end
@@ -434,7 +438,7 @@ module OrigenTesters
             gated_routines = charz_instance.routines - ungated_routines
             # Build the proc which contains the nested if statements for each routine so they are anded.
             gated_routines.each do |routine|
-              my_proc = -> do
+              my_proc = lambda do
                 if_flag charz_instance.flags do
                   block.call(options.merge(current_routine: routine))
                 end
@@ -477,7 +481,7 @@ module OrigenTesters
             # Build the proc which contains the nested if statemements for each routine so they are anded.
             gated_routines = charz_instance.routines - ungated_routines
             gated_routines.each do |routine|
-              my_proc = -> do
+              my_proc = lambda do
                 if_enable charz_instance.enables do
                   block.call(options.merge(current_routine: routine))
                 end

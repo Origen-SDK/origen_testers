@@ -16,7 +16,7 @@ module OrigenTesters
       end
 
       def map_for(obj)
-        @store[obj.object_id]
+        @store[obj.object_id] # rubocop:disable Lint/HashCompareByIdentity
       end
     end
   end

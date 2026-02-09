@@ -30,6 +30,7 @@ module OrigenTesters
         end
 
         return if @attr_value_check == false
+
         if [@start, @stop, @res].all? { |attr| attr.is_a? Numeric }
           unless @res <= (@start - @stop).abs
             Origen.log.error "SearchRoutine #{@id}: Search resolution (#{@res}) is larger than the search range: #{(@start - @stop).abs}"

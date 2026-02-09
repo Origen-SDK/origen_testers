@@ -1,7 +1,7 @@
 module OrigenTesters
   # A simple class to model a vector
   class Vector
-    attr_accessor :repeat, :microcode, :timeset, :pin_vals,
+    attr_accessor :repeat, :microcode, :timeset, :pin_vals, # rubocop:disable Lint/DuplicateMethods
                   :number, :cycle_number, :dont_compress,
                   :comments, :inline_comment, :cycle, :number, :contains_capture
 
@@ -12,7 +12,7 @@ module OrigenTesters
       end
     end
 
-    def comments
+    def comments # rubocop:disable Lint/DuplicateMethods
       @comments ||= []
     end
 
@@ -73,6 +73,7 @@ module OrigenTesters
         if timeset.period_in_ns % tset.period_in_ns != 0
           fail "The period of timeset #{timeset.name} is not a multiple of the period of timeset #{tset.name}!"
         end
+
         if contains_capture
           vector_modification_required = true
         elsif $tester.timing_toggled_pins.empty?
@@ -177,7 +178,7 @@ module OrigenTesters
       Origen.app.pin_map.sort_by { |id, pin| pin.order }.map { |id, pin| pin }
     end
 
-    def microcode=(val)
+    def microcode=(val) # rubocop:disable Lint/DuplicateMethods
       if val && has_microcode? && @microcode != val
         fail "Trying to assign microcode: #{val}, but vector already has microcode: #{@microcode}"
       else
@@ -186,7 +187,7 @@ module OrigenTesters
     end
 
     # Since repeat 0 is non-intuitive every vector implicitly has a repeat of 1
-    def repeat
+    def repeat # rubocop:disable Lint/DuplicateMethods
       @repeat || 1
     end
 
@@ -196,7 +197,7 @@ module OrigenTesters
 
     def ==(obj)
       if obj.is_a?(Vector)
-        self.has_microcode? == obj.has_microcode? &&
+        has_microcode? == obj.has_microcode? &&
           timeset == obj.timeset &&
           pin_vals == obj.pin_vals
       else

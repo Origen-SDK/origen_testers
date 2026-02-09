@@ -108,6 +108,7 @@ module OrigenTesters
       }.merge(options)
       # Allow generators to override this and fully define the filename if they want
       return fully_formatted_filename if try(:fully_formatted_filename)
+
       name = (@filename || Origen.file_handler.current_file.basename('.rb')).to_s
       name[0] = '' if name[0] == '_'
       if Origen.config.program_prefix
@@ -178,6 +179,7 @@ module OrigenTesters
 
     def write_from_template(options = {})
       return unless Origen.interface.write?
+
       options = {
         quiet:     false,
         skip_diff: false
@@ -192,7 +194,7 @@ module OrigenTesters
           @append = true
           Origen.file_handler.preserve_state do
             File.open(output_file, 'a') do |out|
-              content = compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
+              content = compiler.insert(ERB.new(File.read(self.class::TEMPLATE), trim_mode: Origen.config.erb_trim_mode).result(binding))
               out.puts content unless content.empty?
             end
           end
@@ -201,7 +203,7 @@ module OrigenTesters
           @append = false
           Origen.file_handler.preserve_state do
             File.open(output_file, 'w') do |out|
-              out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), 0, Origen.config.erb_trim_mode).result(binding))
+              out.puts compiler.insert(ERB.new(File.read(self.class::TEMPLATE), trim_mode: Origen.config.erb_trim_mode).result(binding))
             end
           end
           @@opened_files << output_file

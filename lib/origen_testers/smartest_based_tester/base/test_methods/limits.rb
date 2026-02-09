@@ -19,7 +19,7 @@ module OrigenTesters
             @render = true
           end
 
-          def unit=(val)
+          def unit=(val) # rubocop:disable Lint/DuplicateMethods
             case val.to_s.downcase
             when 'v', 'volts'
               @unit = 'V'

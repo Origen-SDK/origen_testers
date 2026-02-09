@@ -12,7 +12,7 @@ module OrigenTesters
     # Also note that this class inherits from the base Tester class and so all methods
     # described there are also available.
     class J750 < Base
-      require 'origen_testers/igxl_based_tester/j750/generator.rb'
+      require 'origen_testers/igxl_based_tester/j750/generator'
 
       attr_accessor :use_hv_pin
       attr_accessor :software_version
@@ -20,6 +20,7 @@ module OrigenTesters
       def self.hpt_mode
         @@hpt_mode
       end
+
       def self.hpt_mode?
         @@hpt_mode
       end
@@ -245,7 +246,7 @@ module OrigenTesters
       def handshake(options = {})
         options = {
           readcode:    false,
-          manual_stop: false,    # set a 2nd CPU flag in case 1st flag is automatically cleared
+          manual_stop: false    # set a 2nd CPU flag in case 1st flag is automatically cleared
         }.merge(options)
         if options[:readcode]
           set_code(options[:readcode])

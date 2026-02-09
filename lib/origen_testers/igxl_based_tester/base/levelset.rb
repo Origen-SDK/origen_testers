@@ -18,8 +18,6 @@ module OrigenTesters
           @pins = {}
         end
 
-        # rubocop:disable Metrics/ParameterLists
-
         # Adds a pin level to the given levelset
         def add(lsname, pin, level, options = {})
           options = {
@@ -31,7 +29,7 @@ module OrigenTesters
           add_level(pin, level)
           @name = lsname
           @spec_sheet = options[:spec_sheet]
-          @ls_sheet_pins = options[:ls_sheet_pins] unless @ls_sheet_pins
+          @ls_sheet_pins ||= options[:ls_sheet_pins]
         end
 
         # Assigns a level object to the given pin for this levelset
@@ -90,8 +88,7 @@ module OrigenTesters
         end
 
         def format_uflex_level(data, options = {})
-          options = {
-          }.merge(options)
+          options = {}.merge(options)
 
           if data !~ /^\s*$/
             data = data.gsub(/^/, '=')

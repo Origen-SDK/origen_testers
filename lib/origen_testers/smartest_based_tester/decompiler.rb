@@ -27,6 +27,7 @@ module OrigenTesters
           if current_indices[:pinlist_start] && line !~ /^\s/
             next true
           end
+
           false
         end,
 

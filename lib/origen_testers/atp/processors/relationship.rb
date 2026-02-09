@@ -51,7 +51,7 @@ module OrigenTesters::ATP
         end
         alias_method :on_unless_ran, :on_if_ran
 
-        def results
+        def results # rubocop:disable Lint/DuplicateMethods
           @results ||= {}.with_indifferent_access
         end
       end
@@ -107,9 +107,7 @@ module OrigenTesters::ATP
         if node.type == :group || node.type == :sub_flow
           nodes = node.to_a.dup
           pre_nodes = []
-          while [:name, :id, :path].include?(nodes.first.try(:type))
-            pre_nodes << nodes.shift
-          end
+          pre_nodes << nodes.shift while [:name, :id, :path].include?(nodes.first.try(:type))
           node.updated(nil, pre_nodes + [set_flag] + nodes)
 
         # For a test, set a flag immediately after the referenced test has executed

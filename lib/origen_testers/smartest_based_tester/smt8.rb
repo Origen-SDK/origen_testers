@@ -9,8 +9,7 @@ module OrigenTesters
 
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         @program_lines = []
         @program_action_lines = []
         if zip_patterns
@@ -40,7 +39,7 @@ module OrigenTesters
       # An internal method called by Origen to generate the pattern footer
       def pattern_footer(options = {})
         options = {
-          end_in_ka:      false
+          end_in_ka: false
         }.merge(options)
         if options[:end_in_ka]
           Origen.log.warning '93K keep alive not yet implemented!'
@@ -128,9 +127,9 @@ module OrigenTesters
             elsif comment =~ /^SQPG LBGN (\d+);/
               @program_lines << "    <Instruction id=\"loop\" value=\"#{Regexp.last_match(1)}\"/>"
             elsif comment =~ /^SQPG LEND;/
-              @program_lines << "    <Instruction id=\"loopEnd\"/>"
+              @program_lines << '    <Instruction id="loopEnd"/>'
             elsif comment =~ /^SQPG RETC (\d) (\d);/
-              @program_lines << "    <Instruction id=\"returnConditional\">"
+              @program_lines << '    <Instruction id="returnConditional">'
               @program_lines << "      <Assignment id=\"onFail\" value=\"#{Regexp.last_match(1) == '0' ? 'false' : 'true'}\"/>"
               @program_lines << "      <Assignment id=\"resetFail\" value=\"#{Regexp.last_match(2) == '0' ? 'false' : 'true'}\"/>"
               @program_lines << '    </Instruction>'
@@ -150,7 +149,7 @@ module OrigenTesters
           # Close out current gen_vec group
           write_gen_vec
           if has_repeat
-            @program_lines << "    <Instruction id=\"genVec\" value=\"1\">"
+            @program_lines << '    <Instruction id="genVec" value="1">'
             @program_lines << "      <Assignment id=\"repeat\" value=\"#{vec.repeat}\"/>"
             @program_lines << '    </Instruction>'
             @gen_vec -= 1

@@ -2,7 +2,7 @@ require 'origen_testers/igxl_based_tester/ultraflex/ate_hardware'
 module OrigenTesters
   module IGXLBasedTester
     class UltraFLEX < Base
-      autoload :Generator,   'origen_testers/igxl_based_tester/ultraflex/generator.rb'
+      autoload :Generator, 'origen_testers/igxl_based_tester/ultraflex/generator.rb'
 
       # Read or update the digital instrument
       #  Ex: tester.digital_instrument = 'hsdmq'
@@ -65,8 +65,7 @@ module OrigenTesters
       #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
       #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        options = { readcode: false
-                  }.merge(options)
+        options = { readcode: false }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
         cycle(microcode: "#{@microcode[:set_flag]} (#{@flags[0]})") # set cpuA
@@ -191,24 +190,22 @@ module OrigenTesters
       #
       def set_code(*code)
         options = code.last.is_a?(Hash) ? code.pop : {}
-        options = { counter: 'c15'
-                  }.merge(options)
+        options = { counter: 'c15' }.merge(options)
         cc " Using counter #{options[:counter]} as set_code replacement - value set to #{code[0]} + 1"
         unless @set_msb_issued
           set_msb(1)
           cycle   # set_msb doesn't issue a cycle
         end
-        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
+        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   # +1 here to align with VBT
       end
 
       def set_code_no_msb(*code)
         options = code.last.is_a?(Hash) ? code.pop : {}
-        options = { counter: 'c15'
-                  }.merge(options)
+        options = { counter: 'c15' }.merge(options)
         unless @set_msb_issued
           cycle   # set_msb doesn't issue a cycle
         end
-        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   #+1 here to align with VBT
+        cycle(microcode: "set #{options[:counter]} #{code[0].next}")   # +1 here to align with VBT
       end
 
       def loop_vectors(name, number_of_loops, global = false, label_first = false)
@@ -372,8 +369,7 @@ module OrigenTesters
         super(options.merge(digital_inst: @digital_instrument,
                             memory_test:  false,
                             high_voltage: false,
-                            svm_only:     false
-                           )) do |pin_list|
+                            svm_only:     false)) do |pin_list|
           # if subroutine pattern has only single-module subroutines then skip module start
           # (will be taken care of elsewhere)
           unless options[:subroutine_pat] && @onemodsubs_found && !@nonmodsubs_found
@@ -419,6 +415,7 @@ module OrigenTesters
             # must be done BEFORE any subroutines that need their own module definition!
             fail "ERROR: Cannot implement any common module subroutines (#{name}) after implementing any single-module subroutines in the same pattern!"
           end
+
           @nonmodsubs_found = true
         end
         super(name, options)
@@ -632,7 +629,7 @@ module OrigenTesters
       def handshake(options = {})
         options = {
           readcode:    false,
-          manual_stop: false,    # set a 2nd CPU flag in case 1st flag is automatically cleared
+          manual_stop: false    # set a 2nd CPU flag in case 1st flag is automatically cleared
         }.merge(options)
         if options[:readcode]
           set_code(options[:readcode])
@@ -685,10 +682,10 @@ module OrigenTesters
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
         return if @inhibit_vectors
+
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = { offset: 0,
-                    opcode: 'stv'
-                  }.merge(options)
+                    opcode: 'stv' }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the UltraFLEX you must supply the pins to store/capture'
@@ -750,6 +747,7 @@ module OrigenTesters
       #   $tester.cycle                # This is the vector that will be captured
       def store_next_cycle(*pins)
         return if @inhibit_vectors
+
         options = pins.last.is_a?(Hash) ? pins.pop : {}
         options = {
           opcode: 'stv'

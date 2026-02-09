@@ -24,24 +24,24 @@ module OrigenTesters
 
         def initialize(jname, options = {}) # :nodoc:
           @name = jname
-          options[:pinmap] ? @pinmap         = [options[:pinmap]] : @pinmap         = []
-          options[:instances] ? @instances      = [options[:instances]] : @instances      = []
-          options[:flows] ? @flows          = [options[:flows]] : @flows          = []
-          options[:ac_specs] ? @ac_specs       = [options[:ac_specs]] : @ac_specs       = []
-          options[:dc_specs] ? @dc_specs       = [options[:dc_specs]] : @dc_specs       = []
-          options[:patsets] ? @patsets        = [options[:patsets]] : @patsets        = []
-          options[:patgroups] ? @patgroups      = [options[:patgroups]] : @patgroups      = []
-          options[:bintables] ? @bintables      = [options[:bintables]] : @bintables      = []
-          options[:cz] ? @cz             = [options[:cz]] : @cz             = []
-          options[:test_procs] ? @test_procs     = [options[:test_procs]] : @test_procs     = []
+          options[:pinmap] ? @pinmap = [options[:pinmap]] : @pinmap = []
+          options[:instances] ? @instances = [options[:instances]] : @instances = []
+          options[:flows] ? @flows = [options[:flows]] : @flows = []
+          options[:ac_specs] ? @ac_specs       = [options[:ac_specs]] : @ac_specs = []
+          options[:dc_specs] ? @dc_specs       = [options[:dc_specs]] : @dc_specs = []
+          options[:patsets] ? @patsets = [options[:patsets]] : @patsets = []
+          options[:patgroups] ? @patgroups      = [options[:patgroups]] : @patgroups = []
+          options[:bintables] ? @bintables      = [options[:bintables]] : @bintables = []
+          options[:cz] ? @cz = [options[:cz]] : @cz = []
+          options[:test_procs] ? @test_procs = [options[:test_procs]] : @test_procs = []
           options[:mix_sig_timing] ? @mix_sig_timing = [options[:mix_sig_timing]] : @mix_sig_timing = []
-          options[:wave_defs] ? @wave_defs      = [options[:wave_defs]] : @wave_defs      = []
-          options[:psets] ? @psets          = [options[:psets]] : @psets          = []
-          options[:signals] ? @signals        = [options[:signals]] : @signals        = []
-          options[:port_map] ? @port_map       = [options[:port_map]] : @port_map       = []
-          options[:fract_bus] ? @fract_bus      = [options[:fract_bus]] : @fract_bus      = []
+          options[:wave_defs] ? @wave_defs = [options[:wave_defs]] : @wave_defs = []
+          options[:psets] ? @psets = [options[:psets]] : @psets = []
+          options[:signals] ? @signals = [options[:signals]] : @signals = []
+          options[:port_map] ? @port_map = [options[:port_map]] : @port_map = []
+          options[:fract_bus] ? @fract_bus = [options[:fract_bus]] : @fract_bus = []
           options[:concurrent_seq] ? @concurrent_seq = [options[:concurrent_seq]] : @concurrent_seq = []
-          options[:comment] ? @comment        = options[:instances] : @comment        = nil
+          options[:comment] ? @comment = options[:instances] : @comment = nil
         end
 
         # Assigns job information for the given object
