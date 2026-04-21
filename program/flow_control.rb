@@ -592,4 +592,32 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :read1, id: :ta5, bin: 10, number: 60000
     func :erase1, if_all_sites_passed: :ta5, bin: 12, number: 60010
   end
+
+  if tester.v93k?
+    log 'REGRESSION TEST: Bug 1 - Loop variable initialization scoping'
+    log 'Variables should be re-initialized each loop iteration, not retain state from previous iterations'
+    loop from: 0, to: 3, var: '$LOOP_VAR_BUG1' do
+      func :loop_test_a, id: :lta, on_fail: { continue: true }, number: 70000
+      if_failed :lta do
+        func :loop_test_b, number: 70010
+      end
+    end
+    log 'Expected: loop_test_b should only execute when loop_test_a fails in THAT iteration'
+    log 'Bug behavior: loop_test_b would execute in all subsequent iterations after first failure'
+
+    log 'REGRESSION TEST: Bug 2 - if_passed/if_failed conditional combining'
+    log 'Nested opposite conditions should not be AND-ed together creating unreachable code'
+    func :outer_test, id: :bug2_ot, number: 70100
+    if_passed :bug2_ot do
+      func :verify_test1, id: :bug2_ot2, number: 70120
+      func :verify_test2, id: :bug2_ot3, number: 70125
+    end
+    if_all_failed [:bug2_ot2, :bug2_ot3] do
+      func :recovery_test, id: :bug2_rt, on_fail: { continue: true }, number: 70110
+      render 'multi_bin;'
+    end
+    log 'Expected: multi_bin is reachable when outer_test fails and recovery_test fails'
+    log 'Expected: verify_recovery is reachable when outer_test fails but recovery_test passes'
+    log 'Bug behavior: SMT8 would report multi_bin as unreachable (incorrect AND of FAILED and PASSED)'
+  end
 end

@@ -19,6 +19,8 @@ module OrigenTesters
               CATEGORIES.each { |c| @variables[t][c] = Set.new }
             end
             @sub_flow_depth = 0
+            @loop_depth = 0
+            @loop_scopes = []
             process(node)
             OWNERS.each do |t|
               CATEGORIES.each do |c|
@@ -34,6 +36,7 @@ module OrigenTesters
                 end
               end
             end
+            @variables[:loop_scopes] = @loop_scopes
             @variables
           end
 
@@ -78,26 +81,41 @@ module OrigenTesters
           alias_method :on_unless_flag, :on_if_flag
 
           def on_set_flag(node)
-            add generate_flag_name(node.value), :set_flags
+            flag = generate_flag_name(node.value)
+            add flag, :set_flags
+            # Also track in loop scope if we're inside a loop
+            if in_loop?
+              @loop_scopes.last[:set_flags] << flag
+            end
             # Also separate flags which have been set and which should be externally visible
             if !node.to_a.include?('auto_generated') || node.to_a.include?('extern')
-              add generate_flag_name(node.value), :set_flags_extern
+              add flag, :set_flags_extern
             end
           end
 
           def on_unset_flag(node)
-            add generate_flag_name(node.value), :unset_flags
+            flag = generate_flag_name(node.value)
+            add flag, :unset_flags
+            # Also track in loop scope if we're inside a loop
+            if in_loop?
+              @loop_scopes.last[:unset_flags] << flag
+            end
             # Also separate flags which have been set and which should be externally visible
             if !node.to_a.include?('auto_generated') || node.to_a.include?('extern')
-              add generate_flag_name(node.value), :unset_flags_extern
+              add flag, :unset_flags_extern
             end
           end
 
           def on_add_flag(node)
-            add generate_flag_name(node.value), :add_flags
+            flag = generate_flag_name(node.value)
+            add flag, :add_flags
+            # Also track in loop scope if we're inside a loop
+            if in_loop?
+              @loop_scopes.last[:add_flags] << flag
+            end
             # Also separate flags which have been set and which should be externally visible
             if !node.to_a.include?('auto_generated') || node.to_a.include?('extern')
-              add generate_flag_name(node.value), :add_flags_extern
+              add flag, :add_flags_extern
             end
           end
 
@@ -119,6 +137,10 @@ module OrigenTesters
           def on_set(node)
             flag = generate_flag_name(node.to_a[0])
             add flag, :set_enables
+            # Also track in loop scope if we're inside a loop
+            if in_loop?
+              @loop_scopes.last[:set_enables] << flag
+            end
           end
 
           def on_loop(node)
@@ -129,13 +151,30 @@ module OrigenTesters
               end
             end
 
+            # Track variables set within this loop scope
+            @loop_depth += 1
+            loop_scope = {
+              set_flags: Set.new,
+              set_enables: Set.new,
+              unset_flags: Set.new,
+              add_flags: Set.new
+            }
+            @loop_scopes << loop_scope
+
             process_all(nodes)
+            
+            @loop_depth -= 1
+            @loop_scopes.pop
           end
 
           private
 
           def in_sub_flow?
             @sub_flow_depth > 0
+          end
+
+          def in_loop?
+            @loop_depth > 0
           end
 
           def add(var, type)

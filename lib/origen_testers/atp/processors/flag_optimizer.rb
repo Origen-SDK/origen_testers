@@ -151,7 +151,8 @@ module OrigenTesters::ATP
               gated_by_set?(n.to_a[0], node2) && # The flag set by node1 is gating node2
               n.to_a[1] == 'auto_generated' && # The flag has been generated and not specified by the user
               n.to_a[0] !~ /_RAN$/ && # And don't compress RAN flags because they can be set by both on_fail and on_pass
-              !volatile?(n.to_a[0]) # And make sure the flag has not been marked as volatile
+              !volatile?(n.to_a[0]) && # And make sure the flag has not been marked as volatile
+              !contains_opposite_condition?(n.to_a[0], node, node2) # Don't combine if node2 contains opposite condition
             end
           end
             return true
@@ -183,6 +184,47 @@ module OrigenTesters::ATP
       def gated_by_set?(flag, node)
         (flag == node.to_a[0] && node.type == :if_flag) ||
           (node.to_a.size == 2 && (node.to_a.last.type == :if_flag || node.to_a.last.type == :unless_flag) && gated_by_set?(flag, node.to_a.last))
+      end
+
+      # Check if node2 contains a condition that is logically opposite to the flag being set
+      # For example, if on_fail sets TEST_FAILED, and node2 contains if_passed for the same test,
+      # they are mutually exclusive and should not be combined.
+      def contains_opposite_condition?(flag, set_flag_node, node2)
+        # Extract test ID from the flag name
+        # Flags typically follow pattern: TESTID_PASSED, TESTID_FAILED, etc.
+        if flag =~ /^(.+)_(PASSED|FAILED)$/
+          test_id = $1
+          flag_type = $2
+          
+          # Determine what we're looking for (opposite condition)
+          opposite_type = flag_type == 'PASSED' ? 'FAILED' : 'PASSED'
+          opposite_flag = "#{test_id}_#{opposite_type}"
+          
+          # Check if node2 or any of its nested conditions reference the opposite flag
+          return contains_flag_reference?(node2, opposite_flag)
+        end
+        
+        false
+      end
+      
+      # Recursively check if a node or its children reference a specific flag
+      def contains_flag_reference?(node, flag)
+        return false unless node
+        
+        # Check if this is an if_flag/unless_flag node for the target flag
+        if (node.type == :if_flag || node.type == :unless_flag)
+          flag_ref = node.to_a[0]
+          return true if flag_ref == flag || (flag_ref.is_a?(Array) && flag_ref.include?(flag))
+        end
+        
+        # Recursively check children
+        if node.respond_to?(:children)
+          node.children.each do |child|
+            return true if child.respond_to?(:type) && contains_flag_reference?(child, flag)
+          end
+        end
+        
+        false
       end
 
       # Returns the node with the run_flag clauses re-ordered to have the given flag of interest at the top.
