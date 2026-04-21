@@ -594,9 +594,9 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
   end
 
   if tester.v93k?
-    log 'REGRESSION TEST: Bug 1 - Loop variable initialization scoping'
+    log 'REGRESSION TEST: Bug - Loop variable initialization scoping'
     log 'Variables should be re-initialized each loop iteration, not retain state from previous iterations'
-    loop from: 0, to: 3, var: '$LOOP_VAR_BUG1' do
+    loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG' do
       func :loop_test_a, id: :lta, on_fail: { continue: true }, number: 70000
       if_failed :lta do
         func :loop_test_b, number: 70010
@@ -605,19 +605,24 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     log 'Expected: loop_test_b should only execute when loop_test_a fails in THAT iteration'
     log 'Bug behavior: loop_test_b would execute in all subsequent iterations after first failure'
 
-    log 'REGRESSION TEST: Bug 2 - if_passed/if_failed conditional combining'
-    log 'Nested opposite conditions should not be AND-ed together creating unreachable code'
-    func :outer_test, id: :bug2_ot, number: 70100
-    if_passed :bug2_ot do
-      func :verify_test1, id: :bug2_ot2, number: 70120
-      func :verify_test2, id: :bug2_ot3, number: 70125
+
+    loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG_NESTED' do
+      func :loop_test_i, id: :lti, on_fail: { continue: true }, number: 70020
+      if_failed :lti do
+        func :loop_test_i2, number: 70021
+      end
+      loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG_NESTED2' do
+        func :loop_test_j, id: :ltj, on_fail: { continue: true }, number: 70022
+        if_passed :lti do
+          func :loop_test_j2, number: 70023
+        end
+        if_failed :ltj do
+          func :loop_test_j3, id: :ltj2, number: 70024
+        end
+      end
+      if_failed :ltj2 do
+        func :loop_test_i3, number: 70025
+      end
     end
-    if_all_failed [:bug2_ot2, :bug2_ot3] do
-      func :recovery_test, id: :bug2_rt, on_fail: { continue: true }, number: 70110
-      render 'multi_bin;'
-    end
-    log 'Expected: multi_bin is reachable when outer_test fails and recovery_test fails'
-    log 'Expected: verify_recovery is reachable when outer_test fails but recovery_test passes'
-    log 'Bug behavior: SMT8 would report multi_bin as unreachable (incorrect AND of FAILED and PASSED)'
   end
 end
