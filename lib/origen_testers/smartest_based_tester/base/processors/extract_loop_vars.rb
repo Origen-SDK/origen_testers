@@ -9,17 +9,17 @@ module OrigenTesters
         class ExtractLoopVars < ATP::Processor
           def run(loop_node)
             @loop_vars = {
-              set_flags: Set.new,
+              set_flags:   Set.new,
               set_enables: Set.new,
               unset_flags: Set.new,
-              add_flags: Set.new
+              add_flags:   Set.new
             }
             # Process only the children of the loop node (not the loop parameters)
             # The loop node structure is: [:start, :stop, :step, :var, :test_inc, ...children]
             # We need to skip the first 5 elements
             start, stop, step, loop_var, test_inc, *children = *loop_node
             process_all(children)
-            
+
             # Convert sets to sorted arrays for consistent output
             result = {}
             @loop_vars.each do |key, set|

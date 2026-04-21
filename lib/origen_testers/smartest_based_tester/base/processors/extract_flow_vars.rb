@@ -154,15 +154,15 @@ module OrigenTesters
             # Track variables set within this loop scope
             @loop_depth += 1
             loop_scope = {
-              set_flags: Set.new,
+              set_flags:   Set.new,
               set_enables: Set.new,
               unset_flags: Set.new,
-              add_flags: Set.new
+              add_flags:   Set.new
             }
             @loop_scopes << loop_scope
 
             process_all(nodes)
-            
+
             @loop_depth -= 1
             @loop_scopes.pop
           end

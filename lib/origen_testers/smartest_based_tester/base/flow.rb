@@ -536,7 +536,7 @@ module OrigenTesters
           end
           # Extract variables that are set within this loop to initialize them
           loop_vars = extract_loop_variables(node)
-          
+
           if tester.smt7?
             unless stop.is_a?(String)
               stop = "#{stop + step}"
@@ -810,7 +810,7 @@ module OrigenTesters
         # Emit variable initialization statements for loop-scoped variables
         def emit_loop_variable_initialization(loop_vars)
           return if loop_vars.empty?
-          
+
           # Initialize set_flags
           loop_vars[:set_flags].each do |var|
             if smt8?
@@ -819,7 +819,7 @@ module OrigenTesters
               line "@#{var} = -1;"
             end
           end
-          
+
           # Initialize set_enables
           loop_vars[:set_enables].each do |var|
             if smt8?
