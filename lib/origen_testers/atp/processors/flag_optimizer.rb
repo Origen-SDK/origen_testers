@@ -151,8 +151,7 @@ module OrigenTesters::ATP
               gated_by_set?(n.to_a[0], node2) && # The flag set by node1 is gating node2
               n.to_a[1] == 'auto_generated' && # The flag has been generated and not specified by the user
               n.to_a[0] !~ /_RAN$/ && # And don't compress RAN flags because they can be set by both on_fail and on_pass
-              !volatile?(n.to_a[0]) && # And make sure the flag has not been marked as volatile
-              !contains_opposite_condition?(n.to_a[0], node, node2) # Don't combine if node2 contains opposite condition
+              !volatile?(n.to_a[0]) # And make sure the flag has not been marked as volatile
             end
           end
             return true
