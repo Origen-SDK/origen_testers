@@ -273,6 +273,30 @@ tm_179:
 tm_18:
   "output" = "None";
   "testName" = "Functional";
+tm_180:
+  "output" = "None";
+  "testName" = "Functional";
+tm_181:
+  "output" = "None";
+  "testName" = "Functional";
+tm_182:
+  "output" = "None";
+  "testName" = "Functional";
+tm_183:
+  "output" = "None";
+  "testName" = "Functional";
+tm_184:
+  "output" = "None";
+  "testName" = "Functional";
+tm_185:
+  "output" = "None";
+  "testName" = "Functional";
+tm_186:
+  "output" = "None";
+  "testName" = "Functional";
+tm_187:
+  "output" = "None";
+  "testName" = "Functional";
 tm_19:
   "output" = "None";
   "testName" = "Functional";
@@ -725,6 +749,22 @@ tm_179:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_18:
   "Functional" = "":"NA":"":"NA":"":"":"";
+tm_180:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_181:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_182:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_183:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_184:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_185:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_186:
+  "Functional" = "":"NA":"":"NA":"":"":"";
+tm_187:
+  "Functional" = "":"NA":"":"NA":"":"":"";
 tm_19:
   "Functional" = "":"NA":"":"NA":"":"":"";
 tm_2:
@@ -1087,6 +1127,22 @@ tm_178:
 tm_179:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_18:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_180:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_181:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_182:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_183:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_184:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_185:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_186:
+  testmethod_class = "ac_tml.AcTest.FunctionalTest";
+tm_187:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
 tm_19:
   testmethod_class = "ac_tml.AcTest.FunctionalTest";
@@ -1521,6 +1577,62 @@ long_test_BEA7F3B:
   override = 1;
   override_seqlbl = "long_test";
   override_testf = tm_31;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_a_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_a";
+  override_testf = tm_180;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_b_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_b";
+  override_testf = tm_181;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_i2_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_i2";
+  override_testf = tm_183;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_i3_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_i3";
+  override_testf = tm_187;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_i_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_i";
+  override_testf = tm_182;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_j2_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_j2";
+  override_testf = tm_185;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_j3_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_j3";
+  override_testf = tm_186;
+  site_control = "parallel:";
+  site_match = 2;
+loop_test_j_BEA7F3B:
+  local_flags = output_on_pass, output_on_fail, value_on_pass, value_on_fail, per_pin_on_pass, per_pin_on_fail;
+  override = 1;
+  override_seqlbl = "loop_test_j";
+  override_testf = tm_184;
   site_control = "parallel:";
   site_match = 2;
 nt1_BEA7F3B:
@@ -2567,6 +2679,11 @@ test_flow
        @OF11_BEA7F3B_FAILED = -1;
        @OF12_BEA7F3B_FAILED = -1;
        @AF11_BEA7F3B_FAILED = -1;
+       @LTA_BEA7F3B_FAILED = -1;
+       @LTI_BEA7F3B_FAILED = -1;
+       @LTI_BEA7F3B_PASSED = -1;
+       @LTJ_BEA7F3B_FAILED = -1;
+       @LTJ2_BEA7F3B_FAILED = -1;
     }, open,"Init Flow Control Vars", ""
     print_dl("Test that if_failed works");
     run_and_branch(read1_BEA7F3B)
@@ -3537,9 +3654,12 @@ test_flow
     @LOOP_VARIABLE1 = 0;
     for @LOOP_VARIABLE1 = 0; @LOOP_VARIABLE1 < 11 ; @LOOP_VARIABLE1 = @LOOP_VARIABLE1 + 2; do
     {
+       @LOOP_VARIABLE2 = -1;
+       @LOOP_VARIABLE3 = -1;
        @LOOP_VARIABLE2 = 0;
        for @LOOP_VARIABLE2 = 1; @LOOP_VARIABLE2 < 11 ; @LOOP_VARIABLE2 = @LOOP_VARIABLE2 + 1; do
        {
+          @LOOP_VARIABLE3 = -1;
           @LOOP_VARIABLE3 = 0;
           for @LOOP_VARIABLE3 = 1; @LOOP_VARIABLE3 < 6 ; @LOOP_VARIABLE3 = @LOOP_VARIABLE3 + 1; do
           {
@@ -3927,6 +4047,97 @@ test_flow
     }
     else
     {
+    }
+    print_dl("REGRESSION TEST: Bug - Loop variable initialization scoping");
+    print_dl("Variables should be re-initialized each loop iteration, not retain state from previous iterations");
+    @LOOP_VAR_INIT_BUG = 0;
+    for @LOOP_VAR_INIT_BUG = 0; @LOOP_VAR_INIT_BUG < 4 ; @LOOP_VAR_INIT_BUG = @LOOP_VAR_INIT_BUG + 1; do
+    {
+       @LTA_BEA7F3B_FAILED = -1;
+       run_and_branch(loop_test_a_BEA7F3B)
+       then
+       {
+       }
+       else
+       {
+          @LTA_BEA7F3B_FAILED = 1;
+       }
+       if @LTA_BEA7F3B_FAILED == 1 then
+       {
+          run(loop_test_b_BEA7F3B);
+       }
+       else
+       {
+       }
+    }
+    print_dl("Expected: loop_test_b should only execute when loop_test_a fails in THAT iteration");
+    print_dl("Bug behavior: loop_test_b would execute in all subsequent iterations after first failure");
+    @LOOP_VAR_INIT_BUG_NESTED = 0;
+    for @LOOP_VAR_INIT_BUG_NESTED = 0; @LOOP_VAR_INIT_BUG_NESTED < 4 ; @LOOP_VAR_INIT_BUG_NESTED = @LOOP_VAR_INIT_BUG_NESTED + 1; do
+    {
+       @LTI_BEA7F3B_FAILED = -1;
+       @LTI_BEA7F3B_PASSED = -1;
+       @LTJ2_BEA7F3B_FAILED = -1;
+       @LTJ_BEA7F3B_FAILED = -1;
+       @LOOP_VAR_INIT_BUG_NESTED2 = -1;
+       run_and_branch(loop_test_i_BEA7F3B)
+       then
+       {
+          @LTI_BEA7F3B_PASSED = 1;
+       }
+       else
+       {
+          @LTI_BEA7F3B_FAILED = 1;
+       }
+       if @LTI_BEA7F3B_FAILED == 1 then
+       {
+          run(loop_test_i2_BEA7F3B);
+       }
+       else
+       {
+       }
+       @LOOP_VAR_INIT_BUG_NESTED2 = 0;
+       for @LOOP_VAR_INIT_BUG_NESTED2 = 0; @LOOP_VAR_INIT_BUG_NESTED2 < 4 ; @LOOP_VAR_INIT_BUG_NESTED2 = @LOOP_VAR_INIT_BUG_NESTED2 + 1; do
+       {
+          @LTJ2_BEA7F3B_FAILED = -1;
+          @LTJ_BEA7F3B_FAILED = -1;
+          run_and_branch(loop_test_j_BEA7F3B)
+          then
+          {
+          }
+          else
+          {
+             @LTJ_BEA7F3B_FAILED = 1;
+          }
+          if @LTI_BEA7F3B_PASSED == 1 then
+          {
+             run(loop_test_j2_BEA7F3B);
+          }
+          else
+          {
+          }
+          if @LTJ_BEA7F3B_FAILED == 1 then
+          {
+             run_and_branch(loop_test_j3_BEA7F3B)
+             then
+             {
+             }
+             else
+             {
+                @LTJ2_BEA7F3B_FAILED = 1;
+             }
+          }
+          else
+          {
+          }
+       }
+       if @LTJ2_BEA7F3B_FAILED == 1 then
+       {
+          run(loop_test_i3_BEA7F3B);
+       }
+       else
+       {
+       }
     }
 
   }, open,"Flow Control Testing","Flow to exercise the Flow Control API"
