@@ -264,6 +264,10 @@ module OrigenTesters
         called_from = called_from.split(':')
         options[:source_file] = flow_file # called_from[0]
         options[:source_line_number] = called_from[1].to_i
+        # Capture the full flow-file lineage (outermost product-app flow down to the
+        # innermost plugin sub-flow) so that round-trip tooling can target the correct
+        # source layer for a given generated node, not just the innermost file.
+        options[:source_stack] = OrigenTesters::Flow.callstack.dup
       end
     end
 

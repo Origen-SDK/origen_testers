@@ -4,6 +4,10 @@ module OrigenTesters
     class Base
       class Flow < ATP::Formatter
         include OrigenTesters::Flow
+        # Tester-agnostic round-trip provenance. Covers every smartest platform that
+        # renders through this base on_test (e.g. SMT7). SMT8 overrides on_test and
+        # mixes in / calls the same shared module itself.
+        include OrigenTesters::Sourcemap
 
         RELATIONAL_OPERATOR_STRINGS = {
           eq: '==',
@@ -183,6 +187,14 @@ module OrigenTesters
           sub_flow = all_sub_flows.find { |f| File.join(f.subdirectory, f.filename) == path }
         end
 
+        # Emit the round-trip sourcemap sidecar after the output file is written.
+        # Purely additive: super writes the platform file, then we write the sidecar.
+        # SMT8 has its own override of this; this covers SMT7 and other smartest output.
+        def write_to_file(options = {})
+          super
+          write_sourcemap_file
+        end
+
         # This is called by Origen on each flow after they have all been executed but before they
         # are finally written/rendered
         def finalize(options = {})
@@ -225,6 +237,9 @@ module OrigenTesters
           end
           @lines = []
           @lines_buffer = []
+          # Reset round-trip sourcemap before the AST walk (process(ast) below
+          # repopulates it via the on_test hook). Re-finalization must not duplicate.
+          reset_sourcemap
           @open_test_methods = []
           @open_test_names = []
           @post_test_lines = []
@@ -295,6 +310,8 @@ module OrigenTesters
               test_method.test_name = n.value
             end
           end
+
+          record_sourcemap_entry(node, name, 'test', (defined?(test_method) ? test_method : nil))
 
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?

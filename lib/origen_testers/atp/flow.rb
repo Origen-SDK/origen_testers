@@ -86,6 +86,7 @@ module OrigenTesters::ATP
       name, options = nil, name if name.is_a?(Hash)
       @source_file = []
       @source_line_number = []
+      @source_stack = []
       @description = []
       @program = program
       @name = name
@@ -713,6 +714,10 @@ module OrigenTesters::ATP
       @source_line_number.last
     end
 
+    def source_stack
+      @source_stack.last
+    end
+
     def flow_control_method(name, flag, options = {}, &block)
       extract_meta!(options) do
         if flag.is_a?(Array)
@@ -859,10 +864,12 @@ module OrigenTesters::ATP
     def extract_meta!(options)
       @source_file << options.delete(:source_file)
       @source_line_number << options.delete(:source_line_number)
+      @source_stack << options.delete(:source_stack)
       @description << options.delete(:description)
       yield
       @source_file.pop
       @source_line_number.pop
+      @source_stack.pop
       @description.pop
     end
 
@@ -1040,6 +1047,7 @@ module OrigenTesters::ATP
     def n(type, children, options = {})
       options[:file] ||= options.delete(:source_file) || source_file
       options[:line_number] ||= options.delete(:source_line_number) || source_line_number
+      options[:source_stack] ||= options.delete(:source_stack) || source_stack
       options[:description] ||= options.delete(:description) || description
       # Guarantee that each node has a unique meta-ID, in case we need to ever search
       # for it

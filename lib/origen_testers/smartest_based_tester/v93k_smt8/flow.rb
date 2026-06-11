@@ -3,8 +3,27 @@ module OrigenTesters
     class V93K_SMT8
       require 'origen_testers/smartest_based_tester/base/flow'
       class Flow < Base::Flow
+        # Tester-agnostic round-trip provenance plumbing. SMT8 only supplies the
+        # platform-specific join key (the test-suite / sub-flow name) via the
+        # record_sourcemap_entry calls in the on_* hooks below.
+        include OrigenTesters::Sourcemap
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
         IN_IDENTIFIER = '_AUTOIN'
+
+        # finalize re-walks the AST (process(ast)) to build @lines, and may run more
+        # than once. Reset the sourcemap accumulator each time so re-finalization does
+        # not duplicate entries; it is repopulated by the on_* emit hooks during the walk.
+        def finalize(options = {})
+          reset_sourcemap
+          super
+        end
+
+        # Emit the round-trip sourcemap sidecar after the .flow itself is written.
+        # Purely additive: super writes the .flow, then we write <flow>.sourcemap.json.
+        def write_to_file(options = {})
+          super
+          write_sourcemap_file
+        end
 
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
@@ -20,6 +39,8 @@ module OrigenTesters
               test_method.test_name = n.value
             end
           end
+
+          record_sourcemap_entry(node, name, 'test', (defined?(test_method) ? test_method : nil))
 
           if node.children.any? { |n| t = n.try(:type); t == :on_fail || t == :on_pass } ||
              !stack[:on_pass].empty? || !stack[:on_fail].empty?
@@ -102,6 +123,7 @@ module OrigenTesters
             end
           end
           name = path.basename('.*').to_s
+          record_sourcemap_entry(node, name, 'sub_flow')
           path = Origen.interface.sub_flow_path_overwrite(path) if Origen.interface.respond_to? :sub_flow_path_overwrite
           @sub_flows[name] = {
             bypass: bypass,
@@ -189,6 +211,7 @@ module OrigenTesters
           path = node.find(:path).value
           name = node.find(:name).value
           @auxiliary_flows[name] = "#{path}"
+          record_sourcemap_entry(node, name, 'auxiliary_flow')
           line "#{name}.execute();"
         end
 

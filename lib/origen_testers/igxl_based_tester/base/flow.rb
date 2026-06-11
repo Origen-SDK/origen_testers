@@ -3,6 +3,10 @@ module OrigenTesters
     class Base
       class Flow < ATP::Formatter
         include OrigenTesters::Flow
+        # Tester-agnostic round-trip provenance for IG-XL platforms (J750, UltraFLEX).
+        # Same shared plumbing as the smartest path; the only platform-specific piece
+        # is the join key, which here is the flow line's test name (tname).
+        include OrigenTesters::Sourcemap
 
         OUTPUT_POSTFIX = 'flow'
 
@@ -65,9 +69,16 @@ module OrigenTesters
           @stack = { jobs: [] }
           @context = []
           @set_flags = {}
+          reset_sourcemap
           ast = atp.ast(unique_id: sig, optimization: :igxl)
           process(ast)
           lines
+        end
+
+        # Emit the round-trip sourcemap sidecar after the IG-XL flow sheet is written.
+        def write_to_file(options = {})
+          super
+          write_sourcemap_file
         end
 
         def on_flow(node)
@@ -85,6 +96,14 @@ module OrigenTesters
           else
             completed_lines << line
           end
+          # Round-trip provenance: IG-XL flow rows are NOT unique by test name alone
+          # (the same tname recurs with different test numbers), so the join key must
+          # combine tname + tnum to uniquely identify a row. Fall back to the test
+          # instance/parameter name if tname is unset.
+          tname = (line.respond_to?(:tname) && line.tname) || line.parameter
+          tnum = line.respond_to?(:tnum) ? line.tnum : nil
+          key = tnum ? "#{tname}##{tnum}" : tname
+          record_sourcemap_entry(node, key, 'test')
         end
 
         def on_cz(node)

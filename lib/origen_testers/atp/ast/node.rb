@@ -2,7 +2,7 @@ require 'ast'
 module OrigenTesters::ATP
   module AST
     class Node < ::AST::Node
-      attr_reader :file, :line_number, :description, :properties
+      attr_reader :file, :line_number, :source_stack, :description, :properties
       attr_accessor :id
 
       def initialize(type, children = [], properties = {})
@@ -16,14 +16,15 @@ module OrigenTesters::ATP
       def _dump(depth)
         # this strips the @strip information from the instance
         # d = { type: type, children: children, properties: properties }
-        d = { klass:       self.class,
-              id:          id,
-              file:        file,
-              line_number: line_number,
-              description: description,
-              type:        type,
-              children:    Processors::Marshal.new.process_all(children),
-              properties:  properties
+        d = { klass:        self.class,
+              id:           id,
+              file:         file,
+              line_number:  line_number,
+              source_stack: source_stack,
+              description:  description,
+              type:         type,
+              children:     Processors::Marshal.new.process_all(children),
+              properties:   properties
             }
         Marshal.dump(d, depth)
       end
@@ -34,6 +35,7 @@ module OrigenTesters::ATP
         p[:id] = d[:id]
         p[:file] = d[:file]
         p[:line_number] = d[:line_number]
+        p[:source_stack] = d[:source_stack]
         p[:description] = d[:description]
         n = d[:klass].new(d[:type], d[:children], p)
         n
