@@ -161,7 +161,10 @@ module OrigenTesters
         'entries'      => entries
       }
       File.open(sourcemap_output_file, 'w') { |f| f.puts JSON.pretty_generate(doc) }
-      Origen.log.info "Writing... #{sourcemap_output_file.basename}"
+      # debug, not info: the sidecar is a derived artifact that does not participate in
+      # the generated-file diff/save flow and must not inflate the run summary. A scan
+      # build emits hundreds of these; keep them out of the default log.
+      Origen.log.debug "Writing sourcemap... #{sourcemap_output_file.basename}"
     end
   end
 end
