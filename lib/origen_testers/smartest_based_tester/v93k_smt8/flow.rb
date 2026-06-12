@@ -3,27 +3,17 @@ module OrigenTesters
     class V93K_SMT8
       require 'origen_testers/smartest_based_tester/base/flow'
       class Flow < Base::Flow
-        # Tester-agnostic round-trip provenance plumbing. SMT8 only supplies the
-        # platform-specific join key (the test-suite / sub-flow name) via the
-        # record_sourcemap_entry calls in the on_* hooks below.
-        include OrigenTesters::Sourcemap
+        # Round-trip provenance is fully handled by Base::Flow (it includes
+        # OrigenTesters::Sourcemap, resets the accumulator inside finalize right before
+        # process(ast), and writes the sidecar in write_to_file). SMT8 only supplies the
+        # platform-specific join key via the record_sourcemap_entry calls in the on_*
+        # hooks below. It must NOT re-override finalize/write_to_file: SMT8 finalizes each
+        # sub-flow's @sourcemap during the top-level walk, so a subclass reset_sourcemap
+        # would wipe those entries before the sub-flow's own (early-returning) finalize,
+        # leaving every forked sub-flow sidecar empty; and a subclass write_sourcemap_file
+        # would double-write the file.
         TEMPLATE = "#{Origen.root!}/lib/origen_testers/smartest_based_tester/v93k_smt8/templates/template.flow.erb"
         IN_IDENTIFIER = '_AUTOIN'
-
-        # finalize re-walks the AST (process(ast)) to build @lines, and may run more
-        # than once. Reset the sourcemap accumulator each time so re-finalization does
-        # not duplicate entries; it is repopulated by the on_* emit hooks during the walk.
-        def finalize(options = {})
-          reset_sourcemap
-          super
-        end
-
-        # Emit the round-trip sourcemap sidecar after the .flow itself is written.
-        # Purely additive: super writes the .flow, then we write <flow>.sourcemap.json.
-        def write_to_file(options = {})
-          super
-          write_sourcemap_file
-        end
 
         def on_test(node)
           test_suite = node.find(:object).to_a[0]
