@@ -40,8 +40,15 @@ module OrigenTesters
     def roundtrip_sourcemap_enabled?
       return @roundtrip_sourcemap_enabled unless @roundtrip_sourcemap_enabled.nil?
       @roundtrip_sourcemap_enabled = begin
-        v = Origen.site_config.respond_to?(:roundtrip_sourcemap) ? Origen.site_config.roundtrip_sourcemap : nil
-        [true, 'true', 1, '1'].include?(v)
+        # ENV override lets a controlled in-process regeneration (e.g. the `origen
+        # roundtrip` command regenerating the original to diff against) force the
+        # sidecar on for that run, without depending on the site_config default.
+        if %w(1 true).include?(ENV['ROUNDTRIP_SOURCEMAP'].to_s.downcase)
+          true
+        else
+          v = Origen.site_config.respond_to?(:roundtrip_sourcemap) ? Origen.site_config.roundtrip_sourcemap : nil
+          [true, 'true', 1, '1'].include?(v)
+        end
       rescue StandardError
         false
       end
