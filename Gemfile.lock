@@ -1,38 +1,4 @@
 GIT
-  remote: https://github.com/Origen-SDK/origen.git
-  revision: 95710064bfb717c3ccb3805d6379781485b3a692
-  branch: feature/ruby_4_0
-  specs:
-    origen (0.60.20)
-      activesupport (~> 4.1)
-      base64 (~> 0)
-      bundler (> 1.7)
-      coderay (~> 1.1)
-      colored (~> 1.2)
-      colorize (~> 0.8.1)
-      concurrent-ruby
-      dentaku (~> 3)
-      gems (~> 0.8)
-      highline (~> 1.7)
-      httparty (~> 0.13)
-      irb (>= 1, < 1.8)
-      kramdown (~> 2.4)
-      logger (~> 1)
-      nanoc (~> 3.7.0)
-      net-ldap (~> 0.13)
-      nokogiri (>= 1.11.0)
-      pry (~> 0.10)
-      rake (~> 10)
-      rspec (~> 3)
-      rspec-legacy_formatters (~> 1)
-      rubocop (>= 1.28, < 2)
-      scrub_rb (~> 1.0)
-      simplecov (~> 0.17)
-      simplecov-html (~> 0.10)
-      thor (~> 1)
-      yard (~> 0.8)
-
-GIT
   remote: https://github.com/Origen-SDK/origen_stil.git
   revision: 8d726318d86dc32eabf0d91cb2de5d423418abf9
   specs:
@@ -59,6 +25,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    abbrev (0.1.2)
     activesupport (4.2.11.3)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -85,7 +52,7 @@ GEM
     docile (1.4.1)
     dry-inflector (0.1.2)
     gems (0.8.3)
-    highline (1.7.10)
+    highline (2.1.0)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -105,8 +72,44 @@ GEM
     nanoc (3.7.5)
       cri (~> 2.3)
     net-ldap (0.19.0)
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.1)
+      net-protocol
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
+    origen (0.61.2)
+      abbrev (~> 0)
+      activesupport (~> 4.1)
+      base64 (~> 0)
+      bundler (> 1.7)
+      coderay (~> 1.1)
+      colored (~> 1.2)
+      colorize (~> 0.8.1)
+      concurrent-ruby
+      dentaku (~> 3)
+      gems (~> 0.8)
+      highline (~> 2.0)
+      httparty (~> 0.13)
+      irb (>= 1, < 1.8)
+      kramdown (~> 2.4)
+      logger (~> 1)
+      nanoc (~> 3.7.0)
+      net-ldap (~> 0.13)
+      net-smtp (~> 0)
+      nokogiri (>= 1.11.0)
+      ostruct (~> 0)
+      pry (~> 0.10)
+      rake (>= 10, < 14)
+      rspec (~> 3)
+      rspec-legacy_formatters (~> 1)
+      rubocop (>= 1.28, < 2)
+      scrub_rb (~> 1.0)
+      simplecov (~> 0.17)
+      simplecov-html (~> 0.10)
+      thor (~> 1)
+      webrick (~> 1.4)
+      yard (~> 0.8)
     origen_arm_debug (0.4.3)
       origen (~> 0.2)
       origen_jtag (>= 0.12.0)
@@ -118,6 +121,7 @@ GEM
       origen_testers (>= 0.13.2)
     origen_swd (2.0.0)
       origen (>= 0.7.36)
+    ostruct (0.6.3)
     parallel (1.24.0)
     parser (3.3.11.1)
       ast (~> 2.4.1)
@@ -129,7 +133,7 @@ GEM
       reline (>= 0.6.0)
     racc (1.8.1)
     rainbow (3.1.1)
-    rake (10.5.0)
+    rake (13.4.2)
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -177,11 +181,13 @@ GEM
     simplecov-html (0.10.2)
     thor (1.5.0)
     thread_safe (0.3.6)
+    timeout (0.6.1)
     treetop (1.6.18)
       polyglot (~> 0.3)
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
     unicode-display_width (2.6.0)
+    webrick (1.9.2)
     yard (0.9.44)
     yard-activesupport-concern (0.0.1)
       yard (>= 0.8)
@@ -193,7 +199,7 @@ DEPENDENCIES
   byebug (~> 11)
   dry-inflector (= 0.1.2)
   nokogiri
-  origen!
+  origen (>= 0.61.2)
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers
   origen_jtag (>= 0.12.0)
