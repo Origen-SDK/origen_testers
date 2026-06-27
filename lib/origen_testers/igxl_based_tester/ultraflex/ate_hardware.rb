@@ -51,7 +51,7 @@ module OrigenTesters
             ppmu.new(forcei, forcev, measi, measv, vclamp)
           elsif @instrument == 'HSD-4G'
             forcei = [200.uA, 2.mA, 30.mA]
-            forcev = { measi_30mA:  [min: '1.5V, 1.5V - 50mV/mA * Idut', max: '0V, -50mV/mA * Idut'],
+            forcev = { measi_30mA:  [{ min: '1.5V, 1.5V - 50mV/mA * Idut', max: '0V, -50mV/mA * Idut' }],
                        measi_2mA:   (-1.V..1.5.V),
                        measi_200uA: (-1.V..1.5.V) }
             measi = [200.uA, 2.mA, 30.mA]
@@ -98,17 +98,17 @@ module OrigenTesters
                               irange_51A: (2.55.A..52.53.A),
                               irange_81A: (4.05.A..83.43.A) }
             source_fold_t = (10.uS..8.S)
-            sink_overload_i = { irange_1A:  [max: 78.mA],    # ?????    Not programmable?
-                                irange_11A: [max: 858.mA],    # ?????    Not programmable?
-                                irange_21A: [max: 1.64.A],    # ?????    Not programmable?
-                                irange_51A: [max: 3.98.A],    # ?????    Not programmable?
-                                irange_81A: [max: 6.32.A] }    # ?????    Not programmable?
+            sink_overload_i = { irange_1A:  [{ max: 78.mA }],    # ?????    Not programmable?
+                                irange_11A: [{ max: 858.mA }],    # ?????    Not programmable?
+                                irange_21A: [{ max: 1.64.A }],    # ?????    Not programmable?
+                                irange_51A: [{ max: 3.98.A }],    # ?????    Not programmable?
+                                irange_81A: [{ max: 6.32.A }] }    # ?????    Not programmable?
             sink_overload_t = 0                  # ?????    Not programmable?
-            sink_fold_i = { irange_1A:  [max: 78.mA],      # ?????    Not programmable?
-                            irange_11A: [max: 858.mA],     # ?????    Not programmable?
-                            irange_21A: [max: 1.64.A],     # ?????    Not programmable?
-                            irange_51A: [max: 3.98.A],    # ?????    Not programmable?
-                            irange_81A: [max: 6.32.A] }    # ?????    Not programmable?
+            sink_fold_i = { irange_1A:  [{ max: 78.mA }],      # ?????    Not programmable?
+                            irange_11A: [{ max: 858.mA }],     # ?????    Not programmable?
+                            irange_21A: [{ max: 1.64.A }],     # ?????    Not programmable?
+                            irange_51A: [{ max: 3.98.A }],    # ?????    Not programmable?
+                            irange_81A: [{ max: 6.32.A }] }    # ?????    Not programmable?
             sink_fold_t = (10.uS..8.S)
             meter_irange = { irange_1A:  [1.25.A, 2.5.A],
                              irange_11A: [13.75.A, 27.5.A],
@@ -144,23 +144,23 @@ module OrigenTesters
                               irange_102A: (5.1.A..105.06.A),
                               irange_162A: (8.1.A..166.86.A) }
             source_fold_t = (10.uS..8.S)
-            sink_overload_i = { irange_1A:   [max: 78.mA],     # ?????    Not programmable?
-                                irange_2A:   [max: 156.mA],     # ?????    Not programmable?
-                                irange_11A:  [max: 858.mA],     # ?????    Not programmable?
-                                irange_21A:  [max: 1.64.A],     # ?????    Not programmable?
-                                irange_51A:  [max: 3.98.A],     # ?????    Not programmable?
-                                irange_81A:  [max: 6.32.A],     # ?????    Not programmable?
-                                irange_102A: [max: 7.96.A],     # ?????    Not programmable?
-                                irange_162A: [max: 12.64.A] }     # ?????    Not programmable?
+            sink_overload_i = { irange_1A:   [{ max: 78.mA }],     # ?????    Not programmable?
+                                irange_2A:   [{ max: 156.mA }],     # ?????    Not programmable?
+                                irange_11A:  [{ max: 858.mA }],     # ?????    Not programmable?
+                                irange_21A:  [{ max: 1.64.A }],     # ?????    Not programmable?
+                                irange_51A:  [{ max: 3.98.A }],     # ?????    Not programmable?
+                                irange_81A:  [{ max: 6.32.A }],     # ?????    Not programmable?
+                                irange_102A: [{ max: 7.96.A }],     # ?????    Not programmable?
+                                irange_162A: [{ max: 12.64.A }] }     # ?????    Not programmable?
             sink_overload_t = 0                  # ?????    Not programmable?
-            sink_fold_i = { irange_1A:   [max: 78.mA],     # ?????    Not programmable?
-                            irange_2A:   [max: 156.mA],     # ?????    Not programmable?
-                            irange_11A:  [max: 858.mA],     # ?????    Not programmable?
-                            irange_21A:  [max: 1.64.A],     # ?????    Not programmable?
-                            irange_51A:  [max: 3.98.A],     # ?????    Not programmable?
-                            irange_81A:  [max: 6.32.A],     # ?????    Not programmable?
-                            irange_102A: [max: 7.96.A],     # ?????    Not programmable?
-                            irange_162A: [max: 12.64.A] }     # ?????    Not programmable?
+            sink_fold_i = { irange_1A:   [{ max: 78.mA }],     # ?????    Not programmable?
+                            irange_2A:   [{ max: 156.mA }],     # ?????    Not programmable?
+                            irange_11A:  [{ max: 858.mA }],     # ?????    Not programmable?
+                            irange_21A:  [{ max: 1.64.A }],     # ?????    Not programmable?
+                            irange_51A:  [{ max: 3.98.A }],     # ?????    Not programmable?
+                            irange_81A:  [{ max: 6.32.A }],     # ?????    Not programmable?
+                            irange_102A: [{ max: 7.96.A }],     # ?????    Not programmable?
+                            irange_162A: [{ max: 12.64.A }] }     # ?????    Not programmable?
             meter_irange = { irange_1A:   [1.25.A, 2.5.A],
                              irange_2A:   [2.5.A, 5.A],
                              irange_11A:  [13.75.A, 27.5.A],
