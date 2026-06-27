@@ -1,3 +1,27 @@
+<a class="anchor release_tag" name="v0_53_0"></a>
+<h1><a href="#v0_53_0">Tag: v0.53.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 27-Jun-2026 16:58PM
+
+
+Ruby 3.3 / 4.0 support (while remaining compatible with Ruby 2.6)
+
+OrigenTesters now runs on Ruby 3.3, 3.4 and 4.0 in addition to the existing
+Ruby 2.6 through 3.1 support. The regression suite passes across the full matrix
+(Ruby 2.6 through 4.0) with no changes to generated output -- functionality is
+confirmed by CI rather than by the size of the diff, as most of the changed files
+are lint/style updates.
+
+* Brought the codebase in line with the newer RuboCop rules adopted in Origen
+  core; the majority of the changes in this release are these lint/style fixes.
+* Fixed the remaining Ruby 4.0 language incompatibilities in the tester models
+  and generators while keeping Ruby 2.6 behaviour unchanged.
+* Gated the byebug development dependency to Ruby < 4 (its C extension does not
+  build on Ruby 4.0) and added the standard-library gems Ruby 4 no longer bundles.
+* Updated the origen dependency to the Ruby-4-ready release (>= 0.61.2).
+
 <a class="anchor release_tag" name="v0_52_15"></a>
 <h1><a href="#v0_52_15">Tag: v0.52.15</a></h1>
 
