@@ -22,6 +22,6 @@ gem 'dry-inflector', '0.1.2'
 gem 'rubyzip', '~>1'
 
 gem 'origen_stil', git: "https://github.com/Origen-SDK/origen_stil.git"
-gem 'origen', '>= 0.61.2'
+gem 'origen', '>= 0.61.3'
 # Specify all runtime dependencies in origen_testers.gemspec
 gemspec

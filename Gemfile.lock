@@ -82,7 +82,7 @@ GEM
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    origen (0.61.2)
+    origen (0.61.3)
       abbrev (~> 0)
       activesupport (~> 4.1)
       base64 (~> 0)
@@ -206,7 +206,7 @@ DEPENDENCIES
   fiddle (~> 1)
   mutex_m
   nokogiri
-  origen (>= 0.61.2)
+  origen (>= 0.61.3)
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers
   origen_jtag (>= 0.12.0)
