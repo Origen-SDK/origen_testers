@@ -18,7 +18,7 @@ module OrigenTesters
                        forcei_50mA__lte_20mA:      (-1.V..6.V),
                        forcei_Non50mA__half_scale: (-1..6.V),
                        forcei_Non50mA__full_scale: (-1.V..5.5.V) }
-            measi = [2.uA,  20.uA, 200.uA,  2.mA,  50.mA]
+            measi = [2.uA, 20.uA, 200.uA, 2.mA, 50.mA]
             measv =  { measi_50mA__gt_20mA:         (-0.1.V..4.5.V),
                        measi_50mA__lte_20mA:        (-1.V..6.V),
                        measi_20mA__0p5mA_to_20mA:   (-1.V..5.5.V),
@@ -40,7 +40,7 @@ module OrigenTesters
                        forcei_50mA__n35mA_to_n20mA: (0.5.V..5.1.V),
                        forcei_50mA__n50mA_to_n35mA: (1.1.V..4.5.V),
                        forcei_Non50mA:              (-1.V..6.V) }
-            measi = [2.uA,  20.uA, 200.uA,  2.mA,  50.mA]
+            measi = [2.uA, 20.uA, 200.uA, 2.mA, 50.mA]
             measv = { measi_50mA:              (-1.V..6.V),
                       measi_200uA:             (-1.V..6.V),
                       measi_20uA:              (-1.V..6.V),
@@ -51,7 +51,7 @@ module OrigenTesters
             ppmu.new(forcei, forcev, measi, measv, vclamp)
           elsif @instrument == 'HSD-4G'
             forcei = [200.uA, 2.mA, 30.mA]
-            forcev = { measi_30mA:  [min: '1.5V, 1.5V - 50mV/mA * Idut', max: '0V, -50mV/mA * Idut'],
+            forcev = { measi_30mA:  [{ min: '1.5V, 1.5V - 50mV/mA * Idut', max: '0V, -50mV/mA * Idut' }],
                        measi_2mA:   (-1.V..1.5.V),
                        measi_200uA: (-1.V..1.5.V) }
             measi = [200.uA, 2.mA, 30.mA]
@@ -72,8 +72,8 @@ module OrigenTesters
             vclamp = (-1.3.V..3.9.V)
             ppmu.new(forcei, forcev, measi, measv, vclamp)
           else
-            puts "please enter an instrument type: e.g. $tester.ate_hardware(\"HSD-M\").ppmu"
-            puts "Instrument type available: \"HSD-M\", \"HSD-U\", \"HSD-4G\", and \"HSS-6G\" "
+            puts 'please enter an instrument type: e.g. $tester.ate_hardware("HSD-M").ppmu'
+            puts 'Instrument type available: "HSD-M", "HSD-U", "HSD-4G", and "HSS-6G" '
             puts 'HSD-U is also known as Ultrapin1600.  HSS-6G is also known as SB6G.'
           end
         end
@@ -82,7 +82,7 @@ module OrigenTesters
           supply = Struct.new(:forcev, :irange, :source_overload_i, :source_overload_t, :source_fold_i,
                               :source_fold_t, :sink_overload_i, :sink_overload_t, :sink_fold_i,
                               :sink_fold_t, :meter_irange, :meter_vrange, :tdelay, :accuracy,
-                              :filter, :bandwidth)
+                              :filter, :bandwidth) # rubocop:disable Lint/StructNewOverride
           if @instrument == 'VSM'
             forcev = (0.V..4.V)
             irange = [1.A, 11.A, 21.A, 51.A, 81.A]
@@ -98,17 +98,17 @@ module OrigenTesters
                               irange_51A: (2.55.A..52.53.A),
                               irange_81A: (4.05.A..83.43.A) }
             source_fold_t = (10.uS..8.S)
-            sink_overload_i = { irange_1A:  [max: 78.mA],    # ?????    Not programmable?
-                                irange_11A: [max: 858.mA],    # ?????    Not programmable?
-                                irange_21A: [max: 1.64.A],    # ?????    Not programmable?
-                                irange_51A: [max: 3.98.A],    # ?????    Not programmable?
-                                irange_81A: [max: 6.32.A] }    # ?????    Not programmable?
+            sink_overload_i = { irange_1A:  [{ max: 78.mA }],    # ?????    Not programmable?
+                                irange_11A: [{ max: 858.mA }],    # ?????    Not programmable?
+                                irange_21A: [{ max: 1.64.A }],    # ?????    Not programmable?
+                                irange_51A: [{ max: 3.98.A }],    # ?????    Not programmable?
+                                irange_81A: [{ max: 6.32.A }] }    # ?????    Not programmable?
             sink_overload_t = 0                  # ?????    Not programmable?
-            sink_fold_i = { irange_1A:  [max: 78.mA],      # ?????    Not programmable?
-                            irange_11A: [max: 858.mA],     # ?????    Not programmable?
-                            irange_21A: [max: 1.64.A],     # ?????    Not programmable?
-                            irange_51A: [max: 3.98.A],    # ?????    Not programmable?
-                            irange_81A: [max: 6.32.A] }    # ?????    Not programmable?
+            sink_fold_i = { irange_1A:  [{ max: 78.mA }],      # ?????    Not programmable?
+                            irange_11A: [{ max: 858.mA }],     # ?????    Not programmable?
+                            irange_21A: [{ max: 1.64.A }],     # ?????    Not programmable?
+                            irange_51A: [{ max: 3.98.A }],    # ?????    Not programmable?
+                            irange_81A: [{ max: 6.32.A }] }    # ?????    Not programmable?
             sink_fold_t = (10.uS..8.S)
             meter_irange = { irange_1A:  [1.25.A, 2.5.A],
                              irange_11A: [13.75.A, 27.5.A],
@@ -144,23 +144,23 @@ module OrigenTesters
                               irange_102A: (5.1.A..105.06.A),
                               irange_162A: (8.1.A..166.86.A) }
             source_fold_t = (10.uS..8.S)
-            sink_overload_i = { irange_1A:   [max: 78.mA],     # ?????    Not programmable?
-                                irange_2A:   [max: 156.mA],     # ?????    Not programmable?
-                                irange_11A:  [max: 858.mA],     # ?????    Not programmable?
-                                irange_21A:  [max: 1.64.A],     # ?????    Not programmable?
-                                irange_51A:  [max: 3.98.A],     # ?????    Not programmable?
-                                irange_81A:  [max: 6.32.A],     # ?????    Not programmable?
-                                irange_102A: [max: 7.96.A],     # ?????    Not programmable?
-                                irange_162A: [max: 12.64.A] }     # ?????    Not programmable?
+            sink_overload_i = { irange_1A:   [{ max: 78.mA }],     # ?????    Not programmable?
+                                irange_2A:   [{ max: 156.mA }],     # ?????    Not programmable?
+                                irange_11A:  [{ max: 858.mA }],     # ?????    Not programmable?
+                                irange_21A:  [{ max: 1.64.A }],     # ?????    Not programmable?
+                                irange_51A:  [{ max: 3.98.A }],     # ?????    Not programmable?
+                                irange_81A:  [{ max: 6.32.A }],     # ?????    Not programmable?
+                                irange_102A: [{ max: 7.96.A }],     # ?????    Not programmable?
+                                irange_162A: [{ max: 12.64.A }] }     # ?????    Not programmable?
             sink_overload_t = 0                  # ?????    Not programmable?
-            sink_fold_i = { irange_1A:   [max: 78.mA],     # ?????    Not programmable?
-                            irange_2A:   [max: 156.mA],     # ?????    Not programmable?
-                            irange_11A:  [max: 858.mA],     # ?????    Not programmable?
-                            irange_21A:  [max: 1.64.A],     # ?????    Not programmable?
-                            irange_51A:  [max: 3.98.A],     # ?????    Not programmable?
-                            irange_81A:  [max: 6.32.A],     # ?????    Not programmable?
-                            irange_102A: [max: 7.96.A],     # ?????    Not programmable?
-                            irange_162A: [max: 12.64.A] }     # ?????    Not programmable?
+            sink_fold_i = { irange_1A:   [{ max: 78.mA }],     # ?????    Not programmable?
+                            irange_2A:   [{ max: 156.mA }],     # ?????    Not programmable?
+                            irange_11A:  [{ max: 858.mA }],     # ?????    Not programmable?
+                            irange_21A:  [{ max: 1.64.A }],     # ?????    Not programmable?
+                            irange_51A:  [{ max: 3.98.A }],     # ?????    Not programmable?
+                            irange_81A:  [{ max: 6.32.A }],     # ?????    Not programmable?
+                            irange_102A: [{ max: 7.96.A }],     # ?????    Not programmable?
+                            irange_162A: [{ max: 12.64.A }] }     # ?????    Not programmable?
             meter_irange = { irange_1A:   [1.25.A, 2.5.A],
                              irange_2A:   [2.5.A, 5.A],
                              irange_11A:  [13.75.A, 27.5.A],
@@ -213,8 +213,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_30A: (2.A..4.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_30A: [30.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_30A: [30.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -7.mV, pos: 7.mV }
@@ -238,8 +238,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_60A: (4.A..8.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_60A: [60.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_60A: [60.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -7.mV, pos: 7.mV }
@@ -263,8 +263,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_90A: (6.A..12.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_90A: [90.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_90A: [90.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -7.mV, pos: 7.mV }
@@ -308,8 +308,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_30A: (2.A..4.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_30A: [30.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_30A: [30.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -2.mV, pos: 2.mV }
@@ -333,8 +333,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_60A: (4.A..8.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_60A: [60.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_60A: [60.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -2.mV, pos: 2.mV }
@@ -358,8 +358,8 @@ module OrigenTesters
             sink_fold_i = { irange_15A: (1.A..2.A),
                             irange_90A: (6.A..12.A) }
             sink_fold_t = (102.4.uS..5.S)
-            meter_irange =  { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
-                              irange_90A: [90.A] } # This is verified to be correct on tester.
+            meter_irange = { irange_15A: [10.mA, 100.mA, 1.A, 15.A],
+                             irange_90A: [90.A] } # This is verified to be correct on tester.
             meter_vrange = [4.V, 8.V]
             tdelay = 0                     # default tdelay
             accuracy = { neg: -2.mV, pos: 2.mV }
@@ -379,7 +379,7 @@ module OrigenTesters
             sink_overload_t = 'n/a'
             sink_fold_i = (5.mA..200.mA)
             sink_fold_t = (0.S..167.77.mS)
-            meter_irange =  [10.uA, 100.uA, 1.mA, 10.mA, 100.mA, 1.A]
+            meter_irange = [10.uA, 100.uA, 1.mA, 10.mA, 100.mA, 1.A]
             meter_vrange = 7.V
             tdelay = 0                     # default tdelay
             accuracy = { neg: '-0.001xSUPPLY-10.mV', pos: '0.001xSUPPLY+10.mV' }
@@ -402,7 +402,7 @@ module OrigenTesters
             sink_overload_t = 'n/a'
             sink_fold_i = (10.mA..400.mA)
             sink_fold_t = (0.S..167.77.mS)
-            meter_irange =  [20.uA, 200.uA, 2.mA, 20.mA, 200.mA, 2.A]
+            meter_irange = [20.uA, 200.uA, 2.mA, 20.mA, 200.mA, 2.A]
             meter_vrange = 7.V
             tdelay = 0                     # default tdelay
             accuracy = { neg: '-0.001xSUPPLY-10.mV', pos: '0.001xSUPPLY+10.mV' }
@@ -425,7 +425,7 @@ module OrigenTesters
             sink_overload_t = 'n/a'
             sink_fold_i = (20.mA..800.mA)
             sink_fold_t = (0.S..167.77.mS)
-            meter_irange =  [40.uA, 400.uA, 4.mA, 40.mA, 400.mA, 4.A]
+            meter_irange = [40.uA, 400.uA, 4.mA, 40.mA, 400.mA, 4.A]
             meter_vrange = 7.V
             tdelay = 0                     # default tdelay
             accuracy = { neg: '-0.001xSUPPLY-10.mV', pos: '0.001xSUPPLY+10.mV' }
@@ -930,14 +930,14 @@ module OrigenTesters
                        source_fold_t, sink_overload_i, sink_overload_t, sink_fold_i,
                        sink_fold_t, meter_irange, meter_vrange, tdelay, accuracy, filter, bandwidth)
           else
-            puts "please enter an instrument type: e.g. $tester.ate_hardware(\"VSM\").supply"
-            puts "Instrument type available: \"VSM\", \"VSMx2\", \"VSMx4\","
-            puts "\"HexVS\", \"HexVSx2\", \"HexVSx4\", \"HexVSx6\","
-            puts "\"HexVS+\", \"HexVS+x2\", \"HexVS+x4\", \"HexVS+x6\", \"HDVS1\","
-            puts "\"HDVS1x2\", \"HDVS1x4\", \"VHDVS\", \"VHDVS_HC\", \"VHDVSx2\","
-            puts "\"VHDVS_HCx2\", \"VHDVS_HCx4\", and \"VHDVS_HCx8\"."
-            puts "\"VHDVS+\", \"VHDVS_HC+\", \"VHDVS+x2\","
-            puts "\"VHDVS_HC+x2\", \"VHDVS_HC+x4\", and \"VHDVS_HC+x8\"."
+            puts 'please enter an instrument type: e.g. $tester.ate_hardware("VSM").supply'
+            puts 'Instrument type available: "VSM", "VSMx2", "VSMx4",'
+            puts '"HexVS", "HexVSx2", "HexVSx4", "HexVSx6",'
+            puts '"HexVS+", "HexVS+x2", "HexVS+x4", "HexVS+x6", "HDVS1",'
+            puts '"HDVS1x2", "HDVS1x4", "VHDVS", "VHDVS_HC", "VHDVSx2",'
+            puts '"VHDVS_HCx2", "VHDVS_HCx4", and "VHDVS_HCx8".'
+            puts '"VHDVS+", "VHDVS_HC+", "VHDVS+x2",'
+            puts '"VHDVS_HC+x2", "VHDVS_HC+x4", and "VHDVS_HC+x8".'
             puts 'HDVS1 is also known as HDVS.  VHDVS is also known as UVS256.'
             puts 'x2 is Merged2, x4 is Merged4, x6 is Merged6.  _HC is High-Current.'
             puts '+ is High-Accuracy.'

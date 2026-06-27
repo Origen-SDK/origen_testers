@@ -11,7 +11,7 @@ module OrigenTesters
         def initialize(options = {})
         end
 
-        def subdirectory
+        def subdirectory # rubocop:disable Lint/DuplicateMethods
           @subdirectory ||= 'testflow/mfh.testflow.setup'
         end
 

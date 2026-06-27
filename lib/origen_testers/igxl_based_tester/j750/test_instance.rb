@@ -19,8 +19,7 @@ module OrigenTesters
           timeset:          :time_sets,
           timesets:         :time_sets,
 
-          other:            {
-          },
+          other:            {},
 
           empty:            {
             start_func:           :arg0,
@@ -634,10 +633,10 @@ module OrigenTesters
         #   instance.set_wait_flags(:a)
         #   instance.set_wait_flags(:a, :c)
         def set_wait_flags(*flags)
-          a = (flags.include?(:a) || flags.include?(:a)) ? '1' : 'X'
-          b = (flags.include?(:b) || flags.include?(:b)) ? '1' : 'X'
-          c = (flags.include?(:c) || flags.include?(:c)) ? '1' : 'X'
-          d = (flags.include?(:d) || flags.include?(:d)) ? '1' : 'X'
+          a = (flags.include?(:a) || flags.include?(:a)) ? '1' : 'X' # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
+          b = (flags.include?(:b) || flags.include?(:b)) ? '1' : 'X' # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
+          c = (flags.include?(:c) || flags.include?(:c)) ? '1' : 'X' # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
+          d = (flags.include?(:d) || flags.include?(:d)) ? '1' : 'X' # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
           self.wait_flags = d + c + b + a
           self
         end
@@ -658,9 +657,9 @@ module OrigenTesters
         # intended to be used in documentation
         def to_meta
           return @meta if @meta
+
           m = { 'Test' => name,
-                'Type' => type
-          }
+                'Type' => type }
           if type == :functional
             m['Pattern'] = pattern
           elsif type == :board_pmu || type == :pin_pmu

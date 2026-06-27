@@ -113,14 +113,14 @@ module OrigenTesters
       def gate_check(gates, gate_type)
         case gates
         when Symbol, String
-          return
+          nil
         when Array
           unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
           if unknown_gates.empty?
-            return
+            nil
           else
             Origen.log.error "Profile #{id}: Unknown #{gate_type} type(s) in #{gate_type} array."
-            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
+            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq} were found in #{gates}"
             fail
           end
         when Hash
@@ -150,14 +150,14 @@ module OrigenTesters
         end
         case gates
         when Symbol, String
-          return
+          nil
         when Array
           unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
           if unknown_gates.empty?
-            return
+            nil
           else
             Origen.log.error "Profile #{id}: Unknown #{gate_type} type(s) in #{gate_type} array."
-            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
+            Origen.log.error "Arrays must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq} were found in #{gates}"
             fail
           end
         when Hash
@@ -173,7 +173,7 @@ module OrigenTesters
             gates = [gates] unless gates.is_a? Array
             unknown_gates = gates.reject { |gate| [String, Symbol].include? gate.class }
             unless unknown_gates.empty?
-              Origen.log.error "Gate array must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq } were found in #{gates}"
+              Origen.log.error "Gate array must contain Strings and/or Symbols, but #{unknown_gates.map(&:class).uniq} were found in #{gates}"
               fail
             end
           end

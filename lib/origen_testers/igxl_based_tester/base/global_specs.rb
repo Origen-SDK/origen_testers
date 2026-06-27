@@ -48,7 +48,7 @@ module OrigenTesters
           case data
           when NilClass
             data_new = 0
-          when Fixnum, Float
+          when Integer, Float
             case
             when data == 0
               data_new = data.to_s

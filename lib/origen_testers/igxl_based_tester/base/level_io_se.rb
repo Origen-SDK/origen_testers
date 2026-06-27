@@ -17,8 +17,8 @@ module OrigenTesters
             vcl:       -1,            # Voltage clamp low
             vch:       2.5,            # Voltage clamp high
             vt:        0.9,            # Termination voltage
-            voutlotyp: 0,            #
-            vouthityp: 0,            #
+            voutlotyp: 0,
+            vouthityp: 0,
             dmode:     'Largeswing-VT' # Driver mode (possibly ATE-specific)
           }.merge(options)
           @vil       = options[:vil]

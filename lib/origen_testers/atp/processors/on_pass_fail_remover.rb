@@ -15,6 +15,7 @@ module OrigenTesters::ATP
           unless id
             fail 'Something has gone wrong, all nodes should have IDs by this point'
           end
+
           id = id.value
           nodes = [node]
           if on_fail && contains_anything_interesting?(on_fail)

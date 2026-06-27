@@ -23,8 +23,7 @@ module OrigenTesters::ATP
               description: description,
               type:        type,
               children:    Processors::Marshal.new.process_all(children),
-              properties:  properties
-            }
+              properties:  properties }
         Marshal.dump(d, depth)
       end
 

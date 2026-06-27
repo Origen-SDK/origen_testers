@@ -167,9 +167,7 @@ module OrigenTesters
       def get_tester_channel(chanmapname, pinname, sitenum)
         if sitenum <= @max_site
           @testerchannel = @channelmap[chanmapname][sitenum][pinname].channel
-          return @testerchannel
-        else
-          return nil
+          @testerchannel
         end
       end
 
@@ -179,10 +177,8 @@ module OrigenTesters
         if sitenum <= @max_site
           if @channelmap[chanmapname][sitenum][pinname].type.include?('Merged')
             @merged_channels = @channelmap[chanmapname][sitenum][pinname].type.split('Merged')[1]
-            return 'x' + @merged_channels
+            'x' + @merged_channels
           end
-        else
-          return nil
         end
       end
 
@@ -206,12 +202,13 @@ module OrigenTesters
         if @testerconfig[testconfigname][slot][:instrument].to_s == 'VHDVS'
           @productnum = @testerconfig[testconfigname][slot][:idprom].split(' ')[0]
           # binding.pry
-          if (@productnum.include?('805-052-')) && (@productnum.split('-')[2].to_i >= 05)
+          if (@productnum.include?('805-052-')) && (@productnum.split('-')[2].to_i >= 0o5)
             return '+'
           end
         end
         nil  # if nothing matched
       end
+
       # Check if a specific VHDVS (UVS256) channel assignment is _HC variety (high-current)
       # If the specific VHDVS channel is _HC variety, returns a "_HC" string, otherwise nil.
       def is_vhdvs_hc(chanmapname, pinname, sitenum)
@@ -269,6 +266,7 @@ module OrigenTesters
         unless prog_dir
           fail 'You must supply the directory containing the test program sheets, or define it via Origen.config.test_program_output_directory'
         end
+
         @parser ||= IGXLBasedTester::Parser.new
         @parsed_dir ||= false
         if @parsed_dir != prog_dir
@@ -299,8 +297,7 @@ module OrigenTesters
       #   $tester.store(:offset => -2) # Just realized I need to capture that earlier vector
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         update_vector microcode: 'stv', offset: options[:offset]
         last_vector(options[:offset]).contains_capture = true unless @inhibit_vectors
       end
@@ -319,8 +316,7 @@ module OrigenTesters
       #   $tester.cycle                # This is the vector that will be captured
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         unless @inhibit_vectors
           preset_next_vector microcode: 'stv' do |vector|
@@ -407,8 +403,7 @@ module OrigenTesters
       #   $tester.freq_count($top.pin(:d_out))                 # Freq measure on pin "d_out"
       #   $tester.freq_count($top.pin(:d_out):readcode => 10)
       def freq_count(pin, options = {})
-        options = { readcode: false
-                  }.merge(options)
+        options = { readcode: false }.merge(options)
 
         set_code(options[:readcode]) if options[:readcode]
         cycle(microcode: "#{@microcode[:set_flag]} (cpuA)")
@@ -443,7 +438,7 @@ module OrigenTesters
           capture_vector_mem1: false,       # capture vector to memory type 1, here for J750 will be stv_m1
           capture_vector_mem2: false,       # capture vector to memory type 2, here for J750 will be stv_c
           pin:                 false,                       # pin on which to drive or expect data, pass pin object here!
-          pin_data:            false,                  # pin data (:none, :drive, :expect)
+          pin_data:            false                  # pin data (:none, :drive, :expect)
         }.merge(options)
 
         mto_opcode = ''
@@ -687,7 +682,7 @@ module OrigenTesters
           group:          false,            # If true the end pattern is intended to run within a pattern group
           high_voltage:   false,         # Supply a pin name here to declare it as an HV instrument (not yet defined)
           freq_counter:   false,     # Supply a pin name here to declare it as a frequency counter
-          memory_test:    false,      # If true, define 2-bit MTO DGEN as instrument
+          memory_test:    false      # If true, define 2-bit MTO DGEN as instrument
         }.merge(options)
 
         if level_period?
@@ -850,8 +845,9 @@ module OrigenTesters
       end
 
       def enable_flag(options = {})
-        options = { flagnum: 4,      # default flag to use
-                }.merge(options)
+        options = {
+          flagnum: 4 # default flag to use
+        }.merge(options)
 
         if options[:flagnum] > @flags.length
           abort "ERROR! Invalid flag value passed to 'enable_flag' method!\n"
@@ -861,8 +857,9 @@ module OrigenTesters
       end
 
       def set_flag(options = {})
-        options = { flagnum: 4,      # default flag to use
-                }.merge(options)
+        options = {
+          flagnum: 4 # default flag to use
+        }.merge(options)
 
         if options[:flagnum] > @flags.length
           abort "ERROR! Invalid flag value passed to 'set_flag' method!\n"

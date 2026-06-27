@@ -36,12 +36,14 @@ module OrigenTesters
             line.strip!
             # Skip a blank line
             next if line.match(/^\s+$/)
+
             # Check if the pattern or list exists
             line_path = Pathname.new("#{dir}/#{line}")
             unless line_path.file?
               # puts "Skipping #{line_path.to_s} at line ##{line_number} in file #{path.to_s} because it is not a file"
               next
             end
+
             # Process the file
             process_file(line_path, files)
           end
@@ -58,7 +60,7 @@ module OrigenTesters
             files << file unless files.include?(file)
           when 'list'
             parse_list(file, files)
-          end
+        end
       end
 
       # Processes a diretcory looking for files in '.' or recursively

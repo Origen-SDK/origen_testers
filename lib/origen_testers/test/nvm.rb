@@ -48,7 +48,7 @@ module OrigenTesters
 
     class NVMSub < NVM
       def redefine_data_reg
-        add_reg :data,      0x40,   16,  d: { pos: 0, bits: 16 }
+        add_reg :data, 0x40, 16, d: { pos: 0, bits: 16 }
       end
 
       # Tests that the block format for defining registers works
@@ -57,7 +57,7 @@ module OrigenTesters
         # This is dreg
         add_reg :dreg, 0x1000, size: 16 do
           # This is dreg bit 15
-          bit 15,    :bit15, reset: 1
+          bit 15, :bit15, reset: 1
           # **Bit 14** - This does something cool
           #
           # 0 | Coolness is disabled
@@ -86,7 +86,7 @@ module OrigenTesters
           bit 15,    :bit15, reset: 1, description: 'This is dreg3 bit 15'
           bit 14, :bit14, description: "**Bit 14** - This does something cool\n\n0 | Coolness is disabled\n1 | Coolness is enabled"
           bits 13..8, :upper, description: 'This is dreg3 bit upper'
-          bit 7..0,  :lower, writable: false, reset: 0x55, description: "This is dreg3 bit lower\nThis is dreg3 bit lower line 2"
+          bit 7..0, :lower, writable: false, reset: 0x55, description: "This is dreg3 bit lower\nThis is dreg3 bit lower line 2"
         end
       end
     end

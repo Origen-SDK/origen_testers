@@ -1,9 +1,16 @@
 source 'https://rubygems.org'
 
 # Development dependencies
-gem 'byebug', "~>11"
+gem 'byebug', "~>11" if RUBY_VERSION < "4" # byebug C extension doesn't compile on Ruby 4.0+
+
+# Stdlib gems extracted from the default gems in Ruby 4.0; needed by activesupport/nanoc.
+if RUBY_VERSION >= '4'
+  gem 'fiddle', '~> 1'
+  gem 'pstore'
+  gem 'mutex_m'
+  gem 'benchmark'
+end
 gem 'ripper-tags'
-gem 'origen', '0.60.7'		# tmp - prevent 100's of new lint errors
 gem 'origen_arm_debug', '0.4.3'
 gem 'yard-activesupport-concern'
 gem 'origen_jtag', '>= 0.12.0'
@@ -15,6 +22,6 @@ gem 'dry-inflector', '0.1.2'
 gem 'rubyzip', '~>1'
 
 gem 'origen_stil', git: "https://github.com/Origen-SDK/origen_stil.git"
-
+gem 'origen', '>= 0.61.2'
 # Specify all runtime dependencies in origen_testers.gemspec
 gemspec

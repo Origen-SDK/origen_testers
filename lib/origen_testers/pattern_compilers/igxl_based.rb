@@ -10,7 +10,7 @@ module OrigenTesters
         @user_options = {}.merge(@user_options)
 
         @job_options = {
-          pinmap_workbook:  dut.pinmap,    # required: will default to $dut.pinmap
+          pinmap_workbook: dut.pinmap    # required: will default to $dut.pinmap
         }.merge(@job_options)
 
         # These are compiler options that are common to both the UltraFLEX and J750 compilers
@@ -22,7 +22,7 @@ module OrigenTesters
           import_all_undefineds: false,     # automatically import all undefined symbols.  the key is mis-spelled but correct!
           suppress_log:          false,     # disables output to main log file
           template:              false,     # generate setup template
-          timestamp:             false,     # enable log timestamp
+          timestamp:             false     # enable log timestamp
         }.merge(@compiler_options)
 
         # These are compiler options that are common to both the UltraFLEX and J750 compilers
@@ -34,7 +34,7 @@ module OrigenTesters
           output:       nil,       # Name of output file
           pinmap_sheet: nil,       # Name of workbook containing pinmap
           # pinmap_workbook:     nil,       # Name of sheet in workbook which contains pinmap (moved to @job_options)
-          setup:        nil,       # path to setup file
+          setup:        nil       # path to setup file
         }.merge(@compiler_options_with_args)
       end
 
@@ -68,6 +68,7 @@ module OrigenTesters
           end
           @jobs.each do |job|
             fail "Error: compiler #{job.id} not ready for pattern #{job.name}" unless job.ready?
+
             if job.location == :lsf
               Origen.app.lsf.submit(ATPC_SETUP + '; ' + job.cmd)
             else
@@ -87,6 +88,7 @@ module OrigenTesters
         else
           list = convert_to_pathname(list)
           fail "Error: pattern list #{list} does not exist, exiting..." unless list.file?
+
           File.open(list, 'r') do |file|
             while (line = file.gets)
               current_job_options = @job_options.merge(@compiler_options_with_args)
@@ -132,8 +134,10 @@ module OrigenTesters
       # Handles singles files (.atp, .atp.gz, or .list) and directories (recursively or flat)
       def find_jobs(path = @path)
         fail 'Pattern path is set to nil, pass in a valid file (.atp or .atp.gz) or a valid directory' if path.nil?
+
         @path = Pathname.new(path)
         fail 'Pattern path does not exist, pass in a valid file (.atp or .atp.gz) or a valid directory' unless @path.exist?
+
         @path = @path.expand_path
         # Set the reference directory for pattern sub-dir mirroring
         set_reference_directory
@@ -228,6 +232,7 @@ module OrigenTesters
       # Output the compiler jobs in the queue to the console
       def inspect_jobs(index = nil)
         return empty_msg if empty?
+
         desc = []
         puts "\n"
         @jobs.each_with_index do |j, i|
@@ -290,6 +295,7 @@ module OrigenTesters
         end
         puts desc.flatten.join("\n")
       end
+
       # For future checks on incorrect or incompatible arguments to compiler options
       def options_ok?
       end

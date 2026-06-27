@@ -40,7 +40,7 @@ module OrigenTesters
 
         @job_options = {
           tester:   :ultraflex,
-          compiler: self.class.compiler,  # required
+          compiler: self.class.compiler  # required
         }.merge(@job_options)
 
         # These are compiler options that are specific to UltraFLEX (builds on options from IGXL-Based)
@@ -49,7 +49,7 @@ module OrigenTesters
           lock:       false,              # prevents pattern from being reverse compiled or opened in PatternTool
           multiinst:  false,              # indicates more than one instrument is connected to a single pin
           nocompress: false,              # do not compress pattern data blocks
-          stdin:      false,              # Compile data from standard input. Do not use -cpp or specify any pattern file(s) when using this option.
+          stdin:      false              # Compile data from standard input. Do not use -cpp or specify any pattern file(s) when using this option.
         }.merge(@compiler_options)
 
         # These are compiler options that are specific to UltraFLEX (builds on options from IGXL-Based)
@@ -70,7 +70,7 @@ module OrigenTesters
           allow_mixed_1x2x:    nil,       # Turns on/off the support of mixed 1x/2x pin groups. Default value is "no".
           allow_differential:  nil,       # Turns on/off support for differential pins. Default value is "yes".
           allow_scan_in_srm:   nil,       # Allow/disallow scan vectors in SRM pattern modules. Default value is "no".
-          vm_block_size:       nil,       # Specifies uncompressed size in bytes of a pattern data block
+          vm_block_size:       nil       # Specifies uncompressed size in bytes of a pattern data block
         }.merge(@compiler_options_with_args)
 
         update_common_options(options)    # Update common options with default (see BasePatternCompiler)
@@ -81,6 +81,7 @@ module OrigenTesters
       # Executes the compiler for each job in the queue
       def run(list = nil, options = {})
         fail "Error: the tester #{Origen.tester} is not an Ultrflex tester,exiting..." unless is_ultraflex?
+
         msg = "Error: application #{Origen.app.name} is running on Windows, "
         msg += 'to run the pattern compiler you must be on a Linux machine'
         fail msg if Origen.running_on_windows?

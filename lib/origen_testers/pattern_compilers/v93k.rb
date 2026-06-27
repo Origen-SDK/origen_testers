@@ -54,20 +54,18 @@ module OrigenTesters
           avc_dir:       nil,
           binl_dir:      nil,
           multiport:     nil,        # Optional hash for multiport settings: port_bursts, port_in_focus, prefix, postfix
-          digcap:        nil,        # Optional hash for digcap settings: pins, vps, nrf, char
+          digcap:        nil        # Optional hash for digcap settings: pins, vps, nrf, char
         }.merge(@user_options)
 
         @job_options = {
           tester:   :v93k,
-          compiler: self.class.compiler,   # required
+          compiler: self.class.compiler   # required
         }.merge(@job_options)
 
-        @compiler_options = {
-
-        }.merge(@compiler_options)
+        @compiler_options = {}.merge(@compiler_options)
 
         @compiler_options_with_args = {
-          aiv2b_opts:  nil
+          aiv2b_opts: nil
         }.merge(@compiler_options_with_args)
 
         @avc_files = []
@@ -149,6 +147,7 @@ module OrigenTesters
           # Assumes .aiv file and all workspace collateral has been built up
           aiv = convert_to_pathname(aiv)
           fail 'File does not exist!  Please specify existing aiv file.' unless aiv.file?
+
           current_job_options = @job_options.merge(@compiler_options_with_args)
           current_job_options = current_job_options.merge(extract_job_options_from_aiv(aiv))
           current_job_options = current_job_options.merge(options)
@@ -163,6 +162,7 @@ module OrigenTesters
       # Output the compiler jobs in the queue to the console
       def inspect_jobs(index = nil)
         return empty_msg if empty?
+
         desc = []
         puts "\n"
         @jobs.each_with_index do |j, i|
@@ -195,8 +195,10 @@ module OrigenTesters
         # First-level verification: file/directory was given and exists
         msg = 'Pass in a valid file (.avc, .avc.gz, .list) or a valid directory'
         fail "Pattern path is set to nil! #{msg}" if p.nil?
+
         path = Pathname.new(p)
         fail "Pattern path does not exist! #{msg}" unless path.exist?
+
         path = path.expand_path
 
         # Set the reference directory for pattern sub-dir mirroring
@@ -257,7 +259,7 @@ module OrigenTesters
 
           # Move AVC files into job space (through pre-processor)
           @files.each do |file|
-            contents = File.open(file, 'rb') { |f| f.read }
+            contents = File.open(file, 'rb', &:read)
             new_contents = preprocess_avc(contents)
             new_avc_file = Pathname.new("#{job_avc_dir}/#{Pathname.new(file).basename}").cleanpath
             File.open(new_avc_file, 'w') { |f| f.write(new_contents.force_encoding('UTF-8')) }
@@ -315,6 +317,7 @@ module OrigenTesters
         factor = 1
         contents.each_line do |line|
           next if line.match(/^\s*\#/)
+
           if line.match(/^\s*SQPG\s+LBGN\s+(\d+)\s*;/)
             factor = Regexp.last_match(1).to_i
           end
@@ -325,42 +328,36 @@ module OrigenTesters
       end
 
       def avc_dir
-        @avc_dir ||= begin
-          if @user_options[:avc_dir]
-            clean_path(@user_options[:avc_dir].to_s)
-          else
-            Pathname.new('./AVC')      # default value
-          end
-        end
+        @avc_dir ||= if @user_options[:avc_dir]
+                       clean_path(@user_options[:avc_dir].to_s)
+                     else
+                       Pathname.new('./AVC')      # default value
+                     end
       end
 
       def binl_dir
-        @binl_dir ||= begin
-          if @user_options[:binl_dir]
-            clean_path(@user_options[:binl_dir].to_s)
-          else
-            Pathname.new('./BINL')     # default value
-          end
-        end
+        @binl_dir ||= if @user_options[:binl_dir]
+                        clean_path(@user_options[:binl_dir].to_s)
+                      else
+                        Pathname.new('./BINL')     # default value
+                      end
       end
 
       def tmp_dir
-        @tmp_dir ||= begin
-          if @user_options[:tmp_dir]
-            clean_path(@user_options[:tmp_dir].to_s)
-          else
-            Pathname.new('./tmp')     # default value
-          end
-        end
+        @tmp_dir ||= if @user_options[:tmp_dir]
+                       clean_path(@user_options[:tmp_dir].to_s)
+                     else
+                       Pathname.new('./tmp')     # default value
+                     end
       end
 
       # Given path string, return Pathname object with cleaned up path
       def clean_path(path_str)
         path = Pathname.new(path_str).cleanpath
         if path.absolute?
-          return path
+          path
         else
-          return Pathname.new("./#{path}")
+          Pathname.new("./#{path}")
         end
       end
 
@@ -408,7 +405,7 @@ module OrigenTesters
 
       def extract_job_options_from_aiv(file)
         options = {}
-        contents = File.open(file, 'rb') { |f| f.read }
+        contents = File.open(file, 'rb', &:read)
         count = 0
         counting = false
         contents.each_line do |line|

@@ -13,7 +13,7 @@ module Origen
           site:        0 # Default is to use site 0.
         }.merge(options)
         unless $tester.channelmap[options[:chanmapname]]
-          fail "You must first import the tester channel map (e.g. $tester.channelmap = \"probe_x32\") before calling pin.channel"
+          fail 'You must first import the tester channel map (e.g. $tester.channelmap = "probe_x32") before calling pin.channel'
         end
 
         channelinfo = Struct.new(:channel, :chanmapname, :site)
@@ -31,10 +31,10 @@ module Origen
         }.merge(options)
 
         unless $tester.channelmap[options[:chanmapname]]
-          fail "You must first import the tester channel map (e.g. $tester.channelmap = \"probe_x32\") before calling pin.channel"
+          fail 'You must first import the tester channel map (e.g. $tester.channelmap = "probe_x32") before calling pin.channel'
         end
         unless $tester.testerconfig[options[:testerconfigname]]
-          fail "You must first import the tester configuration (e.g. $tester.testerconfig = \"UflexConfigA\") before calling pin.instrument_type"
+          fail 'You must first import the tester configuration (e.g. $tester.testerconfig = "UflexConfigA") before calling pin.instrument_type'
         end
 
         instrumentinfo = Struct.new(:instrument, :chanmapname, :site, :testerconfigname)
@@ -52,10 +52,10 @@ module Origen
         }.merge(options)
 
         unless $tester.channelmap[options[:chanmapname]]
-          fail "You must first import the tester channel map (e.g. $tester.channelmap = \"probe_x32\") before calling pin.channel"
+          fail 'You must first import the tester channel map (e.g. $tester.channelmap = "probe_x32") before calling pin.channel'
         end
         unless $tester.testerconfig[options[:testerconfigname]]
-          fail "You must first import the tester configuration (e.g. $tester.testerconfig = \"UflexConfigA\") before calling pin.instrument_type"
+          fail 'You must first import the tester configuration (e.g. $tester.testerconfig = "UflexConfigA") before calling pin.instrument_type'
         end
 
         if Origen.top_level.power_pin_groups.keys.include?(name)  # Power Pin Groups do not need :ppmu, but need :supply
@@ -65,7 +65,7 @@ module Origen
           @supply = $tester.ate_hardware(@instrument).supply
           instrumentinfo.new(@channel, @instrument, options[:chanmapname], options[:site], options[:testerconfigname], @supply)
         else  # Collecting information of individual members and put in arrays
-          instrumentinfo = Struct.new(:members, :channel, :instrument, :chanmapname, :site, :testerconfigname, :ppmu)
+          instrumentinfo = Struct.new(:members, :channel, :instrument, :chanmapname, :site, :testerconfigname, :ppmu) # rubocop:disable Lint/StructNewOverride
           @members = []
           @channel = []
           @instrument = []

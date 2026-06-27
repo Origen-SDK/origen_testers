@@ -22,6 +22,7 @@ module OrigenTesters
       if number > 1 && number.odd?
         fail 'Only even numbers can be supplied for the vector_group_size!'
       end
+
       # Each pattern should run with its own tester instance, but just in case
       @pipeline = nil
       @vector_group_size = number
@@ -128,7 +129,7 @@ module OrigenTesters
       # Make the file name available to the template
       Origen.generator.compiler.options[:file] = template
       options.each { |k, v| Origen.generator.compiler.options[k] = v }
-      code = Origen.generator.compiler.insert(ERB.new(File.read(template.to_s), 0, Origen.config.erb_trim_mode, eoutvar).result)
+      code = Origen.generator.compiler.insert(ERB.new(File.read(template.to_s), trim_mode: Origen.config.erb_trim_mode, eoutvar: eoutvar).result)
       code.strip!
       push_microcode code
     end
@@ -166,7 +167,7 @@ module OrigenTesters
     end
 
     def _render(method)  # :nodoc:
-      if self.respond_to?(method)
+      if respond_to?(method)
         template = send(method)
         # Record the current file, this can be used to resolve any relative path
         # references in the file about to be compiled
@@ -177,7 +178,7 @@ module OrigenTesters
         eoutvar = Pathname.new(template).basename('.*').basename('.*').to_s.gsub('-', '_')
         # Make the file name available to the template
         Origen.generator.compiler.options[:file] = template
-        push_microcode Origen.generator.compiler.insert(ERB.new(File.read(template.to_s), 0, Origen.config.erb_trim_mode, eoutvar).result)
+        push_microcode Origen.generator.compiler.insert(ERB.new(File.read(template.to_s), trim_mode: Origen.config.erb_trim_mode, eoutvar: eoutvar).result)
       end
     end
 
@@ -296,6 +297,7 @@ module OrigenTesters
           end
         else
           next if vec.respond_to?(:repeat) && vec.repeat == 0 # skip vectors with repeat of 0!
+
           pipeline << vec
         end
         pipeline.flush do |vector|
@@ -465,6 +467,7 @@ module OrigenTesters
             else
               pin = Origen.pin_bank.find(id)
               fail "Undefined pin (#{id}) added to pin_pattern_order" unless pin
+
               ordered_pins << pin
               pin.groups.each do |name, _group|
                 pingroups.delete(name)
@@ -480,16 +483,19 @@ module OrigenTesters
             if group = Origen.pin_bank.pin_groups[id]
               # see if group is already in ordered_pins
               fail "Pin group #{id} is defined both in pin_pattern_order and pin_pattern_exclude" unless pingroups.include? id
+
               # this is a pin group, delete all pins in group
               pingroups.delete(id)
               group.each do |pin|
                 fail "Pin (#{pin.name}) in group (#{group.id}) is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
+
                 pins.delete(pin.id)
               end
             else # this is a pin, delete the pin
               pin = Origen.pin_bank.find(id)
               fail "Undefined pin (#{id}) added to pin_pattern_exclude" unless pin
               fail "Pin #{pin.name} is defined both in pin_pattern_order and pin_pattern_exclude" unless pins.include? pin.id
+
               pin.name = id
               pins.delete(pin.id)
               pin.groups.each do |name, _group|

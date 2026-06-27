@@ -1,7 +1,7 @@
 module OrigenTesters
   module SmartestBasedTester
     class V93K < Base
-      require 'origen_testers/smartest_based_tester/v93k/generator.rb'
+      require 'origen_testers/smartest_based_tester/v93k/generator'
     end
   end
   V93K = SmartestBasedTester::V93K

@@ -7,8 +7,7 @@ module OrigenTesters
         PATSET_ATTRS = %w(pattern_set file_name start_label stop_label comment)
 
         # Pattern set defaults
-        PATSET_DEFAULTS = {
-        }
+        PATSET_DEFAULTS = {}
 
         # Generate the instance method definitions based on the above
         define

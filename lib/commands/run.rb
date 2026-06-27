@@ -14,7 +14,7 @@ Usage: origen testers:run FLOW [options]
   opts.on('--fail ID,ID', Array, 'Comma-separated list of test IDs to fail') { |ids| options[:failed_test_ids] = ids }
   opts.on('-e', '--environment NAME', String, 'Override the default environment, NAME can be a full path or a fragment of an environment file name') { |e| options[:environment] = e }
   opts.on('-t', '--target NAME', String, 'Override the default target, NAME can be a full path or a fragment of a target file name') { |t| options[:target] = t }
-  opts.on('-d', '--debugger', 'Enable the debugger') {  options[:debugger] = true }
+  opts.on('-d', '--debugger', 'Enable the debugger') { options[:debugger] = true }
   opts.on('-m', '--mode MODE', Origen::Mode::MODES, 'Force the Origen operating mode:', '  ' + Origen::Mode::MODES.join(', ')) { |_m| }
   opts.separator ''
   opts.on('-h', '--help', 'Show this message') { puts opts; exit 0 }
@@ -26,7 +26,7 @@ Origen.environment.temporary = options[:environment] if options[:environment]
 Origen.target.temporary = options[:target] if options[:target]
 # Origen.app.load_target!
 
-program =  OrigenTesters.program
+program = OrigenTesters.program
 
 unless program
   puts 'Sorry, but there is no program model available for the current target, generate the program then retry'

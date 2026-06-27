@@ -33,7 +33,7 @@ module OrigenTesters
           tester.smt8?
         end
 
-        def var_filename
+        def var_filename # rubocop:disable Lint/DuplicateMethods
           @var_filename || 'global'
         end
 
@@ -41,24 +41,22 @@ module OrigenTesters
           @var_filename = new_var_filename
         end
 
-        def subdirectory
-          @subdirectory ||= begin
-            if smt8?
-              parents = []
-              f = parent
-              while f
-                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
-                f = f.parent
-              end
-              if Origen.interface.respond_to?(:insertion) && tester.insertion_in_the_flow_path
-                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
-              else
-                File.join tester.package_namespace, 'flows', *parents
-              end
-            else
-              'testflow/mfh.testflow.group'
-            end
-          end
+        def subdirectory # rubocop:disable Lint/DuplicateMethods
+          @subdirectory ||= if smt8?
+                              parents = []
+                              f = parent
+                              while f
+                                parents.unshift(File.basename(f.filename, '.*').to_s.downcase)
+                                f = f.parent
+                              end
+                              if Origen.interface.respond_to?(:insertion) && tester.insertion_in_the_flow_path
+                                File.join tester.package_namespace, Origen.interface.insertion.to_s, 'flows', *parents
+                              else
+                                File.join tester.package_namespace, 'flows', *parents
+                              end
+                            else
+                              'testflow/mfh.testflow.group'
+                            end
         end
 
         def filename
@@ -79,7 +77,7 @@ module OrigenTesters
           end
         end
 
-        def flow_name(filename = nil)
+        def flow_name(filename = nil) # rubocop:disable Lint/DuplicateMethods
           @flow_name_ = @flow_name unless smt8?
           @flow_name_ ||= begin
             flow_name = (filename || self.filename).sub(/\..*/, '').upcase
@@ -91,11 +89,11 @@ module OrigenTesters
           end
         end
 
-        def flow_bypass
+        def flow_bypass # rubocop:disable Lint/DuplicateMethods
           @flow_bypass || false
         end
 
-        def flow_description
+        def flow_description # rubocop:disable Lint/DuplicateMethods
           @flow_description || ''
         end
 
@@ -153,9 +151,8 @@ module OrigenTesters
           @ast ||= begin
             unique_id = smt8? ? nil : sig
             atp.ast(unique_id: unique_id, optimization: :smt,
-                  implement_continue: !tester.force_pass_on_continue,
-                  optimize_flags_when_continue: !tester.force_pass_on_continue
-                   )
+                    implement_continue: !tester.force_pass_on_continue,
+                    optimize_flags_when_continue: !tester.force_pass_on_continue)
           end
         end
 
@@ -188,6 +185,7 @@ module OrigenTesters
         def finalize(options = {})
           if smt8?
             return unless top_level? || options[:called_by_top_level]
+
             super
             # Refresh the ast before finalized gets set to true
             # If ast gets called by the user the finalized flag will lock it to the incorrect value
@@ -206,6 +204,7 @@ module OrigenTesters
                 unless sub_flow
                   fail "Something went wrong, couldn't find the sub-flow object for path #{path}"
                 end
+
                 # on_fail and on_pass nodes are removed because they will be rendered by the sub-flow's parent
                 sub_flow.instance_variable_set(:@ast, sub_flow_ast.remove(:on_fail, :on_pass).updated(:flow))
                 sub_flow.instance_variable_set(:@finalized, true)  # To stop the AST being regenerated
@@ -509,6 +508,7 @@ module OrigenTesters
           if smt8? && !(step == -1 || step == 1)
             fail 'SMT8 does not support steps other than -1 or 1.'
           end
+
           if step.is_a?(String) || step.is_a?(Symbol)
             step = generate_flag_name(step)
             if tester.smt7?
@@ -520,6 +520,7 @@ module OrigenTesters
           else
             var = generate_flag_name(node.to_a[3])
           end
+
           test_num_inc = node.to_a[4]
           unless smt8?
             var = "@#{var}"
@@ -560,6 +561,7 @@ module OrigenTesters
 
         def generate_expr_string(node, options = {})
           return node unless node.respond_to?(:type)
+
           case node.type
           when :eq, :ne, :gt, :ge, :lt, :le
             result = "#{generate_expr_term(node.to_a[0])} "             # operand 1
@@ -572,7 +574,8 @@ module OrigenTesters
         end
 
         def generate_expr_term(val)
-          return val if val.is_a?(Fixnum) || val.is_a?(Integer) || val.is_a?(Float)
+          return val if val.is_a?(Integer) || val.is_a?(Float)
+
           case val[0]
           when '$'
             if smt8?

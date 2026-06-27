@@ -8,8 +8,7 @@ module OrigenTesters
                                    bin_pass bin_fail sort_pass sort_fail result flag_pass flag_fail state
                                    group_specifier group_sense group_condition group_name
                                    device_sense device_condition device_name
-                                   debug_assume debug_sites comment
-                                )
+                                   debug_assume debug_sites comment)
 
         # Generate the instance method definitions based on the above
         define

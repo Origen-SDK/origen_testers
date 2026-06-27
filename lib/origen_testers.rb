@@ -1,5 +1,5 @@
 require 'origen'
-require_relative '../config/application.rb'
+require_relative '../config/application'
 
 require 'active_support/concern'
 require 'require_all'

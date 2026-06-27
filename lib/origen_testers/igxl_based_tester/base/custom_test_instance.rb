@@ -106,7 +106,7 @@ module OrigenTesters
           end
           # Set the defaults
           self.class::TEST_INSTANCE_DEFAULTS.each do |k, v|
-            send("#{k}=", v) if self.respond_to?("#{k}=", v)
+            send("#{k}=", v) if respond_to?("#{k}=", v)
           end
           # Finally set any initial values that have been supplied
           options[:attrs].each do |k, v|

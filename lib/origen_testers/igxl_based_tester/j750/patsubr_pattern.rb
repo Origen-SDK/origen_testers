@@ -7,8 +7,7 @@ module OrigenTesters
         PATSUBR_ATTRS = %w(file_name comment)
 
         # Pattern subroutine defaults
-        PATSUBR_DEFAULTS = {
-        }
+        PATSUBR_DEFAULTS = {}
 
         # Generate the instance method definitions based on the above
         define

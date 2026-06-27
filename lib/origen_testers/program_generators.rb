@@ -1,4 +1,10 @@
 require 'active_support/concern'
+# Ensure the OrigenTesters namespace and its autoloads (Interface, J750, V93K,
+# etc.) are registered. This file can be loaded directly (e.g. when a plugin
+# interface does `include OrigenTesters::ProgramGenerators` before origen_testers
+# has been fully required), in which case `include Interface` / the PLATFORMS
+# constants below would otherwise raise an uninitialized-constant error.
+require 'origen_testers'
 module OrigenTesters
   # Include this module to create an interface that supports multiple tester
   # types.

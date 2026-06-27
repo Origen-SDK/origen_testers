@@ -79,6 +79,7 @@ module OrigenTesters
 
     def is_vector_based?
       return @vector_based if defined?(@vector_based)
+
       true
     end
 
@@ -252,6 +253,7 @@ module OrigenTesters
       unless timeset.period_in_ns?
         fail "You must supply a period_in_ns to timeset '#{timeset.name}' before you can cycle the tester!"
       end
+
       timeset.cycled = true
       if PatSeq.thread
         PatSeq.thread.cycle(options)
@@ -303,6 +305,7 @@ module OrigenTesters
 
     def pop_running_clock(pin)
       fail "ERROR: No clocks running, doesn't make sense to pop one" unless any_clocks_running?
+
       @clocks_running.delete(pin.name.to_s)
     end
 

@@ -187,6 +187,7 @@ module OrigenTesters::ATP
       unless job
         fail 'Flow contains JOB-based conditions and no current JOB has been given!'
       end
+
       if state
         process_all(node) if jobs.include?(job)
       else

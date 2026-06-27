@@ -164,7 +164,7 @@ module OrigenTesters
             end
             vectors
           else
-            each_vector { |v| return v }
+            each_vector { |v| return v } # rubocop:disable Lint/UnreachableLoop
           end
         end
       end

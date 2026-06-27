@@ -65,8 +65,7 @@ module OrigenTesters
 
       # An internal method called by Origen to create the pattern header
       def pattern_header(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         @pattern_name = options[:pattern]
 
@@ -242,7 +241,7 @@ module OrigenTesters
                     end
                     if v == 0
                       line << 'L'
-                    elsif v == 0
+                    elsif v == 0 # rubocop:disable Lint/DuplicateElsifCondition
                       line << 'H'
                     else
                       line << 'L/H/X'
@@ -301,12 +300,12 @@ module OrigenTesters
       # other platforms, such as the J750, is required.
       def store(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = { offset: 0
-                  }.merge(options)
+        options = { offset: 0 }.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For the STIL generation you must supply the pins to store/capture'
         end
+
         pins.each do |pin|
           pin.restore_state do
             pin.capture
@@ -326,12 +325,12 @@ module OrigenTesters
       #   $tester.cycle                # This is the vector that will be captured
       def store_next_cycle(*pins)
         options = pins.last.is_a?(Hash) ? pins.pop : {}
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
         pins = pins.flatten.compact
         if pins.empty?
           fail 'For STIL generation you must supply the pins to store/capture'
         end
+
         pins.each { |pin| pin.save; pin.capture }
         # Register this clean up function to be run after the next vector
         # is generated, cool or what!

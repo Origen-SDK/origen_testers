@@ -117,7 +117,7 @@ module OrigenTesters
         alias_method :header, :pattern_header
         alias_method :comment_header, :pattern_header
 
-        def initialize(pattern_header: nil, comments: nil, context:)
+        def initialize(context:, pattern_header: nil, comments: nil)
           @pattern_header = pattern_header
           @comments = comments || []
 

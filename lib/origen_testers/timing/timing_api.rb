@@ -142,7 +142,7 @@ module OrigenTesters
           time_in_ns:     0,
           time_in_ms:     0,
           time_in_s:      0,
-          match:          false,   # Set to true to invoke a match loop where the supplied delay
+          match:          false   # Set to true to invoke a match loop where the supplied delay
           # will become the timeout duration
         }.merge(options)
 
@@ -255,8 +255,7 @@ module OrigenTesters
       #   end
       def count(options = {})
         options = { period_in_cycles: 0, period_in_ms: 0, period_in_us: 0, period_in_ns: 0,
-                    duration_in_cycles: 0, duration_in_ms: 0, duration_in_us: 0, duration_in_ns: 0
-                  }.merge(options)
+                    duration_in_cycles: 0, duration_in_ms: 0, duration_in_us: 0, duration_in_ns: 0 }.merge(options)
 
         period_cycles = options[:period_in_cycles] + ms_to_cycles(options[:period_in_ms]) +
                         us_to_cycles(options[:period_in_us]) + ns_to_cycles(options[:period_in_ns])

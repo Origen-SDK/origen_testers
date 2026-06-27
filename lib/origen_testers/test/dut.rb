@@ -107,10 +107,11 @@ module OrigenTesters
       end
 
       def execute(options = {})
-        options = { define:    false,          # whether to define subr or call it
-                    name:      'executefunc1',
-                    onemodsub: false        # whether to expects subr to be in single module
-                }.merge(options)
+        options = {
+          define:    false,          # whether to define subr or call it
+          name:      'executefunc1',
+          onemodsub: false           # whether to expects subr to be in single module
+        }.merge(options)
 
         if options[:define]
           # define subroutine
@@ -128,13 +129,14 @@ module OrigenTesters
 
       # Match loop functionality
       def match(options = {})
-        options = { type:        :match_pin,    # whether to match DONE bit in register or match pin
-                    # :match_done
-                    # :match_2pins
-                    delay_in_us: 5,           # match loop delay
-                    define:      false,       # whether to define subr or call it
-                    subr_name:   false,       # default use match type as subr name
-                }.merge(options)
+        options = {
+          type:        :match_pin,    # whether to match DONE bit in register or match pin
+          # :match_done
+          # :match_2pins
+          delay_in_us: 5,             # match loop delay
+          define:      false,         # whether to define subr or call it
+          subr_name:   false          # default use match type as subr name
+        }.merge(options)
 
         subr_name = options[:subr_name] ? options[:subr_name] : options[:type].to_s
 
@@ -226,7 +228,7 @@ module OrigenTesters
 
       def handshake(options = {})
         options = {
-          define: false,          # whether to define subr or call it
+          define: false          # whether to define subr or call it
         }.merge(options)
 
         if options[:define]
@@ -261,12 +263,13 @@ module OrigenTesters
       alias_method :keep_alive, :keepalive
 
       def digsrc_overlay(options = {})
-        options = { define:            false,       # whether to define subr or call it
-                    subr_name:         false,       # default use match type as subr name
-                    digsrc_pins:       @digsrc_pins, # defaults to what's defined in $dut
-                    overlay_reg:       nil, # defaults to testme32 register
-                    overlay_cycle_num: 32, # Only needed if overlay_reg is NOT nil, this specificies how many clk cycles to overlay.
-                }.merge(options)
+        options = {
+          define:            false,        # whether to define subr or call it
+          subr_name:         false,        # default use match type as subr name
+          digsrc_pins:       @digsrc_pins, # defaults to what's defined in $dut
+          overlay_reg:       nil,          # defaults to testme32 register
+          overlay_cycle_num: 32            # Only needed if overlay_reg is NOT nil
+        }.merge(options)
         if options[:define]
           $tester.start_subroutine(options[:subr_name]) # Start subroutine
           digsrc_pins = $tester.assign_digsrc_pins(options[:digsrc_pins])
@@ -301,8 +304,7 @@ module OrigenTesters
       end
 
       def memory_test(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         $tester.memory_test(inc_counter_x: true, gen_vector: true)
 
@@ -318,8 +320,7 @@ module OrigenTesters
       end
 
       def freq_count(options = {})
-        options = {
-        }.merge(options)
+        options = {}.merge(options)
 
         $tester.freq_count($dut.pin(:tdo), readcode: 73)
       end

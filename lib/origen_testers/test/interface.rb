@@ -667,7 +667,7 @@ module OrigenTesters
         def ac_specset(sheet_name, expression, options = {})
           options = {
             specset: :default,
-            nom:     { typ:  nil }
+            nom:     { typ: nil }
           }.merge(options)
 
           ss = ac_specsets(sheet_name)
@@ -677,7 +677,7 @@ module OrigenTesters
         # Collects AC Spec object(s) from the given expression and adds them to the given Specset
         def collect_ac_specs(ssname, edge, options = {})
           options = {
-            nom: { typ:  nil }
+            nom: { typ: nil }
           }.merge(options)
 
           # Create a Specsets object from the UFlex program generator API
@@ -698,8 +698,9 @@ module OrigenTesters
           }.merge(options)
 
           return unless expression.is_a? String
+
           # collect all variable names within the expression
-          vars = expression.scan(/[a-zA-Z][\w]+/).map(&:to_sym)
+          vars = expression.scan(/[a-zA-Z]\w+/).map(&:to_sym)
           vars.each do |var|
             next if var =~ /^(d0_edge|d1_edge|d2_edge|d3_edge|c1_edge|c2_edge)$/
             # The substitutions below are used for backward compatibility
@@ -734,8 +735,8 @@ module OrigenTesters
             vcl:       -1,            # Voltage clamp low
             vch:       2.5,            # Voltage clamp high
             vt:        0.9,            # Termination voltage
-            voutlotyp: 0,            #
-            vouthityp: 0,            #
+            voutlotyp: 0,
+            vouthityp: 0,
             dmode:     'Largeswing-VT' # Driver mode
           }.merge(options)
 
@@ -801,7 +802,8 @@ module OrigenTesters
           }.merge(options)
 
           return unless expression.is_a? String
-          vars = expression.scan(/[a-zA-Z][\w]+/).map(&:to_sym)
+
+          vars = expression.scan(/[a-zA-Z]\w+/).map(&:to_sym)
           vars.each do |var|
             next if var =~ /^(nA|uA|mA|A|nV|uV|mV|V)$/i
 
@@ -844,7 +846,7 @@ module OrigenTesters
 
         def reference(reference, options = {})
           options = {
-            comment:        nil
+            comment: nil
           }.merge(options)
 
           references('Refs').add(reference, options)

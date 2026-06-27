@@ -21,7 +21,7 @@ module OrigenTesters
           pin = pin.to_sym unless pin.is_a? Symbol
           esname = pin.to_sym unless esname.is_a? Symbol
           @ts.key?(tsname) ? @ts[tsname].add_edge(pin, esname) : @ts[tsname] = platform::Timeset.new(tsname, pin, esname, options)
-          @ts_sheet_pins = options[:ts_sheet_pins] unless @ts_sheet_pins
+          @ts_sheet_pins ||= options[:ts_sheet_pins]
           @ts[tsname]
         end
 
