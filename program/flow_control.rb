@@ -592,4 +592,37 @@ Flow.create interface: 'OrigenTesters::Test::Interface', flow_name: "Flow Contro
     func :read1, id: :ta5, bin: 10, number: 60000
     func :erase1, if_all_sites_passed: :ta5, bin: 12, number: 60010
   end
+
+  if tester.v93k?
+    log 'REGRESSION TEST: Bug - Loop variable initialization scoping'
+    log 'Variables should be re-initialized each loop iteration, not retain state from previous iterations'
+    loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG' do
+      func :loop_test_a, id: :lta, on_fail: { continue: true }, number: 70000
+      if_failed :lta do
+        func :loop_test_b, number: 70010
+      end
+    end
+    log 'Expected: loop_test_b should only execute when loop_test_a fails in THAT iteration'
+    log 'Bug behavior: loop_test_b would execute in all subsequent iterations after first failure'
+
+
+    loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG_NESTED' do
+      func :loop_test_i, id: :lti, on_fail: { continue: true }, number: 70020
+      if_failed :lti do
+        func :loop_test_i2, number: 70021
+      end
+      loop from: 0, to: 3, var: '$LOOP_VAR_INIT_BUG_NESTED2' do
+        func :loop_test_j, id: :ltj, on_fail: { continue: true }, number: 70022
+        if_passed :lti do
+          func :loop_test_j2, number: 70023
+        end
+        if_failed :ltj do
+          func :loop_test_j3, id: :ltj2, number: 70024
+        end
+      end
+      if_failed :ltj2 do
+        func :loop_test_i3, number: 70025
+      end
+    end
+  end
 end

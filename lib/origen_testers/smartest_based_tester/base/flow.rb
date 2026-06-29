@@ -1,4 +1,5 @@
 require 'origen_testers/smartest_based_tester/base/processors/extract_flow_vars'
+require 'origen_testers/smartest_based_tester/base/processors/extract_loop_vars'
 module OrigenTesters
   module SmartestBasedTester
     class Base
@@ -534,6 +535,9 @@ module OrigenTesters
             compare = '<'
             incdec = "+ #{step}"
           end
+          # Extract variables that are set within this loop to initialize them
+          loop_vars = extract_loop_variables(node)
+
           if tester.smt7?
             unless stop.is_a?(String)
               stop = "#{stop + step}"
@@ -544,6 +548,8 @@ module OrigenTesters
             end
             line '{'
             @indent += 1
+            # Re-initialize loop-scoped variables
+            emit_loop_variable_initialization(loop_vars)
             process_all(node.children)
             @indent -= 1
             line '}'
@@ -551,6 +557,8 @@ module OrigenTesters
             line "for (#{var} : #{start}..#{stop})"
             line '{'
             @indent += 1
+            # Re-initialize loop-scoped variables
+            emit_loop_variable_initialization(loop_vars)
             process_all(node.children)
             @indent -= 1
             line '}'
@@ -794,6 +802,35 @@ module OrigenTesters
 
         def generate_flag_name(flag)
           self.class.generate_flag_name(flag)
+        end
+
+        # Extract variables that are set within a loop node's children
+        def extract_loop_variables(loop_node)
+          extractor = Processors::ExtractLoopVars.new
+          extractor.run(loop_node)
+        end
+
+        # Emit variable initialization statements for loop-scoped variables
+        def emit_loop_variable_initialization(loop_vars)
+          return if loop_vars.empty?
+
+          # Initialize set_flags
+          loop_vars[:set_flags].each do |var|
+            if smt8?
+              line "#{var} = -1;"
+            else
+              line "@#{var} = -1;"
+            end
+          end
+
+          # Initialize set_enables
+          loop_vars[:set_enables].each do |var|
+            if smt8?
+              line "#{var} = -1;"
+            else
+              line "@#{var} = -1;"
+            end
+          end
         end
       end
     end
