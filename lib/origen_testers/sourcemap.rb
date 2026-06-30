@@ -71,8 +71,10 @@ module OrigenTesters
       }
       prov = extract_meta_provenance(node)
       tml = extract_tml_params(test_method)
+      param_prov = extract_param_provenance(test_method)
       entry['provenance'] = prov unless prov.empty?
       entry['tml_params'] = tml unless tml.empty?
+      entry['param_provenance'] = param_prov unless param_prov.empty?
       @sourcemap << entry
     end
 
@@ -92,6 +94,19 @@ module OrigenTesters
       iface = (defined?(Origen) && Origen.respond_to?(:interface_loaded?) && Origen.interface_loaded?) ? Origen.interface : nil
       return {} unless iface && iface.respond_to?(:roundtrip_capture_tml_params)
       result = iface.roundtrip_capture_tml_params(test_method)
+      result.is_a?(Hash) ? result : {}
+    rescue StandardError
+      {}
+    end
+
+    # Capture optional parameter-level provenance. This stays delegated to the loaded
+    # interface because only the domain/test-type layer knows which source-side knob
+    # produced a native tester parameter.
+    def extract_param_provenance(test_method)
+      return {} unless test_method
+      iface = (defined?(Origen) && Origen.respond_to?(:interface_loaded?) && Origen.interface_loaded?) ? Origen.interface : nil
+      return {} unless iface && iface.respond_to?(:roundtrip_capture_param_provenance)
+      result = iface.roundtrip_capture_param_provenance(test_method)
       result.is_a?(Hash) ? result : {}
     rescue StandardError
       {}
@@ -154,7 +169,7 @@ module OrigenTesters
         end
       end
       doc = {
-        'version'      => 1,
+        'version'      => entries.any? { |e| e.key?('param_provenance') } ? 2 : 1,
         'flow'         => output_file.basename.to_s,
         'flow_path'    => output_file.to_s,
         'generated_by' => 'origen_testers roundtrip provenance',
