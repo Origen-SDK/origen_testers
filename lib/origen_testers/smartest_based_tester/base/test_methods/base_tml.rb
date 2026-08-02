@@ -4,6 +4,10 @@ module OrigenTesters
       class TestMethods
         # Base class of all test method libraries
         class BaseTml
+          def self.test_method_classes
+            @test_method_classes ||= {}
+          end
+
           # Returns the test_methods object for the current flow
           attr_reader :test_methods
 
@@ -35,10 +39,20 @@ module OrigenTesters
           private
 
           def instantiate_test_method(method, args)
-            m = platform::TestMethod.new methods: definitions[method].dup,
-                                         attrs:   (args.first || {}),
-                                         type:    method,
-                                         library: self
+            definition = definitions[method]
+            base_class = platform::TestMethod
+            cache_key = [base_class, definition.object_id]
+            klass = BaseTml.test_method_classes[cache_key] ||= begin
+              generated_class = Class.new(base_class)
+              # Retain the definition so its object ID cannot be recycled while
+              # this generated class remains cached.
+              generated_class.instance_variable_set(:@test_method_definition, definition)
+              generated_class
+            end
+            m = klass.new methods: definition.dup,
+                          attrs:   (args.first || {}),
+                          type:    method,
+                          library: self
             test_methods.add(m)
             m
           end

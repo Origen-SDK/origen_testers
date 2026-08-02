@@ -203,23 +203,16 @@ module OrigenTesters
     alias_method :signature, :sig
 
     def active_description
-      flow_file = OrigenTesters::Flow.callstack.last
-      called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
-      # Windows fix - prevent the drive letter in the file name from changing the index of the line_no below
-      called_from.gsub!(flow_file, '')
+      line_no = active_flow_source_line
       desc = nil
-      if called_from
-        called_from = called_from.split(':')
-        line_no = called_from[1].to_i
+      if line_no
         ht_coms = OrigenTesters::Flow.ht_comments
         cc_coms = OrigenTesters::Flow.cc_comments
-        if line_no
-          if ht_coms[line_no]
-            desc = ht_coms[line_no].join(' ')
-          end
-          if cc_coms[line_no] && cc_coms[line_no].first
-            desc = [cc_coms[line_no].shift].join(' ')
-          end
+        if ht_coms[line_no]
+          desc = ht_coms[line_no].join(' ')
+        end
+        if cc_coms[line_no] && cc_coms[line_no].first
+          desc = [cc_coms[line_no].shift].join(' ')
         end
       end
       desc
@@ -256,14 +249,23 @@ module OrigenTesters
     # to the generated node
     def add_meta!(options)
       flow_file = OrigenTesters::Flow.callstack.last
-      called_from = caller.find { |l| l =~ /^#{flow_file}:.*/ }
-      if called_from
-        # Splitting on ':' when file names are included will yield a different index for everything in Windows
-        called_from.gsub!(flow_file, '')
-        called_from = called_from.split(':')
-        options[:source_file] = flow_file # called_from[0]
-        options[:source_line_number] = called_from[1].to_i
+      if line_no = active_flow_source_line
+        options[:source_file] = flow_file
+        options[:source_line_number] = line_no
       end
+    end
+
+    # Find the application flow frame without materializing and parsing the full
+    # caller stack as strings. This runs for every generated flow node.
+    def active_flow_source_line
+      flow_file = OrigenTesters::Flow.callstack.last
+      return unless flow_file
+
+      flow_file = flow_file.to_s
+      location = caller_locations.find do |frame|
+        frame.path == flow_file || frame.absolute_path == flow_file
+      end
+      location.lineno if location
     end
 
     # This gets called by ATP for all flow generation methods to add the description information
