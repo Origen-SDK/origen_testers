@@ -228,15 +228,13 @@ module OrigenTesters
 
         def sorted_parameters
           @parameters.sort_by do |name|
-            self.class.parameter_sort_keys[name] ||= begin
-              if name.is_a?(String)
-                name
-              elsif name.to_s[0] == '_'
-                name.to_s.camelize(:upper)
-              else
-                name.to_s.camelize(:lower)
-              end
-            end
+            self.class.parameter_sort_keys[name] ||= if name.is_a?(String)
+                                                       name
+                                                     elsif name.to_s[0] == '_'
+                                                       name.to_s.camelize(:upper)
+                                                     else
+                                                       name.to_s.camelize(:lower)
+                                                     end
           end
         end
 
