@@ -4,6 +4,22 @@ module OrigenTesters
       class TestMethod
         FORMAT_TYPES = [:current, :voltage, :time, :frequency, :string, :integer, :double, :boolean, :class, :list_strings, :list_classes]
 
+        def self.parameter_sort_keys
+          @@parameter_sort_keys ||= {}
+        end
+
+        def self.installed_dynamic_methods
+          @installed_dynamic_methods ||= {}
+        end
+
+        def self.underscored_parameter_names
+          @@underscored_parameter_names ||= {}
+        end
+
+        def self.underscore_parameter_name(name)
+          underscored_parameter_names[name] ||= name.underscore
+        end
+
         # Returns the object representing the test method library that the
         # given test method is defined in
         attr_reader :library
@@ -38,8 +54,11 @@ module OrigenTesters
               unless method_name == :finalize
                 var_name = "@#{method_name}".gsub(/=|\?/, '_')
                 instance_variable_set(var_name, function)
-                define_singleton_method method_name do |*args|
-                  instance_variable_get(var_name).call(self, *args)
+                unless self.class.installed_dynamic_methods[method_name]
+                  self.class.send(:define_method, method_name) do |*args|
+                    instance_variable_get(var_name).call(self, *args)
+                  end
+                  self.class.installed_dynamic_methods[method_name] = true
                 end
               end
             end
@@ -54,19 +73,28 @@ module OrigenTesters
               allowed = type_default[2]
               @parameters[attr] = type
               aliases = [clean_attr]
-              aliases << clean_attr.underscore if clean_attr.underscore != clean_attr
+              underscored_attr = self.class.underscore_parameter_name(clean_attr)
+              aliases << underscored_attr if underscored_attr != clean_attr
               aliases.each do |alias_|
-                define_singleton_method("#{alias_}=") do |v|
-                  v = v.to_s if v.is_a?(Symbol)
-                  if allowed
-                    unless allowed.include?(v)
-                      fail "Cannot set #{alias_} to #{v}, valid values are: #{allowed.join(', ')}"
+                setter = :"#{alias_}="
+                unless self.class.installed_dynamic_methods[setter]
+                  self.class.send(:define_method, setter) do |v|
+                    v = v.to_s if v.is_a?(Symbol)
+                    if allowed
+                      unless allowed.include?(v)
+                        fail "Cannot set #{alias_} to #{v}, valid values are: #{allowed.join(', ')}"
+                      end
                     end
+                    instance_variable_set("@#{clean_attr}", v)
                   end
-                  instance_variable_set("@#{clean_attr}", v)
+                  self.class.installed_dynamic_methods[setter] = true
                 end
-                define_singleton_method(alias_) do
-                  instance_variable_get("@#{clean_attr}")
+                alias_name = alias_.to_sym
+                unless self.class.installed_dynamic_methods[alias_name]
+                  self.class.send(:define_method, alias_name) do
+                    instance_variable_get("@#{clean_attr}")
+                  end
+                  self.class.installed_dynamic_methods[alias_name] = true
                 end
               end
               send("#{clean_attr}=", default)
@@ -75,11 +103,19 @@ module OrigenTesters
           if options[:methods][:aliases]
             options[:methods][:aliases].each do |alias_, attr|
               clean_attr = clean_attr_name(attr)
-              define_singleton_method("#{alias_}=") do |v|
-                send("#{clean_attr}=", v)
+              setter = :"#{alias_}="
+              unless self.class.installed_dynamic_methods[setter]
+                self.class.send(:define_method, setter) do |v|
+                  send("#{clean_attr}=", v)
+                end
+                self.class.installed_dynamic_methods[setter] = true
               end
-              define_singleton_method(alias_) do
-                send(clean_attr)
+              alias_name = alias_.to_sym
+              unless self.class.installed_dynamic_methods[alias_name]
+                self.class.send(:define_method, alias_name) do
+                  send(clean_attr)
+                end
+                self.class.installed_dynamic_methods[alias_name] = true
               end
             end
           end
@@ -89,7 +125,7 @@ module OrigenTesters
             if respond_to?(accessor)
               send(accessor, v)
             else
-              accessor = "#{k.to_s.underscore}="
+              accessor = "#{self.class.underscore_parameter_name(k.to_s)}="
               send(accessor, v) if respond_to?(accessor)
             end
           end
@@ -192,15 +228,13 @@ module OrigenTesters
 
         def sorted_parameters
           @parameters.sort_by do |name|
-            if name.is_a?(String)
-              name
-            else
-              if name.to_s[0] == '_'
-                name.to_s.camelize(:upper)
-              else
-                name.to_s.camelize(:lower)
-              end
-            end
+            self.class.parameter_sort_keys[name] ||= if name.is_a?(String)
+                                                       name
+                                                     elsif name.to_s[0] == '_'
+                                                       name.to_s.camelize(:upper)
+                                                     else
+                                                       name.to_s.camelize(:lower)
+                                                     end
           end
         end
 

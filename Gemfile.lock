@@ -37,13 +37,13 @@ GEM
       origen (>= 0.2.3)
       sexpistol (~> 0.0)
     base64 (0.3.0)
-    benchmark (0.5.0)
     bigdecimal (4.1.2)
     builder (3.3.0)
+    byebug (11.1.3)
     coderay (1.1.3)
     colored (1.2)
     colorize (0.8.1)
-    concurrent-ruby (1.3.7)
+    concurrent-ruby (1.3.8)
     cri (2.15.12)
     dentaku (3.5.7)
       bigdecimal
@@ -51,7 +51,6 @@ GEM
     diff-lcs (1.6.2)
     docile (1.4.1)
     dry-inflector (0.1.2)
-    fiddle (1.1.8)
     gems (0.8.3)
     highline (2.1.0)
     httparty (0.21.0)
@@ -68,10 +67,8 @@ GEM
     logger (1.7.0)
     method_source (1.1.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.9)
-    minitest (5.27.0)
+    minitest (5.25.4)
     multi_xml (0.6.0)
-    mutex_m (0.3.0)
     nanoc (3.7.5)
       cri (~> 2.3)
     net-ldap (0.19.0)
@@ -79,10 +76,9 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
-    nokogiri (1.13.10)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
-    origen (0.61.3)
+    origen (0.63.0)
       abbrev (~> 0)
       activesupport (~> 4.1)
       base64 (~> 0)
@@ -107,7 +103,7 @@ GEM
       rake (>= 10, < 14)
       rspec (~> 3)
       rspec-legacy_formatters (~> 1)
-      rubocop (>= 1.28, < 2)
+      rubocop (>= 1.50, < 2)
       scrub_rb (~> 1.0)
       simplecov (~> 0.17)
       simplecov-html (~> 0.10)
@@ -127,7 +123,7 @@ GEM
       origen (>= 0.7.36)
     ostruct (0.6.3)
     parallel (1.24.0)
-    parser (3.3.11.1)
+    parser (3.3.12.0)
       ast (~> 2.4.1)
       racc
     polyglot (0.3.5)
@@ -135,7 +131,6 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
-    pstore (0.2.1)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
@@ -193,7 +188,7 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (2.6.0)
     webrick (1.9.2)
-    yard (0.9.44)
+    yard (0.9.45)
     yard-activesupport-concern (0.0.1)
       yard (>= 0.8)
 
@@ -201,21 +196,18 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  benchmark
+  byebug (~> 11)
   dry-inflector (= 0.1.2)
-  fiddle (~> 1)
-  mutex_m
   nokogiri
-  origen (>= 0.61.3)
+  origen (>= 0.63.0)
   origen_arm_debug (= 0.4.3)
   origen_doc_helpers
   origen_jtag (>= 0.12.0)
   origen_stil!
   origen_testers!
-  pstore
   ripper-tags
   rubyzip (~> 1)
   yard-activesupport-concern
 
 BUNDLED WITH
-  4.0.3
+   2.4.22

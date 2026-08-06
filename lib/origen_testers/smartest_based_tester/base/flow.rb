@@ -33,6 +33,14 @@ module OrigenTesters
           tester.smt8?
         end
 
+        def qualified_name
+          @qualified_name ||= if parent
+                                "#{parent.qualified_name}.#{name}"
+                              else
+                                name.to_s
+                              end
+        end
+
         def var_filename # rubocop:disable Lint/DuplicateMethods
           @var_filename || 'global'
         end

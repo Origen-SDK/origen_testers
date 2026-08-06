@@ -87,22 +87,23 @@ module OrigenTesters
             unless name.is_a?(String)
               name = name.to_s[0] == '_' ? name.to_s.camelize(:upper) : name.to_s.camelize(:lower)
             end
+            formatted_value = test_method.format(param.last.is_a?(Hash) ? name : param[0])
             if param.last.is_a? Hash
-              if !test_method.format(name).nil? && !test_method.format(name).is_a?(Hash)
-                fail "#{name} parameter structure requires a Hash but value provided is #{test_method.format(name).class}"
-              elsif test_method.format(name).nil? && tester.print_all_params
+              if !formatted_value.nil? && !formatted_value.is_a?(Hash)
+                fail "#{name} parameter structure requires a Hash but value provided is #{formatted_value.class}"
+              elsif formatted_value.nil? && tester.print_all_params
                 l = add_nested_params(l, name, 'param0', {}, param.last, 1)
-              elsif test_method.format(name).nil?
+              elsif formatted_value.nil?
                 # Do nothing
               else
-                test_method.format(name).each do |key, meta_hash|
+                formatted_value.each do |key, meta_hash|
                   l = add_nested_params(l, name, key, meta_hash, param.last, 1)
                 end
               end
-            elsif NO_STRING_TYPES.include?(param.last) && test_method.format(param[0]).is_a?(String) && !test_method.format(param[0]).empty?
-              l << "    #{name} = #{test_method.format(param[0])};"
+            elsif NO_STRING_TYPES.include?(param.last) && formatted_value.is_a?(String) && !formatted_value.empty?
+              l << "    #{name} = #{formatted_value};"
             else
-              l << "    #{name} = #{wrap_if_string(test_method.format(param[0]))};"
+              l << "    #{name} = #{wrap_if_string(formatted_value)};"
             end
           end
           l << '}'
@@ -111,8 +112,8 @@ module OrigenTesters
 
         # rubocop:disable Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters.
         def add_nested_params(l, name, key, value_hash, nested_params, nested_loop_count)
-          nested_params_accepted_keys = []
-          skip_keys                   = []
+          nested_params_accepted_keys = {}
+          skip_keys = {}
           unless value_hash.nil?
             unless value_hash.is_a?(Hash)
               fail "Provided value to nested params was not a Hash. Instead the value was #{value_hash.class}"
@@ -120,14 +121,16 @@ module OrigenTesters
 
             dynamic_spacing = ' ' * (4 * nested_loop_count)
             l << "#{dynamic_spacing}#{name}[#{key}] = {" unless name.nil?
+            # Normalize once per hash rather than once per accepted parameter.
+            value_hash = value_hash.transform_keys(&:to_sym)
+            @nested_parameter_keys ||= {}
             nested_params.each do |nested_param|
-              # Guarentee hash is using all symbol keys
-              # Since we cannot guarentee ruby version is greater than 2.5, we have to use an older syntax to
-              value_hash = value_hash.transform_keys(&:to_sym)
-              nested_key = nested_param.first.to_s.gsub('.', '_').to_sym
-              nested_key_underscore = nested_key.to_s.underscore.to_sym
-              nested_params_accepted_keys << nested_key
-              nested_params_accepted_keys << nested_key_underscore
+              nested_key, nested_key_underscore = @nested_parameter_keys[nested_param.first] ||= begin
+                key_name = nested_param.first.to_s.gsub('.', '_').to_sym
+                [key_name, key_name.to_s.underscore.to_sym]
+              end
+              nested_params_accepted_keys[nested_key] = true
+              nested_params_accepted_keys[nested_key_underscore] = true
               # We cannot create nested member functions with aliases
               # Requirement for hash parameter passing is to pass one of the key types and not both
               if value_hash.keys.include?(nested_key) &&
@@ -139,26 +142,26 @@ module OrigenTesters
               if nested_param.last.first.is_a?(Hash) && value_hash[nested_key].is_a?(Hash)
                 value_hash[nested_key].each do |inner_key, inner_meta_hash|
                   l = add_nested_params(l, nested_param.first, inner_key, value_hash.dig(nested_key, inner_key), nested_param.last.first, nested_loop_count + 1)
-                  skip_keys << nested_key
+                  skip_keys[nested_key] = true
                 end
               elsif nested_param.last.first.is_a?(Hash) && tester.print_all_params
                 l = add_nested_params(l, nested_param.first, 'param0', {}, nested_param.last.first, nested_loop_count + 1)
               end
               type = nested_param.last.first
-              if NO_STRING_TYPES.include?(nested_param.last.first) && value_hash[nested_key] && !skip_keys.include?(nested_key)
+              if NO_STRING_TYPES.include?(nested_param.last.first) && value_hash[nested_key] && !skip_keys.key?(nested_key)
                 l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(value_hash[nested_key], type, nested_param.first)};"
-              elsif value_hash[nested_key] && !skip_keys.include?(nested_key)
+              elsif value_hash[nested_key] && !skip_keys.key?(nested_key)
                 l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(value_hash[nested_key], type, nested_param.first))};"
-              elsif NO_STRING_TYPES.include?(nested_param.last.first) && !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
+              elsif NO_STRING_TYPES.include?(nested_param.last.first) && !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.key?(nested_key)
                 l << "    #{dynamic_spacing}#{nested_param.first} = #{test_method.handle_val_type(nested_param.last.last, type, nested_param.first)};"
-              elsif !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.include?(nested_key)
+              elsif !nested_param.last.last.is_a?(Hash) && tester.print_all_params && !skip_keys.key?(nested_key)
                 l << "    #{dynamic_spacing}#{nested_param.first} = #{wrap_if_string(test_method.handle_val_type(nested_param.last.last, type, nested_param.first))};"
               end
             end
             l << "#{dynamic_spacing}};" unless name.nil?
             # Sanity check there are not overpassed parameters
             value_hash.keys.each do |nested_key|
-              unless nested_params_accepted_keys.include?(nested_key.to_sym)
+              unless nested_params_accepted_keys.key?(nested_key.to_sym)
                 fail "You provided a parameter \'#{nested_key}\' that was not an accepted parameter to the hash parameter \'#{name}\'"
               end
             end
