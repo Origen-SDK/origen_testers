@@ -1,3 +1,25 @@
+<a class="anchor release_tag" name="v0_54_0"></a>
+<h1><a href="#v0_54_0">Tag: v0.54.0</a></h1>
+
+##### Branch: 'master'
+
+##### by Priyavadan Kumar on 06-Aug-2026 09:48AM
+
+
+# Release Note
+
+## Faster tester generation
+
+PR #237 improves Origen Testers generation performance while preserving generated output and existing behavior.
+
+* Flow source metadata now uses `caller_locations` instead of materializing and parsing the complete caller stack for every generated flow node.
+* V93K test methods reuse generated classes and class-level accessors instead of defining equivalent singleton methods on every test-method instance.
+* Repeated test-method work is cached, including parameter-name normalization, parameter sort keys, and fully qualified flow names.
+* SMT8 suite rendering formats each parameter once, normalizes nested hash keys once per hash, and uses constant-time hash membership checks for accepted and skipped keys.
+* Origen Testers now requires Origen 0.63.0 or newer, incorporating the companion framework performance and generation-safety improvements.
+
+The 928-example regression suite passes with no failures, and the changes introduce no expected generated-output differences.
+
 <a class="anchor release_tag" name="v0_53_0"></a>
 <h1><a href="#v0_53_0">Tag: v0.53.0</a></h1>
 
