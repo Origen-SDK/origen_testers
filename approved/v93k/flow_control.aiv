@@ -44,6 +44,14 @@ lev2_test5 .tmf
 long_test .tmf
 long_test1 .tmf
 long_test2 .tmf
+loop_test_a .tmf
+loop_test_b .tmf
+loop_test_i .tmf
+loop_test_i2 .tmf
+loop_test_i3 .tmf
+loop_test_j .tmf
+loop_test_j2 .tmf
+loop_test_j3 .tmf
 nt1 .tmf
 nt2 .tmf
 nt3 .tmf

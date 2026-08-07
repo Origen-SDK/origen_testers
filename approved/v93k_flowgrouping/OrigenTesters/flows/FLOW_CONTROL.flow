@@ -45,6 +45,11 @@ flow FLOW_CONTROL {
     out IFAP2_PASSED = -1;
     out IFAPB1_PASSED = -1;
     out IFAPB2_PASSED = -1;
+    out LTA_FAILED = -1;
+    out LTI_FAILED = -1;
+    out LTI_PASSED = -1;
+    out LTJ2_FAILED = -1;
+    out LTJ_FAILED = -1;
     out MY_FLAG = -1;
     out MY_INOUT_ADD_FLAG = -1;
     out MY_UNCALLED_FLAG = -1;
@@ -171,6 +176,62 @@ flow FLOW_CONTROL {
 
         suite long_test2 calls ac_tml.AcTest.FunctionalTest {
             measurement.pattern = setupRef(OrigenTesters.patterns.long_test2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_a calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_a);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_b calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_b);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_i calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_i);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_i2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_i2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_i3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_i3);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_j calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_j);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_j2 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_j2);
+            measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
+            output = "None";
+            testName = "Functional";
+        }
+
+        suite loop_test_j3 calls ac_tml.AcTest.FunctionalTest {
+            measurement.pattern = setupRef(OrigenTesters.patterns.loop_test_j3);
             measurement.specification = setupRef(OrigenTesters.specs.specs.Nominal);
             output = "None";
             testName = "Functional";
@@ -1183,6 +1244,11 @@ flow FLOW_CONTROL {
         IFAP2_PASSED = -1;
         IFAPB1_PASSED = -1;
         IFAPB2_PASSED = -1;
+        LTA_FAILED = -1;
+        LTI_FAILED = -1;
+        LTI_PASSED = -1;
+        LTJ2_FAILED = -1;
+        LTJ_FAILED = -1;
         MY_FLAG = -1;
         My_Mixed_Flag = -1;
         OF11_FAILED = -1;
@@ -1856,6 +1922,63 @@ flow FLOW_CONTROL {
         }
         else
         {
+        }
+        println("REGRESSION TEST: Bug - Loop variable initialization scoping");
+        println("Variables should be re-initialized each loop iteration, not retain state from previous iterations");
+        for (LOOP_VAR_INIT_BUG : 0..3)
+        {
+            LTA_FAILED = -1;
+            loop_test_a.execute();
+            if (!loop_test_a.pass) {
+                LTA_FAILED = 1;
+            }
+            if (LTA_FAILED == 1) {
+                loop_test_b.execute();
+            } else {
+            }
+        }
+        println("Expected: loop_test_b should only execute when loop_test_a fails in THAT iteration");
+        println("Bug behavior: loop_test_b would execute in all subsequent iterations after first failure");
+        for (LOOP_VAR_INIT_BUG_NESTED : 0..3)
+        {
+            LTI_FAILED = -1;
+            LTI_PASSED = -1;
+            LTJ2_FAILED = -1;
+            LTJ_FAILED = -1;
+            loop_test_i.execute();
+            if (loop_test_i.pass) {
+                LTI_PASSED = 1;
+            } else {
+                LTI_FAILED = 1;
+            }
+            if (LTI_FAILED == 1) {
+                loop_test_i2.execute();
+            } else {
+            }
+            for (LOOP_VAR_INIT_BUG_NESTED2 : 0..3)
+            {
+                LTJ2_FAILED = -1;
+                LTJ_FAILED = -1;
+                loop_test_j.execute();
+                if (!loop_test_j.pass) {
+                    LTJ_FAILED = 1;
+                }
+                if (LTI_PASSED == 1) {
+                    loop_test_j2.execute();
+                } else {
+                }
+                if (LTJ_FAILED == 1) {
+                    loop_test_j3.execute();
+                    if (!loop_test_j3.pass) {
+                        LTJ2_FAILED = 1;
+                    }
+                } else {
+                }
+            }
+            if (LTJ2_FAILED == 1) {
+                loop_test_i3.execute();
+            } else {
+            }
         }
     }
 }
